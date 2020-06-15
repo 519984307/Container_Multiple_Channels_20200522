@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/action">
+        <file>ICO.ico</file>
+    </qresource>
+</RCC>
