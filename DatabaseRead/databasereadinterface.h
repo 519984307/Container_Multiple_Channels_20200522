@@ -10,8 +10,9 @@
 class DatabaseReadInterface : public QObject
 {
     Q_OBJECT
+
 public:
-    ~ DatabaseReadInterface(){}
+    virtual ~ DatabaseReadInterface(){}
 
 signals:
 
@@ -40,19 +41,19 @@ signals:
 public slots:
 
     ///
-    /// \brief initDataBaseSlot 初始化数据库.如果不存在,就创建.
+    /// \brief initDatabaseSlot 初始化数据库.如果不存在,就创建.
     /// \param connectName 链接名称
     /// \param user 用户名
     /// \param pass密码
     /// \param ip 地址
     ///
-    virtual void initDataBaseSlot(const QString &connectName,const QString &user,const QString &pass,const QString &ip)=0;
+    virtual void initDatabaseSlot(const QString &connectName,const QString &user,const QString &pass,const QString &ip)=0;
 
     ///
-    /// \brief setDataBaseFilterSlot 设置数据库筛选条件
+    /// \brief setDatabaseFilterSlot 设置数据库筛选条件
     /// \param filter 筛选条件
     ///
-    virtual void setDataBaseFilterSlot(const QString &filter)=0;
+    virtual void setDatabaseFilterSlot(const QString &filter)=0;
 };
 
 #define DatabaseReadInterfaceIID "ZBY.ContainerServer.DatabaseReadInterface/1.0"

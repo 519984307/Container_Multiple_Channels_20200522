@@ -97,8 +97,14 @@ void CaptureImages_SDK::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET_
 
 bool CaptureImages_SDK::InitializationParameter()
 {
-    //pDLL=new QLibrary("HCNetSDK.dll",this);/* windows下不支持设置动态库路径 */
+
+#ifdef Q_OS_WIN
+    pDLL=new QLibrary("HCNetSDK.dll",this);/* windows下不支持设置动态库路径 */
+#endif
+
+#ifdef Q_OS_LINUX
     pDLL=new QLibrary (QDir::toNativeSeparators(QString("%1/%2").arg(QCoreApplication::applicationDirPath()).arg("Plugins/HCNetSDK/libhcnetsdk")),this) ;
+#endif
 
     if(pDLL->load()){
         NET_DVR_SetExceptionCallBack_V30_L=reinterpret_cast<NET_DVR_SetExceptionCallBack_V30FUN>(pDLL->resolve("NET_DVR_SetExceptionCallBack_V30"));
@@ -234,8 +240,15 @@ void CaptureImages_SDK::playStreamSlot(quint64 winID, bool play)
     if(dwResult){
         if(play){
             NET_DVR_PREVIEWINFO struPlayInfo = {};
+
+#ifdef Q_OS_LINUX
             struPlayInfo.hPlayWnd    =static_cast<HWND>(winID); /* linux */
-            //struPlayInfo.hPlayWnd= reinterpret_cast<HWND>(winID);/* windows */
+#endif
+
+#ifdef Q_OS_WIN
+            struPlayInfo.hPlayWnd= reinterpret_cast<HWND>(winID);/* windows */
+#endif
+
             struPlayInfo.lChannel     = 1;       /* 预览通道号 */
             struPlayInfo.dwStreamType = 0;       /* 0-主码流，1-子码流，2-码流3，3-码流4，以此类推 */
             struPlayInfo.dwLinkMode   = 1;       /* 0- TCP方式，1- UDP方式，2- 多播方式，3- RTP方式，4-RTP/RTSP，5-RSTP/HTTP */

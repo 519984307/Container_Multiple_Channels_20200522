@@ -1,20 +1,20 @@
-#ifndef CAPTUREIMAGESINTERFACE_H
-#define CAPTUREIMAGESINTERFACE_H
+#ifndef CAPTUREIMAGES_UNDERLYING_INTERFACE_H
+#define CAPTUREIMAGES_UNDERLYING_INTERFACE_H
 
 #define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
-#define IMG_BYTE 1920*1080+1
 
 #include <QObject>
 
-class CaptureImagesInterface : public QObject
+class CaptureImages_underlying_Interface : public QObject
 {
     Q_OBJECT
 
 public:
-    virtual ~ CaptureImagesInterface(){}
+    virtual ~ CaptureImages_underlying_Interface(){}
 
 signals:
 
+    ///
     /// \brief camerStateSingals 相机连接状态信号
     /// \param camerIP 相机地址
     /// \param state 相机连接状态
@@ -27,7 +27,7 @@ signals:
     /// \param imgNumber 图片编号
     /// \param imgTime 图片时间戳
     ///
-    void pictureStreamSignal(const QByteArray &jpgStream,const int &imgNumber,const QString &imgTime="");
+    void pictureStreamSignal(const QByteArray &jpgStream,const int &imgNumber=0,const QString &imgTime="");
 
     ///
     /// \brief messageSignal 日志信息
@@ -55,26 +55,17 @@ public slots:
     virtual bool putCommandSlot(const int &imgNumber,const QString &imgTime)=0;
 
     ///
-    /// \brief playViedoStreamSlot 预览实时视频
-    /// \param winID 窗口句柄
-    /// \param play 播放状态
-    /// 多次实时预览,在LINUX下会出现内存不释放
-    ///
-    virtual void playStreamSlot(quint64 winID,bool play)=0;
-
-    ///
-    /// \brief resizeEventSlot 调整窗口通知动态库刷新窗口
-    /// linux下需要,windows不需要
-    ///
-    virtual void resizeEventSlot()=0;
-
-    ///
     /// \brief releaseResourcesSlot 释放动态库资源
     ///
     virtual void releaseResourcesSlot()=0;
+
+    ///
+    /// \brief InitializationSlot 初始化参数
+    ///
+    virtual void InitializationSlot()=0;
 };
 
-#define CaptureImagesInterfaceIID "ZBY.ContainerServer.CaptureImagesInterface/1.0"
-Q_DECLARE_INTERFACE(CaptureImagesInterface,CaptureImagesInterfaceIID);
+#define CaptureImages_underlying_InterfaceIID "ZBY.ContainerServer.CaptureImages_underlying_Interface/1.0"
+Q_DECLARE_INTERFACE(CaptureImages_underlying_Interface,CaptureImages_underlying_InterfaceIID);
 
-#endif // CAPTUREIMAGESINTERFACE_H
+#endif // CAPTUREIMAGES_UNDERLYING_INTERFACE_H

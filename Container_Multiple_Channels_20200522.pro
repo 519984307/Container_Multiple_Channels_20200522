@@ -6,4 +6,6 @@ SUBDIRS +=\
     DataInterchange \
     CaptureImages_SDK \
     DatabaseWrite \
-    DatabaseRead
+    DatabaseRead \
+    CaptureImages_underlying \
+    TheDataAnalysis

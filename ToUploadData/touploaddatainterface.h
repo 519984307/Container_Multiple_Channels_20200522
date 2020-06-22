@@ -9,7 +9,7 @@ class ToUploadDataInterface : public QObject
 {
     Q_OBJECT
 public:
-    ~ ToUploadDataInterface(){}
+    virtual ~ ToUploadDataInterface(){}
 
 signals:
 

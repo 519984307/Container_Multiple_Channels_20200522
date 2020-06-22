@@ -10,7 +10,7 @@ class DataInterchangeInterface : public QObject
     Q_OBJECT
 
 public:
-    ~ DataInterchangeInterface(){}
+    virtual ~ DataInterchangeInterface(){}
 
 signals:
 

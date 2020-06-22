@@ -1,17 +1,15 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2020-05-22T16:01:33
+# Project created by QtCreator 2020-06-20T12:45:56
 #
 #-------------------------------------------------
 
 QT       -= gui
 
-QT       +=sql
-
-TARGET = DatabaseWrite
+TARGET = TheDataAnalysis
 TEMPLATE = lib
 
-DEFINES += DATABASEWRITE_LIBRARY
+DEFINES += THEDATAANALYSIS_LIBRARY
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -25,16 +23,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        databasewrite.cpp
+        thedataanalysis.cpp
 
 HEADERS += \
-        databasewrite.h \
-        databasewrite_global.h \ 
-    databasewriteinterface.h
+        thedataanalysis.h \
+        thedataanalysis_global.h \ 
+    thedataanalysisinterface.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
 
-DESTDIR  += ../MainUI/Plugins
+DESTDIR+=../MainUI/Plugins
