@@ -4,8 +4,13 @@ SUBDIRS +=\
     Main \
     ToUploadData\
     DataInterchange \
-    CaptureImages_SDK \
     DatabaseWrite \
     DatabaseRead \
     CaptureImages_underlying \
-    TheDataAnalysis
+    TheDataAnalysis \
+    InfraredLogic\
+    Encryption\
+    IdentifyImages\
+    TheLicensePlate_WTY \
+    TheLicensePlate_HCNET \
+    CaptureImages_SDK_HCNET

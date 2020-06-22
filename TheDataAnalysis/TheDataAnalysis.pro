@@ -6,6 +6,8 @@
 
 QT       -= gui
 
+CONFIG += plugin
+
 TARGET = TheDataAnalysis
 TEMPLATE = lib
 
