@@ -2,13 +2,13 @@
 #define ENCRYPTION_H
 
 #include "encryption_global.h"
-#include "encryptioninterface.h"
+#include "encryption_interface.h"
 
-class ENCRYPTIONSHARED_EXPORT Encryption:public EncryptionInterface
+class ENCRYPTIONSHARED_EXPORT Encryption:public Encryption_Interface
 {
     Q_OBJECT
-    Q_INTERFACES(EncryptionInterface)
-    Q_PLUGIN_METADATA(IID EncryptionInterfaceIID)
+    Q_INTERFACES(Encryption_Interface)
+    Q_PLUGIN_METADATA(IID Encryption_InterfaceIID)
 
 public:
     Encryption(QObject *parent=nullptr);

@@ -29,8 +29,8 @@ SOURCES += \
 
 HEADERS += \
         encryption.h \
-        encryption_global.h \  
-    encryptioninterface.h
+        encryption_global.h \   
+    encryption_interface.h
 
 unix {
     target.path = /usr/lib

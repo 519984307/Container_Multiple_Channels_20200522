@@ -2,14 +2,14 @@
 #define DATAINTERCHANGE_H
 
 #include "datainterchange_global.h"
-#include "datainterchangeinterface.h"
+#include "datainterchange_interface.h"
 #include "tcpserver.h"
 
-class DATAINTERCHANGESHARED_EXPORT DataInterchange:public DataInterchangeInterface
+class DATAINTERCHANGESHARED_EXPORT DataInterchange:public DataInterchange_Interface
 {
     Q_OBJECT
-    Q_INTERFACES(DataInterchangeInterface)
-    Q_PLUGIN_METADATA(IID DataInterchangeInterfaceIID)
+    Q_INTERFACES(DataInterchange_Interface)
+    Q_PLUGIN_METADATA(IID DataInterchange_InterfaceIID)
 
 public:
     DataInterchange(QObject *parent=nullptr);

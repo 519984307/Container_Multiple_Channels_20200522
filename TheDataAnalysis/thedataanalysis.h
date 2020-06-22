@@ -2,13 +2,13 @@
 #define THEDATAANALYSIS_H
 
 #include "thedataanalysis_global.h"
-#include "thedataanalysisinterface.h"
+#include "thedataanalysis_interface.h"
 
-class THEDATAANALYSISSHARED_EXPORT TheDataAnalysis:public TheDataAnalysisInterface
+class THEDATAANALYSISSHARED_EXPORT TheDataAnalysis:public TheDataAnalysis_Interface
 {
     Q_OBJECT
-    Q_INTERFACES(TheDataAnalysisInterface)
-    Q_PLUGIN_METADATA(IID TheDataAnalysisInterfaceIID)
+    Q_INTERFACES(TheDataAnalysis_Interface)
+    Q_PLUGIN_METADATA(IID TheDataAnalysis_InterfaceIID)
 
 public:
     TheDataAnalysis(QObject *parent=nullptr);

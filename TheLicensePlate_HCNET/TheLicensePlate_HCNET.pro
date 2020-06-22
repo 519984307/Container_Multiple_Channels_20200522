@@ -6,6 +6,8 @@
 
 QT       -= gui
 
+CONFIG += plugin
+
 TARGET = TheLicensePlate_HCNET
 TEMPLATE = lib
 
@@ -27,7 +29,9 @@ SOURCES += \
 
 HEADERS += \
         thelicenseplate_hcnet.h \
-        thelicenseplate_hcnet_global.h 
+        thelicenseplate_hcnet_global.h \ 
+    thelicenseplate_hcnet_interface.h \
+    HCNetSDK.h
 
 unix {
     target.path = /usr/lib

@@ -2,14 +2,14 @@
 #define IDENTIFYIMAGES_H
 
 #include "identifyimages_global.h"
-#include "recognizerinterface.h"
+#include "recognizer_interface.h"
 #include "recognition.h"
 
-class IDENTIFYIMAGESSHARED_EXPORT IdentifyImages:public RecognizerInterface
+class IDENTIFYIMAGESSHARED_EXPORT IdentifyImages:public Recognizer_Interface
 {
     Q_OBJECT
-    Q_INTERFACES(RecognizerInterface)
-    Q_PLUGIN_METADATA(IID RecognizerInterfaceIID)
+    Q_INTERFACES(Recognizer_Interface)
+    Q_PLUGIN_METADATA(IID Recognizer_InterfaceIID)
 
 public:
     IdentifyImages(QObject* parent=nullptr);

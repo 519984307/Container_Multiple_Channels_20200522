@@ -34,7 +34,7 @@ SOURCES += \
 HEADERS += \
         databaseread.h \
         databaseread_global.h \ 
-    databasereadinterface.h
+    databaseread_interface.h
 
 unix {
     target.path = /usr/lib

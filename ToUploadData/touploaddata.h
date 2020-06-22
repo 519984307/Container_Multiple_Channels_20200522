@@ -2,13 +2,13 @@
 #define TOUPLOADDATA_H
 
 #include "touploaddata_global.h"
-#include "touploaddatainterface.h"
+#include "touploaddata_interface.h"
 
-class TOUPLOADDATASHARED_EXPORT ToUploadData:public ToUploadDataInterface
+class TOUPLOADDATASHARED_EXPORT ToUploadData:public ToUploadData_Interface
 {
     Q_OBJECT
-    Q_INTERFACES(ToUploadDataInterface)
-    Q_PLUGIN_METADATA(IID ToUploadDataInterfaceIID)
+    Q_INTERFACES(ToUploadData_Interface)
+    Q_PLUGIN_METADATA(IID ToUploadData_InterfaceIID)
 
 public:
 

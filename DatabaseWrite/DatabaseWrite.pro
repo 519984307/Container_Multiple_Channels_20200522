@@ -8,6 +8,8 @@ QT       -= gui
 
 QT       +=sql
 
+CONFIG += plugin
+
 TARGET = DatabaseWrite
 TEMPLATE = lib
 
@@ -30,7 +32,7 @@ SOURCES += \
 HEADERS += \
         databasewrite.h \
         databasewrite_global.h \ 
-    databasewriteinterface.h
+    databasewrite_interface.h
 
 unix {
     target.path = /usr/lib

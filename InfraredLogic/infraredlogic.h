@@ -2,13 +2,13 @@
 #define INFRAREDLOGIC_H
 
 #include "infraredlogic_global.h"
-#include "infraredlogicinterface.h"
+#include "infraredlogic_interface.h"
 
-class INFRAREDLOGICSHARED_EXPORT InfraredLogic:public InfraredLogicInterface
+class INFRAREDLOGICSHARED_EXPORT InfraredLogic:public InfraredLogic_Interface
 {
     Q_OBJECT
-    Q_INTERFACES(InfraredLogicInterface)
-    Q_PLUGIN_METADATA(IID InfraredLogicInterfaceIID)
+    Q_INTERFACES(InfraredLogic_Interface)
+    Q_PLUGIN_METADATA(IID InfraredLogic_InterfaceIID)
 
 public:
     explicit InfraredLogic(QObject *parent = nullptr);

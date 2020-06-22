@@ -29,8 +29,8 @@ SOURCES += \
 
 HEADERS += \
         thedataanalysis.h \
-        thedataanalysis_global.h \ 
-    thedataanalysisinterface.h
+        thedataanalysis_global.h \  
+    thedataanalysis_interface.h
 
 unix {
     target.path = /usr/lib

@@ -2,13 +2,13 @@
 #define DATABASEWRITE_H
 
 #include "databasewrite_global.h"
-#include "databasewriteinterface.h"
+#include "databasewrite_interface.h"
 
-class DATABASEWRITESHARED_EXPORT DatabaseWrite:public DatabaseWriteInterface
+class DATABASEWRITESHARED_EXPORT DatabaseWrite:public DatabaseWrite_Interface
 {
     Q_OBJECT
-    Q_INTERFACES(DatabaseWriteInterface)
-    Q_PLUGIN_METADATA(IID DatabaseWriteInterfaceIID)
+    Q_INTERFACES(DatabaseWrite_Interface)
+    Q_PLUGIN_METADATA(IID DatabaseWrite_InterfaceIID)
 
 public:
     DatabaseWrite(QObject *parent=nullptr);

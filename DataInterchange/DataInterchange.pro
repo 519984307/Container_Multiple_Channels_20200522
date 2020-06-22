@@ -36,9 +36,9 @@ SOURCES += \
 HEADERS += \
         datainterchange.h \
         datainterchange_global.h \ 
-    datainterchangeinterface.h \
     tcpserver.h \
-    tcpclient.h
+    tcpclient.h \
+    datainterchange_interface.h
 
 unix {
     target.path = /usr/lib

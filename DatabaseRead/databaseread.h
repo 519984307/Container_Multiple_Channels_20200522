@@ -2,13 +2,13 @@
 #define DATABASEREAD_H
 
 #include "databaseread_global.h"
-#include "databasereadinterface.h"
+#include "databaseread_interface.h"
 
-class DATABASEREADSHARED_EXPORT DatabaseRead:public DatabaseReadInterface
+class DATABASEREADSHARED_EXPORT DatabaseRead:public DatabaseRead_Interface
 {
     Q_OBJECT
-    Q_INTERFACES(DatabaseReadInterface)
-    Q_PLUGIN_METADATA(IID DatabaseReadInterfaceIID)
+    Q_INTERFACES(DatabaseRead_Interface)
+    Q_PLUGIN_METADATA(IID DatabaseRead_InterfaceIID)
 
 public:    
     DatabaseRead(QObject *parent=nullptr);

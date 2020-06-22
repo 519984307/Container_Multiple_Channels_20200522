@@ -33,8 +33,8 @@ SOURCES += \
 
 HEADERS += \
         touploaddata.h \
-        touploaddata_global.h \ 
-    touploaddatainterface.h
+        touploaddata_global.h \  
+    touploaddata_interface.h
 
 unix {
     target.path = /usr/lib

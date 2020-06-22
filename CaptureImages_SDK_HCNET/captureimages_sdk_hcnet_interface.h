@@ -9,6 +9,7 @@
 class CaptureImages_SDK_HCNET_Interface : public QObject
 {
     Q_OBJECT
+
 public:
     virtual ~ CaptureImages_SDK_HCNET_Interface(){}
 

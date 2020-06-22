@@ -8,6 +8,8 @@ QT       += network
 
 QT       -= gui
 
+CONFIG += plugin
+
 TARGET = CaptureImages_underlying
 TEMPLATE = lib
 

@@ -31,8 +31,8 @@ SOURCES += \
 HEADERS += \
         identifyimages.h \
         identifyimages_global.h \ 
-    recognizerinterface.h \
-    recognition.h
+    recognition.h \
+    recognizer_interface.h
 
 unix {
     target.path = /usr/lib
