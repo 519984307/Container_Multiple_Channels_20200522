@@ -27,15 +27,18 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    Channel_Data/channel_data_form.cpp
+    Channel_Data/channel_data_form.cpp \
+    Channel_Data/equipment_state_from.cpp
 
 HEADERS += \
         mainwindow.h \
-    Channel_Data/channel_data_form.h
+    Channel_Data/channel_data_form.h \
+    Channel_Data/equipment_state_from.h
 
 FORMS += \
         mainwindow.ui \
-    Channel_Data/channel_data_form.ui
+    Channel_Data/channel_data_form.ui \
+    Channel_Data/equipment_state_from.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

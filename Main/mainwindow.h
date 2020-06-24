@@ -6,9 +6,11 @@
 #include <QResizeEvent>
 #include <QMap>
 #include <QAction>
+#include <QLabel>
 
 /* UI */
 #include "Channel_Data/channel_data_form.h"
+#include "Channel_Data/equipment_state_from.h"
 
 namespace Ui {
 class MainWindow;
@@ -46,6 +48,21 @@ private:
     ///
     void hideTheWindow();
 
+    ///
+    /// \brief setStatusBar 设置状态栏信息
+    ///
+    void setStatusBar();
+
+    ///
+    /// \brief initializingAttribute 初始化属性
+    ///
+    void initializingAttribute();
+
+    ///
+    /// \brief mainWindow 主界面窗口
+    ///
+    void mainWindow();
+
 private slots:
 
     ///
@@ -53,16 +70,27 @@ private slots:
     ///
     void actionTiggeredSlot();
 
-private:
+private:/* attribute */
 
     Ui::MainWindow *ui;
+
+    ///
+    /// \brief p_Equipment_State_From 设备状态界面
+    ///
+    Equipment_State_From *p_Equipment_State_From;
+
+    ///
+    /// \brief permanentWidget 状态栏永久信息
+    ///
+    QLabel *permanentWidget;
 
     ///
     /// \brief channelCount 通道数
     ///
     uint channelCount;
 
-    /* QMap */
+private:    /* QMap */
+
     ///
     /// \brief WindowsVector 窗口集
     ///

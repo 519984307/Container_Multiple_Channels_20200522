@@ -7,9 +7,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    channelCount=10;
+    initializingAttribute();
+    setStatusBar();
     initializesTheDataWindow();
     initializationParameter();
+    mainWindow();
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +35,9 @@ void MainWindow::resizeEvent(QResizeEvent *size)
         if(Channel_Data_Form *pFrom=qobject_cast<Channel_Data_Form*>(window)){
             pFrom->resize(size->size().width(),size->size().height()-90);
         }
+        else if (Equipment_State_From *pFrom=qobject_cast<Equipment_State_From*>(window)) {
+            pFrom->resize(size->size().width(),size->size().height()-90);
+        }
     }
 }
 
@@ -42,6 +47,23 @@ void MainWindow::hideTheWindow()
         if(Channel_Data_Form *pFrom=qobject_cast<Channel_Data_Form*>(window)){
             pFrom->setVisible(false);
         }
+    }
+}
+
+void MainWindow::initializingAttribute()
+{
+    channelCount=10;
+
+    permanentWidget = new QLabel (tr("The system is ready"),this);
+    p_Equipment_State_From=new Equipment_State_From (this);
+    WindowsVector.append(p_Equipment_State_From);
+}
+
+void MainWindow::mainWindow()
+{
+    if(p_Equipment_State_From!=nullptr){
+        p_Equipment_State_From->move(0,65);
+        p_Equipment_State_From->setVisible(true);
     }
 }
 
@@ -81,4 +103,15 @@ void MainWindow::actionTiggeredSlot()
             pFrom->setVisible(true);
         }
     }
+
+    if(permanentWidget!=nullptr){
+        permanentWidget->setText(pAction->text());
+    }
+}
+
+void MainWindow::setStatusBar()
+{
+    permanentWidget->setText(tr("The system is ready"));
+    permanentWidget->setStyleSheet("color: rgb(0, 85, 255);");
+    ui->statusBar->addPermanentWidget(permanentWidget);
 }
