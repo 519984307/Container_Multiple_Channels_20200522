@@ -24,8 +24,6 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow()Q_DECL_OVERRIDE;
 
-    void resizeEvent(QResizeEvent *szie)Q_DECL_OVERRIDE;
-
 private:
 
     ///
@@ -51,7 +49,7 @@ private:
     ///
     /// \brief setStatusBar 设置状态栏信息
     ///
-    void setStatusBar();
+    void setStatusBar(QString msg);
 
     ///
     /// \brief initializingAttribute 初始化属性
@@ -63,12 +61,22 @@ private:
     ///
     void mainWindow();
 
+    ///
+    /// \brief initStatusBar 初始化状态栏
+    ///
+    void initStatusBar();
+
 private slots:
 
     ///
     /// \brief actionTiggeredSlot 工具栏按钮事件
     ///
     void actionTiggeredSlot();
+
+    ///
+    /// \brief on_actionMainWindow_triggered 显示主页面
+    ///
+    void on_actionMainWindow_triggered();
 
 private:/* attribute */
 
@@ -77,17 +85,22 @@ private:/* attribute */
     ///
     /// \brief p_Equipment_State_From 设备状态界面
     ///
-    Equipment_State_From *p_Equipment_State_From;
+    Equipment_State_From *p_Equipment_State_From=nullptr;
 
     ///
     /// \brief permanentWidget 状态栏永久信息
     ///
-    QLabel *permanentWidget;
+    QLabel *permanentWidget=nullptr;
 
     ///
     /// \brief channelCount 通道数
     ///
-    uint channelCount;
+    uint channelCount=1;
+
+    ///
+    /// \brief channelLabels 通道名称
+    ///
+    QStringList channelLabels;
 
 private:    /* QMap */
 
@@ -106,6 +119,14 @@ private:    /* QMap */
     ///
     QMap<QAction*,QObject*> Channel_Data_Action_Map;
 
+signals:
+
+    ///
+    /// \brief initializesTheDeviceStateListSignal 初始化设备状态列表
+    /// \param count 通道数
+    /// \param rowLabels 通道名称
+    ///
+    void initializesTheDeviceStateListSignal(uint count,QStringList rowLabels);
 };
 
 #endif // MAINWINDOW_H

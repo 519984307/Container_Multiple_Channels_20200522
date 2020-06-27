@@ -79,7 +79,7 @@
       <item row="2" column="0">
        <widget class="QLineEdit" name="lineEdit_3">
         <property name="placeholderText">
-         <string>Container_Front</string>
+         <string>Container_Before</string>
         </property>
        </widget>
       </item>

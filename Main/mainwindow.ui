@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>646</width>
+    <width>727</width>
     <height>459</height>
    </rect>
   </property>
@@ -30,6 +30,9 @@
     <property name="spacing">
      <number>0</number>
     </property>
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_2"/>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -37,7 +40,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>646</width>
+     <width>727</width>
      <height>33</height>
     </rect>
    </property>
@@ -45,6 +48,7 @@
     <property name="title">
      <string>Channel To View</string>
     </property>
+    <addaction name="actionMainWindow"/>
    </widget>
    <widget class="QMenu" name="menuCamera_Test">
     <property name="title">
@@ -58,12 +62,12 @@
    </widget>
    <widget class="QMenu" name="menuDatabase">
     <property name="title">
-     <string>Database</string>
+     <string>&amp;Data</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuParameter_Setting">
     <property name="title">
-     <string>Parameter Setting</string>
+     <string>Setting</string>
     </property>
    </widget>
    <widget class="QMenu" name="menuLog">
@@ -76,12 +80,18 @@
      <string>Help</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuWindow">
+    <property name="title">
+     <string>Window</string>
+    </property>
+   </widget>
    <addaction name="menuChannel_To_View"/>
    <addaction name="menuCamera_Test"/>
    <addaction name="menuService"/>
    <addaction name="menuDatabase"/>
    <addaction name="menuParameter_Setting"/>
    <addaction name="menuLog"/>
+   <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -96,6 +106,11 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionMainWindow">
+   <property name="text">
+    <string>MainWindow</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
