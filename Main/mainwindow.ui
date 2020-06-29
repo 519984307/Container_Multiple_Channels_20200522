@@ -54,6 +54,7 @@
     <property name="title">
      <string>Camera Test</string>
     </property>
+    <addaction name="actiontest"/>
    </widget>
    <widget class="QMenu" name="menuService">
     <property name="title">
@@ -69,6 +70,7 @@
     <property name="title">
      <string>Setting</string>
     </property>
+    <addaction name="actionSystem_Settings"/>
    </widget>
    <widget class="QMenu" name="menuLog">
     <property name="title">
@@ -109,6 +111,16 @@
   <action name="actionMainWindow">
    <property name="text">
     <string>MainWindow</string>
+   </property>
+  </action>
+  <action name="actionSystem_Settings">
+   <property name="text">
+    <string>System Settings</string>
+   </property>
+  </action>
+  <action name="actiontest">
+   <property name="text">
+    <string>test</string>
    </property>
   </action>
  </widget>

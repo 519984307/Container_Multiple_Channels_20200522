@@ -22,9 +22,9 @@ Equipment_State_From::~Equipment_State_From()
     delete ui;
 }
 
-void Equipment_State_From::initializesTheDeviceStateListSlot(uint count, QStringList rowLabels)
+void Equipment_State_From::initializesTheDeviceStateListSlot(int count, QStringList rowLabels)
 {
-    ui->tableWidget->setRowCount(static_cast<int>(count));
+    ui->tableWidget->setRowCount(count);
     ui->tableWidget->setVerticalHeaderLabels(rowLabels);
 
     for (int row=0;row<ui->tableWidget->rowCount();++row) {
@@ -43,14 +43,28 @@ void Equipment_State_From::initializesTheDeviceStateListSlot(uint count, QString
                 state=tr("%1").arg("This is the test data");
             }
             ui->tableWidget->setItem(row,column,new QTableWidgetItem (state));
-            ui->tableWidget->setStyleSheet("background-color:#a8a8a8");
-            ui->tableWidget->item(row,column)->setBackgroundColor(QColor(255,0,0));
+            //ui->tableWidget->setStyleSheet("background-color:#a8a8a8");
+            ui->tableWidget->item(row,column)->setBackgroundColor("#ebebeb");
+            ui->tableWidget->item(row,column)->setTextColor(Qt::red);
             ui->tableWidget->item(row,column)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
         }
     }
 }
 
-void Equipment_State_From::setDeviceStatusSlot(uint channel, int equipment, QString state)
+void Equipment_State_From::setDeviceStatusSlot(int channel, int equipment, bool state)
 {
+    QString text="";
+    QColor color;
 
+    if(equipment<6){
+        text=state?"OK":"XX";
+        color=state?Qt::green:Qt::red;
+    }
+    else if (6< equipment and equipment<12) {
+        text=state?"OFF":"NO";
+        color=state?Qt::green:Qt::red;
+    }
+
+    ui->tableWidget->item(channel-1,equipment-1)->setText(text);
+    ui->tableWidget->item(channel-1,equipment-1)->setTextColor(color);
 }

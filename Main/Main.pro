@@ -28,17 +28,26 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     Channel_Data/channel_data_form.cpp \
-    Channel_Data/equipment_state_from.cpp
+    Channel_Data/equipment_state_from.cpp \
+    Setting/setting_form.cpp \
+    Setting/channel_setting_form.cpp \
+    Setting/system_setting_form.cpp
 
 HEADERS += \
         mainwindow.h \
     Channel_Data/channel_data_form.h \
-    Channel_Data/equipment_state_from.h
+    Channel_Data/equipment_state_from.h \
+    Setting/setting_form.h \
+    Setting/channel_setting_form.h \
+    Setting/system_setting_form.h
 
 FORMS += \
         mainwindow.ui \
     Channel_Data/channel_data_form.ui \
-    Channel_Data/equipment_state_from.ui
+    Channel_Data/equipment_state_from.ui \
+    Setting/setting_form.ui \
+    Setting/channel_setting_form.ui \
+    Setting/system_setting_form.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

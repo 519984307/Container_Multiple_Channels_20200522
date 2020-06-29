@@ -39,7 +39,7 @@ private:
         MSG=15          /*  日志信息 */
     };
 
-    //Q_ENUM(equipment)
+    //Q_ENUM(equipment)   
 
 public slots:
 
@@ -48,13 +48,15 @@ public slots:
     /// \param count 通道数
     /// \param rowLabels 通道名称
     ///
-    void initializesTheDeviceStateListSlot(uint count,QStringList rowLabels);
+    void initializesTheDeviceStateListSlot(int count,QStringList rowLabels);
 
     ///
-    /// \brief setDeviceStatusSlot 设置设备表
-    /// \param equipment
+    /// \brief setDeviceStatusSlot 设置设备表状态
+    /// \param channel 通道
+    /// \param equipment 设备
+    /// \param state 状态
     ///
-    void setDeviceStatusSlot(uint channel, int equipment,QString state);
+    void setDeviceStatusSlot(int channel, int equipment,bool state);
 };
 
 #endif // EQUIPMENT_STATE_FROM_H

@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initStatusBar();
     initializesTheDataWindow();
     initializationParameter();
-    mainWindow();
+    mainWindowConnect();
 }
 
 MainWindow::~MainWindow()
@@ -39,17 +39,25 @@ void MainWindow::hideTheWindow()
         else if (Equipment_State_From *pFrom=qobject_cast<Equipment_State_From*>(window)) {
             pFrom->setVisible(false);
         }
+        else if (Setting_Form *pFrom=qobject_cast<Setting_Form*>(window)) {
+            pFrom->setVisible(false);
+        }
     }
 }
 
-void MainWindow::mainWindow()
+void MainWindow::mainWindowConnect()
 {
     if(p_Equipment_State_From!=nullptr){
         p_Equipment_State_From->setVisible(true);
 
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(uint,QStringList)),p_Equipment_State_From,SLOT(initializesTheDeviceStateListSlot(uint,QStringList)));
-        emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_From,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
+        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_From,SLOT(setDeviceStatusSlot(int,int,bool)));
     }
+    if(p_Setting_From!=nullptr){
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_From,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
+    }
+
+    emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
 }
 
 void MainWindow::initializingAttribute()
@@ -58,9 +66,12 @@ void MainWindow::initializingAttribute()
 
     permanentWidget = new QLabel (tr("The system is ready"),this);
     p_Equipment_State_From=new Equipment_State_From (this);
+    p_Setting_From=new Setting_Form(this);
 
+    ui->gridLayout_2->addWidget(p_Setting_From);
     ui->gridLayout_2->addWidget(p_Equipment_State_From);
 
+    WindowsVector.append(p_Setting_From);
     WindowsVector.append(permanentWidget);
     WindowsVector.append(p_Equipment_State_From);
 }
@@ -75,7 +86,7 @@ void MainWindow::initializationParameter()
 
 void MainWindow::initializesTheDataWindow()
 {
-    for (uint channel=1;channel<=channelCount;channel++) {
+    for (int channel=1;channel<=channelCount;channel++) {
         Channel_Data_Form *pFrom=new Channel_Data_Form (this);
 
         ui->gridLayout_2->addWidget(pFrom);
@@ -85,9 +96,11 @@ void MainWindow::initializesTheDataWindow()
         Channel_Data_From_Map.insert(channel,pFrom);
         Channel_Data_Action_Map.insert(pAction,pFrom);
 
-        WindowsVector.append(pFrom);
-        ui->mainToolBar->addAction(pAction);
+        WindowsVector.append(pFrom);        
         channelLabels.append(pAction->text());
+
+        ui->menuChannel_To_View->addAction(pAction);
+        ui->mainToolBar->addAction(pAction);
     }
 }
 
@@ -129,4 +142,18 @@ void MainWindow::on_actionMainWindow_triggered()
         p_Equipment_State_From->setVisible(true);
         setStatusBar("The system is ready");
     }
+}
+
+void MainWindow::on_actionSystem_Settings_triggered()
+{
+    if(p_Setting_From!=nullptr){
+        hideTheWindow();
+        p_Setting_From->setVisible(true);
+        setStatusBar("Setting system parameters");
+    }
+}
+
+void MainWindow::on_actiontest_triggered()
+{
+    emit setDeviceStatusSignal(3,8,true);
 }
