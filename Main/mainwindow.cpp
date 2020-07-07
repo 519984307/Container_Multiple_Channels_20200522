@@ -23,6 +23,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::clearnMap()
 {
+    /*****************************
+    * 删除所有窗口对象
+    ******************************/
     qDeleteAll(WindowsVector);
 
     WindowsVector.clear();
@@ -32,14 +35,23 @@ void MainWindow::clearnMap()
 
 void MainWindow::hideTheWindow()
 {
-    foreach (auto window, WindowsVector) {
+    foreach (auto window, WindowsVector) {        
         if(Channel_Data_Form *pFrom=qobject_cast<Channel_Data_Form*>(window)){
+            /*****************************
+            * 通道数据窗口
+            ******************************/
             pFrom->setVisible(false);
         }
         else if (Equipment_State_From *pFrom=qobject_cast<Equipment_State_From*>(window)) {
+            /*****************************
+            * 通道状态窗口
+            ******************************/
             pFrom->setVisible(false);
         }
         else if (Setting_Form *pFrom=qobject_cast<Setting_Form*>(window)) {
+            /*****************************
+            * 系统设置窗口
+            ******************************/
             pFrom->setVisible(false);
         }
     }
@@ -50,19 +62,33 @@ void MainWindow::mainWindowConnect()
     if(p_Equipment_State_From!=nullptr){
         p_Equipment_State_From->setVisible(true);
 
+        /*****************************
+        * 初始化通道状态
+        ******************************/
         connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_From,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
+
+        /*****************************
+        * 设置通道设备状态
+        ******************************/
         connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_From,SLOT(setDeviceStatusSlot(int,int,bool)));
     }
+
     if(p_Setting_From!=nullptr){
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_From,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
+        /*****************************
+        * 初始化设置窗口通道设备列表
+        ******************************/
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_From,SLOT(initializesTheDeviceListSlot(int,QStringList)));
     }
 
+    /*****************************
+    * 初始化设备
+    ******************************/
     emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
 }
 
 void MainWindow::initializingAttribute()
 {
-    channelCount=20;
+    channelCount=50;
 
     permanentWidget = new QLabel (tr("The system is ready"),this);
     p_Equipment_State_From=new Equipment_State_From (this);
@@ -79,17 +105,17 @@ void MainWindow::initializingAttribute()
 void MainWindow::initializationParameter()
 {
     foreach (auto action, Channel_Data_Action_Map.keys()) {
-        /* 绑定工具栏事件 */
+        /*****************************
+        * 绑定工具栏按钮事件
+        ******************************/
         connect(action,SIGNAL(triggered()),this,SLOT(actionTiggeredSlot()));
     }
 }
 
 void MainWindow::initializesTheDataWindow()
-{
+{    
     for (int channel=1;channel<=channelCount;channel++) {
         Channel_Data_Form *pFrom=new Channel_Data_Form (this);
-
-        ui->gridLayout_2->addWidget(pFrom);
 
         QAction *pAction=new QAction (tr("%1 # Channel").arg(channel,2,10,QChar('0')),this);
 
@@ -99,7 +125,16 @@ void MainWindow::initializesTheDataWindow()
         WindowsVector.append(pFrom);        
         channelLabels.append(pAction->text());
 
+        ui->gridLayout_2->addWidget(pFrom);
+
+        /*****************************
+        * 添加通道切换到菜单栏
+        ******************************/
         ui->menuChannel_To_View->addAction(pAction);
+
+        /*****************************
+        * 添加通道切换到工具栏
+        ******************************/
         ui->mainToolBar->addAction(pAction);
     }
 }
@@ -150,6 +185,7 @@ void MainWindow::on_actionSystem_Settings_triggered()
         hideTheWindow();
         p_Setting_From->setVisible(true);
         setStatusBar("Setting system parameters");
+        p_Setting_From->setAttribute(Qt::WA_DeleteOnClose);
     }
 }
 

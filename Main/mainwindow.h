@@ -111,7 +111,7 @@ private:/* attribute */
     int channelCount=1;
 
     ///
-    /// \brief channelLabels 通道名称
+    /// \brief channelLabels 通道名称列表
     ///
     QStringList channelLabels;
 

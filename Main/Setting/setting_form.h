@@ -4,9 +4,12 @@
 #include <QWidget>
 #include <QScrollArea>
 #include <QMap>
+#include <QShowEvent>
+#include <QHideEvent>
 #include <QDebug>
 
 #include "channel_setting_form.h"
+#include "system_setting_form.h"
 
 namespace Ui {
 class Setting_Form;
@@ -20,6 +23,9 @@ public:
     explicit Setting_Form(QWidget *parent = nullptr);
     ~Setting_Form();
 
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent* event);
+
 private:
 
     ///
@@ -30,11 +36,11 @@ private:
 private slots:
 
     ///
-    /// \brief initializesTheDeviceStateListSlot 初始化设备状态列表
+    /// \brief initializesTheDeviceListSlot 初始化设备列表
     /// \param count 通道数
     /// \param rowLabels 通道名称
     ///
-    void initializesTheDeviceStateListSlot(int count, QStringList rowLabels);
+    void initializesTheDeviceListSlot(int count, QStringList rowLabels);
 
     ///
     /// \brief on_channel_pushButton_clicked 通道设定
@@ -50,6 +56,16 @@ private slots:
 
 private:
     Ui::Setting_Form *ui;
+
+    ///
+    /// \brief p_System_Setting_From 系统设置窗口
+    ///
+    System_Setting_Form *p_System_Setting_From=nullptr;
+
+    ///
+    /// \brief WindowsVector 窗口集
+    ///
+    QVector<QObject*> WindowsVector;
 
     ///
     /// \brief channel_setting_from_map 通道设置窗口

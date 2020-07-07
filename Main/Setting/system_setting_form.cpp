@@ -6,6 +6,10 @@ System_Setting_Form::System_Setting_Form(QWidget *parent) :
     ui(new Ui::System_Setting_Form)
 {
     ui->setupUi(this);
+
+    this->setParent(parent);
+    this->setHidden(true);
+    this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 }
 
 System_Setting_Form::~System_Setting_Form()

@@ -106,11 +106,22 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionMainWindow"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionMainWindow">
+   <property name="icon">
+    <iconset resource="ico.qrc">
+     <normaloff>:/UI_ICO/ICO/main-fill.svg</normaloff>:/UI_ICO/ICO/main-fill.svg</iconset>
+   </property>
    <property name="text">
-    <string>MainWindow</string>
+    <string>Main</string>
+   </property>
+   <property name="toolTip">
+    <string>Device list Preview</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
    </property>
   </action>
   <action name="actionSystem_Settings">
@@ -125,6 +136,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="ico.qrc"/>
+ </resources>
  <connections/>
 </ui>

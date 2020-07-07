@@ -1,5 +1,6 @@
 <RCC>
-    <qresource prefix="/new/action">
-        <file>ICO.ico</file>
+    <qresource prefix="/UI_ICO">
+        <file>ICO/ICO.ico</file>
+        <file>ICO/main-fill.svg</file>
     </qresource>
 </RCC>
