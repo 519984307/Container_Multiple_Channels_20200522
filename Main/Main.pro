@@ -31,7 +31,9 @@ SOURCES += \
     Channel_Data/equipment_state_from.cpp \
     Setting/setting_form.cpp \
     Setting/channel_setting_form.cpp \
-    Setting/system_setting_form.cpp
+    Setting/system_setting_form.cpp \
+    #mainwindow_original.cpp
+    Setting/main_setting_form.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,7 +41,9 @@ HEADERS += \
     Channel_Data/equipment_state_from.h \
     Setting/setting_form.h \
     Setting/channel_setting_form.h \
-    Setting/system_setting_form.h
+    Setting/system_setting_form.h \
+    #mainwindow_original.h
+    Setting/main_setting_form.h
 
 FORMS += \
         mainwindow.ui \
@@ -47,7 +51,8 @@ FORMS += \
     Channel_Data/equipment_state_from.ui \
     Setting/setting_form.ui \
     Setting/channel_setting_form.ui \
-    Setting/system_setting_form.ui
+    Setting/system_setting_form.ui \
+    Setting/main_setting_form.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -7,6 +7,8 @@ Setting_Form::Setting_Form(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setAttribute(Qt::WA_DeleteOnClose,true);
+
     ui->listWidget->setVisible(false);
 
     this->setParent(parent);
@@ -28,13 +30,6 @@ void Setting_Form::showEvent(QShowEvent *event)
         ui->system_pushButton->setFocus();
         emit on_system_pushButton_clicked();
     }
-}
-
-void Setting_Form::hideEvent(QHideEvent *event)
-{
-//    if(event->type()==QEvent::Hide){
-//        this->close();
-//    }
 }
 
 void Setting_Form::hideWindows()

@@ -24,7 +24,6 @@ public:
     ~Setting_Form();
 
     void showEvent(QShowEvent *event);
-    void hideEvent(QHideEvent* event);
 
 private:
 

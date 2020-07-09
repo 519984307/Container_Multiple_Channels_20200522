@@ -27,25 +27,29 @@ public:
 
 private:
 
+    /*****************************
+    * Func
+    ******************************/
+
+    ///
+    /// \brief removeTheWindow 显示窗口之前要删除其他窗口
+    ///
+    void removeTheWindow();
+
+    ///
+    /// \brief initializingObject 初始化对象
+    ///
+    void initializingObject();
+
     ///
     /// \brief initializationParameter 初始化参数
     ///
     void initializationParameter();
 
     ///
-    /// \brief initializesTheDataWindow 初始化数据窗口
+    /// \brief clearnMap 清除容器
     ///
-    void initializesTheDataWindow();
-
-    ///
-    /// \brief clearnMap 清除字典集
-    ///
-    void clearnMap();
-
-    ///
-    /// \brief hideTheWindow 隐藏窗口
-    ///
-    void hideTheWindow();
+    void clearnContainer();
 
     ///
     /// \brief setStatusBar 设置状态栏信息
@@ -53,14 +57,9 @@ private:
     void setStatusBar(QString msg);
 
     ///
-    /// \brief initializingAttribute 初始化属性
-    ///
-    void initializingAttribute();
-
-    ///
     /// \brief mainWindow 主界面窗口信号与槽
     ///
-    void mainWindowConnect();
+    void mainConnect();
 
     ///
     /// \brief initStatusBar 初始化状态栏
@@ -68,6 +67,10 @@ private:
     void initStatusBar();
 
 private slots:
+
+    /*****************************
+    * Slot
+    ******************************/
 
     ///
     /// \brief actionTiggeredSlot 工具栏按钮事件
@@ -84,55 +87,14 @@ private slots:
     ///
     void on_actionSystem_Settings_triggered();
 
+    //test
     void on_actiontest_triggered();
 
-private:/* attribute */
-
-    Ui::MainWindow *ui;
-
-    ///
-    /// \brief p_Equipment_State_From 设备状态窗口
-    ///
-    Equipment_State_From *p_Equipment_State_From=nullptr;
-
-    ///
-    /// \brief p_Setting_From 设置窗口
-    ///
-    Setting_Form *p_Setting_From=nullptr;
-
-    ///
-    /// \brief permanentWidget 状态栏永久信息
-    ///
-    QLabel *permanentWidget=nullptr;
-
-    ///
-    /// \brief channelCount 通道数
-    ///
-    int channelCount=1;
-
-    ///
-    /// \brief channelLabels 通道名称列表
-    ///
-    QStringList channelLabels;
-
-private:    /* QMap */
-
-    ///
-    /// \brief WindowsVector 窗口集
-    ///
-    QVector<QObject*> WindowsVector;
-
-    ///
-    /// \brief Channel_Data_From_Map 数据窗口字典集
-    ///
-    QMap<int,QObject*> Channel_Data_From_Map;
-
-    ///
-    /// \brief Channel_Data_Action_Map 数据窗口工具栏字典集
-    ///
-    QMap<QAction*,QObject*> Channel_Data_Action_Map;
-
 signals:
+
+    /*****************************
+    * Signal
+    ******************************/
 
     ///
     /// \brief initializesTheDeviceStateListSignal 初始化设备状态列表
@@ -148,6 +110,71 @@ signals:
     /// \param state 状态
     ///
     void setDeviceStatusSignal(int channel, int equipment,bool state);
+
+private:
+
+    /*****************************
+    * The container
+    ******************************/
+
+    ///
+    /// \brief WindowsVector 窗口集
+    ///
+    QVector<QObject*> WindowsVector;
+
+    ///
+    /// \brief Channel_Data_Action_Map 数据窗口工具栏字典集
+    ///
+    QMap<QAction*,int> Channel_Data_Action_Map;
+
+private:
+
+    /*****************************
+    * attribute
+    ******************************/
+
+    ///
+    /// \brief channelSelect 数据界面组中,当前预览的通道号
+    ///
+    int channelSelect;
+
+    ///
+    /// \brief channelCount 通道数
+    ///
+    int channelCount=1;
+
+    ///
+    /// \brief channelLabels 通道名称列表
+    ///
+    QStringList channelLabels;
+
+private:
+
+    /*****************************
+    * object
+    ******************************/
+
+    Ui::MainWindow *ui;
+
+    ///
+    /// \brief pFrom 数据窗口
+    ///
+    Channel_Data_Form *p_Channel_Data_Form=nullptr;
+
+    ///
+    /// \brief p_Equipment_State_From 设备列表窗口
+    ///
+    Equipment_State_From *p_Equipment_State_From=nullptr;
+
+    ///
+    /// \brief p_Setting_From 设置窗口
+    ///
+    Setting_Form *p_Setting_From=nullptr;
+
+    ///
+    /// \brief permanentWidget 状态栏永久信息
+    ///
+    QLabel *permanentWidget=nullptr;
 };
 
 #endif // MAINWINDOW_H

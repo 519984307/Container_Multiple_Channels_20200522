@@ -7,21 +7,23 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    initializingAttribute();
     initStatusBar();
-    initializesTheDataWindow();
+    initializingObject();
     initializationParameter();
-    mainWindowConnect();
+    mainConnect();
 }
 
 MainWindow::~MainWindow()
 {
-    clearnMap();
+    clearnContainer();
+
+    delete  permanentWidget;
+    permanentWidget=nullptr;
 
     delete ui;
 }
 
-void MainWindow::clearnMap()
+void MainWindow::clearnContainer()
 {
     /*****************************
     * 删除所有窗口对象
@@ -29,80 +31,42 @@ void MainWindow::clearnMap()
     qDeleteAll(WindowsVector);
 
     WindowsVector.clear();
-    Channel_Data_From_Map.clear();
     Channel_Data_Action_Map.clear();
 }
 
-void MainWindow::hideTheWindow()
+void MainWindow::removeTheWindow()
 {
-    foreach (auto window, WindowsVector) {        
-        if(Channel_Data_Form *pFrom=qobject_cast<Channel_Data_Form*>(window)){
-            /*****************************
-            * 通道数据窗口
-            ******************************/
-            pFrom->setVisible(false);
-        }
-        else if (Equipment_State_From *pFrom=qobject_cast<Equipment_State_From*>(window)) {
-            /*****************************
-            * 通道状态窗口
-            ******************************/
-            pFrom->setVisible(false);
-        }
-        else if (Setting_Form *pFrom=qobject_cast<Setting_Form*>(window)) {
-            /*****************************
-            * 系统设置窗口
-            ******************************/
-            pFrom->setVisible(false);
-        }
+    if(p_Channel_Data_Form!=nullptr){
+        delete p_Channel_Data_Form;
+        p_Channel_Data_Form=nullptr;
     }
-}
-
-void MainWindow::mainWindowConnect()
-{
-    if(p_Equipment_State_From!=nullptr){
-        p_Equipment_State_From->setVisible(true);
-
-        /*****************************
-        * 初始化通道状态
-        ******************************/
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_From,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
-
-        /*****************************
-        * 设置通道设备状态
-        ******************************/
-        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_From,SLOT(setDeviceStatusSlot(int,int,bool)));
-    }
-
     if(p_Setting_From!=nullptr){
-        /*****************************
-        * 初始化设置窗口通道设备列表
-        ******************************/
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_From,SLOT(initializesTheDeviceListSlot(int,QStringList)));
+        delete p_Setting_From;
+        p_Setting_From=nullptr;
     }
-
-    /*****************************
-    * 初始化设备
-    ******************************/
-    emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
+    if(p_Equipment_State_From!=nullptr){
+        delete p_Equipment_State_From;
+        p_Equipment_State_From=nullptr;
+    }
 }
 
-void MainWindow::initializingAttribute()
+void MainWindow::initStatusBar()
 {
-    channelCount=50;
-
-    permanentWidget = new QLabel (tr("The system is ready"),this);
-    p_Equipment_State_From=new Equipment_State_From (this);
-    p_Setting_From=new Setting_Form(this);
-
-    ui->gridLayout_2->addWidget(p_Setting_From);
-    ui->gridLayout_2->addWidget(p_Equipment_State_From);
-
-    WindowsVector.append(p_Setting_From);
-    WindowsVector.append(permanentWidget);
-    WindowsVector.append(p_Equipment_State_From);
+    if(permanentWidget==nullptr){
+        permanentWidget = new QLabel (tr("The system is ready"),this);
+    }
+    permanentWidget->setStyleSheet("color: rgb(0, 85, 255);");
+    ui->statusBar->addPermanentWidget(permanentWidget);
 }
 
-void MainWindow::initializationParameter()
+void MainWindow::initializingObject()
+{
+    p_Channel_Data_Form=nullptr;
+    p_Equipment_State_From=nullptr;
+    p_Setting_From=nullptr;
+}
+
+void MainWindow::mainConnect()
 {
     foreach (auto action, Channel_Data_Action_Map.keys()) {
         /*****************************
@@ -110,22 +74,43 @@ void MainWindow::initializationParameter()
         ******************************/
         connect(action,SIGNAL(triggered()),this,SLOT(actionTiggeredSlot()));
     }
+
+//    if(p_Equipment_State_From!=nullptr){
+//        p_Equipment_State_From->setVisible(true);
+
+//        /*****************************
+//        * 初始化通道状态
+//        ******************************/
+//        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_From,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
+
+//        /*****************************
+//        * 设置通道设备状态
+//        ******************************/
+//        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_From,SLOT(setDeviceStatusSlot(int,int,bool)));
+//    }
+
+//    if(p_Setting_From!=nullptr){
+//        /*****************************
+//        * 初始化设置窗口通道设备列表
+//        ******************************/
+//        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_From,SLOT(initializesTheDeviceListSlot(int,QStringList)));
+//    }
+
+//    /*****************************
+//    * 初始化设备
+//    ******************************/
+//    emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
 }
 
-void MainWindow::initializesTheDataWindow()
-{    
-    for (int channel=1;channel<=channelCount;channel++) {
-        Channel_Data_Form *pFrom=new Channel_Data_Form (this);
+void MainWindow::initializationParameter()
+{
+    channelSelect=0;
+    channelCount=10;
 
+    for (int channel=1;channel<=channelCount;channel++) {
         QAction *pAction=new QAction (tr("%1 # Channel").arg(channel,2,10,QChar('0')),this);
 
-        Channel_Data_From_Map.insert(channel,pFrom);
-        Channel_Data_Action_Map.insert(pAction,pFrom);
-
-        WindowsVector.append(pFrom);        
-        channelLabels.append(pAction->text());
-
-        ui->gridLayout_2->addWidget(pFrom);
+        Channel_Data_Action_Map.insert(pAction,channel);
 
         /*****************************
         * 添加通道切换到菜单栏
@@ -136,15 +121,15 @@ void MainWindow::initializesTheDataWindow()
         * 添加通道切换到工具栏
         ******************************/
         ui->mainToolBar->addAction(pAction);
+
+        channelLabels.append(pAction->text());
     }
 }
 
-void MainWindow::initStatusBar()
-{
+void MainWindow::setStatusBar(QString msg)
+{    
     if(permanentWidget!=nullptr){
-        permanentWidget->setText(tr("The system is ready"));
-        permanentWidget->setStyleSheet("color: rgb(0, 85, 255);");
-        ui->statusBar->addPermanentWidget(permanentWidget);
+        permanentWidget->setText(msg);
     }
 }
 
@@ -152,40 +137,59 @@ void MainWindow::actionTiggeredSlot()
 {
     QAction* pAction=qobject_cast<QAction*> (sender());
 
-    QMap<QAction*,QObject*>::const_iterator it =Channel_Data_Action_Map.find(pAction);
-    if(it!=Channel_Data_Action_Map.end()){
-        if(Channel_Data_Form *pFrom=qobject_cast<Channel_Data_Form*>(it.value()))
-        {
-            hideTheWindow();
-            pFrom->setVisible(true);
-            setStatusBar(pAction->text());
-        }
-    }
-}
+    QMap<QAction*,int>::const_iterator it =Channel_Data_Action_Map.find(pAction);
 
-void MainWindow::setStatusBar(QString msg)
-{
-    if(permanentWidget!=nullptr){
-        permanentWidget->setText(msg);
+    /*****************************
+    * 预览通道没有切换,就不做处理(channelSelect)
+    ******************************/
+    if(it!=Channel_Data_Action_Map.end() && it.value()!=channelSelect){
+
+        removeTheWindow();
+
+        channelSelect=it.value();
+
+        p_Channel_Data_Form=new Channel_Data_Form (this);
+        ui->gridLayout_2->addWidget(p_Channel_Data_Form);
+        p_Channel_Data_Form->setVisible(true);
+
+        setStatusBar(tr("The preview page %1").arg( it.key()->text()));
+    }
+    else {
+        qDebug()<<p_Channel_Data_Form;
     }
 }
 
 void MainWindow::on_actionMainWindow_triggered()
 {
-    if(p_Equipment_State_From!=nullptr){
-        hideTheWindow();
+    if(p_Equipment_State_From==nullptr){
+        removeTheWindow();
+
+        p_Equipment_State_From=new Equipment_State_From (this);
+        ui->gridLayout_2->addWidget(p_Equipment_State_From);
         p_Equipment_State_From->setVisible(true);
+
+        channelSelect=0;
+
         setStatusBar("The system is ready");
+    }
+    else {
+        qDebug()<<p_Equipment_State_From;
     }
 }
 
 void MainWindow::on_actionSystem_Settings_triggered()
 {
-    if(p_Setting_From!=nullptr){
-        hideTheWindow();
+    if(p_Setting_From==nullptr){
+        removeTheWindow();
+
+        p_Setting_From=new Setting_Form (this);
+        ui->gridLayout_2->addWidget(p_Setting_From);
         p_Setting_From->setVisible(true);
+
         setStatusBar("Setting system parameters");
-        p_Setting_From->setAttribute(Qt::WA_DeleteOnClose);
+    }
+    else {
+        qDebug()<<p_Setting_From;
     }
 }
 
