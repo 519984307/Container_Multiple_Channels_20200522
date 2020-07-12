@@ -29,9 +29,7 @@ void MainWindow::clearnContainer()
     /*****************************
     * 删除所有窗口对象
     ******************************/
-    qDeleteAll(WindowsVector);
 
-    WindowsVector.clear();
     Channel_Data_Action_Map.clear();
 }
 
@@ -116,6 +114,7 @@ void MainWindow::initializationParameter()
     int key=0x30;
     for (int channel=1;channel<=channelCount;channel++) {
         QAction *pAction=new QAction (tr("%1 # Channel").arg(channel,2,10,QChar('0')),this);
+        pAction->setIcon(QIcon(":/UI_ICO/ICO/container.svg"));
         pAction->setShortcut(QKeySequence(Qt::CTRL+static_cast<uint16_t>(key+channel)));
         pAction->setToolTip(tr("Channel switching (CTRL+%1)").arg(channel));
 

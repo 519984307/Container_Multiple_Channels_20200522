@@ -14,13 +14,12 @@ Setting_Form::Setting_Form(QWidget *parent) :
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
     ui->listWidget->setVisible(false);
+
+    initializingObject();
 }
 
 Setting_Form::~Setting_Form()
 {
-    qDeleteAll(WindowsVector);
-    WindowsVector.clear();
-
     delete ui;
 }
 
@@ -32,61 +31,79 @@ void Setting_Form::showEvent(QShowEvent *event)
     }
 }
 
-void Setting_Form::hideWindows()
+void Setting_Form::initializingObject()
 {
-    foreach (auto window, WindowsVector) {
-        if(Channel_Setting_Form *pFrom=qobject_cast<Channel_Setting_Form*>(window)){
-            pFrom->setVisible(false);
-        }
-        else if (System_Setting_Form *pFrom=qobject_cast<System_Setting_Form*>(window)) {
-            pFrom->setVisible(false);
-        }
+    p_System_Setting_From=nullptr;
+    p_Channel_Setting_From=nullptr;
+}
+
+void Setting_Form::removeTheWindow()
+{
+    if(p_System_Setting_From!=nullptr){
+        delete p_System_Setting_From;
+        p_System_Setting_From=nullptr;
+    }
+    if(p_Channel_Setting_From!=nullptr){
+        delete p_Channel_Setting_From;
+        p_Channel_Setting_From=nullptr;
     }
 }
 
 void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels)
 {
+    channelSelect=0;
+
     ui->listWidget->addItems(rowLabels);
 
     for (int var = 1; var <= count; ++var) {
-        Channel_Setting_Form *p_Channel_From=new Channel_Setting_Form (this);
-        ui->gridLayout->addWidget(p_Channel_From);
-
-        channel_setting_from_map.insert(var,p_Channel_From);
-        WindowsVector.append(p_Channel_From);
-
         ui->listWidget->item(var-1)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
     }
-
-    p_System_Setting_From=new System_Setting_Form (this);
-
-    ui->gridLayout->addWidget(p_System_Setting_From);
-    WindowsVector.append(p_System_Setting_From);
 }
 
 void Setting_Form::on_channel_pushButton_clicked()
 {
-    if(Channel_Setting_Form *pFrom=qobject_cast<Channel_Setting_Form*>(channel_setting_from_map.value(1))){
-        hideWindows();
-        ui->listWidget->setVisible(true);
-        pFrom->setVisible(true);
-    }
+    ui->listWidget->setVisible(true);
+    channelSelect=0;
 
+    on_listWidget_currentRowChanged(0);
 }
 
 void Setting_Form::on_system_pushButton_clicked()
 {  
-    if(p_System_Setting_From!=nullptr){
-        hideWindows();
+    if(p_System_Setting_From==nullptr){
+
+        removeTheWindow();
         ui->listWidget->setVisible(false);
+
+        p_System_Setting_From=new System_Setting_Form (this);
+        ui->gridLayout->addWidget(p_System_Setting_From);
         p_System_Setting_From->setVisible(true);
+
+        channelSelect=0;
+    }
+    else {
+        qDebug()<<p_System_Setting_From;
     }
 }
 
 void Setting_Form::on_listWidget_currentRowChanged(int currentRow)
 {
-    if(Channel_Setting_Form *pFrom=qobject_cast<Channel_Setting_Form*>(channel_setting_from_map.value(currentRow+1))){
-        hideWindows();
-        pFrom->setVisible(true);
+    /*****************************
+    * 列表选中项发生改变,才触发信号
+    ******************************/
+    if(channelSelect!=currentRow+1){
+        removeTheWindow();
+
+        if(p_Channel_Setting_From==nullptr){
+
+            p_Channel_Setting_From=new Channel_Setting_Form (this);
+            ui->gridLayout->addWidget(p_Channel_Setting_From);
+            p_Channel_Setting_From->setVisible(true);
+
+            channelSelect=currentRow+1;
+        }
+    }
+    else {
+        qDebug()<<p_Channel_Setting_From;
     }
 }

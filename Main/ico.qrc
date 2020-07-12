@@ -2,5 +2,6 @@
     <qresource prefix="/UI_ICO">
         <file>ICO/ICO.ico</file>
         <file>ICO/main-fill.svg</file>
+        <file>ICO/container.svg</file>
     </qresource>
 </RCC>

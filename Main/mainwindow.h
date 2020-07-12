@@ -129,11 +129,6 @@ private:
     ******************************/
 
     ///
-    /// \brief WindowsVector 窗口集
-    ///
-    QVector<QObject*> WindowsVector;
-
-    ///
     /// \brief Channel_Data_Action_Map 数据窗口工具栏字典集
     ///
     QMap<QAction*,int> Channel_Data_Action_Map;

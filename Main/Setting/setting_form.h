@@ -2,10 +2,8 @@
 #define SETTING_FORM_H
 
 #include <QWidget>
-#include <QScrollArea>
 #include <QMap>
 #include <QShowEvent>
-#include <QHideEvent>
 #include <QDebug>
 
 #include "channel_setting_form.h"
@@ -28,9 +26,14 @@ public:
 private:
 
     ///
-    /// \brief hideWindows 隐藏窗口
+    /// \brief removeTheWindow 隐藏窗口
     ///
-    void hideWindows();
+    void removeTheWindow();
+
+    ///
+    /// \brief initializingObject 初始化对象
+    ///
+    void initializingObject();
 
 private slots:
 
@@ -66,14 +69,20 @@ private:
     System_Setting_Form *p_System_Setting_From=nullptr;
 
     ///
-    /// \brief WindowsVector 窗口集
+    /// \brief p_Channel_Setting_From 通道设置窗口
     ///
-    QVector<QObject*> WindowsVector;
+    Channel_Setting_Form *p_Channel_Setting_From=nullptr;
+
+private:
+
+    /*****************************
+    * attribute
+    ******************************/
 
     ///
-    /// \brief channel_setting_from_map 通道设置窗口
+    /// \brief channelSelect 设置界面组中,当前预览的通道号
     ///
-    QMap<int,QObject*> channel_setting_from_map;
+    int channelSelect;
 };
 
 #endif // SETTING_FORM_H
