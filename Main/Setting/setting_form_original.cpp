@@ -1,4 +1,4 @@
-#include "setting_form.h"
+#include "setting_form_original.h"
 #include "ui_setting_form.h"
 
 Setting_Form::Setting_Form(QWidget *parent) :

@@ -33,7 +33,8 @@ SOURCES += \
     Setting/channel_setting_form.cpp \
     Setting/system_setting_form.cpp \
     #mainwindow_original.cpp
-    Setting/main_setting_form.cpp
+    Setting/main_dialog.cpp \
+    #Setting/setting_form_original.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -43,7 +44,8 @@ HEADERS += \
     Setting/channel_setting_form.h \
     Setting/system_setting_form.h \
     #mainwindow_original.h
-    Setting/main_setting_form.h
+    Setting/main_dialog.h \
+    #Setting/setting_form_original.h
 
 FORMS += \
         mainwindow.ui \
@@ -52,7 +54,7 @@ FORMS += \
     Setting/setting_form.ui \
     Setting/channel_setting_form.ui \
     Setting/system_setting_form.ui \
-    Setting/main_setting_form.ui
+    Setting/main_dialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

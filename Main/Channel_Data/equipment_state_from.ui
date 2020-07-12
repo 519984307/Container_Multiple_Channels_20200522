@@ -30,7 +30,7 @@
      </attribute>
      <column>
       <property name="text">
-       <string>B_C</string>
+       <string>F_C</string>
       </property>
       <property name="textAlignment">
        <set>AlignCenter</set>
@@ -71,6 +71,22 @@
      <column>
       <property name="text">
        <string>P_C</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>COM1</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>COM2</string>
       </property>
       <property name="textAlignment">
        <set>AlignCenter</set>

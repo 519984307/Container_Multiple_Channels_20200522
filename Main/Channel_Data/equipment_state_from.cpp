@@ -31,17 +31,17 @@ void Equipment_State_From::initializesTheDeviceStateListSlot(int count, QStringL
 
     for (int row=0;row<ui->tableWidget->rowCount();++row) {
         for (int column=0;column<ui->tableWidget->columnCount();++column) {
-            QString state=tr("%1").arg("ON");
-            if(column<6){
-               state=tr("%1").arg("XX");
+            QString state=QString("%1").arg("ON");
+            if(column<8){
+               state=QString("%1").arg("XX");
             }
-            else if(column==12 || column==13){
+            else if(column==14 || column==15){
                 state="MSDU1234567";
             }
-            else if(column==14){
+            else if(column==16){
                 state="粤B050CS";
             }
-            else if(column==15){
+            else if(column==17){
                 state=tr("%1").arg("This is the test data");
             }
             ui->tableWidget->setItem(row,column,new QTableWidgetItem (state));

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QResizeEvent>
+#include <QDesktopWidget>
 #include <QMap>
 #include <QAction>
 #include <QLabel>
@@ -57,14 +58,24 @@ private:
     void setStatusBar(QString msg);
 
     ///
-    /// \brief mainWindow 主界面窗口信号与槽
+    /// \brief mainWindow 主窗口信号与槽
     ///
     void mainConnect();
+
+    ///
+    /// \brief fromConnet 子窗口信号与槽
+    ///
+    void fromConnet();
 
     ///
     /// \brief initStatusBar 初始化状态栏
     ///
     void initStatusBar();
+
+    ///
+    /// \brief getScreenInfo 获取和设置系统屏幕大小
+    ///
+    void getScreenInfo();
 
 private slots:
 

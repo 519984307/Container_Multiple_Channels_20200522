@@ -118,7 +118,7 @@
     <string>Main</string>
    </property>
    <property name="toolTip">
-    <string>Device list Preview</string>
+    <string>Device list Preview (CRTL+A)</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+A</string>
@@ -127,6 +127,12 @@
   <action name="actionSystem_Settings">
    <property name="text">
     <string>System Settings</string>
+   </property>
+   <property name="toolTip">
+    <string>System Settings CTRL+S</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actiontest">

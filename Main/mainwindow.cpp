@@ -7,18 +7,19 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    initStatusBar();
+    getScreenInfo();
+
     initializingObject();
+    initStatusBar();
     initializationParameter();
     mainConnect();
+
+    on_actionMainWindow_triggered();
 }
 
 MainWindow::~MainWindow()
 {
     clearnContainer();
-
-    delete  permanentWidget;
-    permanentWidget=nullptr;
 
     delete ui;
 }
@@ -32,6 +33,13 @@ void MainWindow::clearnContainer()
 
     WindowsVector.clear();
     Channel_Data_Action_Map.clear();
+}
+
+void MainWindow::getScreenInfo()
+{
+    QDesktopWidget* desktop=QApplication::desktop();
+    QRect rect=desktop->screenGeometry();
+    this->resize(QSize(rect.width(),rect.height()));
 }
 
 void MainWindow::removeTheWindow()
@@ -64,6 +72,7 @@ void MainWindow::initializingObject()
     p_Channel_Data_Form=nullptr;
     p_Equipment_State_From=nullptr;
     p_Setting_From=nullptr;
+    permanentWidget=nullptr;
 }
 
 void MainWindow::mainConnect()
@@ -74,32 +83,29 @@ void MainWindow::mainConnect()
         ******************************/
         connect(action,SIGNAL(triggered()),this,SLOT(actionTiggeredSlot()));
     }
+}
 
-//    if(p_Equipment_State_From!=nullptr){
-//        p_Equipment_State_From->setVisible(true);
+void MainWindow::fromConnet()
+{
+    if(p_Equipment_State_From!=nullptr){
 
-//        /*****************************
-//        * 初始化通道状态
-//        ******************************/
-//        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_From,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
+        /*****************************
+        * 初始化通道状态
+        ******************************/
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_From,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
 
-//        /*****************************
-//        * 设置通道设备状态
-//        ******************************/
-//        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_From,SLOT(setDeviceStatusSlot(int,int,bool)));
-//    }
+        /*****************************
+        * 设置通道设备状态
+        ******************************/
+        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_From,SLOT(setDeviceStatusSlot(int,int,bool)));
+    }
 
-//    if(p_Setting_From!=nullptr){
-//        /*****************************
-//        * 初始化设置窗口通道设备列表
-//        ******************************/
-//        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_From,SLOT(initializesTheDeviceListSlot(int,QStringList)));
-//    }
-
-//    /*****************************
-//    * 初始化设备
-//    ******************************/
-//    emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
+    if(p_Setting_From!=nullptr){
+        /*****************************
+        * 初始化设置窗口通道设备列表
+        ******************************/
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_From,SLOT(initializesTheDeviceListSlot(int,QStringList)));
+    }
 }
 
 void MainWindow::initializationParameter()
@@ -107,8 +113,11 @@ void MainWindow::initializationParameter()
     channelSelect=0;
     channelCount=10;
 
+    int key=0x30;
     for (int channel=1;channel<=channelCount;channel++) {
         QAction *pAction=new QAction (tr("%1 # Channel").arg(channel,2,10,QChar('0')),this);
+        pAction->setShortcut(QKeySequence(Qt::CTRL+static_cast<uint16_t>(key+channel)));
+        pAction->setToolTip(tr("Channel switching (CTRL+%1)").arg(channel));
 
         Channel_Data_Action_Map.insert(pAction,channel);
 
@@ -162,11 +171,18 @@ void MainWindow::actionTiggeredSlot()
 void MainWindow::on_actionMainWindow_triggered()
 {
     if(p_Equipment_State_From==nullptr){
+
         removeTheWindow();
 
         p_Equipment_State_From=new Equipment_State_From (this);
         ui->gridLayout_2->addWidget(p_Equipment_State_From);
         p_Equipment_State_From->setVisible(true);
+
+        /*****************************
+        * 初始化设备
+        ******************************/
+        fromConnet();
+        emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
 
         channelSelect=0;
 
@@ -180,11 +196,18 @@ void MainWindow::on_actionMainWindow_triggered()
 void MainWindow::on_actionSystem_Settings_triggered()
 {
     if(p_Setting_From==nullptr){
+
         removeTheWindow();
 
         p_Setting_From=new Setting_Form (this);
         ui->gridLayout_2->addWidget(p_Setting_From);
         p_Setting_From->setVisible(true);
+
+        /*****************************
+        * 初始化通道
+        ******************************/
+        fromConnet();
+        emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
 
         setStatusBar("Setting system parameters");
     }
