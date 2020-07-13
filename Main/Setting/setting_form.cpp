@@ -63,9 +63,9 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
 void Setting_Form::on_channel_pushButton_clicked()
 {
     ui->listWidget->setVisible(true);
+    ui->listWidget->setFocus();
+    ui->listWidget->setCurrentRow(0);
     channelSelect=0;
-
-    on_listWidget_currentRowChanged(0);
 }
 
 void Setting_Form::on_system_pushButton_clicked()

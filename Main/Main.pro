@@ -26,7 +26,6 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp \
     Channel_Data/channel_data_form.cpp \
     Channel_Data/equipment_state_from.cpp \
     Setting/setting_form.cpp \
@@ -35,9 +34,11 @@ SOURCES += \
     #mainwindow_original.cpp
     Setting/main_dialog.cpp \
     #Setting/setting_form_original.cpp
+    Camera_Test/camera_test_form.cpp \
+    MainWindow/mainwindow.cpp \
+    Camera_Test/camera_list_form.cpp
 
 HEADERS += \
-        mainwindow.h \
     Channel_Data/channel_data_form.h \
     Channel_Data/equipment_state_from.h \
     Setting/setting_form.h \
@@ -46,15 +47,20 @@ HEADERS += \
     #mainwindow_original.h
     Setting/main_dialog.h \
     #Setting/setting_form_original.h
+    Camera_Test/camera_test_form.h \
+    MainWindow/mainwindow.h \
+    Camera_Test/camera_list_form.h
 
 FORMS += \
-        mainwindow.ui \
     Channel_Data/channel_data_form.ui \
     Channel_Data/equipment_state_from.ui \
     Setting/setting_form.ui \
     Setting/channel_setting_form.ui \
     Setting/system_setting_form.ui \
-    Setting/main_dialog.ui
+    Setting/main_dialog.ui \
+    Camera_Test/camera_test_form.ui \
+    MainWindow/mainwindow.ui \
+    Camera_Test/camera_list_form.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
