@@ -141,7 +141,7 @@ void DataInterchange::setHeartPacketStateSlot(bool state)
 void DataInterchange::receiveDataSlot()
 {
     QByteArray buf=pTcpClient->readAll();
-    pTcpClient->write(buf);
+    emit toSendDataSignal(channel,buf);
 }
 
 void DataInterchange::toSendDataSlot(int channel_number,const QString &data)
