@@ -36,7 +36,7 @@ TheLicensePlate_WTY::~TheLicensePlate_WTY()
 {
     TheLicensePlate_WTY::pThis=nullptr;
 
-    if(pDLL!=nullptr){
+    if(pDLL!=nullptr  && pDLL->isLoaded()){
         pDLL->unload();
         delete pDLL;
         pDLL=nullptr;
@@ -45,7 +45,7 @@ TheLicensePlate_WTY::~TheLicensePlate_WTY()
 
 bool TheLicensePlate_WTY::initializationParameter()
 {
-    //pDLL=new QLibrary (QDir::toNativeSeparators(QString("%1/%2").arg(QCoreApplication::applicationDirPath()).arg("Plugins/WTY/window/libwty")),this) ;/* windows*/
+    //pDLL=new QLibrary (QDir::toNativeSeparators(QString("%1/%2").arg(QCoreApplication::applicationDirPath()).arg("Plugins/WTY/windows/WTY")),this) ;/* windows*/
     pDLL=new QLibrary (QDir::toNativeSeparators(QString("%1/%2").arg(QCoreApplication::applicationDirPath()).arg("Plugins/WTY/linux/libwty")),this) ;/* linux */
     if(pDLL->load()){
         CLIENT_LPRC_RegCLIENTConnEvent=reinterpret_cast<CLIENT_LPRC_RegCLIENTConnEventFUN>(pDLL->resolve("CLIENT_LPRC_RegCLIENTConnEvent"));
@@ -65,6 +65,11 @@ bool TheLicensePlate_WTY::initializationParameter()
 
         return true;
     }
+
+    emit messageSignal(ZBY_LOG("ERROR"),pDLL->errorString());
+    delete pDLL;
+    pDLL=nullptr;
+
     return  false;
 }
 
@@ -150,6 +155,7 @@ void TheLicensePlate_WTY::initCameraSlot(const QString  &localAddr,const QString
         }
         else {
             //ElectronicLicensePlate();
+            messageSignal(ZBY_LOG("INFO"),tr("IP:%1 License plate camera link faild").arg(addr));
         }
     }
 }
@@ -245,10 +251,7 @@ void TheLicensePlate_WTY::openTheVideoSlot(bool play)
 
 void TheLicensePlate_WTY::releaseResourcesSlot()
 {
-    if(CLIENT_LPRC_QuitDevice!=nullptr && CLIENT_LPRC_QuitDevice(arrAddr.data())==0){
-        messageSignal(ZBY_LOG("INFO"),tr("IP:%1 The license plate camera was disconnected successfully").arg(address));
-    }
-    else {
-        messageSignal(ZBY_LOG("ERROR"),tr("IP:%1 The license plate camera failed to disconnect").arg(address));
+    if(CLIENT_LPRC_QuitDevice!=nullptr){
+        CLIENT_LPRC_QuitDevice(arrAddr.data());
     }
 }
