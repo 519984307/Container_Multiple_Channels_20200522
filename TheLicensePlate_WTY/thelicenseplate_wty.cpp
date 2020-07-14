@@ -112,7 +112,7 @@ void TheLicensePlate_WTY::saveImg(QByteArray arrImg, const QString &time)
         QPixmap *labelPix = new QPixmap();
         labelPix->loadFromData(arrImg);
         QPixmap labelPixFit=  labelPix->scaled(1280,720, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);/* 缩放图片 */
-        QString image=QDir::toNativeSeparators(tr("%1/%2%3%4.jpg").arg(dir.path()).arg(QDateTime::fromString(time,"yyyy-MM-dd hh:mm:ss").toString("yyyyMMddhhmmss")).arg(7).arg(channel));
+        QString image=QDir::toNativeSeparators(tr("%1/%2%3%4.jpg").arg(dir.path()).arg(QDateTime::fromString(time,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss")).arg(7).arg(channel));
         labelPixFit.save(image);
         delete labelPix;
         labelPix=nullptr;
@@ -172,8 +172,11 @@ void TheLicensePlate_WTY::connectCallback(char *chWTYIP, UINT nStatus, LDWORD dw
 void TheLicensePlate_WTY::dataEx2Callback(CLIENT_LPRC_PLATE_RESULTEX *recResultEx, LDWORD dwUser)
 {
     QByteArray arrImg=QByteArray::fromRawData(reinterpret_cast<const char*>(recResultEx->pFullImage.pBuffer),recResultEx->pFullImage.nLen);
-    QString dateTime= QString("%-1%2-%3 %4:%5:%6").arg(recResultEx->shootTime.Year).arg(recResultEx->shootTime.Month).arg(recResultEx->shootTime.Day).arg(recResultEx->shootTime.Hour).arg(recResultEx->shootTime.Minute).arg(recResultEx->shootTime.Second);
+    QString dateTime= QString("%1-%2-%3 %4:%5:%6").arg(recResultEx->shootTime.Year).arg(recResultEx->shootTime.Month).arg(recResultEx->shootTime.Day).arg(recResultEx->shootTime.Hour).arg(recResultEx->shootTime.Minute).arg(recResultEx->shootTime.Second);
+
     emit pThis->resultsTheLicensePlateSignal(recResultEx->chLicense,recResultEx->chColor,dateTime,arrImg);
+    emit pThis->messageSignal(ZBY_LOG("INFO"),tr("License Plate recognition results:%1-%2").arg(QString::fromLocal8Bit(recResultEx->chLicense)).arg(dateTime));
+
     pThis->saveImg(arrImg,dateTime);
 }
 
