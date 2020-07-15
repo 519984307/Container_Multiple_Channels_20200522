@@ -21,9 +21,9 @@ void DatabaseRead::initDatabaseSlot(const QString &connectName, const QString &u
         dir.cd(pluginPath);
     }
 
-    this->connectName=connectName;
+    this->connectName=QString("DatabaseRead_").append(connectName);;
 
-    db=QSqlDatabase::addDatabase("QSQLITE",connectName);
+    db=QSqlDatabase::addDatabase("QSQLITE",this->connectName);
     db.setDatabaseName(QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg("History.db")));
     db.setUserName(user);
     db.setPassword(pass);
