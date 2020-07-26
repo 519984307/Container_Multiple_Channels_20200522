@@ -25,6 +25,10 @@ public:
 
 private:
 
+    /*****************************
+     * func
+     ******************************/
+
     ///
     /// \brief removeTheWindow 隐藏窗口
     ///
@@ -35,7 +39,22 @@ private:
     ///
     void initializingObject();
 
+private:
+
+    /*****************************
+    * The container
+    ******************************/
+
+    ///
+    /// \brief From_Map 窗口类对象合集
+    ///
+    QList<QObject*> From_Map;
+
 private slots:
+
+    /*****************************
+     *  slot
+     ******************************/
 
     ///
     /// \brief initializesTheDeviceListSlot 初始化设备列表
@@ -61,6 +80,11 @@ private slots:
     void on_listWidget_currentRowChanged(int currentRow);
 
 private:
+
+    /*****************************
+     * object
+     ******************************/
+
     Ui::Setting_Form *ui;
 
     ///
@@ -73,7 +97,6 @@ private:
     ///
     Channel_Setting_Form *p_Channel_Setting_From=nullptr;
 
-private:
 
     /*****************************
     * attribute

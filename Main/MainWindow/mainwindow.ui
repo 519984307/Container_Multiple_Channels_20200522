@@ -50,12 +50,6 @@
     </property>
     <addaction name="actionMainWindow"/>
    </widget>
-   <widget class="QMenu" name="menuCamera_Test">
-    <property name="title">
-     <string>Camera Test</string>
-    </property>
-    <addaction name="actiontest"/>
-   </widget>
    <widget class="QMenu" name="menuService">
     <property name="title">
      <string>Service</string>
@@ -71,6 +65,7 @@
      <string>Setting</string>
     </property>
     <addaction name="actionSystem_Settings"/>
+    <addaction name="actionCamera_Test"/>
    </widget>
    <widget class="QMenu" name="menuLog">
     <property name="title">
@@ -88,7 +83,6 @@
     </property>
    </widget>
    <addaction name="menuChannel_To_View"/>
-   <addaction name="menuCamera_Test"/>
    <addaction name="menuService"/>
    <addaction name="menuDatabase"/>
    <addaction name="menuParameter_Setting"/>
@@ -111,7 +105,7 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionMainWindow">
    <property name="icon">
-    <iconset resource="ico.qrc">
+    <iconset resource="../ico.qrc">
      <normaloff>:/UI_ICO/ICO/main-fill.svg</normaloff>:/UI_ICO/ICO/main-fill.svg</iconset>
    </property>
    <property name="text">
@@ -135,15 +129,18 @@
     <string>Ctrl+S</string>
    </property>
   </action>
-  <action name="actiontest">
+  <action name="actionCamera_Test">
    <property name="text">
-    <string>test</string>
+    <string>Camera Test</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
    </property>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="ico.qrc"/>
+  <include location="../ico.qrc"/>
  </resources>
  <connections/>
 </ui>

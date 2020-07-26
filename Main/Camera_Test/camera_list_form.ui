@@ -13,32 +13,47 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QListWidget" name="listWidget">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>50</y>
-     <width>141</width>
-     <height>192</height>
-    </rect>
-   </property>
-   <property name="selectionRectVisible">
-    <bool>false</bool>
-   </property>
-   <item>
-    <property name="text">
-     <string>qian</string>
-    </property>
-    <property name="checkState">
-     <enum>Checked</enum>
-    </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="0" column="0">
+    <widget class="QTreeWidget" name="CameraList">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>150</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+     </property>
+     <column>
+      <property name="text">
+       <string>Camera</string>
+      </property>
+      <property name="textAlignment">
+       <set>AlignCenter</set>
+      </property>
+     </column>
+    </widget>
    </item>
-   <item>
-    <property name="text">
-     <string>hou</string>
-    </property>
+   <item row="0" column="1" rowspan="2">
+    <layout class="QGridLayout" name="gridLayout"/>
    </item>
-  </widget>
+  </layout>
  </widget>
  <resources/>
  <connections/>

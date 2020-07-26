@@ -20,6 +20,10 @@ Setting_Form::Setting_Form(QWidget *parent) :
 
 Setting_Form::~Setting_Form()
 {
+    qDeleteAll(From_Map);
+
+    From_Map.clear();
+
     delete ui;
 }
 
@@ -33,8 +37,13 @@ void Setting_Form::showEvent(QShowEvent *event)
 
 void Setting_Form::initializingObject()
 {
+    channelSelect=0;
+
     p_System_Setting_From=nullptr;
     p_Channel_Setting_From=nullptr;
+
+    From_Map.append(p_System_Setting_From);
+    From_Map.append(p_Channel_Setting_From);
 }
 
 void Setting_Form::removeTheWindow()

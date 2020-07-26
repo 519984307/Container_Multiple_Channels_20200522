@@ -13,6 +13,7 @@
 #include "Channel_Data/channel_data_form.h"
 #include "Channel_Data/equipment_state_from.h"
 #include "Setting/setting_form.h"
+#include "Camera_Test/camera_list_form.h"
 
 namespace Ui {
 class MainWindow;
@@ -55,7 +56,7 @@ private:
     ///
     /// \brief setStatusBar 设置状态栏信息
     ///
-    void setStatusBar(QString msg);
+    void setStatusBar(const QString &msg);
 
     ///
     /// \brief mainWindow 主窗口信号与槽
@@ -98,8 +99,10 @@ private slots:
     ///
     void on_actionSystem_Settings_triggered();
 
-    //test
-    void on_actiontest_triggered();
+    ///
+    /// \brief on_actionCamera_Test_triggered 相机调试
+    ///
+    void on_actionCamera_Test_triggered();
 
 signals:
 
@@ -132,6 +135,11 @@ private:
     /// \brief Channel_Data_Action_Map 数据窗口工具栏字典集
     ///
     QMap<QAction*,int> Channel_Data_Action_Map;
+
+    ///
+    /// \brief From_Map 窗口类对象合集
+    ///
+    QList<QObject*> From_Map;
 
 private:
 
@@ -176,6 +184,11 @@ private:
     /// \brief p_Setting_From 设置窗口
     ///
     Setting_Form *p_Setting_From=nullptr;
+
+    ///
+    /// \brief p_Camera_List_From 相机窗口
+    ///
+    Camera_List_Form *p_Camera_List_From=nullptr;
 
     ///
     /// \brief permanentWidget 状态栏永久信息

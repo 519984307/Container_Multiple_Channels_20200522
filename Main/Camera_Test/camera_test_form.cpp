@@ -6,6 +6,12 @@ Camera_Test_Form::Camera_Test_Form(QWidget *parent) :
     ui(new Ui::Camera_Test_Form)
 {
     ui->setupUi(this);
+
+    this->setAttribute(Qt::WA_DeleteOnClose,true);
+
+    this->setParent(parent);
+    this->setHidden(true);
+    this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 }
 
 Camera_Test_Form::~Camera_Test_Form()
