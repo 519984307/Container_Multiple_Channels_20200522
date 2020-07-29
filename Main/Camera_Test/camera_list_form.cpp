@@ -24,6 +24,7 @@ Camera_List_Form::~Camera_List_Form()
 void Camera_List_Form::initializingObject()
 {
     p_Camera_Test_Form=nullptr;
+    takeItem=nullptr;
 
     channelSelect=0;
     CamerNameList<<"Front"<<"Before"<<"Left"<<"Right"<<"Top"<<"Plate";
@@ -48,20 +49,33 @@ void Camera_List_Form::initializesTheDeviceListSlot(int count, QStringList rowLa
             childItem->addChild(sunItem);
         }
     }
+
+    /*****************************
+     * 初始化显示第一项
+     ******************************/
+    QTreeWidgetItemIterator it(ui->CameraList);
+    while(*it){
+        if((*it)->childCount()==0){
+            ui->CameraList->setCurrentItem(*it);
+            emit on_CameraList_itemActivated(*it);
+            break;
+        }
+        it++;
+    }
 }
 
-void Camera_List_Form::on_CameraList_clicked(const QModelIndex &index)
+void Camera_List_Form::on_CameraList_itemActivated(QTreeWidgetItem *item)
 {
-    if(channelSelect!=index.row()+1){
+    if(takeItem!=item && item->childCount()==0){
+
+        removeTheWindow();
+
         if(p_Camera_Test_Form==nullptr){
-
-            removeTheWindow();
-
             p_Camera_Test_Form=new Camera_Test_Form (this);
             ui->gridLayout->addWidget(p_Camera_Test_Form);
             p_Camera_Test_Form->setVisible(true);
 
-            channelSelect=index.row()+1;
+            takeItem=item;
         }
     }
     else {

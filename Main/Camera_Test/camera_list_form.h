@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QDebug>
-#include <QModelIndex>
+#include <QTreeWidgetItemIterator>
 
 #include "Camera_Test/camera_test_form.h"
 
@@ -52,10 +52,12 @@ private slots:
     void initializesTheDeviceListSlot(int count, QStringList rowLabels);
 
     ///
-    /// \brief on_CameraList_clicked 数据项切换
-    /// \param index
+    /// \brief on_CameraList_itemActivated 数据项切换
+    /// \param item
+    /// \param column
     ///
-    void on_CameraList_clicked(const QModelIndex &index);
+    void on_CameraList_itemActivated(QTreeWidgetItem *item);
+
 
 private:
 
@@ -73,6 +75,7 @@ private:
     ///
     QStringList CamerNameList;
 
+
     /*****************************
      * object
      ******************************/
@@ -81,6 +84,11 @@ private:
     /// \brief p_Camera_Test_Form 相机预览窗口
     ///
     Camera_Test_Form* p_Camera_Test_Form=nullptr;
+
+    ///
+    /// \brief takeItem 当前选中项
+    ///
+    QTreeWidgetItem* takeItem;
 };
 
 #endif // CAMERA_LIST_FORM_H

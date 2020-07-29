@@ -71,10 +71,13 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
 
 void Setting_Form::on_channel_pushButton_clicked()
 {
+
+    channelSelect=0;
+
+    ui->listWidget->setCurrentRow(-1);
     ui->listWidget->setVisible(true);
     ui->listWidget->setFocus();
     ui->listWidget->setCurrentRow(0);
-    channelSelect=0;
 }
 
 void Setting_Form::on_system_pushButton_clicked()
@@ -82,7 +85,9 @@ void Setting_Form::on_system_pushButton_clicked()
     if(p_System_Setting_From==nullptr){
 
         removeTheWindow();
+
         ui->listWidget->setVisible(false);
+        //ui->listWidget->setCurrentRow(-1);
 
         p_System_Setting_From=new System_Setting_Form (this);
         ui->gridLayout->addWidget(p_System_Setting_From);
@@ -101,6 +106,7 @@ void Setting_Form::on_listWidget_currentRowChanged(int currentRow)
     * 列表选中项发生改变,才触发信号
     ******************************/
     if(channelSelect!=currentRow+1){
+
         removeTheWindow();
 
         if(p_Channel_Setting_From==nullptr){
