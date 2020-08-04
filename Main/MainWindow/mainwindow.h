@@ -14,6 +14,7 @@
 #include "Channel_Data/equipment_state_from.h"
 #include "Setting/setting_form.h"
 #include "Camera_Test/camera_list_form.h"
+#include "DataBase/database_form.h"
 
 namespace Ui {
 class MainWindow;
@@ -104,6 +105,11 @@ private slots:
     ///
     void on_actionCamera_Test_triggered();
 
+    ///
+    /// \brief on_actionHistory_Sqlite_triggered 查找历史记录
+    ///
+    void on_actionHistory_Sqlite_triggered();
+
 signals:
 
     /*****************************
@@ -141,8 +147,6 @@ private:
     ///
     QList<QObject*> From_Map;
 
-private:
-
     /*****************************
     * attribute
     ******************************/
@@ -161,8 +165,6 @@ private:
     /// \brief channelLabels 通道名称列表
     ///
     QStringList channelLabels;
-
-private:
 
     /*****************************
     * object
@@ -189,6 +191,11 @@ private:
     /// \brief p_Camera_List_From 相机窗口
     ///
     Camera_List_Form *p_Camera_List_From=nullptr;
+
+    ///
+    /// \brief p_DataBase_Form 数据库窗口
+    ///
+    DataBase_Form *p_DataBase_Form=nullptr;
 
     ///
     /// \brief permanentWidget 状态栏永久信息

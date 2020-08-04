@@ -59,6 +59,7 @@
     <property name="title">
      <string>&amp;Data</string>
     </property>
+    <addaction name="actionHistory_Sqlite"/>
    </widget>
    <widget class="QMenu" name="menuParameter_Setting">
     <property name="title">
@@ -135,6 +136,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+C</string>
+   </property>
+  </action>
+  <action name="actionHistory_Sqlite">
+   <property name="text">
+    <string>History</string>
+   </property>
+   <property name="toolTip">
+    <string>Search history</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F</string>
    </property>
   </action>
  </widget>

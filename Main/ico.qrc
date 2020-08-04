@@ -4,4 +4,13 @@
         <file>ICO/main-fill.svg</file>
         <file>ICO/container.svg</file>
     </qresource>
+    <qresource prefix="/database">
+        <file>ICO/向后.svg</file>
+        <file>ICO/向前.svg</file>
+        <file>ICO/最后.svg</file>
+        <file>ICO/最前.svg</file>
+        <file>ICO/查找.svg</file>
+        <file>ICO/表格.svg</file>
+        <file>ICO/导出表格.svg</file>
+    </qresource>
 </RCC>

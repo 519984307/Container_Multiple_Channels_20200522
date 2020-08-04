@@ -61,6 +61,10 @@ void MainWindow::removeTheWindow()
         delete p_Camera_List_From;
         p_Camera_List_From=nullptr;
     }
+    if(p_DataBase_Form!=nullptr){
+        delete p_DataBase_Form;
+        p_DataBase_Form=nullptr;
+    }
 }
 
 void MainWindow::initStatusBar()
@@ -69,22 +73,24 @@ void MainWindow::initStatusBar()
         permanentWidget = new QLabel (tr("The system is ready"),this);
     }
     permanentWidget->setStyleSheet("color: rgb(0, 85, 255);");
-    ui->statusBar->addPermanentWidget(permanentWidget);
+    ui->statusBar->addPermanentWidget(permanentWidget);       
 }
 
 void MainWindow::initializingObject()
-{
+{    
+    permanentWidget=nullptr;
+
     p_Channel_Data_Form=nullptr;
     p_Equipment_State_From=nullptr;
     p_Setting_From=nullptr;
     p_Camera_List_From=nullptr;
+    p_DataBase_Form=nullptr;
 
     From_Map.append(p_Channel_Data_Form);
     From_Map.append(p_Equipment_State_From);
     From_Map.append(p_Setting_From);
     From_Map.append(p_Camera_List_From);
-
-    permanentWidget=nullptr;        
+    From_Map.append(p_DataBase_Form);
 }
 
 void MainWindow::mainConnect()
@@ -209,7 +215,7 @@ void MainWindow::on_actionMainWindow_triggered()
 
         channelSelect=0;
 
-        setStatusBar("The system is ready");
+        setStatusBar(tr("The system is ready"));
     }
     else {
         qDebug()<<p_Equipment_State_From;
@@ -232,7 +238,7 @@ void MainWindow::on_actionSystem_Settings_triggered()
         fromConnet();
         emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
 
-        setStatusBar("Setting system parameters");
+        setStatusBar(tr("Setting system parameters"));
     }
     else {
         qDebug()<<p_Setting_From;
@@ -257,9 +263,29 @@ void MainWindow::on_actionCamera_Test_triggered()
 
         channelSelect=0;
 
-        setStatusBar("The camera debug");
+        setStatusBar(tr("The camera debug"));
     }
     else {
         qDebug()<<p_Camera_List_From;
+    }
+}
+
+void MainWindow::on_actionHistory_Sqlite_triggered()
+{
+    if(p_DataBase_Form==nullptr){
+
+        removeTheWindow();
+
+        p_DataBase_Form=new DataBase_Form (this);
+        ui->gridLayout_2->addWidget(p_DataBase_Form);
+        p_DataBase_Form->setVisible(true);
+
+
+        channelSelect=0;
+
+        setStatusBar(tr("Data query interface"));
+    }
+    else {
+        qDebug()<<p_DataBase_Form;
     }
 }

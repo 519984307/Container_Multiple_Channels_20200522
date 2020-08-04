@@ -119,13 +119,20 @@
        </widget>
       </item>
       <item row="8" column="0">
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
        <widget class="QLineEdit" name="lineEdit_9">
         <property name="placeholderText">
          <string>Gross weight</string>
         </property>
        </widget>
       </item>
-      <item row="9" column="0">
+      <item row="10" column="0">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -138,7 +145,7 @@
         </property>
        </spacer>
       </item>
-      <item row="10" column="0">
+      <item row="11" column="0">
        <widget class="QCheckBox" name="checkBox">
         <property name="text">
          <string>Show Plate</string>

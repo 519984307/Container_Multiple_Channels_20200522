@@ -36,7 +36,9 @@ SOURCES += \
     #Setting/setting_form_original.cpp
     Camera_Test/camera_test_form.cpp \
     MainWindow/mainwindow.cpp \
-    Camera_Test/camera_list_form.cpp
+    Camera_Test/camera_list_form.cpp \
+    DataBase/database_form.cpp \
+    DataBase/image_dialog.cpp
 
 HEADERS += \
     Channel_Data/channel_data_form.h \
@@ -49,7 +51,9 @@ HEADERS += \
     #Setting/setting_form_original.h
     Camera_Test/camera_test_form.h \
     MainWindow/mainwindow.h \
-    Camera_Test/camera_list_form.h
+    Camera_Test/camera_list_form.h \
+    DataBase/database_form.h \
+    DataBase/image_dialog.h
 
 FORMS += \
     Channel_Data/channel_data_form.ui \
@@ -60,7 +64,9 @@ FORMS += \
     Setting/main_dialog.ui \
     Camera_Test/camera_test_form.ui \
     MainWindow/mainwindow.ui \
-    Camera_Test/camera_list_form.ui
+    Camera_Test/camera_list_form.ui \
+    DataBase/database_form.ui \
+    DataBase/image_dialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
