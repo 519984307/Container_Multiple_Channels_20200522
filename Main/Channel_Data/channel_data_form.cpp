@@ -18,3 +18,28 @@ Channel_Data_Form::~Channel_Data_Form()
 {
     delete ui;
 }
+
+void Channel_Data_Form::resizeEvent(QResizeEvent *event)
+{
+    if(event->oldSize().height()!=-1){
+        int W=(event->size().width()-150)/3-6;
+        //int W= ui->groupBox_2->size().width()/3-4-4;
+        int H=event->size().height()/2-ui->label_2->size().height()-6;
+        //int H=ui->groupBox_2->size().height()/2-ui->label_2->size().height()-6;
+        if(W>0 && H>0){
+            ui->front_image_label->setFixedSize(QSize(W,H));
+            ui->front_image_label->size().scale(QSize(W,H),Qt::IgnoreAspectRatio);
+            ui->front_left_image_label->setFixedSize(QSize(W,H));
+            ui->front_left_image_label->size().scale(QSize(W,H),Qt::IgnoreAspectRatio);
+            ui->front_right_image_label->setFixedSize(QSize(W,H));
+            ui->front_right_image_label->size().scale(QSize(W,H),Qt::IgnoreAspectRatio);
+            ui->after_image_label->setFixedSize(QSize(W,H));
+            ui->after_image_label->size().scale(QSize(W,H),Qt::IgnoreAspectRatio);
+            ui->after_left_image_label->setFixedSize(QSize(W,H));
+            ui->after_left_image_label->size().scale(QSize(W,H),Qt::IgnoreAspectRatio);
+            ui->after_right_image_label->setFixedSize(QSize(W,H));
+            ui->after_right_image_label->size().scale(QSize(W,H),Qt::IgnoreAspectRatio);
+        }
+    }
+    return QWidget::resizeEvent(event);
+}

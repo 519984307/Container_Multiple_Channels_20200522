@@ -5,6 +5,7 @@
 #include <QEvent>
 #include <QPixmap>
 #include <QMouseEvent>
+#include <QResizeEvent>
 
 #include "image_dialog.h"
 
@@ -21,12 +22,18 @@ public:
     ~DataBase_Form();
 
     ///
-    /// \brief eventFilter 过滤事件
+    /// \brief eventFilter 动作事件
     /// \param obj
     /// \param event
     /// \return
     ///
     bool eventFilter(QObject *obj, QEvent *event);
+
+    ///
+    /// \brief resizeEvent 重写窗口调整事件
+    /// \param event
+    ///
+    void resizeEvent(QResizeEvent *event);
 
 private:
 

@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    getScreenInfo();
+    getScreenInfo(); 
 
     initializingObject();
     initStatusBar();
@@ -38,9 +38,14 @@ void MainWindow::clearnContainer()
 
 void MainWindow::getScreenInfo()
 {
+//    Qt::WindowFlags flags = nullptr;
+//    flags |= Qt::WindowMinimizeButtonHint;
+//    setWindowFlags(flags); // 设置禁止最大化
+
     QDesktopWidget* desktop=QApplication::desktop();
     QRect rect=desktop->screenGeometry();
     this->resize(QSize(rect.width(),rect.height()));
+    //this->setFixedSize(QSize(rect.width(),rect.height()));
 }
 
 void MainWindow::removeTheWindow()
