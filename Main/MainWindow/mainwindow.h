@@ -9,12 +9,17 @@
 #include <QAction>
 #include <QLabel>
 
-/* UI */
+/*****************************
+* UI
+******************************/
 #include "Channel_Data/channel_data_form.h"
 #include "Channel_Data/equipment_state_from.h"
 #include "Setting/setting_form.h"
 #include "Camera_Test/camera_list_form.h"
 #include "DataBase/database_form.h"
+#include "Log/communication_logs_form.h"
+#include "Log/operational_log_form.h"
+#include "Log/identify_the_log_form.h"
 
 namespace Ui {
 class MainWindow;
@@ -82,7 +87,7 @@ private:
 private slots:
 
     /*****************************
-    * Slot
+    * trigger
     ******************************/
 
     ///
@@ -96,9 +101,9 @@ private slots:
     void on_actionMainWindow_triggered();
 
     ///
-    /// \brief on_actionSystem_Settings_triggered 系统设置
+    /// \brief on_actionParameter_Settings_triggered 系统参数设置
     ///
-    void on_actionSystem_Settings_triggered();
+    void on_actionParameter_Settings_triggered();
 
     ///
     /// \brief on_actionCamera_Test_triggered 相机调试
@@ -109,6 +114,21 @@ private slots:
     /// \brief on_actionHistory_Sqlite_triggered 查找历史记录
     ///
     void on_actionHistory_Sqlite_triggered();
+
+    ///
+    /// \brief on_actionOperational_log_triggered 系统运维日志
+    ///
+    void on_actionOperational_log_triggered();
+
+    ///
+    /// \brief on_actioncommunication_triggered 数据通讯日志
+    ///
+    void on_actionCommunication_log_triggered();
+
+    ///
+    /// \brief on_actionIdentify_the_log_triggered 识别日志
+    ///
+    void on_actionIdentify_the_log_triggered();
 
 signals:
 
@@ -201,6 +221,21 @@ private:
     /// \brief permanentWidget 状态栏永久信息
     ///
     QLabel *permanentWidget=nullptr;
+
+    ///
+    /// \brief p_Communication_Logs_Form 通信日志窗口
+    ///
+    Communication_Logs_Form *p_Communication_Logs_Form=nullptr;
+
+    ///
+    /// \brief p_Operational_Log_Form 运维日志窗口
+    ///
+    Operational_Log_Form *p_Operational_Log_Form=nullptr;
+
+    ///
+    /// \brief p_Identify_The_Log_Form 识别器日志窗口
+    ///
+    Identify_The_Log_Form *p_Identify_The_Log_Form=nullptr;
 };
 
 #endif // MAINWINDOW_H

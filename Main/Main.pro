@@ -38,7 +38,10 @@ SOURCES += \
     MainWindow/mainwindow.cpp \
     Camera_Test/camera_list_form.cpp \
     DataBase/database_form.cpp \
-    DataBase/image_dialog.cpp
+    DataBase/image_dialog.cpp \
+    Log/operational_log_form.cpp \
+    Log/communication_logs_form.cpp \
+    Log/identify_the_log_form.cpp
 
 HEADERS += \
     Channel_Data/channel_data_form.h \
@@ -53,7 +56,10 @@ HEADERS += \
     MainWindow/mainwindow.h \
     Camera_Test/camera_list_form.h \
     DataBase/database_form.h \
-    DataBase/image_dialog.h
+    DataBase/image_dialog.h \
+    Log/operational_log_form.h \
+    Log/communication_logs_form.h \
+    Log/identify_the_log_form.h
 
 FORMS += \
     Channel_Data/channel_data_form.ui \
@@ -66,7 +72,10 @@ FORMS += \
     MainWindow/mainwindow.ui \
     Camera_Test/camera_list_form.ui \
     DataBase/database_form.ui \
-    DataBase/image_dialog.ui
+    DataBase/image_dialog.ui \
+    Log/operational_log_form.ui \
+    Log/communication_logs_form.ui \
+    Log/identify_the_log_form.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

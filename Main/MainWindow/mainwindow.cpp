@@ -38,14 +38,9 @@ void MainWindow::clearnContainer()
 
 void MainWindow::getScreenInfo()
 {
-//    Qt::WindowFlags flags = nullptr;
-//    flags |= Qt::WindowMinimizeButtonHint;
-//    setWindowFlags(flags); // 设置禁止最大化
-
     QDesktopWidget* desktop=QApplication::desktop();
     QRect rect=desktop->screenGeometry();
     this->resize(QSize(rect.width(),rect.height()));
-    //this->setFixedSize(QSize(rect.width(),rect.height()));
 }
 
 void MainWindow::removeTheWindow()
@@ -70,6 +65,18 @@ void MainWindow::removeTheWindow()
         delete p_DataBase_Form;
         p_DataBase_Form=nullptr;
     }
+    if(p_Communication_Logs_Form!=nullptr){
+        delete p_Communication_Logs_Form;
+        p_Communication_Logs_Form=nullptr;
+    }
+    if(p_Operational_Log_Form!=nullptr){
+        delete p_Operational_Log_Form;
+        p_Operational_Log_Form=nullptr;
+    }
+    if(p_Identify_The_Log_Form!=nullptr){
+        delete p_Identify_The_Log_Form;
+        p_Identify_The_Log_Form=nullptr;
+    }
 }
 
 void MainWindow::initStatusBar()
@@ -90,12 +97,18 @@ void MainWindow::initializingObject()
     p_Setting_From=nullptr;
     p_Camera_List_From=nullptr;
     p_DataBase_Form=nullptr;
+    p_Communication_Logs_Form=nullptr;
+    p_Identify_The_Log_Form=nullptr;
+    p_Operational_Log_Form=nullptr;
 
     From_Map.append(p_Channel_Data_Form);
     From_Map.append(p_Equipment_State_From);
     From_Map.append(p_Setting_From);
     From_Map.append(p_Camera_List_From);
     From_Map.append(p_DataBase_Form);
+    From_Map.append(p_Communication_Logs_Form);
+    From_Map.append(p_Identify_The_Log_Form);
+    From_Map.append(p_Operational_Log_Form);
 }
 
 void MainWindow::mainConnect()
@@ -227,7 +240,7 @@ void MainWindow::on_actionMainWindow_triggered()
     }
 }
 
-void MainWindow::on_actionSystem_Settings_triggered()
+void MainWindow::on_actionParameter_Settings_triggered()
 {
     if(p_Setting_From==nullptr){
 
@@ -292,5 +305,65 @@ void MainWindow::on_actionHistory_Sqlite_triggered()
     }
     else {
         qDebug()<<p_DataBase_Form;
+    }
+}
+
+void MainWindow::on_actionOperational_log_triggered()
+{
+    if(p_Operational_Log_Form==nullptr){
+
+        removeTheWindow();
+
+        p_Operational_Log_Form=new Operational_Log_Form (this);
+        ui->gridLayout_2->addWidget(p_Operational_Log_Form);
+        p_Operational_Log_Form->setVisible(true);
+
+
+        channelSelect=0;
+
+        setStatusBar(tr("System operation and maintenance log"));
+    }
+    else {
+        qDebug()<<p_Operational_Log_Form;
+    }
+}
+
+void MainWindow::on_actionIdentify_the_log_triggered()
+{
+    if(p_Identify_The_Log_Form==nullptr){
+
+        removeTheWindow();
+
+        p_Identify_The_Log_Form=new Identify_The_Log_Form (this);
+        ui->gridLayout_2->addWidget(p_Identify_The_Log_Form);
+        p_Identify_The_Log_Form->setVisible(true);
+
+
+        channelSelect=0;
+
+        setStatusBar(tr("Identification result log"));
+    }
+    else {
+        qDebug()<<p_Identify_The_Log_Form;
+    }
+}
+
+void MainWindow::on_actionCommunication_log_triggered()
+{
+    if(p_Communication_Logs_Form==nullptr){
+
+        removeTheWindow();
+
+        p_Communication_Logs_Form=new Communication_Logs_Form (this);
+        ui->gridLayout_2->addWidget(p_Communication_Logs_Form);
+        p_Communication_Logs_Form->setVisible(true);
+
+
+        channelSelect=0;
+
+        setStatusBar(tr("System communication log"));
+    }
+    else {
+        qDebug()<<p_Communication_Logs_Form;
     }
 }

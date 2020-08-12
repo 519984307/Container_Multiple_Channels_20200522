@@ -36,7 +36,7 @@ CaptureImages_SDK_HCNET::CaptureImages_SDK_HCNET(QObject *parent)
 
 CaptureImages_SDK_HCNET::~CaptureImages_SDK_HCNET()
 {
-    delete CaptureImages_SDK_HCNET::pThis;
+    //delete CaptureImages_SDK_HCNET::pThis;
     CaptureImages_SDK_HCNET::pThis=nullptr;
 
     if(NET_DVR_Cleanup_L!=nullptr){
@@ -211,9 +211,9 @@ bool CaptureImages_SDK_HCNET::putCommandSlot(const int &imgNumber, const QString
         pJpegFile.wPicQuality=0;
 
         if(NET_DVR_CaptureJPEGPicture_NEW_L!=nullptr && NET_DVR_CaptureJPEGPicture_NEW_L(lUserID,1,&pJpegFile,buff,charLen,dataLen)){
-            QByteArray arrayJpg=QByteArray::fromRawData(buff,*dataLen);
+           // QByteArray arrayJpg=QByteArray::fromRawData(buff,*dataLen);
             //QByteArray arrayJpg(buff,IMG_BYTE);
-            //QByteArray arrayJpg(buff,*dataLen);
+            QByteArray arrayJpg(*buff,*dataLen);
             emit pictureStreamSignal(arrayJpg,imgNumber,imgTime);
             emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(camerIp));
         }
