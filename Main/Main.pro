@@ -46,6 +46,7 @@ SOURCES += \
 HEADERS += \
     Channel_Data/channel_data_form.h \
     Channel_Data/equipment_state_from.h \
+    MainWindow/Processing/parameter.h \
     Setting/setting_form.h \
     Setting/channel_setting_form.h \
     Setting/system_setting_form.h \
@@ -84,3 +85,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     ico.qrc
+
+MOC_DIR=tmp/moc
+RCC_DIR=tmp/rcc
+UI_DIR=tmp/ui
+OBJECTS_DIR=tmp/obj

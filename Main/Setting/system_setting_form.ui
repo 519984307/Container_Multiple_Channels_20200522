@@ -32,7 +32,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
@@ -76,10 +76,10 @@
               <string>Save Image One</string>
              </property>
              <property name="checkable">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <property name="checked">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <layout class="QGridLayout" name="gridLayout_4">
               <item row="1" column="1">
@@ -90,14 +90,14 @@
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QPushButton" name="CheckPathPushButton_3">
+               <widget class="QPushButton" name="CheckPathPushButton">
                 <property name="text">
                  <string>Check Path</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QComboBox" name="ImageFormat_3">
+               <widget class="QComboBox" name="ImageFormat">
                 <property name="editable">
                  <bool>false</bool>
                 </property>
@@ -144,7 +144,7 @@
                </widget>
               </item>
               <item row="0" column="0">
-               <widget class="QLineEdit" name="ImgPathlineEdit_3">
+               <widget class="QLineEdit" name="ImgPathlineEdit">
                 <property name="placeholderText">
                  <string>/home/cc/</string>
                 </property>
@@ -154,83 +154,37 @@
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QGroupBox" name="SaveImage_2">
+            <widget class="QGroupBox" name="ImageNaming">
              <property name="title">
-              <string>Save Image Two</string>
+              <string>Image naming rules</string>
              </property>
              <property name="checkable">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <property name="checked">
               <bool>false</bool>
              </property>
              <layout class="QGridLayout" name="gridLayout_6">
               <item row="0" column="0">
-               <widget class="QLineEdit" name="ImgPathlineEdit_4">
-                <property name="placeholderText">
-                 <string>/home/cc/</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QPushButton" name="CheckPathPushButton_4">
-                <property name="text">
-                 <string>Check Path</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QComboBox" name="ImageFormat_4">
+               <widget class="QComboBox" name="ImageNamingRules">
                 <property name="editable">
                  <bool>false</bool>
                 </property>
                 <item>
                  <property name="text">
-                  <string>CHANNEL/YYYY/MM/DD/</string>
+                  <string>DateTime-Channel-Number</string>
                  </property>
                 </item>
                 <item>
                  <property name="text">
-                  <string>CHANNEL/YYYY/MM/</string>
+                  <string>DateTime-Number-Channel</string>
                  </property>
                 </item>
                 <item>
                  <property name="text">
-                  <string>CHANNEL/YYYY/</string>
+                  <string>DateTime-Result</string>
                  </property>
                 </item>
-                <item>
-                 <property name="text">
-                  <string>CHANNEL/</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>YYYY/MM/DD/</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>YYYY/MM/</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>YYYY/</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>/</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QLabel" name="label_5">
-                <property name="text">
-                 <string>Path Format</string>
-                </property>
                </widget>
               </item>
              </layout>
@@ -351,6 +305,119 @@
            </item>
           </layout>
          </widget>
+         <widget class="QWidget" name="Upload">
+          <attribute name="title">
+           <string>Upload</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_15">
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="ReduceImage">
+             <property name="text">
+              <string>Reduce image</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>15</width>
+               <height>53</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="Ftp">
+             <property name="title">
+              <string>Ftp</string>
+             </property>
+             <property name="flat">
+              <bool>false</bool>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_5">
+              <item row="0" column="1">
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <item>
+                 <widget class="QLineEdit" name="FtpUser"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="FtpPassword"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="FtpAddress"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="FtpPort"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="FtpRemote"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="FtpLocal"/>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="0">
+               <layout class="QVBoxLayout" name="verticalLayout">
+                <item>
+                 <widget class="QLabel" name="label">
+                  <property name="text">
+                   <string>                            User:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
+                   <string>                    Password:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>                       Address:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_5">
+                  <property name="text">
+                   <string>                              Port:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_6">
+                  <property name="text">
+                   <string>The remote directory:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_7">
+                  <property name="text">
+                   <string>            Local directory:</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="Service">
           <attribute name="title">
            <string>Service</string>
@@ -467,12 +534,12 @@
                <widget class="QComboBox" name="Service_Type_comboBox">
                 <item>
                  <property name="text">
-                  <string>Single mode</string>
+                  <string>One service corresponds to all channels (Need to respond to channel instruction [L|Number])</string>
                  </property>
                 </item>
                 <item>
                  <property name="text">
-                  <string>multimode</string>
+                  <string>One service corresponds to one channel</string>
                  </property>
                 </item>
                </widget>
@@ -536,7 +603,7 @@
              </layout>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="2" column="0">
             <widget class="QGroupBox" name="groupBox_7">
              <property name="title">
               <string>Select the language</string>
@@ -562,7 +629,7 @@
              </layout>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="3" column="0">
             <spacer name="verticalSpacer_3">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -575,6 +642,29 @@
              </property>
             </spacer>
            </item>
+           <item row="1" column="0">
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>Start</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_16">
+              <item row="0" column="0">
+               <widget class="QCheckBox" name="StartupMinimization">
+                <property name="text">
+                 <string>Startup minimization</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QCheckBox" name="AutomaticStart">
+                <property name="text">
+                 <string>Automatic start</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
           </layout>
          </widget>
         </widget>
@@ -586,5 +676,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>Service_Type_comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>Service_Type_stackedWidget</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>416</x>
+     <y>177</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>449</x>
+     <y>206</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

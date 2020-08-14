@@ -24,23 +24,22 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::getScreenInfo()
+{
+    QRect rect=QGuiApplication::screens().at(0)->geometry();
+    this->resize(QSize(rect.width(),rect.height()));
+}
+
 void MainWindow::clearnContainer()
 {
     /*****************************
     * 删除所有窗口对象
     ******************************/
-    qDeleteAll (From_Map);
+    qDeleteAll (Form_Map);
     qDeleteAll(Channel_Data_Action_Map.keys());
 
     Channel_Data_Action_Map.clear();
-    From_Map.clear();
-}
-
-void MainWindow::getScreenInfo()
-{
-    QDesktopWidget* desktop=QApplication::desktop();
-    QRect rect=desktop->screenGeometry();
-    this->resize(QSize(rect.width(),rect.height()));
+    Form_Map.clear();
 }
 
 void MainWindow::removeTheWindow()
@@ -49,17 +48,17 @@ void MainWindow::removeTheWindow()
         delete p_Channel_Data_Form;
         p_Channel_Data_Form=nullptr;
     }
-    if(p_Setting_From!=nullptr){
-        delete p_Setting_From;
-        p_Setting_From=nullptr;
+    if(p_Setting_Form!=nullptr){
+        delete p_Setting_Form;
+        p_Setting_Form=nullptr;
     }
-    if(p_Equipment_State_From!=nullptr){
-        delete p_Equipment_State_From;
-        p_Equipment_State_From=nullptr;
+    if(p_Equipment_State_Form!=nullptr){
+        delete p_Equipment_State_Form;
+        p_Equipment_State_Form=nullptr;
     }
-    if(p_Camera_List_From!=nullptr){
-        delete p_Camera_List_From;
-        p_Camera_List_From=nullptr;
+    if(p_Camera_List_Form!=nullptr){
+        delete p_Camera_List_Form;
+        p_Camera_List_Form=nullptr;
     }
     if(p_DataBase_Form!=nullptr){
         delete p_DataBase_Form;
@@ -79,36 +78,27 @@ void MainWindow::removeTheWindow()
     }
 }
 
-void MainWindow::initStatusBar()
-{
-    if(permanentWidget==nullptr){
-        permanentWidget = new QLabel (tr("The system is ready"),this);
-    }
-    permanentWidget->setStyleSheet("color: rgb(0, 85, 255);");
-    ui->statusBar->addPermanentWidget(permanentWidget);       
-}
-
 void MainWindow::initializingObject()
 {    
     permanentWidget=nullptr;
 
     p_Channel_Data_Form=nullptr;
-    p_Equipment_State_From=nullptr;
-    p_Setting_From=nullptr;
-    p_Camera_List_From=nullptr;
+    p_Equipment_State_Form=nullptr;
+    p_Setting_Form=nullptr;
+    p_Camera_List_Form=nullptr;
     p_DataBase_Form=nullptr;
     p_Communication_Logs_Form=nullptr;
     p_Identify_The_Log_Form=nullptr;
     p_Operational_Log_Form=nullptr;
 
-    From_Map.append(p_Channel_Data_Form);
-    From_Map.append(p_Equipment_State_From);
-    From_Map.append(p_Setting_From);
-    From_Map.append(p_Camera_List_From);
-    From_Map.append(p_DataBase_Form);
-    From_Map.append(p_Communication_Logs_Form);
-    From_Map.append(p_Identify_The_Log_Form);
-    From_Map.append(p_Operational_Log_Form);
+    Form_Map.append(p_Channel_Data_Form);
+    Form_Map.append(p_Equipment_State_Form);
+    Form_Map.append(p_Setting_Form);
+    Form_Map.append(p_Camera_List_Form);
+    Form_Map.append(p_DataBase_Form);
+    Form_Map.append(p_Communication_Logs_Form);
+    Form_Map.append(p_Identify_The_Log_Form);
+    Form_Map.append(p_Operational_Log_Form);
 }
 
 void MainWindow::mainConnect()
@@ -121,34 +111,43 @@ void MainWindow::mainConnect()
     }
 }
 
-void MainWindow::fromConnet()
+void MainWindow::formConnet()
 {
-    if(p_Equipment_State_From!=nullptr){
+    if(p_Equipment_State_Form!=nullptr){
 
         /*****************************
         * 初始化通道状态
         ******************************/
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_From,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_Form,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
 
         /*****************************
         * 设置通道设备状态
         ******************************/
-        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_From,SLOT(setDeviceStatusSlot(int,int,bool)));
+        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_Form,SLOT(setDeviceStatusSlot(int,int,bool)));
     }
 
-    if(p_Setting_From!=nullptr){
+    if(p_Setting_Form!=nullptr){
         /*****************************
         * 初始化设置窗口通道设备列表
         ******************************/
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_From,SLOT(initializesTheDeviceListSlot(int,QStringList)));
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
     }
 
-    if(p_Camera_List_From!=nullptr){
+    if(p_Camera_List_Form!=nullptr){
         /*****************************
        * 初始化通道列表
        ******************************/
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Camera_List_From,SLOT(initializesTheDeviceListSlot(int,QStringList)));
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Camera_List_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
     }
+}
+
+void MainWindow::initStatusBar()
+{
+    if(permanentWidget==nullptr){
+        permanentWidget = new QLabel (tr("The system is ready"),this);
+    }
+    permanentWidget->setStyleSheet("color: rgb(0, 85, 255);");
+    ui->statusBar->addPermanentWidget(permanentWidget);
 }
 
 void MainWindow::initializationParameter()
@@ -217,18 +216,18 @@ void MainWindow::actionTiggeredSlot()
 
 void MainWindow::on_actionMainWindow_triggered()
 {
-    if(p_Equipment_State_From==nullptr){
+    if(p_Equipment_State_Form==nullptr){
 
         removeTheWindow();
 
-        p_Equipment_State_From=new Equipment_State_From (this);
-        ui->gridLayout_2->addWidget(p_Equipment_State_From);
-        p_Equipment_State_From->setVisible(true);
+        p_Equipment_State_Form=new Equipment_State_From (this);
+        ui->gridLayout_2->addWidget(p_Equipment_State_Form);
+        p_Equipment_State_Form->setVisible(true);
 
         /*****************************
         * 初始化设备
         ******************************/
-        fromConnet();
+        formConnet();
         emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
 
         channelSelect=0;
@@ -236,47 +235,47 @@ void MainWindow::on_actionMainWindow_triggered()
         setStatusBar(tr("The system is ready"));
     }
     else {
-        qDebug()<<p_Equipment_State_From;
+        qDebug()<<p_Equipment_State_Form;
     }
 }
 
 void MainWindow::on_actionParameter_Settings_triggered()
 {
-    if(p_Setting_From==nullptr){
+    if(p_Setting_Form==nullptr){
 
         removeTheWindow();
 
-        p_Setting_From=new Setting_Form (this);
-        ui->gridLayout_2->addWidget(p_Setting_From);
-        p_Setting_From->setVisible(true);
+        p_Setting_Form=new Setting_Form (this);
+        ui->gridLayout_2->addWidget(p_Setting_Form);
+        p_Setting_Form->setVisible(true);
 
         /*****************************
         * 初始化通道
         ******************************/
-        fromConnet();
+        formConnet();
         emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
 
         setStatusBar(tr("Setting system parameters"));
     }
     else {
-        qDebug()<<p_Setting_From;
+        qDebug()<<p_Setting_Form;
     }
 }
 
 void MainWindow::on_actionCamera_Test_triggered()
 {
-    if(p_Camera_List_From==nullptr){
+    if(p_Camera_List_Form==nullptr){
 
         removeTheWindow();
 
-        p_Camera_List_From=new Camera_List_Form (this);
-        ui->gridLayout_2->addWidget(p_Camera_List_From);
-        p_Camera_List_From->setVisible(true);
+        p_Camera_List_Form=new Camera_List_Form (this);
+        ui->gridLayout_2->addWidget(p_Camera_List_Form);
+        p_Camera_List_Form->setVisible(true);
 
         /*****************************
         * 初始化设备
         ******************************/
-        fromConnet();
+        formConnet();
         emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
 
         channelSelect=0;
@@ -284,7 +283,7 @@ void MainWindow::on_actionCamera_Test_triggered()
         setStatusBar(tr("The camera debug"));
     }
     else {
-        qDebug()<<p_Camera_List_From;
+        qDebug()<<p_Camera_List_Form;
     }
 }
 

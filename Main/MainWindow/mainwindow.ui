@@ -79,16 +79,10 @@
      <string>Help</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuWindow">
-    <property name="title">
-     <string>Window</string>
-    </property>
-   </widget>
    <addaction name="menuChannel_To_View"/>
    <addaction name="menuDatabase"/>
    <addaction name="menuParameter_Setting"/>
    <addaction name="menuLog"/>
-   <addaction name="menuWindow"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">

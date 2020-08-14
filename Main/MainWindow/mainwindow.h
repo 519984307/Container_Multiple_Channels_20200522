@@ -8,6 +8,7 @@
 #include <QMap>
 #include <QAction>
 #include <QLabel>
+#include <QScreen>
 
 /*****************************
 * UI
@@ -36,7 +37,7 @@ public:
 private:
 
     /*****************************
-    * Func
+    * func
     ******************************/
 
     ///
@@ -70,9 +71,9 @@ private:
     void mainConnect();
 
     ///
-    /// \brief fromConnet 子窗口信号与槽
+    /// \brief formConnet 子窗口信号与槽
     ///
-    void fromConnet();
+    void formConnet();
 
     ///
     /// \brief initStatusBar 初始化状态栏
@@ -87,7 +88,7 @@ private:
 private slots:
 
     /*****************************
-    * trigger
+    * triggerd
     ******************************/
 
     ///
@@ -133,7 +134,7 @@ private slots:
 signals:
 
     /*****************************
-    * Signal
+    * signal
     ******************************/
 
     ///
@@ -154,7 +155,7 @@ signals:
 private:
 
     /*****************************
-    * The container
+    * container
     ******************************/
 
     ///
@@ -163,9 +164,9 @@ private:
     QMap<QAction*,int> Channel_Data_Action_Map;
 
     ///
-    /// \brief From_Map 窗口类对象合集
+    /// \brief Form_Map 窗口类对象合集
     ///
-    QList<QObject*> From_Map;
+    QList<QObject*> Form_Map;
 
     /*****************************
     * attribute
@@ -198,19 +199,19 @@ private:
     Channel_Data_Form *p_Channel_Data_Form=nullptr;
 
     ///
-    /// \brief p_Equipment_State_From 设备列表窗口
+    /// \brief p_Equipment_State_Form 设备列表窗口
     ///
-    Equipment_State_From *p_Equipment_State_From=nullptr;
+    Equipment_State_From *p_Equipment_State_Form=nullptr;
 
     ///
-    /// \brief p_Setting_From 设置窗口
+    /// \brief p_Setting_Form 设置窗口
     ///
-    Setting_Form *p_Setting_From=nullptr;
+    Setting_Form *p_Setting_Form=nullptr;
 
     ///
-    /// \brief p_Camera_List_From 相机窗口
+    /// \brief p_Camera_List_Form 相机窗口
     ///
-    Camera_List_Form *p_Camera_List_From=nullptr;
+    Camera_List_Form *p_Camera_List_Form=nullptr;
 
     ///
     /// \brief p_DataBase_Form 数据库窗口
