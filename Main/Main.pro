@@ -46,6 +46,7 @@ SOURCES += \
 HEADERS += \
     Channel_Data/channel_data_form.h \
     Channel_Data/equipment_state_from.h \
+    MainWindow/Processing/channelparameter.h \
     MainWindow/Processing/parameter.h \
     Setting/setting_form.h \
     Setting/channel_setting_form.h \

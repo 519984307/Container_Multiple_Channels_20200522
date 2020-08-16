@@ -18,3 +18,28 @@ Channel_Setting_Form::~Channel_Setting_Form()
 {
     delete ui;
 }
+
+void Channel_Setting_Form::InitializationParameter()
+{
+
+}
+
+bool Channel_Setting_Form::loadParameter()
+{
+
+}
+
+bool Channel_Setting_Form::writeParameter()
+{
+
+}
+
+void Channel_Setting_Form::parameterToUi()
+{
+
+}
+
+QVariant Channel_Setting_Form::getJsonValue(const QString &child, const QString &key, QJsonObject obj)
+{
+
+}

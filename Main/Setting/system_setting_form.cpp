@@ -26,6 +26,8 @@ System_Setting_Form::~System_Setting_Form()
 
 void System_Setting_Form::InitializationParameter()
 {
+    p_Parameter=new Parameter ();
+
     /*****************************
     * @brief:创建配置文件夹
     ******************************/
@@ -35,10 +37,18 @@ void System_Setting_Form::InitializationParameter()
 
     configurationFolder.setFileName(QDir::toNativeSeparators(QString("%1/%2").arg(mkPath.path()).arg("System.json")));
 
-    p_Parameter=new Parameter ();
-
     connect(ui->Contains_pushButton,SIGNAL(clicked()),this,SLOT(conditionsOfButton_clicked()));
     connect(ui->Eliminate_pushButton,SIGNAL(clicked()),this,SLOT(conditionsOfButton_clicked()));
+
+    /* 加载配置 */
+    if(!loadParameter()){
+        if(writeParameter()){
+            loadParameter();
+        }
+    }
+    else {/* 外部更改配置,回写配置到UI */
+        parameterToUi();
+    }
 }
 
 bool System_Setting_Form::loadParameter()
@@ -135,10 +145,14 @@ bool System_Setting_Form::writeParameter()
     * @brief:Channel
     ******************************/
     QJsonObject obj1;
+    obj1.insert("channelNumber?",tr("?Set the software to control the number of channels"));
     obj1.insert("channelNumber",ui->ChannelNumber->value());
+    obj1.insert("ImageFormat?",tr("?Format the image save path"));
     obj1.insert("ImageFormat",ui->ImageFormat->currentIndex());
+    obj1.insert("ImagePath?",tr("?Set the image to save the root directory"));
     obj1.insert("ImagePath",ui->ImgPathlineEdit->text());
-    obj1.insert("ImageNamingRules",ui->ImageNamingRules->currentIndex());
+    obj1.insert("ImageNamingRules?",tr("?Save image naming conventions"));
+    obj1.insert("ImageNamingRules",(int)ui->ImageNamingRules->currentIndex());
     jsonChild.insert("Channel",QJsonValue(obj1));
 
     /*****************************
@@ -146,9 +160,11 @@ bool System_Setting_Form::writeParameter()
     ******************************/
     QJsonObject obj2;
     if(ui->ColorDisplay->isChecked()){
-        obj2.insert("ResultsTheCheck",0);
+        obj2.insert("ResultsTheCheck?",tr("?Identify validation rules for results"));
+        obj2.insert("ResultsTheCheck",0);       
     }
     else if (ui->AutomaticCorrection->isChecked()) {
+        obj2.insert("ResultsTheCheck?",tr("?Identify validation rules for results"));
         obj2.insert("ResultsTheCheck",1);
     }
     jsonChild.insert("Recognizer",QJsonValue(obj2));
@@ -157,14 +173,22 @@ bool System_Setting_Form::writeParameter()
     * @brief:Upload
     ******************************/
     QJsonObject obj3;
+    obj3.insert("Ftp?",tr("?Whether to upload pictures or not"));
     obj3.insert("Ftp",(int)ui->Ftp->isChecked());
+    obj3.insert("FtpUser?",tr("?Upload image username"));
     obj3.insert("FtpUser",ui->FtpUser->text());
+    obj3.insert("FtpPassword?",tr("?Upload image user password"));
     obj3.insert("FtpPassword",ui->FtpPassword->text());
+    obj3.insert("FtpAddress?",tr("?Upload picture address"));
     obj3.insert("FtpAddress",ui->FtpAddress->text());
+    obj3.insert("FtpPort?",tr("?Upload image port"));
     obj3.insert("FtpPort",ui->FtpPort->text());
+    obj3.insert("FtpRemotePath?",tr("?Upload picture server directory"));
     obj3.insert("FtpRemotePath",ui->FtpRemote->text());
+    obj3.insert("FtpLocalPath?",tr("?Upload picture native directory"));
     obj3.insert("FtpLocalPath",ui->FtpLocal->text());
-    obj3.insert("ReduceImage",ui->ReduceImage->isChecked());
+    obj3.insert("ReduceImage?",tr("?Whether to zoom out the uploaded image"));
+    obj3.insert("ReduceImage",(int)ui->ReduceImage->isChecked());
     jsonChild.insert("Upload",QJsonValue(obj3));
 
     /*****************************
@@ -172,15 +196,22 @@ bool System_Setting_Form::writeParameter()
     ******************************/
     QJsonObject obj4;
     if(ui->ClientModel->isChecked()){
-        obj4.insert(tr("ServiceModel"),0);
+        obj4.insert("ServiceModel?",tr("?TCP data transfer mode"));
+        obj4.insert("ServiceModel",0);
     }
     if(ui->ServerModel->isChecked()){
-        obj4.insert(tr("ServiceModel"),1);
+        obj4.insert("ServiceModel?",tr("?TCP data transfer mode"));
+        obj4.insert("ServiceModel",1);
     }
+    obj4.insert("Service_Type?",tr("?TCP data transfer type"));
     obj4.insert("Service_Type",ui->Service_Type_comboBox->currentIndex());
+    obj4.insert("SingletonAddress?",tr("?Single TCP mode address"));
     obj4.insert("SingletonAddress",ui->Address_Singleton_lineEdit->text());
+    obj4.insert("ManyCasesAddress?",tr("?Multitcp mode address group"));
     obj4.insert("ManyCasesAddress",ui->Address_Many_textEdit->toPlainText());
+    obj4.insert("Heartbeat?",tr("?Whether to send heartbeat packets"));
     obj4.insert("Heartbeat",int(ui->Hearbeat_checkBox->isChecked()));
+    obj4.insert("Resultting?",tr("?Whether to send only result sets"));
     obj4.insert("Resultting",int(ui->Resulting_checkBox->isChecked()));
     jsonChild.insert("Service",QJsonValue(obj4));
 
@@ -188,11 +219,16 @@ bool System_Setting_Form::writeParameter()
     * @brief:Other
     ******************************/
     QJsonObject obj5;
-    obj5.insert(tr("InfoLog"),int(ui->InfoLog->isChecked()));
-    obj5.insert(tr("DebugLog"),int(ui->DebugLog->isChecked()));
-    obj5.insert(tr("Minimization"),int(ui->StartupMinimization->isChecked()));
-    obj5.insert(tr("Language"), ui->Language->currentIndex());
-    obj5.insert(tr("Automatic"),int(ui->AutomaticStart->isChecked()));
+    obj5.insert("InfoLog?",tr("?Whether to keep running logs"));
+    obj5.insert("InfoLog",int(ui->InfoLog->isChecked()));
+    obj5.insert("DebugLog?",tr("?Whether to maintain operation and maintenance log"));
+    obj5.insert("DebugLog",int(ui->DebugLog->isChecked()));
+    obj5.insert("Minimization?",tr("?Startup minimization"));
+    obj5.insert("Minimization",int(ui->StartupMinimization->isChecked()));
+    obj5.insert("Language?", tr("?Language version"));
+    obj5.insert("Language", ui->Language->currentIndex());
+    obj5.insert("Automatic?",tr("?Automatic start"));
+    obj5.insert("Automatic",int(ui->AutomaticStart->isChecked()));
     jsonChild.insert("Other",QJsonValue(obj5));
 
     jsonRoot.insert("Main",QJsonValue(jsonChild));
