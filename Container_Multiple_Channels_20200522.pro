@@ -13,4 +13,5 @@ SUBDIRS +=\
     IdentifyImages\
     TheLicensePlate_WTY \
     TheLicensePlate_HCNET \
-    CaptureImages_SDK_HCNET
+    CaptureImages_SDK_HCNET \
+    Log \

@@ -66,21 +66,11 @@ private:
     Ui::System_Setting_Form *ui;
 
     ///
-    /// \brief p_Parameter 配置参数列表
-    ///
-    Parameter *p_Parameter;
-
-    ///
     /// \brief configurationFolder 配置文件夹
     ///
     QFile configurationFolder;
 
 private:
-
-    ///
-    /// \brief InitializationParameter 初始化参数
-    ///
-    void InitializationParameter();
 
     ///
     /// \brief loadParameter 读取参数
@@ -101,6 +91,13 @@ private:
     /// \brief getJsonValue 获取参数值
     ///
     QVariant getJsonValue(const QString &child, const QString &key, QJsonObject obj);
+
+private slots:
+
+    ///
+    /// \brief InitializationParameterSlot 初始化参数
+    ///
+    void InitializationParameterSlot();
 };
 
 #endif // SYSTEM_SETTING_FORM_H

@@ -8,6 +8,10 @@ class ChannelParameter
 public:
     ChannelParameter(){}
 
+
+    /*****************************
+    * @brief:other
+    ******************************/
     ///
     /// \brief Channel_number 通道号
     ///
@@ -19,9 +23,27 @@ public:
     QString Alias;
 
     ///
-    /// \brief LicensePlate 车牌协议
+    /// \brief Plate_Camera_Model 车牌相机协议
     ///
-    int LicensePlate;
+    int Plate_Camera_Model;
+
+    ///
+    /// \brief Container_Camera_Model 箱号相机协议
+    ///
+    int Container_Camera_Model;
+    /*****************************
+    * @brief:camera
+    ******************************/
+
+    ///
+    /// \brief UserCamer 相机用户名
+    ///
+    QString UserCamer;
+
+    ///
+    /// \brief PasswordCamer 相机密码
+    ///
+    QString PasswordCamer;
 
     ///
     /// \brief FrontCamer 前相机
@@ -52,6 +74,11 @@ public:
     /// \brief PlateCamer 车牌相机
     ///
     QString PlateCamer;
+
+
+    /*****************************
+    * @brief:SerialPort
+    ******************************/
 
     ///
     /// \brief PortOne 串口端口1

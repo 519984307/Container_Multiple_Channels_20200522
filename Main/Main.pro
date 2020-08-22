@@ -16,6 +16,7 @@ TEMPLATE = app
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += QT_MESSAGELOGCONTEXT
 
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -25,6 +26,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    MainWindow/Processing/parameter.cpp \
+    MainWindow/Processing/processing.cpp \
         main.cpp \
     Channel_Data/channel_data_form.cpp \
     Channel_Data/equipment_state_from.cpp \
@@ -38,16 +41,14 @@ SOURCES += \
     MainWindow/mainwindow.cpp \
     Camera_Test/camera_list_form.cpp \
     DataBase/database_form.cpp \
-    DataBase/image_dialog.cpp \
-    Log/operational_log_form.cpp \
-    Log/communication_logs_form.cpp \
-    Log/identify_the_log_form.cpp
+    DataBase/image_dialog.cpp    
 
 HEADERS += \
     Channel_Data/channel_data_form.h \
     Channel_Data/equipment_state_from.h \
     MainWindow/Processing/channelparameter.h \
     MainWindow/Processing/parameter.h \
+    MainWindow/Processing/processing.h \
     Setting/setting_form.h \
     Setting/channel_setting_form.h \
     Setting/system_setting_form.h \
@@ -59,9 +60,6 @@ HEADERS += \
     Camera_Test/camera_list_form.h \
     DataBase/database_form.h \
     DataBase/image_dialog.h \
-    Log/operational_log_form.h \
-    Log/communication_logs_form.h \
-    Log/identify_the_log_form.h
 
 FORMS += \
     Channel_Data/channel_data_form.ui \
@@ -75,9 +73,6 @@ FORMS += \
     Camera_Test/camera_list_form.ui \
     DataBase/database_form.ui \
     DataBase/image_dialog.ui \
-    Log/operational_log_form.ui \
-    Log/communication_logs_form.ui \
-    Log/identify_the_log_form.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -91,3 +86,10 @@ MOC_DIR=tmp/moc
 RCC_DIR=tmp/rcc
 UI_DIR=tmp/ui
 OBJECTS_DIR=tmp/obj
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Log/release/ -lLog
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Log/debug/ -lLog
+else:unix:!macx: LIBS += -L$$OUT_PWD/../Log/ -lLog
+
+INCLUDEPATH += $$PWD/../Log
+DEPENDPATH += $$PWD/../Log

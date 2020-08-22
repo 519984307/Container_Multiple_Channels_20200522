@@ -1,10 +1,17 @@
 #ifndef CHANNEL_SETTING_FORM_H
 #define CHANNEL_SETTING_FORM_H
 
+#define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
+
 #include <QWidget>
+#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QTextStream>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
+#include <QScopedPointer>
 
 #include "MainWindow/Processing/channelparameter.h"
 
@@ -24,16 +31,21 @@ private:
     Ui::Channel_Setting_Form *ui;
 
     ///
+    /// \brief channel_number 通道号
+    ///
+    int channel_number;
+
+    ///
     /// \brief p_ChannelParameter 配置参数表
     ///
     ChannelParameter *p_ChannelParameter;
 
-private:
+    ///
+    /// \brief configurationFolder 配置文件夹
+    ///
+    QFile configurationFolder;
 
-    ///
-    /// \brief InitializationParameter 初始化参数
-    ///
-    void InitializationParameter();
+private:
 
     ///
     /// \brief loadParameter 读取参数
@@ -66,8 +78,15 @@ signals:
     /// ]param type 信息类型
     /// \param msg 信息体
     ///
-    void messageSignal(const QString &type,const QString &msg);
+    void messageSignal(QtMsgType type,const QString &msg);
 
+public slots:
+
+    ///
+    /// \brief InitializationParameterSlot 初始化参数
+    /// \param number 通道号
+    ///
+    void InitializationParameterSlot(int number);
 };
 
 #endif // CHANNEL_SETTING_FORM_H

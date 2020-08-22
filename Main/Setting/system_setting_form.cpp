@@ -13,21 +13,16 @@ System_Setting_Form::System_Setting_Form(QWidget *parent) :
     this->setHidden(true);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
-    InitializationParameter();
+    InitializationParameterSlot();/* test */
 }
 
 System_Setting_Form::~System_Setting_Form()
 {
-    p_Parameter=nullptr;
-
-    delete p_Parameter;
     delete ui;
 }
 
-void System_Setting_Form::InitializationParameter()
+void System_Setting_Form::InitializationParameterSlot()
 {
-    p_Parameter=new Parameter ();
-
     /*****************************
     * @brief:创建配置文件夹
     ******************************/
@@ -67,8 +62,8 @@ bool System_Setting_Form::loadParameter()
         /* 读取根目录 */
         if(jsonDoc.isObject()){
             QJsonObject obj=jsonDoc.object();
-            if(obj.contains(tr("Main"))){
-                QJsonValue value=obj.value(tr("Main"));
+            if(obj.contains("Main")){
+                QJsonValue value=obj.value("Main");
 
                 /* 读取子目录 */
                 if(value.isObject()){
@@ -76,49 +71,49 @@ bool System_Setting_Form::loadParameter()
                     /*****************************
                     * @brief:Channel
                     ******************************/
-                    p_Parameter->ChannelNumber= getJsonValue("Channel","ChannelNumber",value.toObject()).toInt();
-                    if(p_Parameter->ChannelNumber>ui->ChannelNumber->maximum()){/* 防止后台篡改通道数量 */
-                        p_Parameter->ChannelNumber=ui->ChannelNumber->maximum();
+                    Parameter::ChannelNumber= getJsonValue("Channel","ChannelNumber",value.toObject()).toInt();
+                    if(Parameter::ChannelNumber>ui->ChannelNumber->maximum()){/* 防止后台篡改通道数量 */
+                        Parameter::ChannelNumber=ui->ChannelNumber->maximum();
                     }
-                    p_Parameter->ImageFormat= getJsonValue("Channel","ImageFormat",value.toObject()).toInt();
-                    p_Parameter->ImageNamingRules= getJsonValue("Channel","ImageNamingRules",value.toObject()).toInt();
-                    p_Parameter->ImagePath= getJsonValue("Channel","ImagePath",value.toObject()).toString();
+                    Parameter::ImageFormat= getJsonValue("Channel","ImageFormat",value.toObject()).toInt();
+                    Parameter::ImageNamingRules= getJsonValue("Channel","ImageNamingRules",value.toObject()).toInt();
+                    Parameter::ImagePath= getJsonValue("Channel","ImagePath",value.toObject()).toString();
 
                     /*****************************
                     * @brief:Upload
                     ******************************/
-                    p_Parameter->Ftp=getJsonValue("Upload","Ftp",value.toObject()).toInt();
-                    p_Parameter->FtpAddress= getJsonValue("Upload","FtpAddress",value.toObject()).toString();
-                    p_Parameter->FtpLocalPath= getJsonValue("Upload","FtpLocalPath",value.toObject()).toString();
-                    p_Parameter->FtpPassword= getJsonValue("Upload","FtpPassword",value.toObject()).toString();
-                    p_Parameter->FtpPort= getJsonValue("Upload","FtpPort",value.toObject()).toString();
-                    p_Parameter->FtpRemotePath= getJsonValue("Upload","FtpRemotePath",value.toObject()).toString();
-                    p_Parameter->FtpUser= getJsonValue("Upload","FtpUser",value.toObject()).toString();
-                    p_Parameter->ReduceImage=getJsonValue("Upload","ReduceImage",value.toObject()).toInt();
+                    Parameter::Ftp=getJsonValue("Upload","Ftp",value.toObject()).toInt();
+                    Parameter::FtpAddress= getJsonValue("Upload","FtpAddress",value.toObject()).toString();
+                    Parameter::FtpLocalPath= getJsonValue("Upload","FtpLocalPath",value.toObject()).toString();
+                    Parameter::FtpPassword= getJsonValue("Upload","FtpPassword",value.toObject()).toString();
+                    Parameter::FtpPort= getJsonValue("Upload","FtpPort",value.toObject()).toInt();
+                    Parameter::FtpRemotePath= getJsonValue("Upload","FtpRemotePath",value.toObject()).toString();
+                    Parameter::FtpUser= getJsonValue("Upload","FtpUser",value.toObject()).toString();
+                    Parameter::ReduceImage=getJsonValue("Upload","ReduceImage",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Other
                     ******************************/
-                    p_Parameter->Language= getJsonValue("Other","Language",value.toObject()).toInt();
-                    p_Parameter->Minimization= getJsonValue("Other","Minimization",value.toObject()).toInt();
-                    p_Parameter->Automatic=getJsonValue("Other","Automatic",value.toObject()).toInt();
-                    p_Parameter->InfoLog= getJsonValue("Other","InfoLog",value.toObject()).toInt();
-                    p_Parameter->DebugLog= getJsonValue("Other","DebugLog",value.toObject()).toInt();
+                    Parameter::Language= getJsonValue("Other","Language",value.toObject()).toInt();
+                    Parameter::Minimization= getJsonValue("Other","Minimization",value.toObject()).toInt();
+                    Parameter::Automatic=getJsonValue("Other","Automatic",value.toObject()).toInt();
+                    Parameter::InfoLog= getJsonValue("Other","InfoLog",value.toObject()).toInt();
+                    Parameter::DebugLog= getJsonValue("Other","DebugLog",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Recognizer
                     ******************************/
-                    p_Parameter->ResultsTheCheck=getJsonValue("Recognizer","ResultsTheCheck",value.toObject()).toInt();
+                    Parameter::ResultsTheCheck=getJsonValue("Recognizer","ResultsTheCheck",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Service
                     ******************************/
-                    p_Parameter->ServiceModel=getJsonValue("Service","ServiceModel",value.toObject()).toInt();
-                    p_Parameter->Service_Type=getJsonValue("Service","Service_Type",value.toObject()).toInt();
-                    p_Parameter->SingletonAddress=getJsonValue("Service","SingletonAddress",value.toObject()).toString();
-                    p_Parameter->ManyCasesAddress=getJsonValue("Service","ManyCasesAddress",value.toObject()).toString();
-                    p_Parameter->Heartbeat=getJsonValue("Service","Heartbeat",value.toObject()).toInt();
-                    p_Parameter->Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
+                    Parameter::ServiceModel=getJsonValue("Service","ServiceModel",value.toObject()).toInt();
+                    Parameter::Service_Type=getJsonValue("Service","Service_Type",value.toObject()).toInt();
+                    Parameter::SingletonAddress=getJsonValue("Service","SingletonAddress",value.toObject()).toString();
+                    Parameter::ManyCasesAddress=getJsonValue("Service","ManyCasesAddress",value.toObject()).toString();
+                    Parameter::Heartbeat=getJsonValue("Service","Heartbeat",value.toObject()).toInt();
+                    Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
 
                     return true;
                 }
@@ -126,8 +121,11 @@ bool System_Setting_Form::loadParameter()
         }
     }
     else {
+        configurationFolder.remove();
         emit messageSignal(ZBY_LOG("ERROR"),tr("Load System.json error<errorCode=%1>").arg(jsonError.errorString()));
     }
+    configurationFolder.close();
+
     return false;
 }
 
@@ -145,13 +143,13 @@ bool System_Setting_Form::writeParameter()
     * @brief:Channel
     ******************************/
     QJsonObject obj1;
-    obj1.insert("channelNumber?",tr("?Set the software to control the number of channels"));
+    //obj1.insert("channelNumber?",tr("?Set the software to control the number of channels"));
     obj1.insert("channelNumber",ui->ChannelNumber->value());
-    obj1.insert("ImageFormat?",tr("?Format the image save path"));
+    //obj1.insert("ImageFormat?",tr("?Format the image save path"));
     obj1.insert("ImageFormat",ui->ImageFormat->currentIndex());
-    obj1.insert("ImagePath?",tr("?Set the image to save the root directory"));
+    //obj1.insert("ImagePath?",tr("?Set the image to save the root directory"));
     obj1.insert("ImagePath",ui->ImgPathlineEdit->text());
-    obj1.insert("ImageNamingRules?",tr("?Save image naming conventions"));
+    //obj1.insert("ImageNamingRules?",tr("?Save image naming conventions"));
     obj1.insert("ImageNamingRules",(int)ui->ImageNamingRules->currentIndex());
     jsonChild.insert("Channel",QJsonValue(obj1));
 
@@ -159,12 +157,12 @@ bool System_Setting_Form::writeParameter()
     * @brief:Recognizer
     ******************************/
     QJsonObject obj2;
+
+    //obj2.insert("ResultsTheCheck?",tr("?Identify validation rules for results"));
     if(ui->ColorDisplay->isChecked()){
-        obj2.insert("ResultsTheCheck?",tr("?Identify validation rules for results"));
         obj2.insert("ResultsTheCheck",0);       
     }
     else if (ui->AutomaticCorrection->isChecked()) {
-        obj2.insert("ResultsTheCheck?",tr("?Identify validation rules for results"));
         obj2.insert("ResultsTheCheck",1);
     }
     jsonChild.insert("Recognizer",QJsonValue(obj2));
@@ -173,21 +171,21 @@ bool System_Setting_Form::writeParameter()
     * @brief:Upload
     ******************************/
     QJsonObject obj3;
-    obj3.insert("Ftp?",tr("?Whether to upload pictures or not"));
+    //obj3.insert("Ftp?",tr("?Whether to upload pictures or not"));
     obj3.insert("Ftp",(int)ui->Ftp->isChecked());
-    obj3.insert("FtpUser?",tr("?Upload image username"));
+    //obj3.insert("FtpUser?",tr("?Upload image username"));
     obj3.insert("FtpUser",ui->FtpUser->text());
-    obj3.insert("FtpPassword?",tr("?Upload image user password"));
+    //obj3.insert("FtpPassword?",tr("?Upload image user password"));
     obj3.insert("FtpPassword",ui->FtpPassword->text());
-    obj3.insert("FtpAddress?",tr("?Upload picture address"));
+    //obj3.insert("FtpAddress?",tr("?Upload picture address"));
     obj3.insert("FtpAddress",ui->FtpAddress->text());
-    obj3.insert("FtpPort?",tr("?Upload image port"));
+    //obj3.insert("FtpPort?",tr("?Upload image port"));
     obj3.insert("FtpPort",ui->FtpPort->text());
-    obj3.insert("FtpRemotePath?",tr("?Upload picture server directory"));
+    //obj3.insert("FtpRemotePath?",tr("?Upload picture server directory"));
     obj3.insert("FtpRemotePath",ui->FtpRemote->text());
-    obj3.insert("FtpLocalPath?",tr("?Upload picture native directory"));
+    //obj3.insert("FtpLocalPath?",tr("?Upload picture native directory"));
     obj3.insert("FtpLocalPath",ui->FtpLocal->text());
-    obj3.insert("ReduceImage?",tr("?Whether to zoom out the uploaded image"));
+    //obj3.insert("ReduceImage?",tr("?Whether to zoom out the uploaded image"));
     obj3.insert("ReduceImage",(int)ui->ReduceImage->isChecked());
     jsonChild.insert("Upload",QJsonValue(obj3));
 
@@ -195,23 +193,25 @@ bool System_Setting_Form::writeParameter()
     * @brief:Service
     ******************************/
     QJsonObject obj4;
+
+    //obj4.insert("ServiceModel?",tr("?TCP data transfer mode"));
     if(ui->ClientModel->isChecked()){
-        obj4.insert("ServiceModel?",tr("?TCP data transfer mode"));
         obj4.insert("ServiceModel",0);
     }
     if(ui->ServerModel->isChecked()){
-        obj4.insert("ServiceModel?",tr("?TCP data transfer mode"));
+
         obj4.insert("ServiceModel",1);
     }
-    obj4.insert("Service_Type?",tr("?TCP data transfer type"));
+
+    //obj4.insert("Service_Type?",tr("?TCP data transfer type"));
     obj4.insert("Service_Type",ui->Service_Type_comboBox->currentIndex());
-    obj4.insert("SingletonAddress?",tr("?Single TCP mode address"));
+    //obj4.insert("SingletonAddress?",tr("?Single TCP mode address"));
     obj4.insert("SingletonAddress",ui->Address_Singleton_lineEdit->text());
-    obj4.insert("ManyCasesAddress?",tr("?Multitcp mode address group"));
+    //obj4.insert("ManyCasesAddress?",tr("?Multitcp mode address group"));
     obj4.insert("ManyCasesAddress",ui->Address_Many_textEdit->toPlainText());
-    obj4.insert("Heartbeat?",tr("?Whether to send heartbeat packets"));
+    //obj4.insert("Heartbeat?",tr("?Whether to send heartbeat packets"));
     obj4.insert("Heartbeat",int(ui->Hearbeat_checkBox->isChecked()));
-    obj4.insert("Resultting?",tr("?Whether to send only result sets"));
+    //obj4.insert("Resultting?",tr("?Whether to send only result sets"));
     obj4.insert("Resultting",int(ui->Resulting_checkBox->isChecked()));
     jsonChild.insert("Service",QJsonValue(obj4));
 
@@ -219,15 +219,15 @@ bool System_Setting_Form::writeParameter()
     * @brief:Other
     ******************************/
     QJsonObject obj5;
-    obj5.insert("InfoLog?",tr("?Whether to keep running logs"));
+    //obj5.insert("InfoLog?",tr("?Whether to keep running logs"));
     obj5.insert("InfoLog",int(ui->InfoLog->isChecked()));
-    obj5.insert("DebugLog?",tr("?Whether to maintain operation and maintenance log"));
+    //obj5.insert("DebugLog?",tr("?Whether to maintain operation and maintenance log"));
     obj5.insert("DebugLog",int(ui->DebugLog->isChecked()));
-    obj5.insert("Minimization?",tr("?Startup minimization"));
+    //obj5.insert("Minimization?",tr("?Startup minimization"));
     obj5.insert("Minimization",int(ui->StartupMinimization->isChecked()));
-    obj5.insert("Language?", tr("?Language version"));
+    //obj5.insert("Language?", tr("?Language version"));
     obj5.insert("Language", ui->Language->currentIndex());
-    obj5.insert("Automatic?",tr("?Automatic start"));
+    //obj5.insert("Automatic?",tr("?Automatic start"));
     obj5.insert("Automatic",int(ui->AutomaticStart->isChecked()));
     jsonChild.insert("Other",QJsonValue(obj5));
 
@@ -250,16 +250,16 @@ bool System_Setting_Form::writeParameter()
 
 void System_Setting_Form::parameterToUi()
 {
-    if(p_Parameter->ChannelNumber>ui->ChannelNumber->maximum()){/* 防止后台篡改通道数量 */
-        p_Parameter->ChannelNumber=ui->ChannelNumber->maximum();
+    if(Parameter::ChannelNumber>ui->ChannelNumber->maximum()){/* 防止后台篡改通道数量 */
+        Parameter::ChannelNumber=ui->ChannelNumber->maximum();
     }
-    ui->ChannelNumber->setValue(p_Parameter->ChannelNumber);
-    ui->ImageNamingRules->setCurrentIndex(p_Parameter->ImageNamingRules);
-    ui->ImageFormat->setCurrentIndex(p_Parameter->ImageFormat);
-    ui->ImgPathlineEdit->setText(p_Parameter->ImagePath);
+    ui->ChannelNumber->setValue(Parameter::ChannelNumber);
+    ui->ImageNamingRules->setCurrentIndex(Parameter::ImageNamingRules);
+    ui->ImageFormat->setCurrentIndex(Parameter::ImageFormat);
+    ui->ImgPathlineEdit->setText(Parameter::ImagePath);
 
 
-    if(!p_Parameter->ResultsTheCheck){/* 颜色显示 */
+    if(!Parameter::ResultsTheCheck){/* 颜色显示 */
         ui->ColorDisplay->setChecked(1);
     }
     else {/* 自动校验 */
@@ -267,33 +267,33 @@ void System_Setting_Form::parameterToUi()
     }
 
 
-    if(!p_Parameter->ServiceModel){/* 客户端模式 */
+    if(!Parameter::ServiceModel){/* 客户端模式 */
         ui->ClientModel->setChecked(1);
     }
     else {/* 服务器模式 */
         ui->ServerModel->setChecked(1);
     }
-    ui->Service_Type_comboBox->setCurrentIndex(p_Parameter->Service_Type);
-    ui->Address_Singleton_lineEdit->setText(p_Parameter->SingletonAddress);
-    ui->Address_Many_textEdit->setText(p_Parameter->ManyCasesAddress);
-    ui->Hearbeat_checkBox->setChecked(p_Parameter->Heartbeat);
-    ui->Resulting_checkBox->setChecked(p_Parameter->Resultting);
+    ui->Service_Type_comboBox->setCurrentIndex(Parameter::Service_Type);
+    ui->Address_Singleton_lineEdit->setText(Parameter::SingletonAddress);
+    ui->Address_Many_textEdit->setText(Parameter::ManyCasesAddress);
+    ui->Hearbeat_checkBox->setChecked(Parameter::Heartbeat);
+    ui->Resulting_checkBox->setChecked(Parameter::Resultting);
 
 
 
-    ui->Ftp->setChecked(p_Parameter->Ftp);
-    ui->FtpAddress->setText(p_Parameter->FtpAddress);
-    ui->FtpPort->setText(p_Parameter->FtpPort);
-    ui->FtpUser->setText(p_Parameter->FtpUser);
-    ui->FtpPassword->setText(p_Parameter->FtpPassword);
-    ui->FtpLocal->setText(p_Parameter->FtpLocalPath);
-    ui->FtpRemote->setText(p_Parameter->FtpRemotePath);
+    ui->Ftp->setChecked(Parameter::Ftp);
+    ui->FtpAddress->setText(Parameter::FtpAddress);
+    ui->FtpPort->setText(QString::number(Parameter::FtpPort));
+    ui->FtpUser->setText(Parameter::FtpUser);
+    ui->FtpPassword->setText(Parameter::FtpPassword);
+    ui->FtpLocal->setText(Parameter::FtpLocalPath);
+    ui->FtpRemote->setText(Parameter::FtpRemotePath);
 
-    ui->StartupMinimization->setChecked(p_Parameter->Minimization);
-    ui->Language->setCurrentIndex(p_Parameter->Language);
-    ui->AutomaticStart->setChecked(p_Parameter->Automatic);
-    ui->InfoLog->setChecked(p_Parameter->InfoLog);
-    ui->DebugLog->setChecked(p_Parameter->DebugLog);
+    ui->StartupMinimization->setChecked(Parameter::Minimization);
+    ui->Language->setCurrentIndex(Parameter::Language);
+    ui->AutomaticStart->setChecked(Parameter::Automatic);
+    ui->InfoLog->setChecked(Parameter::InfoLog);
+    ui->DebugLog->setChecked(Parameter::DebugLog);
 }
 
 QVariant System_Setting_Form::getJsonValue(const QString &child, const QString &key, QJsonObject obj)

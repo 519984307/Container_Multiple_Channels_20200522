@@ -7,6 +7,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ///
+    /// \brief Pointer_Log 日志对象
+    ///
+    QScopedPointer<Processing> Pointer_Processing(new Processing ());
+
+
     getScreenInfo(); 
 
     initializingObject();
@@ -64,22 +70,10 @@ void MainWindow::removeTheWindow()
         delete p_DataBase_Form;
         p_DataBase_Form=nullptr;
     }
-    if(p_Communication_Logs_Form!=nullptr){
-        delete p_Communication_Logs_Form;
-        p_Communication_Logs_Form=nullptr;
-    }
-    if(p_Operational_Log_Form!=nullptr){
-        delete p_Operational_Log_Form;
-        p_Operational_Log_Form=nullptr;
-    }
-    if(p_Identify_The_Log_Form!=nullptr){
-        delete p_Identify_The_Log_Form;
-        p_Identify_The_Log_Form=nullptr;
-    }
 }
 
 void MainWindow::initializingObject()
-{    
+{            
     permanentWidget=nullptr;
 
     p_Channel_Data_Form=nullptr;
@@ -87,18 +81,12 @@ void MainWindow::initializingObject()
     p_Setting_Form=nullptr;
     p_Camera_List_Form=nullptr;
     p_DataBase_Form=nullptr;
-    p_Communication_Logs_Form=nullptr;
-    p_Identify_The_Log_Form=nullptr;
-    p_Operational_Log_Form=nullptr;
 
     Form_Map.append(p_Channel_Data_Form);
     Form_Map.append(p_Equipment_State_Form);
     Form_Map.append(p_Setting_Form);
     Form_Map.append(p_Camera_List_Form);
     Form_Map.append(p_DataBase_Form);
-    Form_Map.append(p_Communication_Logs_Form);
-    Form_Map.append(p_Identify_The_Log_Form);
-    Form_Map.append(p_Operational_Log_Form);
 }
 
 void MainWindow::mainConnect()
@@ -309,60 +297,12 @@ void MainWindow::on_actionHistory_Sqlite_triggered()
 
 void MainWindow::on_actionOperational_log_triggered()
 {
-    if(p_Operational_Log_Form==nullptr){
-
-        removeTheWindow();
-
-        p_Operational_Log_Form=new Operational_Log_Form (this);
-        ui->gridLayout_2->addWidget(p_Operational_Log_Form);
-        p_Operational_Log_Form->setVisible(true);
-
-
-        channelSelect=0;
-
-        setStatusBar(tr("System operation and maintenance log"));
-    }
-    else {
-        qDebug()<<p_Operational_Log_Form;
-    }
 }
 
 void MainWindow::on_actionIdentify_the_log_triggered()
 {
-    if(p_Identify_The_Log_Form==nullptr){
-
-        removeTheWindow();
-
-        p_Identify_The_Log_Form=new Identify_The_Log_Form (this);
-        ui->gridLayout_2->addWidget(p_Identify_The_Log_Form);
-        p_Identify_The_Log_Form->setVisible(true);
-
-
-        channelSelect=0;
-
-        setStatusBar(tr("Identification result log"));
-    }
-    else {
-        qDebug()<<p_Identify_The_Log_Form;
-    }
 }
 
 void MainWindow::on_actionCommunication_log_triggered()
 {
-    if(p_Communication_Logs_Form==nullptr){
-
-        removeTheWindow();
-
-        p_Communication_Logs_Form=new Communication_Logs_Form (this);
-        ui->gridLayout_2->addWidget(p_Communication_Logs_Form);
-        p_Communication_Logs_Form->setVisible(true);
-
-
-        channelSelect=0;
-
-        setStatusBar(tr("System communication log"));
-    }
-    else {
-        qDebug()<<p_Communication_Logs_Form;
-    }
 }

@@ -6,7 +6,7 @@
 class Parameter
 {
 public:
-    Parameter(){};
+    Parameter();
 
     /*****************************
     * @brief:Channel
@@ -15,22 +15,22 @@ public:
     ///
     /// \brief ImageNamingRules 图片命名
     ///
-    int ImageNamingRules;
+    static int ImageNamingRules;
 
     ///
     /// \brief ChannelNumber 通道数量
     ///
-    int ChannelNumber;
+    static int ChannelNumber;
 
     ///
     /// \brief ImageFormat 保存图片格式1
     ///
-    int ImageFormat;
+    static int ImageFormat;
 
     ///
     /// \brief ImagePath 图片路径1
     ///
-    QString ImagePath;
+    static QString ImagePath;
 
 
     /*****************************
@@ -40,42 +40,42 @@ public:
     ///
     /// \brief FTP 是否启动上传图片
     ///
-    int Ftp;
+    static int Ftp;
 
     ///
     /// \brief FtpAddress FTP地址
     ///
-    QString FtpAddress;
+    static QString FtpAddress;
 
     ///
     /// \brief FtpLocalPath FTP本地图片路径
     ///
-    QString FtpLocalPath;
+    static QString FtpLocalPath;
 
     ///
     /// \brief FtpPassword FTP密码
     ///
-    QString FtpPassword;
+    static QString FtpPassword;
 
     ///
     /// \brief FtpPort FTP端口
     ///
-    QString FtpPort;
+    static int FtpPort;
 
     ///
     /// \brief FtpRemotePath FTP远端图片地址
     ///
-    QString FtpRemotePath;
+    static QString FtpRemotePath;
 
     ///
     /// \brief FtpUser FTP用户名
     ///
-    QString FtpUser;
+    static QString FtpUser;
 
     ///
     /// \brief ReduceImage 缩小图片
     ///
-    int ReduceImage;
+    static int ReduceImage;
 
 
 
@@ -86,27 +86,27 @@ public:
     ///
     /// \brief Language 语言版本
     ///
-    int Language;
+    static int Language;
 
     ///
     /// \brief Minimization 启动最小化状态
     ///
-    int Minimization;
+    static int Minimization;
 
     ///
     /// \brief Automatic 开机自动启动
     ///
-    int Automatic;
+    static int Automatic;
 
     ///
     /// \brief InfoLog 运行日志
     ///
-    int InfoLog;
+    static int InfoLog;
 
     ///
     /// \brief DebugLog 警告日志
     ///
-    int DebugLog;
+    static int DebugLog;
 
 
 
@@ -117,7 +117,7 @@ public:
     ///
     /// \brief CheckResult 结果校验
     ///
-    int ResultsTheCheck;
+    static int ResultsTheCheck;
 
 
 
@@ -128,32 +128,32 @@ public:
     ///
     /// \brief ServiceModel 服务模式
     ///
-    int ServiceModel;
+    static int ServiceModel;
 
     ///
     /// \brief SingletonAddress 单例地址
     ///
-    QString SingletonAddress;
+    static QString SingletonAddress;
 
     ///
     /// \brief ManyCasesAddress 多例地址
     ///
-    QString ManyCasesAddress;
+    static QString ManyCasesAddress;
 
     ///
     /// \brief Service_Type 服务类型
     ///
-    int Service_Type;
+    static int Service_Type;
 
     ///
     /// \brief Heartbeat 心跳包
     ///
-    int Heartbeat;
+    static int Heartbeat;
 
     ///
     /// \brief Resultting 回应结果
     ///
-    int Resultting;
+    static int Resultting;
 };
 
 #endif // PARAMETER_H

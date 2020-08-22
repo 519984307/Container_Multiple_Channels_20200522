@@ -2,13 +2,15 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QDebug>
+#include <QMessageLogger>
+#include <QtGlobal>
 #include <QResizeEvent>
 #include <QDesktopWidget>
 #include <QMap>
 #include <QAction>
 #include <QLabel>
 #include <QScreen>
+#include <QScopedPointer>
 
 /*****************************
 * UI
@@ -18,9 +20,8 @@
 #include "Setting/setting_form.h"
 #include "Camera_Test/camera_list_form.h"
 #include "DataBase/database_form.h"
-#include "Log/communication_logs_form.h"
-#include "Log/operational_log_form.h"
-#include "Log/identify_the_log_form.h"
+
+#include "Processing/processing.h"
 
 namespace Ui {
 class MainWindow;
@@ -193,50 +194,39 @@ private:
 
     Ui::MainWindow *ui;
 
+    /*****************************
+    * @brief:UI
+    ******************************/
+
     ///
     /// \brief pFrom 数据窗口
     ///
-    Channel_Data_Form *p_Channel_Data_Form=nullptr;
+    Channel_Data_Form *p_Channel_Data_Form;
 
     ///
     /// \brief p_Equipment_State_Form 设备列表窗口
     ///
-    Equipment_State_From *p_Equipment_State_Form=nullptr;
+    Equipment_State_From *p_Equipment_State_Form;
 
     ///
     /// \brief p_Setting_Form 设置窗口
     ///
-    Setting_Form *p_Setting_Form=nullptr;
+    Setting_Form *p_Setting_Form;
 
     ///
     /// \brief p_Camera_List_Form 相机窗口
     ///
-    Camera_List_Form *p_Camera_List_Form=nullptr;
+    Camera_List_Form *p_Camera_List_Form;
 
     ///
     /// \brief p_DataBase_Form 数据库窗口
     ///
-    DataBase_Form *p_DataBase_Form=nullptr;
+    DataBase_Form *p_DataBase_Form;
 
     ///
     /// \brief permanentWidget 状态栏永久信息
     ///
-    QLabel *permanentWidget=nullptr;
-
-    ///
-    /// \brief p_Communication_Logs_Form 通信日志窗口
-    ///
-    Communication_Logs_Form *p_Communication_Logs_Form=nullptr;
-
-    ///
-    /// \brief p_Operational_Log_Form 运维日志窗口
-    ///
-    Operational_Log_Form *p_Operational_Log_Form=nullptr;
-
-    ///
-    /// \brief p_Identify_The_Log_Form 识别器日志窗口
-    ///
-    Identify_The_Log_Form *p_Identify_The_Log_Form=nullptr;
+    QLabel *permanentWidget;
 };
 
 #endif // MAINWINDOW_H

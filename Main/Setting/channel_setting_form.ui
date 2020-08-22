@@ -43,7 +43,7 @@
             <item>
              <widget class="QLabel" name="label_11">
               <property name="text">
-               <string>Before</string>
+               <string>Front</string>
               </property>
              </widget>
             </item>
@@ -73,7 +73,7 @@
           <item row="0" column="1">
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QLineEdit" name="Camera_Before">
+             <widget class="QLineEdit" name="Camera_Front">
               <property name="inputMask">
                <string>000.000.000.000;_</string>
               </property>
@@ -263,7 +263,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit">
+                 <widget class="QLineEdit" name="SerialAddr_One">
                   <property name="inputMask">
                    <string>000.000.000.000;_</string>
                   </property>
@@ -281,7 +281,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_3">
+                 <widget class="QLineEdit" name="SerialAddr_Tow">
                   <property name="inputMask">
                    <string>000.000.000.000;_</string>
                   </property>
@@ -302,7 +302,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBox_2"/>
+                 <widget class="QSpinBox" name="Port_One"/>
                 </item>
                </layout>
               </item>
@@ -316,7 +316,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="spinBox"/>
+                 <widget class="QSpinBox" name="Port_Tow"/>
                 </item>
                </layout>
               </item>
