@@ -1,8 +1,6 @@
 #ifndef CHANNEL_SETTING_FORM_H
 #define CHANNEL_SETTING_FORM_H
 
-#define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
-
 #include <QWidget>
 #include <QDebug>
 #include <QDir>
@@ -11,7 +9,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
-#include <QScopedPointer>
 
 #include "MainWindow/Processing/channelparameter.h"
 
@@ -24,7 +21,7 @@ class Channel_Setting_Form : public QWidget
     Q_OBJECT
 
 public:
-    explicit Channel_Setting_Form(QWidget *parent = nullptr);
+    explicit Channel_Setting_Form(int number,QWidget *parent = nullptr);
     ~Channel_Setting_Form();
 
 private:
@@ -45,17 +42,17 @@ private:
     ///
     QFile configurationFolder;
 
+    ///
+    /// \brief fileRoot 配置文件根目录
+    ///
+    QString fileRoot;
+
 private:
 
     ///
     /// \brief loadParameter 读取参数
     ///
     bool loadParameter();
-
-    ///
-    /// \brief writeParameter 写入参数
-    ///
-    bool writeParameter();
 
     ///
     /// \brief parameterToUi 回写参数到界面
@@ -71,22 +68,19 @@ private:
     ///
     QVariant  getJsonValue(const QString &child,const QString &key,QJsonObject obj);
 
-signals:
-
     ///
-    /// \brief messageSignal 日志信号
-    /// ]param type 信息类型
-    /// \param msg 信息体
+    /// \brief InitializationParameter 初始化参数
+    /// \param number 通道号
     ///
-    void messageSignal(QtMsgType type,const QString &msg);
+    void InitializationParameter(int number);
 
 public slots:
 
+
     ///
-    /// \brief InitializationParameterSlot 初始化参数
-    /// \param number 通道号
+    /// \brief writeParameterSlot 写入参数
     ///
-    void InitializationParameterSlot(int number);
+    bool writeParameterSlot();
 };
 
 #endif // CHANNEL_SETTING_FORM_H

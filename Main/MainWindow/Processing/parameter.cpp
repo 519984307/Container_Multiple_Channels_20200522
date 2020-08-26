@@ -1,10 +1,6 @@
 #include "parameter.h"
 
-Parameter::Parameter(){
-
-}
-
-int Parameter::ChannelNumber= 1;
+int Parameter::ChannelNumber= 0;
 int Parameter::ImageFormat= 0;
 int Parameter::ImageNamingRules= 0;
 QString Parameter::ImagePath= QString("./");

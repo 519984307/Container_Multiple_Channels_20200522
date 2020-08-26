@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ///
     /// \brief Pointer_Log 日志对象
     ///
-    QScopedPointer<Processing> Pointer_Processing(new Processing ());
+    QScopedPointer<Processing> Pointer_Processing(new Processing (this));
 
 
     getScreenInfo(); 
@@ -51,22 +51,27 @@ void MainWindow::clearnContainer()
 void MainWindow::removeTheWindow()
 {
     if(p_Channel_Data_Form!=nullptr){
+        p_Channel_Data_Form->close();
         delete p_Channel_Data_Form;
         p_Channel_Data_Form=nullptr;
     }
-    if(p_Setting_Form!=nullptr){
+    if(p_Setting_Form!=nullptr){        
+        p_Setting_Form->close();
         delete p_Setting_Form;
         p_Setting_Form=nullptr;
     }
     if(p_Equipment_State_Form!=nullptr){
+        p_Equipment_State_Form->close();
         delete p_Equipment_State_Form;
         p_Equipment_State_Form=nullptr;
     }
     if(p_Camera_List_Form!=nullptr){
+        p_Camera_List_Form->close();
         delete p_Camera_List_Form;
         p_Camera_List_Form=nullptr;
     }
     if(p_DataBase_Form!=nullptr){
+        p_DataBase_Form->close();
         delete p_DataBase_Form;
         p_DataBase_Form=nullptr;
     }
@@ -140,8 +145,8 @@ void MainWindow::initStatusBar()
 
 void MainWindow::initializationParameter()
 {
+    channelCount=Parameter::ChannelNumber;
     channelSelect=0;
-    channelCount=10;
 
     int key=0x30;
     for (int channel=1;channel<=channelCount;channel++) {
@@ -233,7 +238,7 @@ void MainWindow::on_actionParameter_Settings_triggered()
 
         removeTheWindow();
 
-        p_Setting_Form=new Setting_Form (this);
+        p_Setting_Form=new Setting_Form (nullptr);
         ui->gridLayout_2->addWidget(p_Setting_Form);
         p_Setting_Form->setVisible(true);
 

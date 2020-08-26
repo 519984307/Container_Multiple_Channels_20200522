@@ -1,8 +1,6 @@
 #ifndef SYSTEM_SETTING_FORM_H
 #define SYSTEM_SETTING_FORM_H
 
-#define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
-
 #include <QWidget>
 #include <QDir>
 #include <QFile>
@@ -12,6 +10,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
+#include <QMessageLogger>
 
 #include "MainWindow/Processing/parameter.h"
 
@@ -25,7 +24,7 @@ class System_Setting_Form : public QWidget
 
 public:
     explicit System_Setting_Form(QWidget *parent = nullptr);
-    ~System_Setting_Form();
+    ~System_Setting_Form();    
 
 private slots:
 
@@ -70,17 +69,17 @@ private:
     ///
     QFile configurationFolder;
 
+    ///
+    /// \brief fileRoot 参数保存路径根目录
+    ///
+    QString fileRoot;
+
 private:
 
     ///
     /// \brief loadParameter 读取参数
     ///
     bool loadParameter();
-
-    ///
-    /// \brief writeParameter 写入参数
-    ///
-    bool writeParameter();
 
     ///
     /// \brief parameterToUi 回写参数到界面
@@ -92,12 +91,17 @@ private:
     ///
     QVariant getJsonValue(const QString &child, const QString &key, QJsonObject obj);
 
-private slots:
+public slots:
 
     ///
     /// \brief InitializationParameterSlot 初始化参数
     ///
     void InitializationParameterSlot();
+
+    ///
+    /// \brief writeParameterSlot 写入参数
+    ///
+    bool writeParameterSlot();
 };
 
 #endif // SYSTEM_SETTING_FORM_H

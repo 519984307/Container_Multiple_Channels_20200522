@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QMap>
 #include <QShowEvent>
-#include <QDebug>
+#include <QMessageLogger>
 
 #include "channel_setting_form.h"
 #include "system_setting_form.h"
@@ -30,14 +30,9 @@ private:
      ******************************/
 
     ///
-    /// \brief removeTheWindow 隐藏窗口
+    /// \brief hideTheWindow 隐藏窗口
     ///
-    void removeTheWindow();
-
-    ///
-    /// \brief initializingObject 初始化对象
-    ///
-    void initializingObject();
+    void hideTheWindow();
 
 private:
 
@@ -46,9 +41,11 @@ private:
     ******************************/
 
     ///
-    /// \brief From_Map 窗口类对象合集
+    /// \brief Setting_Map 窗口类对象
     ///
-    QList<QObject*> From_Map;
+    QMap<int,QObject*> Setting_Map;
+
+    //QScopedArrayPointer<Channel_Setting_Form> pForm;
 
 private slots:
 
@@ -79,6 +76,32 @@ private slots:
     ///
     void on_listWidget_currentRowChanged(int currentRow);
 
+    ///
+    /// \brief on_buttonBox_clicked 保存日志
+    /// \param button
+    ///
+    void on_buttonBox_clicked(QAbstractButton *button);
+
+signals:
+
+    ///
+    /// \brief writeParameterSignal 保存设置参数
+    /// \return 保存状态
+    ///
+    bool writeParameterSignal();
+
+    ///
+    /// \brief InitializationParameterSignal 初始化通道设置参数
+    /// \param number 通道号
+    ///
+    void InitializationParameterSignal(int number);
+
+    ///
+    /// \brief InitializationParameterSignal 初始化系统设置参数
+    /// \param number 通道号
+    ///
+    void InitializationParameterSignal();
+
 private:
 
     /*****************************
@@ -86,16 +109,6 @@ private:
      ******************************/
 
     Ui::Setting_Form *ui;
-
-    ///
-    /// \brief p_System_Setting_From 系统设置窗口
-    ///
-    System_Setting_Form *p_System_Setting_From=nullptr;
-
-    ///
-    /// \brief p_Channel_Setting_From 通道设置窗口
-    ///
-    Channel_Setting_Form *p_Channel_Setting_From=nullptr;
 
 
     /*****************************

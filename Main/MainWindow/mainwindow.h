@@ -22,6 +22,7 @@
 #include "DataBase/database_form.h"
 
 #include "Processing/processing.h"
+#include "Processing/parameter.h"
 
 namespace Ui {
 class MainWindow;

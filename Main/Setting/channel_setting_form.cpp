@@ -1,7 +1,7 @@
 #include "channel_setting_form.h"
 #include "ui_channel_setting_form.h"
 
-Channel_Setting_Form::Channel_Setting_Form(QWidget *parent) :
+Channel_Setting_Form::Channel_Setting_Form(int number, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Channel_Setting_Form)
 {
@@ -13,18 +13,22 @@ Channel_Setting_Form::Channel_Setting_Form(QWidget *parent) :
     this->setHidden(true);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
-    InitializationParameterSlot(1);/* test */
+    /*****************************
+    * @brief: 初始化参数
+    ******************************/
+    InitializationParameter(number);
 }
 
 Channel_Setting_Form::~Channel_Setting_Form()
 {
+    delete p_ChannelParameter;
     p_ChannelParameter=nullptr;
 
-    delete p_ChannelParameter;
+    //this->close();
     delete ui;
 }
 
-void Channel_Setting_Form::InitializationParameterSlot(int number)
+void Channel_Setting_Form::InitializationParameter(int number)
 {
     this->channel_number=number;
 
@@ -37,11 +41,11 @@ void Channel_Setting_Form::InitializationParameterSlot(int number)
     mkPath.mkdir("Json");
     mkPath.cd("Json");
 
-    configurationFolder.setFileName(QDir::toNativeSeparators(QString("%1/Channel_%2.json").arg(mkPath.path()).arg(number)));
+    fileRoot=QDir::toNativeSeparators(QString("%1/Channel_%2.json").arg(mkPath.path()).arg(this->channel_number));
 
     /* 加载配置 */
     if(!loadParameter()){
-        if(writeParameter()){
+        if(writeParameterSlot()){
             loadParameter();
         }
     }
@@ -52,8 +56,9 @@ void Channel_Setting_Form::InitializationParameterSlot(int number)
 
 bool Channel_Setting_Form::loadParameter()
 {
+    configurationFolder.setFileName(fileRoot);
     if(!configurationFolder.open(QIODevice::ReadOnly)){
-        qCritical().noquote()<<tr("Failed to load the Channel_%1 parameter, create the default parameter error<errorCOde=%2>").arg(channel_number).arg(configurationFolder.OpenError);
+        qWarning().noquote()<<tr("Failed to load the Channel_%1 parameter, create the default parameter error<errorCOde=%2>").arg(channel_number).arg(configurationFolder.OpenError);
         return false;
     }
 
@@ -80,15 +85,15 @@ bool Channel_Setting_Form::loadParameter()
                     p_ChannelParameter->LeftCamer= getJsonValue("Camer","LeftCamer",value.toObject()).toString();
                     p_ChannelParameter->RgihtCamer= getJsonValue("Camer","RgihtCamer",value.toObject()).toString();
                     p_ChannelParameter->TopCamer= getJsonValue("Camer","TopCamer",value.toObject()).toString();
-                    p_ChannelParameter->PlateCamer= getJsonValue("Camer","UserCamer",value.toObject()).toString();
-                    p_ChannelParameter->UserCamer= getJsonValue("Camer","PlateCamer",value.toObject()).toString();
+                    p_ChannelParameter->PlateCamer= getJsonValue("Camer","PlateCamer",value.toObject()).toString();
+                    p_ChannelParameter->UserCamer= getJsonValue("Camer","UserCamer",value.toObject()).toString();
                     p_ChannelParameter->PasswordCamer= getJsonValue("Camer","PasswordCamer",value.toObject()).toString();
 
                     /*****************************
                     * @brief:other
                     ******************************/
                     p_ChannelParameter->Alias= getJsonValue("Other","Alias",value.toObject()).toString();
-                    p_ChannelParameter->Channel_number=getJsonValue("Other","Channel_number",value.toObject()).toInt();
+                    p_ChannelParameter->Channel_number=getJsonValue("Other","Channel_Number",value.toObject()).toInt();
                     p_ChannelParameter->Plate_Camera_Model=getJsonValue("Other","Plate_Camera_Model",value.toObject()).toInt();
                     p_ChannelParameter->Container_Camera_Model=getJsonValue("Other","Container_Camera_Model",value.toObject()).toInt();
 
@@ -105,6 +110,7 @@ bool Channel_Setting_Form::loadParameter()
                     p_ChannelParameter->SerialPortTow= getJsonValue("SerialPort","SerialPortTow",value.toObject()).toInt();
                     p_ChannelParameter->SerialPortOne= getJsonValue("SerialPort","SerialPortOne",value.toObject()).toInt();
 
+                    configurationFolder.close();
                     return  true;
                     }
                 }
@@ -112,17 +118,19 @@ bool Channel_Setting_Form::loadParameter()
         }
     else {
         configurationFolder.remove();
-        qCritical().noquote()<<tr("load Channel_%2.json error<errorCode=%1>").arg(jsonError.errorString()).arg(channel_number);
+        qWarning().noquote()<<tr("load Channel_%2.json error<errorCode=%1>").arg(jsonError.errorString()).arg(channel_number);
     }
     configurationFolder.close();
 
     return false;
 }
 
-bool Channel_Setting_Form::writeParameter()
+bool Channel_Setting_Form::writeParameterSlot()
 {
+    configurationFolder.setFileName(fileRoot);
+
     if(!configurationFolder.open(QIODevice::WriteOnly)){
-        qCritical().noquote()<<tr("open Channel_%1.json error<errorCode=%2>").arg(channel_number).arg(configurationFolder.OpenError);
+        qWarning().noquote()<<tr("open Channel_%1.json error<errorCode=%2>").arg(channel_number).arg(configurationFolder.OpenError);
         return false;
     }
 
@@ -186,7 +194,7 @@ bool Channel_Setting_Form::writeParameter()
     //jsonObj3.insert(QString("Alias?"),tr("?Channel display name"));
     jsonObj3.insert(QString("Alias"),ui->Alias->text());
     //jsonObj3.insert(QString("ChannelNumber?"),tr("?The channel number"));
-    jsonObj3.insert(QString("ChannelNumber"),ui->Channel__Number->value());
+    jsonObj3.insert(QString("Channel_Number"),ui->Channel_Number->value());
     //jsonObj3.insert(QString("Plate_Camera_Model?"),tr("?License plate camera protocol type"));
     jsonObj3.insert(QString("Plate_Camera_Model"),ui->Plate_Camera_Model->currentIndex());
     //jsonObj3.insert(QString("Container_Camera_Model?"),tr("?Container camera Protocol type"));
@@ -215,6 +223,8 @@ void Channel_Setting_Form::parameterToUi()
     ui->Camera_Right->setText(p_ChannelParameter->RgihtCamer);
     ui->Camera_Top->setText(p_ChannelParameter->TopCamer);
     ui->Camera_Plate->setText(p_ChannelParameter->PlateCamer);
+    ui->Camera_User->setText(p_ChannelParameter->UserCamer);
+    ui->Camera_Password->setText(p_ChannelParameter->PasswordCamer);
 
     /*****************************
     * @brief:serialport
@@ -237,7 +247,7 @@ void Channel_Setting_Form::parameterToUi()
     * @brief:other
     ******************************/
     ui->Alias->setText(p_ChannelParameter->Alias);
-    ui->Channel__Number->setValue(p_ChannelParameter->Channel_number);
+    ui->Channel_Number->setValue(p_ChannelParameter->Channel_number);
     ui->Plate_Camera_Model->setCurrentIndex(p_ChannelParameter->Plate_Camera_Model);
     ui->Container_Camera_Model->setCurrentIndex(p_ChannelParameter->Container_Camera_Model);
 }
@@ -261,6 +271,8 @@ QVariant Channel_Setting_Form::getJsonValue(const QString &child, const QString 
             }
         }
     }
-    qInfo().noquote()<<tr("load Channel.json value error:%1-%2").arg(child).arg(key);
+    else {
+        qInfo().noquote()<<tr("load Channel_%3.json value error:%1-%2").arg(child).arg(key).arg(this->channel_number);
+    }
     return  QString("");
 }

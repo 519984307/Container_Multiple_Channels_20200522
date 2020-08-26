@@ -44,6 +44,9 @@ private:
 
 private:
 
+    ///
+    /// \brief logFile 日志文件路径
+    ///
     QFile logFile;
 
 };

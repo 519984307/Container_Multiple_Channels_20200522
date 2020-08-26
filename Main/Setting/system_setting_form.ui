@@ -32,7 +32,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
@@ -63,6 +63,9 @@
                  <number>1</number>
                 </property>
                 <property name="maximum">
+                 <number>199</number>
+                </property>
+                <property name="value">
                  <number>1</number>
                 </property>
                </widget>
@@ -423,35 +426,6 @@
            <string>Service</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_12">
-           <item row="0" column="0">
-            <widget class="QGroupBox" name="groupBox_10">
-             <property name="title">
-              <string>Socket Model</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_26">
-              <item row="0" column="1">
-               <widget class="QRadioButton" name="ClientModel">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="text">
-                 <string>Tcp Client</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QRadioButton" name="ServerModel">
-                <property name="text">
-                 <string>Tcp Server</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
            <item row="1" column="0">
             <widget class="QGroupBox" name="groupBox_13">
              <property name="title">
@@ -547,6 +521,16 @@
              </layout>
             </widget>
            </item>
+           <item row="3" column="0">
+            <widget class="QCheckBox" name="Resulting_checkBox">
+             <property name="text">
+              <string>Only the resulting data is sent</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="0">
             <widget class="QCheckBox" name="Hearbeat_checkBox">
              <property name="text">
@@ -557,13 +541,39 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="Resulting_checkBox">
-             <property name="text">
-              <string>Only the resulting data is sent</string>
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="groupBox_10">
+             <property name="title">
+              <string>Socket Model</string>
              </property>
-             <property name="checked">
-              <bool>true</bool>
+             <layout class="QGridLayout" name="gridLayout_26">
+              <item row="0" column="1">
+               <widget class="QRadioButton" name="ClientModel">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="text">
+                 <string>Tcp Client</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QRadioButton" name="ServerModel">
+                <property name="text">
+                 <string>Tcp Server</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QCheckBox" name="Disconnected_checkBox">
+             <property name="text">
+              <string>Send completion is actively disconnected</string>
              </property>
             </widget>
            </item>

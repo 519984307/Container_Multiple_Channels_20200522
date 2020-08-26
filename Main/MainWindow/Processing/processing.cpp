@@ -2,5 +2,5 @@
 
 Processing::Processing(QObject *parent) : QObject(parent)
 {
-    p_LogController=new LogController ();
+    p_LogController=new LogController (parent);
 }

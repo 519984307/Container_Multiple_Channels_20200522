@@ -93,3 +93,5 @@ else:unix:!macx: LIBS += -L$$OUT_PWD/../Log/ -lLog
 
 INCLUDEPATH += $$PWD/../Log
 DEPENDPATH += $$PWD/../Log
+
+QMAKE_LFLAGS+="-Wl,-rpath=./Library/"

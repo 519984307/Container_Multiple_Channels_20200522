@@ -18,6 +18,8 @@ System_Setting_Form::System_Setting_Form(QWidget *parent) :
 
 System_Setting_Form::~System_Setting_Form()
 {
+    //this->close();
+
     delete ui;
 }
 
@@ -30,14 +32,14 @@ void System_Setting_Form::InitializationParameterSlot()
     mkPath.mkdir("Json");
     mkPath.cd("Json");
 
-    configurationFolder.setFileName(QDir::toNativeSeparators(QString("%1/%2").arg(mkPath.path()).arg("System.json")));
+    fileRoot=QDir::toNativeSeparators(QString("%1/%2").arg(mkPath.path()).arg("System.json"));
 
     connect(ui->Contains_pushButton,SIGNAL(clicked()),this,SLOT(conditionsOfButton_clicked()));
     connect(ui->Eliminate_pushButton,SIGNAL(clicked()),this,SLOT(conditionsOfButton_clicked()));
 
     /* 加载配置 */
     if(!loadParameter()){
-        if(writeParameter()){
+        if(writeParameterSlot()){
             loadParameter();
         }
     }
@@ -48,8 +50,11 @@ void System_Setting_Form::InitializationParameterSlot()
 
 bool System_Setting_Form::loadParameter()
 {
+    configurationFolder.setFileName(fileRoot);
+
     if(!configurationFolder.open(QIODevice::ReadOnly)){
-        emit messageSignal(ZBY_LOG("ERROR"),tr("Failed to load the parameter,create the default parameter error<errorCode=%1>").arg(configurationFolder.OpenError));
+        QByteArray msg=tr("Failed to load the parameter,create the default parameter error<errorCode=%1>").arg(configurationFolder.OpenError).toLocal8Bit();
+        qWarning("%s", msg.data());
         return false;
     }
 
@@ -71,10 +76,22 @@ bool System_Setting_Form::loadParameter()
                     /*****************************
                     * @brief:Channel
                     ******************************/
-                    Parameter::ChannelNumber= getJsonValue("Channel","ChannelNumber",value.toObject()).toInt();
-                    if(Parameter::ChannelNumber>ui->ChannelNumber->maximum()){/* 防止后台篡改通道数量 */
+                    if(Parameter::ChannelNumber>ui->ChannelNumber->maximum()){
+                        /*****************************
+                        * @brief: 防止后台篡改通道数量
+                        ******************************/
                         Parameter::ChannelNumber=ui->ChannelNumber->maximum();
                     }
+                    else if (Parameter::ChannelNumber==0) {
+                        /*****************************
+                        * @brief: 登录页面已做处理
+                        ******************************/
+                        Parameter::ChannelNumber= getJsonValue("Channel","ChannelNumber",value.toObject()).toInt();
+                    }
+                    else {
+                        //Parameter::ChannelNumber= getJsonValue("Channel","ChannelNumber",value.toObject()).toInt();
+                    }
+
                     Parameter::ImageFormat= getJsonValue("Channel","ImageFormat",value.toObject()).toInt();
                     Parameter::ImageNamingRules= getJsonValue("Channel","ImageNamingRules",value.toObject()).toInt();
                     Parameter::ImagePath= getJsonValue("Channel","ImagePath",value.toObject()).toString();
@@ -115,6 +132,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::Heartbeat=getJsonValue("Service","Heartbeat",value.toObject()).toInt();
                     Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
 
+                    configurationFolder.close();
                     return true;
                 }
             }
@@ -122,17 +140,21 @@ bool System_Setting_Form::loadParameter()
     }
     else {
         configurationFolder.remove();
-        emit messageSignal(ZBY_LOG("ERROR"),tr("Load System.json error<errorCode=%1>").arg(jsonError.errorString()));
+        QByteArray msg=tr("Load System.json error<errorCode=%1>").arg(jsonError.errorString()).toLocal8Bit();
+        qWarning("%s", msg.data());
     }
     configurationFolder.close();
 
     return false;
 }
 
-bool System_Setting_Form::writeParameter()
+bool System_Setting_Form::writeParameterSlot()
 {
+    configurationFolder.setFileName(fileRoot);
+
     if(!configurationFolder.open(QIODevice::WriteOnly)){
-        emit messageSignal(ZBY_LOG("ERROR"),tr("Failed to load the parameter,create the default parameter error<errorCode=%1>").arg(configurationFolder.OpenError));
+        const char* msg=tr("Failed to load the parameter,create the default parameter error<errorCode=%1>").arg(configurationFolder.OpenError).toLocal8Bit();
+        qWarning("%s", msg);
         return false;
     }
 
@@ -144,7 +166,7 @@ bool System_Setting_Form::writeParameter()
     ******************************/
     QJsonObject obj1;
     //obj1.insert("channelNumber?",tr("?Set the software to control the number of channels"));
-    obj1.insert("channelNumber",ui->ChannelNumber->value());
+    obj1.insert("ChannelNumber",ui->ChannelNumber->value());
     //obj1.insert("ImageFormat?",tr("?Format the image save path"));
     obj1.insert("ImageFormat",ui->ImageFormat->currentIndex());
     //obj1.insert("ImagePath?",tr("?Set the image to save the root directory"));
@@ -180,7 +202,7 @@ bool System_Setting_Form::writeParameter()
     //obj3.insert("FtpAddress?",tr("?Upload picture address"));
     obj3.insert("FtpAddress",ui->FtpAddress->text());
     //obj3.insert("FtpPort?",tr("?Upload image port"));
-    obj3.insert("FtpPort",ui->FtpPort->text());
+    obj3.insert("FtpPort", ui->FtpPort->text().toInt());
     //obj3.insert("FtpRemotePath?",tr("?Upload picture server directory"));
     obj3.insert("FtpRemotePath",ui->FtpRemote->text());
     //obj3.insert("FtpLocalPath?",tr("?Upload picture native directory"));
@@ -315,7 +337,8 @@ QVariant System_Setting_Form::getJsonValue(const QString &child, const QString &
             }
         }
     }
-    emit messageSignal(ZBY_LOG("ERROR"),tr("load SYSTEM.json value error:%1-%2").arg(child).arg(key));
+    QByteArray msg=tr("load SYSTEM.json value error:%1-%2").arg(child).arg(key).toLocal8Bit();
+    qWarning("%s", msg.data());
     return  QString("");
 }
 
@@ -375,7 +398,12 @@ void System_Setting_Form::conditionsOfButton_clicked()
                 if(bt==QMessageBox::Yes){
                     if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
                         strList.removeAt(index);
-                        stream<<strList.join("\n");
+                        #ifdef Q_OS_LINUX
+                            stream<<strList.join("\n");
+                        #endif
+                        #ifdef Q_OS_WIN
+                            stream<<strList.join("\r\n");
+                        #endif
                         file.close();
                     }
                 }
@@ -385,7 +413,12 @@ void System_Setting_Form::conditionsOfButton_clicked()
                 if(bt==QMessageBox::Yes){
                     if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
                         strList.append(tr("%1").arg(check));
-                        stream<<strList.join("\n");
+                        #ifdef Q_OS_LINUX
+                            stream<<strList.join("\n");
+                        #endif
+                        #ifdef Q_OS_WIN
+                            stream<<strList.join("\r\n");
+                        #endif
                         file.close();
                     }
                 }

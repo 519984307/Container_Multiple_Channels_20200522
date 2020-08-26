@@ -6,7 +6,6 @@
 class Parameter
 {
 public:
-    Parameter();
 
     /*****************************
     * @brief:Channel
