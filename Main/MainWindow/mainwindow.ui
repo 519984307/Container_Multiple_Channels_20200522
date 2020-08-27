@@ -70,9 +70,8 @@
     <property name="title">
      <string>Log</string>
     </property>
-    <addaction name="actionOperational_log"/>
-    <addaction name="actionCommunication_log"/>
-    <addaction name="actionIdentify_the_log"/>
+    <addaction name="actionInfo_log"/>
+    <addaction name="actionData_log"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -146,25 +145,20 @@
     <string>Ctrl+F</string>
    </property>
   </action>
-  <action name="actionOperational_log">
+  <action name="actionInfo_log">
    <property name="text">
-    <string>Operations log</string>
+    <string>Info log</string>
    </property>
    <property name="toolTip">
     <string>System operation log</string>
    </property>
   </action>
-  <action name="actionCommunication_log">
+  <action name="actionData_log">
    <property name="text">
-    <string>Communication log</string>
+    <string>Data log</string>
    </property>
    <property name="toolTip">
     <string>Data exchange log</string>
-   </property>
-  </action>
-  <action name="actionIdentify_the_log">
-   <property name="text">
-    <string>Identify the log</string>
    </property>
   </action>
  </widget>

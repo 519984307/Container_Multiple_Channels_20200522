@@ -102,6 +102,11 @@ signals:
     ///
     void InitializationParameterSignal();
 
+    ///
+    /// \brief showMainWindowSignal 显示主页面
+    ///
+    void showMainWindowSignal();
+
 private:
 
     /*****************************

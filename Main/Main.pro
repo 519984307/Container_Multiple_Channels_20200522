@@ -26,6 +26,8 @@ DEFINES += QT_MESSAGELOGCONTEXT
 CONFIG += c++11
 
 SOURCES += \
+    Log/data_log_form.cpp \
+    Log/info_log_form.cpp \
     MainWindow/Processing/parameter.cpp \
     MainWindow/Processing/processing.cpp \
         main.cpp \
@@ -46,6 +48,8 @@ SOURCES += \
 HEADERS += \
     Channel_Data/channel_data_form.h \
     Channel_Data/equipment_state_from.h \
+    Log/data_log_form.h \
+    Log/info_log_form.h \
     MainWindow/Processing/channelparameter.h \
     MainWindow/Processing/parameter.h \
     MainWindow/Processing/processing.h \
@@ -64,6 +68,8 @@ HEADERS += \
 FORMS += \
     Channel_Data/channel_data_form.ui \
     Channel_Data/equipment_state_from.ui \
+    Log/data_log_form.ui \
+    Log/info_log_form.ui \
     Setting/setting_form.ui \
     Setting/channel_setting_form.ui \
     Setting/system_setting_form.ui \

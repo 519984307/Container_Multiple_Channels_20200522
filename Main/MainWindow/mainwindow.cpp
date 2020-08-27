@@ -75,6 +75,16 @@ void MainWindow::removeTheWindow()
         delete p_DataBase_Form;
         p_DataBase_Form=nullptr;
     }
+    if(p_Data_Log_Form!=nullptr){
+        p_Data_Log_Form->close();
+        delete p_Data_Log_Form;
+        p_Data_Log_Form=nullptr;
+    }
+    if(p_Info_Log_Form!=nullptr){
+        p_Info_Log_Form->close();
+        delete  p_Info_Log_Form;
+        p_Info_Log_Form=nullptr;
+    }
 }
 
 void MainWindow::initializingObject()
@@ -86,12 +96,16 @@ void MainWindow::initializingObject()
     p_Setting_Form=nullptr;
     p_Camera_List_Form=nullptr;
     p_DataBase_Form=nullptr;
+    p_Data_Log_Form=nullptr;
+    p_Info_Log_Form=nullptr;
 
     Form_Map.append(p_Channel_Data_Form);
     Form_Map.append(p_Equipment_State_Form);
     Form_Map.append(p_Setting_Form);
     Form_Map.append(p_Camera_List_Form);
     Form_Map.append(p_DataBase_Form);
+    Form_Map.append(p_Data_Log_Form);
+    Form_Map.append(p_Info_Log_Form);
 }
 
 void MainWindow::mainConnect()
@@ -124,6 +138,10 @@ void MainWindow::formConnet()
         * 初始化设置窗口通道设备列表
         ******************************/
         connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
+        /*****************************
+        * @brief: 显示主页面
+        ******************************/
+        connect(p_Setting_Form,SIGNAL(showMainWindowSignal()),this,SLOT(showMainWindowSlot()));
     }
 
     if(p_Camera_List_Form!=nullptr){
@@ -300,14 +318,51 @@ void MainWindow::on_actionHistory_Sqlite_triggered()
     }
 }
 
-void MainWindow::on_actionOperational_log_triggered()
+void MainWindow::on_actionData_log_triggered()
 {
+    if(p_Data_Log_Form==nullptr){
+
+        removeTheWindow();
+
+        p_Data_Log_Form=new Data_Log_Form (nullptr);
+        ui->gridLayout_2->addWidget(p_Data_Log_Form);
+        p_Data_Log_Form->setVisible(true);
+
+        /*****************************
+        * 初始化通道
+        ******************************/
+        formConnet();
+
+        setStatusBar(tr("TCP network data exchange"));
+    }
+    else {
+        qDebug()<<p_Data_Log_Form;
+    }
 }
 
-void MainWindow::on_actionIdentify_the_log_triggered()
+void MainWindow::on_actionInfo_log_triggered()
 {
+    if(p_Info_Log_Form==nullptr){
+
+        removeTheWindow();
+
+        p_Info_Log_Form=new Info_Log_Form (nullptr);
+        ui->gridLayout_2->addWidget(p_Info_Log_Form);
+        p_Info_Log_Form->setVisible(true);
+
+        /*****************************
+        * 初始化通道
+        ******************************/
+        formConnet();
+
+        setStatusBar(tr("System operation information"));
+    }
+    else {
+        qDebug()<<p_Info_Log_Form;
+    }
 }
 
-void MainWindow::on_actionCommunication_log_triggered()
+void MainWindow::showMainWindowSlot()
 {
+    on_actionMainWindow_triggered();
 }

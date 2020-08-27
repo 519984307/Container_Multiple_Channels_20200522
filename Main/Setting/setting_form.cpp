@@ -164,4 +164,9 @@ void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
         qWarning("Not Save System Json");
         QMessageBox::warning(this,"Save System Settings","Not Save System Json");
     }
+
+    /*****************************
+    * @brief:返回主页面
+    ******************************/
+    emit showMainWindowSignal();
 }

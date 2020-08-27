@@ -20,6 +20,8 @@
 #include "Setting/setting_form.h"
 #include "Camera_Test/camera_list_form.h"
 #include "DataBase/database_form.h"
+#include "Log/data_log_form.h"
+#include "Log/info_log_form.h"
 
 #include "Processing/processing.h"
 #include "Processing/parameter.h"
@@ -119,19 +121,22 @@ private slots:
     void on_actionHistory_Sqlite_triggered();
 
     ///
-    /// \brief on_actionOperational_log_triggered 系统运维日志
+    /// \brief on_actionInfo_log_triggered 系统日志
     ///
-    void on_actionOperational_log_triggered();
+    void on_actionInfo_log_triggered();
 
     ///
-    /// \brief on_actioncommunication_triggered 数据通讯日志
+    /// \brief on_actionData_log_triggered 数据通讯日志
     ///
-    void on_actionCommunication_log_triggered();
+    void on_actionData_log_triggered();
+
+public slots:
 
     ///
-    /// \brief on_actionIdentify_the_log_triggered 识别日志
+    /// \brief showMainWindowSlot 显示主页面
     ///
-    void on_actionIdentify_the_log_triggered();
+    void showMainWindowSlot();
+
 
 signals:
 
@@ -223,6 +228,16 @@ private:
     /// \brief p_DataBase_Form 数据库窗口
     ///
     DataBase_Form *p_DataBase_Form;
+
+    ///
+    /// \brief p_Data_Log_Form TCP数据流窗口
+    ///
+    Data_Log_Form *p_Data_Log_Form;
+
+    ///
+    /// \brief p_Info_Log_Form 运行日志窗口
+    ///
+    Info_Log_Form *p_Info_Log_Form;
 
     ///
     /// \brief permanentWidget 状态栏永久信息
