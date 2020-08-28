@@ -1,7 +1,7 @@
 #include "channel_data_form.h"
 #include "ui_channel_data_form.h"
 
-Channel_Data_Form::Channel_Data_Form(QWidget *parent) :
+Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Channel_Data_Form)
 {
@@ -12,6 +12,9 @@ Channel_Data_Form::Channel_Data_Form(QWidget *parent) :
     this->setParent(parent);
     this->setHidden(true);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+
+    ui->lineEdit_10->setText(alias);
+    ui->lineEdit_2->setText(QString::number(channelNumber));
 }
 
 Channel_Data_Form::~Channel_Data_Form()

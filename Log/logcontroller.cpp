@@ -20,4 +20,5 @@ LogController::LogController(QObject *parent) : QObject(parent)
 LogController::~LogController()
 {
     delete vklog;    
+    vklog=nullptr;
 }

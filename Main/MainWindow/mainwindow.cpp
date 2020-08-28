@@ -7,12 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ///
-    /// \brief Pointer_Log 日志对象
-    ///
-    QScopedPointer<Processing> Pointer_Processing(new Processing (this));
-
-
     getScreenInfo(); 
 
     initializingObject();
@@ -88,7 +82,17 @@ void MainWindow::removeTheWindow()
 }
 
 void MainWindow::initializingObject()
-{            
+{                
+    /*****************************
+    * @brief: 处理对象
+    ******************************/
+    Pointer_Processing=QSharedPointer<Processing> (new Processing (this));
+
+    /*****************************
+    * @brief: 加载通道参数
+    ******************************/
+    Pointer_Processing->loadChannelParameter(Parameter::ChannelNumber);
+
     permanentWidget=nullptr;
 
     p_Channel_Data_Form=nullptr;
@@ -163,12 +167,27 @@ void MainWindow::initStatusBar()
 
 void MainWindow::initializationParameter()
 {
-    channelCount=Parameter::ChannelNumber;
     channelSelect=0;
+    channelCount=Parameter::ChannelNumber;
+
+    /*****************************
+    * @brief: 通道配置文件个数
+    ******************************/
+    int pointerCount=Pointer_Processing->ParmeterList.count();
 
     int key=0x30;
     for (int channel=1;channel<=channelCount;channel++) {
-        QAction *pAction=new QAction (tr("%1 # Channel").arg(channel,2,10,QChar('0')),this);
+
+        QString name=tr("%1 # Channel").arg(channel,2,10,QChar('0'));
+
+        /*****************************
+        * @brief: 读取通道参数别名
+        ******************************/
+        if(pointerCount>=channel && Pointer_Processing->ParmeterList[channel-1]->Alias!=QString("")){
+            name=Pointer_Processing->ParmeterList[channel-1]->Alias;
+        }
+
+        QAction *pAction=new QAction (name,this);
         pAction->setIcon(QIcon(":/UI_ICO/ICO/container.svg"));
         pAction->setShortcut(QKeySequence(Qt::CTRL+static_cast<uint16_t>(key+channel)));
         pAction->setToolTip(tr("Channel switching (CTRL+%1)").arg(channel));
@@ -214,7 +233,7 @@ void MainWindow::actionTiggeredSlot()
 
         channelSelect=it.value();
 
-        p_Channel_Data_Form=new Channel_Data_Form (this);
+        p_Channel_Data_Form=new Channel_Data_Form (it.key()->text(),it.value(),this);
         ui->gridLayout_2->addWidget(p_Channel_Data_Form);
         p_Channel_Data_Form->setVisible(true);
 
@@ -256,7 +275,7 @@ void MainWindow::on_actionParameter_Settings_triggered()
 
         removeTheWindow();
 
-        p_Setting_Form=new Setting_Form (nullptr);
+        p_Setting_Form=new Setting_Form (this);
         ui->gridLayout_2->addWidget(p_Setting_Form);
         p_Setting_Form->setVisible(true);
 

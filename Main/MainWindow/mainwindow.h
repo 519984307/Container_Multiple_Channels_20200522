@@ -200,6 +200,7 @@ private:
 
     Ui::MainWindow *ui;
 
+    QSharedPointer<Processing> Pointer_Processing;
     /*****************************
     * @brief:UI
     ******************************/
