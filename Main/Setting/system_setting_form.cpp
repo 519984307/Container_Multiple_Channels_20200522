@@ -1,7 +1,7 @@
 #include "system_setting_form.h"
 #include "ui_system_setting_form.h"
 
-System_Setting_Form::System_Setting_Form(QWidget *parent) :
+System_Setting_Form::System_Setting_Form(int channelNumber, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::System_Setting_Form)
 {
@@ -13,7 +13,7 @@ System_Setting_Form::System_Setting_Form(QWidget *parent) :
     this->setHidden(true);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
-    InitializationParameterSlot();/* test */
+    InitializationParameterSlot(channelNumber);/* test */
 }
 
 System_Setting_Form::~System_Setting_Form()
@@ -23,8 +23,9 @@ System_Setting_Form::~System_Setting_Form()
     delete ui;
 }
 
-void System_Setting_Form::InitializationParameterSlot()
+void System_Setting_Form::InitializationParameterSlot(int channelNumber)
 {
+    ui->ChannelNumber->setValue(channelNumber);
     /*****************************
     * @brief:创建配置文件夹
     ******************************/

@@ -10,7 +10,7 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 
-#include "MainWindow/Processing/channelparameter.h"
+#include "Parameter/channelparameter.h"
 
 namespace Ui {
 class Channel_Setting_Form;

@@ -12,7 +12,7 @@
 #include <QJsonParseError>
 #include <QMessageLogger>
 
-#include "MainWindow/Processing/parameter.h"
+#include "Parameter/parameter.h"
 
 namespace Ui {
 class System_Setting_Form;
@@ -23,7 +23,7 @@ class System_Setting_Form : public QWidget
     Q_OBJECT
 
 public:
-    explicit System_Setting_Form(QWidget *parent = nullptr);
+    explicit System_Setting_Form(int channelNumber,QWidget *parent = nullptr);
     ~System_Setting_Form();    
 
 private slots:
@@ -96,7 +96,7 @@ public slots:
     ///
     /// \brief InitializationParameterSlot 初始化参数
     ///
-    void InitializationParameterSlot();
+    void InitializationParameterSlot(int channelNumber);
 
     ///
     /// \brief writeParameterSlot 写入参数

@@ -20,11 +20,11 @@
 #include "Setting/setting_form.h"
 #include "Camera_Test/camera_list_form.h"
 #include "DataBase/database_form.h"
-#include "Log/data_log_form.h"
-#include "Log/info_log_form.h"
+#include "LogForm/data_log_form.h"
+#include "LogForm/info_log_form.h"
 
-#include "Processing/processing.h"
-#include "Processing/parameter.h"
+#include "Parameter/processing.h"
+#include "Parameter/parameter.h"
 
 namespace Ui {
 class MainWindow;
@@ -187,12 +187,17 @@ private:
     ///
     /// \brief channelCount 通道数
     ///
-    int channelCount=1;
+    int channelCount;
 
     ///
     /// \brief channelLabels 通道名称列表
     ///
     QStringList channelLabels;
+
+    ///
+    /// \brief pointerCount 通道配置文件个数
+    ///
+    int pointerCount;
 
     /*****************************
     * object

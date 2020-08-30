@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QFile>
 #include <QVariant>
+#include <QDebug>
 #include <QMessageLogger>
 #include <QJsonParseError>
 #include <QJsonObject>
@@ -12,15 +13,22 @@
 #include <QCoreApplication>
 
 #include "logcontroller.h"
+#include "parameter.h"
 #include "channelparameter.h"
 
 class Processing : public QObject
 {
     Q_OBJECT
+
 public:
     explicit Processing(QObject *parent = nullptr);
 
     ~Processing()Q_DECL_OVERRIDE;
+
+    ///
+    /// \brief loadParameter 获取系统配置参数
+    ///
+    void  loadParameter();
 
     ///
     /// \brief loadChannelParameter 获取通道配置参数
@@ -37,10 +45,14 @@ public:
     ///
     QVariant getJsonValue(const QString &child, const QString &key, QJsonObject obj);
 
+private:
+
     ///
     /// \brief p_LogController 日志类
     ///
     LogController *p_LogController;
+
+public:
 
     ///
     /// \brief ParmeterList 配置类组

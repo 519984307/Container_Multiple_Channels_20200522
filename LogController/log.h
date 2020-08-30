@@ -1,14 +1,23 @@
 #ifndef LOG_H
 #define LOG_H
 
-#include "Log_global.h"
+#include <QObject>
 
-class LOG_EXPORT Log:public QObject
+#include <QDebug>
+#include <QTime>
+#include <QFile>
+#include <QDir>
+#include <QPointer>
+#include <QScopedPointer>
+#include <QStandardPaths>
+#include <QMessageLogger>
+
+class Log : public QObject
 {
     Q_OBJECT
 
 public:
-    Log(QObject *parent = nullptr);
+    explicit Log(QObject *parent = nullptr);
 
     ///
     /// \brief outPutMessage 输出日志
@@ -42,13 +51,10 @@ private:
     ///
     void writeToLog(QString value);
 
-private:
-
     ///
     /// \brief logFile 日志文件路径
     ///
     QFile logFile;
-
 };
 
 #endif // LOG_H

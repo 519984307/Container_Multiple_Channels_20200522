@@ -83,7 +83,7 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
     /*****************************
     * @brief: 添加系统设置到容器
     ******************************/
-    System_Setting_Form *p_System_Setting_Form=new System_Setting_Form (this);
+    System_Setting_Form *p_System_Setting_Form=new System_Setting_Form (count,this);
 
     /*****************************
     * @brief: 保存参数
@@ -155,13 +155,17 @@ void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
 //            qWarning("Save System Json error");
 //            QMessageBox::warning(this,"Save System Settings","Save System Json error");
 //        }
+        QByteArray msg=tr("Save System Json Sucess").toLocal8Bit();
+        qWarning("%s", msg.data());
+        QMessageBox::warning(this,tr("Save System Settings"),tr("Parameter saved successfully, software restart takes effect"));
         emit writeParameterSignal();
     }
     if(button==ui->buttonBox->button(QDialogButtonBox::Ignore)){
         /*****************************
         * @brief: 参数未保存做提示
         ******************************/
-        qWarning("Not Save System Json");
+        QByteArray msg=tr("Not Save System Json").toLocal8Bit();
+        qWarning("%s", msg.data());
         QMessageBox::warning(this,"Save System Settings","Not Save System Json");
     }
 

@@ -1,6 +1,6 @@
 #include "log.h"
 
-Log::Log(QObject *parent):QObject(parent)
+Log::Log(QObject *parent) : QObject(parent)
 {
     QDateTime dateTime = QDateTime::currentDateTime();
     QString stringDateTime = dateTime.toString( "yyyy_MM_dd_hh_mm_ss" );

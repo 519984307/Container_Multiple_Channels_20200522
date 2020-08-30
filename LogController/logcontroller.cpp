@@ -11,7 +11,7 @@ void myMessageOutput( QtMsgType type, const QMessageLogContext &context, const Q
     vklog->outPutMessage( type, context, msg );
 }
 
-LogController::LogController(QObject *parent) : QObject(parent)
+LogController::LogController()
 {
     vklog = new Log( );
     qInstallMessageHandler( myMessageOutput );
@@ -19,6 +19,6 @@ LogController::LogController(QObject *parent) : QObject(parent)
 
 LogController::~LogController()
 {
-    delete vklog;    
+    delete vklog;
     vklog=nullptr;
 }

@@ -35,64 +35,6 @@ private:
     /// \param pUser 用户数据
     static void CALLBACK loginResultCallBack(LONG lUserID,DWORD dwResult,LPNET_DVR_DEVICEINFO_V30 lpDeviceInfo,void *pUser);
 
-    ///
-    /// \brief InitializationParameter 初始化参数
-    ///
-    bool InitializationParameter();
-
-    ///
-    /// \brief pThis 类指针
-    ///
-    static CaptureImages_SDK_HCNET* pThis;
-
-    ///
-    /// \brief DLL 加载动态库
-    ///
-    QLibrary* pDLL;
-
-    ///
-    /// \brief pTimerState 相机状态定时器
-    ///
-    QTimer* pTimerCameraState;
-
-    ///
-    /// \brief NetSDKInit 动态库初始化状态
-    ///
-    bool  isSDKInit;
-
-    ///
-    /// \brief port 端口
-    ///
-    int port;
-
-    ///
-    /// \brief camerIp  地址,用户名,密码,相机别名
-    ///
-    QString  camerIp,camerName,camerPow,alias;
-
-    ///登录用户ID,视频流ID
-    LONG lUserID,streamID;
-
-    ///
-    /// \brief dwResult 登录结果
-    ///
-    DWORD dwResult;
-
-    ///
-    /// \brief LoginInfo 相机登录参数
-    ///
-    NET_DVR_USER_LOGIN_INFO LoginInfo={};
-
-    ///
-    /// \brief DeviceInfo 相机参数
-    ///
-    NET_DVR_DEVICEINFO_V40 DeviceInfo={};
-
-    ///
-    /// \brief SDKPath 动态库路径
-    ///
-    NET_DVR_LOCAL_SDK_PATH SDKPath={};
-
     typedef   BOOL  (*NET_DVR_SetExceptionCallBack_V30FUN)(UINT reserved1, void* reserved2, void (CALLBACK* fExceptionCallBack)(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser), void *pUser);
     ///
     /// \brief NET_DVR_SetExceptionCallBack_V30_L 设置异常回调函数
@@ -207,6 +149,67 @@ private:
     /// \brief NET_DVR_SetRecvTimeOut_L 设置接收超时时间
     ///
     NET_DVR_SetRecvTimeOutFUN NET_DVR_SetRecvTimeOut_L;
+
+private:
+
+
+    ///
+    /// \brief InitializationParameter 初始化参数
+    ///
+    bool InitializationParameter();
+
+    ///
+    /// \brief pThis 类指针
+    ///
+    static CaptureImages_SDK_HCNET* pThis;
+
+    ///
+    /// \brief DLL 加载动态库
+    ///
+    QLibrary* pDLL;
+
+    ///
+    /// \brief pTimerState 相机状态定时器
+    ///
+    QTimer* pTimerCameraState;
+
+    ///
+    /// \brief NetSDKInit 动态库初始化状态
+    ///
+    bool  isSDKInit;
+
+    ///
+    /// \brief port 端口
+    ///
+    int port;
+
+    ///
+    /// \brief camerIp  地址,用户名,密码,相机别名
+    ///
+    QString  camerIp,camerName,camerPow,alias;
+
+    ///登录用户ID,视频流ID
+    LONG lUserID,streamID;
+
+    ///
+    /// \brief dwResult 登录结果
+    ///
+    DWORD dwResult;
+
+    ///
+    /// \brief LoginInfo 相机登录参数
+    ///
+    NET_DVR_USER_LOGIN_INFO LoginInfo={};
+
+    ///
+    /// \brief DeviceInfo 相机参数
+    ///
+    NET_DVR_DEVICEINFO_V40 DeviceInfo={};
+
+    ///
+    /// \brief SDKPath 动态库路径
+    ///
+    NET_DVR_LOCAL_SDK_PATH SDKPath={};
 
 public:
 

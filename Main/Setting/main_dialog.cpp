@@ -1,8 +1,9 @@
 #include "main_dialog.h"
 #include "ui_main_dialog.h"
 
-#include "MainWindow/Processing/parameter.h"
-#include "Setting/system_setting_form.h"
+#include "Parameter/parameter.h"
+#include "Parameter/processing.h"
+//#include "Setting/system_setting_form.h"
 
 #include <QPointer>
 
@@ -18,9 +19,16 @@ Main_Dialog::Main_Dialog(QWidget *parent) :
     this->setHidden(true);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
-    QPointer<System_Setting_Form> pForm(new System_Setting_Form(this));
-    //pForm->InitializationParameterSlot();
+    QPointer<Processing> Pro(new Processing(this));
+    Pro->loadParameter();
     ui->ChannelNumber->setValue(Parameter::ChannelNumber);
+
+    /*****************************
+    * @brief: 间接性判断配置文件是否存在,不存在侧创建
+    ******************************/
+//    QPointer<System_Setting_Form> pForm(new System_Setting_Form(this));
+//    //pForm->InitializationParameterSlot();
+//    ui->ChannelNumber->setValue(Parameter::ChannelNumber);
 }
 
 Main_Dialog::~Main_Dialog()

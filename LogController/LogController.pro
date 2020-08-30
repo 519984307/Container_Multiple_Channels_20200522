@@ -1,7 +1,7 @@
 QT -= gui
 
 TEMPLATE = lib
-DEFINES += LOG_LIBRARY
+DEFINES += LOGCONTROLLER_LIBRARY
 
 CONFIG += c++11
 
@@ -21,17 +21,12 @@ SOURCES += \
     logcontroller.cpp
 
 HEADERS += \
-    Log_global.h \
+    LogController_global.h \
     log.h \
     logcontroller.h
-
-TRANSLATIONS += \
-    Log_zh_CN.ts
 
 # Default rules for deployment.
 unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
-
-FORMS +=

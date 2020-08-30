@@ -26,11 +26,11 @@ DEFINES += QT_MESSAGELOGCONTEXT
 CONFIG += c++11
 
 SOURCES += \
-    Log/data_log_form.cpp \
-    Log/info_log_form.cpp \
-    MainWindow/Processing/parameter.cpp \
-    MainWindow/Processing/processing.cpp \
         main.cpp \
+    LogForm/data_log_form.cpp \
+    LogForm/info_log_form.cpp \
+    Parameter/parameter.cpp \
+    Parameter/processing.cpp \
     Channel_Data/channel_data_form.cpp \
     Channel_Data/equipment_state_from.cpp \
     Setting/setting_form.cpp \
@@ -48,11 +48,11 @@ SOURCES += \
 HEADERS += \
     Channel_Data/channel_data_form.h \
     Channel_Data/equipment_state_from.h \
-    Log/data_log_form.h \
-    Log/info_log_form.h \
-    MainWindow/Processing/channelparameter.h \
-    MainWindow/Processing/parameter.h \
-    MainWindow/Processing/processing.h \
+    LogForm/data_log_form.h \
+    LogForm/info_log_form.h \
+    Parameter/channelparameter.h \
+    Parameter/parameter.h \
+    Parameter/processing.h \
     Setting/setting_form.h \
     Setting/channel_setting_form.h \
     Setting/system_setting_form.h \
@@ -68,8 +68,8 @@ HEADERS += \
 FORMS += \
     Channel_Data/channel_data_form.ui \
     Channel_Data/equipment_state_from.ui \
-    Log/data_log_form.ui \
-    Log/info_log_form.ui \
+    LogForm/data_log_form.ui \
+    LogForm/info_log_form.ui \
     Setting/setting_form.ui \
     Setting/channel_setting_form.ui \
     Setting/system_setting_form.ui \
@@ -93,11 +93,12 @@ RCC_DIR=tmp/rcc
 UI_DIR=tmp/ui
 OBJECTS_DIR=tmp/obj
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Log/release/ -lLog
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Log/debug/ -lLog
-else:unix:!macx: LIBS += -L$$OUT_PWD/../Log/ -lLog
-
-INCLUDEPATH += $$PWD/../Log
-DEPENDPATH += $$PWD/../Log
 
 QMAKE_LFLAGS+="-Wl,-rpath=./Library/"
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../LogController/release/ -lLogController
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../LogController/debug/ -lLogController
+else:unix:!macx: LIBS += -L$$OUT_PWD/../LogController/ -lLogController
+
+INCLUDEPATH += $$PWD/../LogController
+DEPENDPATH += $$PWD/../LogController

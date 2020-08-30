@@ -13,6 +13,8 @@ TEMPLATE = lib
 
 DEFINES += CAPTUREIMAGES_SDK_HCNET_LIBRARY
 
+VERSION=1.0
+
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -29,9 +31,9 @@ SOURCES += \
 
 HEADERS += \
         captureimages_sdk_hcnet.h \
-        captureimages_sdk_hcnet_global.h \ 
-    HCNetSDK.h \
-    captureimages_sdk_hcnet_interface.h
+        captureimages_sdk_hcnet_global.h \  \
+        captureimages_sdk_hcnet_interface.h
+    HCNetSDK.h
 
 unix {
     target.path = /usr/lib
