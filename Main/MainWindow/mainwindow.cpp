@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     getScreenInfo(); 
-
     initializingObject();
     initStatusBar();
     initializationParameter();
@@ -84,7 +83,7 @@ void MainWindow::removeTheWindow()
 void MainWindow::initializingObject()
 {                
     /*****************************
-    * @brief: 参数处理对象
+    * @brief: 参数处理
     ******************************/
     Pointer_Processing=QSharedPointer<Processing> (new Processing (this));
 

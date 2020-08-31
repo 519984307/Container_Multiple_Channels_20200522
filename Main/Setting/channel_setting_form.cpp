@@ -24,7 +24,6 @@ Channel_Setting_Form::~Channel_Setting_Form()
     delete p_ChannelParameter;
     p_ChannelParameter=nullptr;
 
-    //this->close();
     delete ui;
 }
 
@@ -58,7 +57,7 @@ bool Channel_Setting_Form::loadParameter()
 {
     configurationFolder.setFileName(fileRoot);
     if(!configurationFolder.open(QIODevice::ReadOnly)){
-        qWarning().noquote()<<tr("Failed to load the Channel_%1 parameter, create the default parameter error<errorCOde=%2>").arg(channel_number).arg(configurationFolder.OpenError);
+        qWarning().noquote()<<tr("Failed to load the Channel_%1 parameter, create the default parameter error<errorCOde=%2>").arg(channel_number).arg(configurationFolder.OpenError);                
         return false;
     }
 
@@ -130,7 +129,7 @@ bool Channel_Setting_Form::writeParameterSlot()
     configurationFolder.setFileName(fileRoot);
 
     if(!configurationFolder.open(QIODevice::WriteOnly)){
-        qWarning().noquote()<<tr("open Channel_%1.json error<errorCode=%2>").arg(channel_number).arg(configurationFolder.OpenError);
+        qWarning().noquote()<<tr("open Channel_%1.json error<errorCode=%2>").arg(channel_number).arg(configurationFolder.OpenError);              
         return false;
     }
 

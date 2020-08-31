@@ -28,7 +28,7 @@ public:
     ///
     /// \brief loadParameter 获取系统配置参数
     ///
-    void  loadParameter();
+    bool loadParameter();
 
     ///
     /// \brief loadChannelParameter 获取通道配置参数

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>658</width>
-    <height>444</height>
+    <width>562</width>
+    <height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>642</width>
-        <height>428</height>
+        <width>829</width>
+        <height>370</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -375,42 +375,42 @@
                 <item>
                  <widget class="QLabel" name="label">
                   <property name="text">
-                   <string>                            User:</string>
+                   <string>User:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_2">
                   <property name="text">
-                   <string>                    Password:</string>
+                   <string>Password:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_3">
                   <property name="text">
-                   <string>                       Address:</string>
+                   <string>Address:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_5">
                   <property name="text">
-                   <string>                              Port:</string>
+                   <string>Port:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_6">
                   <property name="text">
-                   <string>The remote directory:</string>
+                   <string>remote directory:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
                  <widget class="QLabel" name="label_7">
                   <property name="text">
-                   <string>            Local directory:</string>
+                   <string>Local directory:</string>
                   </property>
                  </widget>
                 </item>

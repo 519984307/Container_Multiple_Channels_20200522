@@ -14,7 +14,7 @@ Processing::~Processing()
     p_LogController=nullptr;
 }
 
-void Processing::loadParameter()
+bool Processing::loadParameter()
 {
     QDir mkPath(QCoreApplication::applicationDirPath());
     mkPath.mkdir("Json");
@@ -25,7 +25,7 @@ void Processing::loadParameter()
     QFile configurationFolder(fileRoot);
     if(!configurationFolder.open(QIODevice::ReadOnly)){
         qWarning()<<tr("Failed to load the System parameter, create the default parameter error<errorCOde=%1>").arg(configurationFolder.OpenError);
-        return;
+        return false;
     }
 
     QByteArray arr=configurationFolder.readAll();
@@ -89,6 +89,7 @@ void Processing::loadParameter()
                     Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
 
                     configurationFolder.close();
+                    return true;
                 }
             }
         }
@@ -99,8 +100,9 @@ void Processing::loadParameter()
         qWarning("%s", msg.data());
     }
 
-    configurationFolder.remove();
     configurationFolder.close();
+
+    return false;
 }
 
 void Processing::loadChannelParameter(int Channels)
@@ -171,8 +173,8 @@ void Processing::loadChannelParameter(int Channels)
                         p_ChannelParameter->SerialPortTow= getJsonValue("SerialPort","SerialPortTow",value.toObject()).toInt();
                         p_ChannelParameter->SerialPortOne= getJsonValue("SerialPort","SerialPortOne",value.toObject()).toInt();
 
-                        configurationFolder.close();
                         p_ChannelParameter=nullptr;
+                        configurationFolder.close();
                         }
                     }
                 }
@@ -184,7 +186,6 @@ void Processing::loadChannelParameter(int Channels)
             continue;
         }
 
-        configurationFolder.remove();
         configurationFolder.close();
     }
 }

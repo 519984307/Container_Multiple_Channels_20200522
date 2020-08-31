@@ -18,14 +18,11 @@ System_Setting_Form::System_Setting_Form(int channelNumber, QWidget *parent) :
 
 System_Setting_Form::~System_Setting_Form()
 {
-    //this->close();
-
     delete ui;
 }
 
 void System_Setting_Form::InitializationParameterSlot(int channelNumber)
 {
-    ui->ChannelNumber->setValue(channelNumber);
     /*****************************
     * @brief:创建配置文件夹
     ******************************/
@@ -47,6 +44,11 @@ void System_Setting_Form::InitializationParameterSlot(int channelNumber)
     else {/* 外部更改配置,回写配置到UI */
         parameterToUi();
     }
+
+    /*****************************
+    * @brief: 写入临时通道数
+    ******************************/
+    ui->ChannelNumber->setValue(channelNumber);
 }
 
 bool System_Setting_Form::loadParameter()
@@ -56,6 +58,7 @@ bool System_Setting_Form::loadParameter()
     if(!configurationFolder.open(QIODevice::ReadOnly)){
         QByteArray msg=tr("Failed to load the parameter,create the default parameter error<errorCode=%1>").arg(configurationFolder.OpenError).toLocal8Bit();
         qWarning("%s", msg.data());
+
         return false;
     }
 
@@ -144,6 +147,7 @@ bool System_Setting_Form::loadParameter()
         QByteArray msg=tr("Load System.json error<errorCode=%1>").arg(jsonError.errorString()).toLocal8Bit();
         qWarning("%s", msg.data());
     }
+
     configurationFolder.close();
 
     return false;

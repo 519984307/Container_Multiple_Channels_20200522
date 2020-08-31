@@ -1,9 +1,13 @@
-CONFIG -= qt
+QT       -= gui
 
 TEMPLATE = lib
 DEFINES += CAPTUREIMAGESHCNET_LIBRARY
 
 CONFIG += c++11
+
+CONFIG += plugin
+
+VERSION=1.1
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -21,6 +25,8 @@ SOURCES += \
 
 HEADERS += \
     CaptureImagesHCNET_global.h \
+    HCNetSDK.h \
+    ICaptureImagesHCNET.h \
     captureimageshcnet.h
 
 # Default rules for deployment.
@@ -28,3 +34,5 @@ unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
+
+DESTDIR +=../MainUI/Plugins

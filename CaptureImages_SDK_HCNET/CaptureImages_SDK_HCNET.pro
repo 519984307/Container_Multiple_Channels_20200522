@@ -8,12 +8,12 @@ QT       -= gui
 
 CONFIG += plugin
 
+VERSION=1.0
+
 TARGET = CaptureImages_SDK_HCNET
 TEMPLATE = lib
 
 DEFINES += CAPTUREIMAGES_SDK_HCNET_LIBRARY
-
-VERSION=1.0
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -30,14 +30,14 @@ SOURCES += \
         captureimages_sdk_hcnet.cpp
 
 HEADERS += \
+        HCNetSDK.h \
         captureimages_sdk_hcnet.h \
-        captureimages_sdk_hcnet_global.h \  \
-        captureimages_sdk_hcnet_interface.h
-    HCNetSDK.h
+        captureimages_sdk_hcnet_global.h \
+        captureimages_sdk_hcnet_interface.h \
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
 
-DESTDIR +=../MainUI/Plugins
+#DESTDIR +=../MainUI/Plugins
