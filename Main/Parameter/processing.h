@@ -55,9 +55,9 @@ private:
 public:
 
     ///
-    /// \brief ParmeterList 配置类组
+    /// \brief ParmeterMap 配置类组
     ///
-    QList<ChannelParameter*> ParmeterList;
+    QMap<int,ChannelParameter*> ParmeterMap;
 
 signals:
 

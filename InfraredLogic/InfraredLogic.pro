@@ -5,10 +5,11 @@
 #-------------------------------------------------
 
 QT       -= gui
-
-QT      +=serialport
+QT       += serialport
 
 CONFIG += plugin
+
+VERSION=1.1
 
 TARGET = InfraredLogic
 TEMPLATE = lib

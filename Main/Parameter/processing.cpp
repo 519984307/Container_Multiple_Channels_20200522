@@ -7,8 +7,8 @@ Processing::Processing(QObject *parent) : QObject(parent)
 
 Processing::~Processing()
 {
-    qDeleteAll(ParmeterList);
-    ParmeterList.clear();
+    qDeleteAll(ParmeterMap.values());
+    ParmeterMap.clear();
 
     delete p_LogController;
     p_LogController=nullptr;
@@ -138,7 +138,7 @@ void Processing::loadChannelParameter(int Channels)
 
                         ChannelParameter *p_ChannelParameter=new ChannelParameter ();
                         //ArrayPointer[ind-1]=*p_ChannelParameter;
-                        ParmeterList.append(p_ChannelParameter);
+                        ParmeterMap.insert(ind,p_ChannelParameter);
 
                         /*****************************
                         * @brief:camera

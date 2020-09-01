@@ -4,5 +4,13 @@
         <file>ICO/main-fill.svg</file>
         <file>ICO/container.svg</file>
     </qresource>
-    <qresource prefix="/database"/>
+    <qresource prefix="/database">
+        <file>ICO/before.svg</file>
+        <file>ICO/data.svg</file>
+        <file>ICO/excel.svg</file>
+        <file>ICO/find.svg</file>
+        <file>ICO/frist.svg</file>
+        <file>ICO/front.svg</file>
+        <file>ICO/last.svg</file>
+    </qresource>
 </RCC>

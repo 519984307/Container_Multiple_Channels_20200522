@@ -1,6 +1,8 @@
 #ifndef INFRAREDLOGIC_INTERFACE_H
 #define INFRAREDLOGIC_INTERFACE_H
 
+#define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
+
 #include <QObject>
 
 class InfraredLogic_Interface : public QObject
@@ -69,7 +71,7 @@ public slots:
    virtual void exitWhileSlot(bool exit)=0;
 };
 
-#define InfraredLogic_InterfaceIID "ZBY.ContainerServer.InfraredLogic_Interface/1.1"
+#define InfraredLogic_InterfaceIID "ZBY.ContainerServer.InfraredLogic_Interface/1.0"
 Q_DECLARE_INTERFACE(InfraredLogic_Interface,InfraredLogic_InterfaceIID);
 
 #endif // INFRAREDLOGICINTERFACE_H

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui sql serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,6 +26,7 @@ DEFINES += QT_MESSAGELOGCONTEXT
 CONFIG += c++11
 
 SOURCES += \
+    Processing/loadinglibaray.cpp \
         main.cpp \
     LogForm/data_log_form.cpp \
     LogForm/info_log_form.cpp \
@@ -48,11 +49,23 @@ SOURCES += \
 HEADERS += \
     Channel_Data/channel_data_form.h \
     Channel_Data/equipment_state_from.h \
+    Interface/ICaptureImagesHCNET.h \
+    Interface/ICaptureImagesTCP.h \
+    Interface/ITheLicensePlateHCNET.h \
+    Interface/ITheLicensePlateWTY.h \
+    Interface/databaseread_interface.h \
+    Interface/databasewrite_interface.h \
+    Interface/datainterchange_interface.h \
+    Interface/encryption_interface.h \
+    Interface/infraredlogic_interface.h \
+    Interface/recognizer_interface.h \
+    Interface/thedataanalysis_interface.h \
     LogForm/data_log_form.h \
     LogForm/info_log_form.h \
     Parameter/channelparameter.h \
     Parameter/parameter.h \
     Parameter/processing.h \
+    Processing/loadinglibaray.h \
     Setting/setting_form.h \
     Setting/channel_setting_form.h \
     Setting/system_setting_form.h \

@@ -26,6 +26,8 @@
 #include "Parameter/processing.h"
 #include "Parameter/parameter.h"
 
+#include "Processing/loadinglibaray.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -206,6 +208,12 @@ private:
     Ui::MainWindow *ui;
 
     QSharedPointer<Processing> Pointer_Processing;
+
+    ///
+    /// \brief pLoadingLibaray 加载插件
+    ///
+    LoadingLibaray *pLoadingLibaray;
+
     /*****************************
     * @brief:UI
     ******************************/

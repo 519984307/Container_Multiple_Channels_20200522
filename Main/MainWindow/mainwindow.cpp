@@ -31,6 +31,8 @@ void MainWindow::getScreenInfo()
 
 void MainWindow::clearnContainer()
 {
+    delete  pLoadingLibaray;
+
     /*****************************
     * 删除所有窗口对象
     ******************************/
@@ -91,6 +93,11 @@ void MainWindow::initializingObject()
     * @brief: 加载通道参数
     ******************************/
     Pointer_Processing->loadChannelParameter(Parameter::ChannelNumber);
+
+    /*****************************
+    * @brief: 加载插件
+    ******************************/
+    pLoadingLibaray=new LoadingLibaray(Parameter::ChannelNumber,this);
 
     permanentWidget=nullptr;
 
@@ -172,7 +179,7 @@ void MainWindow::initializationParameter()
     /*****************************
     * @brief: 通道配置文件个数
     ******************************/
-    pointerCount=Pointer_Processing->ParmeterList.count();
+    pointerCount=Pointer_Processing->ParmeterMap.count();
 
     int key=0x30;
     for (int channel=1;channel<=channelCount;channel++) {
@@ -182,8 +189,8 @@ void MainWindow::initializationParameter()
         /*****************************
         * @brief: 读取通道参数别名
         ******************************/
-        if(pointerCount>=channel && Pointer_Processing->ParmeterList[channel-1]->Alias!=QString("")){
-            name=Pointer_Processing->ParmeterList[channel-1]->Alias;
+        if(pointerCount>=channel && Pointer_Processing->ParmeterMap[channel]->Alias!=QString("")){
+            name=Pointer_Processing->ParmeterMap[channel]->Alias;
         }
 
         QAction *pAction=new QAction (name,this);
@@ -237,8 +244,8 @@ void MainWindow::actionTiggeredSlot()
         ******************************/
 
         int channel_number=it.value();
-        if(pointerCount>=it.value() && Pointer_Processing->ParmeterList[it.value()-1]->Channel_number!=0){
-            channel_number=Pointer_Processing->ParmeterList[it.value()-1]->Channel_number;
+        if(pointerCount>=it.value() && Pointer_Processing->ParmeterMap[it.value()]->Channel_number!=0){
+            channel_number=Pointer_Processing->ParmeterMap[it.value()]->Channel_number;
         }
 
         p_Channel_Data_Form=new Channel_Data_Form (it.key()->text(),channel_number,this);

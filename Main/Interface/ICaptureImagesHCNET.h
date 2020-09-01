@@ -1,16 +1,16 @@
-#ifndef CAPTUREIMAGES_SDK_HCNET_INTERFACE_H
-#define CAPTUREIMAGES_SDK_HCNET_INTERFACE_H
+#ifndef ICAPTUREIMAGESHCNET_H
+#define ICAPTUREIMAGESHCNET_H
 
 #define IMG_BYTE 1920*1080+1
 
 #include <QObject>
 
-class CaptureImages_SDK_HCNET_Interface : public QObject
+class ICaptureImagesHCNET : public QObject
 {
     Q_OBJECT
 
 public:
-    virtual ~ CaptureImages_SDK_HCNET_Interface(){}
+    virtual ~ ICaptureImagesHCNET(){}
 
 signals:
 
@@ -66,8 +66,8 @@ public slots:
     virtual void releaseResourcesSlot()=0;
 };
 
-#define CaptureImages_SDK_HCNET_InterfaceIID "ZBY.ContainerServer.CaptureImages_SDK_HCNET_Interface/1.0"
-Q_DECLARE_INTERFACE(CaptureImages_SDK_HCNET_Interface,CaptureImages_SDK_HCNET_InterfaceIID);
+#define ICaptureImagesHCNET_IID "ZBY.ContainerServer.ICaptureImagesHCNET/1.1"
+Q_DECLARE_INTERFACE(ICaptureImagesHCNET,ICaptureImagesHCNET_IID);
 
 
-#endif // CAPTUREIMAGES_SDK_HCNET_INTERFACE_H
+#endif // ICAPTUREIMAGESHCNET_H

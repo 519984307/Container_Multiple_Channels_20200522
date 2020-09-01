@@ -36,7 +36,6 @@ CaptureImagesHCNET::CaptureImagesHCNET(QObject *parent)
 
 CaptureImagesHCNET::~CaptureImagesHCNET()
 {
-    //delete CaptureImagesHCNET::pThis;
     CaptureImagesHCNET::pThis=nullptr;
 
     if(NET_DVR_Cleanup_L!=nullptr){

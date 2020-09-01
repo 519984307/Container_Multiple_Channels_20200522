@@ -8,7 +8,6 @@
 #include <QCoreApplication>
 #include <QDebug>
 
-
 #if defined(INFRAREDLOGIC_LIBRARY)
 #  define INFRAREDLOGICSHARED_EXPORT Q_DECL_EXPORT
 #else

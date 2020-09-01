@@ -421,7 +421,7 @@
           </property>
           <property name="icon">
            <iconset resource="../ico.qrc">
-            <normaloff>:/database/ICO/查找.svg</normaloff>:/database/ICO/查找.svg</iconset>
+            <normaloff>:/database/ICO/find.svg</normaloff>:/database/ICO/find.svg</iconset>
           </property>
          </widget>
         </item>
@@ -432,7 +432,7 @@
           </property>
           <property name="icon">
            <iconset resource="../ico.qrc">
-            <normaloff>:/database/ICO/最前.svg</normaloff>:/database/ICO/最前.svg</iconset>
+            <normaloff>:/database/ICO/frist.svg</normaloff>:/database/ICO/frist.svg</iconset>
           </property>
          </widget>
         </item>
@@ -443,7 +443,7 @@
           </property>
           <property name="icon">
            <iconset resource="../ico.qrc">
-            <normaloff>:/database/ICO/向前.svg</normaloff>:/database/ICO/向前.svg</iconset>
+            <normaloff>:/database/ICO/before.svg</normaloff>:/database/ICO/before.svg</iconset>
           </property>
          </widget>
         </item>
@@ -454,7 +454,7 @@
           </property>
           <property name="icon">
            <iconset resource="../ico.qrc">
-            <normaloff>:/database/ICO/向后.svg</normaloff>:/database/ICO/向后.svg</iconset>
+            <normaloff>:/database/ICO/front.svg</normaloff>:/database/ICO/front.svg</iconset>
           </property>
          </widget>
         </item>
@@ -465,7 +465,7 @@
           </property>
           <property name="icon">
            <iconset resource="../ico.qrc">
-            <normaloff>:/database/ICO/最后.svg</normaloff>:/database/ICO/最后.svg</iconset>
+            <normaloff>:/database/ICO/last.svg</normaloff>:/database/ICO/last.svg</iconset>
           </property>
          </widget>
         </item>
@@ -476,7 +476,7 @@
           </property>
           <property name="icon">
            <iconset resource="../ico.qrc">
-            <normaloff>:/database/ICO/导出表格.svg</normaloff>:/database/ICO/导出表格.svg</iconset>
+            <normaloff>:/database/ICO/excel.svg</normaloff>:/database/ICO/excel.svg</iconset>
           </property>
          </widget>
         </item>
@@ -495,7 +495,7 @@
          <widget class="QLineEdit" name="lineEdit">
           <property name="maximumSize">
            <size>
-            <width>250</width>
+            <width>16777215</width>
             <height>50</height>
            </size>
           </property>
@@ -648,7 +648,7 @@
          <widget class="QLineEdit" name="lineEdit_2">
           <property name="maximumSize">
            <size>
-            <width>250</width>
+            <width>16777215</width>
             <height>50</height>
            </size>
           </property>

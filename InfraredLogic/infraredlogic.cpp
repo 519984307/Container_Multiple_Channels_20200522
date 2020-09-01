@@ -3,20 +3,35 @@
 InfraredLogic::InfraredLogic(QObject *parent)
 {
     this-> setParent(parent);
+
+    pDetectionTimer=nullptr;
+    pTimerAfter=nullptr;
+    pTimerFront=nullptr;
+    pSerial1=nullptr;
+    pSerial2=nullptr;
 }
 
 InfraredLogic::~InfraredLogic()
 {
-    pDetectionTimer->stop();
-    delete  pDetectionTimer;
-    pDetectionTimer=nullptr;
+    if(pDetectionTimer!=nullptr){
+        pDetectionTimer->stop();
+        delete  pDetectionTimer;
+        pDetectionTimer=nullptr;
+    }
 
-    pTimerFront->stop();
-    pTimerAfter->stop();
-    delete pTimerFront;
-    pTimerFront=nullptr;
-    delete pTimerAfter;
-    pTimerAfter=nullptr;
+    if(pTimerAfter!=nullptr){
+        pTimerAfter->stop();
+        delete pTimerAfter;
+        pTimerAfter=nullptr;
+    }
+
+    if(pTimerFront!=nullptr){
+        pTimerFront->stop();
+        delete pTimerFront;
+        pTimerFront=nullptr;
+    }
+
+
     /*
      * free(status);
      * free(tmpStatus);
@@ -65,6 +80,7 @@ void InfraredLogic::exitWhileSlot(bool EXIT)
     pDetectionTimer->stop();
     pTimerFront->stop();
     pTimerAfter->stop();
+
     this->exit=EXIT;
     pSerial1->close();
     pSerial2->close();
@@ -207,28 +223,28 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
      * COM1
     */
     if(!pSerial1->open(QIODevice::ReadOnly)){
-        emit messageSignal(ZBY_LOG("ERROR"), tr("portName1:%1 Open error<errorCode=%2>").arg(portName1).arg(pSerial1->error()));
+        //emit messageSignal(ZBY_LOG("ERROR"), tr("portName1:%1 Open error<errorCode=%2>").arg(portName1).arg(pSerial1->error()));
     }
     else{
         /*
          * 设置DTR电平高
         */
         if(pSerial1->setDataTerminalReady(true)){
-            emit messageSignal(ZBY_LOG("INFO"), tr("portName1:%1 Set DataTerminalReady successful").arg(portName1));
+            //emit messageSignal(ZBY_LOG("INFO"), tr("portName1:%1 Set DataTerminalReady successful").arg(portName1));
             com1=true;
         }
         else {
-            emit messageSignal(ZBY_LOG("ERROR"), tr("portName1:%1 Set DataTerminalReady  error<errorCode=%2>").arg(portName1).arg(pSerial1->error()));
+            //emit messageSignal(ZBY_LOG("ERROR"), tr("portName1:%1 Set DataTerminalReady  error<errorCode=%2>").arg(portName1).arg(pSerial1->error()));
         }
         /*
          * 设置RTS电平高,可以不设置
         */
         if(pSerial1->setRequestToSend(true))
         {
-            emit messageSignal(ZBY_LOG("INFO"),tr("portName1:%1 Set RequestToSend successful").arg(portName1));
+            //emit messageSignal(ZBY_LOG("INFO"),tr("portName1:%1 Set RequestToSend successful").arg(portName1));
         }
         else{
-            emit messageSignal(ZBY_LOG("ERROR"),tr("portName1:%1 Set RequestToSend error<errorCode=%2>").arg(portName1).arg(pSerial1->error()));
+            //emit messageSignal(ZBY_LOG("ERROR"),tr("portName1:%1 Set RequestToSend error<errorCode=%2>").arg(portName1).arg(pSerial1->error()));
         }
     }
 
@@ -236,33 +252,33 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
      * COM2
     */
     if(!pSerial2->open(QIODevice::ReadOnly)){
-        emit messageSignal(ZBY_LOG("ERROR"),tr("portName2:%1 Open error<errorCode=%2>").arg(portName2).arg(pSerial2->error()));
+        //emit messageSignal(ZBY_LOG("ERROR"),tr("portName2:%1 Open error<errorCode=%2>").arg(portName2).arg(pSerial2->error()));
     }
     else{
         /*
          * 设置DTR电平高
         */
         if(pSerial2->setDataTerminalReady(true)){
-            emit messageSignal(ZBY_LOG("INFO"),tr("portName2:%1 Set DataTerminalReady successful").arg(portName2));
+            //emit messageSignal(ZBY_LOG("INFO"),tr("portName2:%1 Set DataTerminalReady successful").arg(portName2));
             com2=true;
         }
         else {
-            emit messageSignal(ZBY_LOG("ERROR"),tr("portName2:%1 Set DataTerminalReady error<errorCode=%2>").arg(portName2).arg(pSerial2->error()));
+            //emit messageSignal(ZBY_LOG("ERROR"),tr("portName2:%1 Set DataTerminalReady error<errorCode=%2>").arg(portName2).arg(pSerial2->error()));
         }
         /*
          * 设置RTS电平高,可以不设置
         */
         if(pSerial2->setRequestToSend(true))
         {
-            emit messageSignal(ZBY_LOG("INFO"),tr("portName2:%1 Set RequestToSend successful").arg(portName2));
+            //emit messageSignal(ZBY_LOG("INFO"),tr("portName2:%1 Set RequestToSend successful").arg(portName2));
         }
         else{
-            emit messageSignal(ZBY_LOG("ERROR"),tr("portName2:%1 Set RequestToSend error<errorCode=%2>").arg(portName2).arg(pSerial2->error()));
+            //emit messageSignal(ZBY_LOG("ERROR"),tr("portName2:%1 Set RequestToSend error<errorCode=%2>").arg(portName2).arg(pSerial2->error()));
         }
     }
 
     if(!com1 && !com2){/* com1和com2都未打开,不做后续处理 */
-        emit messageSignal(ZBY_LOG("INFO"),tr("Channel serial port exception"));
+        //emit messageSignal(ZBY_LOG("INFO"),tr("Channel serial port exception"));
         return;
     }
 
