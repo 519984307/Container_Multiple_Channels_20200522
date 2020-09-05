@@ -23,7 +23,7 @@ void DatabaseWrite::initDatabaseSlot(const QString &connectName, const QString &
     this->connectName=QString("DataBaseInsert_").append(connectName);
 
     db=QSqlDatabase::addDatabase("QSQLITE",this->connectName);
-    db.setDatabaseName(QDir::toNativeSeparators(tr("%1/%2/%3").arg(dir.path()).arg("History.db")));
+    db.setDatabaseName(QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg("History.db")));
     db.setUserName(user);
     db.setPassword(pass);
     db.setHostName(ip);

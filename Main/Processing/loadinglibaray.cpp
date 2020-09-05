@@ -30,7 +30,6 @@ LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(par
         QObject *plugin = pluginLoader.instance();
 
         if(plugin){
-            qDebug()<<fileName;
             const QString pluginName=fileName.split(".")[0];
             /*  创建子插件目录 */
             pluginsDir.mkdir(pluginName);
@@ -53,17 +52,17 @@ LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(par
                 delete pICaptureImagesHCNET;
                 pICaptureImagesHCNET=nullptr;
             }
-            else if (InfraredLogic_Interface *pInfraredLogic_Interface=qobject_cast<InfraredLogic_Interface*>(plugin)) {
-                pluginsNum=ChannelNumber;
-
-                delete pICaptureImagesHCNET;
-                pICaptureImagesHCNET=nullptr;
-            }
             else if (ICaptureImagesTCP *pICaptureImagesTCP=qobject_cast<ICaptureImagesTCP*>(plugin)) {
                 pluginsNum=ChannelNumber*5;
 
-                delete pICaptureImagesHCNET;
-                pICaptureImagesHCNET=nullptr;
+                delete pICaptureImagesTCP;
+                pICaptureImagesTCP=nullptr;
+            }
+            else if (InfraredLogic_Interface *pInfraredLogic_Interface=qobject_cast<InfraredLogic_Interface*>(plugin)) {
+                pluginsNum=ChannelNumber;
+
+                delete pInfraredLogic_Interface;
+                pInfraredLogic_Interface=nullptr;
             }
             else {
                 delete plugin;
@@ -75,7 +74,7 @@ LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(par
             }
 
             pluginsDir.cdUp();
-            qDebug()<< pluginLoader.unload();
+            pluginLoader.unload();
         }
     }
 }
