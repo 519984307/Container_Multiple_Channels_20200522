@@ -3,7 +3,7 @@
 PutCommand::PutCommand(QObject *parent) : QObject(parent)
 {
     tcpSocket=new  QTcpSocket (this);
-    capNo=1;
+    capNo=0;
 }
 
 PutCommand::~PutCommand()
@@ -17,8 +17,9 @@ PutCommand::~PutCommand()
 
 void PutCommand::linktoServerSlot(QString addr, quint16 port)
 {
-    if(!tcpSocket->isValid()){
-            tcpSocket->connectToHost(addr,port);
+    if(tcpSocket->state()==QAbstractSocket:: UnconnectedState){
+        tcpSocket->abort();
+        tcpSocket->connectToHost(addr,port);
     }
 }
 
@@ -35,7 +36,7 @@ bool PutCommand::putCommandSlot()
 
     qInfo()<<capTm;
 
-    if(tcpSocket->isValid()){
+    if(tcpSocket->state()==QAbstractSocket::ConnectedState){
         const char * str_data=capTm.data();
         if(tcpSocket->write(str_data)!=-1){
             return tcpSocket->flush();

@@ -6,6 +6,8 @@ CaptureImagesTCP::CaptureImagesTCP(QObject *parent)
     tcpSocket=nullptr;
     pTimerLinkCamer=nullptr;
     pPutCommand=nullptr;
+
+    streamState=false;
 }
 
 CaptureImagesTCP::~CaptureImagesTCP()
@@ -29,7 +31,7 @@ void CaptureImagesTCP::connected()
     {
         pTimerLinkCamer->stop();
     }
-    pTimerLinkCamer->start(25000);
+    pTimerLinkCamer->start(15000);
 }
 
 void CaptureImagesTCP::readFortune()
@@ -38,7 +40,7 @@ void CaptureImagesTCP::readFortune()
     {
         pTimerLinkCamer->stop();
     }
-    pTimerLinkCamer->start(20000);
+    pTimerLinkCamer->start(10000);
 
     tcpSocket = qobject_cast<QTcpSocket*>(sender());
     QByteArray tmpStream = tcpSocket->readAll();
@@ -62,13 +64,20 @@ void CaptureImagesTCP::readFortune()
             QThread::msleep(10);
         }
         else {
+            /*****************************
+            * @brief:保证流程完成
+            ******************************/
             emit pictureStreamSignal(nullptr,imgNumber,imgTime);
         }
         jpgStream.clear();
     }
-//    else {
-//        emit pictureStreamSignal(nullptr,imgNumber,imgTime);
-//    }
+
+    if(tmpStream.count()>1){
+        /*****************************
+        * @brief: 防止相机异常，没有结果输出
+        ******************************/
+         streamState=true;
+    }
 }
 
 void CaptureImagesTCP::disconnected()
@@ -91,9 +100,22 @@ void CaptureImagesTCP::displayError(QAbstractSocket::SocketError socketError)
 
 void CaptureImagesTCP::startLinkCamer()
 {
-    tcpSocket->abort();
-    tcpSocket->connectToHost(camerIP,static_cast<quint16>(camerPort));
-    pPutCommand->linktoServerSlot(camerIP,23000);
+    if(tcpSocket->state()==QAbstractSocket:: UnconnectedState){
+        tcpSocket->abort();
+        tcpSocket->connectToHost(camerIP,static_cast<quint16>(camerPort));
+        pPutCommand->linktoServerSlot(camerIP,23000);
+    }
+}
+
+void CaptureImagesTCP::cameraState()
+{
+    if(!streamState)
+    {
+        /*****************************
+        * @brief:保证流程完成
+        ******************************/
+        emit pictureStreamSignal(nullptr,imgNumber,imgTime);
+    }
 }
 
 void CaptureImagesTCP::initCamerSlot(const QString &camerIP, const int &camerPort, const QString &CamerUser, const QString &CamerPow, const QString &alias)
@@ -113,7 +135,20 @@ bool CaptureImagesTCP::putCommandSlot(const int &imgNumber, const QString &imgTi
     this->imgNumber=imgNumber;
     this->imgTime=imgTime;
 
-    return  pPutCommand->putCommandSlot();
+    streamState=false;
+
+    if(!pPutCommand->putCommandSlot())
+    {
+        /*****************************
+        * @brief:保证流程完成
+        ******************************/
+        emit pictureStreamSignal(nullptr,imgNumber,imgTime);
+        return false;
+    }
+
+    QTimer::singleShot(1000,this,SLOT(cameraState()));
+
+    return true;
 }
 
 void CaptureImagesTCP::releaseResourcesSlot()
