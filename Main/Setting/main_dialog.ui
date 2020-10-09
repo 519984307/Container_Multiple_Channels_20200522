@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>655</width>
+    <width>762</width>
     <height>350</height>
    </rect>
   </property>
@@ -519,20 +519,6 @@
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="0" column="1" colspan="2">
-       <widget class="QLabel" name="label_5">
-        <property name="font">
-         <font>
-          <pointsize>20</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Shenzhen zhongbaiyuan technology co. LTD</string>
-        </property>
-       </widget>
-      </item>
       <item row="0" column="0" rowspan="2">
        <widget class="QLabel" name="label_6">
         <property name="minimumSize">
@@ -561,33 +547,17 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>166</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="label_4">
+      <item row="0" column="1" rowspan="2" colspan="2">
+       <widget class="QLabel" name="label_5">
         <property name="font">
          <font>
+          <pointsize>20</pointsize>
           <weight>50</weight>
-          <italic>false</italic>
           <bold>false</bold>
          </font>
         </property>
-        <property name="styleSheet">
-         <string notr="true">color: rgb(0, 255, 0);</string>
-        </property>
         <property name="text">
-         <string>Container Number Identification System V3.20.79 </string>
+         <string>Shenzhen zhongbaiyuan technology co. LTD</string>
         </property>
        </widget>
       </item>
@@ -632,14 +602,14 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>System page mode</string>
+        <string>System  mode</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>language</string>
+        <string>Language</string>
        </property>
       </widget>
      </item>
@@ -749,7 +719,7 @@ As memory increases in multi-page mode, switching pages will display a full snap
         <string notr="true">color: rgb(255, 0, 0);</string>
        </property>
        <property name="text">
-        <string>Version information:The multichannel</string>
+        <string>Container Number Identification System V3.20.79 </string>
        </property>
       </widget>
      </item>

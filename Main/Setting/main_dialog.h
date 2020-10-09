@@ -18,6 +18,18 @@ public:
 private slots:
     void on_pushButton_clicked();
 
+    ///
+    /// \brief on_comboBox_currentIndexChanged 设置软件模式，更改UI
+    /// \param index
+    ///
+    void on_comboBox_currentIndexChanged(int index);
+
+    ///
+    /// \brief on_ChannelNumber_valueChanged 设置通道数量，更改UI
+    /// \param arg1
+    ///
+    void on_ChannelNumber_valueChanged(int arg1);
+
 private:
     Ui::Main_Dialog *ui;
 };

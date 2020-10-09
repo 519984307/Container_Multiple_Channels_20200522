@@ -28,6 +28,16 @@ Main_Dialog::Main_Dialog(QWidget *parent) :
     else {
         ui->ChannelNumber->setValue(1);
     }
+
+    /*****************************
+    * @brief: 设置系统模式
+    ******************************/
+    switch (ui->ChannelNumber->value()) {
+    case 1:ui->comboBox->setCurrentIndex(0);
+        break;
+    default:
+        ui->comboBox->setCurrentIndex(1);
+    }
 }
 
 Main_Dialog::~Main_Dialog()
@@ -39,4 +49,21 @@ void Main_Dialog::on_pushButton_clicked()
 {
     Parameter::ChannelNumber=ui->ChannelNumber->value();
     this->done(10);
+}
+
+void Main_Dialog::on_comboBox_currentIndexChanged(int index)
+{
+    if(0==index){
+        ui->ChannelNumber->setValue(1);
+    }
+}
+
+void Main_Dialog::on_ChannelNumber_valueChanged(int arg1)
+{
+    if(1==arg1){
+        ui->comboBox->setCurrentIndex(0);
+    }
+    else {
+        ui->comboBox->setCurrentIndex(1);
+    }
 }
