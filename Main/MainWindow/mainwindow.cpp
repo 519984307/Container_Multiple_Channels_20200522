@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "Parameter/LocalPar.h"
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -16,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     on_actionMainWindow_triggered();
 
+    createSystemTrayMenu();
     getScreenInfo();
 }
 
@@ -26,23 +25,51 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    this->hide();
+    event->ignore();
+
+    SystemTray->showMessage(LocalPar::name,tr("The program is running in the background, if you want to exit, please exit from the taskbar!"),QSystemTrayIcon::Information,3000);
+}
+
 void MainWindow::getScreenInfo()
 {
     setWindowState(Qt::WindowMaximized);
 
     if(Parameter::Minimization){
         this->hide();
-        QPointer<QSystemTrayIcon> SystemTray(new QSystemTrayIcon(this));
+
+        QPointer<QMenu> systemTrayMen(new QMenu(this));
+        systemTrayMen->addAction(actionShow);
+        systemTrayMen->addAction(actionExit);
+
+        SystemTray=QPointer<QSystemTrayIcon>  (new QSystemTrayIcon(this));
+        SystemTray->setContextMenu(systemTrayMen);
         SystemTray->setIcon(QIcon(":/UI_ICO/ICO/ICO.ico"));
         SystemTray->setToolTip(LocalPar::name);
         SystemTray->show();
         SystemTray->showMessage(LocalPar::name,LocalPar::msg,QSystemTrayIcon::Information,3000);
+
+        connect(SystemTray,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),this,SLOT(systemTrayTriggered(QSystemTrayIcon::ActivationReason)));
+
     }else {
         this->show();
     }
 
+    /*
     //QRect rect=QGuiApplication::screens().at(0)->geometry();
     //this->resize(QSize(rect.width()-80,rect.height()-80));
+    */
+}
+
+void MainWindow::createSystemTrayMenu()
+{
+    actionShow=new QAction(tr("Display window"),this);
+    connect(actionShow,SIGNAL(triggered()),this,SLOT(systemTrayAction()));
+
+    actionExit=new QAction(tr("Exit the program"),this);
+    connect(actionExit,SIGNAL(triggered()),this,SLOT(systemTrayAction()));
 }
 
 void MainWindow::clearnContainer()
@@ -392,6 +419,33 @@ void MainWindow::on_actionData_log_triggered()
     }
     else {
         qDebug()<<p_Data_Log_Form;
+    }
+}
+
+void MainWindow::systemTrayAction()
+{
+    QAction* pAction=qobject_cast<QAction*> (sender());
+    if(pAction==actionShow){
+        setWindowState(Qt::WindowMaximized);
+        this->show();
+    }
+    if(pAction==actionExit){
+        exit(0);
+        //this->close();
+    }
+}
+
+void MainWindow::systemTrayTriggered(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason) {
+    case QSystemTrayIcon::Trigger:
+        break;
+    case QSystemTrayIcon::DoubleClick:
+        setWindowState(Qt::WindowMaximized);
+        this->show();
+        break;
+    default:
+        break;
     }
 }
 

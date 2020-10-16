@@ -1,12 +1,9 @@
 #ifndef PARAMETER_H
 #define PARAMETER_H
 
-#include <QObject>
+#include <QString>
 
-class Parameter
-{
-public:
-
+namespace Parameter {
     /*****************************
     * @brief:Channel
     ******************************/
@@ -14,22 +11,22 @@ public:
     ///
     /// \brief ImageNamingRules 图片命名
     ///
-    static int ImageNamingRules;
+    extern int ImageNamingRules;
 
     ///
     /// \brief ChannelNumber 通道数量
     ///
-    static int ChannelNumber;
+    extern int ChannelNumber;
 
     ///
     /// \brief ImageFormat 保存图片格式1
     ///
-    static int ImageFormat;
+    extern int ImageFormat;
 
     ///
     /// \brief ImagePath 图片路径1
     ///
-    static QString ImagePath;
+    extern QString ImagePath;
 
 
     /*****************************
@@ -39,43 +36,42 @@ public:
     ///
     /// \brief FTP 是否启动上传图片
     ///
-    static int Ftp;
+    extern int Ftp;
 
     ///
     /// \brief FtpAddress FTP地址
     ///
-    static QString FtpAddress;
+    extern QString FtpAddress;
 
     ///
     /// \brief FtpLocalPath FTP本地图片路径
     ///
-    static QString FtpLocalPath;
+    extern QString FtpLocalPath;
 
     ///
     /// \brief FtpPassword FTP密码
     ///
-    static QString FtpPassword;
+    extern QString FtpPassword;
 
     ///
     /// \brief FtpPort FTP端口
     ///
-    static int FtpPort;
+    extern int FtpPort;
 
     ///
     /// \brief FtpRemotePath FTP远端图片地址
     ///
-    static QString FtpRemotePath;
+    extern QString FtpRemotePath;
 
     ///
     /// \brief FtpUser FTP用户名
     ///
-    static QString FtpUser;
+    extern QString FtpUser;
 
     ///
     /// \brief ReduceImage 缩小图片
     ///
-    static int ReduceImage;
-
+    extern int ReduceImage;
 
 
     /*****************************
@@ -85,32 +81,32 @@ public:
     ///
     /// \brief Language 语言版本
     ///
-    static int Language;
+    extern int Language;
 
     ///
     /// \brief Minimization 启动最小化状态
     ///
-    static int Minimization;
+    extern int Minimization;
 
     ///
     /// \brief Automatic 开机自动启动
     ///
-    static int Automatic;
+    extern int Automatic;
 
     ///
     /// \brief DelayStart 延时启动
     ///
-    static int DelayStart;
+    extern int DelayStart;
 
     ///
     /// \brief InfoLog 运行日志
     ///
-    static int InfoLog;
+    extern int InfoLog;
 
     ///
     /// \brief DebugLog 警告日志
     ///
-    static int DebugLog;
+    extern int DebugLog;
 
 
 
@@ -121,7 +117,7 @@ public:
     ///
     /// \brief CheckResult 结果校验
     ///
-    static int ResultsTheCheck;
+    extern int ResultsTheCheck;
 
 
 
@@ -132,32 +128,32 @@ public:
     ///
     /// \brief ServiceModel 服务模式
     ///
-    static int ServiceModel;
+    extern int ServiceModel;
 
     ///
     /// \brief SingletonAddress 单例地址
     ///
-    static QString SingletonAddress;
+    extern QString SingletonAddress;
 
     ///
     /// \brief ManyCasesAddress 多例地址
     ///
-    static QString ManyCasesAddress;
+    extern QString ManyCasesAddress;
 
     ///
     /// \brief Service_Type 服务类型
     ///
-    static int Service_Type;
+    extern int Service_Type;
 
     ///
     /// \brief Heartbeat 心跳包
     ///
-    static int Heartbeat;
+    extern int Heartbeat;
 
     ///
     /// \brief Resultting 回应结果
     ///
-    static int Resultting;
-};
+    extern int Resultting;
+}
 
 #endif // PARAMETER_H

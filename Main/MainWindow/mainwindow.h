@@ -13,6 +13,9 @@
 #include <QScopedPointer>
 #include <QSystemTrayIcon>
 #include <QIcon>
+#include <QAction>
+#include <QMenu>
+#include <QCloseEvent>
 
 /*****************************
 * UI
@@ -25,8 +28,10 @@
 #include "LogForm/data_log_form.h"
 #include "LogForm/info_log_form.h"
 
+
 #include "Parameter/processing.h"
 #include "Parameter/parameter.h"
+#include "Parameter/LocalPar.h"
 
 #include "Processing/loadinglibaray.h"
 
@@ -41,6 +46,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow()Q_DECL_OVERRIDE;
+
+protected:
+    void closeEvent(QCloseEvent *event)Q_DECL_OVERRIDE;
 
 private:
 
@@ -93,6 +101,11 @@ private:
     ///
     void getScreenInfo();
 
+    ///
+    /// \brief createSystemTrayMenu 设置任务栏菜单
+    ///
+    void createSystemTrayMenu();
+
 private slots:
 
     /*****************************
@@ -133,6 +146,16 @@ private slots:
     /// \brief on_actionData_log_triggered 数据通讯日志
     ///
     void on_actionData_log_triggered();
+
+    ///
+    /// \brief systemTrayAction 任务栏菜单
+    ///
+    void systemTrayAction();
+
+    ///
+    /// \brief systemTrayTriggered 任务栏点击事件
+    ///
+    void systemTrayTriggered(QSystemTrayIcon::ActivationReason reason);
 
 public slots:
 
@@ -209,7 +232,25 @@ private:
 
     Ui::MainWindow *ui;
 
+    ///
+    /// \brief actionShow 任务栏显示主页面
+    ///
+    QAction* actionShow;
+
+    ///
+    /// \brief actionExit 任务栏退出
+    ///
+    QAction* actionExit;
+
+    ///
+    /// \brief Pointer_Processing 参数加载
+    ///
     QSharedPointer<Processing> Pointer_Processing;
+
+    ///
+    /// \brief SystemTray 任务栏
+    ///
+    QPointer<QSystemTrayIcon> SystemTray;
 
     ///
     /// \brief pLoadingLibaray 加载插件
