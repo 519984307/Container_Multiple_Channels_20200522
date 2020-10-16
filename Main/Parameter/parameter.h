@@ -98,6 +98,11 @@ public:
     static int Automatic;
 
     ///
+    /// \brief DelayStart 延时启动
+    ///
+    static int DelayStart;
+
+    ///
     /// \brief InfoLog 运行日志
     ///
     static int InfoLog;

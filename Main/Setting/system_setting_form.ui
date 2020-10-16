@@ -14,7 +14,7 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="0" column="0">
+   <item row="0" column="1">
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
       <bool>true</bool>
@@ -29,54 +29,89 @@
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="0">
+       <item row="0" column="1">
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>6</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
            <string>Channel</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_7">
-           <item row="0" column="0">
-            <widget class="QGroupBox" name="groupBox">
-             <property name="title">
-              <string>The Channel Number</string>
+           <item row="0" column="2" colspan="2">
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
-             <layout class="QGridLayout" name="gridLayout_2">
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>531</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QGroupBox" name="ImageNaming">
+             <property name="title">
+              <string>Image naming rules</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_6">
               <item row="0" column="0">
-               <widget class="QSpinBox" name="ChannelNumber">
-                <property name="enabled">
-                 <bool>true</bool>
+               <widget class="QComboBox" name="ImageNamingRules">
+                <property name="editable">
+                 <bool>false</bool>
                 </property>
-                <property name="frame">
-                 <bool>true</bool>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="minimum">
-                 <number>1</number>
-                </property>
-                <property name="maximum">
-                 <number>30</number>
-                </property>
-                <property name="value">
-                 <number>1</number>
-                </property>
+                <item>
+                 <property name="text">
+                  <string>DateTime-Channel-Number</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>DateTime-Number-Channel</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>DateTime-Result</string>
+                 </property>
+                </item>
                </widget>
               </item>
              </layout>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="1" column="2" colspan="2">
+            <spacer name="horizontalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>531</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="0" colspan="3">
             <widget class="QGroupBox" name="SaveImage_1">
              <property name="title">
               <string>Save Image One</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
              <property name="checkable">
               <bool>false</bool>
@@ -156,44 +191,7 @@
              </layout>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QGroupBox" name="ImageNaming">
-             <property name="title">
-              <string>Image naming rules</string>
-             </property>
-             <property name="checkable">
-              <bool>false</bool>
-             </property>
-             <property name="checked">
-              <bool>false</bool>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_6">
-              <item row="0" column="0">
-               <widget class="QComboBox" name="ImageNamingRules">
-                <property name="editable">
-                 <bool>false</bool>
-                </property>
-                <item>
-                 <property name="text">
-                  <string>DateTime-Channel-Number</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>DateTime-Number-Channel</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>DateTime-Result</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-             </layout>
-            </widget>
-           </item>
-           <item row="3" column="0">
+           <item row="3" column="1">
             <spacer name="verticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -205,6 +203,43 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>The Channel Number</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="0">
+               <widget class="QSpinBox" name="ChannelNumber">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="frame">
+                 <bool>true</bool>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="prefix">
+                 <string/>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>30</number>
+                </property>
+                <property name="value">
+                 <number>1</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -223,6 +258,9 @@
              </property>
              <property name="title">
               <string>Check pattern</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
              <layout class="QGridLayout" name="gridLayout_8">
               <property name="leftMargin">
@@ -248,10 +286,26 @@
              </layout>
             </widget>
            </item>
+           <item row="0" column="1">
+            <spacer name="horizontalSpacer_11">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>383</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
            <item row="1" column="0">
             <widget class="QGroupBox" name="groupBox_3">
              <property name="title">
               <string>Identify screening</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
              <layout class="QGridLayout" name="gridLayout_9">
               <item row="0" column="0">
@@ -293,6 +347,19 @@
              </layout>
             </widget>
            </item>
+           <item row="1" column="1">
+            <spacer name="horizontalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>383</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
            <item row="2" column="0">
             <spacer name="verticalSpacer_2">
              <property name="orientation">
@@ -318,6 +385,9 @@
              <property name="title">
               <string>Socket Model</string>
              </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
              <layout class="QGridLayout" name="gridLayout_26">
               <item row="0" column="1">
                <widget class="QRadioButton" name="ClientModel">
@@ -342,10 +412,26 @@
              </layout>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="0" column="1">
+            <spacer name="horizontalSpacer_12">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>494</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0" colspan="2">
             <widget class="QGroupBox" name="groupBox_13">
              <property name="title">
               <string>Socket Type</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
              <layout class="QGridLayout" name="gridLayout_25">
               <item row="1" column="0">
@@ -457,7 +543,7 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="0">
+           <item row="4" column="0" colspan="2">
             <widget class="QCheckBox" name="Disconnected_checkBox">
              <property name="text">
               <string>Send completion is actively disconnected</string>
@@ -484,14 +570,14 @@
           <attribute name="title">
            <string>Upload</string>
           </attribute>
-          <layout class="QGridLayout" name="gridLayout_21">
+          <layout class="QGridLayout" name="gridLayout_27">
            <item row="0" column="0">
             <widget class="QGroupBox" name="Ftp">
              <property name="title">
               <string>Ftp</string>
              </property>
              <property name="flat">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -571,18 +657,93 @@
              </layout>
             </widget>
            </item>
+           <item row="0" column="1">
+            <spacer name="horizontalSpacer_10">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>294</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
            <item row="1" column="0">
             <widget class="QGroupBox" name="ReduceImage">
              <property name="title">
               <string>Reduce image</string>
              </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
              <property name="checkable">
               <bool>true</bool>
              </property>
              <property name="checked">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
-             <layout class="QGridLayout" name="gridLayout_15">
+             <layout class="QGridLayout" name="gridLayout_21">
+              <item row="0" column="1">
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>374</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <widget class="QGroupBox" name="groupBox_12">
+                <property name="title">
+                 <string>The custom</string>
+                </property>
+                <property name="flat">
+                 <bool>true</bool>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>false</bool>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_15">
+                 <item row="0" column="0">
+                  <layout class="QVBoxLayout" name="verticalLayout_5">
+                   <item>
+                    <widget class="QLabel" name="label_10">
+                     <property name="text">
+                      <string>High</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_11">
+                     <property name="text">
+                      <string>Wide</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                 <item row="0" column="1">
+                  <layout class="QVBoxLayout" name="verticalLayout_6">
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit_4"/>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="lineEdit_5"/>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
               <item row="0" column="0">
                <widget class="QComboBox" name="comboBox">
                 <item>
@@ -607,38 +768,21 @@
                 </item>
                </widget>
               </item>
-              <item row="0" column="2" rowspan="2">
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>310</width>
-                  <height>58</height>
-                 </size>
-                </property>
-               </spacer>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLineEdit" name="lineEdit">
-                <property name="inputMask">
-                 <string>####*####0</string>
-                </property>
-                <property name="text">
-                 <string>*</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QCheckBox" name="checkBox_4">
-                <property name="text">
-                 <string>ReduceImage</string>
-                </property>
-               </widget>
-              </item>
              </layout>
             </widget>
+           </item>
+           <item row="1" column="1">
+            <spacer name="horizontalSpacer_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>294</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item row="2" column="0">
             <spacer name="verticalSpacer_4">
@@ -660,16 +804,19 @@
            <string>Storage</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_19">
-           <item row="0" column="0" colspan="2">
+           <item row="0" column="0">
             <widget class="QGroupBox" name="groupBox_5">
              <property name="title">
               <string>Storage space monitoring</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
              <property name="checkable">
               <bool>true</bool>
              </property>
              <property name="checked">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <layout class="QGridLayout" name="gridLayout_17">
               <item row="0" column="0">
@@ -730,10 +877,26 @@
              </layout>
             </widget>
            </item>
-           <item row="1" column="0" colspan="2">
+           <item row="0" column="2">
+            <spacer name="horizontalSpacer_13">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>337</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0">
             <widget class="QGroupBox" name="groupBox_6">
              <property name="title">
               <string>Storage file monitoring</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -792,6 +955,19 @@
              </layout>
             </widget>
            </item>
+           <item row="1" column="2">
+            <spacer name="horizontalSpacer_14">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>337</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
            <item row="2" column="0">
             <widget class="QCheckBox" name="checkBox_3">
              <property name="text">
@@ -814,15 +990,240 @@
            </item>
           </layout>
          </widget>
+         <widget class="QWidget" name="tab_3">
+          <attribute name="title">
+           <string>Additional</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_29">
+           <item row="0" column="0" colspan="3">
+            <widget class="QGroupBox" name="groupBox_8">
+             <property name="title">
+              <string>Control gate</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_23">
+              <item row="0" column="0" colspan="2">
+               <widget class="QRadioButton" name="radioButton_3">
+                <property name="text">
+                 <string>License plate camera control</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2" colspan="2">
+               <widget class="QRadioButton" name="radioButton_4">
+                <property name="text">
+                 <string>The mainboard control</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <item>
+                 <widget class="QLabel" name="label_12">
+                  <property name="text">
+                   <string>Address</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Port</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="1" colspan="2">
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QLineEdit" name="lineEdit"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_6"/>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="3">
+               <spacer name="horizontalSpacer_18">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <spacer name="horizontalSpacer_19">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>112</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="4">
+            <spacer name="horizontalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>164</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QGroupBox" name="groupBox_9">
+             <property name="title">
+              <string>Control display</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_22">
+              <item row="0" column="1">
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_2"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="lineEdit_3"/>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="0">
+               <layout class="QVBoxLayout" name="verticalLayout_3">
+                <item>
+                 <widget class="QLabel" name="label_8">
+                  <property name="text">
+                   <string>High</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_9">
+                  <property name="text">
+                   <string>Wide</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="1" column="2" colspan="2">
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>276</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="2" colspan="3">
+            <spacer name="horizontalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>450</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="1">
+            <spacer name="verticalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>273</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="QGroupBox" name="groupBox_14">
+             <property name="title">
+              <string>Loadometer weight</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_24">
+              <item row="0" column="0">
+               <widget class="QSpinBox" name="spinBox_4">
+                <property name="suffix">
+                 <string/>
+                </property>
+                <property name="prefix">
+                 <string>COM</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="tab">
           <attribute name="title">
            <string>Other</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_20">
-           <item row="0" column="0">
+           <item row="0" column="0" colspan="2">
             <widget class="QGroupBox" name="groupBox_11">
              <property name="title">
               <string>Log</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
              <layout class="QGridLayout" name="gridLayout_14">
               <item row="0" column="0" colspan="2">
@@ -905,33 +1306,95 @@
              </layout>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="0" column="2">
+            <spacer name="horizontalSpacer_15">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>291</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0" colspan="2">
             <widget class="QGroupBox" name="groupBox_2">
              <property name="title">
               <string>Start</string>
              </property>
+             <property name="flat">
+              <bool>false</bool>
+             </property>
              <layout class="QGridLayout" name="gridLayout_16">
-              <item row="0" column="0">
+              <item row="0" column="0" colspan="3">
                <widget class="QCheckBox" name="StartupMinimization">
                 <property name="text">
                  <string>Startup minimization</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="0">
+              <item row="1" column="0" colspan="2">
                <widget class="QCheckBox" name="AutomaticStart">
                 <property name="text">
                  <string>Automatic start</string>
                 </property>
                </widget>
               </item>
+              <item row="2" column="0">
+               <widget class="QSpinBox" name="DelayStart">
+                <property name="suffix">
+                 <string> S</string>
+                </property>
+                <property name="prefix">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="label_14">
+                <property name="text">
+                 <string>Delay start</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <spacer name="horizontalSpacer_7">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>283</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
              </layout>
             </widget>
+           </item>
+           <item row="1" column="2">
+            <spacer name="horizontalSpacer_16">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>291</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item row="2" column="0">
             <widget class="QGroupBox" name="groupBox_7">
              <property name="title">
               <string>Select the language</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
              </property>
              <layout class="QGridLayout" name="gridLayout_13">
               <item row="0" column="0">
@@ -953,6 +1416,19 @@
               </item>
              </layout>
             </widget>
+           </item>
+           <item row="2" column="1">
+            <spacer name="horizontalSpacer_17">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>292</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item row="3" column="0">
             <spacer name="verticalSpacer_3">

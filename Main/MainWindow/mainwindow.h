@@ -11,6 +11,8 @@
 #include <QLabel>
 #include <QScreen>
 #include <QScopedPointer>
+#include <QSystemTrayIcon>
+#include <QIcon>
 
 /*****************************
 * UI

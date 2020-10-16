@@ -120,6 +120,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::Automatic=getJsonValue("Other","Automatic",value.toObject()).toInt();
                     Parameter::InfoLog= getJsonValue("Other","InfoLog",value.toObject()).toInt();
                     Parameter::DebugLog= getJsonValue("Other","DebugLog",value.toObject()).toInt();
+                    Parameter::DelayStart= getJsonValue("Other","DelayStart",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Recognizer
@@ -170,13 +171,9 @@ bool System_Setting_Form::writeParameterSlot()
     * @brief:Channel
     ******************************/
     QJsonObject obj1;
-    //obj1.insert("channelNumber?",tr("?Set the software to control the number of channels"));
     obj1.insert("ChannelNumber",ui->ChannelNumber->value());
-    //obj1.insert("ImageFormat?",tr("?Format the image save path"));
     obj1.insert("ImageFormat",ui->ImageFormat->currentIndex());
-    //obj1.insert("ImagePath?",tr("?Set the image to save the root directory"));
     obj1.insert("ImagePath",ui->ImgPathlineEdit->text());
-    //obj1.insert("ImageNamingRules?",tr("?Save image naming conventions"));
     obj1.insert("ImageNamingRules",(int)ui->ImageNamingRules->currentIndex());
     jsonChild.insert("Channel",QJsonValue(obj1));
 
@@ -185,7 +182,6 @@ bool System_Setting_Form::writeParameterSlot()
     ******************************/
     QJsonObject obj2;
 
-    //obj2.insert("ResultsTheCheck?",tr("?Identify validation rules for results"));
     if(ui->ColorDisplay->isChecked()){
         obj2.insert("ResultsTheCheck",0);       
     }
@@ -198,21 +194,13 @@ bool System_Setting_Form::writeParameterSlot()
     * @brief:Upload
     ******************************/
     QJsonObject obj3;
-    //obj3.insert("Ftp?",tr("?Whether to upload pictures or not"));
     obj3.insert("Ftp",(int)ui->Ftp->isChecked());
-    //obj3.insert("FtpUser?",tr("?Upload image username"));
     obj3.insert("FtpUser",ui->FtpUser->text());
-    //obj3.insert("FtpPassword?",tr("?Upload image user password"));
     obj3.insert("FtpPassword",ui->FtpPassword->text());
-    //obj3.insert("FtpAddress?",tr("?Upload picture address"));
     obj3.insert("FtpAddress",ui->FtpAddress->text());
-    //obj3.insert("FtpPort?",tr("?Upload image port"));
     obj3.insert("FtpPort", ui->FtpPort->text().toInt());
-    //obj3.insert("FtpRemotePath?",tr("?Upload picture server directory"));
     obj3.insert("FtpRemotePath",ui->FtpRemote->text());
-    //obj3.insert("FtpLocalPath?",tr("?Upload picture native directory"));
     obj3.insert("FtpLocalPath",ui->FtpLocal->text());
-    //obj3.insert("ReduceImage?",tr("?Whether to zoom out the uploaded image"));
     obj3.insert("ReduceImage",(int)ui->ReduceImage->isChecked());
     jsonChild.insert("Upload",QJsonValue(obj3));
 
@@ -221,7 +209,6 @@ bool System_Setting_Form::writeParameterSlot()
     ******************************/
     QJsonObject obj4;
 
-    //obj4.insert("ServiceModel?",tr("?TCP data transfer mode"));
     if(ui->ClientModel->isChecked()){
         obj4.insert("ServiceModel",0);
     }
@@ -230,15 +217,10 @@ bool System_Setting_Form::writeParameterSlot()
         obj4.insert("ServiceModel",1);
     }
 
-    //obj4.insert("Service_Type?",tr("?TCP data transfer type"));
     obj4.insert("Service_Type",ui->Service_Type_comboBox->currentIndex());
-    //obj4.insert("SingletonAddress?",tr("?Single TCP mode address"));
     obj4.insert("SingletonAddress",ui->Address_Singleton_lineEdit->text());
-    //obj4.insert("ManyCasesAddress?",tr("?Multitcp mode address group"));
     obj4.insert("ManyCasesAddress",ui->Address_Many_textEdit->toPlainText());
-    //obj4.insert("Heartbeat?",tr("?Whether to send heartbeat packets"));
     obj4.insert("Heartbeat",int(ui->Hearbeat_checkBox->isChecked()));
-    //obj4.insert("Resultting?",tr("?Whether to send only result sets"));
     obj4.insert("Resultting",int(ui->Resulting_checkBox->isChecked()));
     jsonChild.insert("Service",QJsonValue(obj4));
 
@@ -246,16 +228,12 @@ bool System_Setting_Form::writeParameterSlot()
     * @brief:Other
     ******************************/
     QJsonObject obj5;
-    //obj5.insert("InfoLog?",tr("?Whether to keep running logs"));
     obj5.insert("InfoLog",int(ui->InfoLog->isChecked()));
-    //obj5.insert("DebugLog?",tr("?Whether to maintain operation and maintenance log"));
     obj5.insert("DebugLog",int(ui->DebugLog->isChecked()));
-    //obj5.insert("Minimization?",tr("?Startup minimization"));
     obj5.insert("Minimization",int(ui->StartupMinimization->isChecked()));
-    //obj5.insert("Language?", tr("?Language version"));
     obj5.insert("Language", ui->Language->currentIndex());
-    //obj5.insert("Automatic?",tr("?Automatic start"));
     obj5.insert("Automatic",int(ui->AutomaticStart->isChecked()));
+    obj5.insert("DelayStart",ui->DelayStart->value());
     jsonChild.insert("Other",QJsonValue(obj5));
 
     jsonRoot.insert("Main",QJsonValue(jsonChild));
@@ -277,6 +255,9 @@ bool System_Setting_Form::writeParameterSlot()
 
 void System_Setting_Form::parameterToUi()
 {
+    /*****************************
+    * @brief:Channel
+    ******************************/
     if(Parameter::ChannelNumber>ui->ChannelNumber->maximum()){/* 防止后台篡改通道数量 */
         Parameter::ChannelNumber=ui->ChannelNumber->maximum();
     }
@@ -285,7 +266,9 @@ void System_Setting_Form::parameterToUi()
     ui->ImageFormat->setCurrentIndex(Parameter::ImageFormat);
     ui->ImgPathlineEdit->setText(Parameter::ImagePath);
 
-
+    /*****************************
+    * @brief:Recognizer
+    ******************************/
     if(!Parameter::ResultsTheCheck){/* 颜色显示 */
         ui->ColorDisplay->setChecked(1);
     }
@@ -293,7 +276,9 @@ void System_Setting_Form::parameterToUi()
         ui->AutomaticCorrection->setChecked(1);
     }
 
-
+    /*****************************
+    * @brief:Service
+    ******************************/
     if(!Parameter::ServiceModel){/* 客户端模式 */
         ui->ClientModel->setChecked(1);
     }
@@ -306,8 +291,9 @@ void System_Setting_Form::parameterToUi()
     ui->Hearbeat_checkBox->setChecked(Parameter::Heartbeat);
     ui->Resulting_checkBox->setChecked(Parameter::Resultting);
 
-
-
+    /*****************************
+    * @brief:Upload
+    ******************************/
     ui->Ftp->setChecked(Parameter::Ftp);
     ui->FtpAddress->setText(Parameter::FtpAddress);
     ui->FtpPort->setText(QString::number(Parameter::FtpPort));
@@ -316,11 +302,15 @@ void System_Setting_Form::parameterToUi()
     ui->FtpLocal->setText(Parameter::FtpLocalPath);
     ui->FtpRemote->setText(Parameter::FtpRemotePath);
 
+    /*****************************
+    * @brief:Other
+    ******************************/
     ui->StartupMinimization->setChecked(Parameter::Minimization);
     ui->Language->setCurrentIndex(Parameter::Language);
     ui->AutomaticStart->setChecked(Parameter::Automatic);
     ui->InfoLog->setChecked(Parameter::InfoLog);
     ui->DebugLog->setChecked(Parameter::DebugLog);
+    ui->DelayStart->setValue(Parameter::DelayStart);
 }
 
 QVariant System_Setting_Form::getJsonValue(const QString &child, const QString &key, QJsonObject obj)

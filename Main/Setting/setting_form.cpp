@@ -148,17 +148,18 @@ void Setting_Form::on_listWidget_currentRowChanged(int currentRow)
 void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
 {
     if(button==ui->buttonBox->button(QDialogButtonBox::Save)){
-//        if(!writeParameterSignal()){
-//            /*****************************
-//            * @brief: 参数保存失败,做提示
-//            ******************************/
-//            qWarning("Save System Json error");
-//            QMessageBox::warning(this,"Save System Settings","Save System Json error");
-//        }
         QByteArray msg=tr("Save System Json Sucess").toLocal8Bit();
-        qWarning("%s", msg.data());
+        qInfo("%s", msg.data());
         QMessageBox::warning(this,tr("Save System Settings"),tr("Parameter saved successfully, software restart takes effect"));
-        emit writeParameterSignal();
+        //emit writeParameterSignal();
+
+        if(!writeParameterSignal()){
+            /*****************************
+            * @brief: 参数保存失败,做提示
+            ******************************/
+            qWarning("Save System Json error");
+            QMessageBox::warning(this,"Save System Settings","Save System Json error");
+        }
     }
     if(button==ui->buttonBox->button(QDialogButtonBox::Ignore)){
         /*****************************

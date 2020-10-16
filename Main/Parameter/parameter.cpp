@@ -25,6 +25,7 @@ int Parameter::Minimization= 0;
 int Parameter::Automatic= 0;
 int Parameter::InfoLog= 0;
 int Parameter::DebugLog= 0;
+int Parameter::DelayStart=0;
 
 /*****************************
 * @brief:Recognizer

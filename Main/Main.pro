@@ -26,6 +26,7 @@ DEFINES += QT_MESSAGELOGCONTEXT
 CONFIG += c++11
 
 SOURCES += \
+    Parameter/LocalPar.cpp \
     Processing/loadinglibaray.cpp \
         main.cpp \
     LogForm/data_log_form.cpp \
@@ -62,6 +63,7 @@ HEADERS += \
     Interface/thedataanalysis_interface.h \
     LogForm/data_log_form.h \
     LogForm/info_log_form.h \
+    Parameter/LocalPar.h \
     Parameter/channelparameter.h \
     Parameter/parameter.h \
     Parameter/processing.h \

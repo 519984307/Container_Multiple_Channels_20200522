@@ -1,19 +1,22 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include "Parameter/LocalPar.h"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    getScreenInfo(); 
     initializingObject();
     initStatusBar();
     initializationParameter();
     mainConnect();
 
     on_actionMainWindow_triggered();
+
+    getScreenInfo();
 }
 
 MainWindow::~MainWindow()
@@ -25,8 +28,21 @@ MainWindow::~MainWindow()
 
 void MainWindow::getScreenInfo()
 {
-    QRect rect=QGuiApplication::screens().at(0)->geometry();
-    this->resize(QSize(rect.width(),rect.height()));
+    setWindowState(Qt::WindowMaximized);
+
+    if(Parameter::Minimization){
+        this->hide();
+        QPointer<QSystemTrayIcon> SystemTray(new QSystemTrayIcon(this));
+        SystemTray->setIcon(QIcon(":/UI_ICO/ICO/ICO.ico"));
+        SystemTray->setToolTip(LocalPar::name);
+        SystemTray->show();
+        SystemTray->showMessage(LocalPar::name,LocalPar::msg,QSystemTrayIcon::Information,3000);
+    }else {
+        this->show();
+    }
+
+    //QRect rect=QGuiApplication::screens().at(0)->geometry();
+    //this->resize(QSize(rect.width()-80,rect.height()-80));
 }
 
 void MainWindow::clearnContainer()
@@ -88,6 +104,11 @@ void MainWindow::initializingObject()
     * @brief: 参数处理
     ******************************/
     Pointer_Processing=QSharedPointer<Processing> (new Processing (this));
+
+    /*****************************
+    * @brief:加载系统参数
+    ******************************/
+    Pointer_Processing->loadParameter();
 
     /*****************************
     * @brief: 加载通道参数
