@@ -27,9 +27,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    this->hide();
+    /*
+     * if(?){}
+    event->accept();
     event->ignore();
-
+    */
+    event->ignore();
+    this->hide();
     SystemTray->showMessage(LocalPar::name,tr("The program is running in the background, if you want to exit, please exit from the taskbar!"),QSystemTrayIcon::Information,3000);
 }
 
@@ -37,21 +41,22 @@ void MainWindow::getScreenInfo()
 {
     setWindowState(Qt::WindowMaximized);
 
+    QPointer<QMenu> systemTrayMen(new QMenu(this));
+    systemTrayMen->addAction(actionShow);
+    systemTrayMen->addAction(actionExit);
+
+    SystemTray=QPointer<QSystemTrayIcon>  (new QSystemTrayIcon(this));
+    SystemTray->setContextMenu(systemTrayMen);
+    SystemTray->setIcon(QIcon(":/UI_ICO/ICO/ICO.ico"));
+    SystemTray->setToolTip(LocalPar::name);
+    SystemTray->show();
+
+    connect(SystemTray,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),this,SLOT(systemTrayTriggered(QSystemTrayIcon::ActivationReason)));
+
     if(Parameter::Minimization){
         this->hide();
 
-        QPointer<QMenu> systemTrayMen(new QMenu(this));
-        systemTrayMen->addAction(actionShow);
-        systemTrayMen->addAction(actionExit);
-
-        SystemTray=QPointer<QSystemTrayIcon>  (new QSystemTrayIcon(this));
-        SystemTray->setContextMenu(systemTrayMen);
-        SystemTray->setIcon(QIcon(":/UI_ICO/ICO/ICO.ico"));
-        SystemTray->setToolTip(LocalPar::name);
-        SystemTray->show();
         SystemTray->showMessage(LocalPar::name,LocalPar::msg,QSystemTrayIcon::Information,3000);
-
-        connect(SystemTray,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),this,SLOT(systemTrayTriggered(QSystemTrayIcon::ActivationReason)));
 
     }else {
         this->show();
@@ -74,7 +79,7 @@ void MainWindow::createSystemTrayMenu()
 
 void MainWindow::clearnContainer()
 {
-    delete  pLoadingLibaray;
+    //delete  pLoadingLibaray;
 
     /*****************************
     * 删除所有窗口对象
@@ -145,7 +150,7 @@ void MainWindow::initializingObject()
     /*****************************
     * @brief: 加载插件
     ******************************/
-    pLoadingLibaray=new LoadingLibaray(Parameter::ChannelNumber,this);
+    //pLoadingLibaray=new LoadingLibaray(Parameter::ChannelNumber,this);
 
     permanentWidget=nullptr;
 
@@ -474,4 +479,8 @@ void MainWindow::on_actionInfo_log_triggered()
 void MainWindow::showMainWindowSlot()
 {
     on_actionMainWindow_triggered();
+}
+
+void MainWindow::on_actionHCNET_triggered()
+{
 }

@@ -5,6 +5,9 @@
 #include <QMap>
 #include <QShowEvent>
 #include <QMessageLogger>
+#include <QSettings>
+#include <QDir>
+#include <QCoreApplication>
 
 #include "channel_setting_form.h"
 #include "system_setting_form.h"
@@ -33,6 +36,11 @@ private:
     /// \brief hideTheWindow 隐藏窗口
     ///
     void hideTheWindow();
+
+    ///
+    /// \brief automaticStartup 设置开机自动启动
+    ///
+    void automaticStartup(bool start);
 
 private:
 
@@ -82,6 +90,12 @@ private slots:
     ///
     void on_buttonBox_clicked(QAbstractButton *button);
 
+    ///
+    /// \brief automaticStateSlot 获取开机启动状态
+    /// \param status
+    ///
+    void automaticStateSlot(bool status);
+
 signals:
 
     ///
@@ -124,6 +138,11 @@ private:
     /// \brief channelSelect 设置界面组中,当前预览的通道号
     ///
     int channelSelect;
+
+    ///
+    /// \brief automatic 开机启动状态
+    ///
+    bool automatic;
 };
 
 #endif // SETTING_FORM_H

@@ -44,6 +44,12 @@ private slots:
     ///
     void conditionsOfButton_clicked();
 
+    ///
+    /// \brief on_AutomaticStart_stateChanged 开机启动框状态
+    /// \param arg1
+    ///
+    void on_AutomaticStart_stateChanged(int arg1);
+
 signals:
 
     ///
@@ -60,6 +66,11 @@ signals:
     ///
     void setSaveImgFormatSignal(const QString &path,int format);
 
+    ///
+    /// \brief setAutomaticStateSingal 设置开机自动启动状态
+    /// \param status 状态
+    ///
+    void automaticStateSingal(bool status);
 
 private:
     Ui::System_Setting_Form *ui;

@@ -26,7 +26,7 @@ SOURCES += \
 HEADERS += \
     CaptureImagesHCNET_global.h \
     HCNetSDK.h \
-    ICaptureImagesHCNET.h \
+    ICaptureImages.h \
     captureimageshcnet.h
 
 # Default rules for deployment.

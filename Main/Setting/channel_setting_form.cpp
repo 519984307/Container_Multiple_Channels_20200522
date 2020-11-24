@@ -140,21 +140,13 @@ bool Channel_Setting_Form::writeParameterSlot()
     * @brief:camera
     ******************************/
     QJsonObject jsonObj;
-    //jsonObj.insert(QString("FrontCamer?"),tr("?Front camera address"));
     jsonObj.insert(QString("FrontCamer"),ui->Camera_Front->text());
-    //jsonObj.insert(QString("AfterCamer?"),tr("?After camera address"));
     jsonObj.insert(QString("AfterCamer"),ui->Camera_After->text());
-    //jsonObj.insert(QString("LeftCamer?"),tr("?Left camera address"));
     jsonObj.insert(QString("LeftCamer"),ui->Camera_Left->text());
-    //jsonObj.insert(QString("RgihtCamer?"),tr("?Right camera address"));
     jsonObj.insert(QString("RgihtCamer"),ui->Camera_Right->text());
-    //jsonObj.insert(QString("TopCamer?"),tr("?Top camera address"));
     jsonObj.insert(QString("TopCamer"),ui->Camera_Top->text());
-    //jsonObj.insert(QString("PlateCamer?"),tr("?Plate camera address"));
     jsonObj.insert(QString("PlateCamer"),ui->Camera_Plate->text());
-    //jsonObj.insert(QString("UserCamer?"),tr("?Camera login user name"));
     jsonObj.insert(QString("UserCamer"),ui->Camera_User->text());
-    //jsonObj.insert(QString("PasswordCamer?"),tr("?Camera login password"));
     jsonObj.insert(QString("PasswordCamer"),ui->Camera_Password->text());
     jsonChild.insert("Camer",QJsonValue(jsonObj));
 
@@ -162,22 +154,14 @@ bool Channel_Setting_Form::writeParameterSlot()
     * @brief:serialPort
     ******************************/
     QJsonObject jsonObj2;
-    //jsonObj2.insert(QString("ControllerSignalMode?"),tr("?Signal controller mode"));
     jsonObj2.insert(QString("ControllerSignalMode"),ui->ControllerSignalMode->currentIndex());
-    //jsonObj2.insert(QString("SerialPortOne?"),tr("?A serial port 1"));
     jsonObj2.insert(QString("SerialPortOne"),ui->SerialPort_One->value());
-    //jsonObj2.insert(QString("SerialPortTow?"),tr("?A serial port 2"));
     jsonObj2.insert(QString("SerialPortTow"),ui->SerialPort_Tow->value());
-    //jsonObj2.insert(QString("SerialAddrOne?"),tr("?Serial address 1"));
     jsonObj2.insert(QString("SerialAddrOne"),ui->SerialAddr_One->text());
-    //jsonObj2.insert(QString("SerialAddrTow?"),tr("?Serial address 2"));
     jsonObj2.insert(QString("SerialAddrTow"),ui->SerialAddr_Tow->text());
-    //jsonObj2.insert(QString("PortOne?"),tr("?Port 1"));
     jsonObj2.insert(QString("PortOne"),ui->Port_One->value());
-    //jsonObj2.insert(QString("PortTow?"),tr("?Port 2"));
     jsonObj2.insert(QString("PortTow"),ui->Port_Tow->value());
 
-    //jsonObj2.insert(QString("infraredStatus?"),tr("?Infrared connection mode"));
     if(ui->SerialPortOpenState->isChecked()){
         jsonObj2.insert(QString("infraredStatus"),0);
     }
@@ -190,13 +174,9 @@ bool Channel_Setting_Form::writeParameterSlot()
     * @brief:other
     ******************************/
     QJsonObject jsonObj3;
-    //jsonObj3.insert(QString("Alias?"),tr("?Channel display name"));
     jsonObj3.insert(QString("Alias"),ui->Alias->text());
-    //jsonObj3.insert(QString("ChannelNumber?"),tr("?The channel number"));
     jsonObj3.insert(QString("Channel_Number"),ui->Channel_Number->value());
-    //jsonObj3.insert(QString("Plate_Camera_Model?"),tr("?License plate camera protocol type"));
     jsonObj3.insert(QString("Plate_Camera_Model"),ui->Plate_Camera_Model->currentIndex());
-    //jsonObj3.insert(QString("Container_Camera_Model?"),tr("?Container camera Protocol type"));
     jsonObj3.insert(QString("Container_Camera_Model"),ui->Container_Camera_Model->currentIndex());
     jsonChild.insert("Other",QJsonValue(jsonObj3));
 
@@ -235,10 +215,12 @@ void Channel_Setting_Form::parameterToUi()
     ui->SerialAddr_Tow->setText(p_ChannelParameter->SerialAddrTow);
     ui->Port_One->setValue(p_ChannelParameter->PortOne);
     ui->Port_Tow->setValue(p_ChannelParameter->PortTow);
-    if(!p_ChannelParameter->infraredStatus){/* 常开 */
+    if(!p_ChannelParameter->infraredStatus){
+        /* 常开 */
         ui->SerialPortOpenState->setChecked(true);
     }
-    else {/* 常闭 */
+    else {
+        /* 常闭 */
         ui->SerialPortCloseState->setChecked(true);
     }
 

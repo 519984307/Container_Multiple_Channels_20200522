@@ -1,15 +1,11 @@
 QT -= gui
 
-QT       += network
+QT += core sql serialport
 
 TEMPLATE = lib
-DEFINES += CAPTUREIMAGESTCP_LIBRARY
+DEFINES += PLUGINPROCESSING_LIBRARY
 
 CONFIG += c++11
-
-CONFIG += plugin
-
-VERSION=1.1
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -23,19 +19,25 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    captureimagestcp.cpp \
-    putcommand.cpp
+    pluginprocessing.cpp
 
 HEADERS += \
-    CaptureImagesTCP_global.h \
-    ICaptureImages.h \
-    captureimagestcp.h \
-    putcommand.h
+    PluginProcessing_global.h \
+    pluginprocessing.h\
+    Interface/ICaptureImagesHCNET.h \
+    Interface/ICaptureImagesTCP.h \
+    Interface/ITheLicensePlateHCNET.h \
+    Interface/ITheLicensePlateWTY.h \
+    Interface/databaseread_interface.h \
+    Interface/databasewrite_interface.h \
+    Interface/datainterchange_interface.h \
+    Interface/encryption_interface.h \
+    Interface/infraredlogic_interface.h \
+    Interface/recognizer_interface.h \
+    Interface/thedataanalysis_interface.h \
 
 # Default rules for deployment.
 unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
-
-DESTDIR +=../MainUI/Plugins

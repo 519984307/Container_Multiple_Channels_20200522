@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QTreeWidgetItemIterator>
 
-#include "Camera_Test/camera_test_form.h"
+#include "CameraTest/camera_test_form.h"
 
 namespace Ui {
 class Camera_List_Form;

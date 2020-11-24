@@ -23,6 +23,7 @@ System_Setting_Form::~System_Setting_Form()
 
 void System_Setting_Form::InitializationParameterSlot(int channelNumber)
 {
+    ui->tabWidget->setCurrentIndex(0);
     /*****************************
     * @brief:创建配置文件夹
     ******************************/
@@ -240,12 +241,17 @@ bool System_Setting_Form::writeParameterSlot()
     jsonDoc.setObject(jsonRoot);
 
     /*****************************
-    * @brief:写入日志
+    * @brief:写入配置文件
     ******************************/
     QByteArray arr=jsonDoc.toJson();
     int len=configurationFolder.write(arr);
     configurationFolder.waitForBytesWritten(1000);
     configurationFolder.close();
+
+    /*****************************
+    * @brief:开机启动参数设置
+    ******************************/
+    emit automaticStateSingal(ui->AutomaticStart->checkState());
 
     if(len==-1){
         return false;
@@ -420,4 +426,13 @@ void System_Setting_Form::conditionsOfButton_clicked()
             }
         }
     }
+}
+
+void System_Setting_Form::on_AutomaticStart_stateChanged(int arg1)
+{
+    bool status=false;
+    if(arg1==Qt::CheckState::Checked){
+        status=true;
+    }
+    emit automaticStateSingal(status);
 }

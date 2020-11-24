@@ -48,46 +48,46 @@ bool Processing::loadParameter()
                     ******************************/
 
                     Parameter::ChannelNumber= getJsonValue("Channel","ChannelNumber",value.toObject()).toInt();
-//                    Parameter::ImageFormat= getJsonValue("Channel","ImageFormat",value.toObject()).toInt();
-//                    Parameter::ImageNamingRules= getJsonValue("Channel","ImageNamingRules",value.toObject()).toInt();
-//                    Parameter::ImagePath= getJsonValue("Channel","ImagePath",value.toObject()).toString();
+                    Parameter::ImageFormat= getJsonValue("Channel","ImageFormat",value.toObject()).toInt();
+                    Parameter::ImageNamingRules= getJsonValue("Channel","ImageNamingRules",value.toObject()).toInt();
+                    Parameter::ImagePath= getJsonValue("Channel","ImagePath",value.toObject()).toString();
 
                     /*****************************
                     * @brief:Upload
                     ******************************/
-//                    Parameter::Ftp=getJsonValue("Upload","Ftp",value.toObject()).toInt();
-//                    Parameter::FtpAddress= getJsonValue("Upload","FtpAddress",value.toObject()).toString();
-//                    Parameter::FtpLocalPath= getJsonValue("Upload","FtpLocalPath",value.toObject()).toString();
-//                    Parameter::FtpPassword= getJsonValue("Upload","FtpPassword",value.toObject()).toString();
-//                    Parameter::FtpPort= getJsonValue("Upload","FtpPort",value.toObject()).toInt();
-//                    Parameter::FtpRemotePath= getJsonValue("Upload","FtpRemotePath",value.toObject()).toString();
-//                    Parameter::FtpUser= getJsonValue("Upload","FtpUser",value.toObject()).toString();
-//                    Parameter::ReduceImage=getJsonValue("Upload","ReduceImage",value.toObject()).toInt();
+                    Parameter::Ftp=getJsonValue("Upload","Ftp",value.toObject()).toInt();
+                    Parameter::FtpAddress= getJsonValue("Upload","FtpAddress",value.toObject()).toString();
+                    Parameter::FtpLocalPath= getJsonValue("Upload","FtpLocalPath",value.toObject()).toString();
+                    Parameter::FtpPassword= getJsonValue("Upload","FtpPassword",value.toObject()).toString();
+                    Parameter::FtpPort= getJsonValue("Upload","FtpPort",value.toObject()).toInt();
+                    Parameter::FtpRemotePath= getJsonValue("Upload","FtpRemotePath",value.toObject()).toString();
+                    Parameter::FtpUser= getJsonValue("Upload","FtpUser",value.toObject()).toString();
+                    Parameter::ReduceImage=getJsonValue("Upload","ReduceImage",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Other
                     ******************************/
                     Parameter::Language= getJsonValue("Other","Language",value.toObject()).toInt();
                     Parameter::Minimization= getJsonValue("Other","Minimization",value.toObject()).toInt();
-                    Parameter::Automatic=getJsonValue("Other","Automatic",value.toObject()).toInt();
+                    Parameter::Automatic= getJsonValue("Other","Automatic",value.toObject()).toInt();
                     Parameter::DelayStart= getJsonValue("Other","DelayStart",value.toObject()).toInt();
-//                    Parameter::InfoLog= getJsonValue("Other","InfoLog",value.toObject()).toInt();
-//                    Parameter::DebugLog= getJsonValue("Other","DebugLog",value.toObject()).toInt();
+                    Parameter::InfoLog= getJsonValue("Other","InfoLog",value.toObject()).toInt();
+                    Parameter::DebugLog= getJsonValue("Other","DebugLog",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Recognizer
                     ******************************/
-                    //Parameter::ResultsTheCheck=getJsonValue("Recognizer","ResultsTheCheck",value.toObject()).toInt();
+                    Parameter::ResultsTheCheck=getJsonValue("Recognizer","ResultsTheCheck",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Service
                     ******************************/
-//                    Parameter::ServiceModel=getJsonValue("Service","ServiceModel",value.toObject()).toInt();
-//                    Parameter::Service_Type=getJsonValue("Service","Service_Type",value.toObject()).toInt();
-//                    Parameter::SingletonAddress=getJsonValue("Service","SingletonAddress",value.toObject()).toString();
-//                    Parameter::ManyCasesAddress=getJsonValue("Service","ManyCasesAddress",value.toObject()).toString();
-//                    Parameter::Heartbeat=getJsonValue("Service","Heartbeat",value.toObject()).toInt();
-//                    Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
+                    Parameter::ServiceModel=getJsonValue("Service","ServiceModel",value.toObject()).toInt();
+                    Parameter::Service_Type=getJsonValue("Service","Service_Type",value.toObject()).toInt();
+                    Parameter::SingletonAddress=getJsonValue("Service","SingletonAddress",value.toObject()).toString();
+                    Parameter::ManyCasesAddress=getJsonValue("Service","ManyCasesAddress",value.toObject()).toString();
+                    Parameter::Heartbeat=getJsonValue("Service","Heartbeat",value.toObject()).toInt();
+                    Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;

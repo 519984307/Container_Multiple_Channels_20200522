@@ -2,21 +2,68 @@
 #define CAPTUREIMAGESHCNET_H
 
 #include "CaptureImagesHCNET_global.h"
-#include "ICaptureImagesHCNET.h"
+#include "ICaptureImages.h"
 #include "HCNetSDK.h"
 
-class CAPTUREIMAGESHCNET_EXPORT CaptureImagesHCNET:public ICaptureImagesHCNET
+class CAPTUREIMAGESHCNET_EXPORT CaptureImagesHCNET:public ICaptureImages
 {
     Q_OBJECT
-    Q_INTERFACES(ICaptureImagesHCNET)
-    Q_PLUGIN_METADATA(IID  ICaptureImagesHCNET_IID)
+    Q_INTERFACES(ICaptureImages)
+    Q_PLUGIN_METADATA(IID  ICaptureImages_IID)
 
 public:
     CaptureImagesHCNET(QObject *parent=nullptr);
     ~CaptureImagesHCNET()Q_DECL_OVERRIDE;
 
-private:
+private:       
+    /*****************************
+    * @brief:交通系列（2CD9），布防功能。
+    ******************************/
+    ///
+    /// \brief exceptionMSGCallBack_V31  注册回调函数，接收设备报警消息等。
+    /// \param lCommand 上传的消息类型，不同的报警信息对应不同的类型，通过类型区分是什么报警信息。
+    /// \param pAlarmer 报警设备信息，包括设备序列号、IP地址、登录IUserID句柄等
+    /// \param pAlarmInfo 报警信息，通过lCommand值判断pAlarmer对应的结构体。
+    /// \param dwBufLen 报警信息缓存大小
+    /// \param pUser 用户数据
+    /// \return TRUE表示成功，FALSE表示失败。接口返回失败请调用NET_DVR_GetLastError获取错误码，通过错误码判断出错原因
+    ///
+    static BOOL CALLBACK exceptionMSGCallBack_V31(LONG lCommand,NET_DVR_ALARMER *pAlarmer,char *pAlarmInfo,DWORD dwBufLen,void *pUser);
 
+    typedef   LONG (*NET_DVR_SetupAlarmChan_V41FUN)(LONG lUserID,LPNET_DVR_SETUPALARM_PARAM   lpSetupParam);
+    ///
+    /// \brief NET_DVR_SetupAlarmChan_V41_L 建立报警上传通道，获取报警等信息
+    ///
+    NET_DVR_SetupAlarmChan_V41FUN NET_DVR_SetupAlarmChan_V41_L;
+
+    typedef   BOOL (*NET_DVR_CloseAlarmChan_V30FUN)(LONG lAlarmHandle);
+    ///
+    /// \brief NET_DVR_CloseAlarmChan_V30_L 撤销报警上传通道
+    ///
+    NET_DVR_CloseAlarmChan_V30FUN NET_DVR_CloseAlarmChan_V30_L;
+
+    typedef   BOOL (*NET_DVR_SetDVRMessageCallBack_V31FUN)(MSGCallBack_V31 fMessageCallBack,void *pUser);
+    ///
+    /// \brief NET_DVR_SetDVRMessageCallBack_V31_L 设置回调函数
+    ///
+    NET_DVR_SetDVRMessageCallBack_V31FUN NET_DVR_SetDVRMessageCallBack_V31_L;
+
+    typedef   BOOL (*NET_DVR_ContinuousShootFUN)(LONG lUserID,LPNET_DVR_SNAPCFG    lpInter);
+    ///
+    /// \brief NET_DVR_ContinuousShoot_L 网络触发抓拍
+    ///
+    NET_DVR_ContinuousShootFUN NET_DVR_ContinuousShoot_L;
+
+    typedef   BOOL (*NET_DVR_ManualSnapFUN)(LONG lUserID,LPNET_DVR_MANUALSNAP lpInter,LPNET_DVR_PLATE_RESULT lpOuter);
+    ///
+    /// \brief NET_DVR_ManualSnap_L 手动触发抓拍，(sdk说明不能连续抓图)
+    ///
+    NET_DVR_ManualSnapFUN NET_DVR_ManualSnap_L;
+
+
+    /*****************************
+    * @brief:网络相机系列（2CD7）
+    ******************************/
     ///
     /// \brief exceptionCallBack_V30 接收异常、重连等消息的窗口句柄或回调函数。
     /// \param dwType 异常或重连等消息的类型
@@ -82,6 +129,12 @@ private:
     /// \brief NET_DVR_CaptureJPEGPicture_NEW_L 抓图保存到内存
     ///
     NET_DVR_CaptureJPEGPicture_NEWFUN NET_DVR_CaptureJPEGPicture_NEW_L;
+
+    typedef BOOL (*NET_DVR_CaptureJPEGPictureFUN)(LONG lUserID,LONG lChannel,  LPNET_DVR_JPEGPARA   lpJpegPara,char *sPicFileName);
+    ///
+    /// \brief NET_DVR_CaptureJPEGPicture_L  抓图保存到文件
+    ///
+    NET_DVR_CaptureJPEGPictureFUN NET_DVR_CaptureJPEGPicture_L;
 
     typedef LONG (*NET_DVR_RealPlay_V40FUN)(LONG lUserID, LPNET_DVR_PREVIEWINFO lpPreviewInfo, REALDATACALLBACK fRealDataCallBack_V30 , void* pUser);
     ///
@@ -151,13 +204,6 @@ private:
     NET_DVR_SetRecvTimeOutFUN NET_DVR_SetRecvTimeOut_L;
 
 private:
-
-
-    ///
-    /// \brief InitializationParameter 初始化参数
-    ///
-    bool InitializationParameter();
-
     ///
     /// \brief pThis 类指针
     ///
@@ -184,12 +230,29 @@ private:
     int port;
 
     ///
-    /// \brief camerIp  地址,用户名,密码,相机别名
+    /// \brief camerIp  相机地址
     ///
-    QString  camerIp,camerName,camerPow,alias;
+    QString camerIp;
 
-    ///登录用户ID,视频流ID
-    LONG lUserID,streamID;
+    ///
+    /// \brief camerName 相机用户名
+    ///
+    QString camerName;
+
+    ///
+    /// \brief camerPow 相机密码
+    ///
+    QString camerPow;
+
+    ///
+    /// \brief lUserID 登录成功ID
+    ///
+    LONG lUserID;
+
+    ///
+    /// \brief streamID 视频预览ID
+    ///
+    LONG streamID;
 
     ///
     /// \brief dwResult 登录结果
@@ -214,20 +277,26 @@ private:
 public:
 
     ///
+    /// \brief effect 返回类名
+    /// \return
+    ///
+    QStringList effect()const Q_DECL_OVERRIDE;
+
+    ///
     /// \brief initCamerSlot 初始化相机
     /// \param camerIP 地址
     /// \param camerPort 端口
     /// \param user 用户名
     /// \param pow 密码
     ///
-    void initCamerSlot(const QString &camerIP, const int & camerPort, const QString &CamerUser, const QString &CamerPow,const QString& alias) Q_DECL_OVERRIDE;
+    void initCamerSlot(const QString &camerIP, const int & camerPort, const QString &CamerUser, const QString &CamerPow) Q_DECL_OVERRIDE;
 
     ///
     /// \brief putCommandSlot 抓取图片
     /// \param imgNumber 图片编号
     /// \return
     ///
-    bool putCommandSlot(const int &imgNumber,const QString &imgTime) Q_DECL_OVERRIDE;
+    void putCommandSlot(const int &imgNumber,const QString &imgTime) Q_DECL_OVERRIDE;
 
     ///
     /// \brief playStreamSlot 播放视频流
@@ -254,6 +323,12 @@ private slots:
     /// \return
     ///
     void getDeviceStatusSlot();
+
+private:
+    ///
+    /// \brief InitializationParameter 初始化参数
+    ///
+    bool InitializationParameter();
 };
 
 #endif // CAPTUREIMAGESHCNET_H

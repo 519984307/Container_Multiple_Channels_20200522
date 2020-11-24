@@ -44,7 +44,7 @@
      <x>0</x>
      <y>0</y>
      <width>727</width>
-     <height>33</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuChannel_To_View">
@@ -77,6 +77,13 @@
     <property name="title">
      <string>Help</string>
     </property>
+    <widget class="QMenu" name="menuErrCode">
+     <property name="title">
+      <string>ErrCode</string>
+     </property>
+     <addaction name="actionHCNET"/>
+    </widget>
+    <addaction name="menuErrCode"/>
    </widget>
    <addaction name="menuChannel_To_View"/>
    <addaction name="menuDatabase"/>
@@ -159,6 +166,14 @@
    </property>
    <property name="toolTip">
     <string>Data exchange log</string>
+   </property>
+  </action>
+  <action name="actionHCNET">
+   <property name="text">
+    <string>HCNET</string>
+   </property>
+   <property name="toolTip">
+    <string>HCNET error code</string>
    </property>
   </action>
  </widget>

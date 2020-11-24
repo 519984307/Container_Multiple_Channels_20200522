@@ -9,8 +9,8 @@
 #include <QLabel>
 
 /* UI */
-#include "Channel_Data/channel_data_form.h"
-#include "Channel_Data/equipment_state_from.h"
+#include "ChannelData/channel_data_form.h"
+#include "ChannelData/equipment_state_from.h"
 #include "Setting/setting_form.h"
 
 namespace Ui {

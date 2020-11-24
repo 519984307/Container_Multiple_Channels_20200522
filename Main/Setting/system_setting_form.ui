@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>608</width>
-    <height>685</height>
+    <width>815</width>
+    <height>741</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,22 +24,66 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>829</width>
-        <height>640</height>
+        <width>1363</width>
+        <height>696</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="1">
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
            <string>Channel</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_7">
-           <item row="0" column="2" colspan="2">
+           <item row="0" column="0">
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>The Channel Number</string>
+             </property>
+             <property name="flat">
+              <bool>true</bool>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="0">
+               <widget class="QSpinBox" name="ChannelNumber">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="frame">
+                 <bool>true</bool>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="prefix">
+                 <string/>
+                </property>
+                <property name="minimum">
+                 <number>1</number>
+                </property>
+                <property name="maximum">
+                 <number>30</number>
+                </property>
+                <property name="value">
+                 <number>1</number>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_15">
+                <property name="text">
+                 <string>(Set the software to manage the number of channels, the quantity limit needs to be purchased by the supplier and the container number identification.)</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="0" column="1">
             <spacer name="horizontalSpacer_6">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -52,7 +96,7 @@
              </property>
             </spacer>
            </item>
-           <item row="1" column="0" colspan="2">
+           <item row="1" column="0">
             <widget class="QGroupBox" name="ImageNaming">
              <property name="title">
               <string>Image naming rules</string>
@@ -92,7 +136,7 @@
              </layout>
             </widget>
            </item>
-           <item row="1" column="2" colspan="2">
+           <item row="1" column="2">
             <spacer name="horizontalSpacer_8">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
@@ -105,7 +149,7 @@
              </property>
             </spacer>
            </item>
-           <item row="2" column="0" colspan="3">
+           <item row="2" column="0">
             <widget class="QGroupBox" name="SaveImage_1">
              <property name="title">
               <string>Save Image One</string>
@@ -203,43 +247,6 @@
               </size>
              </property>
             </spacer>
-           </item>
-           <item row="0" column="0" colspan="2">
-            <widget class="QGroupBox" name="groupBox">
-             <property name="title">
-              <string>The Channel Number</string>
-             </property>
-             <property name="flat">
-              <bool>true</bool>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_2">
-              <item row="0" column="0">
-               <widget class="QSpinBox" name="ChannelNumber">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="frame">
-                 <bool>true</bool>
-                </property>
-                <property name="alignment">
-                 <set>Qt::AlignCenter</set>
-                </property>
-                <property name="prefix">
-                 <string/>
-                </property>
-                <property name="minimum">
-                 <number>1</number>
-                </property>
-                <property name="maximum">
-                 <number>30</number>
-                </property>
-                <property name="value">
-                 <number>1</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </widget>
            </item>
           </layout>
          </widget>
@@ -523,7 +530,31 @@
              </layout>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="2" column="0" colspan="2">
+            <widget class="QSplitter" name="splitter">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="label_16">
+              <property name="text">
+               <string>Protocol type:</string>
+              </property>
+             </widget>
+             <widget class="QComboBox" name="comboBox_2">
+              <item>
+               <property name="text">
+                <string>Container_number</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Container_number+Plate</string>
+               </property>
+              </item>
+             </widget>
+            </widget>
+           </item>
+           <item row="5" column="0">
             <widget class="QCheckBox" name="Hearbeat_checkBox">
              <property name="text">
               <string>The heartbeat packets</string>
@@ -533,7 +564,7 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
+           <item row="6" column="0">
             <widget class="QCheckBox" name="Resulting_checkBox">
              <property name="text">
               <string>Only the resulting data is sent</string>
@@ -543,25 +574,73 @@
              </property>
             </widget>
            </item>
-           <item row="4" column="0" colspan="2">
+           <item row="7" column="0" colspan="2">
             <widget class="QCheckBox" name="Disconnected_checkBox">
              <property name="text">
               <string>Send completion is actively disconnected</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="0">
+           <item row="8" column="0">
             <widget class="QCheckBox" name="checkBox">
              <property name="text">
               <string>Send a car signal</string>
              </property>
             </widget>
            </item>
-           <item row="6" column="0">
+           <item row="9" column="0">
             <widget class="QCheckBox" name="checkBox_2">
              <property name="text">
               <string>Send astern signal</string>
              </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <widget class="QSplitter" name="splitter_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="label_17">
+              <property name="text">
+               <string>The interface type:</string>
+              </property>
+             </widget>
+             <widget class="QComboBox" name="comboBox_3">
+              <item>
+               <property name="text">
+                <string>TCP</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>HTTP</string>
+               </property>
+              </item>
+             </widget>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <widget class="QSplitter" name="splitter_3">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QLabel" name="label_18">
+              <property name="text">
+               <string>HTTP data type:</string>
+              </property>
+             </widget>
+             <widget class="QComboBox" name="comboBox_4">
+              <item>
+               <property name="text">
+                <string>JSON</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>XML</string>
+               </property>
+              </item>
+             </widget>
             </widget>
            </item>
           </layout>

@@ -181,7 +181,12 @@ void TheLicensePlateWTY::dataEx2Callback(CLIENT_LPRC_PLATE_RESULTEX *recResultEx
     Q_UNUSED(dwUser);
 
     QByteArray arrImg=QByteArray::fromRawData(reinterpret_cast<const char*>(recResultEx->pFullImage.pBuffer),recResultEx->pFullImage.nLen);
-    QString dateTime= QString("%1-%2-%3 %4:%5:%6").arg(recResultEx->shootTime.Year).arg(recResultEx->shootTime.Month).arg(recResultEx->shootTime.Day).arg(recResultEx->shootTime.Hour).arg(recResultEx->shootTime.Minute).arg(recResultEx->shootTime.Second);
+
+    /* 车牌相机时间，部分出现异常 */
+    //QString dateTime= QString("%1-%2-%3 %4:%5:%6").arg(recResultEx->shootTime.Year).arg(recResultEx->shootTime.Month).arg(recResultEx->shootTime.Day).arg(recResultEx->shootTime.Hour).arg(recResultEx->shootTime.Minute).arg(recResultEx->shootTime.Second);
+
+    /* 系统时间 */
+    QString dateTime=QDateTime::currentDateTime().toString("yyyy-M-d h:m:s");
 
     emit pThis->resultsTheLicensePlateSignal(recResultEx->chLicense,recResultEx->chColor,dateTime,arrImg);
     qInfo()<<tr("License Plate recognition results:%1-%2").arg(QString::fromLocal8Bit(recResultEx->chLicense)).arg(dateTime);

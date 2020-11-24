@@ -57,8 +57,32 @@ void Setting_Form::hideTheWindow()
     }
 }
 
+void Setting_Form::automaticStartup(bool start)
+{
+    /*****************************
+    * @brief:window 开机启动注册表
+    ******************************/
+    /*
+    HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+    HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+    */
+
+    QSettings reg(QDir::toNativeSeparators("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"),QSettings::NativeFormat);
+    QString app=QCoreApplication::applicationName();
+    QString path=QDir::toNativeSeparators(QCoreApplication::applicationFilePath());
+
+    if(start){
+        reg.setValue(app,path);
+
+    }
+    else {
+        reg.remove(app);
+    }
+}
+
 void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels)
 {
+    automatic=false;
     channelSelect=0;
 
     ui->listWidget->addItems(rowLabels);
@@ -89,6 +113,12 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
     * @brief: 保存参数
     ******************************/
     connect(this,SIGNAL(writeParameterSignal()),p_System_Setting_Form,SLOT(writeParameterSlot()));
+
+    /*****************************
+    * @brief:获取开机启动设置状态
+    ******************************/
+    connect(p_System_Setting_Form,SIGNAL(automaticStateSingal(bool)),this,SLOT(automaticStateSlot(bool)));
+
     /*****************************
     * @brief: 初始化参数
     ******************************/
@@ -151,7 +181,6 @@ void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
         QByteArray msg=tr("Save System Json Sucess").toLocal8Bit();
         qInfo("%s", msg.data());
         QMessageBox::warning(this,tr("Save System Settings"),tr("Parameter saved successfully, software restart takes effect"));
-        //emit writeParameterSignal();
 
         if(!writeParameterSignal()){
             /*****************************
@@ -160,6 +189,13 @@ void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
             qWarning("Save System Json error");
             QMessageBox::warning(this,"Save System Settings","Save System Json error");
         }
+        else {
+            /*****************************
+            * @brief:开机自动启动
+            ******************************/
+            automaticStartup(automatic);
+        }
+
     }
     if(button==ui->buttonBox->button(QDialogButtonBox::Ignore)){
         /*****************************
@@ -174,4 +210,10 @@ void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
     * @brief:返回主页面
     ******************************/
     emit showMainWindowSignal();
+
+}
+
+void Setting_Form::automaticStateSlot(bool status)
+{
+    automatic=status;
 }

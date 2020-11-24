@@ -1,21 +1,7 @@
-#include "loadinglibaray.h"
+#include "pluginprocessing.h"
 
-#include "Parameter/processing.h"
-
-#include "Interface/ICaptureImagesHCNET.h"
-#include "Interface/ICaptureImagesTCP.h"
-#include "Interface/ITheLicensePlateHCNET.h"
-#include "Interface/ITheLicensePlateWTY.h"
-#include "Interface/databaseread_interface.h"
-#include "Interface/databasewrite_interface.h"
-#include "Interface/datainterchange_interface.h"
-#include "Interface/encryption_interface.h"
-#include "Interface/infraredlogic_interface.h"
-#include "Interface/recognizer_interface.h"
-#include "Interface/thedataanalysis_interface.h"
-
-LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(parent)
-{
+PluginProcessing::PluginProcessing(int ChannelNumber, QObject *parent)
+{    
     this->setParent(parent);
 
     QDir pluginsDir(QCoreApplication::applicationDirPath());
@@ -28,7 +14,7 @@ LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(par
     const QString path=pluginsDir.path();
 
     for(const QString &fileName :pluginsDir.entryList(QDir::Files)){
-        QPluginLoader  pluginLoader(pluginsDir.absoluteFilePath(fileName));       
+        QPluginLoader  pluginLoader(pluginsDir.absoluteFilePath(fileName));
         QObject *plugin = pluginLoader.instance();
 
         if(plugin){
@@ -55,7 +41,7 @@ LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(par
                 pluginsNum=ChannelNumber*7;
 
                 delete pICaptureImagesHCNET;
-                pICaptureImagesHCNET=nullptr;                
+                pICaptureImagesHCNET=nullptr;
             }
             else if (ICaptureImagesTCP *pICaptureImagesTCP=qobject_cast<ICaptureImagesTCP*>(plugin)) {
                 pluginsNum=ChannelNumber*7;
@@ -86,7 +72,12 @@ LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(par
     }
 }
 
-void LoadingLibaray::processingPlugins(QDir pluginPath)
+PluginProcessing::~PluginProcessing()
+{
+
+}
+
+void PluginProcessing::processingPlugins(QDir pluginPath)
 {
     const QStringList entryList=pluginPath.entryList(QDir::Files);
     for(QString pluginName:entryList){
@@ -112,4 +103,9 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
 
     return true;
     */
+}
+
+void PluginProcessing::setConCameraProtocolModeSlot(QMultiMap<int, QMap<int, int> > protocol)
+{
+
 }

@@ -2,7 +2,8 @@ TEMPLATE = subdirs
 
 SUBDIRS +=\
     CaptureImagesHCNET \
-    CaptureImagesTCP \
+    #CaptureImagesTCP \
+    PluginProcessing \
     TheLicensePlateHCNET \
     TheLicensePlateWTY \
     ToUploadData\

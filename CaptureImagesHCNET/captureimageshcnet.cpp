@@ -6,11 +6,13 @@ CaptureImagesHCNET::CaptureImagesHCNET(QObject *parent)
 {
     this->setParent(parent);
 
-    CaptureImagesHCNET::pThis=this;
-    lUserID=-1;streamID=-1;dwResult=0;
+    lUserID=-1;
+    streamID=-1;
+    dwResult=0;
 
     isSDKInit=false;
 
+    CaptureImagesHCNET::pThis=this;
     pDLL=nullptr;
     pTimerCameraState=nullptr;
 
@@ -31,16 +33,22 @@ CaptureImagesHCNET::CaptureImagesHCNET(QObject *parent)
     NET_DVR_RemoteControl_L=nullptr;
     NET_DVR_GetRealPlayerIndex_L=nullptr;
     NET_DVR_SetConnectTime_L=nullptr;
-    NET_DVR_SetRecvTimeOut_L=nullptr;
+    NET_DVR_SetRecvTimeOut_L=nullptr;    
+    NET_DVR_CaptureJPEGPicture_L=nullptr;
+
+    /*****************************
+    * @brief:交通系列
+    ******************************/
+    NET_DVR_SetupAlarmChan_V41_L=nullptr;
+    NET_DVR_CloseAlarmChan_V30_L=nullptr;
+    NET_DVR_SetDVRMessageCallBack_V31_L=nullptr;
+    NET_DVR_ContinuousShoot_L=nullptr;
+    NET_DVR_ManualSnap_L=nullptr;
 }
 
 CaptureImagesHCNET::~CaptureImagesHCNET()
 {
     CaptureImagesHCNET::pThis=nullptr;
-
-    if(NET_DVR_Cleanup_L!=nullptr){
-        NET_DVR_Cleanup_L();
-    }
 
     if(pDLL!=nullptr){
         pDLL->unload();
@@ -51,25 +59,30 @@ CaptureImagesHCNET::~CaptureImagesHCNET()
 
 void CaptureImagesHCNET::releaseResourcesSlot()
 {
-    if(NET_DVR_SetConnectTime_L!=nullptr){
-         NET_DVR_SetConnectTime_L(1,1);/* 设置网络连接超时时间和连接尝试次数,防止相机重连,阻止程序退出 */
+    if(nullptr!=NET_DVR_SetConnectTime_L){
+        /*****************************
+        * @brief:设置网络连接超时时间和连接尝试次数,防止相机重连,阻止程序退出
+        ******************************/
+         NET_DVR_SetConnectTime_L(75000,0);
     }
 
-    if(pTimerCameraState!=nullptr){
+    if(nullptr!=pTimerCameraState){
          pTimerCameraState->stop();
          delete  pTimerCameraState;
          pTimerCameraState=nullptr;
     }
 
-    if(lUserID!=-1){
-        if(streamID!=-1){
-            if(NET_DVR_StopRealPlay_L !=nullptr){
-                NET_DVR_StopRealPlay_L(streamID);
-            }
+    if(-1!=lUserID){
+        if(-1!=streamID && nullptr!=NET_DVR_StopRealPlay_L){
+            NET_DVR_StopRealPlay_L(streamID);
         }
-        if(NET_DVR_Logout_L !=nullptr){
+        if(nullptr!=NET_DVR_Logout_L){
             NET_DVR_Logout_L(lUserID);
         }
+    }
+
+    if(NET_DVR_Cleanup_L!=nullptr){
+        NET_DVR_Cleanup_L();
     }
 }
 
@@ -79,8 +92,9 @@ void CaptureImagesHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
     Q_UNUSED(lUserID);
     Q_UNUSED(lHandle);
     Q_UNUSED(pUser);
-
-    qWarning()<<tr("IP=%1 Camrea exception<errorCode=%2>").arg(pThis->camerIp).arg(QString::number(pThis->NET_DVR_GetLastError_L()));
+    
+    QByteArray msg=tr("Camrea:%1 exception<errorCode=%2>").arg(pThis->camerIp).arg(QString::number(pThis->NET_DVR_GetLastError_L())).toLocal8Bit();
+    qWarning("%s", msg.data());
 }
 
 void CaptureImagesHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET_DVR_DEVICEINFO_V30 lpDeviceInfo, void *pUser)
@@ -88,18 +102,16 @@ void CaptureImagesHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
     Q_UNUSED(lpDeviceInfo);
     Q_UNUSED(pUser);
 
-    pThis->lUserID=lUserID;
-    pThis->dwResult=dwResult;
-
-    if(dwResult==0){
-        qWarning()<<tr("IP=%1 Camera login error<errorCode=%2>").arg(pThis->camerIp).arg(pThis->NET_DVR_GetLastError_L());
-
-        if(pThis->NET_DVR_GetLastError_L()==7){/* 网络异常,超时 */
-            pThis->initCamerSlot(pThis->camerIp,pThis->port,pThis->camerName,pThis->camerPow,pThis->alias);/* 重新登录 */
-        }
+    if(0==dwResult){
+        QByteArray msg=tr("IP=%1 Camera login error<errorCode=%2>").arg(pThis->camerIp).arg(pThis->NET_DVR_GetLastError_L()).toLocal8Bit();
+        qWarning("%s",msg.data());
     }
-    else if (dwResult==1) {
-        qInfo()<<tr("IP=%1 Camera login sucess").arg(pThis->camerIp);
+    else if (1==dwResult) {
+        pThis->lUserID=lUserID;
+        pThis->dwResult=dwResult;
+
+        QByteArray msg=tr("IP=%1 Camera login sucess").arg(pThis->camerIp).toLocal8Bit();
+        qInfo("%s",msg.data());
     }
 }
 
@@ -135,21 +147,26 @@ bool CaptureImagesHCNET::InitializationParameter()
         NET_DVR_SetReconnect_L=reinterpret_cast<NET_DVR_SetReconnectFUN>(pDLL->resolve("NET_DVR_SetReconnect"));
         NET_DVR_SetRecvTimeOut_L=reinterpret_cast<NET_DVR_SetRecvTimeOutFUN>(pDLL->resolve("NET_DVR_SetRecvTimeOut"));
 
-        if(pTimerCameraState==nullptr){
+        if(nullptr==pTimerCameraState){
             pTimerCameraState=new QTimer (this);
             connect(pTimerCameraState,SIGNAL(timeout()),this,SLOT(getDeviceStatusSlot()));
-            pTimerCameraState->start(15000);/* 15秒检测一次相机状态 */
+            pTimerCameraState->start(10000);/* 10秒检测一次相机状态 */
         }
-
         return  true;
     }
     else {
-        qWarning()<<tr("Load the dynamic error<errorCode=%1>").arg(pDLL->errorString());
+        QByteArray msg=tr("Load the dynamic error<errorCode=%1>").arg(pDLL->errorString()).toLocal8Bit();
+        qWarning("%s",msg.data());
     }
     return false;
 }
 
-void CaptureImagesHCNET::initCamerSlot(const QString &camerIP, const int &camerPort, const QString &CamerUser, const QString &CamerPow, const QString &alias)
+QStringList CaptureImagesHCNET::effect()const
+{
+
+}
+
+void CaptureImagesHCNET::initCamerSlot(const QString &camerIP, const int &camerPort, const QString &CamerUser, const QString &CamerPow)
 {
     if(!isSDKInit){
         if(!InitializationParameter()){/* 动态库初始化失败就不登录相机 */
@@ -161,13 +178,13 @@ void CaptureImagesHCNET::initCamerSlot(const QString &camerIP, const int &camerP
         this->port=camerPort;
         this->camerName=CamerUser;
         this->camerPow=CamerPow;
-        this->alias=alias;
 
         /* 设置动态库路径 */
         NET_SDK_INIT_CFG_TYPE cfgType=NET_SDK_INIT_CFG_SDK_PATH;
         strcpy(SDKPath.sPath,QDir::toNativeSeparators(QString("%1/%2").arg(QCoreApplication::applicationDirPath()).arg("Plugins/HCNetSDK")).toLocal8Bit().data());
-        if(NET_DVR_SetSDKInitCfg_L && !NET_DVR_SetSDKInitCfg_L(cfgType,&SDKPath)){
-            qWarning()<<tr("SDK path set error<errorCode=%1>").arg(NET_DVR_GetLastError_L());
+        if(nullptr!=NET_DVR_SetSDKInitCfg_L && !NET_DVR_SetSDKInitCfg_L(cfgType,&SDKPath)){
+            QByteArray msg=tr("SDK path set error<errorCode=%1>").arg(NET_DVR_GetLastError_L()).toLocal8Bit();
+            qWarning("%s",msg.data());
         }
 
         strcpy(LoginInfo.sDeviceAddress,camerIP.toLatin1().data());
@@ -178,30 +195,42 @@ void CaptureImagesHCNET::initCamerSlot(const QString &camerIP, const int &camerP
         LoginInfo.cbLoginResult=CaptureImagesHCNET::loginResultCallBack;
         LoginInfo.pUser=nullptr;
 
-        if(NET_DVR_Init_L!=nullptr){
+        if(nullptr!=NET_DVR_Init_L){
             if(NET_DVR_Init_L()){
                 isSDKInit=true;
-                if(NET_DVR_SetExceptionCallBack_V30_L){
+                if(nullptr!=NET_DVR_SetExceptionCallBack_V30_L){
                     NET_DVR_SetExceptionCallBack_V30_L(0,nullptr,CaptureImagesHCNET::exceptionCallBack_V30,nullptr);
                     // NET_DVR_SetLogToFile_L(3, QString(".\\Log\\sdkLog").toLatin1().data(), true);
-                    NET_DVR_SetConnectTime_L(15000,0);
-                    NET_DVR_SetReconnect_L(15000,1);
-                    //NET_DVR_SetRecvTimeOut_L(1000);
+                    NET_DVR_SetConnectTime_L(10000,0);
+                    NET_DVR_SetReconnect_L(10000,0);
+                    NET_DVR_SetRecvTimeOut_L(1000);
                 }
-                NET_DVR_Login_V40_L(&LoginInfo,&DeviceInfo);
-                qInfo()<<tr("IP=%1 Camera init sucess").arg(this->camerIp);
+                if(nullptr!=NET_DVR_Login_V40_L){
+                    NET_DVR_Login_V40_L(&LoginInfo,&DeviceInfo);
+                }
+
+                QByteArray msg=tr("IP=%1 Camera init sucess").arg(this->camerIp).toLocal8Bit();
+                qInfo("%s",msg.data());
             }
             else {
-                qWarning()<<tr("IP=%1 Camera Iinit error<errorCode=%2>").arg(this->camerIp).arg(NET_DVR_GetLastError_L());
+                QByteArray msg=tr("IP=%1 Camera Iinit error<errorCode=%2>").arg(this->camerIp).arg(NET_DVR_GetLastError_L()).toLocal8Bit();
+                qWarning("%s",msg.data());
             }
         }
         else {
-            qWarning()<<tr("The dynamic init error<errorCode=%1>").arg(pDLL->errorString());
-            if(pDLL!=nullptr && pDLL->isLoaded()){
+            QByteArray msg=tr("The dynamic init error<errorCode=%1>").arg(pDLL->errorString()).toLocal8Bit();
+            qWarning("%s",msg.data());
+
+            if(nullptr!=pDLL && pDLL->isLoaded()){
                 pDLL->unload();
+                delete pDLL;
             }
             pDLL=nullptr;
-            initCamerSlot(camerIP, camerPort,CamerUser,CamerPow,alias);
+
+            /*****************************
+            * @brief:重新初始化动态库
+            ******************************/
+            initCamerSlot(camerIP, camerPort,CamerUser,CamerPow);
         }
     }
     else {
@@ -209,39 +238,42 @@ void CaptureImagesHCNET::initCamerSlot(const QString &camerIP, const int &camerP
     }
 }
 
-bool CaptureImagesHCNET::putCommandSlot(const int &imgNumber, const QString &imgTime)
+void CaptureImagesHCNET::putCommandSlot(const int &imgNumber, const QString &imgTime)
 {
+    QByteArray picture=nullptr;
+
     if(dwResult){
         NET_DVR_JPEGPARA   pJpegFile={};
         uint32_t charLen=IMG_BYTE;
         LPDWORD dataLen=nullptr;/* 接收数据长度 */
         char* buff=static_cast<char*>(malloc( charLen* sizeof(char)));
         pJpegFile.wPicSize=0xff;
-        pJpegFile.wPicQuality=0;
+        pJpegFile.wPicQuality=0;       
 
-        if(NET_DVR_CaptureJPEGPicture_NEW_L!=nullptr && NET_DVR_CaptureJPEGPicture_NEW_L(lUserID,1,&pJpegFile,buff,charLen,dataLen)){
-           // QByteArray arrayJpg=QByteArray::fromRawData(buff,*dataLen);
+        if(nullptr!=NET_DVR_CaptureJPEGPicture_NEW_L && NET_DVR_CaptureJPEGPicture_NEW_L(lUserID,1,&pJpegFile,buff,charLen,dataLen)){
+            picture=QByteArray(buff,*dataLen);
             //QByteArray arrayJpg(buff,IMG_BYTE);
-            QByteArray arrayJpg(*buff,*dataLen);
-            emit pictureStreamSignal(arrayJpg,imgNumber,imgTime);
-            qInfo()<<tr("IP=%1 Put Command Sucess").arg(camerIp);
+
+            QByteArray msg=tr("IP=%1 Put Command Sucess").arg(camerIp).toLocal8Bit();
+            qInfo("%s",msg.data());
         }
-        else {
-            emit pictureStreamSignal(nullptr,imgNumber,imgTime);/* 保证识别流程完成(识别流程需要完整图片编号) */
-            if(NET_DVR_GetLastError_L!=nullptr){
-                qWarning()<<tr("IP=%1 Put Command Error<errorCode=%2>").arg(camerIp).arg(NET_DVR_GetLastError_L());
-            }
+        else if(nullptr!=NET_DVR_GetLastError_L){
+            QByteArray msg=tr("IP=%1 Put Command Error<errorCode=%2>").arg(camerIp).arg(NET_DVR_GetLastError_L()).toLocal8Bit();
+            qWarning("%s",msg.data());
         }
+
+        //emit pictureStreamSignal(picture,imgNumber,imgTime);/* 保证识别流程完成(识别流程需要完整图片编号) */
+
         dataLen=nullptr;
         free(buff);
         buff=nullptr;
-        return true;
     }
-    emit pictureStreamSignal(nullptr,imgNumber,imgTime);/* 保证识别流程完成(识别流程需要完整图片编号) */
-    if(NET_DVR_GetLastError_L!=nullptr){
-        qWarning()<<tr("IP=%1 Put Command Error<errorCode=%2>").arg(camerIp).arg(NET_DVR_GetLastError_L());
+    else if(nullptr!=NET_DVR_GetLastError_L){
+        QByteArray msg=tr("IP=%1 Put Command Error<errorCode=%2>").arg(camerIp).arg(NET_DVR_GetLastError_L()).toLocal8Bit();
+        qWarning("%s",msg.data());
     }
-    return  false;
+
+    emit pictureStreamSignal(picture,imgNumber,imgTime);/* 保证识别流程完成(识别流程需要完整图片编号) */
 }
 
 void CaptureImagesHCNET::playStreamSlot(quint64 winID, bool play)
@@ -263,22 +295,26 @@ void CaptureImagesHCNET::playStreamSlot(quint64 winID, bool play)
             struPlayInfo.dwLinkMode   = 1;       /* 0- TCP方式，1- UDP方式，2- 多播方式，3- RTP方式，4-RTP/RTSP，5-RSTP/HTTP */
             struPlayInfo.bBlocked     = 0;       /* 0- 非阻塞取流，1- 阻塞取流 */
 
-            if(NET_DVR_RealPlay_V40_L !=nullptr){
+            if(nullptr!=NET_DVR_RealPlay_V40_L){
                 streamID =NET_DVR_RealPlay_V40_L(lUserID,&struPlayInfo,nullptr,nullptr);
-                if(streamID==-1){
-                    qWarning()<<tr("IP=%1 Open Stream Error<errorCode=%2>").arg(camerIp).arg(NET_DVR_GetLastError_L());
+                if(-1==streamID){
+                    QByteArray msg=tr("IP=%1 Open Stream Error<errorCode=%2>").arg(camerIp).arg(NET_DVR_GetLastError_L()).toLocal8Bit();
+                    qWarning("%s",msg.data());
                 }
                 else {
-                    qInfo()<<tr("IP=%1 Open Stream Sucess").arg(camerIp);
+                    QByteArray msg=tr("IP=%1 Open Stream Sucess").arg(camerIp).toLocal8Bit();
+                    qInfo("%s",msg.data());
                 }
             }
         }
         else {
-            if(NET_DVR_StopRealPlay_L !=nullptr && NET_DVR_StopRealPlay_L(streamID)){
-                qInfo()<<tr("IP=%1 Stop Stream sSucess").arg(camerIp);
+            if(nullptr!=NET_DVR_StopRealPlay_L && NET_DVR_StopRealPlay_L(streamID)){
+                QByteArray msg=tr("IP=%1 Stop Stream sSucess").arg(camerIp).toLocal8Bit();
+                qInfo("%s",msg.data());
             }
             else {
-                qWarning()<< tr("IP=%1 Stop Stream Error<errorCode=%2>").arg(camerIp).arg(NET_DVR_GetLastError_L());
+                QByteArray msg=tr("IP=%1 Stop Stream Error<errorCode=%2>").arg(camerIp).arg(NET_DVR_GetLastError_L()).toLocal8Bit();
+                qWarning("%s",msg.data());
             }
         }
     }
@@ -287,7 +323,7 @@ void CaptureImagesHCNET::playStreamSlot(quint64 winID, bool play)
 void CaptureImagesHCNET::resizeEventSlot()
 {
     if(dwResult){
-        if(NET_DVR_ChangeWndResolution_L !=nullptr){
+        if(nullptr!=NET_DVR_ChangeWndResolution_L){
             NET_DVR_ChangeWndResolution_L(this->streamID);
         }
     }
@@ -295,14 +331,24 @@ void CaptureImagesHCNET::resizeEventSlot()
 
 void CaptureImagesHCNET::getDeviceStatusSlot()
 {
-    if(NET_DVR_RemoteControl_L !=nullptr && !camerIp.isEmpty()){
+    if(nullptr!=NET_DVR_RemoteControl_L && !camerIp.isEmpty()){
         if(NET_DVR_RemoteControl_L(lUserID,NET_DVR_CHECK_USER_STATUS,nullptr,4)){
-            emit camerStateSingal(camerIp,true,alias);
+            emit camerStateSingal(camerIp,true);
             dwResult=1;
         }
         else {
-            emit camerStateSingal(camerIp,false,alias);
+            emit camerStateSingal(camerIp,false);
             dwResult=0;
+
+            /*****************************
+            * @brief:断开重连
+            ******************************/
+            if(-1!=lUserID){
+                if(nullptr!=NET_DVR_Logout_L){
+                    NET_DVR_Logout_L(lUserID);
+                }
+            }
+            initCamerSlot(camerIp,port,camerName,camerPow);/* 重新登录 */
         }
     }
 }

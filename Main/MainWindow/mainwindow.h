@@ -20,14 +20,13 @@
 /*****************************
 * UI
 ******************************/
-#include "Channel_Data/channel_data_form.h"
-#include "Channel_Data/equipment_state_from.h"
+#include "ChannelData/channel_data_form.h"
+#include "ChannelData/equipment_state_from.h"
 #include "Setting/setting_form.h"
-#include "Camera_Test/camera_list_form.h"
+#include "CameraTest/camera_list_form.h"
 #include "DataBase/database_form.h"
-#include "LogForm/data_log_form.h"
-#include "LogForm/info_log_form.h"
-
+#include "Log/data_log_form.h"
+#include "Log/info_log_form.h"
 
 #include "Parameter/processing.h"
 #include "Parameter/parameter.h"
@@ -148,6 +147,12 @@ private slots:
     void on_actionData_log_triggered();
 
     ///
+    /// \brief on_actionHCNET_triggered 海康相机错误码
+    ///
+    void on_actionHCNET_triggered();
+
+
+    ///
     /// \brief systemTrayAction 任务栏菜单
     ///
     void systemTrayAction();
@@ -255,7 +260,7 @@ private:
     ///
     /// \brief pLoadingLibaray 加载插件
     ///
-    LoadingLibaray *pLoadingLibaray;
+    //LoadingLibaray *pLoadingLibaray;
 
     /*****************************
     * @brief:UI
