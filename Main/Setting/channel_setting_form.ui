@@ -29,7 +29,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-256</y>
         <width>798</width>
         <height>941</height>
        </rect>
@@ -820,12 +820,15 @@
                <set>Qt::AlignCenter</set>
               </property>
               <property name="minimum">
-               <number>1</number>
+               <number>0</number>
               </property>
              </widget>
             </item>
             <item>
              <widget class="QDoubleSpinBox" name="doubleSpinBox">
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
               <property name="decimals">
                <number>1</number>
               </property>
@@ -833,6 +836,9 @@
             </item>
             <item>
              <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
               <property name="decimals">
                <number>1</number>
               </property>
@@ -840,6 +846,9 @@
             </item>
             <item>
              <widget class="QSpinBox" name="spinBox">
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
               <property name="minimum">
                <number>1</number>
               </property>

@@ -88,6 +88,7 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
     ******************************/
     System_Setting_Form *p_System_Setting_Form=new System_Setting_Form (count,this);
 
+    connect(p_System_Setting_Form,SIGNAL(initializesTheDeviceTemporaryTableSignal(int,QStringList)),this,SLOT(initializesTheDeviceTemporaryTableSlot(int,QStringList)));
     /*****************************
     * @brief: 保存参数
     ******************************/
@@ -185,4 +186,29 @@ void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
 void Setting_Form::automaticStateSlot(bool status)
 {
     automatic=status;
+}
+
+void Setting_Form::initializesTheDeviceTemporaryTableSlot(int count, QStringList rowLabels)
+{
+    int listCount=ui->listWidget->count();
+    int cot=abs(listCount-count);
+
+    if(listCount>count){
+        for (int var = 1; var <= cot; ++var) {
+            QListWidgetItem* item= ui->listWidget->takeItem(ui->listWidget->count()-1);
+            ui->listWidget->removeItemWidget(item);
+            delete item;
+        }
+    }
+    else {
+        for (int var = 1; var <= cot; ++var) {
+            ui->listWidget->addItem(rowLabels[ui->listWidget->count()]);
+            ui->listWidget->item(ui->listWidget->count()-1)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+
+            Channel_Setting_Form *p_Channel_Setting_Form=new Channel_Setting_Form (ui->listWidget->count(),this);
+            connect(this,SIGNAL(writeParameterSignal()),p_Channel_Setting_Form,SLOT(writeParameterSlot()));
+            Setting_Map.insert(ui->listWidget->count(),p_Channel_Setting_Form);
+            ui->gridLayout->addWidget(p_Channel_Setting_Form);
+        }
+    }
 }

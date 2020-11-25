@@ -50,7 +50,16 @@ private slots:
     ///
     void on_AutomaticStart_stateChanged(int arg1);
 
+    void on_ChannelNumber_valueChanged(int arg1);
+
 signals:
+
+    ///
+    /// \brief initializesTheDeviceTemporaryTableSignal 初始化设备列表
+    /// \param count 通道数
+    /// \param rowLabels 通道名称
+    ///
+    void initializesTheDeviceTemporaryTableSignal(int count, QStringList rowLabels);
 
     ///
     /// \brief messageSignal 日志信息

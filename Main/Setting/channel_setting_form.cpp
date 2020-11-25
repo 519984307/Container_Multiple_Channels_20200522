@@ -46,6 +46,7 @@ void Channel_Setting_Form::InitializationParameter(int number)
     if(!loadParameter()){
         if(writeParameterSlot()){
             loadParameter();
+            parameterToUi();
         }
     }
     else {/* 外部更改配置,回写配置到UI */
@@ -57,7 +58,7 @@ bool Channel_Setting_Form::loadParameter()
 {
     configurationFolder.setFileName(fileRoot);
     if(!configurationFolder.open(QIODevice::ReadOnly)){
-        qWarning().noquote()<<tr("Failed to load the Channel_%1 parameter, create the default parameter error<errorCOde=%2>").arg(channel_number).arg(configurationFolder.OpenError);                
+        qWarning().noquote()<<tr("Failed to load the Channel_%1 parameter, create the default parameter error<errorCode=%2>").arg(channel_number).arg(configurationFolder.OpenError);
         return false;
     }
 
@@ -176,6 +177,9 @@ bool Channel_Setting_Form::writeParameterSlot()
     QJsonObject jsonObj3;
     jsonObj3.insert(QString("Alias"),ui->Alias->text());
     jsonObj3.insert(QString("Channel_Number"),ui->Channel_Number->value());
+    if(0==ui->Channel_Number->value()){
+        jsonObj3.insert(QString("Channel_Number"),channel_number);
+    }
     jsonObj3.insert(QString("Plate_Camera_Model"),ui->Plate_Camera_Model->currentIndex());
     jsonObj3.insert(QString("Container_Camera_Model"),ui->Container_Camera_Model->currentIndex());
     jsonChild.insert("Other",QJsonValue(jsonObj3));

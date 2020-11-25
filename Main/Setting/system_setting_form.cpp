@@ -44,6 +44,7 @@ void System_Setting_Form::InitializationParameter(int channelNumber)
     if(!loadParameter()){
         if(writeParameterSlot()){
             loadParameter();
+            parameterToUi();
         }
     }
     else {/* 外部更改配置,回写配置到UI */
@@ -447,4 +448,13 @@ void System_Setting_Form::on_AutomaticStart_stateChanged(int arg1)
         status=true;
     }
     emit automaticStateSingal(status);
+}
+
+void System_Setting_Form::on_ChannelNumber_valueChanged(int arg1)
+{
+    QStringList rowLabels;
+    for(int i=1;i<=arg1;i++){
+        rowLabels.append(tr("%1 # Channel").arg(i,2,10,QChar('0')));
+    }
+    emit initializesTheDeviceTemporaryTableSignal(arg1,rowLabels);
 }

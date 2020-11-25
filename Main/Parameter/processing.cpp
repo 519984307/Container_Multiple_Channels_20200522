@@ -120,7 +120,7 @@ void Processing::loadChannelParameter(int Channels)
     mkPath.cd("Json");
 
     int CS=Channels;
-    if(Channels<LocalPar::Channels){
+    if(Channels>LocalPar::Channels){
         CS=LocalPar::Channels;
     }
     for(int ind=1;ind<=CS;++ind){

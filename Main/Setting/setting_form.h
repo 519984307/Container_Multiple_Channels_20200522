@@ -94,6 +94,13 @@ private slots:
     ///
     void automaticStateSlot(bool status);
 
+    ///
+    /// \brief initializesTheDeviceTemporaryTableSlot 设置页面临时添加通道设置页面
+    /// \param count
+    /// \param rowLabels
+    ///
+    void initializesTheDeviceTemporaryTableSlot(int count, QStringList rowLabels);
+
 signals:
 
     ///
