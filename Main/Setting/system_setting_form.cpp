@@ -1,5 +1,9 @@
 #include "system_setting_form.h"
 #include "ui_system_setting_form.h"
+/*****************************
+* @brief:全局参数
+******************************/
+#include "Parameter/LocalPar.h"
 
 System_Setting_Form::System_Setting_Form(int channelNumber, QWidget *parent) :
     QWidget(parent),
@@ -13,7 +17,7 @@ System_Setting_Form::System_Setting_Form(int channelNumber, QWidget *parent) :
     this->setHidden(true);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
-    InitializationParameterSlot(channelNumber);/* test */
+    InitializationParameter(channelNumber);
 }
 
 System_Setting_Form::~System_Setting_Form()
@@ -21,7 +25,7 @@ System_Setting_Form::~System_Setting_Form()
     delete ui;
 }
 
-void System_Setting_Form::InitializationParameterSlot(int channelNumber)
+void System_Setting_Form::InitializationParameter(int channelNumber)
 {
     ui->tabWidget->setCurrentIndex(0);
     /*****************************
@@ -49,7 +53,12 @@ void System_Setting_Form::InitializationParameterSlot(int channelNumber)
     /*****************************
     * @brief: 写入临时通道数
     ******************************/
-    ui->ChannelNumber->setValue(channelNumber);
+    int CS=channelNumber;
+    if(CS>LocalPar::Channels){
+        CS=LocalPar::Channels;
+    }
+    ui->ChannelNumber->setValue(CS);
+    ui->ChannelNumber->setMaximum(LocalPar::Channels);
 }
 
 bool System_Setting_Form::loadParameter()
@@ -118,6 +127,7 @@ bool System_Setting_Form::loadParameter()
                     ******************************/
                     Parameter::Language= getJsonValue("Other","Language",value.toObject()).toInt();
                     Parameter::Minimization= getJsonValue("Other","Minimization",value.toObject()).toInt();
+                    Parameter::FullScreen= getJsonValue("Other","FullScreen",value.toObject()).toInt();
                     Parameter::Automatic=getJsonValue("Other","Automatic",value.toObject()).toInt();
                     Parameter::InfoLog= getJsonValue("Other","InfoLog",value.toObject()).toInt();
                     Parameter::DebugLog= getJsonValue("Other","DebugLog",value.toObject()).toInt();
@@ -232,6 +242,7 @@ bool System_Setting_Form::writeParameterSlot()
     obj5.insert("InfoLog",int(ui->InfoLog->isChecked()));
     obj5.insert("DebugLog",int(ui->DebugLog->isChecked()));
     obj5.insert("Minimization",int(ui->StartupMinimization->isChecked()));
+    obj5.insert("FullScreen",int(ui->FullScreen->isChecked()));
     obj5.insert("Language", ui->Language->currentIndex());
     obj5.insert("Automatic",int(ui->AutomaticStart->isChecked()));
     obj5.insert("DelayStart",ui->DelayStart->value());
@@ -312,6 +323,7 @@ void System_Setting_Form::parameterToUi()
     * @brief:Other
     ******************************/
     ui->StartupMinimization->setChecked(Parameter::Minimization);
+    ui->FullScreen->setChecked(Parameter::FullScreen);
     ui->Language->setCurrentIndex(Parameter::Language);
     ui->AutomaticStart->setChecked(Parameter::Automatic);
     ui->InfoLog->setChecked(Parameter::InfoLog);

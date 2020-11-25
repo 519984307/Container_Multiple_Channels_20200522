@@ -8,8 +8,6 @@
 #include <QMessageLogger>
 #include <QPointer>
 
-
-
 class LoadingLibaray : public QObject
 {
     Q_OBJECT

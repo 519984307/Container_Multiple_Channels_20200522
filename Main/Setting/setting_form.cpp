@@ -7,42 +7,21 @@ Setting_Form::Setting_Form(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->setAttribute(Qt::WA_DeleteOnClose,true);
-
-    this->setParent(parent);
-    this->setHidden(true);
-    this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
-
     ui->listWidget->setVisible(false);
+    this->setAttribute(Qt::WA_DeleteOnClose,true);
+    this->setParent(parent);
 }
 
 Setting_Form::~Setting_Form()
 {
-    foreach (auto obj, Setting_Map.values()) {
-        if(System_Setting_Form *Obj=qobject_cast<System_Setting_Form*>(obj)){
-            Q_UNUSED(Obj);
-        }
-        else if(Channel_Setting_Form *Obj=qobject_cast<Channel_Setting_Form*>(obj)){
-            Q_UNUSED(Obj);
-        }
-        else {
-            continue;
-        }
-
-        delete obj;
-        obj=nullptr;
-    }
-
-    Setting_Map.clear();
     delete ui;
 }
 
-void Setting_Form::showEvent(QShowEvent *event)
+void Setting_Form::closeEvent(QCloseEvent *event)
 {
-    if(event->type()==QEvent::Show){
-        ui->system_pushButton->setFocus();
-        emit on_system_pushButton_clicked();
-    }
+    qDeleteAll(Setting_Map);
+    Setting_Map.clear();
+    event->accept();
 }
 
 void Setting_Form::hideTheWindow()
@@ -118,12 +97,6 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
     * @brief:获取开机启动设置状态
     ******************************/
     connect(p_System_Setting_Form,SIGNAL(automaticStateSingal(bool)),this,SLOT(automaticStateSlot(bool)));
-
-    /*****************************
-    * @brief: 初始化参数
-    ******************************/
-    //connect(this,SIGNAL(InitializationParameterSignal()),p_System_Setting_Form,SLOT(InitializationParameterSlot()));
-    //emit InitializationParameterSignal();
 
     Setting_Map.insert(0,p_System_Setting_Form);
     ui->gridLayout->addWidget(p_System_Setting_Form);
@@ -206,11 +179,7 @@ void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
         QMessageBox::warning(this,"Save System Settings","Not Save System Json");
     }
 
-    /*****************************
-    * @brief:返回主页面
-    ******************************/
-    emit showMainWindowSignal();
-
+    this->close();
 }
 
 void Setting_Form::automaticStateSlot(bool status)

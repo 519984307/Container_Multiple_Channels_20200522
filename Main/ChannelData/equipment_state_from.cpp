@@ -10,7 +10,7 @@ Equipment_State_From::Equipment_State_From(QWidget *parent) :
     this->setAttribute(Qt::WA_DeleteOnClose,true);
 
     this->setParent(parent);
-    this->setHidden(true);
+    this->setVisible(false);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
     ui->tableWidget->horizontalHeader()->setStretchLastSection(true);

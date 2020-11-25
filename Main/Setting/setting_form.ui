@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>615</width>
-    <height>432</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,7 +39,7 @@
       </size>
      </property>
      <property name="text">
-      <string>系统设定</string>
+      <string>System Settings</string>
      </property>
     </widget>
    </item>
@@ -58,7 +58,7 @@
       </size>
      </property>
      <property name="text">
-      <string>通道设定</string>
+      <string>Channel Settings</string>
      </property>
     </widget>
    </item>

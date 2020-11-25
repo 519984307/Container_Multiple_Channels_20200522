@@ -10,7 +10,7 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     this->setAttribute(Qt::WA_DeleteOnClose,true);
 
     this->setParent(parent);
-    this->setHidden(true);
+    this->setVisible(false);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
     ui->lineEdit_10->setText(alias);

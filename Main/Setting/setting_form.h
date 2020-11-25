@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QMap>
-#include <QShowEvent>
+#include <QCloseEvent>
 #include <QMessageLogger>
 #include <QSettings>
 #include <QDir>
@@ -24,7 +24,7 @@ public:
     explicit Setting_Form(QWidget *parent = nullptr);
     ~Setting_Form();
 
-    void showEvent(QShowEvent *event);
+    void closeEvent(QCloseEvent *event)override;
 
 private:
 
@@ -52,8 +52,6 @@ private:
     /// \brief Setting_Map 窗口类对象
     ///
     QMap<int,QObject*> Setting_Map;
-
-    //QScopedArrayPointer<Channel_Setting_Form> pForm;
 
 private slots:
 
@@ -85,7 +83,7 @@ private slots:
     void on_listWidget_currentRowChanged(int currentRow);
 
     ///
-    /// \brief on_buttonBox_clicked 保存日志
+    /// \brief on_buttonBox_clicked 保存设定
     /// \param button
     ///
     void on_buttonBox_clicked(QAbstractButton *button);
@@ -103,23 +101,6 @@ signals:
     /// \return 保存状态
     ///
     bool writeParameterSignal();
-
-    ///
-    /// \brief InitializationParameterSignal 初始化通道设置参数
-    /// \param number 通道号
-    ///
-    void InitializationParameterSignal(int number);
-
-    ///
-    /// \brief InitializationParameterSignal 初始化系统设置参数
-    /// \param number 通道号
-    ///
-    void InitializationParameterSignal();
-
-    ///
-    /// \brief showMainWindowSignal 显示主页面
-    ///
-    void showMainWindowSignal();
 
 private:
 

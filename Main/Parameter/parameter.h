@@ -89,6 +89,11 @@ namespace Parameter {
     extern int Minimization;
 
     ///
+    /// \brief FullScreen 全屏显示
+    ///
+    extern int FullScreen;
+
+    ///
     /// \brief Automatic 开机自动启动
     ///
     extern int Automatic;

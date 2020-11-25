@@ -1,17 +1,14 @@
 #include "processing.h"
+#include "LocalPar.h"
 
 Processing::Processing(QObject *parent) : QObject(parent)
 {
-    p_LogController=new LogController ();
 }
 
 Processing::~Processing()
 {
     qDeleteAll(ParmeterMap.values());
     ParmeterMap.clear();
-
-    delete p_LogController;
-    p_LogController=nullptr;
 }
 
 bool Processing::loadParameter()
@@ -24,7 +21,7 @@ bool Processing::loadParameter()
 
     QFile configurationFolder(fileRoot);
     if(!configurationFolder.open(QIODevice::ReadOnly)){
-        qWarning()<<tr("Failed to load the System parameter, create the default parameter error<errorCOde=%1>").arg(configurationFolder.OpenError);
+        qWarning()<<tr("Failed to load the System parameter, create the default parameter error<errorCode=%1>").arg(errCode(configurationFolder.OpenError));
         return false;
     }
 
@@ -47,7 +44,16 @@ bool Processing::loadParameter()
                     * @brief:Channel
                     ******************************/
 
-                    Parameter::ChannelNumber= getJsonValue("Channel","ChannelNumber",value.toObject()).toInt();
+                    if(0==Parameter::ChannelNumber){
+                        /*****************************
+                        * @brief:防止二次加载，覆盖临时数据
+                        ******************************/
+                        Parameter::ChannelNumber= getJsonValue("Channel","ChannelNumber",value.toObject()).toInt();
+                        if(Parameter::ChannelNumber>LocalPar::Channels){
+                            Parameter::ChannelNumber=LocalPar::Channels;
+                        }
+                    }
+
                     Parameter::ImageFormat= getJsonValue("Channel","ImageFormat",value.toObject()).toInt();
                     Parameter::ImageNamingRules= getJsonValue("Channel","ImageNamingRules",value.toObject()).toInt();
                     Parameter::ImagePath= getJsonValue("Channel","ImagePath",value.toObject()).toString();
@@ -69,6 +75,7 @@ bool Processing::loadParameter()
                     ******************************/
                     Parameter::Language= getJsonValue("Other","Language",value.toObject()).toInt();
                     Parameter::Minimization= getJsonValue("Other","Minimization",value.toObject()).toInt();
+                    Parameter::FullScreen= getJsonValue("Other","FullScreen",value.toObject()).toInt();
                     Parameter::Automatic= getJsonValue("Other","Automatic",value.toObject()).toInt();
                     Parameter::DelayStart= getJsonValue("Other","DelayStart",value.toObject()).toInt();
                     Parameter::InfoLog= getJsonValue("Other","InfoLog",value.toObject()).toInt();
@@ -112,12 +119,16 @@ void Processing::loadChannelParameter(int Channels)
     mkPath.mkdir("Json");
     mkPath.cd("Json");
 
-    for(int ind=1;ind<=Channels;++ind){
+    int CS=Channels;
+    if(Channels<LocalPar::Channels){
+        CS=LocalPar::Channels;
+    }
+    for(int ind=1;ind<=CS;++ind){
         QString fileRoot=QDir::toNativeSeparators(QString("%1/Channel_%2.json").arg(mkPath.path()).arg(ind));
 
         QFile configurationFolder(fileRoot);
         if(!configurationFolder.open(QIODevice::ReadOnly)){
-            QByteArray msg=tr("Failed to load the Channel_%1 parameter, create the default parameter error<errorCOde=%2>").arg(ind).arg(configurationFolder.OpenError).toLocal8Bit();
+            QByteArray msg=tr("Failed to load the Channel_%1 parameter, create the default parameter error<errorCode=%2>").arg(ind).arg(errCode(configurationFolder.OpenError)).toLocal8Bit();
             qWarning("%s", msg.data());
             continue;
         }
@@ -211,4 +222,56 @@ QVariant Processing::getJsonValue(const QString &child, const QString &key, QJso
         }
     }
     return  QString("");
+}
+
+QString Processing::errCode(int code)
+{
+    QString err;
+    switch (code) {
+    case 1:
+        err="An error occurred when reading from the file.";
+        break;
+    case 2:
+        err="An error occurred when writing to the file.";
+        break;
+    case 3:
+        err="A fatal error occurred.";
+        break;
+    case 4:
+        err="Out of resources (e.g., too many open files, out of memory, etc.)";
+        break;
+    case 5:
+        err="The file could not be opened.";
+        break;
+    case 6:
+        err="The operation was aborted.";
+        break;
+    case 7:
+        err="A timeout occurred.";
+        break;
+    case 8:
+        err="An unspecified error occurred.";
+        break;
+    case 9:
+        err="The file could not be removed.";
+        break;
+    case 10:
+        err="The file could not be renamed.";
+        break;
+    case 11:
+        err="The position in the file could not be changed.";
+        break;
+    case 12:
+        err="The file could not be resized.";
+        break;
+    case 13:
+        err="The file could not be accessed.";
+        break;
+    case 14:
+        err="The file could not be copied.";
+        break;
+    default:
+        err="An unknown error";
+    }
+    return err;
 }

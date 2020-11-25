@@ -47,11 +47,13 @@
      <height>26</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(208, 208, 208);</string>
+   </property>
    <widget class="QMenu" name="menuChannel_To_View">
     <property name="title">
      <string>Channel To View</string>
     </property>
-    <addaction name="actionMainWindow"/>
    </widget>
    <widget class="QMenu" name="menuDatabase">
     <property name="title">
@@ -81,7 +83,6 @@
      <property name="title">
       <string>ErrCode</string>
      </property>
-     <addaction name="actionHCNET"/>
     </widget>
     <addaction name="menuErrCode"/>
    </widget>
@@ -92,6 +93,10 @@
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(138, 138, 138);
+color: rgb(255, 255, 255);</string>
+   </property>
    <property name="toolButtonStyle">
     <enum>Qt::ToolButtonTextUnderIcon</enum>
    </property>
@@ -101,24 +106,13 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionMainWindow"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionMainWindow">
-   <property name="icon">
-    <iconset resource="../ico.qrc">
-     <normaloff>:/UI_ICO/ICO/main-fill.svg</normaloff>:/UI_ICO/ICO/main-fill.svg</iconset>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(138, 138, 138);
+color: rgb(255, 255, 255);</string>
    </property>
-   <property name="text">
-    <string>Main</string>
-   </property>
-   <property name="toolTip">
-    <string>Device list Preview</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+A</string>
-   </property>
-  </action>
+  </widget>
   <action name="actionParameter_Settings">
    <property name="text">
     <string>Parameter Settings</string>
@@ -168,18 +162,8 @@
     <string>Data exchange log</string>
    </property>
   </action>
-  <action name="actionHCNET">
-   <property name="text">
-    <string>HCNET</string>
-   </property>
-   <property name="toolTip">
-    <string>HCNET error code</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="../ico.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -1,17 +1,38 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MAINWINDOW_ORIGINAL_H
+#define MAINWINDOW_ORIGINAL_H
 
 #include <QMainWindow>
-#include <QDebug>
+#include <QMessageLogger>
+#include <QtGlobal>
 #include <QResizeEvent>
+#include <QDesktopWidget>
 #include <QMap>
 #include <QAction>
 #include <QLabel>
+#include <QScreen>
+#include <QScopedPointer>
+#include <QSystemTrayIcon>
+#include <QIcon>
+#include <QAction>
+#include <QMenu>
+#include <QCloseEvent>
 
-/* UI */
+/*****************************
+* UI
+******************************/
 #include "ChannelData/channel_data_form.h"
 #include "ChannelData/equipment_state_from.h"
 #include "Setting/setting_form.h"
+#include "CameraTest/camera_list_form.h"
+#include "DataBase/database_form.h"
+#include "Log/data_log_form.h"
+#include "Log/info_log_form.h"
+
+#include "Parameter/processing.h"
+#include "Parameter/parameter.h"
+#include "Parameter/LocalPar.h"
+
+#include "Processing/loadinglibaray.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,22 +46,15 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow()Q_DECL_OVERRIDE;
 
+protected:
+    void closeEvent(QCloseEvent *event)Q_DECL_OVERRIDE;
+
 private:
 
     ///
     /// \brief initializationParameter 初始化参数
     ///
     void initializationParameter();
-
-    ///
-    /// \brief initializesTheDataWindow 初始化数据窗口
-    ///
-    void initializesTheDataWindow();
-
-    ///
-    /// \brief clearnMap 清除字典集
-    ///
-    void clearnMap();
 
     ///
     /// \brief hideTheWindow 隐藏窗口
@@ -53,19 +67,53 @@ private:
     void setStatusBar(QString msg);
 
     ///
-    /// \brief initializingAttribute 初始化属性
-    ///
-    void initializingAttribute();
-
-    ///
-    /// \brief mainWindow 主界面窗口信号与槽
-    ///
-    void mainWindowConnect();
-
-    ///
     /// \brief initStatusBar 初始化状态栏
     ///
     void initStatusBar();
+
+private:/* attribute */
+
+    Ui::MainWindow *ui;
+
+    ///
+    /// \brief permanentWidget 状态栏永久信息
+    ///
+    QLabel *permanentWidget;
+
+    ///
+    /// \brief channelCount 通道数
+    ///
+    int channelCount;
+
+    ///
+    /// \brief channelSelect 数据界面，预览通道号
+    ///
+    int channelSelect;
+
+    ///
+    /// \brief channelLabels 通道名称列表
+    ///
+    QStringList channelLabels;
+
+    ///
+    /// \brief channelParCount 通道配置文件个数
+    ///
+    int channelParCount;
+
+    ///
+    /// \brief pointer_Processing 参数加载
+    ///
+    QSharedPointer<Processing> pointer_Processing;
+
+    ///
+    /// \brief Channel_Data_From_Map 数据窗口字典集
+    ///
+    QMap<int,QObject*> Channel_Data_From_Map;
+
+    ///
+    /// \brief Channel_Data_Action_Map 数据窗口工具栏字典集
+    ///
+    QMap<QAction*,int> Channel_Data_Action_Map;
 
 private slots:
 
@@ -86,54 +134,6 @@ private slots:
 
     void on_actiontest_triggered();
 
-private:/* attribute */
-
-    //Channel_Data_Form *pFrom=nullptr;
-
-    Ui::MainWindow *ui;
-
-    ///
-    /// \brief p_Equipment_State_From 设备状态窗口
-    ///
-    Equipment_State_From *p_Equipment_State_From=nullptr;
-
-    ///
-    /// \brief p_Setting_From 设置窗口
-    ///
-    Setting_Form *p_Setting_From=nullptr;
-
-    ///
-    /// \brief permanentWidget 状态栏永久信息
-    ///
-    QLabel *permanentWidget=nullptr;
-
-    ///
-    /// \brief channelCount 通道数
-    ///
-    int channelCount=1;
-
-    ///
-    /// \brief channelLabels 通道名称列表
-    ///
-    QStringList channelLabels;
-
-private:    /* QMap */
-
-    ///
-    /// \brief WindowsVector 窗口集
-    ///
-    QVector<QObject*> WindowsVector;
-
-    ///
-    /// \brief Channel_Data_From_Map 数据窗口字典集
-    ///
-    QMap<int,QObject*> Channel_Data_From_Map;
-
-    ///
-    /// \brief Channel_Data_Action_Map 数据窗口工具栏字典集
-    ///
-    QMap<QAction*,QObject*> Channel_Data_Action_Map;
-
 signals:
 
     ///
@@ -152,4 +152,4 @@ signals:
     void setDeviceStatusSignal(int channel, int equipment,bool state);
 };
 
-#endif // MAINWINDOW_H
+#endif // MAINWINDOW_ORIGINAL_H

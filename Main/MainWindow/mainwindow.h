@@ -56,11 +56,6 @@ private:
     ******************************/
 
     ///
-    /// \brief removeTheWindow 显示窗口之前要删除其他窗口
-    ///
-    void removeTheWindow();
-
-    ///
     /// \brief initializingObject 初始化对象
     ///
     void initializingObject();
@@ -86,16 +81,6 @@ private:
     void mainConnect();
 
     ///
-    /// \brief formConnet 子窗口信号与槽
-    ///
-    void formConnet();
-
-    ///
-    /// \brief initStatusBar 初始化状态栏
-    ///
-    void initStatusBar();
-
-    ///
     /// \brief getScreenInfo 获取和设置系统屏幕大小
     ///
     void getScreenInfo();
@@ -104,92 +89,6 @@ private:
     /// \brief createSystemTrayMenu 设置任务栏菜单
     ///
     void createSystemTrayMenu();
-
-private slots:
-
-    /*****************************
-    * triggerd
-    ******************************/
-
-    ///
-    /// \brief actionTiggeredSlot 工具栏按钮事件
-    ///
-    void actionTiggeredSlot();
-
-    ///
-    /// \brief on_actionMainWindow_triggered 显示主页面
-    ///
-    void on_actionMainWindow_triggered();
-
-    ///
-    /// \brief on_actionParameter_Settings_triggered 系统参数设置
-    ///
-    void on_actionParameter_Settings_triggered();
-
-    ///
-    /// \brief on_actionCamera_Test_triggered 相机调试
-    ///
-    void on_actionCamera_Test_triggered();
-
-    ///
-    /// \brief on_actionHistory_Sqlite_triggered 查找历史记录
-    ///
-    void on_actionHistory_Sqlite_triggered();
-
-    ///
-    /// \brief on_actionInfo_log_triggered 系统日志
-    ///
-    void on_actionInfo_log_triggered();
-
-    ///
-    /// \brief on_actionData_log_triggered 数据通讯日志
-    ///
-    void on_actionData_log_triggered();
-
-    ///
-    /// \brief on_actionHCNET_triggered 海康相机错误码
-    ///
-    void on_actionHCNET_triggered();
-
-
-    ///
-    /// \brief systemTrayAction 任务栏菜单
-    ///
-    void systemTrayAction();
-
-    ///
-    /// \brief systemTrayTriggered 任务栏点击事件
-    ///
-    void systemTrayTriggered(QSystemTrayIcon::ActivationReason reason);
-
-public slots:
-
-    ///
-    /// \brief showMainWindowSlot 显示主页面
-    ///
-    void showMainWindowSlot();
-
-
-signals:
-
-    /*****************************
-    * signal
-    ******************************/
-
-    ///
-    /// \brief initializesTheDeviceStateListSignal 初始化设备状态列表
-    /// \param count 通道数
-    /// \param rowLabels 通道名称
-    ///
-    void initializesTheDeviceStateListSignal(int count,QStringList rowLabels);
-
-    ///
-    /// \brief setDeviceStatusSignal 设置设备表状态
-    /// \param channel 通道
-    /// \param equipment 设备
-    /// \param state 状态
-    ///
-    void setDeviceStatusSignal(int channel, int equipment,bool state);
 
 private:
 
@@ -201,6 +100,11 @@ private:
     /// \brief Channel_Data_Action_Map 数据窗口工具栏字典集
     ///
     QMap<QAction*,int> Channel_Data_Action_Map;
+
+    ///
+    /// \brief Channel_Data_From_Map 数据窗口字典集
+    ///
+    QMap<int,Channel_Data_Form *> Channel_Data_From_Map;
 
     ///
     /// \brief Form_Map 窗口类对象合集
@@ -227,10 +131,14 @@ private:
     QStringList channelLabels;
 
     ///
-    /// \brief pointerCount 通道配置文件个数
+    /// \brief channelParCount 通道配置文件个数
     ///
-    int pointerCount;
+    int channelParCount;
 
+    ///
+    /// \brief isExit 退出系统
+    ///
+    bool isExit;
     /*****************************
     * object
     ******************************/
@@ -267,19 +175,14 @@ private:
     ******************************/
 
     ///
-    /// \brief pFrom 数据窗口
-    ///
-    Channel_Data_Form *p_Channel_Data_Form;
-
-    ///
     /// \brief p_Equipment_State_Form 设备列表窗口
     ///
     Equipment_State_From *p_Equipment_State_Form;
 
-    ///
-    /// \brief p_Setting_Form 设置窗口
-    ///
-    Setting_Form *p_Setting_Form;
+//    ///
+//    /// \brief p_Setting_Form 设置窗口
+//    ///
+//    Setting_Form *p_Setting_Form;
 
     ///
     /// \brief p_Camera_List_Form 相机窗口
@@ -305,6 +208,78 @@ private:
     /// \brief permanentWidget 状态栏永久信息
     ///
     QLabel *permanentWidget;
+
+
+private slots:
+
+    /*****************************
+    * triggerd
+    ******************************/
+    ///
+    /// \brief systemTrayAction 任务栏菜单
+    ///
+    void systemTrayAction();
+
+    ///
+    /// \brief systemTrayTriggered 任务栏点击事件
+    ///
+    void systemTrayTriggered(QSystemTrayIcon::ActivationReason reason);
+
+    ///
+    /// \brief actionTiggeredSlot 工具栏按钮事件
+    ///
+    void actionTiggeredSlot();
+
+//    ///
+//    /// \brief on_actionMainWindow_triggered 显示主页面
+//    ///
+//    void on_actionMainWindow_triggered();
+
+    ///
+    /// \brief on_actionParameter_Settings_triggered 系统参数设置
+    ///
+    void on_actionParameter_Settings_triggered();
+
+    ///
+    /// \brief on_actionCamera_Test_triggered 相机调试
+    ///
+    void on_actionCamera_Test_triggered();
+
+    ///
+    /// \brief on_actionHistory_Sqlite_triggered 查找历史记录
+    ///
+    void on_actionHistory_Sqlite_triggered();
+
+    ///
+    /// \brief on_actionInfo_log_triggered 系统日志
+    ///
+    void on_actionInfo_log_triggered();
+
+    ///
+    /// \brief on_actionData_log_triggered 数据通讯日志
+    ///
+    void on_actionData_log_triggered();
+
+signals:
+
+    /*****************************
+    * signal
+    ******************************/
+
+    ///
+    /// \brief initializesTheDeviceStateListSignal 初始化设备状态列表
+    /// \param count 通道数
+    /// \param rowLabels 通道名称
+    ///
+    void initializesTheDeviceStateListSignal(int count,QStringList rowLabels);
+
+    ///
+    /// \brief setDeviceStatusSignal 设置设备表状态
+    /// \param channel 通道
+    /// \param equipment 设备
+    /// \param state 状态
+    ///
+    void setDeviceStatusSignal(int channel, int equipment,bool state);
 };
 
 #endif // MAINWINDOW_H

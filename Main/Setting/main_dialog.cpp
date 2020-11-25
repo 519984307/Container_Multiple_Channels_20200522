@@ -1,5 +1,6 @@
 #include "main_dialog.h"
 #include "ui_main_dialog.h"
+#include "Parameter/LocalPar.h"
 
 #include "Parameter/parameter.h"
 #include "Parameter/processing.h"
@@ -17,6 +18,7 @@ Main_Dialog::Main_Dialog(QWidget *parent) :
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
     this->setAttribute(Qt::WA_DeleteOnClose,true);
 
+    ui->ChannelNumber->setMaximum(LocalPar::Channels);
     /*****************************
     * @brief: 加载系统配置参数,【优先加载】
     ******************************/
@@ -47,6 +49,8 @@ void Main_Dialog::loadParameter()
     else {
         ui->ChannelNumber->setValue(1);
     }
+
+    cot=Parameter::DelayStart;
 }
 
 void Main_Dialog::setSystemModel()
@@ -61,7 +65,7 @@ void Main_Dialog::setSystemModel()
 
 void Main_Dialog::startTheTimer()
 {
-    cot=0;
+    //cot=0;
     QPointer<QTimer> pPTimer=new QTimer (this);
     connect(pPTimer,SIGNAL(timeout()),this,SLOT(theCountdown()));
     pPTimer->start(1000);
@@ -92,12 +96,11 @@ void Main_Dialog::on_ChannelNumber_valueChanged(int arg1)
 
 void Main_Dialog::theCountdown()
 {
-    cot++;
+    cot--;
 
-    ui->progressBar->setMaximum(Parameter::DelayStart);
-    ui->progressBar->setValue(cot);
+    ui->pushButton->setText(QString("OK【%1】").arg(cot));
 
-    if(cot==Parameter::DelayStart){
+    if(0==cot){
         Parameter::ChannelNumber=ui->ChannelNumber->value();
         this->done(10);
     }

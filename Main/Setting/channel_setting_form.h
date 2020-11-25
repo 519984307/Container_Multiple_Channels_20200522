@@ -76,7 +76,6 @@ private:
 
 public slots:
 
-
     ///
     /// \brief writeParameterSlot 写入参数
     ///

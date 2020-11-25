@@ -12,7 +12,6 @@
 #include <QJsonDocument>
 #include <QCoreApplication>
 
-#include "logcontroller.h"
 #include "parameter.h"
 #include "channelparameter.h"
 
@@ -48,9 +47,10 @@ public:
 private:
 
     ///
-    /// \brief p_LogController 日志类
+    /// \brief errCode 打开文件错误码
+    /// \return
     ///
-    LogController *p_LogController;
+    QString errCode(int code);
 
 public:
 

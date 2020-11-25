@@ -100,14 +100,14 @@ private:
     ///
     /// \brief getJsonValue 获取参数值
     ///
-    QVariant getJsonValue(const QString &child, const QString &key, QJsonObject obj);
+    QVariant getJsonValue(const QString &child, const QString &key, QJsonObject obj);    
+
+    ///
+    /// \brief InitializationParameter 初始化参数
+    ///
+    void InitializationParameter(int channelNumber);
 
 public slots:
-
-    ///
-    /// \brief InitializationParameterSlot 初始化参数
-    ///
-    void InitializationParameterSlot(int channelNumber);
 
     ///
     /// \brief writeParameterSlot 写入参数

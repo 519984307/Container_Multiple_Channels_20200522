@@ -8,33 +8,40 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     initializingObject();
-    initStatusBar();
     initializationParameter();
     mainConnect();
-
-    on_actionMainWindow_triggered();
-
     createSystemTrayMenu();
     getScreenInfo();
 }
 
 MainWindow::~MainWindow()
-{
-    clearnContainer();
-
+{    
     delete ui;
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    /*
-     * if(?){}
-    event->accept();
-    event->ignore();
-    */
-    event->ignore();
-    this->hide();
-    SystemTray->showMessage(LocalPar::name,tr("The program is running in the background, if you want to exit, please exit from the taskbar!"),QSystemTrayIcon::Information,3000);
+    if(isExit){
+        clearnContainer();
+        event->accept();
+    }
+    else {
+        event->ignore();
+        hide();
+        SystemTray->showMessage(LocalPar::name,tr("The program is running in the background, if you want to exit, please exit from the taskbar!"),QSystemTrayIcon::Information,3000);
+    }
+}
+
+void MainWindow::clearnContainer()
+{
+    /*****************************
+    * 删除所有窗口对象
+    ******************************/
+    qDeleteAll (Form_Map);
+    qDeleteAll (Channel_Data_Action_Map.keys());
+
+    Channel_Data_Action_Map.clear();
+    Form_Map.clear();
 }
 
 void MainWindow::getScreenInfo()
@@ -59,13 +66,13 @@ void MainWindow::getScreenInfo()
         SystemTray->showMessage(LocalPar::name,LocalPar::msg,QSystemTrayIcon::Information,3000);
 
     }else {
-        this->show();
+        if(Parameter::FullScreen){
+            this->showFullScreen();
+        }
+        else {
+            this->show();
+        }
     }
-
-    /*
-    //QRect rect=QGuiApplication::screens().at(0)->geometry();
-    //this->resize(QSize(rect.width()-80,rect.height()-80));
-    */
 }
 
 void MainWindow::createSystemTrayMenu()
@@ -77,61 +84,73 @@ void MainWindow::createSystemTrayMenu()
     connect(actionExit,SIGNAL(triggered()),this,SLOT(systemTrayAction()));
 }
 
-void MainWindow::clearnContainer()
-{
-    //delete  pLoadingLibaray;
-
-    /*****************************
-    * 删除所有窗口对象
-    ******************************/
-    qDeleteAll (Form_Map);
-    qDeleteAll(Channel_Data_Action_Map.keys());
-
-    Channel_Data_Action_Map.clear();
-    Form_Map.clear();
-}
-
-void MainWindow::removeTheWindow()
-{
-    if(p_Channel_Data_Form!=nullptr){
-        p_Channel_Data_Form->close();
-        delete p_Channel_Data_Form;
-        p_Channel_Data_Form=nullptr;
-    }
-    if(p_Setting_Form!=nullptr){        
-        p_Setting_Form->close();
-        delete p_Setting_Form;
-        p_Setting_Form=nullptr;
-    }
-    if(p_Equipment_State_Form!=nullptr){
-        p_Equipment_State_Form->close();
-        delete p_Equipment_State_Form;
-        p_Equipment_State_Form=nullptr;
-    }
-    if(p_Camera_List_Form!=nullptr){
-        p_Camera_List_Form->close();
-        delete p_Camera_List_Form;
-        p_Camera_List_Form=nullptr;
-    }
-    if(p_DataBase_Form!=nullptr){
-        p_DataBase_Form->close();
-        delete p_DataBase_Form;
-        p_DataBase_Form=nullptr;
-    }
-    if(p_Data_Log_Form!=nullptr){
-        p_Data_Log_Form->close();
-        delete p_Data_Log_Form;
-        p_Data_Log_Form=nullptr;
-    }
-    if(p_Info_Log_Form!=nullptr){
-        p_Info_Log_Form->close();
-        delete  p_Info_Log_Form;
-        p_Info_Log_Form=nullptr;
-    }
-}
-
 void MainWindow::initializingObject()
 {                
+    permanentWidget=nullptr;
+    p_Equipment_State_Form=nullptr;
+    //p_Setting_Form=nullptr;
+    p_Camera_List_Form=nullptr;
+    p_DataBase_Form=nullptr;
+    p_Data_Log_Form=nullptr;
+    p_Info_Log_Form=nullptr;
+
+    Form_Map.append(p_Equipment_State_Form);
+    //Form_Map.append(p_Setting_Form);
+    Form_Map.append(p_Camera_List_Form);
+    Form_Map.append(p_DataBase_Form);
+    Form_Map.append(p_Data_Log_Form);
+    Form_Map.append(p_Info_Log_Form);
+}
+
+void MainWindow::mainConnect()
+{
+    QList<int> actList=Channel_Data_Action_Map.values();
+    std::sort(actList.begin(),actList.end());
+    foreach (auto ind, actList) {
+        /*****************************
+        * 绑定工具栏按钮事件
+        ******************************/
+        connect(Channel_Data_Action_Map.key(ind),SIGNAL(triggered()),this,SLOT(actionTiggeredSlot()));
+
+        /*****************************
+        * 添加通道到菜单栏
+        ******************************/
+        ui->menuChannel_To_View->addAction(Channel_Data_Action_Map.key(ind));
+
+        /*****************************
+        * 添加通道到工具栏
+        ******************************/
+        ui->mainToolBar->addAction(Channel_Data_Action_Map.key(ind));
+    }
+
+    if(p_Equipment_State_Form!=nullptr){
+
+        /*****************************
+        * 初始化通道状态
+        ******************************/
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_Form,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
+
+        /*****************************
+        * 设置通道设备状态
+        ******************************/
+        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_Form,SLOT(setDeviceStatusSlot(int,int,bool)));
+    }
+
+    if(p_Camera_List_Form!=nullptr){
+        /*****************************
+        * 初始化通道列表
+        ******************************/
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Camera_List_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
+    }
+
+    /*****************************
+    * 初始化设备
+    ******************************/
+    emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
+}
+
+void MainWindow::initializationParameter()
+{
     /*****************************
     * @brief: 参数处理
     ******************************/
@@ -152,97 +171,44 @@ void MainWindow::initializingObject()
     ******************************/
     //pLoadingLibaray=new LoadingLibaray(Parameter::ChannelNumber,this);
 
-    permanentWidget=nullptr;
-
-    p_Channel_Data_Form=nullptr;
-    p_Equipment_State_Form=nullptr;
-    p_Setting_Form=nullptr;
-    p_Camera_List_Form=nullptr;
-    p_DataBase_Form=nullptr;
-    p_Data_Log_Form=nullptr;
-    p_Info_Log_Form=nullptr;
-
-    Form_Map.append(p_Channel_Data_Form);
-    Form_Map.append(p_Equipment_State_Form);
-    Form_Map.append(p_Setting_Form);
-    Form_Map.append(p_Camera_List_Form);
-    Form_Map.append(p_DataBase_Form);
-    Form_Map.append(p_Data_Log_Form);
-    Form_Map.append(p_Info_Log_Form);
-}
-
-void MainWindow::mainConnect()
-{
-    foreach (auto action, Channel_Data_Action_Map.keys()) {
-        /*****************************
-        * 绑定工具栏按钮事件
-        ******************************/
-        connect(action,SIGNAL(triggered()),this,SLOT(actionTiggeredSlot()));
-    }
-}
-
-void MainWindow::formConnet()
-{
-    if(p_Equipment_State_Form!=nullptr){
-
-        /*****************************
-        * 初始化通道状态
-        ******************************/
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_Form,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
-
-        /*****************************
-        * 设置通道设备状态
-        ******************************/
-        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_Form,SLOT(setDeviceStatusSlot(int,int,bool)));
-    }
-
-    if(p_Setting_Form!=nullptr){
-        /*****************************
-        * 初始化设置窗口通道设备列表
-        ******************************/
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
-        /*****************************
-        * @brief: 显示主页面
-        ******************************/
-        connect(p_Setting_Form,SIGNAL(showMainWindowSignal()),this,SLOT(showMainWindowSlot()));
-    }
-
-    if(p_Camera_List_Form!=nullptr){
-        /*****************************
-       * 初始化通道列表
-       ******************************/
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Camera_List_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
-    }
-}
-
-void MainWindow::initStatusBar()
-{
-    if(permanentWidget==nullptr){
-        permanentWidget = new QLabel (tr("The system is ready"),this);
-    }
-    permanentWidget->setStyleSheet("color: rgb(0, 85, 255);");
-    ui->statusBar->addPermanentWidget(permanentWidget);
-}
-
-void MainWindow::initializationParameter()
-{
+    int key=0x30;
     channelSelect=0;
     channelCount=Parameter::ChannelNumber;
-
     /*****************************
     * @brief: 通道配置文件个数
     ******************************/
-    pointerCount=Pointer_Processing->ParmeterMap.count();
+    channelParCount=Pointer_Processing->ParmeterMap.count();
 
-    int key=0x30;
+    if(channelCount>1){
+        /*****************************
+        * @brief:多通道显示主页面，工具栏编号(0)
+        ******************************/
+        QAction *pAction=new QAction (tr("Main"),this);
+        pAction->setIcon(QIcon(":/UI_ICO/ICO/main-fill.svg"));
+        pAction->setShortcut(QKeySequence(Qt::CTRL+static_cast<uint16_t>(key+'A')));
+        pAction->setToolTip(tr("Channel switching (CTRL+%1)").arg("A"));
+
+        Channel_Data_Action_Map.insert(pAction,0);
+        p_Equipment_State_Form=new Equipment_State_From(this);
+
+        ui->gridLayout_2->addWidget(p_Equipment_State_Form);
+        p_Equipment_State_Form->setVisible(true);
+        setStatusBar(tr("System ready"));
+    }
+
     for (int channel=1;channel<=channelCount;channel++) {
-
+        /*****************************
+        * @brief:默认通道别名
+        ******************************/
         QString name=tr("%1 # Channel").arg(channel,2,10,QChar('0'));
-
+        /*****************************
+        * @brief:默认通道号
+        ******************************/
+        int channel_number=channel;
         /*****************************
         * @brief: 读取通道参数别名
         ******************************/
-        if(pointerCount>=channel && Pointer_Processing->ParmeterMap[channel]->Alias!=QString("")){
+        if(channelParCount>=channel && !Pointer_Processing->ParmeterMap[channel]->Alias.isEmpty()){
             name=Pointer_Processing->ParmeterMap[channel]->Alias;
         }
 
@@ -254,177 +220,36 @@ void MainWindow::initializationParameter()
         Channel_Data_Action_Map.insert(pAction,channel);
 
         /*****************************
-        * 添加通道切换到菜单栏
+        * @brief:数据窗口
         ******************************/
-        ui->menuChannel_To_View->addAction(pAction);
+        if(channelParCount>=channel && 0!=Pointer_Processing->ParmeterMap[channel]->Channel_number){
+            channel_number=Pointer_Processing->ParmeterMap[channel]->Channel_number;
+        }
+        Channel_Data_Form *p_Channel_Data_Form=new Channel_Data_Form(name,channel_number,this);
+        Channel_Data_From_Map.insert(channel,p_Channel_Data_Form);
+        ui->gridLayout_2->addWidget(p_Channel_Data_Form);
+
+        if(nullptr==p_Equipment_State_Form && 1==channel){
+            p_Channel_Data_Form->setVisible(true);
+            setStatusBar(tr("The preview page %1").arg(name));
+            channelSelect=1;
+        }
 
         /*****************************
-        * 添加通道切换到工具栏
+        * 通道名数组
         ******************************/
-        ui->mainToolBar->addAction(pAction);
-
-        /*****************************
-       * 通道组
-       ******************************/
         channelLabels.append(pAction->text());
     }
 }
 
 void MainWindow::setStatusBar(const QString &msg)
 {    
-    if(permanentWidget!=nullptr){
-        permanentWidget->setText(msg);
+    if(permanentWidget==nullptr){
+        permanentWidget = new QLabel (tr("System ready"),this);
+        ui->statusBar->addPermanentWidget(permanentWidget);
     }
-}
+    permanentWidget->setText(msg);
 
-void MainWindow::actionTiggeredSlot()
-{
-    QAction* pAction=qobject_cast<QAction*> (sender());
-
-    QMap<QAction*,int>::const_iterator it =Channel_Data_Action_Map.find(pAction);
-
-    /*****************************
-    * 预览通道没有切换,就不做处理(channelSelect)
-    ******************************/
-    if(it!=Channel_Data_Action_Map.end() && it.value()!=channelSelect){
-
-        removeTheWindow();
-
-        channelSelect=it.value();
-
-        /*****************************
-        * @brief: 读取通道参数别名
-        ******************************/
-
-        int channel_number=it.value();
-        if(pointerCount>=it.value() && Pointer_Processing->ParmeterMap[it.value()]->Channel_number!=0){
-            channel_number=Pointer_Processing->ParmeterMap[it.value()]->Channel_number;
-        }
-
-        p_Channel_Data_Form=new Channel_Data_Form (it.key()->text(),channel_number,this);
-        ui->gridLayout_2->addWidget(p_Channel_Data_Form);
-        p_Channel_Data_Form->setVisible(true);
-
-        setStatusBar(tr("The preview page %1").arg( it.key()->text()));
-    }
-    else {
-        qDebug()<<p_Channel_Data_Form;
-    }
-}
-
-void MainWindow::on_actionMainWindow_triggered()
-{
-    if(p_Equipment_State_Form==nullptr){
-
-        removeTheWindow();
-
-        p_Equipment_State_Form=new Equipment_State_From (this);
-        ui->gridLayout_2->addWidget(p_Equipment_State_Form);
-        p_Equipment_State_Form->setVisible(true);
-
-        /*****************************
-        * 初始化设备
-        ******************************/
-        formConnet();
-        emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
-
-        channelSelect=0;
-
-        setStatusBar(tr("The system is ready"));
-    }
-    else {
-        qDebug()<<p_Equipment_State_Form;
-    }
-}
-
-void MainWindow::on_actionParameter_Settings_triggered()
-{
-    if(p_Setting_Form==nullptr){
-
-        removeTheWindow();
-
-        p_Setting_Form=new Setting_Form (this);
-        ui->gridLayout_2->addWidget(p_Setting_Form);
-        p_Setting_Form->setVisible(true);
-
-        /*****************************
-        * 初始化通道
-        ******************************/
-        formConnet();
-        emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
-
-        setStatusBar(tr("Setting system parameters"));
-    }
-    else {
-        qDebug()<<p_Setting_Form;
-    }
-}
-
-void MainWindow::on_actionCamera_Test_triggered()
-{
-    if(p_Camera_List_Form==nullptr){
-
-        removeTheWindow();
-
-        p_Camera_List_Form=new Camera_List_Form (this);
-        ui->gridLayout_2->addWidget(p_Camera_List_Form);
-        p_Camera_List_Form->setVisible(true);
-
-        /*****************************
-        * 初始化设备
-        ******************************/
-        formConnet();
-        emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
-
-        channelSelect=0;
-
-        setStatusBar(tr("The camera debug"));
-    }
-    else {
-        qDebug()<<p_Camera_List_Form;
-    }
-}
-
-void MainWindow::on_actionHistory_Sqlite_triggered()
-{
-    if(p_DataBase_Form==nullptr){
-
-        removeTheWindow();
-
-        p_DataBase_Form=new DataBase_Form (this);
-        ui->gridLayout_2->addWidget(p_DataBase_Form);
-        p_DataBase_Form->setVisible(true);
-
-
-        channelSelect=0;
-
-        setStatusBar(tr("Data query interface"));
-    }
-    else {
-        qDebug()<<p_DataBase_Form;
-    }
-}
-
-void MainWindow::on_actionData_log_triggered()
-{
-    if(p_Data_Log_Form==nullptr){
-
-        removeTheWindow();
-
-        p_Data_Log_Form=new Data_Log_Form (nullptr);
-        ui->gridLayout_2->addWidget(p_Data_Log_Form);
-        p_Data_Log_Form->setVisible(true);
-
-        /*****************************
-        * 初始化通道
-        ******************************/
-        formConnet();
-
-        setStatusBar(tr("TCP network data exchange"));
-    }
-    else {
-        qDebug()<<p_Data_Log_Form;
-    }
 }
 
 void MainWindow::systemTrayAction()
@@ -435,8 +260,9 @@ void MainWindow::systemTrayAction()
         this->show();
     }
     if(pAction==actionExit){
-        exit(0);
-        //this->close();
+        //exit(0);
+        isExit=true;
+        this->close();
     }
 }
 
@@ -454,33 +280,136 @@ void MainWindow::systemTrayTriggered(QSystemTrayIcon::ActivationReason reason)
     }
 }
 
+void MainWindow::actionTiggeredSlot()
+{
+    QAction* pAction=qobject_cast<QAction*> (sender());
+
+    QMap<QAction*,int>::const_iterator it =Channel_Data_Action_Map.find(pAction);
+
+    /*****************************
+    * 预览通道没有切换,就不做处理(channelSelect)
+    ******************************/
+    if(it!=Channel_Data_Action_Map.end() && it.value()!=channelSelect){
+
+        channelSelect=it.value();
+
+        foreach (Channel_Data_Form* form, Channel_Data_From_Map.values()) {
+            form->setVisible(false);
+        }
+        if(nullptr!=p_Equipment_State_Form){
+            p_Equipment_State_Form->setVisible(false);
+        }
+
+        if(0==channelSelect){
+            if(nullptr!=p_Equipment_State_Form){
+                p_Equipment_State_Form->setVisible(true);
+                setStatusBar(tr("System ready"));
+            }
+        }
+
+        if(nullptr!= Channel_Data_From_Map.value(channelSelect,nullptr)){
+            Channel_Data_From_Map[channelSelect]->setVisible(true);
+            setStatusBar(tr("The preview page %1").arg( it.key()->text()));
+        }
+    }
+}
+
+//void MainWindow::on_actionMainWindow_triggered()
+//{
+//    if(p_Equipment_State_Form==nullptr){
+
+//        p_Equipment_State_Form=new Equipment_State_From (this);
+//        ui->gridLayout_2->addWidget(p_Equipment_State_Form);
+//        p_Equipment_State_Form->setVisible(true);
+
+//        /*****************************
+//        * 初始化设备
+//        ******************************/
+//        emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
+
+//        channelSelect=0;
+
+//        setStatusBar(tr("The system is ready"));
+//    }
+//    else {
+//        qDebug()<<p_Equipment_State_Form;
+//    }
+//}
+
+void MainWindow::on_actionParameter_Settings_triggered()
+{
+    Setting_Form *p_Setting_Form=new Setting_Form (nullptr);
+    connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
+    /*****************************
+    * 初始化设备
+    ******************************/
+    emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
+    p_Setting_Form->setWindowModality(Qt::ApplicationModal);
+    p_Setting_Form->show();
+}
+
+void MainWindow::on_actionCamera_Test_triggered()
+{
+    if(p_Camera_List_Form==nullptr){
+
+        p_Camera_List_Form=new Camera_List_Form (this);
+        ui->gridLayout_2->addWidget(p_Camera_List_Form);
+        p_Camera_List_Form->setVisible(true);
+
+        emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
+
+        channelSelect=0;
+
+        setStatusBar(tr("The camera debug"));
+    }
+    else {
+        qDebug()<<p_Camera_List_Form;
+    }
+}
+
+void MainWindow::on_actionHistory_Sqlite_triggered()
+{
+    if(p_DataBase_Form==nullptr){
+
+        p_DataBase_Form=new DataBase_Form (this);
+        ui->gridLayout_2->addWidget(p_DataBase_Form);
+        p_DataBase_Form->setVisible(true);
+
+        channelSelect=0;
+
+        setStatusBar(tr("Data query interface"));
+    }
+    else {
+        qDebug()<<p_DataBase_Form;
+    }
+}
+
+void MainWindow::on_actionData_log_triggered()
+{
+    if(p_Data_Log_Form==nullptr){
+
+        p_Data_Log_Form=new Data_Log_Form (nullptr);
+        ui->gridLayout_2->addWidget(p_Data_Log_Form);
+        p_Data_Log_Form->setVisible(true);
+
+        setStatusBar(tr("TCP network data exchange"));
+    }
+    else {
+        qDebug()<<p_Data_Log_Form;
+    }
+}
+
 void MainWindow::on_actionInfo_log_triggered()
 {
     if(p_Info_Log_Form==nullptr){
 
-        removeTheWindow();
-
         p_Info_Log_Form=new Info_Log_Form (nullptr);
         ui->gridLayout_2->addWidget(p_Info_Log_Form);
         p_Info_Log_Form->setVisible(true);
-
-        /*****************************
-        * 初始化通道
-        ******************************/
-        formConnet();
 
         setStatusBar(tr("System operation information"));
     }
     else {
         qDebug()<<p_Info_Log_Form;
     }
-}
-
-void MainWindow::showMainWindowSlot()
-{
-    on_actionMainWindow_triggered();
-}
-
-void MainWindow::on_actionHCNET_triggered()
-{
 }

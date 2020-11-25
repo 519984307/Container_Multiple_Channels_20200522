@@ -7,6 +7,7 @@ namespace LocalPar {
 
     extern QString name;
     extern QString msg;
+    extern int Channels;
 }
 
 #endif // LOCALPAR_H
