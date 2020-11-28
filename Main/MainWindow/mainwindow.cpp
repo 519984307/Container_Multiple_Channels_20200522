@@ -71,8 +71,13 @@ void MainWindow::getScreenInfo()
         }
         else {
             this->show();
+            //this->showMaximized();
+
+            setWindowState(Qt::WindowMaximized);
+
         }
     }
+
 }
 
 void MainWindow::createSystemTrayMenu()
