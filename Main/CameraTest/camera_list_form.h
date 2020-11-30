@@ -6,6 +6,7 @@
 #include <QTreeWidgetItemIterator>
 
 #include "CameraTest/camera_test_form.h"
+#include "Parameter/LocalPar.h"
 
 namespace Ui {
 class Camera_List_Form;
@@ -29,11 +30,6 @@ private:
     /// \brief initializingObject 初始化对象
     ///
     void initializingObject();
-
-    ///
-    /// \brief removeTheWindow 删除窗口
-    ///
-    void removeTheWindow();
 
 private:
     Ui::Camera_List_Form *ui;

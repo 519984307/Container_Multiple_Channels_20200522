@@ -7,9 +7,10 @@ Setting_Form::Setting_Form(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->listWidget->setVisible(false);
-    this->setAttribute(Qt::WA_DeleteOnClose,true);
     this->setParent(parent);
+    this->setAttribute(Qt::WA_DeleteOnClose,true);
+
+    ui->listWidget->setVisible(false);
 }
 
 Setting_Form::~Setting_Form()

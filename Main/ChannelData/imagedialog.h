@@ -17,6 +17,19 @@ public:
 
 private:
     Ui::ImageDialog *ui;
+
+    QByteArray imgArr;
+
+public slots:
+
+    ///
+    /// \brief enlargeImages 放大图片
+    /// \param arry
+    ///
+    void slot_enlargeImages(QByteArray arry);
+
+private slots:
+    void on_savePushButton_clicked();
 };
 
 #endif // IMAGEDIALOG_H

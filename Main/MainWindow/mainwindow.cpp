@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QPointer>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -12,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mainConnect();
     createSystemTrayMenu();
     getScreenInfo();
+
+    isExit=false;
 }
 
 MainWindow::~MainWindow()
@@ -30,6 +34,15 @@ void MainWindow::closeEvent(QCloseEvent *event)
         hide();
         SystemTray->showMessage(LocalPar::name,tr("The program is running in the background, if you want to exit, please exit from the taskbar!"),QSystemTrayIcon::Information,3000);
     }
+}
+
+void MainWindow::changeEvent(QEvent *event)
+{
+    if (this->windowState()==Qt::WindowMinimized) {
+        this->hide();
+    }
+
+    QWidget::changeEvent(event);
 }
 
 void MainWindow::clearnContainer()
@@ -71,10 +84,7 @@ void MainWindow::getScreenInfo()
         }
         else {
             this->show();
-            //this->showMaximized();
-
             setWindowState(Qt::WindowMaximized);
-
         }
     }
 
@@ -91,20 +101,17 @@ void MainWindow::createSystemTrayMenu()
 
 void MainWindow::initializingObject()
 {                
-    permanentWidget=nullptr;
+    permanentLabel=nullptr;
+    runTimeLabel=nullptr;
+    throughTheNumberLabel=nullptr;
+    hardDriveCapacityLabel=nullptr;
+    socketLinkCountLabel=nullptr;
+
     p_Equipment_State_Form=nullptr;
-    //p_Setting_Form=nullptr;
-    p_Camera_List_Form=nullptr;
-    p_DataBase_Form=nullptr;
-    p_Data_Log_Form=nullptr;
-    p_Info_Log_Form=nullptr;
+    p_Data_Log_Form=new Data_Log_Form (nullptr);
 
     Form_Map.append(p_Equipment_State_Form);
-    //Form_Map.append(p_Setting_Form);
-    Form_Map.append(p_Camera_List_Form);
-    Form_Map.append(p_DataBase_Form);
-    Form_Map.append(p_Data_Log_Form);
-    Form_Map.append(p_Info_Log_Form);
+    Form_Map.append(p_Data_Log_Form);        
 }
 
 void MainWindow::mainConnect()
@@ -139,13 +146,6 @@ void MainWindow::mainConnect()
         * 设置通道设备状态
         ******************************/
         connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_Form,SLOT(setDeviceStatusSlot(int,int,bool)));
-    }
-
-    if(p_Camera_List_Form!=nullptr){
-        /*****************************
-        * 初始化通道列表
-        ******************************/
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Camera_List_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
     }
 
     /*****************************
@@ -249,17 +249,35 @@ void MainWindow::initializationParameter()
 
 void MainWindow::setStatusBar(const QString &msg)
 {    
-    if(permanentWidget==nullptr){
-        permanentWidget = new QLabel (tr("System ready"),this);
-        ui->statusBar->addPermanentWidget(permanentWidget);
+    if(runTimeLabel==nullptr){
+        runTimeLabel=new QLabel("0 H 0 M 0 S",this);
+        ui->statusBar->addPermanentWidget(runTimeLabel);
     }
-    permanentWidget->setText(msg);
+    if(throughTheNumberLabel==nullptr){
+        throughTheNumberLabel=new QLabel("0 Car",this);
+        ui->statusBar->addPermanentWidget(throughTheNumberLabel);
+    }
+    if(hardDriveCapacityLabel==nullptr){
+        hardDriveCapacityLabel=new QLabel("0 Mb",this);
+        ui->statusBar->addPermanentWidget(hardDriveCapacityLabel);
+    }
+    if(socketLinkCountLabel==nullptr){
+        socketLinkCountLabel=new QLabel("0 Machines",this);
+        socketLinkCountLabel->setStyleSheet("color: rgb(255, 0, 0);background-color: rgb(226, 226, 226);");
+        ui->statusBar->addPermanentWidget(socketLinkCountLabel);
+    }
+    if(permanentLabel==nullptr){
+        permanentLabel = new QLabel (tr("System ready"),this);
+        ui->statusBar->addPermanentWidget(permanentLabel);
+    }
+
+    permanentLabel->setText(msg);
 
 }
 
 void MainWindow::systemTrayAction()
 {
-    QAction* pAction=qobject_cast<QAction*> (sender());
+    QPointer<QAction> pAction=qobject_cast<QAction*> (sender());
     if(pAction==actionShow){
         setWindowState(Qt::WindowMaximized);
         this->show();
@@ -287,7 +305,7 @@ void MainWindow::systemTrayTriggered(QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::actionTiggeredSlot()
 {
-    QAction* pAction=qobject_cast<QAction*> (sender());
+    QPointer<QAction> pAction=qobject_cast<QAction*> (sender());
 
     QMap<QAction*,int>::const_iterator it =Channel_Data_Action_Map.find(pAction);
 
@@ -316,34 +334,12 @@ void MainWindow::actionTiggeredSlot()
             Channel_Data_From_Map[channelSelect]->setVisible(true);
             setStatusBar(tr("The preview page %1").arg( it.key()->text()));
         }
-    }
+    }    
 }
-
-//void MainWindow::on_actionMainWindow_triggered()
-//{
-//    if(p_Equipment_State_Form==nullptr){
-
-//        p_Equipment_State_Form=new Equipment_State_From (this);
-//        ui->gridLayout_2->addWidget(p_Equipment_State_Form);
-//        p_Equipment_State_Form->setVisible(true);
-
-//        /*****************************
-//        * 初始化设备
-//        ******************************/
-//        emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
-
-//        channelSelect=0;
-
-//        setStatusBar(tr("The system is ready"));
-//    }
-//    else {
-//        qDebug()<<p_Equipment_State_Form;
-//    }
-//}
 
 void MainWindow::on_actionParameter_Settings_triggered()
 {
-    Setting_Form *p_Setting_Form=new Setting_Form (nullptr);
+    QPointer<Setting_Form> p_Setting_Form=new Setting_Form (nullptr);
     connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
     /*****************************
     * 初始化设备
@@ -355,66 +351,35 @@ void MainWindow::on_actionParameter_Settings_triggered()
 
 void MainWindow::on_actionCamera_Test_triggered()
 {
-    if(p_Camera_List_Form==nullptr){
-
-        p_Camera_List_Form=new Camera_List_Form (this);
-        ui->gridLayout_2->addWidget(p_Camera_List_Form);
-        p_Camera_List_Form->setVisible(true);
-
-        emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
-
-        channelSelect=0;
-
-        setStatusBar(tr("The camera debug"));
-    }
-    else {
-        qDebug()<<p_Camera_List_Form;
-    }
+    QPointer<Camera_List_Form> p_Camera_List_Form=new Camera_List_Form (nullptr);
+    connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Camera_List_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
+    /*****************************
+    * 初始化设备
+    ******************************/
+    emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
+    p_Camera_List_Form->setWindowModality(Qt::ApplicationModal);
+    p_Camera_List_Form->show();
 }
 
 void MainWindow::on_actionHistory_Sqlite_triggered()
 {
-    if(p_DataBase_Form==nullptr){
-
-        p_DataBase_Form=new DataBase_Form (this);
-        ui->gridLayout_2->addWidget(p_DataBase_Form);
-        p_DataBase_Form->setVisible(true);
-
-        channelSelect=0;
-
-        setStatusBar(tr("Data query interface"));
-    }
-    else {
-        qDebug()<<p_DataBase_Form;
-    }
+    QPointer<DataBase_Form> p_DataBase_Form=new DataBase_Form (nullptr);
+    p_DataBase_Form->setWindowModality(Qt::ApplicationModal);
+    p_DataBase_Form->show();
 }
 
 void MainWindow::on_actionData_log_triggered()
 {
-    if(p_Data_Log_Form==nullptr){
-
-        p_Data_Log_Form=new Data_Log_Form (nullptr);
-        ui->gridLayout_2->addWidget(p_Data_Log_Form);
+    if(p_Data_Log_Form!=nullptr){
+        if(p_Data_Log_Form->isVisible()){
+            p_Data_Log_Form->setVisible(false);
+        }
         p_Data_Log_Form->setVisible(true);
-
-        setStatusBar(tr("TCP network data exchange"));
-    }
-    else {
-        qDebug()<<p_Data_Log_Form;
     }
 }
 
-void MainWindow::on_actionInfo_log_triggered()
+void MainWindow::on_actionExit_triggered()
 {
-    if(p_Info_Log_Form==nullptr){
-
-        p_Info_Log_Form=new Info_Log_Form (nullptr);
-        ui->gridLayout_2->addWidget(p_Info_Log_Form);
-        p_Info_Log_Form->setVisible(true);
-
-        setStatusBar(tr("System operation information"));
-    }
-    else {
-        qDebug()<<p_Info_Log_Form;
-    }
+    isExit=true;
+    this->close();
 }

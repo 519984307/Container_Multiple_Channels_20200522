@@ -26,7 +26,6 @@
 #include "CameraTest/camera_list_form.h"
 #include "DataBase/database_form.h"
 #include "Log/data_log_form.h"
-#include "Log/info_log_form.h"
 
 #include "Parameter/processing.h"
 #include "Parameter/parameter.h"
@@ -48,6 +47,7 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event)Q_DECL_OVERRIDE;
+    void changeEvent(QEvent* event)override;
 
 private:
 
@@ -179,35 +179,35 @@ private:
     ///
     Equipment_State_From *p_Equipment_State_Form;
 
-//    ///
-//    /// \brief p_Setting_Form 设置窗口
-//    ///
-//    Setting_Form *p_Setting_Form;
-
     ///
-    /// \brief p_Camera_List_Form 相机窗口
-    ///
-    Camera_List_Form *p_Camera_List_Form;
-
-    ///
-    /// \brief p_DataBase_Form 数据库窗口
-    ///
-    DataBase_Form *p_DataBase_Form;
-
-    ///
-    /// \brief p_Data_Log_Form TCP数据流窗口
+    /// \brief p_Data_Log_Form 运行日志窗口
     ///
     Data_Log_Form *p_Data_Log_Form;
 
     ///
-    /// \brief p_Info_Log_Form 运行日志窗口
+    /// \brief permanentLabel 状态栏永久信息
     ///
-    Info_Log_Form *p_Info_Log_Form;
+    QLabel *permanentLabel;
 
     ///
-    /// \brief permanentWidget 状态栏永久信息
+    /// \brief runTimeLabel 系统运行时长
     ///
-    QLabel *permanentWidget;
+    QLabel *runTimeLabel;
+
+    ///
+    /// \brief throughTheNumberLabel 通过数量
+    ///
+    QLabel *throughTheNumberLabel;
+
+    ///
+    /// \brief hardDriveCapacityLabel 硬盘容量
+    ///
+    QLabel *hardDriveCapacityLabel;
+
+    ///
+    /// \brief socketLinkCountLabel tcp链接数量
+    ///
+    QLabel *socketLinkCountLabel;
 
 
 private slots:
@@ -230,11 +230,6 @@ private slots:
     ///
     void actionTiggeredSlot();
 
-//    ///
-//    /// \brief on_actionMainWindow_triggered 显示主页面
-//    ///
-//    void on_actionMainWindow_triggered();
-
     ///
     /// \brief on_actionParameter_Settings_triggered 系统参数设置
     ///
@@ -251,14 +246,14 @@ private slots:
     void on_actionHistory_Sqlite_triggered();
 
     ///
-    /// \brief on_actionInfo_log_triggered 系统日志
-    ///
-    void on_actionInfo_log_triggered();
-
-    ///
-    /// \brief on_actionData_log_triggered 数据通讯日志
+    /// \brief on_actionData_log_triggered 系统日志
     ///
     void on_actionData_log_triggered();
+
+    ///
+    /// \brief on_actionExit_triggered 退出系统
+    ///
+    void on_actionExit_triggered();
 
 signals:
 

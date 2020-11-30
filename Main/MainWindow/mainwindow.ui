@@ -72,7 +72,6 @@
     <property name="title">
      <string>Log</string>
     </property>
-    <addaction name="actionInfo_log"/>
     <addaction name="actionData_log"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -85,6 +84,7 @@
      </property>
     </widget>
     <addaction name="menuErrCode"/>
+    <addaction name="actionExit"/>
    </widget>
    <addaction name="menuChannel_To_View"/>
    <addaction name="menuDatabase"/>
@@ -160,6 +160,11 @@ color: rgb(255, 255, 255);</string>
    </property>
    <property name="toolTip">
     <string>Data exchange log</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
    </property>
   </action>
  </widget>

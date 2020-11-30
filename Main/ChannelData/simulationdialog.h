@@ -15,6 +15,15 @@ public:
     explicit SimulationDialog(QWidget *parent = nullptr);
     ~SimulationDialog();
 
+private slots:
+    void on_capturePushButton_clicked();
+
+    void on_plateCapPushButton_clicked();
+
+    void on_liftingLeverPushButton_clicked();
+
+    void on_fallRodPushButton_clicked();
+
 private:
     Ui::SimulationDialog *ui;
 };

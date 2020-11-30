@@ -5,7 +5,6 @@
 #include <QEvent>
 #include <QPixmap>
 #include <QMouseEvent>
-#include <QResizeEvent>
 
 #include "image_dialog.h"
 
@@ -29,12 +28,6 @@ public:
     ///
     bool eventFilter(QObject *obj, QEvent *event);
 
-    ///
-    /// \brief resizeEvent 重写窗口调整事件
-    /// \param event
-    ///
-    void resizeEvent(QResizeEvent *event);
-
 private:
 
     ///
@@ -55,10 +48,6 @@ private slots:
     ///
     void on_database_stackedWidget_currentChanged(int arg1);
 
-    ///
-    /// \brief image_dialog_close_slot 图片放大窗口关闭槽
-    ///
-    void image_dialog_close_slot();
 
 signals:
 

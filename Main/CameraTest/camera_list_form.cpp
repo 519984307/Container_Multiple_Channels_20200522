@@ -7,35 +7,30 @@ Camera_List_Form::Camera_List_Form(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->setAttribute(Qt::WA_DeleteOnClose,true);
-
     this->setParent(parent);
-    this->setHidden(true);
-    this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+    this->setAttribute(Qt::WA_DeleteOnClose,true);
 
     initializingObject();
 }
 
 Camera_List_Form::~Camera_List_Form()
 {
+    delete  p_Camera_Test_Form;
+    p_Camera_Test_Form=nullptr;
+
+    delete takeItem;
+    takeItem=nullptr;
+
     delete ui;
 }
 
 void Camera_List_Form::initializingObject()
 {
-    p_Camera_Test_Form=nullptr;
+    p_Camera_Test_Form=new Camera_Test_Form (this);
     takeItem=nullptr;
 
     channelSelect=0;
-    CamerNameList<<"Front"<<"Before"<<"Left"<<"Right"<<"Top"<<"Plate";
-}
-
-void Camera_List_Form::removeTheWindow()
-{
-    if(p_Camera_Test_Form!=nullptr){
-        delete p_Camera_Test_Form;
-        p_Camera_Test_Form=nullptr;
-    }
+    CamerNameList=LocalPar::CamerNameList;
 }
 
 void Camera_List_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels)
@@ -67,18 +62,7 @@ void Camera_List_Form::initializesTheDeviceListSlot(int count, QStringList rowLa
 void Camera_List_Form::on_CameraList_itemActivated(QTreeWidgetItem *item)
 {
     if(takeItem!=item && item->childCount()==0){
-
-        removeTheWindow();
-
-        if(p_Camera_Test_Form==nullptr){
-            p_Camera_Test_Form=new Camera_Test_Form (this);
-            ui->gridLayout->addWidget(p_Camera_Test_Form);
-            p_Camera_Test_Form->setVisible(true);
-
-            takeItem=item;
-        }
-    }
-    else {
-        qDebug()<<p_Camera_Test_Form;
+        ui->gridLayout->addWidget(p_Camera_Test_Form);
+        takeItem=item;
     }
 }

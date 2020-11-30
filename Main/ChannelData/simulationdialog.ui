@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Simulation</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../ico.qrc">
+    <normaloff>:/UI_ICO/ICO/ICO.ico</normaloff>:/UI_ICO/ICO/ICO.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_5">
    <item row="1" column="0" colspan="4">
@@ -53,7 +57,7 @@
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="QPushButton" name="Capture_pushButton">
+       <widget class="QPushButton" name="capturePushButton">
         <property name="text">
          <string>Capture</string>
         </property>
@@ -62,26 +66,26 @@
       <item row="1" column="0" colspan="2">
        <widget class="QCheckBox" name="while_cycle_capture_checkBox">
         <property name="text">
-         <string>Loop Capture Pictures</string>
+         <string>Circular capture of containers</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="plateCapPushButton">
         <property name="text">
-         <string>capture</string>
+         <string>Plate cap</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="liftingLeverPushButton">
         <property name="text">
          <string>Lifting lever</string>
         </property>
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="fallRodPushButton">
         <property name="text">
          <string>Fall rod</string>
         </property>
@@ -104,7 +108,16 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_7"/>
+       <widget class="QLineEdit" name="lineEdit_7">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="label_3">
@@ -114,7 +127,16 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_9"/>
+       <widget class="QLineEdit" name="lineEdit_9">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_4">
@@ -124,7 +146,16 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="lineEdit_10"/>
+       <widget class="QLineEdit" name="lineEdit_10">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="3" column="0">
        <widget class="QLabel" name="label_2">
@@ -134,7 +165,16 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLineEdit" name="lineEdit_8"/>
+       <widget class="QLineEdit" name="lineEdit_8">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -145,12 +185,45 @@
       <string>Data</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
       <item row="0" column="0" rowspan="2">
        <widget class="QLineEdit" name="lineEdit">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>33</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777213</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <pointsize>20</pointsize>
          </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Container Before</string>
         </property>
        </widget>
       </item>
@@ -162,26 +235,56 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>13</height>
+          <height>28</height>
          </size>
         </property>
        </spacer>
       </item>
       <item row="1" column="1">
        <widget class="QLineEdit" name="lineEdit_2">
+        <property name="maximumSize">
+         <size>
+          <width>90</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <pointsize>10</pointsize>
          </font>
         </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>ISO1</string>
+        </property>
        </widget>
       </item>
       <item row="2" column="0" rowspan="2">
        <widget class="QLineEdit" name="lineEdit_4">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>33</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777213</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <pointsize>20</pointsize>
          </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Container After</string>
         </property>
        </widget>
       </item>
@@ -193,26 +296,56 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>13</height>
+          <height>29</height>
          </size>
         </property>
        </spacer>
       </item>
       <item row="3" column="1">
        <widget class="QLineEdit" name="lineEdit_3">
+        <property name="maximumSize">
+         <size>
+          <width>90</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <pointsize>10</pointsize>
          </font>
         </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>ISO2</string>
+        </property>
        </widget>
       </item>
       <item row="4" column="0" rowspan="2">
        <widget class="QLineEdit" name="lineEdit_6">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>33</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777213</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <pointsize>20</pointsize>
          </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Plate</string>
         </property>
        </widget>
       </item>
@@ -224,17 +357,29 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>13</height>
+          <height>28</height>
          </size>
         </property>
        </spacer>
       </item>
       <item row="5" column="1">
        <widget class="QLineEdit" name="lineEdit_5">
+        <property name="maximumSize">
+         <size>
+          <width>90</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="font">
          <font>
           <pointsize>10</pointsize>
          </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Color</string>
         </property>
        </widget>
       </item>
@@ -248,14 +393,14 @@
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>537</width>
+       <width>488</width>
        <height>20</height>
       </size>
      </property>
     </spacer>
    </item>
    <item row="3" column="3">
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="exitPushButton">
      <property name="text">
       <string>Exit</string>
      </property>
@@ -276,6 +421,25 @@
    </item>
   </layout>
  </widget>
- <resources/>
- <connections/>
+ <resources>
+  <include location="../ico.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>exitPushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SimulationDialog</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>538</x>
+     <y>510</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>349</x>
+     <y>394</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

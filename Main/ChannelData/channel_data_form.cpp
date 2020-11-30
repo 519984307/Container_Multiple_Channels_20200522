@@ -1,7 +1,10 @@
 #include "channel_data_form.h"
 #include "ui_channel_data_form.h"
 
-#include <QDebug>
+#include "imagedialog.h"
+#include "simulationdialog.h"
+
+#include <QPointer>
 
 Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *parent) :
     QWidget(parent),
@@ -15,6 +18,19 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     this->setVisible(false);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
+    ui->image_label_1->installEventFilter(this);
+    ui->image_label_2->installEventFilter(this);
+    ui->image_label_3->installEventFilter(this);
+    ui->image_label_4->installEventFilter(this);
+    ui->image_label_5->installEventFilter(this);
+    ui->image_label_6->installEventFilter(this);
+    ui->image_label_7->installEventFilter(this);
+    ui->image_label_8->installEventFilter(this);
+    ui->image_label_9->installEventFilter(this);
+    ui->image_label_10->installEventFilter(this);
+    ui->image_label_11->installEventFilter(this);
+    //ui->image_label_12->installEventFilter(this);
+
     ui->image_label_7->setVisible(false);
     ui->image_label_8->setVisible(false);
     ui->image_label_9->setVisible(false);
@@ -25,11 +41,14 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     ui->lineEdit_10->setText(alias);
     ui->lineEdit_2->setText(QString::number(channelNumber));
 
-    topC=false;
-    prospectsC=false;
-    foregroundC=false;
-    plateC=false;
+    ui->image_label_1->repaint();
+    QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
+    QPixmap pp= pix.scaled(QSize(ui->image_label_1->size()),Qt::IgnoreAspectRatio);
 
+
+    QPalette palette(ui->image_label_1->palette());
+    palette.setBrush(QPalette::Background, QBrush(pp));
+    ui->image_label_1->setPalette(palette);
 }
 
 Channel_Data_Form::~Channel_Data_Form()
@@ -39,63 +58,37 @@ Channel_Data_Form::~Channel_Data_Form()
 
 void Channel_Data_Form::paintEvent(QPaintEvent *event)
 {
-
-    if(ui->image_label_2->sizeHint()!=ui->image_label_2->size()){
-            ui->image_label_2->repaint();
-            QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
-            QPixmap pp= pix.scaled(QSize(ui->image_label_2->size()),Qt::IgnoreAspectRatio);
-
-
-            QPalette palette(ui->image_label_2->palette());
-            palette.setBrush(QPalette::Background, QBrush(pp));
-            ui->image_label_2->setPalette(palette);
-    }
-    //ui->image_label_1->update();
     QWidget::paintEvent(event);
 }
 
-void Channel_Data_Form::on_plateCheckBox_stateChanged(int arg1)
+bool Channel_Data_Form::eventFilter(QObject *target, QEvent *event)
 {
-    plateC=false;
-    if(arg1==Qt::CheckState::Checked){
-        plateC=true;
-        //this->resize(this->size());
+    if(target==ui->image_label_1||target==ui->image_label_2||target==ui->image_label_3||target==ui->image_label_4
+            ||target==ui->image_label_5||target==ui->image_label_6||target==ui->image_label_7||target==ui->image_label_8
+            ||target==ui->image_label_9||target==ui->image_label_10||target==ui->image_label_11){
+
+        if(event->type()==QEvent::MouseButtonDblClick){
+            QPointer<ImageDialog> Dlg=new ImageDialog(this);
+            connect(this,SIGNAL(signal_enlargeImages(QByteArray)),Dlg,SLOT(slot_enlargeImages(QByteArray)));
+            Dlg->exec();
+        }
+        if(event->type()==QEvent::Resize){
+            ui->image_label_1->repaint();
+            QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
+            QPixmap pp= pix.scaled(QSize(ui->image_label_1->size()),Qt::IgnoreAspectRatio);
+
+
+            QPalette palette(ui->image_label_1->palette());
+            palette.setBrush(QPalette::Background, QBrush(pp));
+            ui->image_label_1->setPalette(palette);
+        }
     }
+
+    return  QWidget::eventFilter(target,event);
 }
 
-void Channel_Data_Form::on_topCheckBox_stateChanged(int arg1)
+void Channel_Data_Form::on_SimulationPushButton_clicked()
 {
-    topC=false;
-    if(arg1==Qt::CheckState::Checked){
-        topC=true;
-        //this->resize(this->size());
-    }
-}
-
-void Channel_Data_Form::on_prospectsCheckBox_stateChanged(int arg1)
-{
-    prospectsC=false;
-    if(arg1==Qt::CheckState::Checked){
-        prospectsC=true;
-        //this->resize(this->size());
-    }
-}
-
-void Channel_Data_Form::on_foregroundCheckBox_stateChanged(int arg1)
-{
-    foregroundC=false;
-    if(arg1==Qt::CheckState::Checked){
-        foregroundC=true;
-        //this->resize(this->size());
-        ui->image_label_2->repaint();
-        QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
-        QPixmap pp= pix.scaled(QSize(ui->image_label_2->size()),Qt::IgnoreAspectRatio);
-
-
-        QPalette palette(ui->image_label_2->palette());
-        palette.setBrush(QPalette::Background, QBrush(pp));
-        ui->image_label_2->setPalette(palette);
-
-
-    }
+    QPointer<SimulationDialog> Dlg=new SimulationDialog(this);
+    Dlg->exec();
 }

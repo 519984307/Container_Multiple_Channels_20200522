@@ -8,19 +8,12 @@ Image_Dialog::Image_Dialog(QWidget *parent) :
     ui->setupUi(this);
 
     this->setParent(parent);
-    this->setAttribute(Qt::WA_DeleteOnClose,true);
+    this->setVisible(false);
 }
 
 Image_Dialog::~Image_Dialog()
 {
     delete ui;
-}
-
-void Image_Dialog::closeEvent(QCloseEvent *event)
-{
-    if(event->type()==QEvent::Close){
-         emit image_dialog_close_signal();
-    }
 }
 
 void Image_Dialog::set_image_dialog_pixmap_slot(QPixmap pix)

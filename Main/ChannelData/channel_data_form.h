@@ -2,8 +2,9 @@
 #define CHANNEL_DATA_FORM_H
 
 #include <QWidget>
-#include <QResizeEvent>
+#include <QMouseEvent>
 #include <QPaintEvent>
+#include <QResizeEvent>
 
 namespace Ui {
 class Channel_Data_Form;
@@ -18,23 +19,23 @@ public:
     ~Channel_Data_Form();
 
     void paintEvent(QPaintEvent *event)override;
+    bool eventFilter(QObject *target,QEvent *event) override;
 
 private slots:
-    void on_plateCheckBox_stateChanged(int arg1);
 
-    void on_topCheckBox_stateChanged(int arg1);
+    void on_SimulationPushButton_clicked();
 
-    void on_prospectsCheckBox_stateChanged(int arg1);
-
-    void on_foregroundCheckBox_stateChanged(int arg1);
 
 private:
     Ui::Channel_Data_Form *ui;    
 
-    bool plateC;
-    bool topC;
-    bool prospectsC;
-    bool foregroundC;
+signals:
+
+    ///
+    /// \brief signal_enlargeImages 放大图片
+    /// \param arry
+    ///
+    void signal_enlargeImages(QByteArray arry);
 };
 
 #endif // CHANNEL_DATA_FORM_H
