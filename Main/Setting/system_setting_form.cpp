@@ -400,7 +400,7 @@ void System_Setting_Form::conditionsOfButton_clicked()
             QTextStream stream(&file);
             QStringList strList=stream.readAll().split(QRegExp("[\r\n]"),QString::SkipEmptyParts);
             for (int var = 0; var < strList.count(); ++var) {
-                if(strList[var]==check){
+                if(strList.at(var)==check){
                     index=var;
                     break;
                 }

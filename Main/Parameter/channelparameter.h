@@ -1,4 +1,4 @@
-#ifndef CHANNELPARAMETER_H
+﻿#ifndef CHANNELPARAMETER_H
 #define CHANNELPARAMETER_H
 
 #include <QObject>
@@ -75,6 +75,15 @@ public:
     ///
     QString PlateCamer;
 
+    ///
+    /// \brief ForgroundCamer 后景相机
+    ///
+    QString ForgroundCamer;
+
+    ///
+    /// \brief ProspectsCamer 前景相机
+    ///
+    QString ProspectsCamer;
 
     /*****************************
     * @brief:SerialPort

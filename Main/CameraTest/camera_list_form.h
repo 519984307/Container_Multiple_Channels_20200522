@@ -2,7 +2,6 @@
 #define CAMERA_LIST_FORM_H
 
 #include <QWidget>
-#include <QDebug>
 #include <QTreeWidgetItemIterator>
 
 #include "CameraTest/camera_test_form.h"
@@ -54,17 +53,11 @@ private slots:
     ///
     void on_CameraList_itemActivated(QTreeWidgetItem *item);
 
-
 private:
 
     /*****************************
     * attribute
     ******************************/
-
-    ///
-    /// \brief channelSelect 设置界面组中,当前预览的通道号
-    ///
-    int channelSelect;
 
     ///
     /// \brief CamerNameList  相机列表
@@ -79,7 +72,7 @@ private:
     ///
     /// \brief p_Camera_Test_Form 相机预览窗口
     ///
-    Camera_Test_Form* p_Camera_Test_Form=nullptr;
+    Camera_Test_Form* p_Camera_Test_Form;
 
     ///
     /// \brief takeItem 当前选中项

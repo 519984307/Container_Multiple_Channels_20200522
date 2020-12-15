@@ -1,21 +1,31 @@
-#ifndef MAINWINDOW_H
+﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMessageLogger>
 #include <QtGlobal>
-#include <QResizeEvent>
 #include <QDesktopWidget>
 #include <QMap>
 #include <QAction>
+#include <QPointer>
 #include <QLabel>
 #include <QScreen>
-#include <QScopedPointer>
+#include <QSharedPointer>
 #include <QSystemTrayIcon>
 #include <QIcon>
 #include <QAction>
 #include <QMenu>
 #include <QCloseEvent>
+#include <QPluginLoader>
+#include <QCoreApplication>
+#include <QVector>
+#include <QDir>
+#include <QProgressBar>
+#include <QDateTime>
+#include <QThread>
+
+#include <QtConcurrent>
+#include <QFuture>
+#include <QFutureWatcher>
 
 /*****************************
 * UI
@@ -26,11 +36,16 @@
 #include "CameraTest/camera_list_form.h"
 #include "DataBase/database_form.h"
 #include "Log/data_log_form.h"
+#include "About/aboutdialog.h"
 
-#include "Parameter/processing.h"
+/*****************************
+* @brief:Parameter
+******************************/
+#include "Parameter/loadparameter.h"
 #include "Parameter/parameter.h"
 #include "Parameter/LocalPar.h"
 
+#include "logcontroller.h"
 #include "Processing/loadinglibaray.h"
 
 namespace Ui {
@@ -47,7 +62,7 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event)Q_DECL_OVERRIDE;
-    void changeEvent(QEvent* event)override;
+    void changeEvent(QEvent* event)Q_DECL_OVERRIDE;
 
 private:
 
@@ -76,9 +91,9 @@ private:
     void setStatusBar(const QString &msg);
 
     ///
-    /// \brief mainWindow 主窗口信号与槽
+    /// \brief connectProcess 主窗口信号与槽
     ///
-    void mainConnect();
+    void connectProcess();
 
     ///
     /// \brief getScreenInfo 获取和设置系统屏幕大小
@@ -86,9 +101,9 @@ private:
     void getScreenInfo();
 
     ///
-    /// \brief createSystemTrayMenu 设置任务栏菜单
+    /// \brief bindingPlugin 绑定插件
     ///
-    void createSystemTrayMenu();
+    void bindingPlugin();
 
 private:
 
@@ -97,9 +112,9 @@ private:
     ******************************/
 
     ///
-    /// \brief Channel_Data_Action_Map 数据窗口工具栏字典集
+    /// \brief From_Action_Map 数据窗口工具栏字典集
     ///
-    QMap<QAction*,int> Channel_Data_Action_Map;
+    QMap<QAction*,int> From_Action_Map;
 
     ///
     /// \brief Channel_Data_From_Map 数据窗口字典集
@@ -110,6 +125,21 @@ private:
     /// \brief Form_Map 窗口类对象合集
     ///
     QList<QObject*> Form_Map;
+
+    ///
+    /// \brief tdList 子线程集
+    ///
+    QList<QThread*> tdList;
+
+//    ///
+//    /// \brief ICaptureImagesLit 相机插件库
+//    ///
+//    QList<ICaptureImages*> ICaptureImagesLit;
+
+//    ///
+//    /// \brief IMiddlewareLit 相机中间件插件库
+//    ///
+//    QList<IMiddleware*> IMiddlewareLit;
 
     /*****************************
     * attribute
@@ -139,26 +169,42 @@ private:
     /// \brief isExit 退出系统
     ///
     bool isExit;
+
     /*****************************
     * object
     ******************************/
 
-    Ui::MainWindow *ui;
+    Ui::MainWindow *ui;       
+
+    ///
+    /// \brief pLoadinglibaray 加载插件
+    ///
+    LoadingLibaray* pLoadinglibaray;
+
+//    ///
+//    /// \brief watcher 监视异步加载插件完成状态
+//    ///
+//    QFutureWatcher<void> *watcher;
+
+    ///
+    /// \brief log
+    ///
+    QPointer<LogController> log;
 
     ///
     /// \brief actionShow 任务栏显示主页面
     ///
-    QAction* actionShow;
+    QPointer<QAction> actionShow;
 
     ///
     /// \brief actionExit 任务栏退出
     ///
-    QAction* actionExit;
+    QPointer<QAction> actionExit;
 
     ///
-    /// \brief Pointer_Processing 参数加载
+    /// \brief Pointer_Parameter 参数加载
     ///
-    QSharedPointer<Processing> Pointer_Processing;
+    QPointer<LoadParameter> Pointer_Parameter;
 
     ///
     /// \brief SystemTray 任务栏
@@ -166,23 +212,23 @@ private:
     QPointer<QSystemTrayIcon> SystemTray;
 
     ///
-    /// \brief pLoadingLibaray 加载插件
+    /// \brief systemTrayMen 任务栏菜单
     ///
-    //LoadingLibaray *pLoadingLibaray;
+    QPointer<QMenu> systemTrayMen;
 
     /*****************************
     * @brief:UI
     ******************************/
 
     ///
+    /// \brief p_Data_Log_Form 运行日志窗口
+    ///
+    QSharedPointer<Data_Log_Form> p_Data_Log_Form;
+
+    ///
     /// \brief p_Equipment_State_Form 设备列表窗口
     ///
     Equipment_State_From *p_Equipment_State_Form;
-
-    ///
-    /// \brief p_Data_Log_Form 运行日志窗口
-    ///
-    Data_Log_Form *p_Data_Log_Form;
 
     ///
     /// \brief permanentLabel 状态栏永久信息
@@ -209,6 +255,10 @@ private:
     ///
     QLabel *socketLinkCountLabel;
 
+    ///
+    /// \brief statusProgressBar 状态栏进度条
+    ///
+    QProgressBar *statusProgressBar;
 
 private slots:
 
@@ -255,6 +305,37 @@ private slots:
     ///
     void on_actionExit_triggered();
 
+private slots:
+
+    ///
+    /// \brief slot_handleFinished 异步加载插件完成
+    ///
+    void slot_handleFinished();
+
+    ///
+    /// \brief slot_progressRangeChanged 异步加载插件设置进度条范围
+    /// \param minimum
+    /// \param maximum
+    ///
+    void slot_progressRangeChanged(int minimum, int maximum);
+
+    ///
+    /// \brief slot_progressTextChanged 异步加载插件设置进度条文本
+    /// \param progressText
+    ///
+    void slot_progressTextChanged(const QString &progressText);
+
+    ///
+    /// \brief slot_progressValueChanged 异步加载插件设置进度条值
+    /// \param progressValue
+    ///
+    void slot_progressValueChanged(int progressValue);
+
+    ///
+    /// \brief on_actionAbout_triggered 关于对话框
+    ///
+    void on_actionAbout_triggered();    
+
 signals:
 
     /*****************************
@@ -275,6 +356,26 @@ signals:
     /// \param state 状态
     ///
     void setDeviceStatusSignal(int channel, int equipment,bool state);
+
+    ///
+    /// \brief signal_createLibaray 加载插件
+    ///
+    void signal_createLibaray();
+
+    ///
+    /// \brief signal_initCamera 初始化相机
+    ///
+    void signal_initCamera();
+
+    ///
+    /// \brief signal_destructorThread 析构插件线程
+    ///
+    void signal_destructorThread();
+
+    ///
+    /// \brief signal_releaseResources 释放插件资源
+    ///
+    void signal_releaseResources();    
 };
 
 #endif // MAINWINDOW_H

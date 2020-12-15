@@ -1,9 +1,9 @@
 #include "main_dialog.h"
 #include "ui_main_dialog.h"
-#include "Parameter/LocalPar.h"
 
+#include "Parameter/LocalPar.h"
 #include "Parameter/parameter.h"
-#include "Parameter/processing.h"
+#include "Parameter/loadparameter.h"
 
 #include <QPointer>
 
@@ -14,7 +14,7 @@ Main_Dialog::Main_Dialog(QWidget *parent) :
     ui->setupUi(this);   
 
     this->setParent(parent);
-    this->setHidden(true);
+    this->setVisible(false);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
     this->setAttribute(Qt::WA_DeleteOnClose,true);
 
@@ -42,8 +42,8 @@ Main_Dialog::~Main_Dialog()
 
 void Main_Dialog::loadParameter()
 {
-    QPointer<Processing> Pointer(new Processing(this));
-    if(Pointer->loadParameter()){
+    QPointer<LoadParameter> Pointer(new LoadParameter(this));
+    if(Pointer->loadSysParameter()){
         ui->ChannelNumber->setValue(Parameter::ChannelNumber);
     }
     else {
@@ -51,6 +51,7 @@ void Main_Dialog::loadParameter()
     }
 
     cot=Parameter::DelayStart;
+    ui->verLabel->setText(LocalPar::version);
 }
 
 void Main_Dialog::setSystemModel()

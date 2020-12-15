@@ -16,6 +16,13 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../ico.qrc">
+    <normaloff>:/UI_ICO/ICO/ICO.ico</normaloff>:/UI_ICO/ICO/ICO.ico</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
     <property name="leftMargin">
@@ -48,7 +55,8 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(208, 208, 208);</string>
+    <string notr="true">background-color: rgb(206, 206, 206);
+color: rgb(0, 0, 0);</string>
    </property>
    <widget class="QMenu" name="menuChannel_To_View">
     <property name="title">
@@ -84,6 +92,7 @@
      </property>
     </widget>
     <addaction name="menuErrCode"/>
+    <addaction name="actionAbout"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuChannel_To_View"/>
@@ -94,8 +103,8 @@
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(138, 138, 138);
-color: rgb(255, 255, 255);</string>
+    <string notr="true">background-color: rgb(206, 206, 206);
+color: rgb(0, 0, 0);</string>
    </property>
    <property name="toolButtonStyle">
     <enum>Qt::ToolButtonTextUnderIcon</enum>
@@ -109,7 +118,7 @@ color: rgb(255, 255, 255);</string>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(138, 138, 138);
+    <string notr="true">background-color: rgb(64, 65, 66);
 color: rgb(255, 255, 255);</string>
    </property>
   </widget>
@@ -146,14 +155,6 @@ color: rgb(255, 255, 255);</string>
     <string>Ctrl+F</string>
    </property>
   </action>
-  <action name="actionInfo_log">
-   <property name="text">
-    <string>Info log</string>
-   </property>
-   <property name="toolTip">
-    <string>System operation log</string>
-   </property>
-  </action>
   <action name="actionData_log">
    <property name="text">
     <string>Data log</string>
@@ -167,8 +168,15 @@ color: rgb(255, 255, 255);</string>
     <string>Exit</string>
    </property>
   </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../ico.qrc"/>
+ </resources>
  <connections/>
 </ui>

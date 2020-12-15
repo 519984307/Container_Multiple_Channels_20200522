@@ -1,4 +1,4 @@
-#include "channel_setting_form.h"
+﻿#include "channel_setting_form.h"
 #include "ui_channel_setting_form.h"
 
 Channel_Setting_Form::Channel_Setting_Form(int number, QWidget *parent) :
@@ -88,6 +88,8 @@ bool Channel_Setting_Form::loadParameter()
                     p_ChannelParameter->PlateCamer= getJsonValue("Camer","PlateCamer",value.toObject()).toString();
                     p_ChannelParameter->UserCamer= getJsonValue("Camer","UserCamer",value.toObject()).toString();
                     p_ChannelParameter->PasswordCamer= getJsonValue("Camer","PasswordCamer",value.toObject()).toString();
+                    p_ChannelParameter->ForgroundCamer= getJsonValue("Camer","ForgroundCamer",value.toObject()).toString();
+                    p_ChannelParameter->ProspectsCamer= getJsonValue("Camer","ProspectsCamer",value.toObject()).toString();
 
                     /*****************************
                     * @brief:other
@@ -149,6 +151,8 @@ bool Channel_Setting_Form::writeParameterSlot()
     jsonObj.insert(QString("PlateCamer"),ui->Camera_Plate->text());
     jsonObj.insert(QString("UserCamer"),ui->Camera_User->text());
     jsonObj.insert(QString("PasswordCamer"),ui->Camera_Password->text());
+    jsonObj.insert(QString("ForgroundCamer"),ui->Camera_Forground->text());
+    jsonObj.insert(QString("ProspectsCamer"),ui->Camera_Prospects->text());
     jsonChild.insert("Camer",QJsonValue(jsonObj));
 
     /*****************************
@@ -208,6 +212,8 @@ void Channel_Setting_Form::parameterToUi()
     ui->Camera_Plate->setText(p_ChannelParameter->PlateCamer);
     ui->Camera_User->setText(p_ChannelParameter->UserCamer);
     ui->Camera_Password->setText(p_ChannelParameter->PasswordCamer);
+    ui->Camera_Forground->setText(p_ChannelParameter->ForgroundCamer);
+    ui->Camera_Prospects->setText(p_ChannelParameter->ProspectsCamer);
 
     /*****************************
     * @brief:serialport

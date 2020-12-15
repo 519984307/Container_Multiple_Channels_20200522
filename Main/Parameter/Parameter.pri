@@ -1,10 +1,10 @@
 HEADERS += \
     $$PWD/LocalPar.h \
     $$PWD/channelparameter.h \
-    $$PWD/parameter.h \
-    $$PWD/processing.h
+    $$PWD/loadparameter.h \
+    $$PWD/parameter.h
 
 SOURCES += \
     $$PWD/LocalPar.cpp \
-    $$PWD/parameter.cpp \
-    $$PWD/processing.cpp
+    $$PWD/loadparameter.cpp \
+    $$PWD/parameter.cpp

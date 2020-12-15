@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Log</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../ico.qrc">
+    <normaloff>:/UI_ICO/ICO/ICO.ico</normaloff>:/UI_ICO/ICO/ICO.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <property name="leftMargin">
@@ -44,33 +48,24 @@
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
-         <property name="rowCount">
-          <number>10</number>
+         <property name="minimumSize">
+          <size>
+           <width>300</width>
+           <height>0</height>
+          </size>
          </property>
+         <property name="rowCount">
+          <number>0</number>
+         </property>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>115</number>
+         </attribute>
          <attribute name="horizontalHeaderStretchLastSection">
           <bool>true</bool>
          </attribute>
          <attribute name="verticalHeaderCascadingSectionResizes">
           <bool>false</bool>
          </attribute>
-         <row>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </row>
-         <row>
-          <property name="text">
-           <string>2</string>
-          </property>
-         </row>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
          <column>
           <property name="text">
            <string>Address</string>
@@ -81,26 +76,6 @@
            <string>Port</string>
           </property>
          </column>
-         <item row="0" column="0">
-          <property name="text">
-           <string>192.168.1.100</string>
-          </property>
-         </item>
-         <item row="0" column="1">
-          <property name="text">
-           <string>4752</string>
-          </property>
-         </item>
-         <item row="1" column="0">
-          <property name="text">
-           <string>192.168.1.101</string>
-          </property>
-         </item>
-         <item row="1" column="1">
-          <property name="text">
-           <string>4935</string>
-          </property>
-         </item>
         </widget>
        </item>
        <item row="0" column="1">
@@ -109,28 +84,17 @@
           <bool>false</bool>
          </property>
          <property name="rowCount">
-          <number>10</number>
+          <number>0</number>
          </property>
          <attribute name="horizontalHeaderStretchLastSection">
           <bool>true</bool>
          </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
          <attribute name="verticalHeaderStretchLastSection">
           <bool>true</bool>
          </attribute>
-         <row>
-          <property name="text">
-           <string>1</string>
-          </property>
-         </row>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
-         <row/>
          <column>
           <property name="text">
            <string>Time</string>
@@ -156,142 +120,29 @@
            <string>Msg</string>
           </property>
          </column>
-         <item row="0" column="0">
-          <property name="text">
-           <string>2020-11-30</string>
-          </property>
-         </item>
-         <item row="0" column="1">
-          <property name="text">
-           <string>To</string>
-          </property>
-         </item>
-         <item row="0" column="2">
-          <property name="text">
-           <string>192.168.1.100</string>
-          </property>
-         </item>
-         <item row="0" column="3">
-          <property name="text">
-           <string>4752</string>
-          </property>
-         </item>
-         <item row="0" column="4">
-          <property name="text">
-           <string>[C|20201130141512|02|01|WDFU1234567|22G1|Y]</string>
-          </property>
-         </item>
         </widget>
        </item>
       </layout>
      </widget>
-     <widget class="QTableWidget" name="tableWidget_3">
+     <widget class="QTableWidget" name="logTableWidget">
       <property name="rowCount">
-       <number>100</number>
+       <number>0</number>
       </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>200</number>
+      </attribute>
       <attribute name="horizontalHeaderStretchLastSection">
        <bool>true</bool>
       </attribute>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
-      <row/>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderShowSortIndicator" stdset="0">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
       <column>
        <property name="text">
         <string>Time</string>
@@ -312,6 +163,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../ico.qrc"/>
+ </resources>
  <connections/>
 </ui>

@@ -1,24 +1,20 @@
 #include "logcontroller.h"
 #include "log.h"
 
-#include <QPointer>
-#include <QMessageLogContext>
+#include <QSharedPointer>
 
-QPointer<Log> vklog;
+QSharedPointer<Log> vklog;
 
 void myMessageOutput( QtMsgType type, const QMessageLogContext &context, const QString &msg )
 {
     vklog->outPutMessage( type, context, msg );
 }
 
-LogController::LogController()
+LogController::LogController(QString App, QObject *parent) : QObject(parent)
 {
-    vklog = new Log( );
-    qInstallMessageHandler( myMessageOutput );
-}
+    this->setParent(parent);
+    vklog=QSharedPointer<Log>(new Log(App));
+    connect(vklog.data(),SIGNAL(signal_newLogText(QtMsgType,QDateTime ,QString)),this,SIGNAL(signal_newLogText(QtMsgType,QDateTime ,QString)));
 
-LogController::~LogController()
-{
-    delete vklog;
-    vklog=nullptr;
+    qInstallMessageHandler( myMessageOutput );
 }

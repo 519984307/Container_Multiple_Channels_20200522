@@ -15,6 +15,13 @@ public:
     explicit Camera_Test_Form(QWidget *parent = nullptr);
     ~Camera_Test_Form();
 
+private slots:
+    void on_capture_pushButton_clicked();
+
+    void on_play_pushButton_clicked();
+
+    void on_identify_pushButton_clicked();
+
 private:
     Ui::Camera_Test_Form *ui;
 };

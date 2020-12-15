@@ -1,5 +1,7 @@
 QT -= gui
 
+TARGET = log
+
 TEMPLATE = lib
 DEFINES += LOGCONTROLLER_LIBRARY
 

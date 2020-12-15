@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql serialport
+QT       += core gui sql serialport concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,7 +26,7 @@ DEFINES += QT_MESSAGELOGCONTEXT
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
+        main.cpp \#
 
 HEADERS += \
 
@@ -48,9 +48,9 @@ OBJECTS_DIR=tmp/obj
 
 QMAKE_LFLAGS+="-Wl,-rpath=./Library/"
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../LogController/release/ -lLogController
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../LogController/debug/ -lLogController
-else:unix:!macx: LIBS += -L$$OUT_PWD/../LogController/ -lLogController
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../LogController/release/ -llog
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../LogController/debug/ -llog
+else:unix: LIBS += -L$$OUT_PWD/../LogController/ -llog
 
 INCLUDEPATH += $$PWD/../LogController
 DEPENDPATH += $$PWD/../LogController
@@ -64,4 +64,6 @@ include(MainWindow/MainWindow.pri)
 include(Parameter/Parameter.pri)
 include(Processing/Processing.pri)
 include(Setting/Setting.pri)
+include(About/About.pri)
+
 

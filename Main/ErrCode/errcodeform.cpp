@@ -34,7 +34,7 @@ bool ErrCodeForm::slot_readErrCode(QString path)
             QStringList lt=msg.simplified().split(" ");
             ui->tableWidget->insertRow(i);
             for (int j=0;j<lt.count();j++) {
-               ui->tableWidget->setItem(i,j,new QTableWidgetItem(lt[j]));
+               ui->tableWidget->setItem(i,j,new QTableWidgetItem(lt.at(j)));
             }
             i++;
         }

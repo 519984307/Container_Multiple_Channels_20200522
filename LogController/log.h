@@ -1,23 +1,20 @@
-#ifndef LOG_H
+﻿#ifndef LOG_H
 #define LOG_H
 
 #include <QObject>
-
-#include <QDebug>
 #include <QTime>
+#include <QDateTime>
 #include <QFile>
 #include <QDir>
-#include <QPointer>
-#include <QScopedPointer>
 #include <QStandardPaths>
-#include <QMessageLogger>
+#include <QReadWriteLock>
 
 class Log : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit Log(QObject *parent = nullptr);
+    explicit Log(QString App, QObject *parent = nullptr);
 
     ///
     /// \brief outPutMessage 输出日志
@@ -33,7 +30,7 @@ signals:
     /// \brief singal_newLogText 新日志信息
     /// \param value 信息体
     ///
-    void singal_newLogText(QString value);
+    void signal_newLogText(QtMsgType type,QDateTime time,QString value);
 
 private slots:
 
@@ -41,7 +38,7 @@ private slots:
     /// \brief slot_addLog 添加日志信息(回写到UI)
     /// \param value
     ///
-    void slot_addLog(QString value);
+    void slot_addLog(QtMsgType type,QDateTime time,QString value);
 
 private:
 
@@ -55,6 +52,10 @@ private:
     /// \brief logFile 日志文件路径
     ///
     QFile logFile;
+
+    QString AppName;
+
+    QReadWriteLock lock;
 };
 
 #endif // LOG_H

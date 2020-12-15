@@ -29,7 +29,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-256</y>
+        <y>0</y>
         <width>798</width>
         <height>941</height>
        </rect>
@@ -114,21 +114,21 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_2">
+             <widget class="QLineEdit" name="Camera_Prospects">
               <property name="inputMask">
                <string>000.000.000.000;_</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_3">
+             <widget class="QLineEdit" name="Camera_Forground">
               <property name="inputMask">
                <string>000.000.000.000;_</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit">
+             <widget class="QLineEdit" name="LocalAddr">
               <property name="inputMask">
                <string>000.000.000.000;_</string>
               </property>

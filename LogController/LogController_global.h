@@ -3,8 +3,6 @@
 
 #include <QtCore/qglobal.h>
 
-#include <QObject>
-
 #if defined(LOGCONTROLLER_LIBRARY)
 #  define LOGCONTROLLER_EXPORT Q_DECL_EXPORT
 #else

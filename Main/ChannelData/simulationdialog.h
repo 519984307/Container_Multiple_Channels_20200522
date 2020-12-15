@@ -1,4 +1,4 @@
-#ifndef SIMULATIONDIALOG_H
+﻿#ifndef SIMULATIONDIALOG_H
 #define SIMULATIONDIALOG_H
 
 #include <QDialog>
@@ -24,8 +24,12 @@ private slots:
 
     void on_fallRodPushButton_clicked();
 
+    void on_toolButton_clicked();
+
 private:
     Ui::SimulationDialog *ui;
+
+    int col;
 };
 
 #endif // SIMULATIONDIALOG_H

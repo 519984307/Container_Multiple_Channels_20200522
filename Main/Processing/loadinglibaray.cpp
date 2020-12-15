@@ -1,23 +1,21 @@
-#include "loadinglibaray.h"
-
-#include "Parameter/processing.h"
-
-#include "Interface/ICaptureImagesHCNET.h"
-#include "Interface/ICaptureImagesTCP.h"
-#include "Interface/ITheLicensePlateHCNET.h"
-#include "Interface/ITheLicensePlateWTY.h"
-#include "Interface/databaseread_interface.h"
-#include "Interface/databasewrite_interface.h"
-#include "Interface/datainterchange_interface.h"
-#include "Interface/encryption_interface.h"
-#include "Interface/infraredlogic_interface.h"
-#include "Interface/recognizer_interface.h"
-#include "Interface/thedataanalysis_interface.h"
+﻿#include "loadinglibaray.h"
+#include <QtDebug>
 
 LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(parent)
 {
-    this->setParent(parent);
+    channelCount=ChannelNumber;
+}
 
+void LoadingLibaray::slot_destructorThread()
+{
+    foreach (auto thread, tdList) {
+        thread->quit();
+        thread->wait();
+    }
+}
+
+void LoadingLibaray::slot_createLibaray()
+{
     QDir pluginsDir(QCoreApplication::applicationDirPath());
 
     /*  创建插件目录  */
@@ -27,12 +25,17 @@ LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(par
 
     const QString path=pluginsDir.path();
 
+    /*****************************
+    * @brief: 插件数量
+    ******************************/
+    int pluginsNum=0;
+
     for(const QString &fileName :pluginsDir.entryList(QDir::Files)){
-        QPluginLoader  pluginLoader(pluginsDir.absoluteFilePath(fileName));       
+        QPluginLoader  pluginLoader(pluginsDir.absoluteFilePath(fileName));
         QObject *plugin = pluginLoader.instance();
 
         if(plugin){
-            const QString pluginName=fileName.split(".")[0];
+            const QString pluginName=fileName.split(".").at(0);
             /*  创建子插件目录 */
             pluginsDir.mkdir(pluginName);
             pluginsDir.cd(pluginName);
@@ -46,70 +49,73 @@ LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(par
             /*****************************
             * @brief: 插件数量
             ******************************/
-            int pluginsNum=0;
+            pluginsNum=0;
 
-            if(ICaptureImagesHCNET *pICaptureImagesHCNET=static_cast<ICaptureImagesHCNET*>(plugin)){
-                /*****************************
-                * @brief:箱号相机：前，后，左，右，顶，车头，车尾
-                ******************************/
-                pluginsNum=ChannelNumber*7;
-
-                delete pICaptureImagesHCNET;
-                pICaptureImagesHCNET=nullptr;                
+            if(ICaptureImages *pICaptureImages=qobject_cast<ICaptureImages*>(plugin)){
+                delete pICaptureImages;
+                pICaptureImages=nullptr;
+                pluginsNum=channelCount*LocalPar::CamerNumber;
             }
-            else if (ICaptureImagesTCP *pICaptureImagesTCP=qobject_cast<ICaptureImagesTCP*>(plugin)) {
-                pluginsNum=ChannelNumber*7;
-
-                delete pICaptureImagesTCP;
-                pICaptureImagesTCP=nullptr;
-            }
-            else if (InfraredLogic_Interface *pInfraredLogic_Interface=qobject_cast<InfraredLogic_Interface*>(plugin)) {
-                pluginsNum=ChannelNumber;
-
-                delete pInfraredLogic_Interface;
-                pInfraredLogic_Interface=nullptr;
+            else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
+                delete pIMiddleware;
+                pIMiddleware=nullptr;
+                pluginsNum=1;
             }
             else {
-                delete plugin;
-                plugin=nullptr;
+                pluginLoader.unload();
             }
 
             for(int i=1;i<=pluginsNum;i++){
                   QFile::copy(QDir::toNativeSeparators(QString("%1/%2").arg(path).arg(fileName)),QDir::toNativeSeparators(QString("%1/%2_%3").arg(pluginsDir.absolutePath()).arg(i).arg(fileName)));
             }
-
-            processingPlugins(pluginsDir);
+            if(pluginsNum>0){
+                processingPlugins(pluginsDir);
+            }
 
             pluginsDir.cdUp();
         }
         pluginLoader.unload();
     }
+
+    emit signal_handleFinished();
 }
 
 void LoadingLibaray::processingPlugins(QDir pluginPath)
 {
+    emit signal_progressRangeChanged(0,pluginPath.entryList(QDir::Files).count());
+    int val=1;
+
     const QStringList entryList=pluginPath.entryList(QDir::Files);
     for(QString pluginName:entryList){
+
+        emit signal_progressValueChanged(val++);
+        emit signal_progressTextChanged(pluginName);
+
         QPluginLoader  pluginLoader(pluginPath.absoluteFilePath(pluginName));
         QObject* plugin = pluginLoader.instance();
 
         if(plugin){
-            if(ICaptureImagesHCNET* pICaptureImagesHCNET=qobject_cast<ICaptureImagesHCNET*>(plugin)){
-
+            if(ICaptureImages *pICaptureImages=qobject_cast<ICaptureImages*>(plugin)){
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pICaptureImages->moveToThread(th);
+                th->start();
+                ICaptureImagesLit.append(QSharedPointer<ICaptureImages>(pICaptureImages));
             }
-        }else{
-            delete plugin;
-            plugin=nullptr;
+            else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
+
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pIMiddleware->moveToThread(th);
+                th->start();
+                IMiddlewareLit.append(QSharedPointer<IMiddleware>(pIMiddleware));
+            }
+            else {
+                pluginLoader.unload();
+            }
         }
-    }/*
-    QMap<QString, QPluginLoader*>::iterator iter = plugin_map.find(plugin_guid);
-    if (iter == plugin_map.end()) {
-        return false;
+        else{
+            pluginLoader.unload();
+        }
     }
-
-    iter.value()->unload();
-    plugin_map.erase(iter);
-
-    return true;
-    */
 }

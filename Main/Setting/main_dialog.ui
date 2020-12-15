@@ -750,14 +750,31 @@ As memory increases in multi-page mode, switching pages will display a full snap
     </spacer>
    </item>
    <item row="6" column="0" colspan="4">
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1">
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="label_4">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>version:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="verLabel">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="styleSheet">
         <string notr="true">color: rgb(255, 0, 0);</string>
        </property>
        <property name="text">
-        <string>Container Number Identification System V3.20.79 </string>
+        <string/>
        </property>
       </widget>
      </item>

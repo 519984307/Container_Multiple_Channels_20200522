@@ -5,10 +5,12 @@
 #include <QStringList>
 
 namespace LocalPar {
-
-    extern QString name;
+    extern QString App;
+    extern QString version;
+    extern QString copyright;
     extern QString msg;
     extern int Channels;
+    extern int CamerNumber;
     extern QStringList CamerNameList;
 }
 

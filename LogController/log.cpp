@@ -1,7 +1,10 @@
-#include "log.h"
+﻿#include "log.h"
 
-Log::Log(QObject *parent) : QObject(parent)
+Log::Log(QString App, QObject *parent) : QObject(parent)
 {
+    this->setParent(parent);
+    AppName=App;
+
     QDateTime dateTime = QDateTime::currentDateTime();
     QString stringDateTime = dateTime.toString( "yyyy_MM_dd_hh_mm_ss" );
     QString path = QStandardPaths::writableLocation( QStandardPaths::AppConfigLocation );
@@ -25,7 +28,7 @@ Log::Log(QObject *parent) : QObject(parent)
         file.remove();
     }
 
-    connect( this, SIGNAL( singal_newLogText( QString ) ), this, SLOT( slot_addLog( QString ) ) );
+    connect( this, SIGNAL( signal_newLogText(QtMsgType,QDateTime ,QString ) ), this, SLOT( slot_addLog( QtMsgType,QDateTime ,QString) ) );
 }
 
 void Log::outPutMessage(QtMsgType type, const QMessageLogContext &context, const QString &msg)
@@ -55,19 +58,25 @@ void Log::outPutMessage(QtMsgType type, const QMessageLogContext &context, const
         msgType="Fatal";
         abort();
     }
+    fflush(stderr);
 
-    writeToLog(QString("[%1] [%2] [%3] : %4").arg("ContainerMultiple").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss zzz")).arg(msgType,8,QChar('.')).arg(msg));
-    emit singal_newLogText( msg );
+    QDateTime time=QDateTime::currentDateTime();
+    writeToLog(QString("[%1] [%2] [%3] : %4").arg(AppName).arg(time.toString("yyyy-MM-dd hh:mm:ss zzz")).arg(msgType,8,QChar(' ')).arg(msg));
+
+    emit signal_newLogText(type,time, msg );
 }
 
-void Log::slot_addLog(QString value)
+void Log::slot_addLog(QtMsgType type, QDateTime time, QString value)
 {
     Q_UNUSED(value)
-    //qDebug()<<value;
+    Q_UNUSED(time)
+    Q_UNUSED(type)
 }
 
 void Log::writeToLog(QString value)
 {
+    lock.lockForWrite();
+
 #ifdef Q_OS_LINUX
     QString eol = "\n";
 #endif
@@ -78,4 +87,6 @@ void Log::writeToLog(QString value)
     logFile.write( value.toUtf8() );
     logFile.write( eol.toUtf8() );
     logFile.close();
+
+    lock.unlock();
 }

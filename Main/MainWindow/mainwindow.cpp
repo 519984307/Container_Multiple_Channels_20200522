@@ -1,7 +1,7 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QPointer>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,15 +11,21 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initializingObject();
     initializationParameter();
-    mainConnect();
-    createSystemTrayMenu();
+    connectProcess();
     getScreenInfo();
-
-    isExit=false;
 }
 
 MainWindow::~MainWindow()
-{    
+{
+    foreach (auto thread, tdList) {
+        thread->quit();
+        thread->wait();
+    }
+
+    delete  pLoadinglibaray;
+    pLoadinglibaray=nullptr;
+
+
     delete ui;
 }
 
@@ -28,55 +34,69 @@ void MainWindow::closeEvent(QCloseEvent *event)
     if(isExit){
         clearnContainer();
         event->accept();
+        QWidget::closeEvent(event);
+        //exit(0);
     }
     else {
         event->ignore();
         hide();
-        SystemTray->showMessage(LocalPar::name,tr("The program is running in the background, if you want to exit, please exit from the taskbar!"),QSystemTrayIcon::Information,3000);
+        SystemTray->showMessage(LocalPar::copyright,tr("The program is running in the background, if you want to exit, please exit from the taskbar!"),QSystemTrayIcon::Information,3000);
     }
 }
 
 void MainWindow::changeEvent(QEvent *event)
 {
-    if (this->windowState()==Qt::WindowMinimized) {
-        this->hide();
+    if(event->type()==QEvent::WindowStateChange && this->windowState()==Qt::WindowMinimized){
+        hide();
     }
-
     QWidget::changeEvent(event);
 }
 
 void MainWindow::clearnContainer()
 {
+
+    emit signal_releaseResources();
+emit signal_destructorThread();
+
+
+    //watcher->cancel();
+    //p_Data_Log_Form.data()->close();
+
     /*****************************
     * 删除所有窗口对象
     ******************************/
-    qDeleteAll (Form_Map);
-    qDeleteAll (Channel_Data_Action_Map.keys());
+//    qDeleteAll (Form_Map);
+//    qDeleteAll (From_Action_Map.keys());
+//    qDeleteAll (Channel_Data_From_Map.values());
 
-    Channel_Data_Action_Map.clear();
-    Form_Map.clear();
+    Channel_Data_From_Map.clear();
+    From_Action_Map.clear();
+    Form_Map.clear();   
 }
 
 void MainWindow::getScreenInfo()
 {
-    setWindowState(Qt::WindowMaximized);
+    actionShow=new QAction(tr("Display window"),this);
+    connect(actionShow,SIGNAL(triggered()),this,SLOT(systemTrayAction()));
 
-    QPointer<QMenu> systemTrayMen(new QMenu(this));
+    actionExit=new QAction(tr("Exit the program"),this);
+    connect(actionExit,SIGNAL(triggered()),this,SLOT(systemTrayAction()));
+
+    systemTrayMen=QPointer<QMenu>(new QMenu(this));
     systemTrayMen->addAction(actionShow);
     systemTrayMen->addAction(actionExit);
 
-    SystemTray=QPointer<QSystemTrayIcon>  (new QSystemTrayIcon(this));
-    SystemTray->setContextMenu(systemTrayMen);
+    SystemTray=QPointer<QSystemTrayIcon>(new QSystemTrayIcon(this));
+    SystemTray->setContextMenu(systemTrayMen.data());
     SystemTray->setIcon(QIcon(":/UI_ICO/ICO/ICO.ico"));
-    SystemTray->setToolTip(LocalPar::name);
+    SystemTray->setToolTip(LocalPar::copyright);
     SystemTray->show();
 
-    connect(SystemTray,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),this,SLOT(systemTrayTriggered(QSystemTrayIcon::ActivationReason)));
+    connect(SystemTray.data(),SIGNAL(activated(QSystemTrayIcon::ActivationReason)),this,SLOT(systemTrayTriggered(QSystemTrayIcon::ActivationReason)));
 
     if(Parameter::Minimization){
         this->hide();
-
-        SystemTray->showMessage(LocalPar::name,LocalPar::msg,QSystemTrayIcon::Information,3000);
+        SystemTray->showMessage(LocalPar::copyright,LocalPar::msg,QSystemTrayIcon::Information,3000);
 
     }else {
         if(Parameter::FullScreen){
@@ -84,92 +104,85 @@ void MainWindow::getScreenInfo()
         }
         else {
             this->show();
-            setWindowState(Qt::WindowMaximized);
+            this->setWindowState(Qt::WindowMaximized);
         }
     }
-
-}
-
-void MainWindow::createSystemTrayMenu()
-{
-    actionShow=new QAction(tr("Display window"),this);
-    connect(actionShow,SIGNAL(triggered()),this,SLOT(systemTrayAction()));
-
-    actionExit=new QAction(tr("Exit the program"),this);
-    connect(actionExit,SIGNAL(triggered()),this,SLOT(systemTrayAction()));
 }
 
 void MainWindow::initializingObject()
-{                
-    permanentLabel=nullptr;
-    runTimeLabel=nullptr;
-    throughTheNumberLabel=nullptr;
-    hardDriveCapacityLabel=nullptr;
-    socketLinkCountLabel=nullptr;
+{
+    qRegisterMetaType<QtMsgType>("QtMsgType");
+    log=QPointer<LogController>(new LogController(LocalPar::App,this));
+
+    p_Data_Log_Form=QSharedPointer<Data_Log_Form>(new Data_Log_Form (nullptr));
+    p_Data_Log_Form.data()->setWindowModality(Qt::ApplicationModal);
+
+    connect(log.data(),SIGNAL(signal_newLogText(QtMsgType,QDateTime,QString)),p_Data_Log_Form.data(),SLOT(slot_newLogText(QtMsgType,QDateTime,QString)));
+
+    statusProgressBar=new QProgressBar (this);
+    statusProgressBar->setFixedWidth(400);
+    statusProgressBar->setStyleSheet("color: rgb(0, 0, 0);");
+    statusProgressBar->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
+
+    permanentLabel=new QLabel (tr("System ready"),this);;
+    runTimeLabel=new QLabel("0 H 0 M 0 S",this);;
+    throughTheNumberLabel=new QLabel("0 Car",this);;
+    hardDriveCapacityLabel=new QLabel("0 Mb",this);;
+    socketLinkCountLabel=new QLabel("0 Machines [Server]",this);;
+
+    permanentLabel->setStyleSheet("background-color: rgb(0, 85, 0);");
+
+    ui->statusBar->insertPermanentWidget(0,statusProgressBar);
+    ui->statusBar->insertPermanentWidget(1,permanentLabel);
+    ui->statusBar->insertPermanentWidget(2,socketLinkCountLabel);
+    ui->statusBar->insertPermanentWidget(3,hardDriveCapacityLabel);
+    ui->statusBar->insertPermanentWidget(4,throughTheNumberLabel);
+    ui->statusBar->insertPermanentWidget(5,runTimeLabel);
 
     p_Equipment_State_Form=nullptr;
-    p_Data_Log_Form=new Data_Log_Form (nullptr);
-
     Form_Map.append(p_Equipment_State_Form);
-    Form_Map.append(p_Data_Log_Form);        
-}
 
-void MainWindow::mainConnect()
-{
-    QList<int> actList=Channel_Data_Action_Map.values();
-    std::sort(actList.begin(),actList.end());
-    foreach (auto ind, actList) {
-        /*****************************
-        * 绑定工具栏按钮事件
-        ******************************/
-        connect(Channel_Data_Action_Map.key(ind),SIGNAL(triggered()),this,SLOT(actionTiggeredSlot()));
+//    watcher=new QFutureWatcher<void>(this);
+//    connect(watcher, SIGNAL(finished()), this, SLOT(slot_handleFinished()));
+//    connect(watcher,SIGNAL(progressRangeChanged(int , int )),this,SLOT(slot_progressRangeChanged(int , int )));
+//    connect(watcher,SIGNAL(progressTextChanged(const QString)),this,SLOT(slot_progressTextChanged(const QString )));
+//    connect(watcher,SIGNAL(progressValueChanged(int)),this,SLOT(slot_progressValueChanged(int )));
+//    QFuture<void> future =QtConcurrent::run(this,&MainWindow::loadingLibaray,Parameter::ChannelNumber);
+//    watcher->setFuture(future);
 
-        /*****************************
-        * 添加通道到菜单栏
-        ******************************/
-        ui->menuChannel_To_View->addAction(Channel_Data_Action_Map.key(ind));
 
-        /*****************************
-        * 添加通道到工具栏
-        ******************************/
-        ui->mainToolBar->addAction(Channel_Data_Action_Map.key(ind));
-    }
+    pLoadinglibaray=new LoadingLibaray(Parameter::ChannelNumber);
+    connect(pLoadinglibaray,SIGNAL(signal_handleFinished()), this, SLOT(slot_handleFinished()));
+    connect(pLoadinglibaray,SIGNAL(signal_progressRangeChanged(int , int )),this,SLOT(slot_progressRangeChanged(int , int )));
+    connect(pLoadinglibaray,SIGNAL(signal_progressTextChanged(const QString)),this,SLOT(slot_progressTextChanged(const QString )));
+    connect(pLoadinglibaray,SIGNAL(signal_progressValueChanged(int)),this,SLOT(slot_progressValueChanged(int )));
+    connect(this,SIGNAL(signal_destructorThread()),pLoadinglibaray,SLOT(slot_destructorThread()),Qt::QueuedConnection);
+    connect(this,SIGNAL(signal_createLibaray()),pLoadinglibaray,SLOT(slot_createLibaray()));
 
-    if(p_Equipment_State_Form!=nullptr){
-
-        /*****************************
-        * 初始化通道状态
-        ******************************/
-        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_Form,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
-
-        /*****************************
-        * 设置通道设备状态
-        ******************************/
-        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_Form,SLOT(setDeviceStatusSlot(int,int,bool)));
-    }
-
-    /*****************************
-    * 初始化设备
-    ******************************/
-    emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
+    QThread *th=new QThread(this);
+    tdList.append(th);
+    pLoadinglibaray->moveToThread(th);
+    th->start();
+    signal_createLibaray();
 }
 
 void MainWindow::initializationParameter()
 {
+    isExit=false;
     /*****************************
     * @brief: 参数处理
     ******************************/
-    Pointer_Processing=QSharedPointer<Processing> (new Processing (this));
+    Pointer_Parameter=QPointer<LoadParameter> (new LoadParameter (this));
 
     /*****************************
     * @brief:加载系统参数
     ******************************/
-    Pointer_Processing->loadParameter();
+    Pointer_Parameter->loadSysParameter();
 
     /*****************************
     * @brief: 加载通道参数
     ******************************/
-    Pointer_Processing->loadChannelParameter(Parameter::ChannelNumber);
+    Pointer_Parameter->loadChannelParameter(Parameter::ChannelNumber);
 
     /*****************************
     * @brief: 加载插件
@@ -182,7 +195,7 @@ void MainWindow::initializationParameter()
     /*****************************
     * @brief: 通道配置文件个数
     ******************************/
-    channelParCount=Pointer_Processing->ParmeterMap.count();
+    channelParCount=Pointer_Parameter->ParmeterMap.count();
 
     if(channelCount>1){
         /*****************************
@@ -193,7 +206,7 @@ void MainWindow::initializationParameter()
         pAction->setShortcut(QKeySequence(Qt::CTRL+static_cast<uint16_t>(key+'A')));
         pAction->setToolTip(tr("Channel switching (CTRL+%1)").arg("A"));
 
-        Channel_Data_Action_Map.insert(pAction,0);
+        From_Action_Map.insert(pAction,0);
         p_Equipment_State_Form=new Equipment_State_From(this);
 
         ui->gridLayout_2->addWidget(p_Equipment_State_Form);
@@ -213,26 +226,30 @@ void MainWindow::initializationParameter()
         /*****************************
         * @brief: 读取通道参数别名
         ******************************/
-        if(channelParCount>=channel && !Pointer_Processing->ParmeterMap[channel]->Alias.isEmpty()){
-            name=Pointer_Processing->ParmeterMap[channel]->Alias;
+        if(channelParCount>=channel && !Pointer_Parameter->ParmeterMap.value(channel)->Alias.isEmpty()){
+            name=Pointer_Parameter->ParmeterMap.value(channel)->Alias;
         }
-
         QAction *pAction=new QAction (name,this);
         pAction->setIcon(QIcon(":/UI_ICO/ICO/container.svg"));
         pAction->setShortcut(QKeySequence(Qt::CTRL+static_cast<uint16_t>(key+channel)));
         pAction->setToolTip(tr("Channel switching (CTRL+%1)").arg(channel));
 
-        Channel_Data_Action_Map.insert(pAction,channel);
+        From_Action_Map.insert(pAction,channel);
 
         /*****************************
         * @brief:数据窗口
         ******************************/
-        if(channelParCount>=channel && 0!=Pointer_Processing->ParmeterMap[channel]->Channel_number){
-            channel_number=Pointer_Processing->ParmeterMap[channel]->Channel_number;
+        if(channelParCount>=channel && 0!=Pointer_Parameter->ParmeterMap.value(channel)->Channel_number){
+            channel_number=Pointer_Parameter->ParmeterMap.value(channel)->Channel_number;
         }
         Channel_Data_Form *p_Channel_Data_Form=new Channel_Data_Form(name,channel_number,this);
         Channel_Data_From_Map.insert(channel,p_Channel_Data_Form);
         ui->gridLayout_2->addWidget(p_Channel_Data_Form);
+
+        /*****************************
+        * @brief:设置通道参数
+        ******************************/
+        p_Channel_Data_Form->loadParamter(Pointer_Parameter->ParmeterMap.value(channel));
 
         if(nullptr==p_Equipment_State_Form && 1==channel){
             p_Channel_Data_Form->setVisible(true);
@@ -247,32 +264,71 @@ void MainWindow::initializationParameter()
     }
 }
 
-void MainWindow::setStatusBar(const QString &msg)
-{    
-    if(runTimeLabel==nullptr){
-        runTimeLabel=new QLabel("0 H 0 M 0 S",this);
-        ui->statusBar->addPermanentWidget(runTimeLabel);
+void MainWindow::connectProcess()
+{
+    QList<int> actList=From_Action_Map.values();
+    std::sort(actList.begin(),actList.end());
+    foreach (auto ind, actList) {
+        /*****************************
+        * 绑定工具栏按钮事件
+        ******************************/
+        connect(From_Action_Map.key(ind),SIGNAL(triggered()),this,SLOT(actionTiggeredSlot()));
+
+        /*****************************
+        * 添加通道到菜单栏
+        ******************************/
+        ui->menuChannel_To_View->addAction(From_Action_Map.key(ind));
+
+        /*****************************
+        * 添加通道到工具栏
+        ******************************/
+        ui->mainToolBar->addAction(From_Action_Map.key(ind));
     }
-    if(throughTheNumberLabel==nullptr){
-        throughTheNumberLabel=new QLabel("0 Car",this);
-        ui->statusBar->addPermanentWidget(throughTheNumberLabel);
+    if(p_Equipment_State_Form!=nullptr){
+
+        /*****************************
+        * 初始化通道状态
+        ******************************/
+        connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_Form,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
+
+        /*****************************
+        * 设置通道设备状态
+        ******************************/
+        connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_Form,SLOT(setDeviceStatusSlot(int,int,bool)));
     }
-    if(hardDriveCapacityLabel==nullptr){
-        hardDriveCapacityLabel=new QLabel("0 Mb",this);
-        ui->statusBar->addPermanentWidget(hardDriveCapacityLabel);
+
+    foreach (auto from, Channel_Data_From_Map.values()) {
+        connect(this,SIGNAL(signal_initCamera()),from,SLOT(slot_initCamera()));
     }
-    if(socketLinkCountLabel==nullptr){
-        socketLinkCountLabel=new QLabel("0 Machines",this);
-        socketLinkCountLabel->setStyleSheet("color: rgb(255, 0, 0);background-color: rgb(226, 226, 226);");
-        ui->statusBar->addPermanentWidget(socketLinkCountLabel);
-    }
-    if(permanentLabel==nullptr){
-        permanentLabel = new QLabel (tr("System ready"),this);
-        ui->statusBar->addPermanentWidget(permanentLabel);
-    }
+
+    /*****************************
+    * 初始化设备
+    ******************************/
+    emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
+}
+
+void MainWindow::setStatusBar(/*int type */const QString &msg)
+{
+//    switch (type) {
+//    case 0:
+//        permanentLabel->setText(msg);
+//        break;
+//    case 1:
+//        runTimeLabel->setText(msg);
+//        break;
+//    case 2:
+//        throughTheNumberLabel->setText(msg);
+//        break;
+//    case 3:
+//        hardDriveCapacityLabel->setText(msg);
+//        break;
+//    case 4:
+//        socketLinkCountLabel->setText(msg);
+//        break;
+//    }
 
     permanentLabel->setText(msg);
-
+    ui->statusBar->showMessage("Technical support telephone:18565659070",100000);
 }
 
 void MainWindow::systemTrayAction()
@@ -283,7 +339,6 @@ void MainWindow::systemTrayAction()
         this->show();
     }
     if(pAction==actionExit){
-        //exit(0);
         isExit=true;
         this->close();
     }
@@ -307,12 +362,12 @@ void MainWindow::actionTiggeredSlot()
 {
     QPointer<QAction> pAction=qobject_cast<QAction*> (sender());
 
-    QMap<QAction*,int>::const_iterator it =Channel_Data_Action_Map.find(pAction);
+    QMap<QAction*,int>::const_iterator it =From_Action_Map.find(pAction);
 
     /*****************************
     * 预览通道没有切换,就不做处理(channelSelect)
     ******************************/
-    if(it!=Channel_Data_Action_Map.end() && it.value()!=channelSelect){
+    if(it!=From_Action_Map.end() && it.value()!=channelSelect){
 
         channelSelect=it.value();
 
@@ -331,10 +386,10 @@ void MainWindow::actionTiggeredSlot()
         }
 
         if(nullptr!= Channel_Data_From_Map.value(channelSelect,nullptr)){
-            Channel_Data_From_Map[channelSelect]->setVisible(true);
+            Channel_Data_From_Map.value(channelSelect)->setVisible(true);
             setStatusBar(tr("The preview page %1").arg( it.key()->text()));
         }
-    }    
+    }
 }
 
 void MainWindow::on_actionParameter_Settings_triggered()
@@ -370,7 +425,7 @@ void MainWindow::on_actionHistory_Sqlite_triggered()
 
 void MainWindow::on_actionData_log_triggered()
 {
-    if(p_Data_Log_Form!=nullptr){
+    if(nullptr!=p_Data_Log_Form){
         if(p_Data_Log_Form->isVisible()){
             p_Data_Log_Form->setVisible(false);
         }
@@ -382,4 +437,80 @@ void MainWindow::on_actionExit_triggered()
 {
     isExit=true;
     this->close();
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QSharedPointer<AboutDialog> dlg(new AboutDialog());
+    dlg->exec();
+}
+
+void MainWindow::slot_handleFinished()
+{
+    qInfo()<<"Successfully loading plug-in";
+    ui->statusBar->showMessage(tr("Successfully loading plug-in"),3000);
+    statusProgressBar->setVisible(false);
+
+    bindingPlugin();
+    /*****************************
+    * @brief:登录相机
+    ******************************/
+    emit signal_initCamera();
+}
+
+void MainWindow::slot_progressRangeChanged(int minimum, int maximum)
+{
+    statusProgressBar->setRange(minimum,maximum);
+}
+
+void MainWindow::slot_progressTextChanged(const QString &progressText)
+{
+    statusProgressBar->setFormat(tr("Loading plug-in:%1").arg(progressText));
+}
+
+void MainWindow::slot_progressValueChanged(int progressValue)
+{
+    statusProgressBar->setValue(progressValue);
+}
+
+void MainWindow::bindingPlugin()
+{
+    if(pLoadinglibaray->ICaptureImagesLit.size()>1){
+        int i=0;
+        for (int ind = 1; ind <= Channel_Data_From_Map.count(); ++ind) {
+            int j=i;
+            for (; j < LocalPar::CamerNumber+i; ++j) {
+                connect(pLoadinglibaray->ICaptureImagesLit.at(j).data(),SIGNAL(camerStateSingal(const QString,bool)),Channel_Data_From_Map.value(ind),SLOT(slot_camerState(const QString,bool)));
+                /* 释放动态库资源 */
+                connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->ICaptureImagesLit.at(j).data(),&ICaptureImages::releaseResourcesSlot,Qt::QueuedConnection);//,Qt::BlockingQueuedConnection);
+            }
+            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_front( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
+            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_before( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
+            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_left( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
+            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_right( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
+            if(7==LocalPar::CamerNumber){
+                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_top( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
+                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_prospects( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
+                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_foreground( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
+            }
+        }
+    }
+
+    if(pLoadinglibaray->IMiddlewareLit.size()>=1){
+        for (int var = 0; var < pLoadinglibaray->ICaptureImagesLit.size(); ++var) {
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_initCamera,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::initCameraSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_openTheVideo,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::openTheVideoSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_simulationCapture,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::simulationCaptureSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_liftingElectronicRailing,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::liftingElectronicRailingSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_transparentTransmission485,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::transparentTransmission485Slot);
+
+            //connect(pMiddlewareInterface,&MiddlewareInterface::signal_message,pGetImagesInterface,&GetImagesInterface::initCameraSlot);
+            connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::signal_pictureStream,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_pictureStream);
+            connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::signal_setCameraID,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_setCameraID);
+            connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::equipmentStateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_equipmentState);
+            connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::resultsTheLicensePlateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_resultsTheLicensePlate);
+        }
+        /* 释放动态库资源 */
+        connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::releaseResourcesSlot,Qt::QueuedConnection);
+    }
 }
