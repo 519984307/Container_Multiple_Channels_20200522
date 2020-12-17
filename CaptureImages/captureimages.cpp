@@ -91,6 +91,7 @@ void CaptureImages::slot_pictureStream(int ID, QByteArray arrJpg)
     if(put && ID==camerID){
         emit pictureStreamSignal(arrJpg,imgNumber,imgTime);
         //emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(camerIP));
+        qDebug()<<tr("IP=%1 Put Command Sucess").arg(camerIP);
         put=false;
     }
 }

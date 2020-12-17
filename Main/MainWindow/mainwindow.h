@@ -15,13 +15,12 @@
 #include <QAction>
 #include <QMenu>
 #include <QCloseEvent>
-#include <QPluginLoader>
 #include <QCoreApplication>
-#include <QVector>
 #include <QDir>
 #include <QProgressBar>
 #include <QDateTime>
 #include <QThread>
+#include <QMessageBox>
 
 #include <QtConcurrent>
 #include <QFuture>
@@ -47,6 +46,9 @@
 
 #include "logcontroller.h"
 #include "Processing/loadinglibaray.h"
+
+#include "alarmform.h"
+#include "errorform.h"
 
 namespace Ui {
 class MainWindow;
@@ -170,6 +172,11 @@ private:
     ///
     bool isExit;
 
+    ///
+    /// \brief alarmNum 警报数量
+    ///
+    int alarmNum;
+
     /*****************************
     * object
     ******************************/
@@ -179,7 +186,17 @@ private:
     ///
     /// \brief pLoadinglibaray 加载插件
     ///
-    LoadingLibaray* pLoadinglibaray;
+    QPointer<LoadingLibaray> pLoadinglibaray;
+
+    ///
+    /// \brief pErrorForm 错误弹幕
+    ///
+    QPointer<ErrorForm> pErrorForm;
+
+    ///
+    /// \brief pAlarmForm 错误状态指示
+    ///
+    QPointer<AlarmForm> pAlarmForm;
 
 //    ///
 //    /// \brief watcher 监视异步加载插件完成状态
@@ -187,9 +204,9 @@ private:
 //    QFutureWatcher<void> *watcher;
 
     ///
-    /// \brief log
+    /// \brief pLog
     ///
-    QPointer<LogController> log;
+    QPointer<LogController> pLog;
 
     ///
     /// \brief actionShow 任务栏显示主页面
@@ -305,6 +322,11 @@ private slots:
     ///
     void on_actionExit_triggered();
 
+    ///
+    /// \brief on_actionAbout_triggered 关于对话框
+    ///
+    void on_actionAbout_triggered();
+
 private slots:
 
     ///
@@ -332,10 +354,15 @@ private slots:
     void slot_progressValueChanged(int progressValue);
 
     ///
-    /// \brief on_actionAbout_triggered 关于对话框
+    /// \brief slot_Error 错误弹幕
+    /// \param pluginName
     ///
-    void on_actionAbout_triggered();    
+    void slot_Error(QString pluginName);
 
+    ///
+    /// \brief slot_hideErrorForm 隐藏错误弹幕
+    ///
+    void slot_hideErrorForm();
 signals:
 
     /*****************************
@@ -361,6 +388,13 @@ signals:
     /// \brief signal_createLibaray 加载插件
     ///
     void signal_createLibaray();
+
+    ///
+    /// \brief signal_setAlarmMsg 设置警报信息
+    /// \param num 警报数量
+    /// \param msg 信息
+    ///
+    void signal_setAlarmMsg(int num,QString msg);
 
     ///
     /// \brief signal_initCamera 初始化相机

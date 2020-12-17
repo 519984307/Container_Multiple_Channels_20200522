@@ -89,6 +89,12 @@ signals:
     ///
     void signal_progressValueChanged(int progressValue);
 
+    ///
+    /// \brief signal_loadPluginError 加载插件异常，出现重复插件
+    /// \param pluginName
+    ///
+    void signal_loadPluginError(QString pluginName);
+
 };
 
 #endif // LOADINGLIBARAY_H

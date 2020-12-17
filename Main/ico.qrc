@@ -3,6 +3,10 @@
         <file>ICO/ICO.ico</file>
         <file>ICO/main-fill.svg</file>
         <file>ICO/container.svg</file>
+        <file>ICO/error.svg</file>
+        <file>ICO/close.svg</file>
+        <file>ICO/alarm.svg</file>
+        <file>ICO/alarm.png</file>
     </qresource>
     <qresource prefix="/database">
         <file>ICO/before.svg</file>

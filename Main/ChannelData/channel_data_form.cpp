@@ -48,6 +48,7 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
         ******************************/
         obj->setAttribute(Qt::WA_TransparentForMouseEvents);
         obj->setFocusPolicy(Qt::NoFocus);
+        obj->setStyleSheet("color: rgb(211, 0, 0);");
     }
 
     ui->toolBox->setCurrentIndex(0);
@@ -117,34 +118,88 @@ void Channel_Data_Form::on_SimulationPushButton_clicked()
 
 void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
 {
+    if(nullptr==this->para){
+        return;
+    }
     if(camerIP==para->FrontCamer){
         ui->frontCheckBox->setChecked(state);
+        if(state){
+            ui->frontCheckBox->setStyleSheet("color: rgb(0, 211, 0);");
+        }
+        else {
+            ui->frontCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
+        }
     }
     if (camerIP==para->AfterCamer) {
         ui->beforeCheckBox->setChecked(state);
+        if(state){
+            ui->beforeCheckBox->setStyleSheet("color: rgb(0, 211, 0);");
+        }
+        else {
+            ui->beforeCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
+        }
     }
     if (camerIP==para->LeftCamer) {
         ui->leftCheckBox->setChecked(state);
+        if(state){
+            ui->leftCheckBox->setStyleSheet("color: rgb(0, 211, 0);");
+        }
+        else {
+            ui->leftCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
+        }
     }
     if (camerIP==para->RgihtCamer) {
         ui->rightCheckBox->setChecked(state);
+        if(state){
+            ui->rightCheckBox->setStyleSheet("color: rgb(0, 211, 0);");
+        }
+        else {
+            ui->rightCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
+        }
     }
     if (camerIP==para->PlateCamer) {
         ui->platestateCheckBox->setChecked(state);
+        if(state){
+            ui->platestateCheckBox->setStyleSheet("color: rgb(0, 211, 0);");
+        }
+        else {
+            ui->platestateCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
+        }
     }
     if (camerIP==para->TopCamer) {
         ui->topstateCheckBox->setChecked(state);
+        if(state){
+            ui->topstateCheckBox->setStyleSheet("color: rgb(0, 211, 0);");
+        }
+        else {
+            ui->topstateCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
+        }
     }
     if (camerIP==para->ForgroundCamer) {
         ui->forgroundstateCheckBox->setChecked(state);
+        if(state){
+            ui->forgroundstateCheckBox->setStyleSheet("color: rgb(0, 211, 0);");
+        }
+        else {
+            ui->forgroundstateCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
+        }
     }
     if (camerIP==para->ProspectsCamer) {
         ui->prospectsstateCheckBox->setChecked(state);
+        if(state){
+            ui->prospectsstateCheckBox->setStyleSheet("color: rgb(0, 211, 0);");
+        }
+        else {
+            ui->prospectsstateCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
+        }
     }
 }
 
 void Channel_Data_Form::slot_initCamera()
 {
+    if(nullptr==this->para){
+        return;
+    }
     emit signal_initCamer_front(para->FrontCamer,8000,para->UserCamer,para->PasswordCamer);
     emit signal_initCamer_before(para->AfterCamer,8000,para->UserCamer,para->PasswordCamer);
     emit signal_initCamer_left(para->LeftCamer,8000,para->UserCamer,para->PasswordCamer);
@@ -152,5 +207,9 @@ void Channel_Data_Form::slot_initCamera()
     emit signal_initCamer_top(para->TopCamer,8000,para->UserCamer,para->PasswordCamer);
     emit signal_initCamer_prospects(para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer);
     emit signal_initCamer_foreground(para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer);
+}
 
+void Channel_Data_Form::slot_bindingCameraID(QString cameraAddr, int ID)
+{
+    qDebug()<<para->Channel_number<<":"<<ID;
 }

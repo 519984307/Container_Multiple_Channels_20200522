@@ -83,12 +83,24 @@ color: rgb(0, 0, 0);</string>
     <addaction name="actionData_log"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
+    <property name="tearOffEnabled">
+     <bool>true</bool>
+    </property>
     <property name="title">
      <string>Help</string>
     </property>
+    <property name="separatorsCollapsible">
+     <bool>false</bool>
+    </property>
     <widget class="QMenu" name="menuErrCode">
+     <property name="tearOffEnabled">
+      <bool>false</bool>
+     </property>
      <property name="title">
       <string>ErrCode</string>
+     </property>
+     <property name="toolTipsVisible">
+      <bool>false</bool>
      </property>
     </widget>
     <addaction name="menuErrCode"/>

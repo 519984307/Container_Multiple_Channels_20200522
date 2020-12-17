@@ -1,8 +1,8 @@
-#include "parameter.h"
+﻿#include "parameter.h"
 
 namespace Parameter {
 
-    int ChannelNumber= 0;
+    int ChannelNumber= 1;
     int ImageFormat= 0;
     int ImageNamingRules= 0;
     QString ImagePath= QString("./");

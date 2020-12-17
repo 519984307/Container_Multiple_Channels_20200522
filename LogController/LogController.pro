@@ -1,11 +1,15 @@
 QT -= gui
 
-TARGET = log
-
 TEMPLATE = lib
 DEFINES += LOGCONTROLLER_LIBRARY
 
 CONFIG += c++11
+
+CONFIG += skip_target_version_ext
+VERSION = 1.1.0
+QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
+
+TARGET = log
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings

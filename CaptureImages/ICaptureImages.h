@@ -1,4 +1,4 @@
-#ifndef ICAPTUREIMAGES_H
+﻿#ifndef ICAPTUREIMAGES_H
 #define ICAPTUREIMAGES_H
 
 #include <QObject>
@@ -158,9 +158,16 @@ signals:
     /// \param dmsg
     ///
     void signal_transparentTransmission485(const QString &msg);
+
+    ///
+    /// \brief signal_bindingCameraID 绑定相机地址和ID号
+    /// \param cameraAddr
+    /// \param ID
+    ///
+    void signal_bindingCameraID(QString cameraAddr,int ID);
 };
 
-#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.0"
+#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.0"
 Q_DECLARE_INTERFACE(ICaptureImages,ICaptureImagesIID);
 
 #endif // ICAPTUREIMAGES_H

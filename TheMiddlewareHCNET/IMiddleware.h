@@ -1,4 +1,4 @@
-#ifndef IMIDDLEWARE_H
+﻿#ifndef IMIDDLEWARE_H
 #define IMIDDLEWARE_H
 
 #include <QObject>
@@ -91,7 +91,7 @@ public slots:
     virtual void releaseResourcesSlot()=0;
 };
 
-#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/1.0"
+#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/1.1.0"
 Q_DECLARE_INTERFACE(IMiddleware,IMiddlewareIID);
 
 #endif // IMIDDLEWARE_H

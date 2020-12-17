@@ -287,12 +287,9 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
     if(pTimerState!=nullptr){
          pTimerState->stop();
     }
-    if(NET_DVR_SetConnectTime_L!=nullptr){
-         NET_DVR_SetConnectTime_L(1,0);/* 设置网络连接超时时间和连接尝试次数 */
-         if(NET_DVR_SetReconnect_L!=nullptr){
-             NET_DVR_SetReconnect_L(1,0);
-         }
-    }
+//    if(NET_DVR_SetConnectTime_L!=nullptr){
+//         NET_DVR_SetConnectTime_L(1,0);/* 设置网络连接超时时间和连接尝试次数 */
+//    }
     foreach ( auto handID, alarmInfoMap.keys()) {
         if(NET_DVR_CloseAlarmChan_V30_L!=nullptr){
             NET_DVR_CloseAlarmChan_V30_L(handID);

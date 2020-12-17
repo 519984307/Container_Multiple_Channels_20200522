@@ -30,11 +30,27 @@ void LoadingLibaray::slot_createLibaray()
     ******************************/
     int pluginsNum=0;
 
-    for(const QString &fileName :pluginsDir.entryList(QDir::Files)){
+    /*****************************
+    * @brief:删除非插件类文件夹
+    ******************************/
+    for(const QString fileName :pluginsDir.entryList(QDir::Dirs|QDir::NoDotAndDotDot)){
+        if("HCNetSDK"!=fileName && "OLD"!=fileName){
+            QDir dir(QDir::toNativeSeparators(path+"/"+fileName));
+            dir.removeRecursively();
+        }
+    }
+
+    /*****************************
+    * @brief:加载插件名称，判断同一接口是否重复加载
+    ******************************/
+    QVector<QString> loadVec;
+
+    for(const QString fileName :pluginsDir.entryList(QDir::Files,QDir::Name)){
         QPluginLoader  pluginLoader(pluginsDir.absoluteFilePath(fileName));
         QObject *plugin = pluginLoader.instance();
 
         if(plugin){
+
             const QString pluginName=fileName.split(".").at(0);
             /*  创建子插件目录 */
             pluginsDir.mkdir(pluginName);
@@ -51,18 +67,35 @@ void LoadingLibaray::slot_createLibaray()
             ******************************/
             pluginsNum=0;
 
+            bool isErr=false;
+
             if(ICaptureImages *pICaptureImages=qobject_cast<ICaptureImages*>(plugin)){
                 delete pICaptureImages;
                 pICaptureImages=nullptr;
                 pluginsNum=channelCount*LocalPar::CamerNumber;
+
+                if(-1!=loadVec.indexOf("ICaptureImages")){
+                    isErr=true;
+                }
+                else {
+                    loadVec.append("ICaptureImages");
+                }
             }
             else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
                 delete pIMiddleware;
                 pIMiddleware=nullptr;
                 pluginsNum=1;
+
+                if(-1!=loadVec.indexOf("IMiddleware")){
+                    isErr=true;
+                }
+                else {
+                    loadVec.append("IMiddleware");
+                }
             }
-            else {
-                pluginLoader.unload();
+
+            if(isErr){
+                emit signal_loadPluginError(fileName);
             }
 
             for(int i=1;i<=pluginsNum;i++){
@@ -73,8 +106,8 @@ void LoadingLibaray::slot_createLibaray()
             }
 
             pluginsDir.cdUp();
-        }
-        pluginLoader.unload();
+            pluginLoader.unload();
+        }       
     }
 
     emit signal_handleFinished();

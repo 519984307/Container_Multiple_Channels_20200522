@@ -1076,6 +1076,9 @@ color: rgb(255, 255, 255);</string>
           </item>
           <item row="7" column="0">
            <widget class="QCheckBox" name="frontCheckBox">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="text">
              <string>Front</string>
             </property>

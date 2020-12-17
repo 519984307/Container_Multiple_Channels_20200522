@@ -70,6 +70,13 @@ public slots:
     /// \brief slot_initCamera 初始化相机
     ///
     void slot_initCamera();
+
+    ///
+    /// \brief slot_bindingCameraID 绑定相机地址和ID号
+    /// \param cameraAddr
+    /// \param ID
+    ///
+    void slot_bindingCameraID(QString cameraAddr,int ID);
 };
 
 #endif // CHANNEL_DATA_FORM_H

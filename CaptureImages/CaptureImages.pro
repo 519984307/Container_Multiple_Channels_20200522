@@ -12,6 +12,10 @@ CONFIG += plugin
 
 TARGET = capimages
 
+CONFIG += skip_target_version_ext
+VERSION = 1.1.0
+QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
+
 DEFINES += CAPTUREIMAGES_LIBRARY
 
 # The following define makes your compiler emit warnings if you use
