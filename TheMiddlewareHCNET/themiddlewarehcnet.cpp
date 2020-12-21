@@ -141,7 +141,7 @@ bool TheMiddlewareHCNET::initializationParameter()
             /*****************************
             * @brief:交通系列布防信息回调
             ******************************/
-            if(NET_DVR_SetDVRMessageCallBack_V31_L!=nullptr && NET_DVR_SetDVRMessageCallBack_V31_L(TheMiddlewareHCNET::exceptionMSGCallBack_V31,this)){
+            if(NET_DVR_SetDVRMessageCallBack_V31_L!=nullptr && NET_DVR_SetDVRMessageCallBack_V31_L(TheMiddlewareHCNET::exceptionMSGCallBack_V31,this) && 3==CAMERA_TYPE){
                 emit messageSignal(ZBY_LOG("INFO"),tr("Setup defense callback successful"));
             }
 
@@ -186,7 +186,7 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
             LPDWORD dataLen=nullptr;
             /* 手动触发抓拍保存到内存 */
             if(NET_DVR_CaptureJPEGPicture_NEW_L!=nullptr && NET_DVR_CaptureJPEGPicture_NEW_L(ID,1,&pJpegFile,imgBuff,charLen,dataLen)){
-                QByteArray arrayJpg(imgBuff,*dataLen);
+                QByteArray arrayJpg(imgBuff,IMG_BYTE);
                 emit signal_pictureStream(ID,arrayJpg);
                 emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
 
@@ -346,7 +346,7 @@ void TheMiddlewareHCNET::initCameraSlot(const QString &localAddr, const QString 
             /*****************************
             * @brief:交通系列，布防。
             ******************************/
-            if(NET_DVR_SetupAlarmChan_V41_L!=nullptr){
+            if(NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==CAMERA_TYPE){
                 NET_DVR_SETUPALARM_PARAM aram={};
                 aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
                 aram.byAlarmInfoType=1;
@@ -505,20 +505,20 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
         /*****************************
         * @brief:交通系列，布防。
         ******************************/
-        if(pThis->NET_DVR_SetupAlarmChan_V41_L!=nullptr){
-            NET_DVR_SETUPALARM_PARAM aram={};
-            aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
-            aram.byAlarmInfoType=1;
-            aram.byLevel=1;
-            long lHandle= pThis->NET_DVR_SetupAlarmChan_V41_L(lUserID,&aram);
-            if(lHandle<0){
-                emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camera Aram Error<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)).arg(pThis->NET_DVR_GetLastError_L()));
-            }
-            else{
-                emit pThis->messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Aram Success").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)));
-                pThis-> alarmInfoMap.insert(lHandle,aram);
-            }
-        }
+//        if(pThis->NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==CAMERA_TYPE){
+//            NET_DVR_SETUPALARM_PARAM aram={};
+//            aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
+//            aram.byAlarmInfoType=1;
+//            aram.byLevel=1;
+//            long lHandle= pThis->NET_DVR_SetupAlarmChan_V41_L(lUserID,&aram);
+//            if(lHandle<0){
+//                emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camera Aram Error<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)).arg(pThis->NET_DVR_GetLastError_L()));
+//            }
+//            else{
+//                emit pThis->messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Aram Success").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)));
+//                pThis-> alarmInfoMap.insert(lHandle,aram);
+//            }
+//        }
     }
 }
 
@@ -546,7 +546,7 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
                     /*****************************
                     * @brief:交通系列，布防。
                     ******************************/
-                    if(NET_DVR_SetupAlarmChan_V41_L!=nullptr){
+                    if(NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==CAMERA_TYPE){
                         NET_DVR_SETUPALARM_PARAM aram={};
                         aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
                         aram.byAlarmInfoType=1;

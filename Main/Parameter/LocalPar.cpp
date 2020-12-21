@@ -11,7 +11,7 @@ namespace LocalPar {
     QString msg="集装箱号码识别系统";
     int Channels =10;
     /*****************************
-    * @brief:箱号相机：前，后，左，右，顶，车牌，车头，车尾
+    * @brief:箱号相机：前，后，左，右，顶，车头，车尾,车牌
     ******************************/
     QStringList CamerNameList={"Front","Before","Left","Right","Top","Prospects","Foreground","Plate"};
     int CamerNumber=7;/* 不包含车牌 */

@@ -1,10 +1,10 @@
-#ifndef THEMIDDLEWAREHCNET_H
+﻿#ifndef THEMIDDLEWAREHCNET_H
 #define THEMIDDLEWAREHCNET_H
 
 #define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
 
 #define IMG_BYTE 1920*1080+1
-#define CAMERA_TYPE 3
+#define CAMERA_TYPE 1
 
 
 #include "TheMiddlewareHCNET_global.h"

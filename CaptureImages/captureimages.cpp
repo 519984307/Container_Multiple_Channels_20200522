@@ -5,6 +5,7 @@ CaptureImages::CaptureImages(QObject *parent)
 {
     this->setParent(parent);
 
+    signature="";
     imgNumber=-1;
     camerID=-1;
     put=false;
@@ -23,13 +24,14 @@ bool CaptureImages::InitializationSlot()
     return false;
 }
 
-void CaptureImages::initCamerSlot(const QString &camerIP, const int &camerPort,const QString &CamerUser,const QString &CamerPow)
+void CaptureImages::initCamerSlot(const QString &camerIP, const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature)
 {
+    this->signature=signature;
+    this->camerIP=camerIP;
+
     if(camerIP.isEmpty() || camerIP=="..."){
         return;
-    }
-    qDebug()<<camerIP;
-    this->camerIP=camerIP;
+    }   
     emit signal_initCamera("",camerIP,camerPort,CamerUser,CamerPow);
 }
 
@@ -43,28 +45,35 @@ void CaptureImages::slot_imgGetTimeOut()
     emit pictureStreamSignal(nullptr,imgNumber,imgTime);
 }
 
-bool CaptureImages::putCommandSlot( int imgNumber, QString imgTime)
-{
-    if(camerID==-1){
-        emit pictureStreamSignal(nullptr,imgNumber,imgTime);
-        return false;
+bool CaptureImages::putCommandSlot( int imgNumber, QString imgTime,const QString &signature)
+{    
+    if(this->signature.isEmpty() || this->signature==signature){
+        if(camerID==-1){
+            emit pictureStreamSignal(nullptr,imgNumber,imgTime);
+            qCritical()<<"Camera not logged in, return null";
+            return false;
+        }
+        if(imgGetTimeOut->isActive()){
+            emit pictureStreamSignal(nullptr,this->imgNumber,this->imgTime);
+            qCritical()<<"The camera result returns a timeout and a null value";
+            imgGetTimeOut->stop();
+        }
+        put=true;
+        this->imgNumber=imgNumber;
+        this->imgTime=imgTime;
+        emit signal_simulationCapture(camerID);
+        imgGetTimeOut->start(3000);
+        return true;
     }
-    if(imgGetTimeOut->isActive()){
-        emit pictureStreamSignal(nullptr,this->imgNumber,this->imgTime);
-        imgGetTimeOut->stop();
-    }
-    put=true;
-    this->imgNumber=imgNumber;
-    this->imgTime=imgTime;
-    emit signal_simulationCapture(camerID);
-    imgGetTimeOut->start(3000);
-
-    return true;
+    qDebug()<<signature;
+    return false;
 }
 
-void CaptureImages::playStreamSlot(quint64 winID,bool play)
+void CaptureImages::playStreamSlot(quint64 winID,bool play,const QString &signature)
 {
-    emit signal_openTheVideo(camerID,play,winID);
+    if(this->signature.isEmpty() || this->signature==signature){
+         emit signal_openTheVideo(camerID,play,winID);
+    }
 }
 
 void CaptureImages::liftingElectronicRailingSlot(bool gate)
@@ -90,9 +99,15 @@ void CaptureImages::slot_pictureStream(int ID, QByteArray arrJpg)
 {
     if(put && ID==camerID){
         emit pictureStreamSignal(arrJpg,imgNumber,imgTime);
-        //emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(camerIP));
-        qDebug()<<tr("IP=%1 Put Command Sucess").arg(camerIP);
+        emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(camerIP));
+        qInfo()<<tr("IP=%1 Put Command Sucess").arg(camerIP);
+        qInfo()<<tr("signature=%1 Put Command Sucess").arg(signature);
         put=false;
+        imgGetTimeOut->stop();
+
+        if(nullptr==arrJpg){
+            qCritical().noquote()<<tr("Capture image data is empty");
+        }
     }
 }
 
@@ -101,7 +116,7 @@ void CaptureImages::slot_setCameraID(int ID, QString cameraIP)
     if(camerIP==cameraIP && -1==camerID){
         camerID=ID;
         emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Set the ID[%2]").arg(cameraIP).arg(ID));
-        qDebug()<<tr("IP=%1 Set the ID[%2]").arg(cameraIP).arg(ID);
+        qInfo()<<tr("IP=%1 Set the ID[%2]").arg(cameraIP).arg(ID);
     }
 }
 

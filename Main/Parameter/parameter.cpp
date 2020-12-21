@@ -2,7 +2,7 @@
 
 namespace Parameter {
 
-    int ChannelNumber= 1;
+    int ChannelNumber= 0;
     int ImageFormat= 0;
     int ImageNamingRules= 0;
     QString ImagePath= QString("./");

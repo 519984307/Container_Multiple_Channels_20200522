@@ -46,25 +46,28 @@ public slots:
     /// \brief initCamerSlots 初始化相机
     /// \param camerIP 相机地址
     /// \param camerPort 相机端口
-    /// \param 用户名
-    /// \param 密码
+    /// \param CamerUser 用户名
+    /// \param CamerPow 密码
+    /// \param signature 特征码
     ///
-    virtual void initCamerSlot(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow)=0;
+    virtual void initCamerSlot(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature="")=0;
 
     ///
     /// \brief putCommandSlots 抓取图片
     /// \param command 图片编号
     /// \param imgTime 时间戳
+    /// \param signature 特征码
     ///
-    virtual bool putCommandSlot( int imgNumber, QString imgTime)=0;
+    virtual bool putCommandSlot( int imgNumber, QString imgTime,const QString &signature="")=0;
 
     ///
     /// \brief playViedoStreamSlot 预览实时视频
     /// \param winID 窗口句柄
     /// \param play 播放状态
+    /// \param signature 特征码
     /// 海康相机：多次实时预览,linux出现内存不释放
     ///
-    virtual void playStreamSlot(quint64 winID,bool play)=0;
+    virtual void playStreamSlot(quint64 winID,bool play,const QString &signature="")=0;
 
     ///
     /// \brief liftingElectronicRailingSlot 抬杆/落杆
@@ -167,7 +170,7 @@ signals:
     void signal_bindingCameraID(QString cameraAddr,int ID);
 };
 
-#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.0"
+#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.1"
 Q_DECLARE_INTERFACE(ICaptureImages,ICaptureImagesIID);
 
 #endif // ICAPTUREIMAGES_H

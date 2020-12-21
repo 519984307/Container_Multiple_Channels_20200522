@@ -1,7 +1,8 @@
-#ifndef CAMERA_TEST_FORM_H
+﻿#ifndef CAMERA_TEST_FORM_H
 #define CAMERA_TEST_FORM_H
 
 #include <QWidget>
+#include <QSharedPointer>
 
 namespace Ui {
 class Camera_Test_Form;
@@ -24,6 +25,27 @@ private slots:
 
 private:
     Ui::Camera_Test_Form *ui;
+
+public slots:
+
+    ///
+    /// \brief slot_pictureStream 图片流信号
+    /// \param jpgStream 图片流
+    /// \param imgNumber 图片编号
+    /// \param imgTime 图片时间戳
+    ///
+    void slot_pictureStream(const QByteArray &jpgStream,const int &imgNumber,const QString &imgTime="");
+
+signals:
+    ///
+    /// \brief signal_capture 抓取图片
+    ///
+    void signal_capture();
+
+    ///
+    /// \brief signal_play 播放视频
+    ///
+    void signal_play(quint64 winID);
 };
 
 #endif // CAMERA_TEST_FORM_H

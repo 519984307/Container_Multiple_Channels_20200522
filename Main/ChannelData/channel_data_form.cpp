@@ -11,10 +11,11 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     QWidget(parent),
     ui(new Ui::Channel_Data_Form)
 {
+    /*****************************
+    * @brief:channelNumber有可能重复，后续添加逻辑判断
+    ******************************/
     ui->setupUi(this);
-
     this->setAttribute(Qt::WA_DeleteOnClose,true);
-
     this->setParent(parent);
     this->setVisible(false);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
@@ -53,14 +54,14 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
 
     ui->toolBox->setCurrentIndex(0);
 
-    ui->image_label_1->repaint();
-    QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
-    QPixmap pp= pix.scaled(QSize(ui->image_label_1->size()),Qt::IgnoreAspectRatio);
+//    ui->image_label_1->repaint();
+//    QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
+//    QPixmap pp= pix.scaled(QSize(ui->image_label_1->size()),Qt::IgnoreAspectRatio);
 
 
-    QPalette palette(ui->image_label_1->palette());
-    palette.setBrush(QPalette::Background, QBrush(pp));
-    ui->image_label_1->setPalette(palette);
+//    QPalette palette(ui->image_label_1->palette());
+//    palette.setBrush(QPalette::Background, QBrush(pp));
+//    ui->image_label_1->setPalette(palette);
 }
 
 Channel_Data_Form::~Channel_Data_Form()
@@ -85,16 +86,16 @@ bool Channel_Data_Form::eventFilter(QObject *target, QEvent *event)
             connect(this,SIGNAL(signal_enlargeImages(QByteArray)),Dlg,SLOT(slot_enlargeImages(QByteArray)));
             Dlg->exec();
         }
-        if(event->type()==QEvent::Resize){
-            ui->image_label_1->repaint();
-            QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
-            QPixmap pp= pix.scaled(QSize(ui->image_label_1->size()),Qt::IgnoreAspectRatio);
+//        if(event->type()==QEvent::Resize){
+//            ui->image_label_1->repaint();
+//            QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
+//            QPixmap pp= pix.scaled(QSize(ui->image_label_1->size()),Qt::IgnoreAspectRatio);
 
 
-            QPalette palette(ui->image_label_1->palette());
-            palette.setBrush(QPalette::Background, QBrush(pp));
-            ui->image_label_1->setPalette(palette);
-        }
+//            QPalette palette(ui->image_label_1->palette());
+//            palette.setBrush(QPalette::Background, QBrush(pp));
+//            ui->image_label_1->setPalette(palette);
+//        }
     }
     else if (target==ui->image_label_12) {
         /*****************************
@@ -105,8 +106,9 @@ bool Channel_Data_Form::eventFilter(QObject *target, QEvent *event)
     return  QWidget::eventFilter(target,event);
 }
 
-void Channel_Data_Form::loadParamter(ChannelParameter *para)
+void Channel_Data_Form::loadParamter(int channelID,ChannelParameter *para)
 {
+    this->channelID=channelID;
     this->para=para;
 }
 
@@ -200,16 +202,34 @@ void Channel_Data_Form::slot_initCamera()
     if(nullptr==this->para){
         return;
     }
-    emit signal_initCamer_front(para->FrontCamer,8000,para->UserCamer,para->PasswordCamer);
-    emit signal_initCamer_before(para->AfterCamer,8000,para->UserCamer,para->PasswordCamer);
-    emit signal_initCamer_left(para->LeftCamer,8000,para->UserCamer,para->PasswordCamer);
-    emit signal_initCamer_right(para->RgihtCamer,8000,para->UserCamer,para->PasswordCamer);
-    emit signal_initCamer_top(para->TopCamer,8000,para->UserCamer,para->PasswordCamer);
-    emit signal_initCamer_prospects(para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer);
-    emit signal_initCamer_foreground(para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer);
+
+    signatureList=LocalPar::CamerNameList;
+
+    emit signal_initCamer_front(para->FrontCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(0));
+    emit signal_initCamer_before(para->AfterCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(1));
+    emit signal_initCamer_left(para->LeftCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(2));
+    emit signal_initCamer_right(para->RgihtCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(3));
+    emit signal_initCamer_top(para->TopCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(4));
+    emit signal_initCamer_prospects(para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(5));
+    emit signal_initCamer_foreground(para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(6));
 }
 
 void Channel_Data_Form::slot_bindingCameraID(QString cameraAddr, int ID)
 {
+    Q_UNUSED(cameraAddr);
     qDebug()<<para->Channel_number<<":"<<ID;
+}
+
+void Channel_Data_Form::slot_captureTest(int channelID, int cameraID)
+{
+    if(this->channelID==channelID){
+        emit signal_putCommand(0,"",signatureList.at(cameraID-1));
+    }
+}
+
+void Channel_Data_Form::slot_playStream(quint64 winID, bool play, int channelID, int cameraID)
+{
+    if(this->channelID==channelID){
+        emit signal_playStream(winID,play,signatureList.at(cameraID-1));
+    }
 }

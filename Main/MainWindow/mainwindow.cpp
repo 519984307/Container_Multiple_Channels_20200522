@@ -252,7 +252,7 @@ void MainWindow::initializationParameter()
         /*****************************
         * @brief:加载通道参数
         ******************************/
-        p_Channel_Data_Form->loadParamter(Pointer_Parameter->ParmeterMap.value(channel,nullptr));
+        p_Channel_Data_Form->loadParamter(channel,Pointer_Parameter->ParmeterMap.value(channel,nullptr));
 
         if(nullptr==p_Equipment_State_Form && 1==channel){
             p_Channel_Data_Form->setVisible(true);
@@ -419,6 +419,16 @@ void MainWindow::on_actionCamera_Test_triggered()
     QPointer<Camera_List_Form> p_Camera_List_Form=new Camera_List_Form (nullptr);
     connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Camera_List_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
     /*****************************
+    * @brief:绑定测试抓拍,相机状态
+    ******************************/
+    foreach (auto p_Channel_Data_Form, Channel_Data_From_Map.values()) {
+        connect(p_Camera_List_Form,SIGNAL(signal_captureTest(int,int)),p_Channel_Data_Form,SLOT(slot_captureTest(int,int)));
+        connect(p_Channel_Data_Form,SIGNAL(signal_getCameraState(int,int)),p_Camera_List_Form,SLOT(slot_getCameraState(int,int)));
+        connect(p_Channel_Data_Form,SIGNAL(signal_pictureStream(QByteArray, int, QString)),p_Camera_List_Form,SIGNAL(signal_pictureStream(QByteArray,int,QString)));
+        connect(p_Camera_List_Form,SIGNAL(signal_playStream(quint64,bool,int,int)),p_Channel_Data_Form,SLOT(slot_playStream(quint64,bool,int,int)));
+    }
+
+    /*****************************
     * 初始化设备
     ******************************/
     emit initializesTheDeviceStateListSignal(channelCount,channelLabels);
@@ -511,25 +521,20 @@ void MainWindow::bindingPlugin()
                 //connect(pLoadinglibaray->ICaptureImagesLit.at(j).data(),SIGNAL(signal_bindingCameraID(QString,int)),Channel_Data_From_Map.value(ind),SIGNAL(slot_bindingCameraID( QString, int)));
                 connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->ICaptureImagesLit.at(j).data(),&ICaptureImages::releaseResourcesSlot,Qt::QueuedConnection);//,Qt::BlockingQueuedConnection);
             }
-            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_front( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_before( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_left( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_right( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-            if(7==LocalPar::CamerNumber){
-                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_top( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_prospects( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_foreground( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
+            for (int var = 0; var < LocalPar::CamerNumber; ++var) {
+                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_putCommand(int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i+var).data(),SLOT(putCommandSlot(int, QString, QString)));
+                connect(pLoadinglibaray->ICaptureImagesLit.at(i+var).data(),SIGNAL(pictureStreamSignal(QByteArray, int, QString)),Channel_Data_From_Map.value(ind),SIGNAL(signal_pictureStream(QByteArray, int, QString)));
+                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_playStream(quint64,bool,const QString)),pLoadinglibaray->ICaptureImagesLit.at(i+var).data(),SLOT(playStreamSlot(quint64,bool,const QString)));
             }
-
-
-//            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_before( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-//            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_left( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-//            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_right( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-//            if(7==LocalPar::CamerNumber){
-//                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_top( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-//                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_prospects( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-//                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_foreground( QString, int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString)));
-//            }
+            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_front( QString, int, QString, QString,QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString,QString)));
+            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_before( QString, int, QString, QString,QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString,QString)));
+            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_left( QString, int, QString, QString,QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString,QString)));
+            connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_right( QString, int, QString, QString,QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString,QString)));
+            if(7==LocalPar::CamerNumber){
+                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_top( QString, int, QString, QString,QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString,QString)));
+                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_prospects( QString, int, QString, QString,QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString,QString)));
+                connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_initCamer_foreground( QString, int, QString, QString,QString)),pLoadinglibaray->ICaptureImagesLit.at(i++).data(),SLOT(initCamerSlot( QString, int, QString, QString,QString)));
+            }
         }
     }
 

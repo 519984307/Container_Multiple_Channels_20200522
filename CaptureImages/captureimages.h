@@ -1,4 +1,4 @@
-#ifndef CAPTUREIMAGES_H
+﻿#ifndef CAPTUREIMAGES_H
 #define CAPTUREIMAGES_H
 
 #include "captureimages_global.h"
@@ -24,22 +24,25 @@ public:
     /// \param camerPort 端口
     /// \param user 用户名
     /// \param pow 密码
+    /// \param signature 特征码
     ///
-    void initCamerSlot(const QString &camerIP, const int & camerPort, const QString &CamerUser, const QString &CamerPow) Q_DECL_OVERRIDE;
+    void initCamerSlot(const QString &camerIP, const int & camerPort, const QString &CamerUser, const QString &CamerPow,const QString &signature="") Q_DECL_OVERRIDE;
 
     ///
     /// \brief putCommandSlot 抓取图片
     /// \param imgNumber 图片编号
+   /// \param signature 特征码
     /// \return
     ///
-    bool putCommandSlot(int imgNumber, QString imgTime) Q_DECL_OVERRIDE;
+    bool putCommandSlot(int imgNumber, QString imgTime,const QString &signature) Q_DECL_OVERRIDE;
 
     ///
     /// \brief playStreamSlot 播放视频流
     /// \param winID 窗口句柄
     /// \param play 播放状态
+   /// \param signature 特征码
     ///
-    void playStreamSlot(quint64 winID, bool play) Q_DECL_OVERRIDE;
+    void playStreamSlot(quint64 winID, bool play,const QString &signature) Q_DECL_OVERRIDE;
 
     ///
     /// \brief liftingElectronicRailingSlot 抬杆/落杆
@@ -116,6 +119,7 @@ public:
     QString camerIP,imgTime;
     bool put;
     QTimer *imgGetTimeOut;
+    QString signature;
 };
 
 #endif // CAPTUREIMAGES_H
