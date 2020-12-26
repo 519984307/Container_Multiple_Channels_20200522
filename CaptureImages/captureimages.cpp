@@ -50,12 +50,12 @@ bool CaptureImages::putCommandSlot( int imgNumber, QString imgTime,const QString
     if(this->signature.isEmpty() || this->signature==signature){
         if(camerID==-1){
             emit pictureStreamSignal(nullptr,imgNumber,imgTime);
-            qCritical()<<"Camera not logged in, return null";
+            qWarning().noquote()<<signature<<":Camera not logged in, return null";
             return false;
         }
         if(imgGetTimeOut->isActive()){
             emit pictureStreamSignal(nullptr,this->imgNumber,this->imgTime);
-            qCritical()<<"The camera result returns a timeout and a null value";
+            qWarning().noquote()<<signature<<":The camera result returns a timeout and a null value";
             imgGetTimeOut->stop();
         }
         put=true;
@@ -65,14 +65,15 @@ bool CaptureImages::putCommandSlot( int imgNumber, QString imgTime,const QString
         imgGetTimeOut->start(3000);
         return true;
     }
-    qDebug()<<signature;
+    qDebug().noquote()<<signature<<":Camera not logged in";
     return false;
 }
 
 void CaptureImages::playStreamSlot(quint64 winID,bool play,const QString &signature)
 {
     if(this->signature.isEmpty() || this->signature==signature){
-         emit signal_openTheVideo(camerID,play,winID);
+        emit signal_openTheVideo(camerID,play,winID);
+        qInfo().noquote()<<signature<<":The camera preview";
     }
 }
 
@@ -100,13 +101,12 @@ void CaptureImages::slot_pictureStream(int ID, QByteArray arrJpg)
     if(put && ID==camerID){
         emit pictureStreamSignal(arrJpg,imgNumber,imgTime);
         emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(camerIP));
-        qInfo()<<tr("IP=%1 Put Command Sucess").arg(camerIP);
-        qInfo()<<tr("signature=%1 Put Command Sucess").arg(signature);
+        qInfo().noquote()<<signature<<":Put Command Sucess";
         put=false;
         imgGetTimeOut->stop();
 
         if(nullptr==arrJpg){
-            qCritical().noquote()<<tr("Capture image data is empty");
+            qWarning().noquote()<<signature<<":Capture image data is empty";
         }
     }
 }

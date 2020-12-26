@@ -21,6 +21,8 @@ public:
     TheMiddlewareHCNET(QObject *parent=nullptr);
     ~TheMiddlewareHCNET()Q_DECL_OVERRIDE;
 
+    QString InterfaceType()Q_DECL_OVERRIDE;
+
     static TheMiddlewareHCNET *pThis;
 
     ///

@@ -11,7 +11,7 @@ SUBDIRS +=\
 #    DatabaseWrite \
 #    DatabaseRead \
 #    TheDataAnalysis \
-#    InfraredLogic\
+    InfraredLogic\
 #    Encryption\
 #    IdentifyImages\
     CaptureImages \

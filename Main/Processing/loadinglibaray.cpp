@@ -12,6 +12,7 @@ void LoadingLibaray::slot_destructorThread()
         thread->quit();
         thread->wait();
     }
+    qDebug().noquote()<<"~LoadingLibaray";
 }
 
 void LoadingLibaray::slot_createLibaray()
@@ -82,15 +83,24 @@ void LoadingLibaray::slot_createLibaray()
                 }
             }
             else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
-                delete pIMiddleware;
-                pIMiddleware=nullptr;
-                pluginsNum=1;
-
-                if(-1!=loadVec.indexOf("IMiddleware")){
-                    isErr=true;
+                if("HCNET" == pIMiddleware->InterfaceType()){/* 海康相机 */
+                    delete pIMiddleware;
+                    pIMiddleware=nullptr;
+                    pluginsNum=1;
                 }
-                else {
-                    loadVec.append("IMiddleware");
+
+//                if(-1!=loadVec.indexOf("IMiddleware")){
+//                    isErr=true;
+//                }
+//                else {
+//                    loadVec.append("IMiddleware");
+//                }
+            }
+            else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
+                if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */
+                    delete pInfraredlogicInterface;
+                    pInfraredlogicInterface=nullptr;
+                    pluginsNum=channelCount;
                 }
             }
 
@@ -106,7 +116,7 @@ void LoadingLibaray::slot_createLibaray()
             }
 
             pluginsDir.cdUp();
-            pluginLoader.unload();
+            qDebug()<< pluginLoader.unload();
         }       
     }
 
@@ -142,6 +152,13 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 pIMiddleware->moveToThread(th);
                 th->start();
                 IMiddlewareLit.append(QSharedPointer<IMiddleware>(pIMiddleware));
+            }
+            else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pInfraredlogicInterface->moveToThread(th);
+                th->start();
+                InfraredlogicLit.append(QSharedPointer<InfraredlogicInterface>(pInfraredlogicInterface));
             }
             else {
                 pluginLoader.unload();

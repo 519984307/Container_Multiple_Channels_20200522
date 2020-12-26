@@ -504,8 +504,11 @@
                   <property name="prefix">
                    <string>COM</string>
                   </property>
-                  <property name="value">
+                  <property name="minimum">
                    <number>1</number>
+                  </property>
+                  <property name="value">
+                   <number>2</number>
                   </property>
                  </widget>
                 </item>
@@ -533,6 +536,9 @@
                   </property>
                   <property name="prefix">
                    <string>COM</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
                   </property>
                  </widget>
                 </item>
@@ -867,7 +873,12 @@
               </property>
               <item>
                <property name="text">
-                <string>HCNET</string>
+                <string>HCNET-Network</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>HCNET-Traffic</string>
                </property>
               </item>
               <item>

@@ -952,6 +952,92 @@ color: rgb(255, 255, 255);</string>
             </item>
            </layout>
           </item>
+          <item row="7" column="0">
+           <widget class="QCheckBox" name="frontCheckBox">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+            <property name="text">
+             <string>Front</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="10" column="0">
+           <widget class="QCheckBox" name="rightCheckBox">
+            <property name="text">
+             <string>Right</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="14" column="0">
+           <widget class="QCheckBox" name="forgroundstateCheckBox">
+            <property name="text">
+             <string>Foreground</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="13" column="0">
+           <widget class="QCheckBox" name="prospectsstateCheckBox">
+            <property name="text">
+             <string>Prospects</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="11" column="0">
+           <widget class="QCheckBox" name="platestateCheckBox">
+            <property name="text">
+             <string>Plate</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="16" column="0">
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="6" column="0">
+           <widget class="Line" name="line_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="iocheckBox">
+            <property name="text">
+             <string>IO controller</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="0">
            <layout class="QGridLayout" name="gridLayout_3">
             <property name="horizontalSpacing">
@@ -1030,17 +1116,30 @@ color: rgb(255, 255, 255);</string>
             </item>
            </layout>
           </item>
-          <item row="2" column="0">
-           <widget class="Line" name="line_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+          <item row="8" column="0">
+           <widget class="QCheckBox" name="beforeCheckBox">
+            <property name="text">
+             <string>Before</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="iocheckBox">
+          <item row="9" column="0">
+           <widget class="QCheckBox" name="leftCheckBox">
             <property name="text">
-             <string>IO controller</string>
+             <string>Left</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="12" column="0">
+           <widget class="QCheckBox" name="topstateCheckBox">
+            <property name="text">
+             <string>Top</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -1067,111 +1166,19 @@ color: rgb(255, 255, 255);</string>
             </property>
            </widget>
           </item>
-          <item row="6" column="0">
-           <widget class="Line" name="line_5">
+          <item row="2" column="0">
+           <widget class="Line" name="line_4">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
-          <item row="7" column="0">
-           <widget class="QCheckBox" name="frontCheckBox">
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-            <property name="text">
-             <string>Front</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="0">
-           <widget class="QCheckBox" name="beforeCheckBox">
-            <property name="text">
-             <string>Before</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="0">
-           <widget class="QCheckBox" name="leftCheckBox">
-            <property name="text">
-             <string>Left</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="10" column="0">
-           <widget class="QCheckBox" name="rightCheckBox">
-            <property name="text">
-             <string>Right</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="11" column="0">
-           <widget class="QCheckBox" name="platestateCheckBox">
-            <property name="text">
-             <string>Plate</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="12" column="0">
-           <widget class="QCheckBox" name="topstateCheckBox">
-            <property name="text">
-             <string>Top</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="13" column="0">
-           <widget class="QCheckBox" name="prospectsstateCheckBox">
-            <property name="text">
-             <string>Prospects</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="14" column="0">
-           <widget class="QCheckBox" name="forgroundstateCheckBox">
-            <property name="text">
-             <string>Foreground</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
           <item row="15" column="0">
-           <spacer name="verticalSpacer_3">
+           <widget class="Line" name="line_6">
             <property name="orientation">
-             <enum>Qt::Vertical</enum>
+             <enum>Qt::Horizontal</enum>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
+           </widget>
           </item>
          </layout>
         </widget>

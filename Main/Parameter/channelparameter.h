@@ -8,10 +8,10 @@ class ChannelParameter
 public:
     ChannelParameter(){}
 
-
     /*****************************
     * @brief:other
     ******************************/
+
     ///
     /// \brief Channel_number 通道号
     ///
@@ -31,6 +31,7 @@ public:
     /// \brief Container_Camera_Model 箱号相机协议
     ///
     int Container_Camera_Model;
+
     /*****************************
     * @brief:camera
     ******************************/

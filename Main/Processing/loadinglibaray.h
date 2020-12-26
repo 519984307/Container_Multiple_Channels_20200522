@@ -8,8 +8,10 @@
 #include <QThread>
 
 #include "./Parameter/LocalPar.h"
+
 #include "interface/ICaptureImages.h"
 #include "interface/IMiddleware.h"
+#include "interface/infraredlogicinterface.h"
 
 class LoadingLibaray : public QObject
 {
@@ -50,6 +52,11 @@ public:/* container */
     /// \brief IMiddlewareLit 相机中间件插件库
     ///
     QList<QSharedPointer<IMiddleware>> IMiddlewareLit;
+
+    ///
+    /// \brief InfraredlogicLit 红外插件库
+    ///
+    QList<QSharedPointer<InfraredlogicInterface>> InfraredlogicLit;
 
 public slots:
 

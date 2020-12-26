@@ -20,8 +20,6 @@ Camera_List_Form::Camera_List_Form(QWidget *parent) :
 Camera_List_Form::~Camera_List_Form()
 {
     ItemMap.clear();
-    delete tmpItem;
-    tmpItem=nullptr;
 
     delete ui;
 
@@ -30,7 +28,14 @@ Camera_List_Form::~Camera_List_Form()
 
 void Camera_List_Form::closeEvent(QCloseEvent *event)
 {
-    emit signal_playStream(winID,false,ItemMap.value(tmpItem->parent()),ui->CameraList->currentIndex().row()+1);
+    if(ui->CameraList->selectedItems().size()>0){
+        emit signal_playStream(winID,false,ItemMap.value(tmpItem->parent()),ui->CameraList->currentIndex().row()+1);
+    }
+
+    foreach (auto obj, ItemMap.keys()) {
+        delete obj;
+        obj=nullptr;
+    }
     QWidget::closeEvent(event);
 }
 

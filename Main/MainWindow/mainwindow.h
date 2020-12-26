@@ -186,7 +186,7 @@ private:
     ///
     /// \brief pLoadinglibaray 加载插件
     ///
-    QPointer<LoadingLibaray> pLoadinglibaray;
+    QSharedPointer<LoadingLibaray> pLoadinglibaray;
 
     ///
     /// \brief pErrorForm 错误弹幕
@@ -397,9 +397,9 @@ signals:
     void signal_setAlarmMsg(int num,QString msg);
 
     ///
-    /// \brief signal_initCamera 初始化相机
+    /// \brief signal_initEquipment 初始化设备
     ///
-    void signal_initCamera();
+    void signal_initEquipment();
 
     ///
     /// \brief signal_destructorThread 析构插件线程

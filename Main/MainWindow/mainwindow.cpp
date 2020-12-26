@@ -18,13 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
-    foreach (auto thread, tdList) {
-        thread->quit();
-        thread->wait();
-    }
-
-    delete  pLoadinglibaray;
-
+    //delete pLoadinglibaray;
     delete ui;
 }
 
@@ -53,10 +47,13 @@ void MainWindow::changeEvent(QEvent *event)
 
 void MainWindow::clearnContainer()
 {
-
     emit signal_releaseResources();
     emit signal_destructorThread();
 
+    foreach (auto thread, tdList) {
+        thread->quit();
+        thread->wait();
+    }
 
     //watcher->cancel();
     //p_Data_Log_Form.data()->close();
@@ -155,14 +152,14 @@ void MainWindow::initializingObject()
 //    watcher->setFuture(future);
 
 
-    pLoadinglibaray=QPointer<LoadingLibaray>(new LoadingLibaray(Parameter::ChannelNumber));
-    connect(pLoadinglibaray,SIGNAL(signal_handleFinished()), this, SLOT(slot_handleFinished()));
-    connect(pLoadinglibaray,SIGNAL(signal_progressRangeChanged(int , int )),this,SLOT(slot_progressRangeChanged(int , int )));
-    connect(pLoadinglibaray,SIGNAL(signal_progressTextChanged(const QString)),this,SLOT(slot_progressTextChanged(const QString )));
-    connect(pLoadinglibaray,SIGNAL(signal_progressValueChanged(int)),this,SLOT(slot_progressValueChanged(int )));
-    connect(pLoadinglibaray,SIGNAL(signal_loadPluginError(QString)),this,SLOT(slot_Error(QString)));
-    connect(this,SIGNAL(signal_destructorThread()),pLoadinglibaray,SLOT(slot_destructorThread()),Qt::QueuedConnection);
-    connect(this,SIGNAL(signal_createLibaray()),pLoadinglibaray,SLOT(slot_createLibaray()));
+    pLoadinglibaray=QSharedPointer<LoadingLibaray>(new LoadingLibaray(Parameter::ChannelNumber));
+    connect(pLoadinglibaray.data(),SIGNAL(signal_handleFinished()), this, SLOT(slot_handleFinished()));
+    connect(pLoadinglibaray.data(),SIGNAL(signal_progressRangeChanged(int , int )),this,SLOT(slot_progressRangeChanged(int , int )));
+    connect(pLoadinglibaray.data(),SIGNAL(signal_progressTextChanged(const QString)),this,SLOT(slot_progressTextChanged(const QString )));
+    connect(pLoadinglibaray.data(),SIGNAL(signal_progressValueChanged(int)),this,SLOT(slot_progressValueChanged(int )));
+    connect(pLoadinglibaray.data(),SIGNAL(signal_loadPluginError(QString)),this,SLOT(slot_Error(QString)));
+    connect(this,SIGNAL(signal_destructorThread()),pLoadinglibaray.data(),SLOT(slot_destructorThread()),Qt::BlockingQueuedConnection);
+    connect(this,SIGNAL(signal_createLibaray()),pLoadinglibaray.data(),SLOT(slot_createLibaray()));
 
     QThread *th=new QThread(this);
     tdList.append(th);
@@ -301,7 +298,7 @@ void MainWindow::connectProcess()
     }
 
     foreach (auto from, Channel_Data_From_Map.values()) {
-        connect(this,SIGNAL(signal_initCamera()),from,SLOT(slot_initCamera()));
+        connect(this,SIGNAL(signal_initEquipment()),from,SLOT(slot_initEquipment()));
     }
 
     /*****************************
@@ -475,7 +472,7 @@ void MainWindow::slot_handleFinished()
     /*****************************
     * @brief:登录相机
     ******************************/
-    emit signal_initCamera();
+    emit signal_initEquipment();
 }
 
 void MainWindow::slot_Error(QString pluginName)
@@ -519,7 +516,7 @@ void MainWindow::bindingPlugin()
             for (; j < LocalPar::CamerNumber+i; ++j) {
                 connect(pLoadinglibaray->ICaptureImagesLit.at(j).data(),SIGNAL(camerStateSingal(const QString,bool)),Channel_Data_From_Map.value(ind),SLOT(slot_camerState(const QString,bool)));                    
                 //connect(pLoadinglibaray->ICaptureImagesLit.at(j).data(),SIGNAL(signal_bindingCameraID(QString,int)),Channel_Data_From_Map.value(ind),SIGNAL(slot_bindingCameraID( QString, int)));
-                connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->ICaptureImagesLit.at(j).data(),&ICaptureImages::releaseResourcesSlot,Qt::QueuedConnection);//,Qt::BlockingQueuedConnection);
+                connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->ICaptureImagesLit.at(j).data(),&ICaptureImages::releaseResourcesSlot,Qt::BlockingQueuedConnection);
             }
             for (int var = 0; var < LocalPar::CamerNumber; ++var) {
                 connect(Channel_Data_From_Map.value(ind),SIGNAL(signal_putCommand(int, QString, QString)),pLoadinglibaray->ICaptureImagesLit.at(i+var).data(),SLOT(putCommandSlot(int, QString, QString)));
@@ -546,13 +543,23 @@ void MainWindow::bindingPlugin()
             connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_liftingElectronicRailing,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::liftingElectronicRailingSlot);
             connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_transparentTransmission485,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::transparentTransmission485Slot);
 
-            //connect(pMiddlewareInterface,&MiddlewareInterface::signal_message,pGetImagesInterface,&GetImagesInterface::initCameraSlot);
             connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::signal_pictureStream,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_pictureStream);
             connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::signal_setCameraID,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_setCameraID);
             connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::equipmentStateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_equipmentState);
             connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::resultsTheLicensePlateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_resultsTheLicensePlate);
         }
-        /* 释放动态库资源 */
-        connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::releaseResourcesSlot,Qt::QueuedConnection);
+        connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::releaseResourcesSlot,Qt::BlockingQueuedConnection);
+    }
+
+    if(pLoadinglibaray->InfraredlogicLit.size()>=1){
+        for (int var = 0; var < pLoadinglibaray->InfraredlogicLit.size(); ++var) {
+            connect(pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::logicStatusSignal,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_logicStatus);
+            connect(pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::logicPutImageSignal,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_logicPutImage);
+            connect(pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::serialPortStateSignal,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_serialPortState);
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_simulateTrigger,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::simulateTriggerSlot);
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_setAlarmMode,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::setAlarmModeSlot);
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_startSlave,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::startSlaveSlot);
+            connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::exitWhileSlot,Qt::BlockingQueuedConnection);
+        }
     }
 }

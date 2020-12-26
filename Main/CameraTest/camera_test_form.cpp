@@ -43,7 +43,7 @@ void Camera_Test_Form::slot_pictureStream(const QByteArray &jpgStream, const int
         if(jpgStream!=nullptr){
             QSharedPointer<QPixmap> pix(new QPixmap());
             pix->loadFromData(jpgStream);
-            ui->label->setPixmap(*pix);
+            ui->label->setPixmap(pix.data()->scaled(ui->label->size(), Qt::IgnoreAspectRatio));
         }
         else {
             ui->label->clear();

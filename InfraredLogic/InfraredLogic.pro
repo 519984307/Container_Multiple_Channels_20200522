@@ -1,22 +1,23 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2020-01-15T21:02:30
+# Project created by QtCreator 2019-12-29T21:38:21
 #
 #-------------------------------------------------
 
 QT       -= gui
+QT       += serialport concurrent
+
+TARGET = InfraredLogic
 
 TEMPLATE = lib
 
 CONFIG += plugin
 
-TARGET = capimages
-
 CONFIG += skip_target_version_ext
 VERSION = 1.1.1
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
-DEFINES += CAPTUREIMAGES_LIBRARY
+DEFINES += INFRAREDLOGIC_LIBRARY
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -30,17 +31,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    captureimages.cpp
+        infraredlogic.cpp
 
 HEADERS += \
-    ICaptureImages.h \
-    captureimages.h \
-    captureimages_global.h
+        infraredlogic.h \
+        infraredlogic_global.h \ 
+    infraredlogicinterface.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
 
-DESTDIR += ../MainUI/Plugins
-#QMAKE_LFLAGS+="-Wl,-rpath=../MainUI/plugins/HCNetSDK/"
+
+DESTDIR+=../MainUI/Plugins
+#DESTDIR += ../MainUI/debug/Plugins

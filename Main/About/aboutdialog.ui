@@ -68,7 +68,7 @@
      <item>
       <widget class="QLabel" name="label_11">
        <property name="text">
-        <string>Base on Qt 4.14.2 (MinGW ,32/64 bit)(MSVC 2017,32/64 bit)</string>
+        <string>Base on Qt 5.14.2 (MinGW 7.3.0 64 bit)</string>
        </property>
       </widget>
      </item>

@@ -9,6 +9,12 @@ class IMiddleware : public QObject
 public:
     ~ IMiddleware(){}
 
+    ///
+    /// \brief InterfaceType 插件类型，多插件调用统一接口
+    /// \return
+    ///
+    virtual QString InterfaceType()=0;
+
 signals:
 
     ///
@@ -91,7 +97,7 @@ public slots:
     virtual void releaseResourcesSlot()=0;
 };
 
-#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/1.1.0"
+#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/1.2.0"
 Q_DECLARE_INTERFACE(IMiddleware,IMiddlewareIID);
 
 #endif // IMIDDLEWARE_H

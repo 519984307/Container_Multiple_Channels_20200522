@@ -42,6 +42,7 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
 
     ui->lineEdit_10->setText(alias);
     ui->lineEdit_5->setText(QString::number(channelNumber));
+    ui->toolBox->setCurrentIndex(0);
 
     foreach (QCheckBox* obj, ui->toolBox->findChildren<QCheckBox*>(QString(),Qt::FindChildrenRecursively)) {
         /*****************************
@@ -52,20 +53,12 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
         obj->setStyleSheet("color: rgb(211, 0, 0);");
     }
 
-    ui->toolBox->setCurrentIndex(0);
-
-//    ui->image_label_1->repaint();
-//    QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
-//    QPixmap pp= pix.scaled(QSize(ui->image_label_1->size()),Qt::IgnoreAspectRatio);
-
-
-//    QPalette palette(ui->image_label_1->palette());
-//    palette.setBrush(QPalette::Background, QBrush(pp));
-//    ui->image_label_1->setPalette(palette);
+    connect(this,&Channel_Data_Form::signal_pictureStream,this,&Channel_Data_Form::slot_pictureStream);
 }
 
 Channel_Data_Form::~Channel_Data_Form()
 {
+    streamMap.clear();
     qDebug()<<"~Channel_Data_Form";
     delete ui;
 }
@@ -77,31 +70,57 @@ void Channel_Data_Form::paintEvent(QPaintEvent *event)
 
 bool Channel_Data_Form::eventFilter(QObject *target, QEvent *event)
 {
-    if(target==ui->image_label_1||target==ui->image_label_2||target==ui->image_label_3||target==ui->image_label_4
-            ||target==ui->image_label_5||target==ui->image_label_6||target==ui->image_label_7||target==ui->image_label_8
-            ||target==ui->image_label_9||target==ui->image_label_10||target==ui->image_label_11){
-
-        if(event->type()==QEvent::MouseButtonDblClick){
-            QPointer<ImageDialog> Dlg=new ImageDialog(this);
-            connect(this,SIGNAL(signal_enlargeImages(QByteArray)),Dlg,SLOT(slot_enlargeImages(QByteArray)));
-            Dlg->exec();
-        }
-//        if(event->type()==QEvent::Resize){
-//            ui->image_label_1->repaint();
-//            QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
-//            QPixmap pp= pix.scaled(QSize(ui->image_label_1->size()),Qt::IgnoreAspectRatio);
-
-
-//            QPalette palette(ui->image_label_1->palette());
-//            palette.setBrush(QPalette::Background, QBrush(pp));
-//            ui->image_label_1->setPalette(palette);
-//        }
+    int key=0;
+    if(target==ui->image_label_1){
+        key=1;
+    }
+    else if (target==ui->image_label_2) {
+        key=2;
+    }
+    else if (target==ui->image_label_3) {
+        key=3;
+    }
+    else if (target==ui->image_label_4) {
+        key=4;
+    }
+    else if (target==ui->image_label_5) {
+        key=5;
+    }
+    else if (target==ui->image_label_6) {
+        key=6;
+    }
+    else if (target==ui->image_label_7) {
+        key=7;
+    }
+    else if (target==ui->image_label_8) {
+        key=8;
+    }
+    else if (target==ui->image_label_9) {
+        key=9;
+    }
+    else if (target==ui->image_label_10) {
+        key=10;
+    }
+    else if (target==ui->image_label_11) {
+        key=11;
     }
     else if (target==ui->image_label_12) {
         /*****************************
         * @brief:处理其他信息
         ******************************/
-        ;
+    }
+    if(event->type()==QEvent::MouseButtonDblClick){
+        if(nullptr != streamMap.value(key,nullptr)){
+            QPointer<ImageDialog> Dlg=new ImageDialog(this);
+            connect(this,SIGNAL(signal_enlargeImages(QByteArray)),Dlg,SLOT(slot_enlargeImages(QByteArray)));
+            emit signal_enlargeImages(streamMap.value(key,nullptr));
+            Dlg->exec();
+        }
+    }
+    if(event->type()==QEvent::Resize){
+        if(nullptr != streamMap.value(key,nullptr)){
+            slot_pictureStream(streamMap.value(key,nullptr),key,imgTimer);
+        }
     }
     return  QWidget::eventFilter(target,event);
 }
@@ -112,10 +131,84 @@ void Channel_Data_Form::loadParamter(int channelID,ChannelParameter *para)
     this->para=para;
 }
 
+void Channel_Data_Form::clearnPixmap()
+{
+    QPalette palette;
+    ui->image_label_1->setPalette(palette);
+    ui->image_label_2->setPalette(palette);
+    ui->image_label_3->setPalette(palette);
+    ui->image_label_4->setPalette(palette);
+    ui->image_label_5->setPalette(palette);
+    ui->image_label_6->setPalette(palette);
+    //ui->image_label_7->setPalette(palette);
+    ui->image_label_8->setPalette(palette);
+    ui->image_label_9->setPalette(palette);
+    ui->image_label_10->setPalette(palette);
+    ui->image_label_11->setPalette(palette);
+    //ui->image_label_12->setPalette(palette);
+}
+
 void Channel_Data_Form::on_SimulationPushButton_clicked()
 {
     QPointer<SimulationDialog> Dlg=new SimulationDialog(this);
     Dlg->exec();
+}
+
+void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const int &imgNumber, const QString &imgTime)
+{
+    if(imgTime!=this->imgTimer){
+        streamMap.clear();
+    }
+    this->imgTimer=imgTime;
+    streamMap.insert(imgNumber,jpgStream);
+
+    QSharedPointer<QPixmap> pix(new QPixmap());
+    if(jpgStream!=nullptr){
+        pix->loadFromData(jpgStream);
+    }
+    else {
+        return;
+    }
+    QPalette palette;
+
+    switch (imgNumber) {
+    case 1:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_1->setPalette(palette);
+    }
+        break;
+    case 2:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_2->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_2->setPalette(palette);
+    }
+        break;
+    case 3:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_3->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_3->setPalette(palette);
+    }
+        break;
+    case 4:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_4->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_4->setPalette(palette);
+    }
+        break;
+    case 5:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_5->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_5->setPalette(palette);
+    }
+        break;
+    case 6:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_6->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_6->setPalette(palette);
+    }
+        break;
+    }
 }
 
 void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
@@ -197,7 +290,7 @@ void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
     }
 }
 
-void Channel_Data_Form::slot_initCamera()
+void Channel_Data_Form::slot_initEquipment()
 {
     if(nullptr==this->para){
         return;
@@ -212,6 +305,9 @@ void Channel_Data_Form::slot_initCamera()
     emit signal_initCamer_top(para->TopCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(4));
     emit signal_initCamer_prospects(para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(5));
     emit signal_initCamer_foreground(para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(6));
+
+    emit signal_setAlarmMode(para->infraredStatus);
+    emit signal_startSlave(QString("COM%1").arg(para->SerialPortOne),QString("COM%1").arg(para->SerialPortTow),channelID);
 }
 
 void Channel_Data_Form::slot_bindingCameraID(QString cameraAddr, int ID)
@@ -232,4 +328,90 @@ void Channel_Data_Form::slot_playStream(quint64 winID, bool play, int channelID,
     if(this->channelID==channelID){
         emit signal_playStream(winID,play,signatureList.at(cameraID-1));
     }
+}
+
+void Channel_Data_Form::slot_logicStatus(int *status)
+{
+    /* A1.A2.D1.B1.B2.D2.D3.D4 */
+    ui->a1checkBox->setChecked(status[0]);
+    ui->a2checkBox->setChecked(status[1]);
+    ui->b1checkBox->setChecked(status[3]);
+    ui->b2checkBox->setChecked(status[4]);
+    ui->d1checkBox->setChecked(status[2]);
+    ui->d2checkBox->setChecked(status[5]);
+    ui->d3checkBox->setChecked(status[6]);
+    ui->d4checkBox->setChecked(status[7]);
+}
+
+void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
+{
+    /* putCommnd
+     * -1:来车
+     *0:45G1前面
+     *1:45G1后面
+     *2:22G1
+     *3:双22G1前面
+     *4:双22G1后面
+    */
+    /*  Type,集装箱类别:
+     * -1 – 未知
+     * 0 – 一个 20 集装箱
+     * 1 – 一个 40 吋/45 吋集装箱
+     * 2 – 两个 20 吋集装箱
+     */
+
+    switch (putCommnd) {
+    case -1:
+        emit clearnPixmap();/* 通知来车,清除数据界面图片 */
+        break;
+    case 0:
+    {
+        imgTimer=QDateTime::currentDateTime().toString("yyyyMMddhhmmss");/* 来车时间 */
+        emit signal_putCommand(1,imgTimer,signatureList.at(0));
+        emit signal_putCommand(2,imgTimer,signatureList.at(2));
+        emit signal_putCommand(3,imgTimer,signatureList.at(3));
+    }
+        break;
+    case 1:
+    {
+        emit signal_putCommand(4,imgTimer,signatureList.at(2));
+        emit signal_putCommand(5,imgTimer,signatureList.at(3));
+        emit signal_putCommand(6,imgTimer,signatureList.at(1));
+    }
+        break;
+    case 2:
+    {
+        imgTimer=QDateTime::currentDateTime().toString("yyyyMMddhhmmss");/* 来车时间 */
+        emit signal_putCommand(1,imgTimer,signatureList.at(0));
+        emit signal_putCommand(2,imgTimer,signatureList.at(2));
+        emit signal_putCommand(3,imgTimer,signatureList.at(3));
+        emit signal_putCommand(6,imgTimer,signatureList.at(1));
+    }
+        break;
+    case 4:
+    {
+        emit signal_putCommand(4,imgTimer,signatureList.at(2));
+        emit signal_putCommand(5,imgTimer,signatureList.at(3));
+        emit signal_putCommand(6,imgTimer,signatureList.at(1));
+    }
+        break;
+    }
+}
+
+void Channel_Data_Form::slot_serialPortState(bool com1, bool com2)
+{
+    if(com1){
+        ui->serial1checkBox->setStyleSheet("color: rgb(0, 211, 0);");
+    }
+    else {
+        ui->serial1checkBox->setStyleSheet("color: rgb(211, 0, 0);");
+    }
+    if(com2){
+        ui->serial2checkBox->setStyleSheet("color: rgb(0, 211, 0);");
+    }
+    else {
+        ui->serial2checkBox->setStyleSheet("color: rgb(211, 0, 0);");
+    }
+    ui->serial1checkBox->setChecked(com1);
+    ui->serial2checkBox->setChecked(com2);
 }
