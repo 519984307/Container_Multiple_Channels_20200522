@@ -116,7 +116,6 @@ void LoadingLibaray::slot_createLibaray()
             }
 
             pluginsDir.cdUp();
-            qDebug()<< pluginLoader.unload();
         }       
     }
 

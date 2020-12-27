@@ -21,11 +21,23 @@ ImageDialog::ImageDialog(QWidget *parent) :
     //QRect screenRect =QGuiApplication::screens().at(0)->geometry();
     this->setWindowState(Qt::WindowMaximized);
     //resize(screenRect.width(),screenRect.height()-100);
+
+    ui->label->installEventFilter(this);
 }
 
 ImageDialog::~ImageDialog()
 {
     delete ui;
+}
+
+bool ImageDialog::eventFilter(QObject *target, QEvent *event)
+{
+    if(event->type()==QEvent::MouseButtonDblClick){
+        if(target==ui->label){
+            this->close();
+        }
+    }
+    return  QWidget::eventFilter(target,event);
 }
 
 void ImageDialog::slot_enlargeImages(QByteArray arry)
@@ -46,7 +58,7 @@ void ImageDialog::on_savePushButton_clicked()
             QSharedPointer<QPixmap> pix(new QPixmap());
             pix->loadFromData(imgArr);
             if(pix->save(file)){
-                QMessageBox::information(this,tr("Error"),tr("Failed to save image"));
+                QMessageBox::information(this,tr("Info"),tr("Save picture Chen successfully"));
             }
         }
         else {

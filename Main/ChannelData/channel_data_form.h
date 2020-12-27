@@ -6,9 +6,14 @@
 #include <QPaintEvent>
 #include <QResizeEvent>
 #include <QDateTime>
+#include <QMutexLocker>
+#include <QMutex>
+#include <QDir>
+#include <QtConcurrent>
 
 #include "./Parameter/channelparameter.h"
-#include "Parameter/LocalPar.h"
+#include "./Parameter/LocalPar.h"
+#include "./Parameter/parameter.h"
 
 namespace Ui {
 class Channel_Data_Form;
@@ -46,6 +51,11 @@ private:
     int channelID;
 
     ///
+    /// \brief channelNumber 通道号
+    ///
+    int channelNumber;
+
+    ///
     /// \brief signatureList 特征码列表
     ///
     QList<QString> signatureList;
@@ -61,9 +71,27 @@ private:
     QString imgTimer;
 
     ///
+    /// \brief mutex 写入文件锁
+    ///
+    QMutex mutex;
+
+    ///
+    /// \brief putCount 抓图数量
+    ///
+    int putCount;
+
+    ///
     /// \brief clearnPixmap 清除图片
     ///
     void clearnPixmap();
+
+    ///
+    /// \brief saveImages 保存图片
+    /// \param stream
+    /// \param datetime 图片时间戳
+    /// \return
+    ///
+    void saveImages(QMap<int,QByteArray> stream, QString datetime);
 
 private slots:
 
@@ -81,6 +109,14 @@ private slots:
     void slot_pictureStream(const QByteArray &jpgStream,const int &imgNumber,const QString &imgTime="");
 
 signals:
+
+    ///
+    /// \brief signal_setDeviceStatus 设置设备表状态
+    /// \param channel 通道
+    /// \param equipment 设备
+    /// \param state 状态
+    ///
+    void signal_setDeviceStatus(int channel, int equipment,bool state);
 
     void signal_initCamer_front(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
     void signal_initCamer_before(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);

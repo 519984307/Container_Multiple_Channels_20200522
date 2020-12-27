@@ -1,9 +1,11 @@
-#ifndef EQUIPMENT_STATE_FROM_H
+﻿#ifndef EQUIPMENT_STATE_FROM_H
 #define EQUIPMENT_STATE_FROM_H
 
 #include <QWidget>
 #include <QDebug>
 #include <QTableWidgetItem>
+
+#include "./Parameter/LocalPar.h"
 
 namespace Ui {
 class Equipment_State_From;
@@ -18,28 +20,7 @@ public:
     ~Equipment_State_From();
 
 private:
-    Ui::Equipment_State_From *ui;
-
-    enum equipment{
-        B_C=0,             /* 前相机 */
-        A_C=1,             /* 后相机 */
-        L_C=2,             /* 左相机 */
-        R_C=3,             /* 右相机 */
-        T_C=4,             /* 顶相机 */
-        P_C=5,             /* 车牌相机 */
-        A1=6,              /*  红外A1 */
-        A2=7,              /*  红外A2 */
-        B1=8,              /*  红外B1 */
-        B2=9,              /*  红外B2 */
-        D1=10,            /*  红外D1 */
-        D2=11,            /*  红外D2 */
-        R_F=12,           /*  前箱号 */
-        R_A=13,           /*  后箱号 */
-        PLATE=14,       /*  车牌 */
-        MSG=15          /*  日志信息 */
-    };
-
-    //Q_ENUM(equipment)   
+    Ui::Equipment_State_From *ui; 
 
 public slots:
 

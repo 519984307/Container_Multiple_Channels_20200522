@@ -44,6 +44,8 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     ui->lineEdit_5->setText(QString::number(channelNumber));
     ui->toolBox->setCurrentIndex(0);
 
+    this->channelNumber=channelNumber;
+
     foreach (QCheckBox* obj, ui->toolBox->findChildren<QCheckBox*>(QString(),Qt::FindChildrenRecursively)) {
         /*****************************
         * @brief:ChcekBox禁止手动勾选
@@ -154,13 +156,85 @@ void Channel_Data_Form::on_SimulationPushButton_clicked()
     Dlg->exec();
 }
 
+void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime)
+{
+    QMutexLocker locket(&mutex);
+    if(Parameter::ImagePath.isEmpty()){
+        Parameter::ImagePath="C:\\images";
+    }
+    QString suffixPath="";
+    switch (Parameter::ImageFormat) {
+    case 0:
+        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
+        break;
+    case 1:
+        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM")));
+        break;
+    case 2:
+        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy")));
+        break;
+    case 3:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(channelNumber));
+        break;
+    case 4:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
+        break;
+    case 5:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM")));
+        break;
+    case 6:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy")));
+        break;
+    case 7:
+        suffixPath=QDir::toNativeSeparators("./");
+        break;
+    }
+
+    QDir dir(Parameter::ImagePath);
+    dir.mkpath(suffixPath);
+    dir.cd(suffixPath);
+
+    foreach (auto key, stream.keys()) {
+        if(nullptr == stream.value(key)){
+            continue;
+        }
+        QString imgName="";
+        switch (Parameter::ImageNamingRules) {
+        case 0:
+            imgName=QString("%1%2%3").arg(datetime).arg(channelNumber,2,10,QLatin1Char('0')).arg(key,2,10,QLatin1Char('0'));
+            break;
+        case 1:
+            imgName=QString("%1%2%3").arg(datetime).arg(key,2,10,QLatin1Char('0')).arg(channelNumber,2,10,QLatin1Char('0'));
+            break;
+        }
+        imgName=QDir::toNativeSeparators(tr("%1/%2.jpg").arg(dir.path()).arg(imgName));
+
+        QSharedPointer<QPixmap> pix(new QPixmap());
+        pix.data()->loadFromData(stream.value(key));
+        pix.data()->scaled(1280,720, Qt::IgnoreAspectRatio, Qt::SmoothTransformation).save(imgName);
+    }
+}
+
 void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const int &imgNumber, const QString &imgTime)
 {
-    if(imgTime!=this->imgTimer){
-        streamMap.clear();
+    if(imgNumber==0){
+        return;
     }
+    if(imgTime!=this->imgTimer){
+        QMutableMapIterator<int, QByteArray> i(streamMap);
+         while (i.hasNext()) {
+             i.next();
+             i.remove();
+         }
+         streamMap.clear();
+    }
+
     this->imgTimer=imgTime;
     streamMap.insert(imgNumber,jpgStream);
+
+    if(-1!=putCount && streamMap.size()==putCount){
+        QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTime);
+    }
 
     QSharedPointer<QPixmap> pix(new QPixmap());
     if(jpgStream!=nullptr){
@@ -169,6 +243,7 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
     else {
         return;
     }
+
     QPalette palette;
 
     switch (imgNumber) {
@@ -216,6 +291,7 @@ void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
     if(nullptr==this->para){
         return;
     }
+
     if(camerIP==para->FrontCamer){
         ui->frontCheckBox->setChecked(state);
         if(state){
@@ -224,6 +300,7 @@ void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
         else {
             ui->frontCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
         }
+        emit signal_setDeviceStatus(channelID,LocalPar::Front,state);
     }
     if (camerIP==para->AfterCamer) {
         ui->beforeCheckBox->setChecked(state);
@@ -233,6 +310,7 @@ void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
         else {
             ui->beforeCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
         }
+        emit signal_setDeviceStatus(channelID,LocalPar::Before,state);
     }
     if (camerIP==para->LeftCamer) {
         ui->leftCheckBox->setChecked(state);
@@ -242,6 +320,7 @@ void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
         else {
             ui->leftCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
         }
+        emit signal_setDeviceStatus(channelID,LocalPar::Left,state);
     }
     if (camerIP==para->RgihtCamer) {
         ui->rightCheckBox->setChecked(state);
@@ -251,6 +330,7 @@ void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
         else {
             ui->rightCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
         }
+        emit signal_setDeviceStatus(channelID,LocalPar::Right,state);
     }
     if (camerIP==para->PlateCamer) {
         ui->platestateCheckBox->setChecked(state);
@@ -260,6 +340,7 @@ void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
         else {
             ui->platestateCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
         }
+        emit signal_setDeviceStatus(channelID,LocalPar::Plate,state);
     }
     if (camerIP==para->TopCamer) {
         ui->topstateCheckBox->setChecked(state);
@@ -269,6 +350,7 @@ void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
         else {
             ui->topstateCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
         }
+        emit signal_setDeviceStatus(channelID,LocalPar::Top,state);
     }
     if (camerIP==para->ForgroundCamer) {
         ui->forgroundstateCheckBox->setChecked(state);
@@ -278,6 +360,7 @@ void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
         else {
             ui->forgroundstateCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
         }
+        emit signal_setDeviceStatus(channelID,LocalPar::Foreground,state);
     }
     if (camerIP==para->ProspectsCamer) {
         ui->prospectsstateCheckBox->setChecked(state);
@@ -287,6 +370,7 @@ void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
         else {
             ui->prospectsstateCheckBox->setStyleSheet("color: rgb(211, 0, 0);");
         }
+        emit signal_setDeviceStatus(channelID,LocalPar::Prospects,state);
     }
 }
 
@@ -332,15 +416,20 @@ void Channel_Data_Form::slot_playStream(quint64 winID, bool play, int channelID,
 
 void Channel_Data_Form::slot_logicStatus(int *status)
 {
-    /* A1.A2.D1.B1.B2.D2.D3.D4 */
+    /* A1.A2.B1.B2.D1.D2.D3.D4 */
     ui->a1checkBox->setChecked(status[0]);
     ui->a2checkBox->setChecked(status[1]);
-    ui->b1checkBox->setChecked(status[3]);
-    ui->b2checkBox->setChecked(status[4]);
-    ui->d1checkBox->setChecked(status[2]);
+    ui->b1checkBox->setChecked(status[2]);
+    ui->b2checkBox->setChecked(status[3]);
+    ui->d1checkBox->setChecked(status[4]);
     ui->d2checkBox->setChecked(status[5]);
     ui->d3checkBox->setChecked(status[6]);
     ui->d4checkBox->setChecked(status[7]);
+
+    LocalPar::equipment=LocalPar::A1;
+    for (int var = 0; var < 8; ++var) {
+        emit signal_setDeviceStatus(channelID,LocalPar::equipment+var,status[var]);
+    }
 }
 
 void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
@@ -363,6 +452,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
     switch (putCommnd) {
     case -1:
         emit clearnPixmap();/* 通知来车,清除数据界面图片 */
+        this->putCount=-1;
         break;
     case 0:
     {
@@ -377,6 +467,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(4,imgTimer,signatureList.at(2));
         emit signal_putCommand(5,imgTimer,signatureList.at(3));
         emit signal_putCommand(6,imgTimer,signatureList.at(1));
+        this->putCount=6;
     }
         break;
     case 2:
@@ -386,6 +477,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(2,imgTimer,signatureList.at(2));
         emit signal_putCommand(3,imgTimer,signatureList.at(3));
         emit signal_putCommand(6,imgTimer,signatureList.at(1));
+        this->putCount=4;
     }
         break;
     case 4:
@@ -393,6 +485,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(4,imgTimer,signatureList.at(2));
         emit signal_putCommand(5,imgTimer,signatureList.at(3));
         emit signal_putCommand(6,imgTimer,signatureList.at(1));
+        this->putCount=6;
     }
         break;
     }
@@ -414,4 +507,7 @@ void Channel_Data_Form::slot_serialPortState(bool com1, bool com2)
     }
     ui->serial1checkBox->setChecked(com1);
     ui->serial2checkBox->setChecked(com2);
+
+    emit signal_setDeviceStatus(channelID,LocalPar::Serial1,com1);
+    emit signal_setDeviceStatus(channelID,LocalPar::Serial2,com2);
 }

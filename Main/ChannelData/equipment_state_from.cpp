@@ -16,11 +16,6 @@ Equipment_State_From::Equipment_State_From(QWidget *parent) :
     this->setParent(parent);
     this->setVisible(false);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
-
-    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(ui->tableWidget->columnCount()-4,QHeaderView::ResizeToContents);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(ui->tableWidget->columnCount()-3,QHeaderView::ResizeToContents);
-    ui->tableWidget->horizontalHeader()->setSectionResizeMode(ui->tableWidget->columnCount()-2,QHeaderView::ResizeToContents);
 }
 
 Equipment_State_From::~Equipment_State_From()
@@ -30,22 +25,31 @@ Equipment_State_From::~Equipment_State_From()
 
 void Equipment_State_From::initializesTheDeviceStateListSlot(int count, QStringList rowLabels)
 {
+    ui->tableWidget->setColumnCount(LocalPar::DeviceStateList.count());
+    ui->tableWidget->setHorizontalHeaderLabels(LocalPar::DeviceStateList);
     ui->tableWidget->setRowCount(count);
     ui->tableWidget->setVerticalHeaderLabels(rowLabels);
+    ui->tableWidget->horizontalHeader()->setStretchLastSection(true);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(ui->tableWidget->columnCount()-4,QHeaderView::ResizeToContents);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(ui->tableWidget->columnCount()-3,QHeaderView::ResizeToContents);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(ui->tableWidget->columnCount()-2,QHeaderView::ResizeToContents);
 
     for (int row=0;row<ui->tableWidget->rowCount();++row) {
         for (int column=0;column<ui->tableWidget->columnCount();++column) {
             QString state=QString("%1").arg("ON");
-            if(column<8){
+            if(column<=LocalPar::Serial2){
                state=QString("%1").arg("XX");
             }
-            else if(column==14 || column==15){
-                state="MSDU1234567";
+            else if (LocalPar::A1<=column && column <=LocalPar::D4) {
+                state=QString::number(0);
             }
-            else if(column==16){
-                state="粤B050CS";
+            else if(column==LocalPar::Con1 || column==LocalPar::Con2){
+                state="***********";
             }
-            else if(column==17){
+            else if(column==LocalPar::Plate1){
+                state="******";
+            }
+            else if(column==LocalPar::Msg){
                 state=tr("%1").arg("This is the test data");
             }
             ui->tableWidget->setItem(row,column,new QTableWidgetItem (state));
@@ -62,15 +66,15 @@ void Equipment_State_From::setDeviceStatusSlot(int channel, int equipment, bool 
     QString text="";
     QColor color;
 
-    if(equipment<6){
+    if(equipment<=LocalPar::Serial2){
         text=state?"OK":"XX";
-        color=state?Qt::green:Qt::red;
+        color=state?Qt::blue:Qt::red;
     }
-    else if (6< equipment and equipment<12) {
-        text=state?"OFF":"NO";
-        color=state?Qt::green:Qt::red;
+    else if (LocalPar::A1<= equipment && equipment<=LocalPar::D4) {
+        text=state?"1":"0";
+        color=state?Qt::blue:Qt::blue;
     }
 
-    ui->tableWidget->item(channel-1,equipment-1)->setText(text);
-    ui->tableWidget->item(channel-1,equipment-1)->setTextColor(color);
+    ui->tableWidget->item(channel-1,equipment)->setText(text);
+    ui->tableWidget->item(channel-1,equipment)->setTextColor(color);
 }

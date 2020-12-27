@@ -107,6 +107,12 @@ private:
     ///
     void bindingPlugin();
 
+    ///
+    /// \brief loadStyleSheet 加载样式表
+    /// \param fileName 文件名
+    ///
+    void loadStyleSheet(const QString &fileName);
+
 private:
 
     /*****************************
@@ -233,6 +239,10 @@ private:
     ///
     QPointer<QMenu> systemTrayMen;
 
+    ///
+    /// \brief pAction 工具栏按钮
+    ///
+    QPointer<QAction> pAction;
     /*****************************
     * @brief:UI
     ******************************/

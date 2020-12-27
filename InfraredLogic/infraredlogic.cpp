@@ -87,7 +87,7 @@ void InfraredLogic::serialLogic(int *status)
     /*****************************
     * @brief:车辆进入，如果是高车头同时挡住2组红外                    1
     ******************************/
-    if(status[0]==valueOne && status[1]==valueOne && status[3]==valueTwo && status[4]==valueTwo){
+    if(status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
         comming=true;
         isLong=false;
         isDouble=false;
@@ -100,8 +100,8 @@ void InfraredLogic::serialLogic(int *status)
     /*****************************
     * @brief:遮挡住2组红外，然后释放掉，证明是高车头                  2
     ******************************/
-    if(comming && status[0]==valueTwo && status[1]==valueTwo && status[3]==valueTwo && status[4]==valueTwo){
-        //comming=false;
+    if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+        comming=false;
         isCar=true;/* 判断是高车头 */
         qDebug()<<"2";
     }
@@ -109,7 +109,7 @@ void InfraredLogic::serialLogic(int *status)
     /*****************************
     * @brief:不是双箱，不是车头，判断为长箱。抓拍前3张                3
     ******************************/
-    if(!isDouble && !isCar && status[0]==valueOne && status[1]==valueOne && status[3]==valueOne && status[4]==valueOne){
+    if(comming && !isDouble && !isCar && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueOne){
         /* 长箱或者双向(双箱加高车头抓两次) */
         isLong=true;
 
@@ -124,15 +124,17 @@ void InfraredLogic::serialLogic(int *status)
     /*****************************
     * @brief:释放A1,A2。抓拍后3张。逻辑完成                        4
     ******************************/
-    if(isLong && status[0]==valueTwo && status[1]==valueTwo && status[3]==valueOne && status[4]==valueOne){
+    if(comming && isLong && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
         if(health1){
             if(isDouble){
                 /* 如果是双箱就触发双箱标志 */
                 emit logicPutImageSignal(4);
+                qDebug()<<"4-4";
             }
             else {
                 /* 如果是长箱就触发长箱标志 */
                 logicPutImageSignal(1);
+                qDebug()<<"4-1";
             }
         }
 
@@ -143,7 +145,7 @@ void InfraredLogic::serialLogic(int *status)
         health2=true;
         health1=true;
 
-        qDebug()<<"4";
+
 
         return;
     }
@@ -151,7 +153,7 @@ void InfraredLogic::serialLogic(int *status)
     /*****************************
     * @brief:不是车头，不是长箱，就触发小箱逻辑。抓4张              5
     ******************************/
-    if(comming && !isLong && !isCar && status[0]==valueTwo && status[1]==valueTwo && status[3]==valueOne && status[4]==valueOne){
+    if(comming && !isLong && !isCar && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
         /* 小箱，抓4张(小箱放长托架后面,标准小箱) */
         if(health1){
             emit logicPutImageSignal(2);
@@ -169,27 +171,36 @@ void InfraredLogic::serialLogic(int *status)
         return;
     }
 
+//    /*****************************
+//    * @brief: 高车头，小箱放前，距离较近,(测试)                   7
+//    ******************************/
+//    if(comming && !isCar && status[0]==valueTwo && status[1]==valueOne && status[3]==valueOne && status[4]==valueTwo){
+//        isLong=false;
+//        isCar=false;
+
+//        qDebug()<<"7";
+//    }
+
     /*****************************
     * @brief:                                               8
     ******************************/
-    if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueTwo && status[3]==valueOne && status[4]==valueOne){
+    if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
         //双箱 A2
         isDouble=true;
+
+        qDebug()<<"8-1";
     }
-    if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[3]==valueTwo && status[4]==valueOne){
+    if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueOne){
         //双箱 B1
         isDouble=true;
-    }
-    if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[3]==valueOne && status[4]==valueTwo){
-        //双箱 B2
-        if(isDouble){
-            isDouble=false;
-        }
-        else {
-            isDouble=true;
-        }
 
-        qDebug()<<"8";
+        qDebug()<<"8-2";
+    }
+    if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
+        isDouble=false;
+        isLong=false;
+
+        qDebug()<<"8-3";
     }
 }
 
@@ -288,7 +299,7 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
         return;
     }
 
-    pDetectionTimer->start(20);
+    pDetectionTimer->start(10);
 
 }
 
@@ -367,13 +378,14 @@ void InfraredLogic::realyTheSerialport()
 
 void InfraredLogic::detectionLogicStatus(bool com1, bool com2)
 {
+    QCoreApplication::processEvents();
     if(com1 && pSerial1->pinoutSignals()!=QSerialPort::NoSignal){
         /*A1*/
         status[0]= (pSerial1->pinoutSignals()&QSerialPort::ClearToSendSignal)?1:0;
         //A2
         status[1]= (pSerial1->pinoutSignals()&QSerialPort::DataSetReadySignal)?1:0;
         /*D1*/
-        status[2]= (pSerial1->pinoutSignals()&QSerialPort::DataCarrierDetectSignal)?1:0;
+        status[4]= (pSerial1->pinoutSignals()&QSerialPort::DataCarrierDetectSignal)?1:0;
     }
     else {
         this->com1=false;
@@ -381,9 +393,9 @@ void InfraredLogic::detectionLogicStatus(bool com1, bool com2)
 
     if(com2 && pSerial2->pinoutSignals()!=QSerialPort::NoSignal){
         /*B1*/
-        status[3]= (pSerial2->pinoutSignals()&QSerialPort::ClearToSendSignal)?1:0;
+        status[2]= (pSerial2->pinoutSignals()&QSerialPort::ClearToSendSignal)?1:0;
         /*B2*/
-        status[4]= (pSerial2->pinoutSignals()&QSerialPort::DataSetReadySignal)?1:0;
+        status[3]= (pSerial2->pinoutSignals()&QSerialPort::DataSetReadySignal)?1:0;
         /*D2*/
         status[5]= (pSerial2->pinoutSignals()&QSerialPort::DataCarrierDetectSignal)?1:0;
     }
@@ -412,7 +424,7 @@ void InfraredLogic::detectionLogicStatus(bool com1, bool com2)
             //A2
             status[1]= 0;
             /*D1*/
-            status[2]= 0;
+            status[4]= 0;
         }
         if(!com2){
             /*B1*/

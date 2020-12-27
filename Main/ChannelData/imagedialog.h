@@ -1,4 +1,4 @@
-#ifndef IMAGEDIALOG_H
+﻿#ifndef IMAGEDIALOG_H
 #define IMAGEDIALOG_H
 
 #include <QDialog>
@@ -14,6 +14,8 @@ class ImageDialog : public QDialog
 public:
     explicit ImageDialog(QWidget *parent = nullptr);
     ~ImageDialog();
+
+    bool eventFilter(QObject *target, QEvent *event)override;
 
 private:
     Ui::ImageDialog *ui;

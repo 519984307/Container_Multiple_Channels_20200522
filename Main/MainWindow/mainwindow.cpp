@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initializationParameter();
     connectProcess();
     getScreenInfo();
+    loadStyleSheet(":/qss/style.qss");
 }
 
 MainWindow::~MainWindow()
@@ -167,7 +168,7 @@ void MainWindow::initializingObject()
     th->start();
     signal_createLibaray();
 }
-
+#include <QToolButton>
 void MainWindow::initializationParameter()
 {
     alarmNum=0;
@@ -229,6 +230,7 @@ void MainWindow::initializationParameter()
         if(channelParCount>=channel && !Pointer_Parameter->ParmeterMap.value(channel)->Alias.isEmpty()){
             name=Pointer_Parameter->ParmeterMap.value(channel)->Alias;
         }
+
         QAction *pAction=new QAction (name,this);
         pAction->setIcon(QIcon(":/UI_ICO/ICO/container.svg"));
         pAction->setShortcut(QKeySequence(Qt::CTRL+static_cast<uint16_t>(key+channel)));
@@ -292,13 +294,14 @@ void MainWindow::connectProcess()
         connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Equipment_State_Form,SLOT(initializesTheDeviceStateListSlot(int,QStringList)));
 
         /*****************************
-        * 设置通道设备状态
+        * @brief:展示设备状态
         ******************************/
         connect(this,SIGNAL(setDeviceStatusSignal(int,int,bool)),p_Equipment_State_Form,SLOT(setDeviceStatusSlot(int,int,bool)));
     }
 
     foreach (auto from, Channel_Data_From_Map.values()) {
         connect(this,SIGNAL(signal_initEquipment()),from,SLOT(slot_initEquipment()));
+        connect(from,SIGNAL(signal_setDeviceStatus(int,int,bool)),this,SIGNAL(setDeviceStatusSignal(int,int,bool)));
     }
 
     /*****************************
@@ -312,6 +315,18 @@ void MainWindow::connectProcess()
     * @brief:添加错误状态提示到工具栏
     ******************************/
     ui->mainToolBar->addWidget(pAlarmForm);
+}
+
+
+void MainWindow::loadStyleSheet(const QString &fileName)
+{
+    QFile file(fileName);
+    file.open(QFile::ReadOnly);
+    if(file.isOpen()){
+        QString styleSheet=this->styleSheet();
+        styleSheet+=QLatin1String(file.readAll());
+        this->setStyleSheet(styleSheet);
+    }
 }
 
 void MainWindow::setStatusBar(/*int type */const QString &msg)
@@ -367,7 +382,7 @@ void MainWindow::systemTrayTriggered(QSystemTrayIcon::ActivationReason reason)
 
 void MainWindow::actionTiggeredSlot()
 {
-    QPointer<QAction> pAction=qobject_cast<QAction*> (sender());
+    pAction=qobject_cast<QAction*> (sender());
 
     QMap<QAction*,int>::const_iterator it =From_Action_Map.find(pAction);
 
@@ -375,7 +390,6 @@ void MainWindow::actionTiggeredSlot()
     * 预览通道没有切换,就不做处理(channelSelect)
     ******************************/
     if(it!=From_Action_Map.end() && it.value()!=channelSelect){
-
         channelSelect=it.value();
 
         foreach (Channel_Data_Form* form, Channel_Data_From_Map.values()) {

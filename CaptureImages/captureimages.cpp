@@ -65,7 +65,7 @@ bool CaptureImages::putCommandSlot( int imgNumber, QString imgTime,const QString
         imgGetTimeOut->start(3000);
         return true;
     }
-    qDebug().noquote()<<signature<<":Camera not logged in";
+    //qDebug().noquote()<<signature<<":Camera not logged in";
     return false;
 }
 

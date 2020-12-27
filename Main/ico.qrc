@@ -17,4 +17,7 @@
         <file>ICO/front.svg</file>
         <file>ICO/last.svg</file>
     </qresource>
+    <qresource prefix="/qss">
+        <file>style.qss</file>
+    </qresource>
 </RCC>
