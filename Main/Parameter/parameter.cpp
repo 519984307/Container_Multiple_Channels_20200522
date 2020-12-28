@@ -18,6 +18,10 @@ namespace Parameter {
     QString FtpPassword= QString("ABCabc123");    
     QString FtpRemotePath= QString("./");
     QString FtpUser= QString("admin");
+    int DatabaseType =0 ;
+    QString databaseAddr = QString("127.0.0.1");
+    QString databaseUser = QString("Admin");
+    QString databasePass = QString("ABCabc123");
 
 
     /*****************************

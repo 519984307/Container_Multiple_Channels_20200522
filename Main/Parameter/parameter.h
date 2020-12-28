@@ -1,4 +1,4 @@
-#ifndef PARAMETER_H
+﻿#ifndef PARAMETER_H
 #define PARAMETER_H
 
 #include <QString>
@@ -73,6 +73,25 @@ namespace Parameter {
     ///
     extern int ReduceImage;
 
+    ///
+    /// \brief DatabaseType 数据库类型
+    ///
+    extern int DatabaseType;
+
+    ///
+    /// \brief databaseAddr 数据库地址
+    ///
+    extern QString databaseAddr;
+
+    ///
+    /// \brief databaseUser 数据库用户名
+    ///
+    extern QString databaseUser;
+
+    ///
+    /// \brief databasePass 数据库密码
+    ///
+    extern QString databasePass;
 
     /*****************************
     * @brief:Other

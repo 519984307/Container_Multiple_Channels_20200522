@@ -220,7 +220,7 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
     if(imgNumber==0){
         return;
     }
-    if(imgTime!=this->imgTimer){
+    if(imgTime!=this->imgTimerAf){
         QMutableMapIterator<int, QByteArray> i(streamMap);
          while (i.hasNext()) {
              i.next();
@@ -229,7 +229,7 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
          streamMap.clear();
     }
 
-    this->imgTimer=imgTime;
+    this->imgTimerAf=imgTime;
     streamMap.insert(imgNumber,jpgStream);
 
     if(-1!=putCount && streamMap.size()==putCount){

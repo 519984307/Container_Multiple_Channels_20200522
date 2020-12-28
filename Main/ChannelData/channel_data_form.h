@@ -71,6 +71,11 @@ private:
     QString imgTimer;
 
     ///
+    /// \brief imgTimerAf 校对时间戳
+    ///
+    QString imgTimerAf;
+
+    ///
     /// \brief mutex 写入文件锁
     ///
     QMutex mutex;

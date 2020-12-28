@@ -1,4 +1,4 @@
-#include "system_setting_form.h"
+﻿#include "system_setting_form.h"
 #include "ui_system_setting_form.h"
 /*****************************
 * @brief:全局参数
@@ -122,6 +122,10 @@ bool System_Setting_Form::loadParameter()
                     Parameter::FtpRemotePath= getJsonValue("Upload","FtpRemotePath",value.toObject()).toString();
                     Parameter::FtpUser= getJsonValue("Upload","FtpUser",value.toObject()).toString();
                     Parameter::ReduceImage=getJsonValue("Upload","ReduceImage",value.toObject()).toInt();
+                    Parameter::databaseAddr= getJsonValue("Upload","databaseAddr",value.toObject()).toString();
+                    Parameter::databaseUser= getJsonValue("Upload","databaseUser",value.toObject()).toString();
+                    Parameter::databasePass= getJsonValue("Upload","databasePass",value.toObject()).toString();
+                    Parameter::DatabaseType=getJsonValue("Upload","DatabaseType",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Other
@@ -214,6 +218,10 @@ bool System_Setting_Form::writeParameterSlot()
     obj3.insert("FtpRemotePath",ui->FtpRemote->text());
     obj3.insert("FtpLocalPath",ui->FtpLocal->text());
     obj3.insert("ReduceImage",(int)ui->ReduceImage->isChecked());
+    obj3.insert("DatabaseType",ui->database_Type_comboBox->currentIndex());
+    obj3.insert("databaseAddr",ui->database_Addr_lineEdit->text());
+    obj3.insert("databaseUser",ui->database_User_lineEdit->text());
+    obj3.insert("databasePass",ui->database_Pass_lineEdit->text());
     jsonChild.insert("Upload",QJsonValue(obj3));
 
     /*****************************
@@ -318,7 +326,11 @@ void System_Setting_Form::parameterToUi()
     ui->FtpUser->setText(Parameter::FtpUser);
     ui->FtpPassword->setText(Parameter::FtpPassword);
     ui->FtpLocal->setText(Parameter::FtpLocalPath);
-    ui->FtpRemote->setText(Parameter::FtpRemotePath);
+    ui->FtpRemote->setText(Parameter::FtpRemotePath);   
+    ui->database_Type_comboBox->setCurrentIndex(Parameter::DatabaseType);
+    ui->database_Addr_lineEdit->setText(Parameter::databaseAddr);
+    ui->database_User_lineEdit->setText(Parameter::databaseUser);
+    ui->database_Pass_lineEdit->setText(Parameter::databasePass);
 
     /*****************************
     * @brief:Other
