@@ -51,4 +51,5 @@ void Data_Log_Form::slot_newLogText(QtMsgType type,QDateTime time,QString value)
     if(msgType=="Info"){
         ui->logTableWidget->item(row,2)->setBackgroundColor(QColor(Qt::green));
     }
+    ui->logTableWidget->scrollToBottom();
 }

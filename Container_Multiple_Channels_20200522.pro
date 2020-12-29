@@ -8,14 +8,14 @@ SUBDIRS +=\
 #    TheLicensePlateWTY \
 #    ToUploadData\
 #    DataInterchange \
-#    DatabaseWrite \
-#    DatabaseRead \
+    DatabaseInsert \
+    DatabaseRead \
 #    TheDataAnalysis \
     InfraredLogic\
 #    Encryption\
 #    IdentifyImages\
     CaptureImages \
     LogController \
+    TheMiddlewareHCNET \
     Main \
-    TheMiddlewareHCNET
 

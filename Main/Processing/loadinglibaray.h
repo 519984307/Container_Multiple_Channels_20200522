@@ -12,6 +12,8 @@
 #include "interface/ICaptureImages.h"
 #include "interface/IMiddleware.h"
 #include "interface/infraredlogicinterface.h"
+#include "interface/databaseinsertinterface.h"
+#include "interface/databasereadinterface.h"
 
 class LoadingLibaray : public QObject
 {
@@ -57,6 +59,16 @@ public:/* container */
     /// \brief InfraredlogicLit 红外插件库
     ///
     QList<QSharedPointer<InfraredlogicInterface>> InfraredlogicLit;
+
+    ///
+    /// \brief IDataBaseInsertList 数据库插入库
+    ///
+    QList<QSharedPointer<DataBaseInsertInterface>> IDataBaseInsertList;
+
+    ///
+    /// \brief IDataBaseReadList 数据库读取库
+    ///
+    QList<QSharedPointer<DataBaseReadInterface>> IDataBaseReadList;
 
 public slots:
 

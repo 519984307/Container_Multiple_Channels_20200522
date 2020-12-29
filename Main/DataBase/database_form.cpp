@@ -1,4 +1,4 @@
-#include "database_form.h"
+﻿#include "database_form.h"
 #include "ui_database_form.h"
 
 DataBase_Form::DataBase_Form(QWidget *parent) :
@@ -24,9 +24,6 @@ DataBase_Form::~DataBase_Form()
 
 void DataBase_Form::InitializationWindow()
 {
-    p_Image_Dialog=new Image_Dialog (this);
-    connect(this,SIGNAL(set_image_dialog_pixmap_signal(QPixmap)),p_Image_Dialog,SLOT(set_image_dialog_pixmap_slot(QPixmap)));
-
     /*****************************
      * 默认显示第一页
      ******************************/
@@ -58,12 +55,12 @@ bool DataBase_Form::eventFilter(QObject *obj, QEvent *event)
                 delete pix;
                 pix=nullptr;
 
-                if(pLabel->pixmap()!=nullptr && p_Image_Dialog!=nullptr){
-                    p_Image_Dialog->show();
+                p_Image_Dialog=new Image_Dialog (this);
+                connect(this,SIGNAL(set_image_dialog_pixmap_signal(QPixmap)),p_Image_Dialog,SLOT(set_image_dialog_pixmap_slot(QPixmap)));
+                p_Image_Dialog->show();
 
-                    QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
-                    emit set_image_dialog_pixmap_signal(pix);
-                }
+//                QPixmap pix("C:\\Users\\cc\\Pictures\\Camera Roll\\WIN_20200722_10_17_51_Pro.jpg");
+//                emit set_image_dialog_pixmap_signal(pix);
             }
         }
     }
@@ -88,4 +85,14 @@ void DataBase_Form::on_database_stackedWidget_currentChanged(int arg1)
     case 1:ui->database_imageOrData_pushButton->setText(tr("Data"));
         break;
     }
+}
+
+void DataBase_Form::slot_returnModel(QSqlTableModel *model)
+{
+
+}
+
+void DataBase_Form::slot_statisticalData(int total, double correct, double error, double statistical)
+{
+
 }

@@ -420,6 +420,17 @@ signals:
     /// \brief signal_releaseResources 释放插件资源
     ///
     void signal_releaseResources();    
+
+    ///
+    /// \brief signal_initDataBaseR 初始化数据库.如果不存在,就创建.
+    /// \param connectName 链接名称
+    /// \param user 用户名
+    /// \param pass密码
+    /// \param ip 地址
+    /// \param dataBaseType 数据库类型
+    ///
+    void signal_initDataBaseR(const QString &connectName,const QString &user,const QString &pass,const QString &ip,const int &dataBaseType);
+
 };
 
 #endif // MAINWINDOW_H

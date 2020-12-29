@@ -6,6 +6,7 @@
 
 #include <QPointer>
 #include <QDebug>
+#include <QDateTime>
 
 Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *parent) :
     QWidget(parent),
@@ -60,8 +61,12 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
 
 Channel_Data_Form::~Channel_Data_Form()
 {
-    streamMap.clear();
     qDebug()<<"~Channel_Data_Form";
+
+    streamMap.clear();
+    signatureList.clear();
+    databaseMap.clear();
+
     delete ui;
 }
 
@@ -131,6 +136,38 @@ void Channel_Data_Form::loadParamter(int channelID,ChannelParameter *para)
 {
     this->channelID=channelID;
     this->para=para;
+
+    /*****************************
+    * @brief:初始化数据库
+    ******************************/
+    emit signal_initDataBase(QString::number(channelID),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
+
+    switch (Parameter::ImageFormat) {
+    case 0:
+        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
+        break;
+    case 1:
+        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM")));
+        break;
+    case 2:
+        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy")));
+        break;
+    case 3:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(channelNumber));
+        break;
+    case 4:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
+        break;
+    case 5:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM")));
+        break;
+    case 6:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy")));
+        break;
+    case 7:
+        suffixPath=QDir::toNativeSeparators("./");
+        break;
+    }
 }
 
 void Channel_Data_Form::clearnPixmap()
@@ -162,33 +199,6 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
     if(Parameter::ImagePath.isEmpty()){
         Parameter::ImagePath="C:\\images";
     }
-    QString suffixPath="";
-    switch (Parameter::ImageFormat) {
-    case 0:
-        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
-        break;
-    case 1:
-        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM")));
-        break;
-    case 2:
-        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy")));
-        break;
-    case 3:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(channelNumber));
-        break;
-    case 4:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
-        break;
-    case 5:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM")));
-        break;
-    case 6:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy")));
-        break;
-    case 7:
-        suffixPath=QDir::toNativeSeparators("./");
-        break;
-    }
 
     QDir dir(Parameter::ImagePath);
     dir.mkpath(suffixPath);
@@ -201,18 +211,51 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         QString imgName="";
         switch (Parameter::ImageNamingRules) {
         case 0:
-            imgName=QString("%1%2%3").arg(datetime).arg(channelNumber,2,10,QLatin1Char('0')).arg(key,2,10,QLatin1Char('0'));
+            imgName=QString("%1%2%3.jpg").arg(datetime).arg(channelNumber,2,10,QLatin1Char('0')).arg(key,2,10,QLatin1Char('0'));
             break;
         case 1:
-            imgName=QString("%1%2%3").arg(datetime).arg(key,2,10,QLatin1Char('0')).arg(channelNumber,2,10,QLatin1Char('0'));
+            imgName=QString("%1%2%3.jpg").arg(datetime).arg(key,2,10,QLatin1Char('0')).arg(channelNumber,2,10,QLatin1Char('0'));
             break;
         }
-        imgName=QDir::toNativeSeparators(tr("%1/%2.jpg").arg(dir.path()).arg(imgName));
+        QString imgpath=QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgName));
 
         QSharedPointer<QPixmap> pix(new QPixmap());
         pix.data()->loadFromData(stream.value(key));
-        pix.data()->scaled(1280,720, Qt::IgnoreAspectRatio, Qt::SmoothTransformation).save(imgName);
+        pix.data()->scaled(1280,720, Qt::IgnoreAspectRatio, Qt::SmoothTransformation).save(imgpath);
+
+        /*****************************
+        * @brief:图片写入数据库
+        ******************************/
+
+        switch (key) {
+        case 1:
+            databaseMap.insert("ImgFront",imgName);
+            break;
+        case 2:
+            databaseMap.insert("ImgLeftFront",imgName);
+            break;
+        case 3:
+            databaseMap.insert("ImgRightFront",imgName);
+            break;
+        case 4:
+            databaseMap.insert("ImgLeftAfter",imgName);
+            break;
+        case 5:
+            databaseMap.insert("ImgRightAfter",imgName);
+            break;
+        case 6:
+            databaseMap.insert("ImgAfter",imgName);
+            break;
+        }
     }
+    /*****************************
+    * @brief:插入数据库
+    ******************************/
+    databaseMap.insert("Timer",QDateTime::fromString(datetime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss"));
+    databaseMap.insert("Channel",QString::number(channelNumber));
+    databaseMap.insert("Type",QString::number(this->putComType));
+
+    emit signal_insertDataBase(databaseMap);
 }
 
 void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const int &imgNumber, const QString &imgTime)
@@ -392,6 +435,8 @@ void Channel_Data_Form::slot_initEquipment()
 
     emit signal_setAlarmMode(para->infraredStatus);
     emit signal_startSlave(QString("COM%1").arg(para->SerialPortOne),QString("COM%1").arg(para->SerialPortTow),channelID);
+
+    emit signal_initDataBase(QString::number(channelID),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
 }
 
 void Channel_Data_Form::slot_bindingCameraID(QString cameraAddr, int ID)
@@ -453,6 +498,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
     case -1:
         emit clearnPixmap();/* 通知来车,清除数据界面图片 */
         this->putCount=-1;
+        this->putComType=-1;
         break;
     case 0:
     {
@@ -468,6 +514,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(5,imgTimer,signatureList.at(3));
         emit signal_putCommand(6,imgTimer,signatureList.at(1));
         this->putCount=6;
+        this->putComType=1;
     }
         break;
     case 2:
@@ -478,6 +525,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(3,imgTimer,signatureList.at(3));
         emit signal_putCommand(6,imgTimer,signatureList.at(1));
         this->putCount=4;
+        this->putComType=0;
     }
         break;
     case 4:
@@ -486,6 +534,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(5,imgTimer,signatureList.at(3));
         emit signal_putCommand(6,imgTimer,signatureList.at(1));
         this->putCount=6;
+        this->putComType=2;
     }
         break;
     }

@@ -111,6 +111,7 @@ void MainWindow::getScreenInfo()
 void MainWindow::initializingObject()
 {
     qRegisterMetaType<QtMsgType>("QtMsgType");
+    qRegisterMetaType<QMap<QString,QString>>("QMap<QString,QString>");
     pLog=QPointer<LogController>(new LogController(LocalPar::App,this));
 
     pErrorForm=QPointer<ErrorForm>(new ErrorForm(this));
@@ -168,7 +169,7 @@ void MainWindow::initializingObject()
     th->start();
     signal_createLibaray();
 }
-#include <QToolButton>
+
 void MainWindow::initializationParameter()
 {
     alarmNum=0;
@@ -450,6 +451,13 @@ void MainWindow::on_actionCamera_Test_triggered()
 void MainWindow::on_actionHistory_Sqlite_triggered()
 {
     QPointer<DataBase_Form> p_DataBase_Form=new DataBase_Form (nullptr);
+    if(pLoadinglibaray->IDataBaseReadList.size()>=1){
+        connect(p_DataBase_Form,&DataBase_Form::signal_initDataBaseR,pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::initDataBaseSlot);
+        connect(p_DataBase_Form,&DataBase_Form::signal_setDataBaseFilter,pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::setDataBaseFilterSlot);
+        connect(pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::returnModelSingal,p_DataBase_Form,&DataBase_Form::slot_returnModel);
+        connect(pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::statisticalDataSignal,p_DataBase_Form,&DataBase_Form::slot_statisticalData);
+    }
+
     p_DataBase_Form->setWindowModality(Qt::ApplicationModal);
     p_DataBase_Form->show();
 }
@@ -483,6 +491,12 @@ void MainWindow::slot_handleFinished()
     statusProgressBar->setVisible(false);             
 
     bindingPlugin();
+
+    /*****************************
+    * @brief:初始化数据库
+    ******************************/
+    emit signal_initDataBaseR(QString::number(0),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
+
     /*****************************
     * @brief:登录相机
     ******************************/
@@ -575,5 +589,17 @@ void MainWindow::bindingPlugin()
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_startSlave,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::startSlaveSlot);
             connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::exitWhileSlot,Qt::BlockingQueuedConnection);
         }
+    }
+
+    if(pLoadinglibaray->IDataBaseInsertList.size()>=1){
+        for (int var = 0; var < pLoadinglibaray->IDataBaseInsertList.size(); ++var) {
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_initDataBase,pLoadinglibaray->IDataBaseInsertList.at(var).data(),&DataBaseInsertInterface::initDataBaseSlot);
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_insertDataBase,pLoadinglibaray->IDataBaseInsertList.at(var).data(),&DataBaseInsertInterface::insertDataBaseSlot);
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_updateDataBase,pLoadinglibaray->IDataBaseInsertList.at(var).data(),&DataBaseInsertInterface::updateDataBaseSlot);
+        }
+    }
+
+    if(pLoadinglibaray->IDataBaseReadList.size()>=1){
+        connect(this,&MainWindow::signal_initDataBaseR,pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::initDataBaseSlot);
     }
 }

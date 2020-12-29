@@ -1,4 +1,4 @@
-#include "image_dialog.h"
+﻿#include "image_dialog.h"
 #include "ui_image_dialog.h"
 
 Image_Dialog::Image_Dialog(QWidget *parent) :
@@ -7,6 +7,7 @@ Image_Dialog::Image_Dialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->setAttribute(Qt::WA_DeleteOnClose,true);
     this->setParent(parent);
     this->setVisible(false);
 }

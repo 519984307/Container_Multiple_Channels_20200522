@@ -66,6 +66,11 @@ private:
     QMap<int,QByteArray> streamMap;
 
     ///
+    /// \brief databaseMap 插入数据库
+    ///
+    QMap<QString, QString> databaseMap;
+
+    ///
     /// \brief imgTimer 抓拍时间戳
     ///
     QString imgTimer;
@@ -84,6 +89,16 @@ private:
     /// \brief putCount 抓图数量
     ///
     int putCount;
+
+    ///
+    /// \brief putComType 抓拍逻辑类型
+    ///
+    int putComType;
+
+    ///
+    /// \brief suffixPath 图片保存路径前缀
+    ///
+    QString suffixPath;
 
     ///
     /// \brief clearnPixmap 清除图片
@@ -202,6 +217,33 @@ signals:
     /// \param mode 模式(敞开|常闭)
     ///
     void signal_setAlarmMode(bool model);
+
+
+    /*****************************
+    * @brief:数据库插入
+    ******************************/
+
+    ///
+    /// \brief signal_initDataBase 初始化数据库.如果不存在,就创建.
+    /// \param connectName 链接名称
+    /// \param user 用户名
+    /// \param pass密码
+    /// \param ip 地址
+    /// \param dataBaseType 数据库类型
+    ///
+    void signal_initDataBase(const QString &connectName,const QString &user,const QString &pass,const QString &ip,const int &dataBaseType);
+
+    ///
+    /// \brief signal_insertDataBase 插入数据库
+    /// \param data 数据字典
+    ///
+    void signal_insertDataBase(QMap<QString, QString> data);
+
+    ///
+    /// \brief signal_updateDataBase 更新数据
+    /// \param data 数据字典
+    ///
+    void signal_updateDataBase(QMap<QString, QString> data);
 
 public slots:
 

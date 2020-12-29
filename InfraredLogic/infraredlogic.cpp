@@ -294,7 +294,7 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
     if(!com1 && !com2){/* com1和com2都未打开,不做后续处理 */
         emit messageSignal(ZBY_LOG("INFO"),tr("Channel:%1 serial port exception").arg(channelNum));
         qWarning().noquote()<<QString("Channel:%1 serial port exception").arg(channelNum);
-        QTimer::singleShot(10000,this,SLOT(realyTheSerialport()));
+        QTimer::singleShot(15000,this,SLOT(realyTheSerialport()));
 
         return;
     }

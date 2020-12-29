@@ -1,18 +1,23 @@
-#ifndef DATABASEREAD_INTERFACE_H
-#define DATABASEREAD_INTERFACE_H
+﻿#ifndef DATABASEREADINTERFACE_H
+#define DATABASEREADINTERFACE_H
 
 #define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
-
 #include <QObject>
 #include <QMap>
 #include <QSqlTableModel>
 
-class DatabaseRead_Interface : public QObject
+class DataBaseReadInterface : public QObject
 {
     Q_OBJECT
 
 public:
-    virtual ~ DatabaseRead_Interface(){}
+    virtual ~DataBaseReadInterface() {}
+
+    ///
+    /// \brief InterfaceType 插件类型，多插件调用统一接口
+    /// \return
+    ///
+    virtual QString InterfaceType()=0;
 
 signals:
 
@@ -41,23 +46,23 @@ signals:
 public slots:
 
     ///
-    /// \brief initDatabaseSlot 初始化数据库.如果不存在,就创建.
+    /// \brief initDataBaseSlot 初始化数据库.如果不存在,就创建.
     /// \param connectName 链接名称
     /// \param user 用户名
     /// \param pass密码
     /// \param ip 地址
+    /// \param dataBaseType 数据库类型
     ///
-    virtual void initDatabaseSlot(const QString &connectName,const QString &user,const QString &pass,const QString &ip)=0;
+    virtual void initDataBaseSlot(const QString &connectName,const QString &user,const QString &pass,const QString &ip,const int &dataBaseType)=0;
 
     ///
-    /// \brief setDatabaseFilterSlot 设置数据库筛选条件
+    /// \brief setDataBaseFilterSlot 设置数据库筛选条件
     /// \param filter 筛选条件
     ///
-    virtual void setDatabaseFilterSlot(const QString &filter)=0;
+    virtual void setDataBaseFilterSlot(const QString &filter)=0;
 };
 
-#define DatabaseRead_InterfaceIID "ZBY.ContainerServer.DatabaseRead_Interface/1.0"
-Q_DECLARE_INTERFACE(DatabaseRead_Interface,DatabaseRead_InterfaceIID);
+#define DataBaseReadInterfaceIID "ZBY.ContainerServer.DataBaseReadInterface/1.2.1"
+Q_DECLARE_INTERFACE(DataBaseReadInterface,DataBaseReadInterfaceIID);
 
-
-#endif // DATABASEREAD_INTERFACE_H
+#endif // DATABASEREADINTERFACE_H

@@ -88,13 +88,6 @@ void LoadingLibaray::slot_createLibaray()
                     pIMiddleware=nullptr;
                     pluginsNum=1;
                 }
-
-//                if(-1!=loadVec.indexOf("IMiddleware")){
-//                    isErr=true;
-//                }
-//                else {
-//                    loadVec.append("IMiddleware");
-//                }
             }
             else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
                 if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */
@@ -103,9 +96,26 @@ void LoadingLibaray::slot_createLibaray()
                     pluginsNum=channelCount;
                 }
             }
+            else if (DataBaseInsertInterface *pDataBaseInsertInterface=qobject_cast<DataBaseInsertInterface*>(plugin)) {
+                if("SQLITE" == pDataBaseInsertInterface->InterfaceType()){/* SQLITE */
+                    delete pDataBaseInsertInterface;
+                    pDataBaseInsertInterface=nullptr;
+                    pluginsNum=channelCount;
+                }
+            }
+            else if (DataBaseReadInterface *pDataBaseReadInterface=qobject_cast<DataBaseReadInterface*>(plugin)) {
+                if("SQLITE" == pDataBaseReadInterface->InterfaceType()){/* SQLITE */
+                    delete pDataBaseReadInterface;
+                    pDataBaseReadInterface=nullptr;
+                    pluginsNum=1;
+                }
+            }
+            else {
+                pluginLoader.unload();
+            }
 
             if(isErr){
-                emit signal_loadPluginError(fileName);
+                emit signal_loadPluginError(fileName);/* 加载相同插件多次报错 */
             }
 
             for(int i=1;i<=pluginsNum;i++){
@@ -158,6 +168,20 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 pInfraredlogicInterface->moveToThread(th);
                 th->start();
                 InfraredlogicLit.append(QSharedPointer<InfraredlogicInterface>(pInfraredlogicInterface));
+            }
+            else if (DataBaseInsertInterface *pDataBaseInsertInterface=qobject_cast<DataBaseInsertInterface*>(plugin)) {
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pDataBaseInsertInterface->moveToThread(th);
+                th->start();
+                IDataBaseInsertList.append(QSharedPointer<DataBaseInsertInterface>(pDataBaseInsertInterface));
+            }
+            else if (DataBaseReadInterface *pDataBaseReadInterface=qobject_cast<DataBaseReadInterface*>(plugin)) {
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pDataBaseReadInterface->moveToThread(th);
+                th->start();
+                IDataBaseReadList.append(QSharedPointer<DataBaseReadInterface>(pDataBaseReadInterface));
             }
             else {
                 pluginLoader.unload();
