@@ -10,6 +10,8 @@ Image_Dialog::Image_Dialog(QWidget *parent) :
     this->setAttribute(Qt::WA_DeleteOnClose,true);
     this->setParent(parent);
     this->setVisible(false);
+
+    ui->image_label->installEventFilter(this);
 }
 
 Image_Dialog::~Image_Dialog()
@@ -17,7 +19,20 @@ Image_Dialog::~Image_Dialog()
     delete ui;
 }
 
-void Image_Dialog::set_image_dialog_pixmap_slot(QPixmap pix)
+bool Image_Dialog::eventFilter(QObject *target, QEvent *event)
 {
-    ui->image_label->setPixmap(pix);
+    if(event->type()==QEvent::MouseButtonDblClick){
+        if(target==ui->image_label){
+            this->close();
+        }
+    }
+    return QWidget::eventFilter(target,event);
+}
+
+void Image_Dialog::set_image_dialog_pixmap_slot(QString jpg)
+{
+    QScopedPointer<QPixmap> labelPix(new QPixmap());
+    if(labelPix->load(jpg)){
+        ui->image_label->setPixmap(*labelPix.data());
+    }
 }

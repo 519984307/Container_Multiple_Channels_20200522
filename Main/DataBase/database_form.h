@@ -7,8 +7,16 @@
 #include <QMouseEvent>
 #include <QSqlTableModel>
 #include <QPointer>
+#include <QSharedPointer>
+#include <QDir>
+#include <QtConcurrent>
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QTextEdit>
 
 #include "image_dialog.h"
+#include "filterdialog.h"
+#include "Parameter/parameter.h"
 
 namespace Ui {
 class DataBase_Form;
@@ -28,23 +36,65 @@ public:
     /// \param event
     /// \return
     ///
-    bool eventFilter(QObject *obj, QEvent *event);
+    bool eventFilter(QObject *target, QEvent *event);
 
 private:
 
     Ui::DataBase_Form *ui;
 
     ///
-    /// \brief p_Image_Dialog 图片对话框
+    /// \brief imgMap 图片集
     ///
-    QPointer<Image_Dialog> p_Image_Dialog;
+    QMap<int,QString> imgMap;
 
     ///
     /// \brief InitializationWindow 初始化窗口
     ///
     void InitializationWindow();
 
+    void showImgaes(const QModelIndex &index);
+
+    enum{
+        ID=0,
+        Timer=1,
+        Channel=2,
+        Type=3,
+        ContainerFront=4,
+        CheckFront=5,
+        ISOFront=6,
+        ContainerAfter=7,
+        CheckAfter=8,
+        ISOAfter=9,
+        ImgFront=10,
+        ImgFrontCheck=11,
+        ImgFrontNumber=12,
+        ImgLeftFront=13,
+        ImgLeftFrontCheck=14,
+        ImgLeftFrontNumber=15,
+        ImgRightFront=16,
+        ImgRightFrontCheck=17,
+        ImgRightFrontNumber=18,
+        ImgLeftAfter=19,
+        ImgLeftAfterCheck=20,
+        ImgLeftAfterNumber=21,
+        ImgRightAfter=22,
+        ImgRightAfterCheck=23,
+        ImgRightAfterNumber=24,
+        ImgAfter=25,
+        ImgAfterCheck=26,
+        ImgAfterNumber=27,
+        Plate=28,
+        PlateTimer=29,
+        PlateImg=30
+    };
+
 private slots:
+
+    ///
+    /// \brief slot_filterData 数据库筛选条件
+    /// \param data
+    ///
+    void slot_filterData(QString data);
 
     ///
     /// \brief on_database_imageOrData_pushButton_clicked 数据和图片界面切换
@@ -57,13 +107,33 @@ private slots:
     ///
     void on_database_stackedWidget_currentChanged(int arg1);
 
+    ///
+    /// \brief on_pushButton_5_clicked 查询数据库
+    ///
+    void on_pushButton_5_clicked();
+
+    ///
+    /// \brief on_tableView_doubleClicked 双击显示图片
+    /// \param index
+    ///
+    void on_tableView_doubleClicked(const QModelIndex &index);
+
+    void on_pushButton_8_clicked();
+
+    void on_pushButton_9_clicked();
+
+    void on_pushButton_10_clicked();
+
+    void on_pushButton_11_clicked();
+
+    void on_pushButton_7_clicked();
 
 signals:
 
     ///
     /// \brief set_image_dialog_pixmap_signal 设置对话框图片
     ///
-    void set_image_dialog_pixmap_signal(QPixmap pix);
+    void set_image_dialog_pixmap_signal(QString jpg);
 
     /*****************************
     * @brief:数据库读取
@@ -95,7 +165,7 @@ public slots:
     /// \brief slot_returnModel 返回数据模型
     /// \param model 数据模型
     ///
-    void slot_returnModel( QSqlTableModel *model);
+    void slot_returnModel(QSqlTableModel *ml);
 
     ///
     /// \brief slot_statisticalData

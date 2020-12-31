@@ -324,10 +324,9 @@ void MainWindow::loadStyleSheet(const QString &fileName)
     QFile file(fileName);
     file.open(QFile::ReadOnly);
     if(file.isOpen()){
-        QString styleSheet=this->styleSheet();
-        styleSheet+=QLatin1String(file.readAll());
+        QString styleSheet=QLatin1String(file.readAll());
         this->setStyleSheet(styleSheet);
-    }
+    }      
 }
 
 void MainWindow::setStatusBar(/*int type */const QString &msg)

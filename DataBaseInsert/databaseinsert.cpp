@@ -159,11 +159,11 @@ void DataBaseInsert::updateDataBaseSlot(QMap<QString, QString> data)
             }
             model.submitAll();
 
+            data.clear();
             record.clear();
+            model.clear();
         }
-        model.clear();
     }
     db.close();
-
     locker.unlock();
 }

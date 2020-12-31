@@ -65,7 +65,6 @@ Channel_Data_Form::~Channel_Data_Form()
 
     streamMap.clear();
     signatureList.clear();
-    databaseMap.clear();
 
     delete ui;
 }
@@ -203,6 +202,11 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
     QDir dir(Parameter::ImagePath);
     dir.mkpath(suffixPath);
     dir.cd(suffixPath);
+
+    ///
+    /// \brief databaseMap 插入数据库
+    ///
+    QMap<QString, QString> databaseMap;
 
     foreach (auto key, stream.keys()) {
         if(nullptr == stream.value(key)){

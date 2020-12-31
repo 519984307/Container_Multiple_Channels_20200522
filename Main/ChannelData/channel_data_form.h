@@ -66,11 +66,6 @@ private:
     QMap<int,QByteArray> streamMap;
 
     ///
-    /// \brief databaseMap 插入数据库
-    ///
-    QMap<QString, QString> databaseMap;
-
-    ///
     /// \brief imgTimer 抓拍时间戳
     ///
     QString imgTimer;

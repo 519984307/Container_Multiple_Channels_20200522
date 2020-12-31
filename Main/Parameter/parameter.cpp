@@ -5,7 +5,7 @@ namespace Parameter {
     int ChannelNumber= 0;
     int ImageFormat= 0;
     int ImageNamingRules= 0;
-    QString ImagePath= QString("./");
+    QString ImagePath= QString("C:\\images");
 
     /*****************************
     * @brief:Upload

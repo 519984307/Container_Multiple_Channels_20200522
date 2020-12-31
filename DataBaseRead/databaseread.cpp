@@ -1,6 +1,7 @@
 ﻿#include "databaseread.h"
 #include <QDebug>
 #include <QSharedPointer>
+#include <QScopedPointer>
 
 DataBaseRead::DataBaseRead(QObject *parent)
 {
@@ -98,9 +99,9 @@ void DataBaseRead::setDataBaseFilterSlot(const QString &filter)
     locker.lockForRead();
 
     if(db.open()){
-
-        QSqlTableModel* model=new  QSqlTableModel(this,db);/* 在数据库界面已做删除 */
-
+        QScopedPointer<QSqlTableModel> model(new QSqlTableModel(this,db));
+        //QSqlTableModel* model=new  QSqlTableModel(this,db);/* 在数据库界面已做删除 */
+        qDebug().noquote()<<"Query database:"<<filter;
         model->setTable(tr("Containers"));
         model->setFilter(filter);
         model->select();
@@ -109,14 +110,13 @@ void DataBaseRead::setDataBaseFilterSlot(const QString &filter)
         }
 \
         /* 统计数据 */
-        statisticalData(model);
-        emit returnModelSingal(model);
+        statisticalData(model.data());
+        emit returnModelSingal(model.take());
     }
     else {
         emit messageSignal(ZBY_LOG("ERROR"),tr("Open databse  error<errorCode=%1>").arg(db.lastError().text()));
     }
     db.close();
-
     locker.unlock();
 }
 
