@@ -21,9 +21,6 @@ Channel_Setting_Form::Channel_Setting_Form(int number, QWidget *parent) :
 
 Channel_Setting_Form::~Channel_Setting_Form()
 {
-    delete p_ChannelParameter;
-    p_ChannelParameter=nullptr;
-
     delete ui;
 }
 
@@ -31,7 +28,7 @@ void Channel_Setting_Form::InitializationParameter(int number)
 {
     this->channel_number=number;
 
-    p_ChannelParameter=new ChannelParameter ();
+    p_ChannelParameter=QSharedPointer<ChannelParameter>(new ChannelParameter ());
 
     /*****************************
     * @brief:创建配置文件夹

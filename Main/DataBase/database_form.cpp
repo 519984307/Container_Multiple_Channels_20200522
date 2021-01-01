@@ -240,6 +240,8 @@ void DataBase_Form::on_database_stackedWidget_currentChanged(int arg1)
 
 void DataBase_Form::slot_returnModel(QSqlTableModel *ml)
 {
+    ui->database_stackedWidget->setCurrentIndex(0);
+
     ui->tableView->setModel(ml);
     ui->tableView->setColumnHidden(ID,true);
     ui->tableView->setColumnHidden(ImgFront,true);
@@ -295,6 +297,7 @@ void DataBase_Form::on_tableView_doubleClicked(const QModelIndex &index)
     ui->image_label_12->setPalette(palette);
 
     ui->database_stackedWidget->setCurrentIndex(1);
+    on_tableView_clicked(index);
     showImgaes(index);
 }
 
@@ -370,4 +373,106 @@ void DataBase_Form::on_pushButton_7_clicked()
         }
     }
 
+}
+
+void DataBase_Form::on_tableView_clicked(const QModelIndex &index)
+{
+    ui->result_lineEdit_front->setText(index.sibling(index.row(),ContainerFront).data().toString());/* 前箱 */
+    ui->result_lineEdit_before->setText(index.sibling(index.row(),ContainerAfter).data().toString());/* 后箱 */
+    ui->iso_lineEdit_front->setText(index.sibling(index.row(),ISOFront).data().toString());/* 前箱型 */
+    ui->iso_lineEdit_before->setText(index.sibling(index.row(),ISOAfter).data().toString());/* 后箱型 */
+    ui->plate_lineEdit_front->setText(index.sibling(index.row(),Plate).data().toString());/* 车牌 */
+
+    ui->result_lineEdit_1->setText(index.sibling(index.row(),ImgFrontNumber).data().toString());
+    if(index.sibling(index.row(),ImgFrontCheck).data().toBool()){
+        ui->result_lineEdit_1->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+    }
+    else {
+        ui->result_lineEdit_1->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+    }
+
+    ui->result_lineEdit_2->setText(index.sibling(index.row(),ImgLeftFrontNumber).data().toString());
+    if(index.sibling(index.row(),ImgLeftFrontCheck).data().toBool()){
+        ui->result_lineEdit_2->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+    }
+    else {
+        ui->result_lineEdit_2->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+    }
+
+    ui->result_lineEdit_3->setText(index.sibling(index.row(),ImgRightFrontNumber).data().toString());
+    if(index.sibling(index.row(),ImgRightFrontCheck).data().toBool()){
+        ui->result_lineEdit_3->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+    }
+    else {
+        ui->result_lineEdit_3->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+    }
+
+    ui->result_lineEdit_4->setText(index.sibling(index.row(),ImgLeftAfterNumber).data().toString());
+    if(index.sibling(index.row(),ImgLeftAfterCheck).data().toBool()){
+        ui->result_lineEdit_4->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+    }
+    else {
+        ui->result_lineEdit_4->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+    }
+
+    ui->result_lineEdit_5->setText(index.sibling(index.row(),ImgRightAfterNumber).data().toString());
+    if(index.sibling(index.row(),ImgRightAfterCheck).data().toBool()){
+        ui->result_lineEdit_5->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+    }
+    else {
+        ui->result_lineEdit_5->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+    }
+
+    ui->result_lineEdit_6->setText(index.sibling(index.row(),ImgAfterNumber).data().toString());
+    if(index.sibling(index.row(),ImgAfterCheck).data().toBool()){
+        ui->result_lineEdit_6->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+    }
+    else {
+        ui->result_lineEdit_6->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+    }
+
+    /* Tupe,集装箱类别:
+     * -1 – 未知
+     * 0 – 一个 20 集装箱
+     * 1 – 一个 40 吋/45 吋集装箱
+     * 2 – 两个 20 吋集装箱
+     */
+    int type=index.sibling(index.row(),Type).data().toInt();
+    if(type>=0){
+        if(type==2){
+            if(index.sibling(index.row(),CheckFront).data().toBool()){
+                ui->result_lineEdit_front->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+            }
+            else {
+                ui->result_lineEdit_front->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+            }
+            if(index.sibling(index.row(),CheckAfter).data().toBool()){
+                ui->result_lineEdit_before->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+            }
+            else {
+                ui->result_lineEdit_before->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+            }
+            ui->type_lineEdit->setText(tr("Two boxes"));
+        }
+        else if (type<2) {
+            if(index.sibling(index.row(),CheckFront).data().toBool()){
+                ui->result_lineEdit_front->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+            }
+            else {
+                ui->result_lineEdit_front->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+            }
+            ui->result_lineEdit_before->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
+            ui->type_lineEdit->setText(tr("A long box"));
+            if(type==0){
+                ui->result_lineEdit_4->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
+                ui->result_lineEdit_5->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
+                ui->type_lineEdit->setText(tr("A small box"));
+            }
+        }
+    }
+    else {
+        ui->result_lineEdit_front->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
+        ui->result_lineEdit_before->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
+        ui->type_lineEdit->setText(tr("Unknown box"));
+    }
 }

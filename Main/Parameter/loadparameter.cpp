@@ -7,7 +7,6 @@ LoadParameter::LoadParameter(QObject *parent) : QObject(parent)
 
 LoadParameter::~LoadParameter()
 {
-    qDeleteAll(ParmeterMap.values());
     ParmeterMap.clear();
 }
 
@@ -148,7 +147,7 @@ void LoadParameter::loadChannelParameter(int Channels)
                     /* 读取子目录 */
                     if(value.isObject()){
 
-                        ChannelParameter *p_ChannelParameter=new ChannelParameter ();
+                        QSharedPointer<ChannelParameter> p_ChannelParameter(new ChannelParameter ());
                         //ArrayPointer[ind-1]=*p_ChannelParameter;
                         ParmeterMap.insert(ind,p_ChannelParameter);
 

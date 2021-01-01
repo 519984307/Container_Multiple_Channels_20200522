@@ -136,37 +136,11 @@ void Channel_Data_Form::loadParamter(int channelID,ChannelParameter *para)
     this->channelID=channelID;
     this->para=para;
 
+    watcher=new QFutureWatcher<void>(this);
     /*****************************
     * @brief:初始化数据库
     ******************************/
     emit signal_initDataBase(QString::number(channelID),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
-
-    switch (Parameter::ImageFormat) {
-    case 0:
-        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
-        break;
-    case 1:
-        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM")));
-        break;
-    case 2:
-        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy")));
-        break;
-    case 3:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(channelNumber));
-        break;
-    case 4:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
-        break;
-    case 5:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM")));
-        break;
-    case 6:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy")));
-        break;
-    case 7:
-        suffixPath=QDir::toNativeSeparators("./");
-        break;
-    }
 }
 
 void Channel_Data_Form::clearnPixmap()
@@ -199,6 +173,35 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         Parameter::ImagePath="C:\\images";
     }
 
+    QString suffixPath;
+
+    switch (Parameter::ImageFormat) {
+    case 0:
+        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
+        break;
+    case 1:
+        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM")));
+        break;
+    case 2:
+        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy")));
+        break;
+    case 3:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(channelNumber));
+        break;
+    case 4:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
+        break;
+    case 5:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM")));
+        break;
+    case 6:
+        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy")));
+        break;
+    case 7:
+        suffixPath=QDir::toNativeSeparators("./");
+        break;
+    }
+
     QDir dir(Parameter::ImagePath);
     dir.mkpath(suffixPath);
     dir.cd(suffixPath);
@@ -223,7 +226,7 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         }
         QString imgpath=QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgName));
 
-        QSharedPointer<QPixmap> pix(new QPixmap());
+        QScopedPointer<QPixmap> pix(new QPixmap());
         pix.data()->loadFromData(stream.value(key));
         pix.data()->scaled(1280,720, Qt::IgnoreAspectRatio, Qt::SmoothTransformation).save(imgpath);
 
@@ -279,11 +282,13 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
     this->imgTimerAf=imgTime;
     streamMap.insert(imgNumber,jpgStream);
 
-    if(-1!=putCount && streamMap.size()==putCount){
-        QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTime);
+    if(-1!=putCount && streamMap.size()==putCount && watcher->isFinished()){
+        QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTime);
+        watcher->setFuture(future);
+        putCount=-1;
     }
 
-    QSharedPointer<QPixmap> pix(new QPixmap());
+    QScopedPointer<QPixmap> pix(new QPixmap());
     if(jpgStream!=nullptr){
         pix->loadFromData(jpgStream);
     }
@@ -510,6 +515,8 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(1,imgTimer,signatureList.at(0));
         emit signal_putCommand(2,imgTimer,signatureList.at(2));
         emit signal_putCommand(3,imgTimer,signatureList.at(3));
+        this->putCount=-1;
+        this->putComType=-1;
     }
         break;
     case 1:

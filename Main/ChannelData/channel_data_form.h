@@ -91,9 +91,9 @@ private:
     int putComType;
 
     ///
-    /// \brief suffixPath 图片保存路径前缀
+    /// \brief watcher 监视异步加载插件完成状态
     ///
-    QString suffixPath;
+    QFutureWatcher<void> *watcher;
 
     ///
     /// \brief clearnPixmap 清除图片

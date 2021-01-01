@@ -128,6 +128,8 @@ private slots:
 
     void on_pushButton_7_clicked();
 
+    void on_tableView_clicked(const QModelIndex &index);
+
 signals:
 
     ///

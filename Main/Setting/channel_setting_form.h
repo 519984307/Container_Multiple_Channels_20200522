@@ -1,4 +1,4 @@
-#ifndef CHANNEL_SETTING_FORM_H
+﻿#ifndef CHANNEL_SETTING_FORM_H
 #define CHANNEL_SETTING_FORM_H
 
 #include <QWidget>
@@ -9,6 +9,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonParseError>
+#include <QSharedPointer>
 
 #include "Parameter/channelparameter.h"
 
@@ -35,7 +36,7 @@ private:
     ///
     /// \brief p_ChannelParameter 配置参数表
     ///
-    ChannelParameter *p_ChannelParameter;
+    QSharedPointer<ChannelParameter> p_ChannelParameter;
 
     ///
     /// \brief configurationFolder 配置文件夹

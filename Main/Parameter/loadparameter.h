@@ -1,4 +1,4 @@
-#ifndef LOADPARAMETER_H
+﻿#ifndef LOADPARAMETER_H
 #define LOADPARAMETER_H
 
 #include <QObject>
@@ -55,7 +55,7 @@ public:
     ///
     /// \brief ParmeterMap 配置类组
     ///
-    QMap<int,ChannelParameter*> ParmeterMap;
+    QMap<int,QSharedPointer<ChannelParameter>> ParmeterMap;
 
 signals:
 

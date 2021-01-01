@@ -139,16 +139,6 @@ private:
     ///
     QList<QThread*> tdList;
 
-//    ///
-//    /// \brief ICaptureImagesLit 相机插件库
-//    ///
-//    QList<ICaptureImages*> ICaptureImagesLit;
-
-//    ///
-//    /// \brief IMiddlewareLit 相机中间件插件库
-//    ///
-//    QList<IMiddleware*> IMiddlewareLit;
-
     /*****************************
     * attribute
     ******************************/

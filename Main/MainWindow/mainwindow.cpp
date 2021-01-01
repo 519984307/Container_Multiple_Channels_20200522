@@ -252,7 +252,7 @@ void MainWindow::initializationParameter()
         /*****************************
         * @brief:加载通道参数
         ******************************/
-        p_Channel_Data_Form->loadParamter(channel,Pointer_Parameter->ParmeterMap.value(channel,nullptr));
+        p_Channel_Data_Form->loadParamter(channel,Pointer_Parameter->ParmeterMap.value(channel,nullptr).data());
 
         if(nullptr==p_Equipment_State_Form && 1==channel){
             p_Channel_Data_Form->setVisible(true);
