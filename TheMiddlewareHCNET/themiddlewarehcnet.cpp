@@ -6,12 +6,14 @@
 
 TheMiddlewareHCNET* TheMiddlewareHCNET::pThis=nullptr;
 
+
 TheMiddlewareHCNET::TheMiddlewareHCNET(QObject *parent)
 {
     this->setParent(parent);
     TheMiddlewareHCNET::pThis=this;;
 
     streamID=-1;
+    putID=-1;
 
     pDLL=nullptr;
     pTimerState=nullptr;
@@ -63,23 +65,7 @@ TheMiddlewareHCNET::~TheMiddlewareHCNET()
 {
     qDebug()<<"~TheMiddlewareHCNET()";
     free(imgBuff);
-//    imgBuff=nullptr;
-
-//    TheMiddlewareHCNET::pThis=nullptr;
-
-//    delete  pTimerState;
-//    pTimerState=nullptr;
-
-//    if(NET_DVR_Cleanup_L!=nullptr){
-//        NET_DVR_Cleanup_L();
-//    }
-
-//    if(pDLL!=nullptr && pDLL->isLoaded()){
-//        pDLL->unload();
-//    }
-
-//    delete pDLL;
-    //    pDLL=nullptr;
+    playMap.clear();
 }
 
 QString TheMiddlewareHCNET::InterfaceType()
@@ -244,6 +230,9 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
             }
         }
         break;
+    case 4:
+        putID=ID;
+        break;
     }
 
     if(!cap){
@@ -268,6 +257,9 @@ void TheMiddlewareHCNET::transparentTransmission485Slot(const QString &msg)
 
 void TheMiddlewareHCNET::openTheVideoSlot(int ID,bool play,quint64 winID)
 {
+    if(4 == CAMERA_TYPE){
+        return;
+    }
     if(play){
         NET_DVR_PREVIEWINFO struPlayInfo = {};
         //struPlayInfo.hPlayWnd    =static_cast<HWND>(winID); /* linux */
@@ -315,6 +307,11 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
     if(streamID!=-1 && NET_DVR_StopRealPlay_L !=nullptr){
         NET_DVR_StopRealPlay_L(streamID);
     }
+    if(4==CAMERA_TYPE){
+        foreach (auto id, playMap.values()) {
+            initVideoStream(id,false);
+        }
+    }
     foreach ( auto userID, logInfoMap.keys()) {
         if(NET_DVR_Logout_L !=nullptr){
             NET_DVR_Logout_L(userID);
@@ -361,10 +358,10 @@ void TheMiddlewareHCNET::initCameraSlot(const QString &localAddr, const QString 
             emit signal_setCameraID(ID,addr);
             emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera login successful<Code=%2>").arg(addr).arg(ID));
             qInfo().noquote()<<QString("IP=%1 Camera login successful<Code=%2>").arg(addr).arg(ID);
-            /*****************************
-            * @brief:交通系列，布防。
-            ******************************/
             if(NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==CAMERA_TYPE){
+                /*****************************
+                * @brief:交通系列，布防。
+                ******************************/
                 NET_DVR_SETUPALARM_PARAM aram={};
                 aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
                 aram.byAlarmInfoType=1;
@@ -378,6 +375,12 @@ void TheMiddlewareHCNET::initCameraSlot(const QString &localAddr, const QString 
                     emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Aram Success<Code=%2>").arg(addr).arg(lHandle));
                     qInfo().noquote()<<QString("IP=%1 Camera Aram Success<Code=%2>").arg(addr).arg(lHandle);
                 }
+            }
+            if(4==CAMERA_TYPE){
+                /*****************************
+                * @brief: 登录成功,打开预览-------------------------取图使用
+                ******************************/
+                initVideoStream(ID,true);
             }
         }
         else {
@@ -497,6 +500,234 @@ int TheMiddlewareHCNET::exceptionMSGCallBack_V31(LONG lCommand, NET_DVR_ALARMER 
     return true;
 }
 
+//bool TheMiddlewareHCNET::yv12ToRGB888(const unsigned char *yv12, unsigned char *rgb888, int width, int height)
+//{
+//    if ((width < 1) || (height < 1) || (yv12 == NULL) || (rgb888 == NULL)) {
+//        return false;
+//    }
+
+//    int len = width * height;
+//    unsigned char const *yData = yv12;
+//    unsigned char const *vData = &yData[len];
+//    unsigned char const *uData = &vData[len >> 2];
+
+//    int rgb[3];
+//    int yIdx, uIdx, vIdx, idx;
+
+//    for (int i = 0; i < height; ++i) {
+//        for (int j = 0; j < width; ++j) {
+//            yIdx = i * width + j;
+//            vIdx = (i / 2) * (width / 2) + (j / 2);
+//            uIdx = vIdx;
+
+//            rgb[0] = static_cast<int>(yData[yIdx] + 1.370705 * (vData[uIdx] - 128));
+//            rgb[1] = static_cast<int>(yData[yIdx] - 0.698001 * (uData[uIdx] - 128) - 0.703125 * (vData[vIdx] - 128));
+//            rgb[2] = static_cast<int>(yData[yIdx] + 1.732446 * (uData[vIdx] - 128));
+
+//            for (int k = 0; k < 3; ++k) {
+//                idx = (i * width + j) * 3 + k;
+//                if ((rgb[k] >= 0) && (rgb[k] <= 255)) {
+//                    rgb888[idx] = static_cast<unsigned char>(rgb[k]);
+//                } else {
+//                    rgb888[idx] = (rgb[k] < 0) ? (0) : (255);
+//                }
+//            }
+//        }
+//    }
+//    return true;
+//}
+
+static int Table_fv1[256] = { -180, -179, -177, -176, -174, -173, -172, -170, -169, -167, -166, -165, -163, -162, -160, -159, -158, -156, -155, -153, -152, -151, -149, -148, -146, -145, -144, -142, -141, -139, -138, -137,  -135, -134, -132, -131, -130, -128, -127, -125, -124, -123, -121, -120, -118, -117, -115, -114, -113, -111, -110, -108, -107, -106, -104, -103, -101, -100, -99, -97, -96, -94, -93, -92, -90,  -89, -87, -86, -85, -83, -82, -80, -79, -78, -76, -75, -73, -72, -71, -69, -68, -66, -65, -64,-62, -61, -59, -58, -57, -55, -54, -52, -51, -50, -48, -47, -45, -44, -43, -41, -40, -38, -37,  -36, -34, -33, -31, -30, -29, -27, -26, -24, -23, -22, -20, -19, -17, -16, -15, -13, -12, -10, -9, -8, -6, -5, -3, -2, 0, 1, 2, 4, 5, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 32, 33, 35, 36, 37, 39, 40, 42, 43, 44, 46, 47, 49, 50, 51, 53, 54, 56, 57, 58, 60, 61, 63, 64, 65, 67, 68, 70, 71, 72, 74, 75, 77, 78, 79, 81, 82, 84, 85, 86, 88, 89, 91, 92, 93, 95, 96, 98, 99, 100, 102, 103, 105, 106, 107, 109, 110, 112, 113, 114, 116, 117, 119, 120, 122, 123, 124, 126, 127, 129, 130, 131, 133, 134, 136, 137, 138, 140, 141, 143, 144, 145, 147, 148,  150, 151, 152, 154, 155, 157, 158, 159, 161, 162, 164, 165, 166, 168, 169, 171, 172, 173, 175, 176, 178 };
+static int Table_fv2[256] = { -92, -91, -91, -90, -89, -88, -88, -87, -86, -86, -85, -84, -83, -83, -82, -81, -81, -80, -79, -78, -78, -77, -76, -76, -75, -74, -73, -73, -72, -71, -71, -70, -69, -68, -68, -67, -66, -66, -65, -64, -63, -63, -62, -61, -61, -60, -59, -58, -58, -57, -56, -56, -55, -54, -53, -53, -52, -51, -51, -50, -49, -48, -48, -47, -46, -46, -45, -44, -43, -43, -42, -41, -41, -40, -39, -38, -38, -37, -36, -36, -35, -34, -33, -33, -32, -31, -31, -30, -29, -28, -28, -27, -26, -26, -25, -24, -23, -23, -22, -21, -21, -20, -19, -18, -18, -17, -16, -16, -15, -14, -13, -13, -12, -11, -11, -10, -9, -8, -8, -7, -6, -6, -5, -4, -3, -3, -2, -1, 0, 0, 1, 2, 2, 3, 4, 5, 5, 6, 7, 7, 8, 9, 10, 10, 11, 12, 12, 13, 14, 15, 15, 16, 17, 17, 18, 19, 20, 20, 21, 22, 22, 23, 24, 25, 25, 26, 27, 27, 28, 29, 30, 30, 31, 32, 32, 33, 34, 35, 35, 36, 37, 37, 38, 39, 40, 40, 41, 42, 42, 43, 44, 45, 45, 46, 47, 47, 48, 49, 50, 50, 51, 52, 52, 53, 54, 55, 55, 56, 57, 57, 58, 59, 60, 60, 61, 62, 62, 63, 64, 65, 65, 66, 67, 67, 68, 69, 70, 70, 71, 72, 72, 73, 74, 75, 75, 76, 77, 77, 78, 79, 80, 80, 81, 82, 82, 83, 84, 85, 85, 86, 87, 87, 88, 89, 90, 90 };
+static int Table_fu1[256] = { -44, -44, -44, -43, -43, -43, -42, -42, -42, -41, -41, -41, -40, -40, -40, -39, -39, -39, -38, -38, -38, -37, -37, -37, -36, -36, -36, -35, -35, -35, -34, -34, -33, -33, -33, -32, -32, -32, -31, -31, -31, -30, -30, -30, -29, -29, -29, -28, -28, -28, -27, -27, -27, -26, -26, -26, -25, -25, -25, -24, -24, -24, -23, -23, -22, -22, -22, -21, -21, -21, -20, -20, -20, -19, -19, -19, -18, -18, -18, -17, -17, -17, -16, -16, -16, -15, -15, -15, -14, -14, -14, -13, -13, -13, -12, -12, -11, -11, -11, -10, -10, -10, -9, -9, -9, -8, -8, -8, -7, -7, -7, -6, -6, -6, -5, -5, -5, -4, -4, -4, -3, -3, -3, -2, -2, -2, -1, -1, 0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 7, 8, 8, 8, 9, 9, 9, 10, 10, 11, 11, 11, 12, 12, 12, 13, 13, 13, 14, 14, 14, 15, 15, 15, 16, 16, 16, 17, 17, 17, 18, 18, 18, 19, 19, 19, 20, 20, 20, 21, 21, 22, 22, 22, 23, 23, 23, 24, 24, 24, 25, 25, 25, 26, 26, 26, 27, 27, 27, 28, 28, 28, 29, 29, 29, 30, 30, 30, 31, 31, 31, 32, 32, 33, 33, 33, 34, 34, 34, 35, 35, 35, 36, 36, 36, 37, 37, 37, 38, 38, 38, 39, 39, 39, 40, 40, 40, 41, 41, 41, 42, 42, 42, 43, 43 };
+static int Table_fu2[256] = { -227, -226, -224, -222, -220, -219, -217, -215, -213, -212, -210, -208, -206, -204, -203, -201, -199, -197, -196, -194, -192, -190, -188, -187, -185, -183, -181, -180, -178, -176, -174, -173, -171, -169, -167, -165, -164, -162, -160, -158, -157, -155, -153, -151, -149, -148, -146, -144, -142, -141, -139, -137, -135, -134, -132, -130, -128, -126, -125, -123, -121, -119, -118, -116, -114, -112, -110, -109, -107, -105, -103, -102, -100, -98, -96, -94, -93, -91, -89, -87, -86, -84, -82, -80, -79, -77, -75, -73, -71, -70, -68, -66, -64, -63, -61, -59, -57, -55, -54, -52, -50, -48, -47, -45, -43, -41, -40, -38, -36, -34, -32, -31, -29, -27, -25, -24, -22, -20, -18, -16, -15, -13, -11, -9, -8, -6, -4, -2, 0, 1, 3, 5, 7, 8, 10, 12, 14, 15, 17, 19, 21, 23, 24, 26, 28, 30, 31, 33, 35, 37, 39, 40, 42, 44, 46, 47, 49, 51, 53, 54, 56, 58, 60, 62, 63, 65, 67, 69, 70, 72, 74, 76, 78, 79, 81, 83, 85, 86, 88, 90, 92, 93, 95, 97, 99, 101, 102, 104, 106, 108, 109, 111, 113, 115, 117, 118, 120, 122, 124, 125, 127, 129, 131, 133, 134, 136, 138, 140, 141, 143, 145, 147, 148, 150, 152, 154, 156, 157, 159, 161, 163, 164, 166, 168, 170, 172, 173, 175, 177, 179, 180, 182, 184, 186, 187, 189, 191, 193, 195, 196, 198, 200, 202, 203, 205, 207, 209, 211, 212, 214, 216, 218, 219, 221, 223, 225 };
+
+
+void TheMiddlewareHCNET::yv12ToRGB888(int ID,int width,int height,unsigned char* yv12)
+{
+    QScopedPointer<QImage> image(new QImage(width, height, QImage::Format_RGB888));
+    unsigned char* rgb888=image->bits();
+
+    if ((width < 1) || (height < 1) || (yv12 == NULL) || (rgb888 == NULL)) {
+        emit signal_pictureStream(ID,nullptr);
+        emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
+        qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress));
+        return;
+    }
+
+    long len = width * height;
+    unsigned char const *yData = yv12;
+    unsigned char const *vData = &yData[len];
+    unsigned char const *uData = &vData[len >> 2];
+
+    int rgb[3];
+    int yIdx, uIdx, vIdx, idx;
+
+    /*****************************
+    * @brief:替换法
+    ******************************/
+//    for (int i = 0; i < height; ++i) {
+//        for (int j = 0; j < width; ++j) {
+//            yIdx = i * width + j;
+//            vIdx = (i / 2) * (width / 2) + (j / 2);
+//            uIdx = vIdx;
+
+//            rgb[0] = static_cast<int>(yData[yIdx] + 1.370705 * (vData[uIdx] - 128));
+//            rgb[1] = static_cast<int>(yData[yIdx] - 0.698001 * (uData[uIdx] - 128) - 0.703125 * (vData[vIdx] - 128));
+//            rgb[2] = static_cast<int>(yData[yIdx] + 1.732446 * (uData[vIdx] - 128));
+
+//            for (int k = 0; k < 3; ++k) {
+//                idx = (i * width + j) * 3 + k;
+//                if ((rgb[k] >= 0) && (rgb[k] <= 255)) {
+//                    rgb888[idx] = static_cast<unsigned char>(rgb[k]);
+//                } else {
+//                    rgb888[idx] = (rgb[k] < 0) ? (0) : (255);
+//                }
+//            }
+//        }
+//    }
+
+    /*****************************
+    * @brief:查表法
+    ******************************/
+    int rdif,invgdif,bdif;
+    for (int i = 0;i < height;i++){
+        for (int j = 0;j < width;j++){
+            yIdx = i * width + j;
+            vIdx = (i/2) * (width/2) + (j/2);
+            uIdx = vIdx;
+
+            rdif = Table_fv1[vData[vIdx]];
+            invgdif = Table_fu1[uData[uIdx]] + Table_fv2[vData[vIdx]];
+            bdif = Table_fu2[uData[uIdx]];
+
+            rgb[0] = yData[yIdx] + rdif;
+            rgb[1] = yData[yIdx] - invgdif;
+            rgb[2] = yData[yIdx] + bdif;
+
+            for (int k = 0;k < 3;k++){
+                idx = (i * width + j) * 3 + k;
+                if(rgb[k] >= 0 && rgb[k] <= 255)
+                    rgb888[idx] = rgb[k];
+                else
+                    rgb888[idx] = (rgb[k] < 0)?0:255;
+            }
+        }
+    }
+
+    QByteArray arrayJpg(imgBuff,IMG_BYTE);
+    QScopedPointer<QBuffer> buffer(new QBuffer(&arrayJpg));
+    buffer->open(QIODevice::WriteOnly);
+    image->save(buffer.data(),"jpg");
+    buffer->close();
+    signal_pictureStream(ID,arrayJpg);
+    messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
+    qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress));
+    arrayJpg.clear();
+}
+
+void TheMiddlewareHCNET::DecCallBack(long nPort, char *pBuf, long nSize, FRAME_INFO *pFrameInfo, long luser, long nReserved2)
+{
+    Q_UNUSED(luser);
+    Q_UNUSED(nReserved2);
+    Q_UNUSED(nSize);
+
+    if(-1 != pThis->putID && pThis->playMap.key(pThis->putID)==nPort){
+        long frameType = pFrameInfo->nType;
+        int width = pFrameInfo->nWidth;
+        int height = pFrameInfo->nHeight;
+        int ID=pThis->putID;
+//        char *arr = new char[nSize];
+//        memcpy(arr, pBuf, nSize);
+        if (frameType == T_YV12) {
+            QtConcurrent::run(pThis,&TheMiddlewareHCNET::yv12ToRGB888,ID,width,height,(unsigned char *)pBuf);
+        }
+        pThis->putID=-1;
+
+
+//        int width = pFrameInfo->nWidth;
+//        int height = pFrameInfo->nHeight;
+//        QByteArray arrayJpg(pThis->imgBuff,IMG_BYTE);
+//        QScopedPointer<QImage> image(new QImage(width, height, QImage::Format_RGB888));
+//        pThis->putID=-1;
+//        //视频数据是 T_YV12 音频数据是 T_AUDIO16
+//        if (frameType == T_YV12) {
+//            int width = pFrameInfo->nWidth;
+//            int height = pFrameInfo->nHeight;
+//            if (TheMiddlewareHCNET::yv12ToRGB888((unsigned char *)pBuf, (unsigned char*)pThis->imgBuff, width, height)) {
+//                QByteArray arrayJpg(pThis->imgBuff,IMG_BYTE);
+//                emit pThis->signal_pictureStream(pThis->playMap.value(nPort),arrayJpg);
+//                emit pThis->messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(pThis->logInfoMap.value(pThis->playMap.value(nPort)).sDeviceAddress)));
+//                qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(pThis->logInfoMap.value(pThis->playMap.value(nPort)).sDeviceAddress));
+//                arrayJpg.clear();
+//            }
+
+//            int width = pFrameInfo->nWidth;
+//            int height = pFrameInfo->nHeight;
+//            QByteArray arrayJpg(pThis->imgBuff,IMG_BYTE);
+//            QScopedPointer<QImage> image(new QImage(width, height, QImage::Format_RGB888));
+//            if (yv12ToRGB888((unsigned char *)pBuf, image->bits(), width, height)) {
+//                QScopedPointer<QBuffer> buffer(new QBuffer(&arrayJpg));
+//                buffer->open(QIODevice::WriteOnly);
+//                image->save(buffer.data(),"jpg");
+//                buffer->close();
+//                emit pThis->signal_pictureStream(pThis->playMap.value(nPort),arrayJpg);
+//                emit pThis->messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(pThis->logInfoMap.value(pThis->playMap.value(nPort)).sDeviceAddress)));
+//                qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(pThis->logInfoMap.value(pThis->playMap.value(nPort)).sDeviceAddress));
+//                arrayJpg.clear();
+//            }
+    }
+}
+
+void TheMiddlewareHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void *dwUser)
+{
+    Q_UNUSED(dwUser);
+    DWORD dRet;
+    Q_UNUSED(dRet);
+     switch (dwDataType) {
+     case NET_DVR_SYSHEAD:
+         //获取播放库未使用的通道号
+         if (!PlayM4_GetPort(&lRealHandle)) {
+             break;
+         }
+         if (dwBufSize > 0) {
+             if (!PlayM4_OpenStream(lRealHandle, pBuffer, dwBufSize, 1024 * 1024)) {
+                 dRet = PlayM4_GetLastError(lRealHandle);
+                 break;
+             }
+             //设置解码回调函数 只解码不显示
+             if (!PlayM4_SetDecCallBack(lRealHandle, DecCallBack)) {
+                 dRet = PlayM4_GetLastError(lRealHandle);
+                 break;
+             }
+             //打开视频解码
+             if (!PlayM4_Play(lRealHandle, nullptr)) {
+                 dRet = PlayM4_GetLastError(lRealHandle);
+                 break;
+             }
+//             //打开音频解码, 需要码流是复合流
+//             if (!PlayM4_PlaySound(lRealHandle)) {
+//                 dRet = PlayM4_GetLastError(lRealHandle);
+//                 break;
+//             }
+         }
+         break;
+     case NET_DVR_STREAMDATA:
+         //解码数据
+         if (dwBufSize > 0 && lRealHandle != -1) {
+//             BOOL inData = PlayM4_InputData(lRealHandle, pBuffer, dwBufSize);
+//             while (!inData) {
+//                 QThread::msleep(5);
+//                 inData = PlayM4_InputData(lRealHandle, pBuffer, dwBufSize);
+//             }
+             if(!PlayM4_InputData(lRealHandle, pBuffer, dwBufSize)){
+                 break;
+             }
+           }
+           break;
+     }
+}
+
 void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
 {
     Q_UNUSED(dwType);
@@ -523,24 +754,36 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
         emit pThis->signal_setCameraID(lUserID,QString::fromLocal8Bit(LoginInfo.sDeviceAddress));
         qInfo().noquote()<<QString("IP=%1 Camera Login Sucess").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress));
         pThis->logInfoMap.insert(lUserID,LoginInfo);
+    }
+}
 
-        /*****************************
-        * @brief:交通系列，布防。
-        ******************************/
-//        if(pThis->NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==CAMERA_TYPE){
-//            NET_DVR_SETUPALARM_PARAM aram={};
-//            aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
-//            aram.byAlarmInfoType=1;
-//            aram.byLevel=1;
-//            long lHandle= pThis->NET_DVR_SetupAlarmChan_V41_L(lUserID,&aram);
-//            if(lHandle<0){
-//                emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camera Aram Error<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)).arg(pThis->NET_DVR_GetLastError_L()));
-//            }
-//            else{
-//                emit pThis->messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Aram Success").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)));
-//                pThis-> alarmInfoMap.insert(lHandle,aram);
-//            }
-//        }
+void TheMiddlewareHCNET::initVideoStream(int ID, bool play)
+{
+    if(play){
+        NET_DVR_PREVIEWINFO struPlayInfo = {};
+        struPlayInfo.hPlayWnd= nullptr;
+        struPlayInfo.lChannel     = 1;       /* 预览通道号 */
+        struPlayInfo.dwStreamType = 0;       /* 0-主码流，1-子码流，2-码流3，3-码流4，以此类推 */
+        struPlayInfo.dwLinkMode   = 1;       /* 0- TCP方式，1- UDP方式，2- 多播方式，3- RTP方式，4-RTP/RTSP，5-RSTP/HTTP */
+        struPlayInfo.bBlocked     = 0;       /* 0- 非阻塞取流，1- 阻塞取流 */
+
+        if(NET_DVR_RealPlay_V40_L !=nullptr){
+            streamID =NET_DVR_RealPlay_V40_L(ID,&struPlayInfo,g_RealDataCallBack_V30,nullptr);
+            if(streamID==-1){
+                emit messageSignal(ZBY_LOG("ERROR"), tr("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
+                qWarning().noquote()<<QString("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+            }
+            else {
+                playMap.insert(streamID,ID);
+                emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Open Stream Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
+                qInfo().noquote()<<QString("IP=%1 Open Stream Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress));
+            }
+        }
+    }
+    else {
+        if(NET_DVR_StopRealPlay_L !=nullptr && streamID!=-1 && NET_DVR_StopRealPlay_L(streamID)){
+            emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Stop Stream sSucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
+        }
     }
 }
 
@@ -566,10 +809,10 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
                     emit signal_setCameraID(ID,QString::fromLocal8Bit(logfalList[i].sDeviceAddress));
                     emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera login successful<Code=%2>").arg(QString::fromLocal8Bit(logfalList[i].sDeviceAddress)).arg(ID));
                     qInfo().noquote()<<QString("IP=%1 Camera login successful<Code=%2>").arg(QString::fromLocal8Bit(logfalList[i].sDeviceAddress)).arg(ID);
-                    /*****************************
-                    * @brief:交通系列，布防。
-                    ******************************/
                     if(NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==CAMERA_TYPE){
+                        /*****************************
+                        * @brief:交通系列，布防。
+                        ******************************/
                         NET_DVR_SETUPALARM_PARAM aram={};
                         aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
                         aram.byAlarmInfoType=1;
@@ -583,6 +826,12 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
                             emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Aram Success<Code=%2>").arg(QString::fromLocal8Bit(logfalList[i].sDeviceAddress)).arg(lHandle));
                             qInfo().noquote()<<QString("IP=%1 Camera Aram Success<Code=%2>").arg(QString::fromLocal8Bit(logfalList[i].sDeviceAddress)).arg(lHandle);
                         }
+                    }
+                    if(4==CAMERA_TYPE){
+                        /*****************************
+                        * @brief: 登录成功,打开预览-------------------------取图使用
+                        ******************************/
+                        initVideoStream(ID,true);
                     }
                     logfalList.removeAt(i);/* 登录成功，删除列表项 */
                 }

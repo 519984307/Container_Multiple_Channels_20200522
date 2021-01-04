@@ -1,4 +1,4 @@
-QT -= gui
+QT += gui concurrent
 
 TEMPLATE = lib
 DEFINES += THEMIDDLEWAREHCNET_LIBRARY
@@ -31,6 +31,7 @@ HEADERS += \
     HCNetSDK.h \
     IMiddleware.h \
     TheMiddlewareHCNET_global.h \
+    plaympeg4.h \
     themiddlewarehcnet.h
 
 # Default rules for deployment.
@@ -40,3 +41,8 @@ unix {
 !isEmpty(target.path): INSTALLS += target
 
 DESTDIR += ../MainUI/Plugins
+
+win32: LIBS += -L$$PWD/HCNetSDK_WIN/ -lPlayCtrl
+
+INCLUDEPATH += $$PWD/HCNetSDK_WIN
+DEPENDPATH += $$PWD/HCNetSDK_WIN

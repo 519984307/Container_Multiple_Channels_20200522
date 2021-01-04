@@ -36,7 +36,6 @@ void Camera_Test_Form::on_identify_pushButton_clicked()
 
 void Camera_Test_Form::slot_pictureStream(const QByteArray &jpgStream, const int &imgNumber, const QString &imgTime)
 {
-    qDebug()<<imgNumber;
     Q_UNUSED(imgTime);
 
     if(imgNumber==0){

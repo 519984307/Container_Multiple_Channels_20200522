@@ -10,10 +10,10 @@ SUBDIRS +=\
 #    DataInterchange \
     DatabaseInsert \
     DatabaseRead \
-#    TheDataAnalysis \
+    ResultsAnalysis \
     InfraredLogic\
 #    Encryption\
-#    IdentifyImages\
+    IdentifyImages\
     CaptureImages \
     LogController \
     TheMiddlewareHCNET \

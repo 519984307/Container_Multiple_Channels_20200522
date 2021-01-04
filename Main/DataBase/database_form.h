@@ -85,7 +85,17 @@ private:
         ImgAfterNumber=27,
         Plate=28,
         PlateTimer=29,
-        PlateImg=30
+        PlateImg=30,
+        ImgFrontISO=31,
+        ImgLeftFrontISO=32,
+        ImgRightFrontISO=33,
+        ImgLeftAfterISO=34,
+        ImgRightAfterISO=35,
+        ImgAfterISO=36,
+        ImgProspects=37,
+        ImgForeground=38,
+        ImgTop1=39,
+        ImgTop2=40
     };
 
 private slots:

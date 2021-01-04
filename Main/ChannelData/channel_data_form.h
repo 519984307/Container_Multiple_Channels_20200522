@@ -66,6 +66,16 @@ private:
     QMap<int,QByteArray> streamMap;
 
     ///
+    /// \brief recogMap 识别结果集
+    ///
+    QMap<int,QString> recogMap;
+
+    ///
+    /// \brief imgNameMap 图片名集
+    ///
+    QMap<int,QString> imgNameMap;
+
+    ///
     /// \brief imgTimer 抓拍时间戳
     ///
     QString imgTimer;
@@ -240,6 +250,47 @@ signals:
     ///
     void signal_updateDataBase(QMap<QString, QString> data);
 
+
+    /*****************************
+    * @brief:识别器
+    ******************************/
+
+    ///
+    /// \brief signal_pictureStream 图片流
+    /// \param jpgStream 图片流
+    /// \param imgNumber 图片编号
+    ///
+    void signal_identifyStream(const QByteArray &jpgStream,const int &imgNumber);
+
+    ///
+    /// \brief signal_identifyImages 识别图片
+    /// \param imgName  图片名
+    /// \param imgNumber 图片编号
+    ///
+    void signal_identifyImages(const QString &imgName,const int &imgNumber);
+
+
+    /*****************************
+    * @brief:结果分析
+    ******************************/
+
+    ///
+    /// \brief signal_initReAnaParameter 初始化参数
+    /// \param channel
+    /// \param ImageNamingRules
+    /// \param check
+    /// \param sendMid
+    ///
+    void signal_initReAnaParameter(const int &channel,const int &ImageNamingRules,bool check,bool sendMid);
+
+    ///
+    /// \brief signal_resultsOfAnalysis 分析箱号
+    /// \param resultList 识别结果集
+    /// \param type 逻辑类型
+    /// \param imgList 图片名
+    ///
+    void signal_resultsOfAnalysis(QMap<int,QString> resultMap, int type,QMap<int,QString> imgNameMap);
+
 public slots:
 
     /*****************************
@@ -305,6 +356,34 @@ public slots:
      /// \param com2
      ///
      void slot_serialPortState(bool com1,bool com2);
+
+
+     /*****************************
+    * @brief:识别器
+    ******************************/
+
+     ///
+     /// \brief slot_recognitionResult 识别结果
+     /// \param result 识别结果
+     /// \param imgName 图片名
+     /// \param imgNumber 图片编号
+     ///
+     void slot_recognitionResult(const QString &result,const QString& imgName,const int& imgNumber);
+
+     /*****************************
+    * @brief:结果分析
+    ******************************/
+
+     ///
+     /// \brief slot_container 箱号分析结果
+     /// \param result1 前箱
+     /// \param resultCheck1 校验
+     /// \param iso1 箱型
+     /// \param result2 后箱
+     /// \param resultCheck2 校验
+     /// \param iso2 箱型
+     ///
+     void slot_container(const int& type,const QString &result1,const int& resultCheck1,const QString &iso1,const QString &result2="",const int& resultCheck2=0,const QString &iso2="");
 };
 
 #endif // CHANNEL_DATA_FORM_H

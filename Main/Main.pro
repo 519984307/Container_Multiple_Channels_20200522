@@ -69,5 +69,3 @@ include(Parameter/Parameter.pri)
 include(Processing/Processing.pri)
 include(Setting/Setting.pri)
 include(About/About.pri)
-
-

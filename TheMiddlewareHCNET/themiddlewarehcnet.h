@@ -10,6 +10,7 @@
 #include "TheMiddlewareHCNET_global.h"
 #include "IMiddleware.h"
 #include "HCNetSDK.h"
+#include "plaympeg4.h"
 
 class THEMIDDLEWAREHCNET_EXPORT TheMiddlewareHCNET:public IMiddleware
 {
@@ -71,7 +72,6 @@ public:
     ///
     bool initializationParameter();
 
-
 private:/* 参数  */
 
     QString localAddr;
@@ -130,6 +130,16 @@ private:/* 参数  */
     /// \brief manualsnap 手动抓拍参数
     ///
     NET_DVR_MANUALSNAP manualsnap={};
+
+    ///
+    /// \brief playMap 视频流绑定ID
+    ///
+    QMap<LONG,int> playMap;
+
+    ///
+    /// \brief putID 当前抓图ID
+    ///
+    long putID;
 
 private:
 
@@ -303,6 +313,8 @@ private:
 
 private:
 
+
+
     ///
     /// \brief exceptionCallBack_V30 接收异常、重连等消息的窗口句柄或回调函数。
     /// \param dwType 异常或重连等消息的类型
@@ -320,6 +332,44 @@ private:
     /// \param pUser 用户数据
     ///
     static void CALLBACK loginResultCallBack(LONG lUserID,DWORD dwResult,LPNET_DVR_DEVICEINFO_V30 lpDeviceInfo,void *pUser);
+
+    ///
+    /// \brief g_RealDataCallBack_V30 预览回调函数
+    /// \param lRealHandle 当前的预览句柄，NET_DVR_RealPlay_V40的返回值
+    /// \param dwDataType 数据类型 宏定义 宏定义值 含义
+    /// \param pBuffer 存放数据的缓冲区指针
+    /// \param dwBufSize 缓冲区大小
+    /// \param dwUser 用户数据
+    ///
+    static void CALLBACK g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer,DWORD dwBufSize,void* dwUser);
+
+    ///
+    /// \brief DecCallBack 解码流回调函数
+    /// \param nPort
+    /// \param pBuf
+    /// \param nSize
+    /// \param pFrameInfo
+    /// \param luser
+    /// \param nReserved2
+    ///
+    static void CALLBACK DecCallBack(long nPort, char *pBuf, long nSize, FRAME_INFO *pFrameInfo, long luser, long nReserved2);
+
+    ///
+    /// \brief yv12ToRGB888 yv12转RGB888
+    /// \param yv12
+    /// \param rgb888
+    /// \param width
+    /// \param height
+    /// \return
+    ///
+    void yv12ToRGB888(int ID, int width, int height, unsigned char *yv12);
+
+    ///
+    /// \brief initVideoStream 视频流抓图
+    /// \param ID
+    /// \param play
+    ///
+    void initVideoStream(int ID,bool play);
 
 private slots:
     ///

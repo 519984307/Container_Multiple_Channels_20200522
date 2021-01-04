@@ -86,7 +86,8 @@ void LoadingLibaray::slot_createLibaray()
                 if("HCNET" == pIMiddleware->InterfaceType()){/* 海康相机 */
                     delete pIMiddleware;
                     pIMiddleware=nullptr;
-                    pluginsNum=1;
+                    //pluginsNum=1;
+                    pluginsNum=channelCount*LocalPar::CamerNumber;
                 }
             }
             else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
@@ -108,6 +109,20 @@ void LoadingLibaray::slot_createLibaray()
                     delete pDataBaseReadInterface;
                     pDataBaseReadInterface=nullptr;
                     pluginsNum=1;
+                }
+            }
+            else if (RecognizerInterface *pRecognizerInterface=qobject_cast<RecognizerInterface*>(plugin)) {
+                if("ImageIdentify"==pRecognizerInterface->InterfaceType()){/* 识别图片 */
+                    delete pRecognizerInterface;
+                    pRecognizerInterface=nullptr;
+                    pluginsNum=channelCount;
+                }
+            }
+            else if (ResultsAnalysisInterface *pResultsAnalysisInterface=qobject_cast<ResultsAnalysisInterface*>(plugin)) {
+                if("ResultsAnalysis"==pResultsAnalysisInterface->InterfaceType()){
+                    delete pResultsAnalysisInterface;
+                    pResultsAnalysisInterface=nullptr;
+                    pluginsNum=channelCount;
                 }
             }
             else {
@@ -182,6 +197,20 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 pDataBaseReadInterface->moveToThread(th);
                 th->start();
                 IDataBaseReadList.append(QSharedPointer<DataBaseReadInterface>(pDataBaseReadInterface));
+            }
+            else if (RecognizerInterface *pRecognizerInterface=qobject_cast<RecognizerInterface*>(plugin)) {
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pRecognizerInterface->moveToThread(th);
+                th->start();
+                IRecognizerList.append(QSharedPointer<RecognizerInterface>(pRecognizerInterface));
+            }
+            else if (ResultsAnalysisInterface *pResultsAnalysisInterface=qobject_cast<ResultsAnalysisInterface*>(plugin)) {
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pResultsAnalysisInterface->moveToThread(th);
+                th->start();
+                IResultsAnalysisList.append(QSharedPointer<ResultsAnalysisInterface>(pResultsAnalysisInterface));
             }
             else {
                 pluginLoader.unload();

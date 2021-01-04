@@ -262,7 +262,18 @@ void DataBase_Form::slot_returnModel(QSqlTableModel *ml)
     ui->tableView->setColumnHidden(ImgAfter,true);
     ui->tableView->setColumnHidden(ImgAfterCheck,true);
     ui->tableView->setColumnHidden(ImgAfterNumber,true);
-    ui->tableView->setColumnHidden(PlateImg,true);
+    ui->tableView->setColumnHidden(PlateImg,true);    
+    ui->tableView->setColumnHidden(ImgFrontISO,true);
+    ui->tableView->setColumnHidden(ImgLeftFrontISO,true);
+    ui->tableView->setColumnHidden(ImgRightFrontISO,true);
+    ui->tableView->setColumnHidden(ImgLeftAfterISO,true);
+    ui->tableView->setColumnHidden(ImgRightAfterISO,true);
+    ui->tableView->setColumnHidden(ImgAfterISO,true);
+    ui->tableView->setColumnHidden(ImgProspects,true);
+    ui->tableView->setColumnHidden(ImgForeground,true);
+    ui->tableView->setColumnHidden(ImgTop1,true);
+    ui->tableView->setColumnHidden(ImgFrontISO,true);
+    ui->tableView->setColumnHidden(ImgTop2,true);
 }
 
 void DataBase_Form::slot_statisticalData(int total, double correct, double error, double statistical)
@@ -383,7 +394,7 @@ void DataBase_Form::on_tableView_clicked(const QModelIndex &index)
     ui->iso_lineEdit_before->setText(index.sibling(index.row(),ISOAfter).data().toString());/* 后箱型 */
     ui->plate_lineEdit_front->setText(index.sibling(index.row(),Plate).data().toString());/* 车牌 */
 
-    ui->result_lineEdit_1->setText(index.sibling(index.row(),ImgFrontNumber).data().toString());
+    ui->result_lineEdit_1->setText(index.sibling(index.row(),ImgFrontNumber).data().toString()+" | "+index.sibling(index.row(),ImgFrontISO).data().toString());
     if(index.sibling(index.row(),ImgFrontCheck).data().toBool()){
         ui->result_lineEdit_1->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
     }
@@ -391,7 +402,7 @@ void DataBase_Form::on_tableView_clicked(const QModelIndex &index)
         ui->result_lineEdit_1->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
     }
 
-    ui->result_lineEdit_2->setText(index.sibling(index.row(),ImgLeftFrontNumber).data().toString());
+    ui->result_lineEdit_2->setText(index.sibling(index.row(),ImgLeftFrontNumber).data().toString()+" | "+index.sibling(index.row(),ImgLeftFrontISO).data().toString());
     if(index.sibling(index.row(),ImgLeftFrontCheck).data().toBool()){
         ui->result_lineEdit_2->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
     }
@@ -399,7 +410,7 @@ void DataBase_Form::on_tableView_clicked(const QModelIndex &index)
         ui->result_lineEdit_2->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
     }
 
-    ui->result_lineEdit_3->setText(index.sibling(index.row(),ImgRightFrontNumber).data().toString());
+    ui->result_lineEdit_3->setText(index.sibling(index.row(),ImgRightFrontNumber).data().toString()+" | "+index.sibling(index.row(),ImgRightFrontISO).data().toString());
     if(index.sibling(index.row(),ImgRightFrontCheck).data().toBool()){
         ui->result_lineEdit_3->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
     }
@@ -407,7 +418,7 @@ void DataBase_Form::on_tableView_clicked(const QModelIndex &index)
         ui->result_lineEdit_3->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
     }
 
-    ui->result_lineEdit_4->setText(index.sibling(index.row(),ImgLeftAfterNumber).data().toString());
+    ui->result_lineEdit_4->setText(index.sibling(index.row(),ImgLeftAfterNumber).data().toString()+" | "+index.sibling(index.row(),ImgLeftAfterISO).data().toString());
     if(index.sibling(index.row(),ImgLeftAfterCheck).data().toBool()){
         ui->result_lineEdit_4->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
     }
@@ -415,7 +426,7 @@ void DataBase_Form::on_tableView_clicked(const QModelIndex &index)
         ui->result_lineEdit_4->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
     }
 
-    ui->result_lineEdit_5->setText(index.sibling(index.row(),ImgRightAfterNumber).data().toString());
+    ui->result_lineEdit_5->setText(index.sibling(index.row(),ImgRightAfterNumber).data().toString()+" | "+index.sibling(index.row(),ImgRightAfterISO).data().toString());
     if(index.sibling(index.row(),ImgRightAfterCheck).data().toBool()){
         ui->result_lineEdit_5->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
     }
@@ -423,7 +434,7 @@ void DataBase_Form::on_tableView_clicked(const QModelIndex &index)
         ui->result_lineEdit_5->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
     }
 
-    ui->result_lineEdit_6->setText(index.sibling(index.row(),ImgAfterNumber).data().toString());
+    ui->result_lineEdit_6->setText(index.sibling(index.row(),ImgAfterNumber).data().toString()+" | "+index.sibling(index.row(),ImgAfterISO).data().toString());
     if(index.sibling(index.row(),ImgAfterCheck).data().toBool()){
         ui->result_lineEdit_6->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
     }

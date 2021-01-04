@@ -41,8 +41,8 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     ui->image_label_11->setVisible(false);
     ui->image_label_12->setVisible(false);
 
-    ui->lineEdit_10->setText(alias);
-    ui->lineEdit_5->setText(QString::number(channelNumber));
+    ui->alias_lineEdit->setText(alias);
+    ui->channel_lineEdit->setText(QString::number(channelNumber));
     ui->toolBox->setCurrentIndex(0);
 
     this->channelNumber=channelNumber;
@@ -65,6 +65,7 @@ Channel_Data_Form::~Channel_Data_Form()
 
     streamMap.clear();
     signatureList.clear();
+    imgNameMap.clear();
 
     delete ui;
 }
@@ -158,6 +159,13 @@ void Channel_Data_Form::clearnPixmap()
     ui->image_label_10->setPalette(palette);
     ui->image_label_11->setPalette(palette);
     //ui->image_label_12->setPalette(palette);
+
+    ui->con_brfore_lineEdit->clear();
+    ui->iso_before_lineEdit->clear();
+    ui->con_after_lineEdit->clear();
+    ui->iso_after_lineEdit->clear();
+    ui->box_type_lineEdit->clear();
+    ui->time_lineEdit->clear();
 }
 
 void Channel_Data_Form::on_SimulationPushButton_clicked()
@@ -212,9 +220,6 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
     QMap<QString, QString> databaseMap;
 
     foreach (auto key, stream.keys()) {
-        if(nullptr == stream.value(key)){
-            continue;
-        }
         QString imgName="";
         switch (Parameter::ImageNamingRules) {
         case 0:
@@ -224,11 +229,21 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
             imgName=QString("%1%2%3.jpg").arg(datetime).arg(key,2,10,QLatin1Char('0')).arg(channelNumber,2,10,QLatin1Char('0'));
             break;
         }
-        QString imgpath=QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgName));
+        QString imgPath=QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgName));
 
+        if(nullptr == stream.value(key,nullptr)){
+            slot_recognitionResult("RESULT: ||0|0",imgPath,key);
+            continue;
+        }
         QScopedPointer<QPixmap> pix(new QPixmap());
         pix.data()->loadFromData(stream.value(key));
-        pix.data()->scaled(1280,720, Qt::IgnoreAspectRatio, Qt::SmoothTransformation).save(imgpath);
+        if(false == pix.data()->scaled(1280,720, Qt::IgnoreAspectRatio, Qt::SmoothTransformation).save(imgPath)){
+            slot_recognitionResult("RESULT: ||0|0",imgPath,key);
+            continue;
+        }
+        else {
+            emit signal_identifyImages(imgPath,key);
+        }
 
         /*****************************
         * @brief:图片写入数据库
@@ -277,6 +292,7 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
              i.remove();
          }
          streamMap.clear();
+         imgNameMap.clear();
     }
 
     this->imgTimerAf=imgTime;
@@ -434,6 +450,9 @@ void Channel_Data_Form::slot_initEquipment()
 
     signatureList=LocalPar::CamerNameList;
 
+    /*****************************
+    * @brief:相机
+    ******************************/
     emit signal_initCamer_front(para->FrontCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(0));
     emit signal_initCamer_before(para->AfterCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(1));
     emit signal_initCamer_left(para->LeftCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(2));
@@ -442,10 +461,21 @@ void Channel_Data_Form::slot_initEquipment()
     emit signal_initCamer_prospects(para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(5));
     emit signal_initCamer_foreground(para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(6));
 
+    /*****************************
+    * @brief:红外
+    ******************************/
     emit signal_setAlarmMode(para->infraredStatus);
     emit signal_startSlave(QString("COM%1").arg(para->SerialPortOne),QString("COM%1").arg(para->SerialPortTow),channelID);
 
+    /*****************************
+    * @brief:数据库插入
+    ******************************/
     emit signal_initDataBase(QString::number(channelID),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
+
+    /*****************************
+    * @brief:结果分析
+    ******************************/
+    emit signal_initReAnaParameter(channelNumber,Parameter::ImageNamingRules,Parameter::ResultsTheCheck,Parameter::Resultting);
 }
 
 void Channel_Data_Form::slot_bindingCameraID(QString cameraAddr, int ID)
@@ -570,4 +600,57 @@ void Channel_Data_Form::slot_serialPortState(bool com1, bool com2)
 
     emit signal_setDeviceStatus(channelID,LocalPar::Serial1,com1);
     emit signal_setDeviceStatus(channelID,LocalPar::Serial2,com2);
+}
+
+void Channel_Data_Form::slot_recognitionResult(const QString &result, const QString &imgName, const int &imgNumber)
+{
+    recogMap.insert(imgNumber,result);
+    imgNameMap.insert(imgNumber,imgName);
+    if(recogMap.size()==streamMap.size()){
+        emit signal_resultsOfAnalysis(recogMap,putComType,imgNameMap);
+        recogMap.clear();
+        imgNameMap.clear();
+    }
+}
+
+void Channel_Data_Form::slot_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
+{
+    ui->time_lineEdit->setText(QDateTime::fromString(imgTimer,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss"));
+    ui->con_brfore_lineEdit->setText(result1);
+    ui->iso_before_lineEdit->setText(iso1);
+    ui->con_after_lineEdit->setText(result2);
+    ui->iso_after_lineEdit->setText(iso2);
+
+    if(resultCheck1){
+        ui->con_brfore_lineEdit->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+    }
+    else {
+        ui->con_brfore_lineEdit->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+    }
+    if(type==2){
+        if(resultCheck2){
+            ui->con_after_lineEdit->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+        }
+        else {
+            ui->con_after_lineEdit->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+        }
+    }
+
+    QString logic="";
+
+    switch (type) {
+    case -1:
+        logic=tr("No container");
+        break;
+    case 0:
+        logic=tr("A small container");
+        break;
+    case 1:
+        logic=tr("A large container");
+        break;
+    case 2:
+        logic=tr("Two containers");
+        break;
+    }
+    ui->box_type_lineEdit->setText(logic);
 }

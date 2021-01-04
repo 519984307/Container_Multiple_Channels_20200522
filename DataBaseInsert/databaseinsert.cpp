@@ -52,10 +52,10 @@ void DataBaseInsert::insertDataBaseSlot(QMap<QString, QString> data)
     locker.lockForWrite();
 
     if(db.open()){
-        //QSharedPointer<QSqlTableModel> model(new QSqlTableModel(this,db));
-        QSqlTableModel model(this,db);
-        model.setTable(tr("Containers"));
-        QSqlRecord record=model.record();
+        QScopedPointer<QSqlTableModel> model(new QSqlTableModel(this,db));
+        //QSqlTableModel model(this,db);
+        model->setTable(tr("Containers"));
+        QSqlRecord record=model->record();
 
         /*****************************
         * @brief:只有车牌
@@ -78,20 +78,24 @@ void DataBaseInsert::insertDataBaseSlot(QMap<QString, QString> data)
             record.setValue("ImgLeftAfter",data.value("ImgLeftAfter"));
             record.setValue("ImgRightAfter",data.value("ImgRightAfter"));
             record.setValue("ImgAfter",data.value("ImgAfter"));
+            record.setValue("ImgProspects",data.value("ImgProspects"));
+            record.setValue("ImgForeground",data.value("ImgForeground"));
+            record.setValue("ImgTop1",data.value("ImgTop1"));
+            record.setValue("ImgTop2",data.value("ImgTop2"));
         }
-        if(!model.insertRecord(-1,record)){
-            emit messageSignal(ZBY_LOG("ERROR"),tr("Insert data to databse  error<errorCode=%1>").arg(model.lastError().text()));
-            qWarning().noquote()<<QString("%1:Insert data to databse  error<errorCode=%2>").arg(record.value("Timer").toString()).arg(model.lastError().text());
+        if(!model->insertRecord(-1,record)){
+            emit messageSignal(ZBY_LOG("ERROR"),tr("Insert data to databse  error<errorCode=%1>").arg(model->lastError().text()));
+            qWarning().noquote()<<QString("%1:Insert data to databse  error<errorCode=%2>").arg(record.value("Timer").toString()).arg(model->lastError().text());
         }
         else {
             emit messageSignal(ZBY_LOG("INFO"),tr("Insert data to databse  sucessful"));
-            qWarning().noquote()<<QString("%1:Insert data to databse  sucessful").arg(record.value("Timer").toString());
+            qInfo().noquote()<<QString("%1:Insert data to databse  sucessful").arg(record.value("Timer").toString());
         }
-        model.submitAll();
+        model->submitAll();
 
         data.clear();
         record.clearValues();
-        model.clear();
+        model->clear();
     }
     else {
         emit messageSignal(ZBY_LOG("ERROR"),tr("Open databse  error<errorCode=%1>").arg(db.lastError().text()));
@@ -106,17 +110,18 @@ void DataBaseInsert::updateDataBaseSlot(QMap<QString, QString> data)
     locker.lockForWrite();
 
     if(db.open()){
-        QSqlTableModel model(this,db);
-        model.setTable(tr("Containers"));
-        model.setFilter(tr("Timer='%1' AND Channel='%2'").arg(data.value("Timer")).arg(data.value("Channel")));
-        model.select();
-        if(model.rowCount()==1){
-            QSqlRecord record=model.record(0);
+        QScopedPointer<QSqlTableModel> model(new QSqlTableModel(this,db));
+        //QSqlTableModel model(this,db);
+        model->setTable(tr("Containers"));
+        model->setFilter(tr("Timer='%1' AND Channel='%2'").arg(data.value("Timer")).arg(data.value("Channel")));
+        model->select();
+        if(model->rowCount()==1){
+            QSqlRecord record=model->record(0);
 
             /*****************************
             * @brief:有车牌
             ******************************/
-            if(data.value("PlateTimer","NUL")!="NUL"){
+            if(nullptr != data.value("PlateTimer",nullptr)){
                 record.setValue("Plate",data.value("Plate"));
                 record.setValue("PlateTimer",data.value("PlateTimer"));
                 record.setValue("PlateImg",data.value("PlateImg"));
@@ -140,12 +145,18 @@ void DataBaseInsert::updateDataBaseSlot(QMap<QString, QString> data)
                 record.setValue("ImgRightAfterNumber",data.value("ImgRightAfterNumber"));
                 record.setValue("ImgRightAfterCheck",data.value("ImgRightAfterCheck"));
                 record.setValue("ImgAfterNumber",data.value("ImgAfterNumber"));
-                record.setValue("ImgAfterCheck",data.value("ImgAfterCheck"));
-
+                record.setValue("ImgAfterCheck",data.value("ImgAfterCheck"));                
+                record.setValue("ImgFrontISO",data.value("ImgFrontISO"));
+                record.setValue("ImgLeftFrontISO",data.value("ImgLeftFrontISO"));
+                record.setValue("ImgRightFrontISO",data.value("ImgRightFrontISO"));
+                record.setValue("ImgLeftAfterISO",data.value("ImgLeftAfterISO"));
+                record.setValue("ImgRightAfterISO",data.value("ImgRightAfterISO"));
+                record.setValue("ImgAfterISO",data.value("ImgAfterISO"));
             }
 
-            if(!model.setRecord(0,record)){
-                emit messageSignal(ZBY_LOG("ERROR"),tr("Update data to databse  error<errorCode=%1>").arg(model.lastError().text()));
+            if(!model->setRecord(0,record)){
+                emit messageSignal(ZBY_LOG("ERROR"),tr("Update data to databse  error<errorCode=%1>").arg(model->lastError().text()));
+                qWarning().noquote()<<QString("Update data to databse  error<errorCode=%1>").arg(model->lastError().text());
             }
             else {
                 QString timer="";
@@ -156,12 +167,12 @@ void DataBaseInsert::updateDataBaseSlot(QMap<QString, QString> data)
                     timer=data.value("PlateTimer");
                 }
                 emit messageSignal(ZBY_LOG("INFO"),tr("Update data to databse  sucessful time=%1").arg(timer));
+                qInfo().noquote()<<QString("Update data to databse  sucessful time=%1").arg(timer);
             }
-            model.submitAll();
-
+            model->submitAll();
             data.clear();
             record.clear();
-            model.clear();
+            model->clear();
         }
     }
     db.close();

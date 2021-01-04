@@ -4,6 +4,8 @@ HEADERS += \
     $$PWD/interface/databaseinsertinterface.h \
     $$PWD/interface/databasereadinterface.h \
     $$PWD/interface/infraredlogicinterface.h \
+    $$PWD/interface/recognizerinterface.h \
+    $$PWD/interface/resultsanalysisinterface.h \
     $$PWD/loadinglibaray.h
 
 SOURCES += \

@@ -19,12 +19,7 @@ Camera_List_Form::Camera_List_Form(QWidget *parent) :
 
 Camera_List_Form::~Camera_List_Form()
 {
-    foreach (auto obj, ItemMap.keys()) {
-        delete  obj;
-        obj=nullptr;
-    }
     ItemMap.clear();
-
     delete ui;
 
     qDebug()<<"~Camera_List_Form()";

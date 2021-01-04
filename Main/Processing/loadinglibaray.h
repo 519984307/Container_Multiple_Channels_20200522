@@ -14,6 +14,8 @@
 #include "interface/infraredlogicinterface.h"
 #include "interface/databaseinsertinterface.h"
 #include "interface/databasereadinterface.h"
+#include "interface/recognizerinterface.h"
+#include "interface/resultsanalysisinterface.h"
 
 class LoadingLibaray : public QObject
 {
@@ -69,6 +71,16 @@ public:/* container */
     /// \brief IDataBaseReadList 数据库读取库
     ///
     QList<QSharedPointer<DataBaseReadInterface>> IDataBaseReadList;
+
+    ///
+    /// \brief IRecognizerList 识别器库
+    ///
+    QList<QSharedPointer<RecognizerInterface>> IRecognizerList;
+
+    ///
+    /// \brief IResultsAnalysisList 结果分析库
+    ///
+    QList<QSharedPointer<ResultsAnalysisInterface>> IResultsAnalysisList;
 
 public slots:
 
