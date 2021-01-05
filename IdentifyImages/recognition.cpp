@@ -16,7 +16,7 @@ void Recognition::run()
     QString path=QDir::toNativeSeparators(tr("%1/%2/").arg(QCoreApplication::applicationDirPath()).arg(program.split(".")[0]));
     Process.setWorkingDirectory(path);
     Process.start(path.append(program),QStringList()<<imgName<<"QRecog.dll");
-    if(!Process.waitForStarted()){
+    if(!Process.waitForStarted(3000)){
         emit recognitionResultSignal("RESULT: ||0|0",imgName,imgNumber);
         emit messageSignal(ZBY_LOG("ERROR"),tr("Recognizer startup error<errorCode=%1>").arg(Process.errorString().toLocal8Bit().data()));
         qDebug().noquote()<<QString("Recognizer startup error<errorCode=%1>").arg(Process.errorString().toLocal8Bit().data());
@@ -32,6 +32,7 @@ void Recognition::run()
             qInfo().noquote()<<QString("Identify the results:%1").arg(result.data());
         }
         else {
+            emit recognitionResultSignal("RESULT: ||0|0",imgName,imgNumber);
             emit messageSignal(ZBY_LOG("ERROR"),tr("Identify the mistakes error<errorCode=%1>").arg(Process.errorString().toLocal8Bit().data()));
             qWarning().noquote()<<QString("Identify the mistakes error<errorCode=%1>").arg(Process.errorString().toLocal8Bit().data());
         }

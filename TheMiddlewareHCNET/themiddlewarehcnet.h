@@ -4,7 +4,7 @@
 #define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
 
 #define IMG_BYTE 1920*1080+1
-#define CAMERA_TYPE 1
+#define CAMERA_TYPE 4
 
 
 #include "TheMiddlewareHCNET_global.h"
@@ -102,6 +102,11 @@ private:/* 参数  */
     QLibrary* pDLL;
 
     ///
+    /// \brief pDLLplay 加载播放动态库
+    ///
+    QLibrary* pDLLplay;
+
+    ///
     /// \brief pTimerState 相机状态定时器
     ///
     QTimer* pTimerState;
@@ -134,12 +139,12 @@ private:/* 参数  */
     ///
     /// \brief playMap 视频流绑定ID
     ///
-    QMap<LONG,int> playMap;
+    QMap<int,LONG> playMap;
 
     ///
     /// \brief putID 当前抓图ID
     ///
-    long putID;
+    int putID;
 
 private:
 
@@ -311,6 +316,76 @@ private:
     ///
     NET_DVR_SetRecvTimeOutFUN NET_DVR_SetRecvTimeOut_L;
 
+
+
+    /*****************************
+    * @brief:海康播放库
+    ******************************/
+
+    typedef   BOOL  (*PlayM4_GetPortFUN)(  LONG*    nPort);
+    ///
+    /// \brief PlayM4_GetPort 获取未使用的通道号。
+    /// nport 播放通道号，指向用于获取端口号的LONG型变量指针
+    ///
+    PlayM4_GetPortFUN PlayM4_GetPort_L;
+
+    typedef   BOOL  (*PlayM4_OpenStreamFUN)(  LONG nPort,  PBYTE pFileHeadBuf, DWORD nSize,  DWORD nBufPoolSize);
+    ///
+    /// \brief PlayM4_OpenStream 打开流。
+    /// nPort  播放通道号
+    /// pFileHeadBuf  文件头数据
+    /// nSize  文件头长度
+    ///nBufPoolSize 设置播放器中存放数据流的缓冲区大小。范围是SOURCE_BUF_MIN~ SOURCE_BUF_MAX。该值过小会导致无法解码。
+    ///
+    PlayM4_OpenStreamFUN PlayM4_OpenStream_L;
+
+    typedef   BOOL (*PlayM4_SetDecCallBackFUN)(  LONG     nPort,  void (CALLBACK* CallBack)(long nPort, char *pBuf, long nSize, FRAME_INFO *pFrameInfo, long luser, long nReserved2));
+    ///
+    /// \brief PlayM4_SetDecCallBack 解码回调
+    /// nPort 播放通道号
+    /// DecCallBack 解码回调函数指针，若不需要调用回调函数则置为NULL，否则不能为NULL
+    ///
+    PlayM4_SetDecCallBackFUN PlayM4_SetDecCallBack_L;
+
+    typedef BOOL (*PlayM4_PlayFUN)(LONG   nPort, HWND   hWnd);
+    ///
+    /// \brief PlayM4_Play 开启播放。
+    /// nPort 播放通道号
+    /// HWND 播放视频的窗口句柄
+    ///
+    PlayM4_PlayFUN PlayM4_Play_L;
+
+    typedef BOOL (*PlayM4_InputDataFUN)(  LONG      nPort,  PBYTE     pBuf,  DWORD     nSize);
+    ///
+    /// \brief PlayM4_InputData 输入流数据。
+    /// nPort  播放通道号
+    /// pBuf 流数据缓冲区地址
+    /// nSize 流数据缓冲区大小
+    ///
+    PlayM4_InputDataFUN PlayM4_InputData_L;
+
+    typedef   BOOL (*PlayM4_StopFUN)(  LONG     nPort);
+    ///
+    /// \brief PlayM4_Stop 关闭播放。
+    ///
+    PlayM4_StopFUN PlayM4_Stop_L;
+
+    typedef BOOL (*PlayM4_CloseStreamFUN)(  LONG  nPort);
+    ///
+    /// \brief PlayM4_CloseStream 关闭流。
+    ///
+    PlayM4_CloseStreamFUN PlayM4_CloseStream_L;
+
+    typedef   BOOL  (*PlayM4_FreePortFUN)(  LONG      nPort);
+    ///
+    /// \brief PlayM4_FreePort 释放已使用的通道号
+    ///
+    PlayM4_FreePortFUN PlayM4_FreePort_L;
+
+    typedef   DWORD  (*PlayM4_GetLastErrorFUN)(  LONG   nPort);
+    PlayM4_GetLastErrorFUN PlayM4_GetLastError_L;
+
+
 private:
 
 
@@ -362,7 +437,7 @@ private:
     /// \param height
     /// \return
     ///
-    void yv12ToRGB888(int ID, int width, int height, unsigned char *yv12);
+    void yv12ToRGB888(int ID, int width, int height, unsigned char *yv12, long nPort);
 
     ///
     /// \brief initVideoStream 视频流抓图

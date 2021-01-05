@@ -41,8 +41,3 @@ unix {
 !isEmpty(target.path): INSTALLS += target
 
 DESTDIR += ../MainUI/Plugins
-
-win32: LIBS += -L$$PWD/HCNetSDK_WIN/ -lPlayCtrl
-
-INCLUDEPATH += $$PWD/HCNetSDK_WIN
-DEPENDPATH += $$PWD/HCNetSDK_WIN
