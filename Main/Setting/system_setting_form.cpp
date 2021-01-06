@@ -28,6 +28,7 @@ System_Setting_Form::~System_Setting_Form()
 void System_Setting_Form::InitializationParameter(int channelNumber)
 {
     ui->tabWidget->setCurrentIndex(0);
+    ui->Service_Type_comboBox->setCurrentIndex(0);
     /*****************************
     * @brief:创建配置文件夹
     ******************************/
@@ -233,7 +234,6 @@ bool System_Setting_Form::writeParameterSlot()
         obj4.insert("ServiceModel",0);
     }
     if(ui->ServerModel->isChecked()){
-
         obj4.insert("ServiceModel",1);
     }
 
@@ -371,12 +371,11 @@ QVariant System_Setting_Form::getJsonValue(const QString &child, const QString &
 void System_Setting_Form::on_Service_Type_comboBox_currentIndexChanged(int index)
 {
     if(index==0){
-        ui->ClientModel->setEnabled(false);
-        ui->ServerModel->setChecked(true);
+        ui->ClientModel->setEnabled(true);
     }
     else if (index==1) {
-        ui->ClientModel->setEnabled(true);
-        ui->ClientModel->setEnabled(true);
+        ui->ClientModel->setEnabled(false);
+        ui->ServerModel->setChecked(true);
     }
 }
 

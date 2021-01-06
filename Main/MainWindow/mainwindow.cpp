@@ -69,6 +69,7 @@ void MainWindow::clearnContainer()
     Channel_Data_From_Map.clear();
     From_Action_Map.clear();
     Form_Map.clear();   
+    DataProcessingList.clear();
 }
 
 void MainWindow::getScreenInfo()
@@ -154,6 +155,9 @@ void MainWindow::initializingObject()
 //    QFuture<void> future =QtConcurrent::run(this,&MainWindow::loadingLibaray,Parameter::ChannelNumber);
 //    watcher->setFuture(future);
 
+    for (int var = 0; var < Parameter::ChannelNumber; ++var) {
+        DataProcessingList.append(QSharedPointer<DataProcessing>(new DataProcessing(nullptr)));
+    }
 
     pLoadinglibaray=QSharedPointer<LoadingLibaray>(new LoadingLibaray(Parameter::ChannelNumber));
     connect(pLoadinglibaray.data(),SIGNAL(signal_handleFinished()), this, SLOT(slot_handleFinished()));
@@ -632,6 +636,25 @@ void MainWindow::bindingPlugin()
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_resultsOfAnalysis,pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::resultsOfAnalysisSlot);
             connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::containerSignal,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_container);
             connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::updateDataBaseSignal,pLoadinglibaray->IDataBaseInsertList.at(var).data(),&DataBaseInsertInterface::updateDataBaseSlot);
+        }
+    }
+
+    if(pLoadinglibaray->IDataInterchangeList.size()>=1 && DataProcessingList.size()>=1){
+        int cot=pLoadinglibaray->IDataInterchangeList.size();
+        for (int var = 0; var < DataProcessingList.size(); ++var) {
+            if(Parameter::Service_Type){
+                cot=0;
+            }
+            else {
+                cot=var;
+            }
+            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::linkStateSingal,DataProcessingList.at(var).data(),&DataProcessing::slot_linkState);
+            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::connectCountSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_connectCount);
+            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_toSendData);
+            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::setHeartbeatPackStateSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_setHeartbeatPackState);
+            connect(DataProcessingList.at(var).data(),&DataProcessing::signal_InitializationParameter,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::InitializationParameterSlot);
+            connect(DataProcessingList.at(var).data(),&DataProcessing::signal_toSendData,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSlot);
+            connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
         }
     }
 }

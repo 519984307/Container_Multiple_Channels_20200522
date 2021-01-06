@@ -7,7 +7,7 @@ SUBDIRS +=\
 #    TheLicensePlateHCNET \
 #    TheLicensePlateWTY \
 #    ToUploadData\
-#    DataInterchange \
+    DataInterchange \
     DatabaseInsert \
     DatabaseRead \
     ResultsAnalysis \

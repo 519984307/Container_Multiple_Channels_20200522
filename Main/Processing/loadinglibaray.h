@@ -8,6 +8,7 @@
 #include <QThread>
 
 #include "./Parameter/LocalPar.h"
+#include "./Parameter/parameter.h"
 
 #include "interface/ICaptureImages.h"
 #include "interface/IMiddleware.h"
@@ -16,6 +17,7 @@
 #include "interface/databasereadinterface.h"
 #include "interface/recognizerinterface.h"
 #include "interface/resultsanalysisinterface.h"
+#include "interface/datainterchangeinterface.h"
 
 class LoadingLibaray : public QObject
 {
@@ -81,6 +83,11 @@ public:/* container */
     /// \brief IResultsAnalysisList 结果分析库
     ///
     QList<QSharedPointer<ResultsAnalysisInterface>> IResultsAnalysisList;
+
+    ///
+    /// \brief IDataInterchangeList 数据协议对接
+    ///
+    QList<QSharedPointer<DataInterchangeInterface>> IDataInterchangeList;
 
 public slots:
 

@@ -224,6 +224,14 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             break;
         }
     }
+    ///
+    /// \brief numberList 防止双箱，未检测到箱型
+    ///
+    QStringList numberList=queueContainerNumber(conTemp);
+    if(numberList.size()>=2 || isoTemp.count()==6){
+        conType=2;
+    }
+
     if(notISO){
         switch (conType) {
         case 0:

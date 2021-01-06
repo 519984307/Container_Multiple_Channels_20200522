@@ -125,6 +125,18 @@ void LoadingLibaray::slot_createLibaray()
                     pluginsNum=channelCount;
                 }
             }
+            else if (DataInterchangeInterface *pDataInterchangeInterface=qobject_cast<DataInterchangeInterface*>(plugin)) {
+                if("DataInterchange"==pDataInterchangeInterface->InterfaceType()){
+                    delete pDataInterchangeInterface;
+                    pDataInterchangeInterface=nullptr;
+                    if(Parameter::Service_Type){
+                        pluginsNum=1;
+                    }
+                    else {
+                        pluginsNum=channelCount;
+                    }
+                }
+            }
             else {
                 pluginLoader.unload();
             }
@@ -211,6 +223,13 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 pResultsAnalysisInterface->moveToThread(th);
                 th->start();
                 IResultsAnalysisList.append(QSharedPointer<ResultsAnalysisInterface>(pResultsAnalysisInterface));
+            }
+            else if (DataInterchangeInterface *pDataInterchangeInterface=qobject_cast<DataInterchangeInterface*>(plugin)) {
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pDataInterchangeInterface->moveToThread(th);
+                th->start();
+                IDataInterchangeList.append(QSharedPointer<DataInterchangeInterface>(pDataInterchangeInterface));
             }
             else {
                 pluginLoader.unload();

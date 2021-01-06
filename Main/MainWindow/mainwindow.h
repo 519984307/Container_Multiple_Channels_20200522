@@ -46,7 +46,7 @@
 
 #include "logcontroller.h"
 #include "Processing/loadinglibaray.h"
-
+#include "DataProcessing/dataprocessing.h"
 #include "alarmform.h"
 #include "errorform.h"
 
@@ -183,6 +183,11 @@ private:
     /// \brief pLoadinglibaray 加载插件
     ///
     QSharedPointer<LoadingLibaray> pLoadinglibaray;
+
+    ///
+    /// \brief DataProcessingList 数据综合处理类
+    ///
+    QList<QSharedPointer<DataProcessing>>  DataProcessingList;
 
     ///
     /// \brief pErrorForm 错误弹幕

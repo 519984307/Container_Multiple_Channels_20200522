@@ -41,7 +41,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-29</y>
+        <y>0</y>
         <width>851</width>
         <height>736</height>
        </rect>
@@ -504,7 +504,7 @@
              <item>
               <widget class="QRadioButton" name="ClientModel">
                <property name="enabled">
-                <bool>false</bool>
+                <bool>true</bool>
                </property>
                <property name="text">
                 <string>Tcp Client</string>
@@ -555,12 +555,12 @@
             <widget class="QComboBox" name="Service_Type_comboBox">
              <item>
               <property name="text">
-               <string>More than a pair of</string>
+               <string>One to one</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>One to one</string>
+               <string>More than a pair of</string>
               </property>
              </item>
             </widget>
@@ -623,6 +623,32 @@
              <property name="currentIndex">
               <number>0</number>
              </property>
+             <widget class="QWidget" name="page_6">
+              <layout class="QGridLayout" name="gridLayout_28">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QTextEdit" name="Address_Many_textEdit">
+                 <property name="placeholderText">
+                  <string>if(server)192.168.1.100:5000,192.168.1.100:5001,192.168.1.100:5002 if(client)192.168.1.100:5000,192.168.1.101:5000,192.168.1.102:5000</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
              <widget class="QWidget" name="page_5">
               <layout class="QGridLayout" name="gridLayout_11">
                <property name="leftMargin">
@@ -657,32 +683,6 @@
                 <widget class="QLineEdit" name="Address_Singleton_lineEdit">
                  <property name="placeholderText">
                   <string>127.0.0.1:5000</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-             <widget class="QWidget" name="page_6">
-              <layout class="QGridLayout" name="gridLayout_28">
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
-               <property name="spacing">
-                <number>0</number>
-               </property>
-               <item row="0" column="0">
-                <widget class="QTextEdit" name="Address_Many_textEdit">
-                 <property name="placeholderText">
-                  <string>if(server)192.168.1.100:5000,192.168.1.100:5001,192.168.1.100:5002 if(client)192.168.1.100:5000,192.168.1.101:5000,192.168.1.102:5000</string>
                  </property>
                 </widget>
                </item>
@@ -743,7 +743,13 @@
            <item row="2" column="1" colspan="2">
             <widget class="QLabel" name="label_31">
              <property name="text">
-              <string>One service corresponds to all channels (Need to respond to channel instruction [L|Number])</string>
+              <string>One to one:One service corresponds to one channel, and either server mode or client mode can be set.
+
+
+More than pair of:One service corresponds to all channels, and only the server mode can be set, One service corresponds to all channels (Need to respond to channel instruction [L|Number])</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
              </property>
              <property name="wordWrap">
               <bool>true</bool>

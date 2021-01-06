@@ -789,7 +789,7 @@ void TheMiddlewareHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataTy
          /* 解码数据 */
          if (dwBufSize > 0 && lRealHandle != -1 ) {
              BOOL inData = pThis->PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize);
-             while (!inData || lRealHandle!=pThis->streamID) {
+             while (!inData || lRealHandle!=pThis->streamID) {/* 防止解码库把多通道数据混淆 */
                  //QThread::msleep(5);
                  inData =pThis-> PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize);
              }
