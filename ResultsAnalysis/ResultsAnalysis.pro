@@ -11,6 +11,10 @@ CONFIG += plugin
 TARGET = ResultsAnalysis
 TEMPLATE = lib
 
+CONFIG += skip_target_version_ext
+VERSION = 2.3.2
+QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
+
 DEFINES += RESULTSANALYSIS_LIBRARY
 
 # The following define makes your compiler emit warnings if you use
@@ -39,3 +43,6 @@ unix {
 
 DESTDIR+=../MainUI/Plugins
 #DESTDIR += ../MainUI/debug/Plugins
+
+DISTFILES += \
+    mymetadata.json

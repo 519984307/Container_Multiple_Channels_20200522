@@ -816,12 +816,13 @@ void TheMiddlewareHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataTy
 
 void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
 {
+    Q_UNUSED(lUserID);
     Q_UNUSED(dwType);
-    Q_UNUSED(pUser);
     Q_UNUSED(lHandle);
+
+    NET_DVR_USER_LOGIN_INFO LoginInfo=*((NET_DVR_USER_LOGIN_INFO*)pUser);
     if(pThis->NET_DVR_GetLastError_L()>0){
-        emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camrea Exception<errorCode=%2>").arg(QString::fromLocal8Bit(pThis->logInfoMap.value(lUserID).sDeviceAddress)).arg(QString::number(pThis->NET_DVR_GetLastError_L())));
-        qWarning().noquote()<<QString("IP=%1 Camrea Exception<errorCode=%2>").arg(QString::fromLocal8Bit(pThis->logInfoMap.value(lUserID).sDeviceAddress)).arg(QString::number(pThis->NET_DVR_GetLastError_L()));
+        emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camrea Exception<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)).arg(QString::number(pThis->NET_DVR_GetLastError_L())));
     }
 }
 
@@ -884,6 +885,8 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
         }
         else {
             emit equipmentStateSignal(id,false);
+            logfalList.append(logInfoMap.value(id));
+            logInfoMap.remove(id);
 //            initCameraSlot();/* 重新登录 */
 //            NET_DVR_Login_V40_L(&LoginInfo,&DeviceInfo);
         }

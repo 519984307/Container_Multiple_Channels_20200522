@@ -8,7 +8,7 @@ class RESULTSANALYSISSHARED_EXPORT ResultsAnalysis:public ResultsAnalysisInterfa
 {
     Q_OBJECT
     Q_INTERFACES(ResultsAnalysisInterface)
-    Q_PLUGIN_METADATA(IID ResultsAnalysisInterfaceIID)
+    Q_PLUGIN_METADATA(IID ResultsAnalysisInterfaceIID FILE "mymetadata.json")
 
 public:
     ResultsAnalysis(QObject* parent=nullptr);
@@ -37,6 +37,12 @@ public:
     /// \param imgNameMap 图片名
     ///
     void resultsOfAnalysisSlot(QMap<int,QString> resultMap, int type,QMap<int,QString> imgNameMap)Q_DECL_OVERRIDE;
+
+    ///
+    /// \brief resultsAnalysisStateSignal 识别结果写入日志
+    /// \param msg 信息体
+    ///
+    void resultsAnalysisStateslot(const int& channel, const QString& msg)Q_DECL_OVERRIDE;
 
 private:
 
@@ -127,6 +133,16 @@ private:
     /// \brief ImageNamingRules 图片命名规则
     ///
     int ImageNamingRules;
+
+    ///
+    /// \brief logFile 日志文件
+    ///
+    QFile logFile;
+
+    ///
+    /// \brief lock 写入锁
+    ///
+    QReadWriteLock lock;
 };
 
 #endif // RESULTSANALYSIS_H

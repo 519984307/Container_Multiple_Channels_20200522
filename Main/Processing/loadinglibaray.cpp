@@ -51,6 +51,8 @@ void LoadingLibaray::slot_createLibaray()
         QObject *plugin = pluginLoader.instance();
 
         if(plugin){
+            QJsonObject var=pluginLoader.metaData();
+            qDebug()<<var.find("MetaData").value().toString();
 
             const QString pluginName=fileName.split(".").at(0);
             /*  创建子插件目录 */
@@ -138,6 +140,9 @@ void LoadingLibaray::slot_createLibaray()
                 }
             }
             else {
+                if(0==pluginsNum){
+                    emit signal_loadPluginError(fileName);/* 加载插件插件报错 */
+                }
                 pluginLoader.unload();
             }
 

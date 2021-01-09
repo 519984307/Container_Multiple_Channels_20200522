@@ -74,9 +74,15 @@ public slots:
     /// \param imgNameMap 图片名
     ///
     virtual void resultsOfAnalysisSlot(QMap<int,QString> resultMap, int type,QMap<int,QString> imgNameMap)=0;
+
+    ///
+    /// \brief resultsAnalysisStateSignal 识别结果写入日志
+    /// \param msg 信息体
+    ///
+    virtual void resultsAnalysisStateslot(const int& channel, const QString& msg)=0;
 };
 
-#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.2.2"
+#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.3.2"
 Q_DECLARE_INTERFACE(ResultsAnalysisInterface,ResultsAnalysisInterfaceIID);
 
 #endif // RESULTSANALYSISINTERFACE_H

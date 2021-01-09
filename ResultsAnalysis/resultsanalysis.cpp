@@ -24,6 +24,34 @@ void ResultsAnalysis::initParameter(const int &channel,const int &ImageNamingRul
     this->channel=channel;
     this->sendMid=sendMid;
 
+    QDateTime dateTime = QDateTime::currentDateTime();
+    QString stringDateTime = dateTime.toString( "yyyy_MM_dd_hh_mm_ss" );
+    QString path = QStandardPaths::writableLocation( QStandardPaths::AppConfigLocation );
+
+    QString logFolderName =QDir::toNativeSeparators(path + "/" + "identify_log"+"/"+QString::number(channel));
+    if( !QDir( logFolderName ).exists() )
+    {
+        QDir().mkpath( logFolderName );
+    }
+
+    logFile.setFileName( QDir::toNativeSeparators(logFolderName+ "/" + stringDateTime + ".log" ));
+
+    // If more 30 files, remove the last.
+    QDir dir( logFolderName );
+    dir.setFilter( QDir::Files );
+    dir.setSorting( QDir::Name );
+    QList<QFileInfo> list = dir.entryInfoList();
+    if ( list.count() > 30 )
+    {
+        QFile file( list.at(0).absoluteFilePath() );
+        file.remove();
+    }
+
+    /*****************************
+    * @brief:识别结果写入日志
+    ******************************/
+    connect(this,&ResultsAnalysis::resultsAnalysisStateSignal,this,&ResultsAnalysis::resultsAnalysisStateslot);
+
 //    QString program="QRecognition";
 //    QString path=QDir::toNativeSeparators(tr("%1/%2/").arg(QCoreApplication::applicationDirPath()).arg(program));
 
@@ -451,6 +479,26 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     isoProbabilityTemp.clear();
 }
 
+void ResultsAnalysis::resultsAnalysisStateslot(const int &channel, const QString &msg)
+{
+    Q_UNUSED(channel);
+
+    lock.lockForWrite();
+
+#ifdef Q_OS_LINUX
+    QString eol = "\n";
+#endif
+#ifdef Q_OS_WIN
+    QString eol = "\r\n";
+#endif
+    logFile.open( QIODevice::Append | QIODevice::Text | QIODevice::Unbuffered );
+    logFile.write( msg.toUtf8() );
+    logFile.write( eol.toUtf8() );
+    logFile.close();
+
+    lock.unlock();
+}
+
 void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cindex2, int Iindex2,QMap<int,QString> imgMap)
 {    
     /* Tupe,集装箱类别:
@@ -460,7 +508,7 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
      * 2 – 两个 20 吋集装箱
      */
 
-    QString time;
+    QString time=QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
 
     if(imgMap.size()>=1){
         QStringList tmp=imgMap.values().at(0).split(QDir::toNativeSeparators("/"));
@@ -473,9 +521,9 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
 
     for (int var = 0; var < conTemp.count(); ++var) {
         /* 识别结果写入日志,[标志|时间戳|通道号(2位)|相机号(2位)|箱号|校验|箱型] */
-        QString result=QString("[%1|%2|%3|%4|%5|%6|%7]\r\n").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(imgMap.keys().at(var),2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
+        QString result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(imgMap.keys().at(var),2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
         emit resultsAnalysisStateSignal(channel,result);
-        if(!sendMid){/* 配置文件变量定义为只发送结果集 */
+        if(sendMid){
             emit sendResultSignal(channel,result);
         }
     }
@@ -544,5 +592,5 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
 
     emit updateDataBaseSignal(data);
     data.clear();
-    //indMap.clear();
+    imgMap.clear();
 }

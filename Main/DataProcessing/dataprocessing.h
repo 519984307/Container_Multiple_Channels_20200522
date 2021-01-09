@@ -38,6 +38,18 @@ public slots:
     ///
     void slot_setHeartbeatPackState(bool state);
 
+
+    /*****************************
+    * @brief:集装箱
+    ******************************/
+
+    ///
+    /// \brief slot_sendResult 发送集装箱识别结果
+    /// \param channel 通道号
+    /// \param result 识别结果
+    ///
+    void slot_sendResult(int channel,const QString& result);
+
 signals:
 
     ///

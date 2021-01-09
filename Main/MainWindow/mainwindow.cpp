@@ -639,7 +639,7 @@ void MainWindow::bindingPlugin()
         }
     }
 
-    if(pLoadinglibaray->IDataInterchangeList.size()>=1 && DataProcessingList.size()>=1){
+    if(pLoadinglibaray->IDataInterchangeList.size()>=1 && DataProcessingList.size()>=1 && pLoadinglibaray->IResultsAnalysisList.size()==DataProcessingList.size()){
         int cot=pLoadinglibaray->IDataInterchangeList.size();
         for (int var = 0; var < DataProcessingList.size(); ++var) {
             if(Parameter::Service_Type){
@@ -654,6 +654,9 @@ void MainWindow::bindingPlugin()
             connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::setHeartbeatPackStateSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_setHeartbeatPackState);
             connect(DataProcessingList.at(var).data(),&DataProcessing::signal_InitializationParameter,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::InitializationParameterSlot);
             connect(DataProcessingList.at(var).data(),&DataProcessing::signal_toSendData,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSlot);
+
+            connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_sendResult);
+
             connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
         }
     }

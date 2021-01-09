@@ -1,4 +1,4 @@
-#ifndef RESULTSANALYSIS_GLOBAL_H
+﻿#ifndef RESULTSANALYSIS_GLOBAL_H
 #define RESULTSANALYSIS_GLOBAL_H
 
 #include <QtCore/qglobal.h>
@@ -8,6 +8,8 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QFile>
+#include <QStandardPaths>
+#include <QReadWriteLock>
 
 #if defined(RESULTSANALYSIS_LIBRARY)
 #  define RESULTSANALYSISSHARED_EXPORT Q_DECL_EXPORT

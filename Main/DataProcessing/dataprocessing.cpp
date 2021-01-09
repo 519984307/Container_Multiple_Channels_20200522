@@ -24,3 +24,8 @@ void DataProcessing::slot_setHeartbeatPackState(bool state)
 {
 
 }
+
+void DataProcessing::slot_sendResult(int channel, const QString &result)
+{
+    emit signal_toSendData(channel,result);
+}
