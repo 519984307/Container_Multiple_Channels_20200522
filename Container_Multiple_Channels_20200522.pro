@@ -8,8 +8,11 @@ SUBDIRS +=\
 #    TheLicensePlateWTY \
 #    ToUploadData\
     DataInterchange \
+    #DataProcessing \
     DatabaseInsert \
     DatabaseRead \
+    #Parameter \
+    #Processing \
     ResultsAnalysis \
     InfraredLogic\
 #    Encryption\

@@ -11,9 +11,9 @@
 #include <QDir>
 #include <QtConcurrent>
 
-#include "./Parameter/channelparameter.h"
-#include "./Parameter/LocalPar.h"
-#include "./Parameter/parameter.h"
+#include "Parameter/channelparameter.h"
+#include "Parameter/LocalPar.h"
+#include "Parameter/parameter.h"
 
 namespace Ui {
 class Channel_Data_Form;

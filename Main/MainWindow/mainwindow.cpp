@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+
     initializingObject();
     initializationParameter();
     connectProcess();
@@ -44,6 +45,38 @@ void MainWindow::changeEvent(QEvent *event)
         hide();
     }
     QWidget::changeEvent(event);
+}
+
+void MainWindow::initializing()
+{
+    /*****************************
+    * @brief:初始化数据库
+    ******************************/
+    emit signal_initDataBaseR(QString::number(0),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
+
+    /*****************************
+    * @brief:登录相机
+    ******************************/
+    emit signal_initEquipment();
+
+    QStringList tcpAddr;
+    if(Parameter::Service_Type){
+        tcpAddr.append(Parameter::SingletonAddress);
+    }
+    else {
+        tcpAddr.append(Parameter::ManyCasesAddress.split(","));
+    }
+    for (int var = 0; var < tcpAddr.size(); ++var) {
+        if(var<DataProcessingList.size()){
+            QStringList addrTmp=tcpAddr.at(var).split(":");
+            if(addrTmp.size()==2){
+                DataProcessingList.at(var).data()->signal_InitializationParameter(addrTmp[0],static_cast<quint16>(addrTmp[1].toUInt()),Parameter::Service_Type,Parameter::Heartbeat,Parameter::Service_Model);
+            }
+            else {
+                qCritical().noquote()<<"Error setting network service address or port";
+            }
+        }
+    }
 }
 
 void MainWindow::clearnContainer()
@@ -492,19 +525,10 @@ void MainWindow::slot_handleFinished()
 {
     qInfo()<<"Successfully loading plug-in";
     ui->statusBar->showMessage(tr("Successfully loading plug-in"),3000);
-    statusProgressBar->setVisible(false);             
+    statusProgressBar->setVisible(false);
 
     bindingPlugin();
-
-    /*****************************
-    * @brief:初始化数据库
-    ******************************/
-    emit signal_initDataBaseR(QString::number(0),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
-
-    /*****************************
-    * @brief:登录相机
-    ******************************/
-    emit signal_initEquipment();
+    initializing();
 }
 
 void MainWindow::slot_Error(QString pluginName)
@@ -650,13 +674,11 @@ void MainWindow::bindingPlugin()
             }
             connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::linkStateSingal,DataProcessingList.at(var).data(),&DataProcessing::slot_linkState);
             connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::connectCountSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_connectCount);
-            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_toSendData);
-            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::setHeartbeatPackStateSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_setHeartbeatPackState);
+            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_sendDataToLog);
+            connect(DataProcessingList.at(var).data(),&DataProcessing::signal_toSendData,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSignal);
             connect(DataProcessingList.at(var).data(),&DataProcessing::signal_InitializationParameter,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::InitializationParameterSlot);
-            connect(DataProcessingList.at(var).data(),&DataProcessing::signal_toSendData,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSlot);
 
-            connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_sendResult);
-
+            connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_containerResult);
             connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
         }
     }

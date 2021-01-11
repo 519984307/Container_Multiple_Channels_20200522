@@ -122,7 +122,7 @@ public:
     /// \param heartBeat 心跳包 状态
     /// \param serviceMode 服务模式
     ///
-    void  InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType, const int& serviceMode)Q_DECL_OVERRIDE;
+    void  InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode)Q_DECL_OVERRIDE;
 
     ///
     /// \brief toSendDataSlot 发送数据

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui sql serialport concurrent
+QT += core gui sql serialport concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -52,13 +52,6 @@ OBJECTS_DIR=tmp/obj
 
 QMAKE_LFLAGS+="-Wl,-rpath=./Library/"
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../LogController/release/ -llog
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../LogController/debug/ -llog
-else:unix: LIBS += -L$$OUT_PWD/../LogController/ -llog
-
-INCLUDEPATH += $$PWD/../LogController
-DEPENDPATH += $$PWD/../LogController
-
 include(CameraTest/CameraTest.pri)
 include(ChannelData/ChannelData.pri)
 include(DataBase/DataBase.pri)
@@ -70,3 +63,10 @@ include(Processing/Processing.pri)
 include(Setting/Setting.pri)
 include(About/About.pri)
 include(DataProcessing/DataProcessing.pri)
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../LogController/release/ -llog
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../LogController/debug/ -llog
+else:unix: LIBS += -L$$OUT_PWD/../LogController/ -llog
+
+INCLUDEPATH += $$PWD/../LogController
+DEPENDPATH += $$PWD/../LogController

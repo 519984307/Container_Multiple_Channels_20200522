@@ -76,7 +76,7 @@ public slots:
     virtual void resultsOfAnalysisSlot(QMap<int,QString> resultMap, int type,QMap<int,QString> imgNameMap)=0;
 };
 
-#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.3.2.2"
+#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.3.2"
 Q_DECLARE_INTERFACE(ResultsAnalysisInterface,ResultsAnalysisInterfaceIID);
 
 #endif // RESULTSANALYSISINTERFACE_H

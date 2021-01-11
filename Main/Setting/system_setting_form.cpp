@@ -147,7 +147,7 @@ bool System_Setting_Form::loadParameter()
                     /*****************************
                     * @brief:Service
                     ******************************/
-                    Parameter::ServiceModel=getJsonValue("Service","ServiceModel",value.toObject()).toInt();
+                    Parameter::Service_Model=getJsonValue("Service","Service_Model",value.toObject()).toInt();
                     Parameter::Service_Type=getJsonValue("Service","Service_Type",value.toObject()).toInt();
                     Parameter::SingletonAddress=getJsonValue("Service","SingletonAddress",value.toObject()).toString();
                     Parameter::ManyCasesAddress=getJsonValue("Service","ManyCasesAddress",value.toObject()).toString();
@@ -231,10 +231,10 @@ bool System_Setting_Form::writeParameterSlot()
     QJsonObject obj4;
 
     if(ui->ClientModel->isChecked()){
-        obj4.insert("ServiceModel",0);
+        obj4.insert("Service_Model",0);
     }
     if(ui->ServerModel->isChecked()){
-        obj4.insert("ServiceModel",1);
+        obj4.insert("Service_Model",1);
     }
 
     obj4.insert("Service_Type",ui->Service_Type_comboBox->currentIndex());
@@ -305,7 +305,7 @@ void System_Setting_Form::parameterToUi()
     /*****************************
     * @brief:Service
     ******************************/
-    if(!Parameter::ServiceModel){/* 客户端模式 */
+    if(!Parameter::Service_Model){/* 客户端模式 */
         ui->ClientModel->setChecked(1);
     }
     else {/* 服务器模式 */

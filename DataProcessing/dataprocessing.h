@@ -2,7 +2,6 @@
 #define DATAPROCESSING_H
 
 #include <QObject>
-#include "Parameter/parameter.h"
 
 class DataProcessing : public QObject
 {
@@ -54,7 +53,7 @@ signals:
     /// \param heartBeat 心跳包 状态
     /// \param serviceMode 服务模式
     ///
-    void  signal_InitializationParameter(const QString &address,const quint16 &port,const int &serviceType,bool heartBeat,const int &serviceMode);
+    void  signal_InitializationParameter(const QString &address,const quint16 &port,const int &serviceType,const bool &heartBeat,const int &serviceMode);
 
     ///
     /// \brief signal_toSendData 发送数据-

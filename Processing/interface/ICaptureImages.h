@@ -170,7 +170,7 @@ signals:
     void signal_bindingCameraID(QString cameraAddr,int ID);
 };
 
-#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.1.2"
+#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.1"
 Q_DECLARE_INTERFACE(ICaptureImages,ICaptureImagesIID);
 
 #endif // ICAPTUREIMAGES_H

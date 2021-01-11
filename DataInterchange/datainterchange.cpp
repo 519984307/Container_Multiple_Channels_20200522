@@ -4,6 +4,7 @@
 DataInterchange::DataInterchange(QObject *parent)
 {
     this->setParent(parent);
+
     isHeartBeat=false;
     isConnected=false;
     pTcpServer=nullptr;
@@ -21,7 +22,7 @@ QString DataInterchange::InterfaceType()
     return "DataInterchange";
 }
 
-void DataInterchange::InitializationParameterSlot(const QString &address, const quint16 &port, const int &serviceType, const int &serviceMode)
+void DataInterchange::InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode)
 {
     this->address=address;
     this->port=port;
@@ -57,6 +58,7 @@ void DataInterchange::InitializationParameterSlot(const QString &address, const 
 
         startLinkSlot();
     }
+    emit setHeartbeatPackStateSignal(heartBeat);
 }
 
 void DataInterchange::startLinkSlot()

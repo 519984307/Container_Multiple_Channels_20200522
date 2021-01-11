@@ -73,6 +73,11 @@ private:
     ******************************/
 
     ///
+    /// \brief initializing 加载参数对象
+    ///
+    void initializing();
+
+    ///
     /// \brief initializingObject 初始化对象
     ///
     void initializingObject();

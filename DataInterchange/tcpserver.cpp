@@ -4,6 +4,7 @@ TcpServer::TcpServer(QObject *parent):QTcpServer (parent)
 {    
     this->setParent(parent);
     pTimerSendHeartPack=nullptr;
+    //InitializationParameter();
 }
 
 void TcpServer::InitializationParameter()

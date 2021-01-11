@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QTableWidgetItem>
 
-#include "./Parameter/LocalPar.h"
+#include "Parameter/LocalPar.h"
 
 namespace Ui {
 class Equipment_State_From;

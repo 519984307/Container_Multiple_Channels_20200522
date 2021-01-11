@@ -1,4 +1,4 @@
-#ifndef SYSTEM_SETTING_FORM_H
+﻿#ifndef SYSTEM_SETTING_FORM_H
 #define SYSTEM_SETTING_FORM_H
 
 #include <QWidget>

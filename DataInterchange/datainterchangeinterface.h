@@ -40,7 +40,7 @@ signals:
     void connectCountSignal(int count);
 
     ///
-    /// \brief toSendDataSignal 发送识别结果
+    /// \brief toSendDataSignal 发送识别结果,内部调用
     /// \param channel 通道号
     /// \param result 识别结果
     ///
@@ -62,7 +62,7 @@ public slots:
     /// \param heartBeat 心跳包 状态
     /// \param serviceMode 服务模式
     ///
-    virtual void  InitializationParameterSlot(const QString &address,const quint16 &port,const int &serviceType,const int &serviceMode)=0;
+    virtual void  InitializationParameterSlot(const QString& address,const quint16& port,const int& serviceType,const bool& heartBeat, const int& serviceMode)=0;
 
     ///
     /// \brief toSendDataSlot 发送数据
@@ -77,7 +77,7 @@ public slots:
 
 };
 
-#define DataInterchangeInterfaceIID "ZBY.ContainerServer.DataInterchangeInterface/1.1.1"
+#define DataInterchangeInterfaceIID "ZBY.ContainerServer.DataInterchangeInterface/1.1.3"
 Q_DECLARE_INTERFACE(DataInterchangeInterface,DataInterchangeInterfaceIID);
 
 #endif // DATAINTERCHANGEINTERFACE_H
