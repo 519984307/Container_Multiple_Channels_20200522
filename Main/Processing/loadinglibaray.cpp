@@ -119,36 +119,43 @@ void LoadingLibaray::slot_createLibaray()
                 if(1==Parameter::HCNET_Load_Plugin){
                     pluginsNum=channelCount*LocalPar::CamerNumber;
                 }
+                pIMiddleware=nullptr;
             }
             else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
-                if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */
+                if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */                    
                     pluginsNum=channelCount;
                 }
+                pInfraredlogicInterface=nullptr;
             }
             else if (DataBaseInsertInterface *pDataBaseInsertInterface=qobject_cast<DataBaseInsertInterface*>(plugin)) {
                 if("SQLITE" == pDataBaseInsertInterface->InterfaceType()){/* SQLITE */
                     pluginsNum=channelCount;
                 }
+                pDataBaseInsertInterface=nullptr;
             }
             else if (DataBaseReadInterface *pDataBaseReadInterface=qobject_cast<DataBaseReadInterface*>(plugin)) {
                 if("SQLITE" == pDataBaseReadInterface->InterfaceType()){/* SQLITE */
                     pluginsNum=1;
                 }
+                pDataBaseReadInterface=nullptr;
             }
             else if (RecognizerInterface *pRecognizerInterface=qobject_cast<RecognizerInterface*>(plugin)) {
                 if("ImageIdentify"==pRecognizerInterface->InterfaceType()){/* 识别图片 */
                     pluginsNum=channelCount;
                 }
+                pDataBaseReadInterface=nullptr;
             }
             else if (ResultsAnalysisInterface *pResultsAnalysisInterface=qobject_cast<ResultsAnalysisInterface*>(plugin)) {
                 if("ResultsAnalysis"==pResultsAnalysisInterface->InterfaceType()){
                     pluginsNum=channelCount;
                 }
+                pResultsAnalysisInterface=nullptr;
             }
             else if (ToUploadDataInterface *pToUploadDataInterface=qobject_cast<ToUploadDataInterface*>(plugin)) {
                 if("FTP"==pToUploadDataInterface->InterfaceType()){
                     pluginsNum=1;
                 }
+                pToUploadDataInterface=nullptr;
             }
             else if (DataInterchangeInterface *pDataInterchangeInterface=qobject_cast<DataInterchangeInterface*>(plugin)) {
                 if("DataInterchange"==pDataInterchangeInterface->InterfaceType()){
@@ -159,6 +166,7 @@ void LoadingLibaray::slot_createLibaray()
                         pluginsNum=channelCount;
                     }
                 }
+                pDataInterchangeInterface=nullptr;
             }
             else {
                 if(0==pluginsNum){

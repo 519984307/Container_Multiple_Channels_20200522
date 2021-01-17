@@ -93,7 +93,7 @@ void CaptureUnderlying::readFortune()
          streamState=true;
     }
     tmpStream.clear();
-    qDebug().noquote()<<"Get camera stream:"<<tmpStream.count();
+    //qDebug().noquote()<<"Get camera stream:"<<tmpStream.count();
 }
 
 void CaptureUnderlying::disconnected()

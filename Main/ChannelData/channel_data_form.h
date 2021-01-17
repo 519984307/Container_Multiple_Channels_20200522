@@ -46,7 +46,7 @@ private:
     ChannelParameter *para;
 
     ///
-    /// \brief channelID 通道ID
+    /// \brief channelID 通道ID,类使用
     ///
     int channelID;
 
@@ -303,6 +303,13 @@ signals:
     /// \param imgList 图片名
     ///
     void signal_resultsOfAnalysis(QMap<int,QString> resultMap, int type,QMap<int,QString> imgNameMap);
+
+    ///
+    /// \brief sendResultSignal 发送识别结果
+    /// \param channel 通道号
+    /// \param result 识别结果
+    ///
+    void sendResultSignal(int channel,const QString& result);
 
 
     /*****************************

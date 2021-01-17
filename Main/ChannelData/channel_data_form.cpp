@@ -182,9 +182,10 @@ void Channel_Data_Form::clearnPixmap()
 
 void Channel_Data_Form::on_SimulationPushButton_clicked()
 {
-    QPointer<SimulationDialog> Dlg=new SimulationDialog(this);
+    QPointer<SimulationDialog> Dlg=new SimulationDialog(channelNumber,this);
     connect(Dlg,&SimulationDialog::signal_logicPutImage,this,&Channel_Data_Form::slot_logicPutImage);
     connect(this,&Channel_Data_Form::signal_container,Dlg,&SimulationDialog::slot_container);
+    connect(Dlg,&SimulationDialog::sendResultSignal,this,&Channel_Data_Form::sendResultSignal);
     Dlg->exec();
 }
 

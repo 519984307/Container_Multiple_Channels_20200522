@@ -75,11 +75,3 @@ else:unix: LIBS += -L$$OUT_PWD/../LogController/ -lLogging
 
 INCLUDEPATH += $$PWD/../LogController
 DEPENDPATH += $$PWD/../LogController
-
-#win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ToUploadData/release/ -lUpload
-#else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ToUploadData/debug/ -lUpload
-#else:unix: LIBS += -L$$OUT_PWD/../ToUploadData/ -lUpload
-
-#INCLUDEPATH += $$PWD/../ToUploadData
-#DEPENDPATH += $$PWD/../ToUploadData
-

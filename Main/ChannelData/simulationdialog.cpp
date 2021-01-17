@@ -1,7 +1,7 @@
 ﻿#include "simulationdialog.h"
 #include "ui_simulationdialog.h"
 
-SimulationDialog::SimulationDialog(QWidget *parent) :
+SimulationDialog::SimulationDialog(int channelNumber, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SimulationDialog)
 {
@@ -17,6 +17,7 @@ SimulationDialog::SimulationDialog(QWidget *parent) :
     connect(timer,&QTimer::timeout,this,&SimulationDialog::slot_timerCap);
 
     col=0;
+    this->channelNumber=channelNumber;
 }
 
 SimulationDialog::~SimulationDialog()
@@ -156,6 +157,28 @@ void SimulationDialog::on_while_cycle_capture_checkBox_stateChanged(int arg1)
     }
     else {
         ui->capturePushButton->setEnabled(true);
-        timer->stop();
+        if(timer->isActive()){
+            timer->stop();
+        }
+    }
+}
+
+void SimulationDialog::on_pushButton_clicked()
+{
+    QString time=QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
+    if(ui->send_con_after_lineEdit->text().isEmpty()){
+        int type=0;
+        if("45G1"==ui->iso_after_lineEdit->text().trimmed()){
+            type=1;
+        }
+        /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱号|校验|箱型|箱型] */
+        QString result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text()).arg("Y").arg(ui->send_iso_before_lineEdit->text().trimmed());
+        emit sendResultSignal(channelNumber,result);
+    }
+    else {
+        /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱型]*/
+        int type=2;
+        QString result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text().trimmed()).arg("Y").arg(ui->send_con_after_lineEdit->text().trimmed()).arg("Y").arg(ui->send_iso_before_lineEdit->text().trimmed()).arg(ui->send_iso_after_lineEdit->text().trimmed());
+        emit sendResultSignal(channelNumber,result);
     }
 }

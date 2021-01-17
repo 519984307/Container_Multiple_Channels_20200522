@@ -691,6 +691,13 @@ void MainWindow::bindingPlugin()
 
             connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_containerResult);
             connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
+
+            if(Channel_Data_From_Map.size()==pLoadinglibaray->IDataInterchangeList.size()){
+                /*****************************
+                * @brief:模拟发送数据
+                ******************************/
+                connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_containerResult);
+            }
         }
     }
 
@@ -702,11 +709,4 @@ void MainWindow::bindingPlugin()
         connect(pLoadinglibaray->IToUploadDataList.at(0).data(),&ToUploadDataInterface::theProgressOfSignal,this,&MainWindow::slot_theFtpProgress);
         connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IToUploadDataList.at(0).data(),&ToUploadDataInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
     }
-
-//    pUpload=QPointer<ToUploadData>(new ToUploadData(this));
-//    connect(this,&MainWindow::signal_InitializationFTPParameter,pUpload,&ToUploadData::InitializationParameterSlot);
-//    connect(pUpload,&ToUploadData::theProgressOfSignal,this,&MainWindow::slot_theFtpProgress);
-//    for (int var = 1; var <= Channel_Data_From_Map.size(); ++var) {
-//        connect(Channel_Data_From_Map.value(var),&Channel_Data_Form::signal_uploadData,pUpload,&ToUploadData::uploadDataSlot);
-//    }
 }

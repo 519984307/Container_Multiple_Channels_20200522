@@ -397,14 +397,14 @@
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="1" column="2">
-       <widget class="QLineEdit" name="lineEdit_11">
+       <widget class="QLineEdit" name="send_plate_lineEdit">
         <property name="placeholderText">
          <string>Plate</string>
         </property>
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLineEdit" name="lineEdit_9">
+       <widget class="QLineEdit" name="send_iso_before_lineEdit">
         <property name="placeholderText">
          <string>ISO1</string>
         </property>
@@ -418,21 +418,21 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_10">
+       <widget class="QLineEdit" name="send_iso_after_lineEdit">
         <property name="placeholderText">
          <string>ISO2</string>
         </property>
        </widget>
       </item>
       <item row="0" column="2" colspan="2">
-       <widget class="QLineEdit" name="lineEdit_8">
+       <widget class="QLineEdit" name="send_con_after_lineEdit">
         <property name="placeholderText">
          <string>Container After</string>
         </property>
        </widget>
       </item>
       <item row="0" column="0" colspan="2">
-       <widget class="QLineEdit" name="lineEdit_7">
+       <widget class="QLineEdit" name="send_con_before_lineEdit">
         <property name="placeholderText">
          <string>Container Before</string>
         </property>
