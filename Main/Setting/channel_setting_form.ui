@@ -29,7 +29,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-256</y>
         <width>798</width>
         <height>941</height>
        </rect>
@@ -873,22 +873,17 @@
               </property>
               <item>
                <property name="text">
-                <string>HCNET-Network</string>
+                <string>hcnet</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>HCNET-Traffic</string>
+                <string>dahua</string>
                </property>
               </item>
               <item>
                <property name="text">
-                <string>DAHUA</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>TCP</string>
+                <string>custom</string>
                </property>
               </item>
              </widget>

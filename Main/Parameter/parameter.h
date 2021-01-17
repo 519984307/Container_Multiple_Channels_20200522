@@ -4,6 +4,7 @@
 #include <QString>
 
 namespace Parameter {
+
     /*****************************
     * @brief:Channel
     ******************************/
@@ -12,6 +13,16 @@ namespace Parameter {
     /// \brief ImageNamingRules 图片命名
     ///
     extern int ImageNamingRules;
+
+    ///
+    /// \brief camera_id_placeholder 相机编号占用位数
+    ///
+    extern int camera_id_placeholder;
+
+    ///
+    /// \brief channel_id_placeholder 通道编号占用位数
+    ///
+    extern int channel_id_placeholder;
 
     ///
     /// \brief ChannelNumber 通道数量
@@ -27,6 +38,20 @@ namespace Parameter {
     /// \brief ImagePath 图片路径1
     ///
     extern QString ImagePath;
+
+    /*****************************
+    * @brief:Camera
+    ******************************/
+
+    ///
+    /// \brief HCNET_Type 海康相机抓拍类型
+    ///
+    extern int HCNET_Capture_Type;
+
+    ///
+    /// \brief HCNET_Load_Plugin 海康相机插件加载类型
+    ///
+    extern int HCNET_Load_Plugin;
 
 
     /*****************************

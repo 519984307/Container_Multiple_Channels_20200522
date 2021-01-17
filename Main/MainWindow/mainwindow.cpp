@@ -21,12 +21,14 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     //delete pLoadinglibaray;
+
     delete ui;
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(isExit){
+        this->hide();
         clearnContainer();
         event->accept();
         QWidget::closeEvent(event);
@@ -55,6 +57,11 @@ void MainWindow::initializing()
     emit signal_initDataBaseR(QString::number(0),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
 
     /*****************************
+    * @brief:设置海康相机抓拍模式
+    ******************************/
+    emit signal_setCaptureType(Parameter::HCNET_Capture_Type+1);
+
+    /*****************************
     * @brief:登录相机
     ******************************/
     emit signal_initEquipment();
@@ -77,10 +84,15 @@ void MainWindow::initializing()
             }
         }
     }
+
+    emit signal_InitializationFTPParameter(Parameter::FtpUser,Parameter::FtpPassword,Parameter::FtpRemotePath,Parameter::FtpAddress,Parameter::FtpPort);
 }
 
 void MainWindow::clearnContainer()
 {
+//    delete  pUpload;
+//    pUpload=nullptr;
+
     emit signal_releaseResources();
     emit signal_destructorThread();
 
@@ -155,7 +167,6 @@ void MainWindow::initializingObject()
     p_Data_Log_Form.data()->setWindowModality(Qt::ApplicationModal);
 
     connect(pLog.data(),SIGNAL(signal_newLogText(QtMsgType,QDateTime,QString)),p_Data_Log_Form.data(),SLOT(slot_newLogText(QtMsgType,QDateTime,QString)));
-
 
     statusProgressBar=new QProgressBar (this);
     statusProgressBar->setFixedWidth(400);
@@ -563,6 +574,11 @@ void MainWindow::slot_progressValueChanged(int progressValue)
     statusProgressBar->setValue(progressValue);
 }
 
+void MainWindow::slot_theFtpProgress(qint64 bytesSent, qint64 bytesTotal)
+{
+    qDebug()<<"Ftp:"<<bytesSent;
+}
+
 void MainWindow::bindingPlugin()
 {
     if(pLoadinglibaray->ICaptureImagesLit.size()>1){
@@ -591,34 +607,29 @@ void MainWindow::bindingPlugin()
         }
     }
 
-//    if(pLoadinglibaray->IMiddlewareLit.size()==1){
-//        for (int var = 0; var < pLoadinglibaray->ICaptureImagesLit.size(); ++var) {
-//            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_initCamera,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::initCameraSlot);
-//            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_openTheVideo,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::openTheVideoSlot);
-//            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_simulationCapture,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::simulationCaptureSlot);
-//            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_liftingElectronicRailing,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::liftingElectronicRailingSlot);
-//            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_transparentTransmission485,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::transparentTransmission485Slot);
-
-//            connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::signal_pictureStream,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_pictureStream);
-//            connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::signal_setCameraID,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_setCameraID);
-//            connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::equipmentStateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_equipmentState);
-//            connect(pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::resultsTheLicensePlateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_resultsTheLicensePlate);
-//        }
-//        connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IMiddlewareLit.at(0).data(),&IMiddleware::releaseResourcesSlot,Qt::BlockingQueuedConnection);
-//    }
     if(pLoadinglibaray->IMiddlewareLit.size()>=1){
+        int ind=0;
         for (int var = 0; var < pLoadinglibaray->ICaptureImagesLit.size(); ++var) {
-            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_initCamera,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::initCameraSlot);
-            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_openTheVideo,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::openTheVideoSlot);
-            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_simulationCapture,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::simulationCaptureSlot);
-            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_liftingElectronicRailing,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::liftingElectronicRailingSlot);
-            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_transparentTransmission485,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::transparentTransmission485Slot);
+            if(1==pLoadinglibaray->IMiddlewareLit.size()){
+                ind=0;
+            }
+            else {
+                ind=var;
+            }
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_initCamera,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::initCameraSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_openTheVideo,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::openTheVideoSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_simulationCapture,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::simulationCaptureSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_liftingElectronicRailing,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::liftingElectronicRailingSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_transparentTransmission485,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::transparentTransmission485Slot);
 
-            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::signal_pictureStream,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_pictureStream);
-            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::signal_setCameraID,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_setCameraID);
-            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::equipmentStateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_equipmentState);
-            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::resultsTheLicensePlateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_resultsTheLicensePlate);
-            connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::releaseResourcesSlot,Qt::BlockingQueuedConnection);
+            connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::signal_pictureStream,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_pictureStream);
+            connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::signal_setCameraID,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_setCameraID);
+            connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::equipmentStateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_equipmentState);
+            connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::resultsTheLicensePlateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_resultsTheLicensePlate);
+
+            connect(this,&MainWindow::signal_setCaptureType,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::setCaptureTypeSlot);
+            connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::releaseResourcesSlot,Qt::BlockingQueuedConnection);
+
         }
     }
 
@@ -682,4 +693,20 @@ void MainWindow::bindingPlugin()
             connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
         }
     }
+
+    if(pLoadinglibaray->IToUploadDataList.size()>=1){
+        for (int var = 1; var <= Channel_Data_From_Map.size(); ++var) {
+            connect(Channel_Data_From_Map.value(var),SIGNAL(signal_uploadData( QString)),pLoadinglibaray->IToUploadDataList.at(0).data(),SLOT(uploadDataSlot(QString)));
+        }
+        connect(this,&MainWindow::signal_InitializationFTPParameter,pLoadinglibaray->IToUploadDataList.at(0).data(),&ToUploadDataInterface::InitializationParameterSlot);
+        connect(pLoadinglibaray->IToUploadDataList.at(0).data(),&ToUploadDataInterface::theProgressOfSignal,this,&MainWindow::slot_theFtpProgress);
+        connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IToUploadDataList.at(0).data(),&ToUploadDataInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
+    }
+
+//    pUpload=QPointer<ToUploadData>(new ToUploadData(this));
+//    connect(this,&MainWindow::signal_InitializationFTPParameter,pUpload,&ToUploadData::InitializationParameterSlot);
+//    connect(pUpload,&ToUploadData::theProgressOfSignal,this,&MainWindow::slot_theFtpProgress);
+//    for (int var = 1; var <= Channel_Data_From_Map.size(); ++var) {
+//        connect(Channel_Data_From_Map.value(var),&Channel_Data_Form::signal_uploadData,pUpload,&ToUploadData::uploadDataSlot);
+//    }
 }

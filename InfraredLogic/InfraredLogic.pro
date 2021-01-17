@@ -7,14 +7,14 @@
 QT       -= gui
 QT       += serialport concurrent
 
-TARGET = InfraredLogic
+TARGET = SignalControl
 
 TEMPLATE = lib
 
 CONFIG += plugin
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.1
+VERSION = 1.3.2
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 DEFINES += INFRAREDLOGIC_LIBRARY

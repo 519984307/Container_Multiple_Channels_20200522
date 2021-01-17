@@ -10,7 +10,7 @@ DataBaseRead::DataBaseRead(QObject *parent)
 
 DataBaseRead::~DataBaseRead()
 {
-    QSqlDatabase::removeDatabase(connectName);
+    //QSqlDatabase::removeDatabase(connectName);
     qDebug()<<"~DataBaseRead";
 }
 

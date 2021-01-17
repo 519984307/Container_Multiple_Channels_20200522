@@ -58,6 +58,9 @@ bool CaptureImages::putCommandSlot( int imgNumber, QString imgTime,const QString
             qWarning().noquote()<<signature<<":The camera result returns a timeout and a null value";
             imgGetTimeOut->stop();
         }
+
+        qDebug().noquote()<<"Capture the image:"<<camerID;
+
         put=true;
         this->imgNumber=imgNumber;
         this->imgTime=imgTime;

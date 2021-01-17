@@ -151,6 +151,19 @@ signals:
     void signal_initCamer_prospects(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
     void signal_initCamer_foreground(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
 
+    ///
+    /// \brief signal_container 结果传入手动抓拍页面
+    /// \param type
+    /// \param result1
+    /// \param resultCheck1
+    /// \param iso1
+    /// \param result2
+    /// \param resultCheck2
+    /// \param iso2
+    ///
+    void signal_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2);
+
+
     /*****************************
     * @brief:箱号相机
     ******************************/
@@ -290,6 +303,17 @@ signals:
     /// \param imgList 图片名
     ///
     void signal_resultsOfAnalysis(QMap<int,QString> resultMap, int type,QMap<int,QString> imgNameMap);
+
+
+    /*****************************
+    * @brief:FTP上传图片
+    ******************************/
+
+    ///
+    /// \brief signal_uploadData 上传数据
+    /// \param data 数据
+    ///
+   void signal_uploadData(const QString &data);
 
 public slots:
 

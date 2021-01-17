@@ -2,6 +2,7 @@
 #define SIMULATIONDIALOG_H
 
 #include <QDialog>
+#include <QTimer>
 
 namespace Ui {
 class SimulationDialog;
@@ -26,10 +27,35 @@ private slots:
 
     void on_toolButton_clicked();
 
+    void on_while_cycle_capture_checkBox_stateChanged(int arg1);
+
+    void slot_timerCap();
+
+    void slot_whileCap();
+
+public slots:
+
+    ///
+    /// \brief slot_container 结果集
+    /// \param type
+    /// \param result1
+    /// \param resultCheck1
+    /// \param iso1
+    /// \param result2
+    /// \param resultCheck2
+    /// \param iso2
+    ///
+    void slot_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2);
+
+
 private:
     Ui::SimulationDialog *ui;
+    QTimer *timer;
 
     int col;
+
+signals:
+    void signal_logicPutImage(const int &putCommnd);
 };
 
 #endif // SIMULATIONDIALOG_H

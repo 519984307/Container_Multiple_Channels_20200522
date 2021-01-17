@@ -7,6 +7,7 @@ HEADERS += \
     $$PWD/interface/infraredlogicinterface.h \
     $$PWD/interface/recognizerinterface.h \
     $$PWD/interface/resultsanalysisinterface.h \
+    $$PWD/interface/touploaddatainterface.h \
     $$PWD/loadinglibaray.h
 
 SOURCES += \

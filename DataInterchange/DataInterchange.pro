@@ -14,7 +14,7 @@ TARGET = DataInterchange
 TEMPLATE = lib
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.0
+VERSION = 1.1.3
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 DEFINES += DATAINTERCHANGE_LIBRARY

@@ -4,7 +4,7 @@
 #define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
 
 #define IMG_BYTE 1920*1080+1
-#define CAMERA_TYPE 4
+//#define CAMERA_TYPE 0
 
 
 #include "TheMiddlewareHCNET_global.h"
@@ -62,6 +62,12 @@ public:
     /// \param pow  密码
     ///
     void initCameraSlot(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow)Q_DECL_OVERRIDE;
+
+    ///
+    /// \brief setCaptureTypeSlot 设置抓拍模式
+    /// \param capType
+    ///
+    void setCaptureTypeSlot(const int &capType)Q_DECL_OVERRIDE;
 
     ///
     /// \brief initializationParameter 初始化参数
@@ -145,6 +151,11 @@ private:/* 参数  */
     /// \brief putID 当前抓图ID
     ///
     int putID;
+
+    ///
+    /// \brief CAMERA_TYPE 抓拍模式
+    ///
+    int CAMERA_TYPE;
 
 private:
 

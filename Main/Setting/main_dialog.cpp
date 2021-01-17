@@ -1,9 +1,9 @@
 ﻿#include "main_dialog.h"
 #include "ui_main_dialog.h"
 
-#include "LocalPar.h"
-#include "parameter.h"
-#include "loadparameter.h"
+#include "./Parameter/LocalPar.h"
+#include "./Parameter/parameter.h"
+#include "./Parameter/loadparameter.h"
 
 #include <QPointer>
 

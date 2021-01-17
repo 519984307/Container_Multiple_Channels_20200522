@@ -37,7 +37,7 @@ void DataInterchange::InitializationParameterSlot(const QString& address, const 
         /* 绑定客户端数量 */
         connect(pTcpServer,&TcpServer::connectCountSignal,this,&DataInterchange::connectCountSignal);
         /* 发送识别结果 */
-        connect(this,&DataInterchange::toSendDataSignal,pTcpServer,&TcpServer::toSendDataSlot);
+        connect(this,&DataInterchange::toSendDataSignal,pTcpServer,&TcpServer::toSendDataSlot);                
 
         startListenSlot();
     }

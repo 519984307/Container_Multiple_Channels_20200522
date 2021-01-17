@@ -73,8 +73,7 @@ void LoadingLibaray::slot_createLibaray()
             bool isErr=false;
 
             if(ICaptureImages *pICaptureImages=qobject_cast<ICaptureImages*>(plugin)){
-                delete pICaptureImages;
-                pICaptureImages=nullptr;
+                Q_UNUSED(pICaptureImages);
                 pluginsNum=channelCount*LocalPar::CamerNumber;
 
                 if(-1!=loadVec.indexOf("ICaptureImages")){
@@ -85,52 +84,74 @@ void LoadingLibaray::slot_createLibaray()
                 }
             }
             else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
-                if("HCNET" == pIMiddleware->InterfaceType()){/* 海康相机 */
-                    delete pIMiddleware;
-                    pIMiddleware=nullptr;
-                    //pluginsNum=1;
+                if(4==Parameter::HCNET_Capture_Type){
+                    if("Underlying" != pIMiddleware->InterfaceType()){
+                        pluginsDir.cdUp();
+                        pluginLoader.unload();
+                        continue;
+                    }
+                    else {
+                        if(-1!=loadVec.indexOf("Underlying")){
+                            isErr=true;
+                        }
+                        else {
+                            loadVec.append("Underlying");
+                        }
+                    }
+                }
+                else if ("HCNET" != pIMiddleware->InterfaceType()) {
+                    pluginsDir.cdUp();
+                    pluginLoader.unload();
+                    continue;
+                }
+                else {
+                    if(-1!=loadVec.indexOf("HCNET")){
+                        isErr=true;
+                    }
+                    else {
+                        loadVec.append("HCNET");
+                    }
+                }
+
+                if(0==Parameter::HCNET_Load_Plugin){
+                    pluginsNum=1;
+                }
+                if(1==Parameter::HCNET_Load_Plugin){
                     pluginsNum=channelCount*LocalPar::CamerNumber;
                 }
             }
             else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
                 if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */
-                    delete pInfraredlogicInterface;
-                    pInfraredlogicInterface=nullptr;
                     pluginsNum=channelCount;
                 }
             }
             else if (DataBaseInsertInterface *pDataBaseInsertInterface=qobject_cast<DataBaseInsertInterface*>(plugin)) {
                 if("SQLITE" == pDataBaseInsertInterface->InterfaceType()){/* SQLITE */
-                    delete pDataBaseInsertInterface;
-                    pDataBaseInsertInterface=nullptr;
                     pluginsNum=channelCount;
                 }
             }
             else if (DataBaseReadInterface *pDataBaseReadInterface=qobject_cast<DataBaseReadInterface*>(plugin)) {
                 if("SQLITE" == pDataBaseReadInterface->InterfaceType()){/* SQLITE */
-                    delete pDataBaseReadInterface;
-                    pDataBaseReadInterface=nullptr;
                     pluginsNum=1;
                 }
             }
             else if (RecognizerInterface *pRecognizerInterface=qobject_cast<RecognizerInterface*>(plugin)) {
                 if("ImageIdentify"==pRecognizerInterface->InterfaceType()){/* 识别图片 */
-                    delete pRecognizerInterface;
-                    pRecognizerInterface=nullptr;
                     pluginsNum=channelCount;
                 }
             }
             else if (ResultsAnalysisInterface *pResultsAnalysisInterface=qobject_cast<ResultsAnalysisInterface*>(plugin)) {
                 if("ResultsAnalysis"==pResultsAnalysisInterface->InterfaceType()){
-                    delete pResultsAnalysisInterface;
-                    pResultsAnalysisInterface=nullptr;
                     pluginsNum=channelCount;
+                }
+            }
+            else if (ToUploadDataInterface *pToUploadDataInterface=qobject_cast<ToUploadDataInterface*>(plugin)) {
+                if("FTP"==pToUploadDataInterface->InterfaceType()){
+                    pluginsNum=1;
                 }
             }
             else if (DataInterchangeInterface *pDataInterchangeInterface=qobject_cast<DataInterchangeInterface*>(plugin)) {
                 if("DataInterchange"==pDataInterchangeInterface->InterfaceType()){
-                    delete pDataInterchangeInterface;
-                    pDataInterchangeInterface=nullptr;
                     if(Parameter::Service_Type){
                         pluginsNum=1;
                     }
@@ -143,7 +164,6 @@ void LoadingLibaray::slot_createLibaray()
                 if(0==pluginsNum){
                     emit signal_loadPluginError(fileName);/* 加载插件插件报错 */
                 }
-                pluginLoader.unload();
             }
 
             if(isErr){
@@ -158,9 +178,9 @@ void LoadingLibaray::slot_createLibaray()
             }
 
             pluginsDir.cdUp();
-        }       
+        }
+        pluginLoader.unload();
     }
-
     emit signal_handleFinished();
 }
 
@@ -235,6 +255,13 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 pDataInterchangeInterface->moveToThread(th);
                 th->start();
                 IDataInterchangeList.append(QSharedPointer<DataInterchangeInterface>(pDataInterchangeInterface));
+            }
+            else if (ToUploadDataInterface *pToUploadDataInterface=qobject_cast<ToUploadDataInterface*>(plugin)) {
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pToUploadDataInterface->moveToThread(th);
+                th->start();
+                IToUploadDataList.append(QSharedPointer<ToUploadDataInterface>(pToUploadDataInterface));
             }
             else {
                 pluginLoader.unload();

@@ -18,6 +18,7 @@
 #include "interface/recognizerinterface.h"
 #include "interface/resultsanalysisinterface.h"
 #include "interface/datainterchangeinterface.h"
+#include "interface/touploaddatainterface.h"
 
 class LoadingLibaray : public QObject
 {
@@ -88,6 +89,11 @@ public:/* container */
     /// \brief IDataInterchangeList 数据协议对接
     ///
     QList<QSharedPointer<DataInterchangeInterface>> IDataInterchangeList;
+
+    ///
+    /// \brief IToUploadDataList 图片上传
+    ///
+    QList<QSharedPointer<ToUploadDataInterface>> IToUploadDataList;
 
 public slots:
 

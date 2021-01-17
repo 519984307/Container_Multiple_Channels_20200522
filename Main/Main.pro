@@ -4,15 +4,15 @@
 #
 #-------------------------------------------------
 
-QT += core gui sql serialport concurrent
+QT += core gui sql serialport concurrent network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Main
+TARGET = ZBY_Container
 TEMPLATE = app
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.0
+VERSION = 1.1.1.2012091107
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use
@@ -30,7 +30,7 @@ DEFINES += QT_MESSAGELOGCONTEXT
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \#
+        main.cpp \
 
 HEADERS += \
 
@@ -43,6 +43,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     ico.qrc
+
+DISTFILES += \
+    res.rc
+
+RC_FILE = res.rc
 
 MOC_DIR=tmp/moc
 RCC_DIR=tmp/rcc
@@ -64,9 +69,17 @@ include(Setting/Setting.pri)
 include(About/About.pri)
 include(DataProcessing/DataProcessing.pri)
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../LogController/release/ -llog
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../LogController/debug/ -llog
-else:unix: LIBS += -L$$OUT_PWD/../LogController/ -llog
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../LogController/release/ -lLogging
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../LogController/debug/ -lLogging
+else:unix: LIBS += -L$$OUT_PWD/../LogController/ -lLogging
 
 INCLUDEPATH += $$PWD/../LogController
 DEPENDPATH += $$PWD/../LogController
+
+#win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../ToUploadData/release/ -lUpload
+#else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../ToUploadData/debug/ -lUpload
+#else:unix: LIBS += -L$$OUT_PWD/../ToUploadData/ -lUpload
+
+#INCLUDEPATH += $$PWD/../ToUploadData
+#DEPENDPATH += $$PWD/../ToUploadData
+

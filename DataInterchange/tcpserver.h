@@ -44,7 +44,7 @@ private:
     ///
     /// \brief clientSocketIdMap 客户端字典
     ///
-    QMap<qintptr,QSharedPointer<TcpClient>> clientSocketIdMap;
+    QMap<qintptr,TcpClient*> clientSocketIdMap;
 
     ///
     /// \brief clientChannelMap 通道字典

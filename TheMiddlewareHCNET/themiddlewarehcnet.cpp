@@ -11,6 +11,7 @@ TheMiddlewareHCNET::TheMiddlewareHCNET(QObject *parent)
 {
     this->setParent(parent);
 
+    CAMERA_TYPE=1;
     streamID=-1;
     putID=-1;
 
@@ -36,6 +37,7 @@ TheMiddlewareHCNET::TheMiddlewareHCNET(QObject *parent)
     NET_DVR_RemoteControl_L=nullptr;
     NET_DVR_GetRealPlayerIndex_L=nullptr;
     NET_DVR_SetConnectTime_L=nullptr;
+    NET_DVR_SetReconnect_L=nullptr;
     NET_DVR_SetRecvTimeOut_L=nullptr;
     NET_DVR_CaptureJPEGPicture_L=nullptr;
     NET_DVR_SetupAlarmChan_V41_L=nullptr;
@@ -193,6 +195,10 @@ bool TheMiddlewareHCNET::initializationParameter()
     return false;
 }
 
+void TheMiddlewareHCNET::setCaptureTypeSlot(const int &capType)
+{
+    CAMERA_TYPE=capType;
+}
 
 void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
 {
@@ -332,9 +338,9 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
             NET_DVR_CloseAlarmChan_V30_L(handID);
         }
     }
-    if(streamID!=-1 && NET_DVR_StopRealPlay_L !=nullptr){
-        NET_DVR_StopRealPlay_L(streamID);
-    }
+//    if(streamID!=-1 && NET_DVR_StopRealPlay_L !=nullptr){
+//        NET_DVR_StopRealPlay_L(streamID);
+//    }
     if(4==CAMERA_TYPE){
         foreach (auto nPort, playMap.values()) {
             if(-1!=nPort){
@@ -884,7 +890,7 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
     foreach (auto id,logInfoMap.keys()){
         if(NET_DVR_RemoteControl_L !=nullptr && NET_DVR_RemoteControl_L(id,NET_DVR_CHECK_USER_STATUS,nullptr,4)){
             emit equipmentStateSignal(id,true);
-            qDebug()<<"logInfoMap:"<<logInfoMap.size();
+            //qDebug()<<"logInfoMap:"<<logInfoMap.size();
         }
         else {
             logfalList.append(logInfoMap[id]);
@@ -920,7 +926,7 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
     //for (it_log = logfalList.begin(); it_log != logfalList.end(); ++it_log){
     for(int var=0;var<logfalList.size();++var){
 
-        qDebug()<<"logfalList:"<<logfalList.size();
+        //qDebug()<<"logfalList:"<<logfalList.size();
         if(NET_DVR_Login_V40_L !=nullptr){/* 登录设备 */
             long ID = NET_DVR_Login_V40_L(&logfalList[var],&DeviceInfo);
             //Q_UNUSED(ID);

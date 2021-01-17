@@ -10,10 +10,10 @@ TEMPLATE = lib
 
 CONFIG += plugin
 
-TARGET = capimages
+TARGET = GetImage
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.1
+VERSION = 1.1.1.2
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 DEFINES += CAPTUREIMAGES_LIBRARY

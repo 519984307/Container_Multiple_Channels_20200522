@@ -8,11 +8,11 @@ QT       -= gui
 
 CONFIG += plugin
 
-TARGET = IdentifyImages
+TARGET = Recognizer
 TEMPLATE = lib
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.0
+VERSION = 1.1.1
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 DEFINES += IDENTIFYIMAGES_LIBRARY

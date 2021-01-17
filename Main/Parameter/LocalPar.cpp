@@ -6,10 +6,10 @@
 
 namespace LocalPar {
     QString App="ContainerMultiple";
-    QString version="1.0.0.2012091107_BUILD-SNAPSHOT";
+    QString version="1.1.0.2012091107_BUILD-SNAPSHOT";
     QString copyright="深圳众百源科技有限公司";
     QString msg="集装箱号码识别系统";
-    int Channels =10;
+    int Channels =1;
     /*****************************
     * @brief:箱号相机：前，后，左，右，顶，车头，车尾,车牌
     ******************************/

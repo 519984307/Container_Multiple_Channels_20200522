@@ -5,10 +5,10 @@ DEFINES += THEMIDDLEWAREHCNET_LIBRARY
 
 CONFIG += plugin
 
-TARGET = midhcnet
+TARGET = plug-in_HCNET
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.1
+VERSION = 1.2.1.5
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 CONFIG += c++11

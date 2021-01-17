@@ -56,6 +56,16 @@ bool LoadParameter::loadSysParameter()
                     Parameter::ImageFormat= getJsonValue("Channel","ImageFormat",value.toObject()).toInt();
                     Parameter::ImageNamingRules= getJsonValue("Channel","ImageNamingRules",value.toObject()).toInt();
                     Parameter::ImagePath= getJsonValue("Channel","ImagePath",value.toObject()).toString();
+                    Parameter::camera_id_placeholder=getJsonValue("Channel","camera_id_placeholder",value.toObject()).toInt();
+                    Parameter::channel_id_placeholder=getJsonValue("Channel","channel_id_placeholder",value.toObject()).toInt();
+
+
+                    /*****************************
+                    * @brief:Camera
+                    ******************************/
+                    Parameter::HCNET_Load_Plugin=getJsonValue("Camera","HCNET_Load_Plugin",value.toObject()).toInt();
+                    Parameter::HCNET_Capture_Type=getJsonValue("Camera","HCNET_Capture_Type",value.toObject()).toInt();
+
 
                     /*****************************
                     * @brief:Upload

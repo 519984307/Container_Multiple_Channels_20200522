@@ -6,7 +6,8 @@ SUBDIRS +=\
 #    PluginProcessing \
 #    TheLicensePlateHCNET \
 #    TheLicensePlateWTY \
-#    ToUploadData\
+    CaptureUnderlying\
+    ToUploadData\
     DataInterchange \
     #DataProcessing \
     DatabaseInsert \

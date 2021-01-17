@@ -17,21 +17,6 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <property name="leftMargin">
-    <number>0</number>
-   </property>
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
-   <property name="spacing">
-    <number>0</number>
-   </property>
    <item row="0" column="0">
     <widget class="QScrollArea" name="scrollArea">
      <property name="widgetResizable">
@@ -42,8 +27,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>851</width>
-        <height>736</height>
+        <width>829</width>
+        <height>754</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -68,215 +53,44 @@
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
            <string>Channel</string>
           </attribute>
-          <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0,0">
+          <layout class="QGridLayout" name="gridLayout_2">
            <property name="horizontalSpacing">
             <number>50</number>
            </property>
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="0" column="0" colspan="3">
-            <widget class="QSpinBox" name="ChannelNumber">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="frame">
-              <bool>true</bool>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>99</number>
-             </property>
-             <property name="value">
-              <number>1</number>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3">
-            <widget class="QLabel" name="label_15">
-             <property name="text">
-              <string>Set control channel number, quantity limit requires purchase of license from supplier</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="3">
-            <widget class="QComboBox" name="ImageNamingRules">
-             <property name="editable">
-              <bool>false</bool>
-             </property>
-             <item>
-              <property name="text">
-               <string>DateTime-Channel-Number</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>DateTime-Number-Channel</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="1" column="3">
-            <widget class="QLabel" name="label_24">
-             <property name="text">
-              <string>Set save image naming rules</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0" colspan="2">
-            <widget class="QLineEdit" name="ImgPathlineEdit">
-             <property name="placeholderText">
-              <string>/home/cc/</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QPushButton" name="CheckPathPushButton">
-             <property name="maximumSize">
-              <size>
-               <width>50</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>...</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="3">
-            <widget class="QLabel" name="label_25">
-             <property name="text">
-              <string>Image save path, for software use, can only save local</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="3" column="0" colspan="3">
-            <widget class="QComboBox" name="ImageFormat">
-             <property name="editable">
-              <bool>false</bool>
-             </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
-              <property name="text">
-               <string>CHANNEL/YYYY/MM/DD/</string>
-              </property>
+              <widget class="QLineEdit" name="ImgPathlineEdit">
+               <property name="placeholderText">
+                <string>/home/cc/</string>
+               </property>
+              </widget>
              </item>
              <item>
-              <property name="text">
-               <string>CHANNEL/YYYY/MM/</string>
-              </property>
+              <widget class="QPushButton" name="CheckPathPushButton">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
              </item>
-             <item>
-              <property name="text">
-               <string>CHANNEL/YYYY/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>CHANNEL/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>YYYY/MM/DD/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>YYYY/MM/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>YYYY/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>/</string>
-              </property>
-             </item>
-            </widget>
+            </layout>
            </item>
-           <item row="3" column="3">
-            <widget class="QLabel" name="label_26">
-             <property name="text">
-              <string>Image save format, for software use, can only save local</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QCheckBox" name="save_image_checkBox">
-             <property name="text">
-              <string>Save Image Two</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1" colspan="3">
-            <spacer name="horizontalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>614</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="5" column="0" colspan="2">
-            <widget class="QLineEdit" name="ImgPathlineEdit_2">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="placeholderText">
-              <string>/home/cc/</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="2">
-            <widget class="QPushButton" name="CheckPathPushButton_2">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>50</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>...</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="3">
+           <item row="6" column="4">
             <widget class="QLabel" name="label_4">
              <property name="text">
               <string>he picture saves the path, for the software third party use.</string>
@@ -286,7 +100,44 @@
              </property>
             </widget>
            </item>
+           <item row="5" column="0" colspan="2">
+            <widget class="QCheckBox" name="save_image_checkBox">
+             <property name="text">
+              <string>Save Image Two</string>
+             </property>
+            </widget>
+           </item>
            <item row="6" column="0" colspan="3">
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLineEdit" name="ImgPathlineEdit_2">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="placeholderText">
+                <string>/home/cc/</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="CheckPathPushButton_2">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="7" column="0" colspan="3">
             <widget class="QComboBox" name="ImageFormat_2">
              <property name="enabled">
               <bool>false</bool>
@@ -336,7 +187,77 @@
              </item>
             </widget>
            </item>
-           <item row="6" column="3">
+           <item row="2" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
+             <property name="spacing">
+              <number>30</number>
+             </property>
+             <item>
+              <widget class="QLineEdit" name="camera_id_lineEdit">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="inputMask">
+                <string>D</string>
+               </property>
+               <property name="text">
+                <string>2</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_40">
+               <property name="text">
+                <string>Camera</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0" colspan="3">
+            <widget class="QComboBox" name="ImageNamingRules">
+             <property name="editable">
+              <bool>false</bool>
+             </property>
+             <item>
+              <property name="text">
+               <string>DateTime-Channel-Number</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>DateTime-Number-Channel</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="4" column="4">
+            <widget class="QLabel" name="label_26">
+             <property name="text">
+              <string>Image save format, for software use, can only save local</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="4">
+            <widget class="QLabel" name="label_39">
+             <property name="text">
+              <string>Number of camera number and channel number occupied (compatible with older versions)</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="4">
             <widget class="QLabel" name="label_27">
              <property name="text">
               <string>Image saving format for software third party use.</string>
@@ -346,7 +267,99 @@
              </property>
             </widget>
            </item>
-           <item row="7" column="0">
+           <item row="4" column="0" colspan="3">
+            <widget class="QComboBox" name="ImageFormat">
+             <property name="editable">
+              <bool>false</bool>
+             </property>
+             <item>
+              <property name="text">
+               <string>CHANNEL/YYYY/MM/DD/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CHANNEL/YYYY/MM/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CHANNEL/YYYY/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CHANNEL/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>YYYY/MM/DD/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>YYYY/MM/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>YYYY/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>/</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QLabel" name="label_24">
+             <property name="text">
+              <string>Set save image naming rules</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="3">
+            <widget class="QSpinBox" name="ChannelNumber">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="frame">
+              <bool>true</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>99</number>
+             </property>
+             <property name="value">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="4">
+            <widget class="QLabel" name="label_25">
+             <property name="text">
+              <string>Image save path, for software use, can only save local</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
             <spacer name="verticalSpacer">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -355,6 +368,151 @@
               <size>
                <width>20</width>
                <height>276</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>Set control channel number, quantity limit requires purchase of license from supplier</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2" colspan="3">
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>614</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1">
+             <property name="spacing">
+              <number>30</number>
+             </property>
+             <item>
+              <widget class="QLineEdit" name="channel_id_lineEdit">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="inputMask">
+                <string>D</string>
+               </property>
+               <property name="text">
+                <string>2</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_41">
+               <property name="text">
+                <string>Channel</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="Camera">
+          <attribute name="title">
+           <string>Camera</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_16">
+           <property name="horizontalSpacing">
+            <number>50</number>
+           </property>
+           <property name="verticalSpacing">
+            <number>20</number>
+           </property>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_43">
+             <property name="text">
+              <string>Haikang camera capture mode, this option and plug-in mode associated</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QComboBox" name="HCNET_Capture_Type_comboBox">
+             <item>
+              <property name="text">
+               <string>Catch the memory</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Manual trigger snap (test)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CallBack Take the result(An instance)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Video take figure</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>The underlying capture</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QComboBox" name="HCNET_Load_Plugin_comboBox">
+             <item>
+              <property name="text">
+               <string>A single instance</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Multiple instances</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_42">
+             <property name="text">
+              <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <spacer name="verticalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
               </size>
              </property>
             </spacer>
@@ -872,7 +1030,7 @@ More than pair of:One service corresponds to all channels, and only the server m
              <property name="checked">
               <bool>false</bool>
              </property>
-             <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0,0">
+             <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0">
               <property name="horizontalSpacing">
                <number>50</number>
               </property>
@@ -1017,7 +1175,88 @@ More than pair of:One service corresponds to all channels, and only the server m
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="2" column="3">
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox_3">
+             <property name="text">
+              <string>The main interface shows the storage space</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="checkBox_4">
+             <property name="text">
+              <string>Storage space monitoring</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_11">
+             <property name="text">
+              <string>Monitor the remaining capacity of image storage hard disk space</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <item>
+              <widget class="QSpinBox" name="spinBox">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>80</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="frame">
+                <bool>false</bool>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+               <property name="buttonSymbols">
+                <enum>QAbstractSpinBox::NoButtons</enum>
+               </property>
+               <property name="suffix">
+                <string>%</string>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="minimum">
+                <number>1</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="horizontalSlider">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="invertedAppearance">
+                <bool>false</bool>
+               </property>
+               <property name="invertedControls">
+                <bool>false</bool>
+               </property>
+               <property name="tickPosition">
+                <enum>QSlider::TicksAbove</enum>
+               </property>
+               <property name="tickInterval">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="1">
             <widget class="QLabel" name="label_34">
              <property name="text">
               <string>Save the percentage of file path capacity occupied</string>
@@ -1027,35 +1266,80 @@ More than pair of:One service corresponds to all channels, and only the server m
              </property>
             </widget>
            </item>
-           <item row="4" column="2">
-            <widget class="QSlider" name="horizontalSlider_2">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="minimum">
-              <number>30</number>
-             </property>
-             <property name="maximum">
-              <number>365</number>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="invertedAppearance">
-              <bool>false</bool>
-             </property>
-             <property name="invertedControls">
-              <bool>false</bool>
-             </property>
-             <property name="tickPosition">
-              <enum>QSlider::TicksAbove</enum>
-             </property>
-             <property name="tickInterval">
-              <number>0</number>
+           <item row="3" column="0">
+            <widget class="QCheckBox" name="checkBox_8">
+             <property name="text">
+              <string>Days to save image</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="3">
+           <item row="4" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <widget class="QSpinBox" name="spinBox_2">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>80</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="frame">
+                <bool>false</bool>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+               <property name="buttonSymbols">
+                <enum>QAbstractSpinBox::NoButtons</enum>
+               </property>
+               <property name="suffix">
+                <string> Day</string>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="minimum">
+                <number>90</number>
+               </property>
+               <property name="maximum">
+                <number>365</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="horizontalSlider_2">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="minimum">
+                <number>30</number>
+               </property>
+               <property name="maximum">
+                <number>365</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="invertedAppearance">
+                <bool>false</bool>
+               </property>
+               <property name="invertedControls">
+                <bool>false</bool>
+               </property>
+               <property name="tickPosition">
+                <enum>QSlider::TicksAbove</enum>
+               </property>
+               <property name="tickInterval">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="4" column="1">
             <widget class="QLabel" name="label_35">
              <property name="text">
               <string>Number of days to save the file, exceeding the set value to actively delete the file</string>
@@ -1065,59 +1349,7 @@ More than pair of:One service corresponds to all channels, and only the server m
              </property>
             </widget>
            </item>
-           <item row="6" column="3">
-            <spacer name="verticalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>365</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="1" column="0" colspan="3">
-            <widget class="QCheckBox" name="checkBox_4">
-             <property name="text">
-              <string>Storage space monitoring</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="3">
-            <widget class="QLabel" name="label_33">
-             <property name="text">
-              <string>Software prompts the system administrator to change hardware or manually release space</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QSlider" name="horizontalSlider">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="invertedAppearance">
-              <bool>false</bool>
-             </property>
-             <property name="invertedControls">
-              <bool>false</bool>
-             </property>
-             <property name="tickPosition">
-              <enum>QSlider::TicksAbove</enum>
-             </property>
-             <property name="tickInterval">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0" colspan="3">
+           <item row="5" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
               <widget class="QRadioButton" name="radioButton">
@@ -1138,76 +1370,28 @@ More than pair of:One service corresponds to all channels, and only the server m
              </item>
             </layout>
            </item>
-           <item row="1" column="3">
-            <widget class="QLabel" name="label_11">
+           <item row="5" column="1">
+            <widget class="QLabel" name="label_33">
              <property name="text">
-              <string>Monitor the remaining capacity of image storage hard disk space</string>
+              <string>Software prompts the system administrator to change hardware or manually release space</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
              </property>
             </widget>
            </item>
-           <item row="0" column="0" colspan="3">
-            <widget class="QCheckBox" name="checkBox_3">
-             <property name="text">
-              <string>The main interface shows the storage space</string>
+           <item row="6" column="1">
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="checkBox_8">
-             <property name="text">
-              <string>Days to save image</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QSpinBox" name="spinBox">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="maximumSize">
+             <property name="sizeHint" stdset="0">
               <size>
-               <width>16777215</width>
-               <height>16777215</height>
+               <width>20</width>
+               <height>365</height>
               </size>
              </property>
-             <property name="suffix">
-              <string>%</string>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QSpinBox" name="spinBox_2">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="suffix">
-              <string> Day</string>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="minimum">
-              <number>90</number>
-             </property>
-             <property name="maximum">
-              <number>365</number>
-             </property>
-            </widget>
+            </spacer>
            </item>
           </layout>
          </widget>

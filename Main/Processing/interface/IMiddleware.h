@@ -70,10 +70,17 @@ public slots:
     virtual void initCameraSlot(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow)=0;
 
     ///
+    /// \brief setCaptureTypeSlot 设置抓拍模式
+    /// \param capType
+    ///
+    virtual void setCaptureTypeSlot(const int &capType)=0;
+
+    ///
     /// \brief openTheVideoSlot 打开视频/关闭视频
     /// \param play
     ///
     virtual void openTheVideoSlot(int ID, bool play,quint64 winID)=0;
+
 
     ///
     /// \brief simulationCaptureSlot 模拟抓拍
@@ -97,7 +104,7 @@ public slots:
     virtual void releaseResourcesSlot()=0;
 };
 
-#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/1.2.1.5"
+#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/1.3.1.7"
 Q_DECLARE_INTERFACE(IMiddleware,IMiddlewareIID);
 
 #endif // IMIDDLEWARE_H

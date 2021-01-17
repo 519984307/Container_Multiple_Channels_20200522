@@ -44,6 +44,7 @@
 #include "Parameter/parameter.h"
 #include "Parameter/LocalPar.h"
 
+//#include "touploaddata.h"
 #include "logcontroller.h"
 #include "Processing/loadinglibaray.h"
 #include "DataProcessing/dataprocessing.h"
@@ -209,8 +210,13 @@ private:
 //    ///
 //    QFutureWatcher<void> *watcher;
 
+//    ///
+//    /// \brief pUpload 上传文件
+//    ///
+//    QPointer<ToUploadData> pUpload;
+
     ///
-    /// \brief pLog
+    /// \brief pLog 日志
     ///
     QPointer<LogController> pLog;
 
@@ -373,6 +379,14 @@ private slots:
     /// \brief slot_hideErrorForm 隐藏错误弹幕
     ///
     void slot_hideErrorForm();
+
+    ///
+    /// \brief slot_theFtpProgress FTP上传进度
+    /// \param bytesSent 上传大小
+    /// \param bytesTotal 上传总量
+    ///
+    void slot_theFtpProgress(qint64 bytesSent, qint64 bytesTotal);
+
 signals:
 
     /*****************************
@@ -430,6 +444,22 @@ signals:
     /// \param dataBaseType 数据库类型
     ///
     void signal_initDataBaseR(const QString &connectName,const QString &user,const QString &pass,const QString &ip,const int &dataBaseType);
+
+    ///
+    /// \brief signal_InitializationFTPParameter 初始化FTP参数
+    /// \param host 地址
+    /// \param port 端口
+    /// \param path 路径
+    /// \param user 用户名
+    /// \param pass 密码
+    ///
+    void signal_InitializationFTPParameter(const QString &user,const QString &pass,const QString &path,const QString &host,const int &port=21);
+
+    ///
+    /// \brief signal_setCaptureType 设置海康相机抓拍模式
+    /// \param capType
+    ///
+    void signal_setCaptureType(const int &capType);
 
 };
 

@@ -160,17 +160,31 @@ void Channel_Data_Form::clearnPixmap()
     ui->image_label_11->setPalette(palette);
     //ui->image_label_12->setPalette(palette);
 
-    ui->con_brfore_lineEdit->clear();
-    ui->iso_before_lineEdit->clear();
-    ui->con_after_lineEdit->clear();
-    ui->iso_after_lineEdit->clear();
-    ui->box_type_lineEdit->clear();
-    ui->time_lineEdit->clear();
+//    foreach (QLabel* obj, ui->gridLayout->findChildren<QLabel*>(QString(),Qt::FindChildrenRecursively)) {
+//        if(obj==ui->image_label_7 || obj==ui->image_label_12){
+//            break;
+//        }
+//        obj->setPalette(palette);
+//    }
+
+    foreach (QLineEdit* obj, ui->toolBox->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
+        obj->setText("");
+        obj->clear();
+    }
+
+//    ui->con_brfore_lineEdit->clear();
+//    ui->iso_before_lineEdit->clear();
+//    ui->con_after_lineEdit->clear();
+//    ui->iso_after_lineEdit->clear();
+//    ui->box_type_lineEdit->clear();
+//    ui->time_lineEdit->clear();
 }
 
 void Channel_Data_Form::on_SimulationPushButton_clicked()
 {
     QPointer<SimulationDialog> Dlg=new SimulationDialog(this);
+    connect(Dlg,&SimulationDialog::signal_logicPutImage,this,&Channel_Data_Form::slot_logicPutImage);
+    connect(this,&Channel_Data_Form::signal_container,Dlg,&SimulationDialog::slot_container);
     Dlg->exec();
 }
 
@@ -223,10 +237,10 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         QString imgName="";
         switch (Parameter::ImageNamingRules) {
         case 0:
-            imgName=QString("%1%2%3.jpg").arg(datetime).arg(channelNumber,2,10,QLatin1Char('0')).arg(key,2,10,QLatin1Char('0'));
+            imgName=QString("%1%2%3.jpg").arg(datetime).arg(channelNumber,Parameter::channel_id_placeholder,10,QLatin1Char('0')).arg(key,Parameter::camera_id_placeholder,10,QLatin1Char('0'));
             break;
         case 1:
-            imgName=QString("%1%2%3.jpg").arg(datetime).arg(key,2,10,QLatin1Char('0')).arg(channelNumber,2,10,QLatin1Char('0'));
+            imgName=QString("%1%2%3.jpg").arg(datetime).arg(key,Parameter::camera_id_placeholder,10,QLatin1Char('0')).arg(channelNumber,Parameter::channel_id_placeholder,10,QLatin1Char('0'));
             break;
         }
         QString imgPath=QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgName));
@@ -243,6 +257,12 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         }
         else {
             emit signal_identifyImages(imgPath,key);
+            if(Parameter::Ftp){
+                /*****************************
+                * @brief:上传图片
+                ******************************/
+                emit signal_uploadData(imgPath);
+            }
         }
 
         /*****************************
@@ -615,6 +635,7 @@ void Channel_Data_Form::slot_recognitionResult(const QString &result, const QStr
 
 void Channel_Data_Form::slot_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
 {
+    emit signal_container(type, result1, resultCheck1, iso1, result2, resultCheck2, iso2);
     ui->time_lineEdit->setText(QDateTime::fromString(imgTimer,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss"));
     ui->con_brfore_lineEdit->setText(result1);
     ui->iso_before_lineEdit->setText(iso1);

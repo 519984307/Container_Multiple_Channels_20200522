@@ -2,14 +2,29 @@
 
 namespace Parameter {
 
+    /*****************************
+    * @brief:channel
+    ******************************/
+
     int ChannelNumber= 0;
     int ImageFormat= 0;
     int ImageNamingRules= 0;
     QString ImagePath= QString("C:\\images");
+    int camera_id_placeholder=2;
+    int channel_id_placeholder=2;
+
+    /*****************************
+    * @brief:Camera
+    ******************************/
+
+    int HCNET_Capture_Type=0;
+    int HCNET_Load_Plugin=0;
+
 
     /*****************************
     * @brief:Upload
     ******************************/
+
     int Ftp=0;
     int FtpPort= 21;
     int ReduceImage= 0;
@@ -27,6 +42,7 @@ namespace Parameter {
     /*****************************
     * @brief:Other
     ******************************/
+
     int Language= 0;
     int Minimization= 0;
     int FullScreen= 0;
@@ -38,16 +54,17 @@ namespace Parameter {
     /*****************************
     * @brief:Recognizer
     ******************************/
+
     int ResultsTheCheck= 0;
 
     /*****************************
     * @brief:Service
     ******************************/
+
     int Service_Model= 0;
     int Service_Type= 0;
     int Heartbeat= 0;
     int Resultting= 0;
     QString SingletonAddress= QString("");
     QString ManyCasesAddress= QString("");
-
 }
