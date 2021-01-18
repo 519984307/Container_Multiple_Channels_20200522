@@ -170,6 +170,7 @@ void Channel_Data_Form::clearnPixmap()
     foreach (QLineEdit* obj, ui->toolBox->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
         obj->setText("");
         obj->clear();
+        obj->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
     }
 
 //    ui->con_brfore_lineEdit->clear();

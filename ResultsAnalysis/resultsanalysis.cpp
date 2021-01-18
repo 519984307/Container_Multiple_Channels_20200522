@@ -255,10 +255,10 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     ///
     /// \brief numberList 防止双箱，未检测到箱型
     ///
-    QStringList numberList=queueContainerNumber(conTemp);
-    if(numberList.size()>=2 && isoTemp.count()==6){
-        conType=2;
-    }
+//    QStringList numberList=queueContainerNumber(conTemp);
+//    if(numberList.size()>=2 && isoTemp.count()==6){
+//        conType=2;
+//    }
 
     if(notISO){
         switch (conType) {
@@ -318,7 +318,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             for (int var = 0; var < 3; ++var) {/* 箱号校验 */
                 if(checkConList[var]){/* 只有一个检验正确，直接输出 */
                     Cindex1=var;
-                    i++;
+                    ++i;
                 }
             }
             if(i>1){
@@ -347,7 +347,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
 
         Cprobability=0; Iprobability=0;//checkCon=false;
         numberList.clear();
-        numberList=queueContainerNumber(conTemp.mid(3));
+        numberList=queueContainerNumber(conTemp.mid(3,6));
         if(numberList.count()==1){/* 有多组相同箱号，分析置信度和校验*/
             for (int var = 3; var < 6; ++var) {
                 if(numberList[0]==conTemp[var]){
@@ -367,7 +367,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             for (int var = 3; var < 6; ++var) {/* 箱号校验 */
                 if(checkConList[var]){/* 只有一个检验正确，直接输出 */
                     Cindex2=var;
-                    i++;
+                    ++i;
                 }
             }
             if(i>1){
@@ -415,8 +415,6 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             emit containerSignal(conType,conTemp[Cindex1], checkConList[Cindex1],isoTemp[Iindex1],conTemp[Cindex2],checkConList[Cindex2],isoTemp[Iindex2]);
 
         }
-        Cindex2=0;
-        Iindex2=0;
     }
     else {
         /*****************************

@@ -32,6 +32,7 @@ void SimulationDialog::on_capturePushButton_clicked()
     foreach (QLineEdit* obj, ui->groupBox->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
         obj->setText("");
         obj->clear();
+        obj->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
     }
 
     switch (ui->Simulatiion_comboBox->currentIndex()) {
@@ -168,7 +169,7 @@ void SimulationDialog::on_pushButton_clicked()
     QString time=QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
     if(ui->send_con_after_lineEdit->text().isEmpty()){
         int type=0;
-        if("45G1"==ui->iso_after_lineEdit->text().trimmed()){
+        if("45G1"==ui->send_iso_after_lineEdit->text().trimmed()){
             type=1;
         }
         /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱号|校验|箱型|箱型] */
