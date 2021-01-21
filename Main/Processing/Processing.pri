@@ -5,6 +5,7 @@ HEADERS += \
     $$PWD/interface/databasereadinterface.h \
     $$PWD/interface/datainterchangeinterface.h \
     $$PWD/interface/infraredlogicinterface.h \
+    $$PWD/interface/licenseplateinterface.h \
     $$PWD/interface/recognizerinterface.h \
     $$PWD/interface/resultsanalysisinterface.h \
     $$PWD/interface/touploaddatainterface.h \

@@ -16,7 +16,7 @@ CaptureImages::CaptureImages(QObject *parent)
 
 CaptureImages::~CaptureImages()
 {
-    qDebug()<<"~CaptureImages";
+    qDebug().noquote()<<"~CaptureImages";
 }
 
 bool CaptureImages::InitializationSlot()
@@ -24,7 +24,7 @@ bool CaptureImages::InitializationSlot()
     return false;
 }
 
-void CaptureImages::initCamerSlot(const QString &camerIP, const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature)
+void CaptureImages::initCamerSlot(const QString &localAddr,const QString &camerIP, const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature)
 {
     this->signature=signature;
     this->camerIP=camerIP;
@@ -32,7 +32,7 @@ void CaptureImages::initCamerSlot(const QString &camerIP, const int &camerPort,c
     if(camerIP.isEmpty() || camerIP=="..."){
         return;
     }   
-    emit signal_initCamera("",camerIP,camerPort,CamerUser,CamerPow);
+    emit signal_initCamera(localAddr,camerIP,camerPort,CamerUser,CamerPow);
 }
 
 void CaptureImages::getDeviceStatusSlot()

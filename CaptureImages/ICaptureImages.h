@@ -50,7 +50,7 @@ public slots:
     /// \param CamerPow 密码
     /// \param signature 特征码
     ///
-    virtual void initCamerSlot(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature)=0;
+    virtual void initCamerSlot(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature)=0;
 
     ///
     /// \brief putCommandSlots 抓取图片
@@ -150,7 +150,6 @@ signals:
     ///
     void signal_simulationCapture(int ID);
 
-
     ///
     /// \brief signal_liftingElectronicRailing 抬杆/落杆
     ///
@@ -170,7 +169,7 @@ signals:
     void signal_bindingCameraID(QString cameraAddr,int ID);
 };
 
-#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.1.2"
+#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.2.2"
 Q_DECLARE_INTERFACE(ICaptureImages,ICaptureImagesIID);
 
 #endif // ICAPTUREIMAGES_H

@@ -475,13 +475,13 @@ void Channel_Data_Form::slot_initEquipment()
     /*****************************
     * @brief:相机
     ******************************/
-    emit signal_initCamer_front(para->FrontCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(0));
-    emit signal_initCamer_before(para->AfterCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(1));
-    emit signal_initCamer_left(para->LeftCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(2));
-    emit signal_initCamer_right(para->RgihtCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(3));
-    emit signal_initCamer_top(para->TopCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(4));
-    emit signal_initCamer_prospects(para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(5));
-    emit signal_initCamer_foreground(para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(6));
+    emit signal_initCamer_front(para->LocalAddr,para->FrontCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(0));
+    emit signal_initCamer_before(para->LocalAddr,para->AfterCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(1));
+    emit signal_initCamer_left(para->LocalAddr,para->LeftCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(2));
+    emit signal_initCamer_right(para->LocalAddr,para->RgihtCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(3));
+    emit signal_initCamer_top(para->LocalAddr,para->TopCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(4));
+    emit signal_initCamer_prospects(para->LocalAddr,para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(5));
+    emit signal_initCamer_foreground(para->LocalAddr,para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(6));
 
     /*****************************
     * @brief:红外
@@ -560,6 +560,8 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit clearnPixmap();/* 通知来车,清除数据界面图片 */
         this->putCount=-1;
         this->putComType=-1;
+        emit signal_channelState(channelID,1);
+
         break;
     case 0:
     {
@@ -600,7 +602,14 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         this->putComType=2;
     }
         break;
+    case 5:
+        /*****************************
+        * @brief:车辆倒车
+        ******************************/
+        emit signal_channelState(channelID,0);
+        break;
     }
+
 }
 
 void Channel_Data_Form::slot_serialPortState(bool com1, bool com2)
@@ -637,7 +646,7 @@ void Channel_Data_Form::slot_recognitionResult(const QString &result, const QStr
 
 void Channel_Data_Form::slot_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
 {
-    emit signal_container(type, result1, resultCheck1, iso1, result2, resultCheck2, iso2);
+    emit signal_container(channelID, type, result1, resultCheck1, iso1, result2, resultCheck2, iso2);
     ui->time_lineEdit->setText(QDateTime::fromString(imgTimer,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss"));
     ui->con_brfore_lineEdit->setText(result1);
     ui->iso_before_lineEdit->setText(iso1);

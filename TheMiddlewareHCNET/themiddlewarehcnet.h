@@ -95,7 +95,7 @@ private:/* 参数  */
     ///
     /// \brief imgBuff 图片流内存(主动申请和释放)
     ///
-    char* imgBuff;
+    char* imgBuff;   
 
     ///
     /// \brief charLen 图片缓冲区大小

@@ -6,6 +6,7 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QThread>
+#include <QtDebug>
 
 #include "./Parameter/LocalPar.h"
 #include "./Parameter/parameter.h"
@@ -19,6 +20,7 @@
 #include "interface/resultsanalysisinterface.h"
 #include "interface/datainterchangeinterface.h"
 #include "interface/touploaddatainterface.h"
+#include "interface/licenseplateinterface.h"
 
 class LoadingLibaray : public QObject
 {
@@ -35,7 +37,15 @@ public:
 
 private:
 
+    ///
+    /// \brief channelCount 通道数量
+    ///
     int channelCount;
+
+    /*****************************
+    * @brief:加载插件名称，判断同一接口是否重复加载
+    ******************************/
+    QVector<QString> loadVec;
 
     ///
     /// \brief tdList 子线程集
@@ -47,6 +57,12 @@ private:
     /// \param pluginPath 插件路径
     ///
     void processingPlugins(QDir pluginPath);
+
+    ///
+    /// \brief loadMisarrangement 加载排除插件错误
+    /// \param interType
+    ///
+    void loadMisarrangement(QString pluginName, QString interType);
 
 public:/* container */
 
@@ -94,6 +110,11 @@ public:/* container */
     /// \brief IToUploadDataList 图片上传
     ///
     QList<QSharedPointer<ToUploadDataInterface>> IToUploadDataList;
+
+    ///
+    /// \brief ILicensePlateList 电子车牌
+    ///
+    QList<QSharedPointer<LicensePlateInterface>> ILicensePlateList;
 
 public slots:
 

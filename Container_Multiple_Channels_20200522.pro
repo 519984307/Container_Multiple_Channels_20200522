@@ -4,9 +4,9 @@ SUBDIRS +=\
 #    CaptureImagesHCNET \
 #    #CaptureImagesTCP \
 #    PluginProcessing \
-#    TheLicensePlateHCNET \
 #    TheLicensePlateWTY \
     CaptureUnderlying\
+    LicensePlateHCNET \
     ToUploadData\
     DataInterchange \
     #DataProcessing \

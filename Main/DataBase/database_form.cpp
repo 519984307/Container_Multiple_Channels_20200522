@@ -218,6 +218,22 @@ bool DataBase_Form::eventFilter(QObject *target, QEvent *event)
     return  QWidget::eventFilter(target,event);
 }
 
+void DataBase_Form::closeEvent(QCloseEvent *event)
+{
+    if(1==ui->database_stackedWidget->currentIndex()){
+        QMessageBox::StandardButton bt = QMessageBox::warning(this,"Exit","Confirm closing window: please click OK.\n Back to list of data: please click Cancel",QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+        if(QMessageBox::Yes==bt){
+            this->close();
+            event->accept();
+            QWidget::closeEvent(event);
+        }
+        if(QMessageBox::No==bt){
+            ui->database_stackedWidget->setCurrentIndex(0);
+            event->ignore();
+        }
+    }
+}
+
 void DataBase_Form::on_database_imageOrData_pushButton_clicked()
 {
     switch (ui->database_stackedWidget->currentIndex()) {

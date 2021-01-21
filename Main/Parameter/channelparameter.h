@@ -86,6 +86,11 @@ public:
     ///
     QString ProspectsCamer;
 
+    ///
+    /// \brief LocalAddr 本地网卡地址
+    ///
+    QString LocalAddr;
+
     /*****************************
     * @brief:SerialPort
     ******************************/

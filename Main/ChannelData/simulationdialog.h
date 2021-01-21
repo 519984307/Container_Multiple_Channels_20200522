@@ -48,7 +48,7 @@ public slots:
     /// \param resultCheck2
     /// \param iso2
     ///
-    void slot_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2);
+    void slot_container(const int &channelID,const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2);
 
 
 private:

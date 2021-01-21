@@ -57,7 +57,10 @@ private:
      /* 来车，车头，长箱，双箱 */
      bool comming,isCar,isLong,isDouble,health1,health2;
 
-
+     ///
+     /// \brief carInChannel 车辆在通道里面
+     ///
+     bool carInChannel;
 
      ///
      /// \brief exit 退出循环状态

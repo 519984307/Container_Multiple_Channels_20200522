@@ -16,7 +16,7 @@ DataBaseRead::~DataBaseRead()
 
 QString DataBaseRead::InterfaceType()
 {
-    return "SQLITE";
+    return QString("SQLITE_READ");
 }
 
 void DataBaseRead::initDataBaseSlot(const QString &connectName,const QString &user,const QString &pass,const QString &ip,const int &dataBaseType)
@@ -84,7 +84,7 @@ void DataBaseRead::initDataBaseSlot(const QString &connectName,const QString &us
                       `ImgAfterISO` TEXT,\
                       `ImgProspects` TEXT,\
                       `ImgForeground` TEXT,\
-                      `mgTop1` TEXT,\
+                      `ImgTop1` TEXT,\
                       `ImgTop2` TEXT\
                   )"));
         if(!query.exec()){

@@ -143,13 +143,13 @@ signals:
     ///
     void signal_setDeviceStatus(int channel, int equipment,bool state);
 
-    void signal_initCamer_front(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
-    void signal_initCamer_before(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
-    void signal_initCamer_left(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
-    void signal_initCamer_right(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
-    void signal_initCamer_top(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
-    void signal_initCamer_prospects(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
-    void signal_initCamer_foreground(const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
+    void signal_initCamer_front(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
+    void signal_initCamer_before(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
+    void signal_initCamer_left(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
+    void signal_initCamer_right(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
+    void signal_initCamer_top(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
+    void signal_initCamer_prospects(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
+    void signal_initCamer_foreground(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
 
     ///
     /// \brief signal_container 结果传入手动抓拍页面
@@ -161,8 +161,14 @@ signals:
     /// \param resultCheck2
     /// \param iso2
     ///
-    void signal_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2);
+    void signal_container(const int &channelID,const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2);
 
+    ///
+    /// \brief signal_channelState 通道过车状态
+    /// \param channelID
+    /// \param state
+    ///
+    void signal_channelState(const int &channelID,const int &state);
 
     /*****************************
     * @brief:箱号相机

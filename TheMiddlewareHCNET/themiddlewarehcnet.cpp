@@ -75,7 +75,7 @@ TheMiddlewareHCNET::TheMiddlewareHCNET(QObject *parent)
 
 TheMiddlewareHCNET::~TheMiddlewareHCNET()
 {
-    qDebug()<<"~TheMiddlewareHCNET()";
+    qDebug()<<"~TheMiddlewareHCNET";
     free(imgBuff);
     playMap.clear();
 }

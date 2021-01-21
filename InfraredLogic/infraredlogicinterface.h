@@ -78,7 +78,7 @@ public slots:
    virtual void exitWhileSlot()=0;
 };
 
-#define InfraredlogicInterfaceIID "ZBY.ContainerServer.InfraredlogicInterface/1.3.2"
+#define InfraredlogicInterfaceIID "ZBY.ContainerServer.InfraredlogicInterface/1.4.4"
 Q_DECLARE_INTERFACE(InfraredlogicInterface,InfraredlogicInterfaceIID);
 
 #endif // INFRAREDLOGIC_INTERFACE_H

@@ -174,6 +174,7 @@ void LoadParameter::loadChannelParameter(int Channels)
                         p_ChannelParameter->PasswordCamer= getJsonValue("Camer","PasswordCamer",value.toObject()).toString();
                         p_ChannelParameter->ForgroundCamer= getJsonValue("Camer","ForgroundCamer",value.toObject()).toString();
                         p_ChannelParameter->ProspectsCamer= getJsonValue("Camer","ProspectsCamer",value.toObject()).toString();
+                        p_ChannelParameter->LocalAddr = getJsonValue("Camer","LocalAddr",value.toObject()).toString();
 
                         /*****************************
                         * @brief:other

@@ -26,7 +26,7 @@ public:
     /// \param pow 密码
     /// \param signature 特征码
     ///
-    void initCamerSlot(const QString &camerIP, const int & camerPort, const QString &CamerUser, const QString &CamerPow,const QString &signature="") Q_DECL_OVERRIDE;
+    void initCamerSlot(const QString &localAddr,const QString &camerIP, const int & camerPort, const QString &CamerUser, const QString &CamerPow,const QString &signature="") Q_DECL_OVERRIDE;
 
     ///
     /// \brief putCommandSlot 抓取图片

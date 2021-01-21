@@ -36,7 +36,7 @@ signals:
 public slots:
 
     ///
-    /// \brief InitializationParameterSlot 初始化参数
+    /// \brief InitializationParameterSlot 初始化FTP参数
     /// \param host 地址
     /// \param port 端口
     /// \param path 路径

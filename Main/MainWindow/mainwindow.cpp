@@ -352,6 +352,10 @@ void MainWindow::connectProcess()
     foreach (auto from, Channel_Data_From_Map.values()) {
         connect(this,SIGNAL(signal_initEquipment()),from,SLOT(slot_initEquipment()));
         connect(from,SIGNAL(signal_setDeviceStatus(int,int,bool)),this,SIGNAL(setDeviceStatusSignal(int,int,bool)));
+        if(p_Equipment_State_Form!=nullptr){
+            connect(from,&Channel_Data_Form::signal_container,p_Equipment_State_Form,&Equipment_State_From::slot_container);
+            connect(from,&Channel_Data_Form::signal_channelState,p_Equipment_State_Form,&Equipment_State_From::slot_channelState);
+        }
     }
 
     /*****************************

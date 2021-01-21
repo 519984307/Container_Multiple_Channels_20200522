@@ -87,6 +87,7 @@ bool Channel_Setting_Form::loadParameter()
                     p_ChannelParameter->PasswordCamer= getJsonValue("Camer","PasswordCamer",value.toObject()).toString();
                     p_ChannelParameter->ForgroundCamer= getJsonValue("Camer","ForgroundCamer",value.toObject()).toString();
                     p_ChannelParameter->ProspectsCamer= getJsonValue("Camer","ProspectsCamer",value.toObject()).toString();
+                    p_ChannelParameter->LocalAddr= getJsonValue("Camer","LocalAddr",value.toObject()).toString();
 
                     /*****************************
                     * @brief:other
@@ -150,6 +151,7 @@ bool Channel_Setting_Form::writeParameterSlot()
     jsonObj.insert(QString("PasswordCamer"),ui->Camera_Password->text());
     jsonObj.insert(QString("ForgroundCamer"),ui->Camera_Forground->text());
     jsonObj.insert(QString("ProspectsCamer"),ui->Camera_Prospects->text());
+    jsonObj.insert(QString("LocalAddr"),ui->LocalAddr->text());
     jsonChild.insert("Camer",QJsonValue(jsonObj));
 
     /*****************************
@@ -211,6 +213,7 @@ void Channel_Setting_Form::parameterToUi()
     ui->Camera_Password->setText(p_ChannelParameter->PasswordCamer);
     ui->Camera_Forground->setText(p_ChannelParameter->ForgroundCamer);
     ui->Camera_Prospects->setText(p_ChannelParameter->ProspectsCamer);
+    ui->LocalAddr->setText(p_ChannelParameter->LocalAddr);
 
     /*****************************
     * @brief:serialport

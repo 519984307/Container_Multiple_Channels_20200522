@@ -31,6 +31,7 @@ InfraredLogic::InfraredLogic(QObject *parent)
     health=false;
     doubleFrontPut=false;
     channelNum=-1;
+    carInChannel=false;
 
     _45G1=false;_22G1=false;_22G1_MID_22G1=false;_22G1_22G1=false;_22G1_22G1_STATE=false;
 
@@ -85,6 +86,14 @@ void InfraredLogic::serialLogic(int *status)
     */
 
     /*****************************
+    * @brief:车辆倒车：车辆已进入，退出挡住A1，其他释放
+    ******************************/
+    if(carInChannel && status[0]==valueOne && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+        emit logicPutImageSignal(5);
+        carInChannel=false;
+    }
+
+    /*****************************
     * @brief:车辆进入，如果是高车头同时挡住2组红外                    1
     ******************************/
     if(status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
@@ -92,6 +101,8 @@ void InfraredLogic::serialLogic(int *status)
         isLong=false;
         isDouble=false;
         isCar=false;
+
+        //carInChannel=false;
 
         emit logicPutImageSignal(-1);
         qDebug()<<"1";
@@ -136,6 +147,7 @@ void InfraredLogic::serialLogic(int *status)
                 logicPutImageSignal(1);
                 qDebug()<<"4-1";
             }
+            carInChannel=true;
         }
 
         comming=false;
@@ -157,6 +169,7 @@ void InfraredLogic::serialLogic(int *status)
         /* 小箱，抓4张(小箱放长托架后面,标准小箱) */
         if(health1){
             emit logicPutImageSignal(2);
+            carInChannel=true;
         }
 
         comming=false;

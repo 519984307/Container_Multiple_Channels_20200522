@@ -13,6 +13,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextEdit>
+#include <QCloseEvent>
 
 #include "image_dialog.h"
 #include "filterdialog.h"
@@ -35,8 +36,10 @@ public:
     /// \param obj
     /// \param event
     /// \return
-    ///
-    bool eventFilter(QObject *target, QEvent *event);
+
+protected:
+    bool eventFilter(QObject *target, QEvent *event)Q_DECL_OVERRIDE;
+    void closeEvent(QCloseEvent *event)Q_DECL_OVERRIDE;
 
 private:
 

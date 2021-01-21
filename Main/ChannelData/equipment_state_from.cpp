@@ -16,6 +16,8 @@ Equipment_State_From::Equipment_State_From(QWidget *parent) :
     this->setParent(parent);
     this->setVisible(false);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+
+    isInitload=true;
 }
 
 Equipment_State_From::~Equipment_State_From()
@@ -25,6 +27,10 @@ Equipment_State_From::~Equipment_State_From()
 
 void Equipment_State_From::initializesTheDeviceStateListSlot(int count, QStringList rowLabels)
 {
+    if(!isInitload){
+        return;
+    }
+    isInitload=false;
     ui->tableWidget->setColumnCount(LocalPar::DeviceStateList.count());
     ui->tableWidget->setHorizontalHeaderLabels(LocalPar::DeviceStateList);
     ui->tableWidget->setRowCount(count);
@@ -50,7 +56,7 @@ void Equipment_State_From::initializesTheDeviceStateListSlot(int count, QStringL
                 state="******";
             }
             else if(column==LocalPar::Msg){
-                state=tr("%1").arg("This is the test data");
+                state=tr("%1").arg("");
             }
             ui->tableWidget->setItem(row,column,new QTableWidgetItem (state));
             //ui->tableWidget->setStyleSheet("background-color:#a8a8a8");
@@ -72,9 +78,44 @@ void Equipment_State_From::setDeviceStatusSlot(int channel, int equipment, bool 
     }
     else if (LocalPar::A1<= equipment && equipment<=LocalPar::D4) {
         text=state?"1":"0";
-        color=state?Qt::blue:Qt::blue;
+        color=state?Qt::blue:Qt::red;
     }
 
     ui->tableWidget->item(channel-1,equipment)->setText(text);
     ui->tableWidget->item(channel-1,equipment)->setTextColor(color);
+}
+
+void Equipment_State_From::slot_container(const int &channelID, const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
+{
+    Q_UNUSED(iso1);
+    Q_UNUSED(iso2);
+
+    ui->tableWidget->item(channelID-1,LocalPar::Con1)->setText("");
+    ui->tableWidget->item(channelID-1,LocalPar::Con2)->setText("");
+    ui->tableWidget->item(channelID-1,LocalPar::Msg)->setText("");
+
+    ui->tableWidget->item(channelID-1,LocalPar::Con1)->setTextColor(resultCheck1?Qt::blue:Qt::red);
+    ui->tableWidget->item(channelID-1,LocalPar::Con2)->setTextColor(resultCheck2?Qt::blue:Qt::red);
+
+    ui->tableWidget->item(channelID-1,LocalPar::Con1)->setText(result1);
+    if(result1.isEmpty()){
+        ui->tableWidget->item(channelID-1,LocalPar::Con1)->setText("failure");
+    }
+    if(2==type){
+        ui->tableWidget->item(channelID-1,LocalPar::Con2)->setText(result2);
+        if(result2.isEmpty()){
+            ui->tableWidget->item(channelID-1,LocalPar::Con2)->setText("failure");
+        }
+    }
+}
+
+void Equipment_State_From::slot_channelState(const int &channelID, const int &state)
+{
+    ui->tableWidget->item(channelID-1,LocalPar::Msg)->setTextColor(state?Qt::green:Qt::red);
+    if(state){
+        ui->tableWidget->item(channelID-1,LocalPar::Msg)->setText(QString("Vehicles entering"));
+    }
+    else {
+        ui->tableWidget->item(channelID-1,LocalPar::Msg)->setText(QString("Vehicle reversing"));
+    }
 }

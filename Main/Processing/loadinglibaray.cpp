@@ -1,5 +1,4 @@
 ﻿#include "loadinglibaray.h"
-#include <QtDebug>
 
 LoadingLibaray::LoadingLibaray(int ChannelNumber, QObject *parent) : QObject(parent)
 {
@@ -13,6 +12,16 @@ void LoadingLibaray::slot_destructorThread()
         thread->wait();
     }
     qDebug().noquote()<<"~LoadingLibaray";
+}
+
+void LoadingLibaray::loadMisarrangement(QString pluginName,QString interType)
+{
+    if(-1!=loadVec.indexOf(interType)){
+        emit signal_loadPluginError(pluginName);/* 加载相同插件多次报错 */
+    }
+    else {
+        loadVec.append(interType);
+    }
 }
 
 void LoadingLibaray::slot_createLibaray()
@@ -41,19 +50,11 @@ void LoadingLibaray::slot_createLibaray()
         }
     }
 
-    /*****************************
-    * @brief:加载插件名称，判断同一接口是否重复加载
-    ******************************/
-    QVector<QString> loadVec;
-
     for(const QString fileName :pluginsDir.entryList(QDir::Files,QDir::Name)){
         QPluginLoader  pluginLoader(pluginsDir.absoluteFilePath(fileName));
         QObject *plugin = pluginLoader.instance();
 
         if(plugin){
-//            QJsonObject var=pluginLoader.metaData();
-//            qDebug()<<var.find("MetaData").value().toString();
-
             const QString pluginName=fileName.split(".").at(0);
             /*  创建子插件目录 */
             pluginsDir.mkdir(pluginName);
@@ -70,95 +71,80 @@ void LoadingLibaray::slot_createLibaray()
             ******************************/
             pluginsNum=0;
 
-            bool isErr=false;
-
             if(ICaptureImages *pICaptureImages=qobject_cast<ICaptureImages*>(plugin)){
-                Q_UNUSED(pICaptureImages);
                 pluginsNum=channelCount*LocalPar::CamerNumber;
-
-                if(-1!=loadVec.indexOf("ICaptureImages")){
-                    isErr=true;
-                }
-                else {
-                    loadVec.append("ICaptureImages");
-                }
+                loadMisarrangement(pluginName,"ICaptureImages");
+                pICaptureImages=nullptr;
             }
             else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
-                if(4==Parameter::HCNET_Capture_Type){
-                    if("Underlying" != pIMiddleware->InterfaceType()){
-                        pluginsDir.cdUp();
-                        pluginLoader.unload();
-                        continue;
-                    }
-                    else {
-                        if(-1!=loadVec.indexOf("Underlying")){
-                            isErr=true;
-                        }
-                        else {
-                            loadVec.append("Underlying");
-                        }
-                    }
-                }
-                else if ("HCNET" != pIMiddleware->InterfaceType()) {
-                    pluginsDir.cdUp();
-                    pluginLoader.unload();
-                    continue;
-                }
-                else {
-                    if(-1!=loadVec.indexOf("HCNET")){
-                        isErr=true;
-                    }
-                    else {
-                        loadVec.append("HCNET");
-                    }
-                }
-
                 if(0==Parameter::HCNET_Load_Plugin){
                     pluginsNum=1;
                 }
                 if(1==Parameter::HCNET_Load_Plugin){
                     pluginsNum=channelCount*LocalPar::CamerNumber;
                 }
+
+                if(4==Parameter::HCNET_Capture_Type){
+                    if("Underlying" == pIMiddleware->InterfaceType()){
+                        loadMisarrangement(pluginName,"Underlying");
+                    }
+                    else {
+                        pluginsNum=0;
+                    }
+                }
+                else if ("HCNET" == pIMiddleware->InterfaceType()) {
+                    loadMisarrangement(pluginName,"HCNET");
+                }
+                else {
+                    pluginsNum=0;
+                }
                 pIMiddleware=nullptr;
             }
             else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
                 if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */                    
                     pluginsNum=channelCount;
+                    loadMisarrangement(pluginName,"Protector");
                 }
                 pInfraredlogicInterface=nullptr;
             }
             else if (DataBaseInsertInterface *pDataBaseInsertInterface=qobject_cast<DataBaseInsertInterface*>(plugin)) {
-                if("SQLITE" == pDataBaseInsertInterface->InterfaceType()){/* SQLITE */
+                if("SQLITE_INSERT" == pDataBaseInsertInterface->InterfaceType()){/* SQLITE */
+                    loadMisarrangement(pluginName,"SQLITE_INSERT");
                     pluginsNum=channelCount;
                 }
                 pDataBaseInsertInterface=nullptr;
             }
             else if (DataBaseReadInterface *pDataBaseReadInterface=qobject_cast<DataBaseReadInterface*>(plugin)) {
-                if("SQLITE" == pDataBaseReadInterface->InterfaceType()){/* SQLITE */
+                if("SQLITE_READ" == pDataBaseReadInterface->InterfaceType()){/* SQLITE */
+                    loadMisarrangement(pluginName,"SQLITE_READ");
                     pluginsNum=1;
                 }
                 pDataBaseReadInterface=nullptr;
             }
             else if (RecognizerInterface *pRecognizerInterface=qobject_cast<RecognizerInterface*>(plugin)) {
                 if("ImageIdentify"==pRecognizerInterface->InterfaceType()){/* 识别图片 */
+                    loadMisarrangement(pluginName,"ImageIdentify");
                     pluginsNum=channelCount;
                 }
                 pDataBaseReadInterface=nullptr;
             }
             else if (ResultsAnalysisInterface *pResultsAnalysisInterface=qobject_cast<ResultsAnalysisInterface*>(plugin)) {
-                if("ResultsAnalysis"==pResultsAnalysisInterface->InterfaceType()){
+                if("ResultsAnalysis"==pResultsAnalysisInterface->InterfaceType()){/* 结果分析 */
+                    loadMisarrangement(pluginName,"ResultsAnalysis");
                     pluginsNum=channelCount;
                 }
                 pResultsAnalysisInterface=nullptr;
             }
             else if (ToUploadDataInterface *pToUploadDataInterface=qobject_cast<ToUploadDataInterface*>(plugin)) {
-                if("FTP"==pToUploadDataInterface->InterfaceType()){
+                if("FTP"==pToUploadDataInterface->InterfaceType()){/* 上传图片 */
+                    loadMisarrangement(pluginName,"FTP");
                     pluginsNum=1;
                 }
                 pToUploadDataInterface=nullptr;
             }
             else if (DataInterchangeInterface *pDataInterchangeInterface=qobject_cast<DataInterchangeInterface*>(plugin)) {
-                if("DataInterchange"==pDataInterchangeInterface->InterfaceType()){
+                if("DataInterchange"==pDataInterchangeInterface->InterfaceType()){/* 数据传输 */
+                    loadMisarrangement(pluginName,"DataInterchange");
                     if(Parameter::Service_Type){
                         pluginsNum=1;
                     }
@@ -168,21 +154,25 @@ void LoadingLibaray::slot_createLibaray()
                 }
                 pDataInterchangeInterface=nullptr;
             }
-            else {
-                if(0==pluginsNum){
-                    emit signal_loadPluginError(fileName);/* 加载插件插件报错 */
+            else if(LicensePlateInterface *pLicensePlateInterface=qobject_cast<LicensePlateInterface*>(plugin)){
+                if("HCNET_PLATE"==pLicensePlateInterface->InterfaceType()){/* 海康车牌 */
+                    loadMisarrangement(pluginName,"HCNET_PLATE");
+                    pluginsNum=channelCount;
                 }
+                pLicensePlateInterface=nullptr;
+            }
+            else {
+                emit signal_loadPluginError(fileName);/* 加载插件插件报错 */
             }
 
-            if(isErr){
-                emit signal_loadPluginError(fileName);/* 加载相同插件多次报错 */
-            }
-
-            for(int i=1;i<=pluginsNum;i++){
-                  QFile::copy(QDir::toNativeSeparators(QString("%1/%2").arg(path).arg(fileName)),QDir::toNativeSeparators(QString("%1/%2_%3").arg(pluginsDir.absolutePath()).arg(i).arg(fileName)));
-            }
             if(pluginsNum>0){
+                for(int i=1;i<=pluginsNum;i++){
+                    QFile::copy(QDir::toNativeSeparators(QString("%1/%2").arg(path).arg(fileName)),QDir::toNativeSeparators(QString("%1/%2_%3").arg(pluginsDir.absolutePath()).arg(i).arg(fileName)));
+                }
                 processingPlugins(pluginsDir);
+            }
+            else {
+                emit signal_loadPluginError(fileName);/* 加载插件插件报错 */
             }
 
             pluginsDir.cdUp();
@@ -270,6 +260,13 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 pToUploadDataInterface->moveToThread(th);
                 th->start();
                 IToUploadDataList.append(QSharedPointer<ToUploadDataInterface>(pToUploadDataInterface));
+            }
+            else if(LicensePlateInterface *pLicensePlateInterface=qobject_cast<LicensePlateInterface*>(plugin)){
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pLicensePlateInterface->moveToThread(th);
+                th->start();
+                ILicensePlateList.append(QSharedPointer<LicensePlateInterface>(pLicensePlateInterface));
             }
             else {
                 pluginLoader.unload();

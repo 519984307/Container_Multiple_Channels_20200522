@@ -9,11 +9,12 @@ DataBaseInsert::DataBaseInsert(QObject *parent)
 DataBaseInsert::~DataBaseInsert()
 {
     //QSqlDatabase::removeDatabase(connectName);
+    qDebug().noquote()<<QString("~DataBaseInsert");
 }
 
 QString DataBaseInsert::InterfaceType()
 {
-    return "SQLITE";
+    return QString("SQLITE_INSERT");
 }
 
 void DataBaseInsert::initDataBaseSlot(const QString &connectName,const QString &user, const QString &pass, const QString &ip,const int &dataBaseType)

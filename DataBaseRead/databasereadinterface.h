@@ -62,7 +62,7 @@ public slots:
     virtual void setDataBaseFilterSlot(const QString &filter)=0;
 };
 
-#define DataBaseReadInterfaceIID "ZBY.ContainerServer.DataBaseReadInterface/1.2.1"
+#define DataBaseReadInterfaceIID "ZBY.ContainerServer.DataBaseReadInterface/1.2.2"
 Q_DECLARE_INTERFACE(DataBaseReadInterface,DataBaseReadInterfaceIID);
 
 #endif // DATABASEREADINTERFACE_H

@@ -105,8 +105,9 @@ void SimulationDialog::slot_whileCap()
     emit signal_logicPutImage(1);
 }
 
-void SimulationDialog::slot_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
+void SimulationDialog::slot_container(const int &channelID, const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
 {
+    Q_UNUSED(channelID);
     ui->con_before_lineEdit->setText(result1);
     ui->iso_before_lineEdit->setText(iso1);
     ui->con_after_lineEdit->setText(result2);

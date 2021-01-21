@@ -8,7 +8,7 @@ ToUploadData::ToUploadData(QObject *parent)
 
 ToUploadData::~ToUploadData()
 {
-    qDebug()<<"~ToUploadData()";
+    qDebug()<<"~ToUploadData";
 }
 
 void ToUploadData::releaseResourcesSlot()
