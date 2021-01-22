@@ -92,19 +92,20 @@ void CaptureUnderlying::readFortune()
         ******************************/
          streamState=true;
     }
-    tmpStream.clear();
+    //tmpStream.clear();
     //qDebug().noquote()<<"Get camera stream:"<<tmpStream.count();
 }
 
 void CaptureUnderlying::disconnected()
 {
-    emit equipmentStateSignal(ID,true);
+    emit equipmentStateSignal(ID,false);
     emit messageSignal(ZBY_LOG("ERROR") ,tr("%1 Camera Disconnected").arg(camerIP));
     qWarning().noquote()<<QString("%1 Camera Disconnected").arg(camerIP);
 }
 
 void CaptureUnderlying::displayError(QAbstractSocket::SocketError socketError)
 {
+    emit equipmentStateSignal(ID,false);
     emit messageSignal(ZBY_LOG("ERROR"), tr("IP:%1 Camera Link Error<errorCode=%2>").arg(camerIP).arg(socketError));
     qWarning().noquote()<<QString("IP:%1 Camera Link Error<errorCode=%2>").arg(camerIP).arg(socketError);
 
@@ -118,6 +119,7 @@ void CaptureUnderlying::displayError(QAbstractSocket::SocketError socketError)
 void CaptureUnderlying::startLinkCamer()
 {
     if(tcpSocket->state()==QAbstractSocket:: UnconnectedState){
+        tcpSocket->close();
         tcpSocket->abort();
         tcpSocket->connectToHost(camerIP,static_cast<quint16>(camerPort));
         pPutCommand->linktoServerSlot(camerIP,23000);
@@ -132,6 +134,9 @@ void CaptureUnderlying::cameraState()
         * @brief:保证流程完成
         ******************************/
         emit signal_pictureStream(ID,nullptr);
+        tcpSocket->close();
+        tcpSocket->abort();
+        startLinkCamer();
     }
 }
 

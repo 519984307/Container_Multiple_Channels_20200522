@@ -19,6 +19,7 @@ PutCommand::~PutCommand()
 void PutCommand::linktoServerSlot(QString addr, quint16 port)
 {
     if(tcpSocket->state()==QAbstractSocket:: UnconnectedState){
+        tcpSocket->close();
         tcpSocket->abort();
         tcpSocket->connectToHost(addr,port);
     }
