@@ -482,6 +482,9 @@
            </item>
            <item row="0" column="0">
             <widget class="QComboBox" name="HCNET_Load_Plugin_comboBox">
+             <property name="currentIndex">
+              <number>1</number>
+             </property>
              <item>
               <property name="text">
                <string>A single instance</string>
@@ -1839,12 +1842,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>44</x>
-     <y>138</y>
+     <x>57</x>
+     <y>162</y>
     </hint>
     <hint type="destinationlabel">
-     <x>384</x>
-     <y>134</y>
+     <x>437</x>
+     <y>166</y>
     </hint>
    </hints>
   </connection>
@@ -1855,12 +1858,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>309</x>
-     <y>137</y>
+     <x>362</x>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
-     <x>42</x>
-     <y>132</y>
+     <x>56</x>
+     <y>162</y>
     </hint>
    </hints>
   </connection>
@@ -1871,8 +1874,8 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>87</x>
-     <y>232</y>
+     <x>89</x>
+     <y>262</y>
     </hint>
     <hint type="destinationlabel">
      <x>318</x>
@@ -1891,8 +1894,8 @@ More than pair of:One service corresponds to all channels, and only the server m
      <y>241</y>
     </hint>
     <hint type="destinationlabel">
-     <x>95</x>
-     <y>237</y>
+     <x>89</x>
+     <y>262</y>
     </hint>
    </hints>
   </connection>
@@ -1935,12 +1938,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>61</x>
-     <y>269</y>
+     <x>74</x>
+     <y>348</y>
     </hint>
     <hint type="destinationlabel">
-     <x>67</x>
-     <y>367</y>
+     <x>80</x>
+     <y>447</y>
     </hint>
    </hints>
   </connection>
@@ -1951,12 +1954,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>36</x>
-     <y>264</y>
+     <x>49</x>
+     <y>348</y>
     </hint>
     <hint type="destinationlabel">
-     <x>50</x>
-     <y>310</y>
+     <x>64</x>
+     <y>395</y>
     </hint>
    </hints>
   </connection>
@@ -1967,12 +1970,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>29</x>
-     <y>259</y>
+     <x>42</x>
+     <y>348</y>
     </hint>
     <hint type="destinationlabel">
-     <x>460</x>
-     <y>306</y>
+     <x>413</x>
+     <y>399</y>
     </hint>
    </hints>
   </connection>
@@ -1983,12 +1986,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>283</x>
-     <y>86</y>
+     <x>296</x>
+     <y>108</y>
     </hint>
     <hint type="destinationlabel">
-     <x>331</x>
-     <y>194</y>
+     <x>321</x>
+     <y>303</y>
     </hint>
    </hints>
   </connection>
@@ -2015,8 +2018,8 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>250</y>
+     <x>113</x>
+     <y>270</y>
     </hint>
     <hint type="destinationlabel">
      <x>298</x>
@@ -2031,8 +2034,8 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>101</x>
-     <y>339</y>
+     <x>114</x>
+     <y>364</y>
     </hint>
     <hint type="destinationlabel">
      <x>300</x>
@@ -2051,8 +2054,8 @@ More than pair of:One service corresponds to all channels, and only the server m
      <y>52</y>
     </hint>
     <hint type="destinationlabel">
-     <x>157</x>
-     <y>85</y>
+     <x>170</x>
+     <y>106</y>
     </hint>
    </hints>
   </connection>
@@ -2083,8 +2086,8 @@ More than pair of:One service corresponds to all channels, and only the server m
      <y>50</y>
     </hint>
     <hint type="destinationlabel">
-     <x>95</x>
-     <y>166</y>
+     <x>109</x>
+     <y>192</y>
     </hint>
    </hints>
   </connection>
@@ -2095,8 +2098,8 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>31</x>
-     <y>36</y>
+     <x>44</x>
+     <y>65</y>
     </hint>
     <hint type="destinationlabel">
      <x>381</x>
@@ -2111,12 +2114,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>29</x>
-     <y>88</y>
+     <x>42</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
-     <x>32</x>
-     <y>142</y>
+     <x>46</x>
+     <y>162</y>
     </hint>
    </hints>
   </connection>
@@ -2127,8 +2130,8 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>60</x>
-     <y>86</y>
+     <x>73</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
      <x>423</x>
@@ -2147,8 +2150,8 @@ More than pair of:One service corresponds to all channels, and only the server m
      <y>192</y>
     </hint>
     <hint type="destinationlabel">
-     <x>53</x>
-     <y>243</y>
+     <x>67</x>
+     <y>262</y>
     </hint>
    </hints>
   </connection>
@@ -2159,8 +2162,8 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>94</x>
-     <y>182</y>
+     <x>107</x>
+     <y>208</y>
     </hint>
     <hint type="destinationlabel">
      <x>469</x>

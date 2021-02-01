@@ -11,7 +11,7 @@ QT       -= gui
 CONFIG += plugin
 
 CONFIG += skip_target_version_ext
-VERSION = 1.3.1.7
+VERSION = 1.3.1.8
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 TARGET = CaptureUnderlying

@@ -11,6 +11,7 @@ void LoadingLibaray::slot_destructorThread()
         thread->quit();
         thread->wait();
     }
+    loadVec.clear();
     qDebug().noquote()<<"~LoadingLibaray";
 }
 
@@ -77,26 +78,38 @@ void LoadingLibaray::slot_createLibaray()
                 pICaptureImages=nullptr;
             }
             else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
-                if(0==Parameter::HCNET_Load_Plugin){
-                    pluginsNum=1;
-                }
-                if(1==Parameter::HCNET_Load_Plugin){
-                    pluginsNum=channelCount*LocalPar::CamerNumber;
-                }
+                if(TYPE){
+                    if(0==Parameter::HCNET_Load_Plugin){
+                        pluginsNum=1;
+                    }
+                    if(1==Parameter::HCNET_Load_Plugin){
+                        pluginsNum=channelCount*LocalPar::CamerNumber;
+                    }
 
-                if(4==Parameter::HCNET_Capture_Type){
-                    if("Underlying" == pIMiddleware->InterfaceType()){
-                        loadMisarrangement(pluginName,"Underlying");
+                    if(4==Parameter::HCNET_Capture_Type){
+                        if("Underlying" == pIMiddleware->InterfaceType()){
+                            loadMisarrangement(pluginName,"Underlying");
+                        }
+                        else {
+                            pluginsNum=0;
+                        }
+                    }
+                    else if ("HCNET" == pIMiddleware->InterfaceType()) {
+                        loadMisarrangement(pluginName,"HCNET");
                     }
                     else {
                         pluginsNum=0;
                     }
                 }
-                else if ("HCNET" == pIMiddleware->InterfaceType()) {
-                    loadMisarrangement(pluginName,"HCNET");
-                }
                 else {
-                    pluginsNum=0;
+                    if("Underlying" == pIMiddleware->InterfaceType()){
+                        pluginsNum=channelCount*LocalPar::CamerNumber;
+                        loadMisarrangement(pluginName,"Underlying");
+                    }
+                    if ("HCNET" == pIMiddleware->InterfaceType()) {
+                        pluginsNum=channelCount*LocalPar::CamerNumber;
+                        loadMisarrangement(pluginName,"HCNET");
+                    }
                 }
                 pIMiddleware=nullptr;
             }
@@ -205,7 +218,6 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 ICaptureImagesLit.append(QSharedPointer<ICaptureImages>(pICaptureImages));
             }
             else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
-
                 QThread *th=new QThread(this);
                 tdList.append(th);
                 pIMiddleware->moveToThread(th);

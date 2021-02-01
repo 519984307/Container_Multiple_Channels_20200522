@@ -12,7 +12,7 @@ TARGET = ZBY_Container
 TEMPLATE = app
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.1.3_2012091107
+VERSION = 1.1.1.4_2101262345
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use

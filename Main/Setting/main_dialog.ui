@@ -655,6 +655,12 @@ As memory increases in multi-page mode, switching pages will display a full snap
      </item>
      <item>
       <widget class="QComboBox" name="comboBox_2">
+       <property name="editable">
+        <bool>false</bool>
+       </property>
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
        <item>
         <property name="text">
          <string>中文</string>

@@ -182,8 +182,9 @@ void LoadParameter::loadChannelParameter(int Channels)
                         p_ChannelParameter->Alias= getJsonValue("Other","Alias",value.toObject()).toString();
                         p_ChannelParameter->Channel_number=getJsonValue("Other","Channel_Number",value.toObject()).toInt();
                         p_ChannelParameter->Plate_Camera_Model=getJsonValue("Other","Plate_Camera_Model",value.toObject()).toInt();
-                        p_ChannelParameter->Container_Camera_Model=getJsonValue("Other","Container_Camera_Model",value.toObject()).toInt();
-
+                        p_ChannelParameter->Container_Camera_Model=getJsonValue("Other","Container_Camera_Model",value.toObject()).toInt();                                                
+                        p_ChannelParameter->HCNET_Load_Plugin=getJsonValue("Other","HCNET_Load_Plugin",value.toObject()).toInt();
+                        p_ChannelParameter->HCNET_Capture_Type=getJsonValue("Other","HCNET_Capture_Type",value.toObject()).toInt();
 
                         /*****************************
                         * @brief:SerialPort

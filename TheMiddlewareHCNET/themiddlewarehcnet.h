@@ -83,9 +83,9 @@ private:/* 参数  */
     QString localAddr;
     long streamID;
 
-    QList<NET_DVR_USER_LOGIN_INFO> logfalList;
-    QMap<int,NET_DVR_USER_LOGIN_INFO> logInfoMap;
-    QMap<int,NET_DVR_SETUPALARM_PARAM> alarmInfoMap;
+    QList<LPNET_DVR_USER_LOGIN_INFO> logfalList;
+    QMap<int,LPNET_DVR_USER_LOGIN_INFO> logInfoMap;
+    QMap<int,LPNET_DVR_USER_LOGIN_INFO> alarmInfoMap;
 
     ///
     /// \brief isSDKInit 动态库初始化状态

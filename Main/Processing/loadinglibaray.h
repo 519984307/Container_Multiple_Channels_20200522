@@ -1,6 +1,8 @@
 ﻿#ifndef LOADINGLIBARAY_H
 #define LOADINGLIBARAY_H
 
+#define TYPE 1
+
 #include <QObject>
 #include <QPluginLoader>
 #include <QCoreApplication>

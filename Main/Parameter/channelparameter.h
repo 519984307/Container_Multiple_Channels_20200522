@@ -32,6 +32,17 @@ public:
     ///
     int Container_Camera_Model;
 
+    ///
+    /// \brief HCNET_Type 海康相机抓拍类型
+    ///
+    int HCNET_Capture_Type;
+
+    ///
+    /// \brief HCNET_Load_Plugin 海康相机插件加载类型
+    ///
+    int HCNET_Load_Plugin;
+
+
     /*****************************
     * @brief:camera
     ******************************/

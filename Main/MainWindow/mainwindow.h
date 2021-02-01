@@ -1,6 +1,8 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#define TYPE 1
+
 #include <QMainWindow>
 #include <QtGlobal>
 #include <QDesktopWidget>

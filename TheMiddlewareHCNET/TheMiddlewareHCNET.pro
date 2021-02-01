@@ -8,7 +8,7 @@ CONFIG += plugin
 TARGET = plug-in_HCNET
 
 CONFIG += skip_target_version_ext
-VERSION = 1.2.1.5
+VERSION = 2.4.1.9
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 CONFIG += c++11

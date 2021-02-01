@@ -53,6 +53,11 @@ private:
 
     quint64 winID;
 
+    ///
+    /// \brief index 上一次TreeWidget选中项
+    ///
+    int index;
+
 private slots:
 
     /*****************************

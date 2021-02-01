@@ -20,7 +20,7 @@
    <string>Simulation</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../ico.qrc">
+   <iconset>
     <normaloff>:/UI_ICO/ICO/ICO.ico</normaloff>:/UI_ICO/ICO/ICO.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
@@ -175,7 +175,10 @@
       <property name="bottomMargin">
        <number>0</number>
       </property>
-      <property name="spacing">
+      <property name="horizontalSpacing">
+       <number>1</number>
+      </property>
+      <property name="verticalSpacing">
        <number>0</number>
       </property>
       <item row="0" column="0" rowspan="2" colspan="2">
@@ -205,37 +208,26 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <spacer name="verticalSpacer">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
+      <item row="4" column="0" rowspan="2">
+       <widget class="QLineEdit" name="box_type_lineEdit">
+        <property name="minimumSize">
          <size>
-          <width>20</width>
-          <height>28</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="2">
-       <widget class="QLineEdit" name="iso_before_lineEdit">
-        <property name="maximumSize">
-         <size>
-          <width>90</width>
-          <height>16777215</height>
+          <width>0</width>
+          <height>33</height>
          </size>
         </property>
         <property name="font">
          <font>
-          <pointsize>10</pointsize>
+          <pointsize>20</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="readOnly">
          <bool>true</bool>
         </property>
         <property name="placeholderText">
-         <string>ISO1</string>
+         <string>logic</string>
         </property>
        </widget>
       </item>
@@ -266,6 +258,74 @@
         </property>
        </widget>
       </item>
+      <item row="5" column="2">
+       <widget class="QLineEdit" name="plate_color_lineEdit">
+        <property name="maximumSize">
+         <size>
+          <width>90</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Color</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>17</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="4" column="2">
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>17</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="iso_before_lineEdit">
+        <property name="maximumSize">
+         <size>
+          <width>90</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="placeholderText">
+         <string>ISO1</string>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="2">
        <spacer name="verticalSpacer_2">
         <property name="orientation">
@@ -273,8 +333,8 @@
         </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>20</width>
-          <height>29</height>
+          <width>17</width>
+          <height>11</height>
          </size>
         </property>
        </spacer>
@@ -297,29 +357,6 @@
         </property>
         <property name="placeholderText">
          <string>ISO2</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" rowspan="2">
-       <widget class="QLineEdit" name="box_type_lineEdit">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>33</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>20</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-         </font>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-        <property name="placeholderText">
-         <string>logic</string>
         </property>
        </widget>
       </item>
@@ -347,40 +384,6 @@
         </property>
         <property name="placeholderText">
          <string>Plate</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <spacer name="verticalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>28</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="5" column="2">
-       <widget class="QLineEdit" name="plate_color_lineEdit">
-        <property name="maximumSize">
-         <size>
-          <width>90</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-        <property name="placeholderText">
-         <string>Color</string>
         </property>
        </widget>
       </item>
@@ -450,9 +453,7 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../ico.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>exitPushButton</sender>

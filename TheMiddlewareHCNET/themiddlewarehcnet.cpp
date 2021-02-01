@@ -91,7 +91,7 @@ bool TheMiddlewareHCNET::initializationParameter()
 
     pDLLplay=new QLibrary("PlayCtrl",this);
     if(pDLLplay->load()){
-        qDebug()<<"pDLLplay=new QLibrary(PlayCtrl,this)";
+        //qDebug()<<"pDLLplay=new QLibrary(PlayCtrl,this)";
         PlayM4_GetPort_L=reinterpret_cast<PlayM4_GetPortFUN>(pDLLplay->resolve("PlayM4_GetPort"));
         PlayM4_OpenStream_L=reinterpret_cast<PlayM4_OpenStreamFUN>(pDLLplay->resolve("PlayM4_OpenStream"));
         PlayM4_Play_L=reinterpret_cast<PlayM4_PlayFUN>(pDLLplay->resolve("PlayM4_Play"));
@@ -204,13 +204,6 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
 {
     bool cap=true;
 
-    if(NET_DVR_RemoteControl_L !=nullptr && !NET_DVR_RemoteControl_L(ID,NET_DVR_CHECK_USER_STATUS,nullptr,4)){
-        emit pThis->signal_pictureStream(ID,nullptr);/* 保证识别流程完成(识别流程需要完整图片编号) */
-        emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
-        qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(NET_DVR_GetLastError_L());
-        return;
-    }
-
     switch (CAMERA_TYPE) {
     case 1:
         {
@@ -219,15 +212,15 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
             if(NET_DVR_CaptureJPEGPicture_NEW_L!=nullptr && NET_DVR_CaptureJPEGPicture_NEW_L(ID,1,&pJpegFile,imgBuff,charLen,dataLen)){
                 QByteArray arrayJpg(imgBuff,IMG_BYTE);
                 emit signal_pictureStream(ID,arrayJpg);
-                emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
-                qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress));
+                emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)));
+                qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
                 arrayJpg.clear();
                 delete  dataLen;
                 dataLen=nullptr;
             }
             else {
                 cap=false;
-                }
+            }
         }
         break;
     case 2:
@@ -239,8 +232,8 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
             if(NET_DVR_ManualSnap_L!=nullptr && NET_DVR_ManualSnap_L(ID,&manualsnap,&result)){
                 QByteArray arrayJpg(imgBuff,IMG_BYTE);
                 emit signal_pictureStream(ID,arrayJpg);
-                emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
-                qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress));
+                emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)));
+                qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
                 arrayJpg.clear();
             }
             else {
@@ -250,22 +243,26 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
         break;
     case 3:
         {
-            if(NET_DVR_ContinuousShoot_L!=nullptr){/* 网络触发抓拍 */
-                int rul=NET_DVR_ContinuousShoot_L(ID,&snapcfg);
-                if(rul){
-                    emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
-                    qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress));
-                }
-                else {
-                    cap=false;
-                }
+            if(NET_DVR_ContinuousShoot_L!=nullptr && NET_DVR_ContinuousShoot_L(ID,&snapcfg)){/* 网络触发抓拍 */
+                emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)));
+                qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+            }
+            else {
+                cap=false;
             }
         }
         break;
     case 4:
         putID=ID;
-        qDebug().noquote()<<QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)<<":"<<playMap.value(putID)<<"[stream]|[camID]"<<putID;
-        qDebug().noquote()<<QString("IP=%1 Start Put Command ").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress));
+        if(NET_DVR_RemoteControl_L !=nullptr && !NET_DVR_RemoteControl_L(ID,NET_DVR_CHECK_USER_STATUS,nullptr,4)){
+            emit pThis->signal_pictureStream(ID,nullptr);/* 保证识别流程完成(识别流程需要完整图片编号) */
+            emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
+            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+        }
+        else {
+            qDebug().noquote()<<QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)<<":"<<playMap.value(putID)<<"[stream]|[camID]"<<putID;
+            qDebug().noquote()<<QString("IP=%1 Start Put Command ").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+        }
         break;
     }
 
@@ -273,8 +270,8 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
         emit pThis->signal_pictureStream(ID,nullptr);/* 保证识别流程完成(识别流程需要完整图片编号) */
         //emit pictureStreamSignal(nullptr,imgNumber,imgTime);/* 保证识别流程完成(识别流程需要完整图片编号) */
         if(NET_DVR_GetLastError_L!=nullptr){
-            emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
-            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+            emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
+            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
         }
     }
 }
@@ -306,18 +303,18 @@ void TheMiddlewareHCNET::openTheVideoSlot(int ID,bool play,quint64 winID)
         if(NET_DVR_RealPlay_V40_L !=nullptr){
             streamID =NET_DVR_RealPlay_V40_L(ID,&struPlayInfo,nullptr,nullptr);
             if(streamID==-1){
-                emit messageSignal(ZBY_LOG("ERROR"), tr("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
-                qWarning().noquote()<<QString("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+                emit messageSignal(ZBY_LOG("ERROR"), tr("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
+                qWarning().noquote()<<QString("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
             }
             else {
-                emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Open Stream Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
-                qInfo().noquote()<<QString("IP=%1 Open Stream Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress));
+                emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Open Stream Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)));
+                qInfo().noquote()<<QString("IP=%1 Open Stream Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
             }
         }
     }
     else {
         if(NET_DVR_StopRealPlay_L !=nullptr && streamID!=-1 && NET_DVR_StopRealPlay_L(streamID)){
-            emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Stop Stream sSucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
+            emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Stop Stream sSucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)));
         }
 //            else {
 //                emit messageSignal(ZBY_LOG("ERROR"), tr("IP=%1 Stop Stream Error<errorCode=%2>").arg(camerIp).arg(NET_DVR_GetLastError_L()));
@@ -365,6 +362,8 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
         if(NET_DVR_Logout_L !=nullptr){
             NET_DVR_Logout_L(userID);
         }
+        delete  logInfoMap[userID];
+        logInfoMap[userID]=nullptr;
     }
     if(NET_DVR_Cleanup_L!=nullptr){
         NET_DVR_Cleanup_L();
@@ -390,57 +389,67 @@ void TheMiddlewareHCNET::initCameraSlot(const QString &localAddr, const QString 
     messageSignal(ZBY_LOG("INFO"),QString("IP=%1 Camera logging in").arg(addr));
     qDebug().noquote()<<QString("IP=%1 Camera logging in").arg(addr);
 
-    NET_DVR_USER_LOGIN_INFO LoginInfo={};
-    strcpy(LoginInfo.sDeviceAddress,addr.toLatin1().data());
-    strcpy(LoginInfo.sUserName,user.toLatin1().data());
-    strcpy(LoginInfo.sPassword,pow.toLatin1().data());
-    LoginInfo.wPort=static_cast<quint16>(port);
-    LoginInfo.bUseAsynLogin=0;
-    LoginInfo.cbLoginResult=TheMiddlewareHCNET::loginResultCallBack;
-    LoginInfo.pUser=&LoginInfo;
+    LPNET_DVR_USER_LOGIN_INFO LoginInfo = new NET_DVR_USER_LOGIN_INFO();
+    strcpy(LoginInfo->sDeviceAddress,addr.toLatin1().data());
+    strcpy(LoginInfo->sUserName,user.toLatin1().data());
+    strcpy(LoginInfo->sPassword,pow.toLatin1().data());
+    LoginInfo->wPort=static_cast<quint16>(port);
+    LoginInfo->bUseAsynLogin=1;
+    LoginInfo->cbLoginResult=TheMiddlewareHCNET::loginResultCallBack;
+    LoginInfo->pUser=LoginInfo;
 
+    /*****************************
+    * @brief:异步登录
+    ******************************/
     if(NET_DVR_Login_V40_L !=nullptr){/* 登录设备 */
-        long ID = NET_DVR_Login_V40_L(&LoginInfo,&DeviceInfo);
-        //Q_UNUSED(ID);
-        if(ID>-1){
-            logInfoMap.insert(ID,LoginInfo);
-            emit signal_setCameraID(ID,addr);
-            emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera login successful<Code=%2>").arg(addr).arg(ID));
-            qInfo().noquote()<<QString("IP=%1 Camera login successful<Code=%2>").arg(addr).arg(ID);
-            if(NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==CAMERA_TYPE){
-                /*****************************
-                * @brief:交通系列，布防。
-                ******************************/
-                NET_DVR_SETUPALARM_PARAM aram={};
-                aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
-                aram.byAlarmInfoType=1;
-                aram.byLevel=1;
-                long lHandle= NET_DVR_SetupAlarmChan_V41_L(ID,&aram);
-                if(lHandle<0 && NET_DVR_GetLastError_L!=nullptr){
-                    emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camera Aram Error<errorCode=%2>").arg(addr).arg(NET_DVR_GetLastError_L()));
-                    qWarning().noquote()<<QString("IP=%1 Camera Aram Error<errorCode=%2>").arg(addr).arg(NET_DVR_GetLastError_L());
-                }
-                else{
-                    emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Aram Success<Code=%2>").arg(addr).arg(lHandle));
-                    qInfo().noquote()<<QString("IP=%1 Camera Aram Success<Code=%2>").arg(addr).arg(lHandle);
-                }
-            }
-            if(4==CAMERA_TYPE){
-                /*****************************
-                * @brief: 登录成功,打开预览-------------------------取图使用
-                ******************************/
-                initVideoStream(ID,true);
-            }
-        }
-        else {
-            logfalList.append(LoginInfo);
-
-            if(NET_DVR_GetLastError_L!=nullptr){
-                emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Login failed <errorCode=%2>").arg(addr).arg(NET_DVR_GetLastError_L()));
-                qWarning().noquote()<<QString("IP=%1 Login failed <errorCode=%2>").arg(addr).arg(NET_DVR_GetLastError_L());
-            }
-        }
+        NET_DVR_Login_V40_L(LoginInfo,&DeviceInfo);
     }
+
+    /*****************************
+    * @brief:同步登录
+    ******************************/
+//    if(NET_DVR_Login_V40_L !=nullptr){/* 登录设备 */
+//        long ID = NET_DVR_Login_V40_L(&LoginInfo,&DeviceInfo);
+//        //Q_UNUSED(ID);
+//        if(ID>-1){
+//            logInfoMap.insert(ID,LoginInfo);
+//            emit signal_setCameraID(ID,addr);
+//            emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera login successful<Code=%2>").arg(addr).arg(ID));
+//            qInfo().noquote()<<QString("IP=%1 Camera login successful<Code=%2>").arg(addr).arg(ID);
+//            if(NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==CAMERA_TYPE){
+//                /*****************************
+//                * @brief:交通系列，布防。
+//                ******************************/
+//                NET_DVR_SETUPALARM_PARAM aram={};
+//                aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
+//                aram.byAlarmInfoType=1;
+//                aram.byLevel=1;
+//                long lHandle= NET_DVR_SetupAlarmChan_V41_L(ID,&aram);
+//                if(lHandle<0 && NET_DVR_GetLastError_L!=nullptr){
+//                    emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camera Aram Error<errorCode=%2>").arg(addr).arg(NET_DVR_GetLastError_L()));
+//                    qWarning().noquote()<<QString("IP=%1 Camera Aram Error<errorCode=%2>").arg(addr).arg(NET_DVR_GetLastError_L());
+//                }
+//                else{
+//                    emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Aram Success<Code=%2>").arg(addr).arg(lHandle));
+//                    qInfo().noquote()<<QString("IP=%1 Camera Aram Success<Code=%2>").arg(addr).arg(lHandle);
+//                }
+//            }
+//            if(4==CAMERA_TYPE){
+//                /*****************************
+//                * @brief: 登录成功,打开预览-------------------------取图使用
+//                ******************************/
+//                initVideoStream(ID,true);
+//            }
+//        }
+//        else {
+//            logfalList.append(LoginInfo);
+
+//            if(NET_DVR_GetLastError_L!=nullptr){
+//                emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Login failed <errorCode=%2>").arg(addr).arg(NET_DVR_GetLastError_L()));
+//                qWarning().noquote()<<QString("IP=%1 Login failed <errorCode=%2>").arg(addr).arg(NET_DVR_GetLastError_L());
+//            }
+//        }
+//    }
 }
 
 int TheMiddlewareHCNET::exceptionMSGCallBack_V31(LONG lCommand, NET_DVR_ALARMER *pAlarmer, char *pAlarmInfo, DWORD dwBufLen, void *pUser)
@@ -599,12 +608,12 @@ void TheMiddlewareHCNET::yv12ToRGB888(int ID,int width,int height,unsigned char*
 
     if ((width < 1) || (height < 1) || (yv12 == nullptr) || (rgb888 == nullptr)) {
         emit signal_pictureStream(ID,nullptr);
-        emit messageSignal(ZBY_LOG("WARNING"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
-        qWarning().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress));
+        emit messageSignal(ZBY_LOG("WARNING"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)));
+        qWarning().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
 
         if(PlayM4_GetLastError_L!=nullptr){
-            emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(PlayM4_GetLastError_L(nPort)));
-            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(PlayM4_GetLastError_L(nPort));
+            emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(PlayM4_GetLastError_L(nPort)));
+            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(PlayM4_GetLastError_L(nPort));
         }
         return;
     }
@@ -675,8 +684,8 @@ void TheMiddlewareHCNET::yv12ToRGB888(int ID,int width,int height,unsigned char*
     image->save(buffer.data(),"jpg");
     buffer->close();
     signal_pictureStream(ID,arrayJpg);
-    messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
-    qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress));
+    messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)));
+    qInfo().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
     arrayJpg.clear();
 }
 
@@ -826,9 +835,10 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
     Q_UNUSED(dwType);
     Q_UNUSED(lHandle);
 
-    NET_DVR_USER_LOGIN_INFO LoginInfo=*((NET_DVR_USER_LOGIN_INFO*)pUser);
+    LPNET_DVR_USER_LOGIN_INFO LoginInfo=reinterpret_cast<LPNET_DVR_USER_LOGIN_INFO>(pUser);
+
     if(pThis->NET_DVR_GetLastError_L()>0){
-        emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camrea Exception<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)).arg(QString::number(pThis->NET_DVR_GetLastError_L())));
+        emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camrea Exception<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo->sDeviceAddress)).arg(QString::number(pThis->NET_DVR_GetLastError_L())));
     }
 }
 
@@ -836,17 +846,76 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
 {
     Q_UNUSED(lpDeviceInfo);
 
-    NET_DVR_USER_LOGIN_INFO LoginInfo=*((NET_DVR_USER_LOGIN_INFO*)pUser);
+    LPNET_DVR_USER_LOGIN_INFO LoginInfo=reinterpret_cast<LPNET_DVR_USER_LOGIN_INFO>(pUser);
 
-    if(dwResult==0){
-        emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camera Login Error<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)).arg(pThis->NET_DVR_GetLastError_L()));
-        qWarning().noquote()<<QString("IP=%1 Camera Login Error<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)).arg(pThis->NET_DVR_GetLastError_L());
-    }
-    if(dwResult==1){
-        emit pThis->messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Login Sucess").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)));
-        emit pThis->signal_setCameraID(lUserID,QString::fromLocal8Bit(LoginInfo.sDeviceAddress));
-        qInfo().noquote()<<QString("IP=%1 Camera Login Sucess").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress));
+    /*****************************
+    * @brief:同步登录
+    ******************************/
+//    if(dwResult==0){
+//        emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camera Login Error<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)).arg(pThis->NET_DVR_GetLastError_L()));
+//        qWarning().noquote()<<QString("IP=%1 Camera Login Error<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)).arg(pThis->NET_DVR_GetLastError_L());
+//    }
+//    if(dwResult==1){
+//        emit pThis->messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Login Sucess").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress)));
+//        emit pThis->signal_setCameraID(lUserID,QString::fromLocal8Bit(LoginInfo.sDeviceAddress));
+//        qInfo().noquote()<<QString("IP=%1 Camera Login Sucess").arg(QString::fromLocal8Bit(LoginInfo.sDeviceAddress));
+//        pThis->logInfoMap.insert(lUserID,LoginInfo);
+//    }
+
+
+    /*****************************
+    * @brief:异步登录
+    ******************************/
+    if(1==dwResult){
+        emit pThis->equipmentStateSignal(lUserID,true);
+
         pThis->logInfoMap.insert(lUserID,LoginInfo);
+        emit pThis->signal_setCameraID(lUserID,LoginInfo->sDeviceAddress);
+        emit pThis->messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera login successful<Code=%2>").arg(LoginInfo->sDeviceAddress).arg(lUserID));
+        qInfo().noquote()<<QString("IP=%1 Camera login successful<Code=%2>").arg(LoginInfo->sDeviceAddress).arg(lUserID);
+        if(pThis->NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==pThis->CAMERA_TYPE){
+            /*****************************
+            * @brief:交通系列，布防。
+            ******************************/
+            NET_DVR_SETUPALARM_PARAM aram={};
+            aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
+            aram.byAlarmInfoType=1;
+            aram.byLevel=1;
+            long lHandle= pThis->NET_DVR_SetupAlarmChan_V41_L(lUserID,&aram);
+            if(lHandle<0 && pThis->NET_DVR_GetLastError_L!=nullptr){
+                emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camera Aram Error<errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(pThis->NET_DVR_GetLastError_L()));
+                qWarning().noquote()<<QString("IP=%1 Camera Aram Error<errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(pThis->NET_DVR_GetLastError_L());
+            }
+            else{
+                emit pThis->messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Aram Success<Code=%2>").arg(LoginInfo->sDeviceAddress).arg(lHandle));
+                qInfo().noquote()<<QString("IP=%1 Camera Aram Success<Code=%2>").arg(LoginInfo->sDeviceAddress).arg(lHandle);
+            }
+        }
+        if(4==pThis->CAMERA_TYPE){
+            /*****************************
+            * @brief: 登录成功,打开预览-------------------------取图使用
+            ******************************/
+            pThis->initVideoStream(lUserID,true);
+        }
+
+        /*****************************
+        * @brief:登录成功，删除失败选项
+        ******************************/
+//        for(int var=0;var<pThis->logfalList.size();var++){
+//            if(pThis->logfalList[var]==LoginInfo)
+//        }
+        int var=pThis->logfalList.indexOf(LoginInfo);
+        pThis->logfalList.removeAt(var);
+    }
+    else {
+        if(-1 ==pThis->logfalList.indexOf(LoginInfo)){
+            pThis->logfalList.append(LoginInfo);
+        }
+
+        if(pThis->NET_DVR_GetLastError_L!=nullptr){
+            emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Login failed <errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(pThis->NET_DVR_GetLastError_L()));
+            qWarning().noquote()<<QString("IP=%1 Login failed <errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(pThis->NET_DVR_GetLastError_L());
+        }
     }
 }
 
@@ -863,14 +932,14 @@ void TheMiddlewareHCNET::initVideoStream(int ID, bool play)
         if(NET_DVR_RealPlay_V40_L !=nullptr){
             streamID =NET_DVR_RealPlay_V40_L(ID,&struPlayInfo,g_RealDataCallBack_V30,nullptr);
             if(streamID==-1){
-                emit messageSignal(ZBY_LOG("ERROR"), tr("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
-                qWarning().noquote()<<QString("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+                emit messageSignal(ZBY_LOG("ERROR"), tr("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
+                qWarning().noquote()<<QString("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
             }
             else {
                 playMap.insert(ID,streamID);
-                qDebug().noquote()<<QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)<<":"<<streamID<<"[stream]|[camerID]"<<ID;
-                emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Open Stream Sucess <Code=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(QString::number(streamID)));
-                qInfo().noquote()<<QString("IP=%1 Open Stream Sucess <Code=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)).arg(QString::number(streamID));
+                qDebug().noquote()<<QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)<<":"<<streamID<<"[stream]|[camerID]"<<ID;
+                emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Open Stream Sucess <Code=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(QString::number(streamID)));
+                qInfo().noquote()<<QString("IP=%1 Open Stream Sucess <Code=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(QString::number(streamID));
             }
         }
     }
@@ -878,7 +947,7 @@ void TheMiddlewareHCNET::initVideoStream(int ID, bool play)
         long stream=playMap.value(ID);
         //playMap.remove(streamID);
         if(NET_DVR_StopRealPlay_L !=nullptr && stream!=-1 && NET_DVR_StopRealPlay_L(stream)){
-            emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Stop Stream sSucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID).sDeviceAddress)));
+            emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Stop Stream sSucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)));
         }
     }
 }
@@ -926,54 +995,64 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
     //for (it_log = logfalList.begin(); it_log != logfalList.end(); ++it_log){
     for(int var=0;var<logfalList.size();++var){
 
-        //qDebug()<<"logfalList:"<<logfalList.size();
+        /*****************************
+        * @brief:异步登录
+        ******************************/
         if(NET_DVR_Login_V40_L !=nullptr){/* 登录设备 */
-            long ID = NET_DVR_Login_V40_L(&logfalList[var],&DeviceInfo);
-            //Q_UNUSED(ID);
-            if(ID>-1){
-                logInfoMap.insert(ID,logfalList.at(var));
-                emit signal_setCameraID(ID,QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress));
-                emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera login successful<Code=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(ID));
-                qInfo().noquote()<<QString("IP=%1 Camera login successful<Code=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(ID);
-                if(NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==CAMERA_TYPE){
-                    /*****************************
-                    * @brief:交通系列，布防。
-                    ******************************/
-                    NET_DVR_SETUPALARM_PARAM aram={};
-                    aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
-                    aram.byAlarmInfoType=1;
-                    aram.byLevel=1;
-                    long lHandle= NET_DVR_SetupAlarmChan_V41_L(ID,&aram);
-                    if(lHandle<0 && NET_DVR_GetLastError_L!=nullptr){
-                        emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camera Aram Error<errorCode=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
-                        qWarning().noquote()<<QString("IP=%1 Camera Aram Error<errorCode=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(NET_DVR_GetLastError_L());
-                    }
-                    else{
-                        emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Aram Success<Code=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(lHandle));
-                        qInfo().noquote()<<QString("IP=%1 Camera Aram Success<Code=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(lHandle);
-                    }
-                }
-                if(4==CAMERA_TYPE){
-                    /*****************************
-                    * @brief: 登录成功,打开预览-------------------------取图使用
-                    ******************************/
-                    //initVideoStream(ID,false);
-                    initVideoStream(ID,true);
-                }
-                //logfalList.erase(it_log);/* 登录成功，删除列表项 */
-                //logfalList.removeOne(logfalList.at(var));
-                logfalList.removeAt(var);
-                var-=1;
-            }
-            else {
-                if(NET_DVR_GetLastError_L!=nullptr){
-                    emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Login failed <errorCode=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
-                    qWarning().noquote()<<QString("IP=%1 Login failed <errorCode=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(NET_DVR_GetLastError_L());
-                }
-            }
+            NET_DVR_Login_V40_L(logfalList[var],&DeviceInfo);
         }
     }
-    //logfalList.clear();
+
+        /*****************************
+        * @brief:同步登录
+        ******************************/
+//        //qDebug()<<"logfalList:"<<logfalList.size();
+//        if(NET_DVR_Login_V40_L !=nullptr){/* 登录设备 */
+//            long ID = NET_DVR_Login_V40_L(&logfalList[var],&DeviceInfo);
+//            //Q_UNUSED(ID);
+//            if(ID>-1){
+//                logInfoMap.insert(ID,logfalList.at(var));
+//                emit signal_setCameraID(ID,QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress));
+//                emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera login successful<Code=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(ID));
+//                qInfo().noquote()<<QString("IP=%1 Camera login successful<Code=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(ID);
+//                if(NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==CAMERA_TYPE){
+//                    /*****************************
+//                    * @brief:交通系列，布防。
+//                    ******************************/
+//                    NET_DVR_SETUPALARM_PARAM aram={};
+//                    aram.dwSize=sizeof (NET_DVR_SETUPALARM_PARAM);
+//                    aram.byAlarmInfoType=1;
+//                    aram.byLevel=1;
+//                    long lHandle= NET_DVR_SetupAlarmChan_V41_L(ID,&aram);
+//                    if(lHandle<0 && NET_DVR_GetLastError_L!=nullptr){
+//                        emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camera Aram Error<errorCode=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
+//                        qWarning().noquote()<<QString("IP=%1 Camera Aram Error<errorCode=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+//                    }
+//                    else{
+//                        emit messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera Aram Success<Code=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(lHandle));
+//                        qInfo().noquote()<<QString("IP=%1 Camera Aram Success<Code=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(lHandle);
+//                    }
+//                }
+//                if(4==CAMERA_TYPE){
+//                    /*****************************
+//                    * @brief: 登录成功,打开预览-------------------------取图使用
+//                    ******************************/
+//                    //initVideoStream(ID,false);
+//                    initVideoStream(ID,true);
+//                }
+//                //logfalList.erase(it_log);/* 登录成功，删除列表项 */
+//                //logfalList.removeOne(logfalList.at(var));
+//                logfalList.removeAt(var);
+//                var-=1;
+//            }
+//            else {
+//                if(NET_DVR_GetLastError_L!=nullptr){
+//                    emit messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Login failed <errorCode=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(NET_DVR_GetLastError_L()));
+//                    qWarning().noquote()<<QString("IP=%1 Login failed <errorCode=%2>").arg(QString::fromLocal8Bit(logfalList.at(var).sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+//                }
+//            }
+//        }
+//    }
 }
 
 void TheMiddlewareHCNET::resizeEventSlot()

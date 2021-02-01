@@ -89,9 +89,9 @@ void Camera_List_Form::on_CameraList_itemClicked(QTreeWidgetItem *item, int colu
     if(item->childCount()==0){
         if(item!=tmpItem && play){
             play=false;
-            emit signal_playStream(winID,play,ItemMap.value(tmpItem->parent()),ui->CameraList->currentIndex().row()+1);
+            emit signal_playStream(winID,play,ItemMap.value(tmpItem->parent()),index);
         }
-        tmpItem=item;
+        tmpItem=item;        
     }
 }
 
@@ -123,4 +123,6 @@ void Camera_List_Form::slot_play(quint64 winID)
             emit signal_playStream(winID,play,ItemMap.value(tmpItem->parent()),ui->CameraList->currentIndex().row()+1);
         }
     }
+
+    index=ui->CameraList->currentIndex().row()+1;
 }

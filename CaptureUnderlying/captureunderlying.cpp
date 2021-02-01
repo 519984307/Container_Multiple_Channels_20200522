@@ -134,6 +134,9 @@ void CaptureUnderlying::cameraState()
         * @brief:保证流程完成
         ******************************/
         emit signal_pictureStream(ID,nullptr);
+        if(pTimerLinkCamer->isActive()){
+            pTimerLinkCamer->stop();
+        }
         tcpSocket->close();
         tcpSocket->abort();
         startLinkCamer();

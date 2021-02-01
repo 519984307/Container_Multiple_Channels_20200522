@@ -471,17 +471,18 @@ void Channel_Data_Form::slot_initEquipment()
     }
 
     signatureList=LocalPar::CamerNameList;
-
-    /*****************************
-    * @brief:相机
-    ******************************/
-    emit signal_initCamer_front(para->LocalAddr,para->FrontCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(0));
-    emit signal_initCamer_before(para->LocalAddr,para->AfterCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(1));
-    emit signal_initCamer_left(para->LocalAddr,para->LeftCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(2));
-    emit signal_initCamer_right(para->LocalAddr,para->RgihtCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(3));
-    emit signal_initCamer_top(para->LocalAddr,para->TopCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(4));
-    emit signal_initCamer_prospects(para->LocalAddr,para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(5));
-    emit signal_initCamer_foreground(para->LocalAddr,para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(6));
+    if(signatureList.size()>=7){
+        /*****************************
+        * @brief:相机
+        ******************************/
+        emit signal_initCamer_front(para->LocalAddr,para->FrontCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(0));
+        emit signal_initCamer_before(para->LocalAddr,para->AfterCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(1));
+        emit signal_initCamer_left(para->LocalAddr,para->LeftCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(2));
+        emit signal_initCamer_right(para->LocalAddr,para->RgihtCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(3));
+        emit signal_initCamer_top(para->LocalAddr,para->TopCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(4));
+        emit signal_initCamer_prospects(para->LocalAddr,para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(5));
+        emit signal_initCamer_foreground(para->LocalAddr,para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(6));
+    }
 
     /*****************************
     * @brief:红外
