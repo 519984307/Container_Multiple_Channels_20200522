@@ -838,6 +838,17 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
     LPNET_DVR_USER_LOGIN_INFO LoginInfo=reinterpret_cast<LPNET_DVR_USER_LOGIN_INFO>(pUser);
 
     if(pThis->NET_DVR_GetLastError_L()>0){
+
+        emit pThis->equipmentStateSignal(lUserID,false);
+        int key =pThis->logInfoMap.key(LoginInfo,-1);
+        if(key!=-1){
+            pThis->logInfoMap.remove(key);
+        }
+
+        if(nullptr != pThis->NET_DVR_Logout_L){
+            pThis-> NET_DVR_Logout_L(lUserID);
+        }
+
         emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Camrea Exception<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo->sDeviceAddress)).arg(QString::number(pThis->NET_DVR_GetLastError_L())));
     }
 }
@@ -862,15 +873,15 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
 //        pThis->logInfoMap.insert(lUserID,LoginInfo);
 //    }
 
+    qDebug().noquote()<<"lUserID::"<<lUserID;
 
     /*****************************
     * @brief:异步登录
     ******************************/
-    if(1==dwResult){
-        emit pThis->equipmentStateSignal(lUserID,true);
-
+    if(1==dwResult){        
         pThis->logInfoMap.insert(lUserID,LoginInfo);
         emit pThis->signal_setCameraID(lUserID,LoginInfo->sDeviceAddress);
+        emit pThis->equipmentStateSignal(lUserID,true);
         emit pThis->messageSignal(ZBY_LOG("INFO"),tr("IP=%1 Camera login successful<Code=%2>").arg(LoginInfo->sDeviceAddress).arg(lUserID));
         qInfo().noquote()<<QString("IP=%1 Camera login successful<Code=%2>").arg(LoginInfo->sDeviceAddress).arg(lUserID);
         if(pThis->NET_DVR_SetupAlarmChan_V41_L!=nullptr && 3==pThis->CAMERA_TYPE){
@@ -916,6 +927,12 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
             emit pThis->messageSignal(ZBY_LOG("ERROR"),tr("IP=%1 Login failed <errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(pThis->NET_DVR_GetLastError_L()));
             qWarning().noquote()<<QString("IP=%1 Login failed <errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(pThis->NET_DVR_GetLastError_L());
         }
+
+//        if(nullptr != pThis->NET_DVR_Logout_L){
+//            pThis-> NET_DVR_Logout_L(lUserID);
+//        }
+
+        qDebug().noquote()<<"logfalList:"<<pThis->logfalList.size();
     }
 }
 

@@ -127,6 +127,18 @@ private:
      ///
      int channelNum;
 
+     ///
+     /// \brief logFile 日志文件
+     ///
+     QFile logFile;
+
+     ///
+     /// \brief lock 写入锁
+     ///
+     QReadWriteLock lock;
+
+     bool start;
+
 private:
 
      ///
@@ -170,6 +182,12 @@ private slots:
       ///
       void realyTheSerialport();
 
+      ///
+      /// \brief logicStateslot 红外状态写入日志
+      /// \param msg
+      ///
+      void logicStateslot(int* state);
+
 public:
 
      ///
@@ -200,6 +218,14 @@ public:
      /// \brief exitWhile 退出循环
      ///
      void exitWhileSlot()Q_DECL_OVERRIDE;
+
+signals:
+
+     ///
+     /// \brief logicStatesignal 红外状态写入日志
+     /// \param msg
+     ///
+     void logicStatesignal(int* state);
 };
 
 #endif // INFRAREDLOGIC_H

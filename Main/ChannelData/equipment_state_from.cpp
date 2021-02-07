@@ -92,10 +92,11 @@ void Equipment_State_From::slot_container(const int &channelID, const int &type,
 
     ui->tableWidget->item(channelID-1,LocalPar::Con1)->setText("");
     ui->tableWidget->item(channelID-1,LocalPar::Con2)->setText("");
-    ui->tableWidget->item(channelID-1,LocalPar::Msg)->setText("");
+    ui->tableWidget->item(channelID-1,LocalPar::Msg)->setText(QDateTime::currentDateTime().toString("yyyy/MM/dd hh:mm:ss"));
 
     ui->tableWidget->item(channelID-1,LocalPar::Con1)->setTextColor(resultCheck1?Qt::blue:Qt::red);
     ui->tableWidget->item(channelID-1,LocalPar::Con2)->setTextColor(resultCheck2?Qt::blue:Qt::red);
+    ui->tableWidget->item(channelID-1,LocalPar::Msg)->setTextColor(Qt::black);
 
     ui->tableWidget->item(channelID-1,LocalPar::Con1)->setText(result1);
     if(result1.isEmpty()){

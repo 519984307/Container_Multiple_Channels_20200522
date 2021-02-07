@@ -14,7 +14,7 @@ TEMPLATE = lib
 CONFIG += plugin
 
 CONFIG += skip_target_version_ext
-VERSION = 1.4.4
+VERSION = 1.5.4
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 DEFINES += INFRAREDLOGIC_LIBRARY

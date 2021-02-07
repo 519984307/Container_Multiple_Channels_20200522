@@ -36,6 +36,8 @@ InfraredLogic::InfraredLogic(QObject *parent)
     _45G1=false;_22G1=false;_22G1_MID_22G1=false;_22G1_22G1=false;_22G1_22G1_STATE=false;
 
     comming=false;isCar=false;isLong=false;isDouble=false;health1=true;health2=true;
+
+    start=true;
 }
 
 InfraredLogic::~InfraredLogic()
@@ -219,6 +221,34 @@ void InfraredLogic::serialLogic(int *status)
 
 void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &portName2,int channelNum)
 {
+    if(start){
+        QDateTime dateTime = QDateTime::currentDateTime();
+        QString stringDateTime = dateTime.toString( "yyyy_MM_dd_hh_mm_ss" );
+        QString path = QStandardPaths::writableLocation( QStandardPaths::AppConfigLocation );
+
+        QString logFolderName =QDir::toNativeSeparators(path + "/" + "logic_log"+"/"+QString::number(channelNum));
+        if( !QDir( logFolderName ).exists() )
+        {
+            QDir().mkpath( logFolderName );
+        }
+
+        logFile.setFileName( QDir::toNativeSeparators(logFolderName+ "/" + stringDateTime + ".log" ));
+
+        // If more 30 files, remove the last.
+        QDir dir( logFolderName );
+        dir.setFilter( QDir::Files );
+        dir.setSorting( QDir::Name );
+        QList<QFileInfo> list = dir.entryInfoList();
+        if ( list.count() > 30 )
+        {
+            QFile file( list.at(0).absoluteFilePath() );
+            file.remove();
+        }
+
+        connect(this,SIGNAL(logicStatesignal(int*)),this,SLOT(logicStateslot(int*)));
+        start=false;
+    }
+
     port1=portName1;
     port2=portName2;
     this->channelNum=channelNum;
@@ -416,6 +446,11 @@ void InfraredLogic::detectionLogicStatus(bool com1, bool com2)
         this->com2=false;
     }
 
+
+    if(compareStatus(status,tmpStatus)){
+        emit logicStatesignal(status);
+    }
+
     if(com1&&com2){
         /* 比对红外状态有没有变化 有变化才做相应处理 */
         if(compareStatus(status,tmpStatus)){
@@ -441,9 +476,9 @@ void InfraredLogic::detectionLogicStatus(bool com1, bool com2)
         }
         if(!com2){
             /*B1*/
-            status[3]= 0;
+            status[2]= 0;
             /*B2*/
-            status[4]= 0;
+            status[3]= 0;
             /*D2*/
             status[5]= 0;
         }
@@ -456,4 +491,22 @@ void InfraredLogic::detectionLogicStatus(bool com1, bool com2)
     }
     emit logicStatusSignal(status);/* 传递状态 */
     memcpy(tmpStatus,status,sizeof (status));
+}
+
+void InfraredLogic::logicStateslot(int *state)
+{
+    lock.lockForWrite();
+
+#ifdef Q_OS_LINUX
+    QString eol = "\n";
+#endif
+#ifdef Q_OS_WIN
+    QString eol = "\r\n";
+#endif
+    logFile.open( QIODevice::Append | QIODevice::Text | QIODevice::Unbuffered );
+    logFile.write(QString("%9: A1[%1] A2[%2] B1[%3] B2[%4] -  D1[%5] D2[%6] D3[%7] D4[%8]").arg(state[0]).arg(state[1]).arg(state[2]).arg(state[3]).arg(state[4]).arg(state[5]).arg(state[6]).arg(state[7]).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")).toUtf8() );
+    logFile.write( eol.toUtf8() );
+    logFile.close();
+
+    lock.unlock();
 }
