@@ -119,6 +119,7 @@ bool System_Setting_Form::loadParameter()
                     ******************************/
                     Parameter::HCNET_Load_Plugin=getJsonValue("Camera","HCNET_Load_Plugin",value.toObject()).toInt();
                     Parameter::HCNET_Capture_Type=getJsonValue("Camera","HCNET_Capture_Type",value.toObject()).toInt();
+                    Parameter::LogicType=getJsonValue("Camera","LogicType",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Upload
@@ -161,6 +162,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::ManyCasesAddress=getJsonValue("Service","ManyCasesAddress",value.toObject()).toString();
                     Parameter::Heartbeat=getJsonValue("Service","Heartbeat",value.toObject()).toInt();
                     Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
+                    Parameter::ShortLink=getJsonValue("Service","ShortLink",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;
@@ -252,6 +254,7 @@ bool System_Setting_Form::writeParameterSlot()
     obj4.insert("ManyCasesAddress",ui->Address_Many_textEdit->toPlainText());
     obj4.insert("Heartbeat",int(ui->Hearbeat_checkBox->isChecked()));
     obj4.insert("Resultting",int(ui->Resulting_checkBox->isChecked()));
+    obj4.insert("ShortLink",int(ui->ShortLink_checkBox->isChecked()));
     jsonChild.insert("Service",QJsonValue(obj4));
 
     /*****************************
@@ -273,6 +276,7 @@ bool System_Setting_Form::writeParameterSlot()
     QJsonObject obj6;
     obj6.insert("HCNET_Capture_Type",ui->HCNET_Capture_Type_comboBox->currentIndex());
     obj6.insert("HCNET_Load_Plugin",ui->HCNET_Load_Plugin_comboBox->currentIndex());
+    obj6.insert("LogicType",ui->LogicType_comboBox->currentIndex());
     jsonChild.insert("Camera",QJsonValue(obj6));
 
 
@@ -318,6 +322,7 @@ void System_Setting_Form::parameterToUi()
     ******************************/
     ui->HCNET_Capture_Type_comboBox->setCurrentIndex(Parameter::HCNET_Capture_Type);
     ui->HCNET_Load_Plugin_comboBox->setCurrentIndex(Parameter::HCNET_Load_Plugin);
+    ui->LogicType_comboBox->setCurrentIndex(Parameter::LogicType);
 
     /*****************************
     * @brief:Recognizer
@@ -343,6 +348,7 @@ void System_Setting_Form::parameterToUi()
     ui->Address_Many_textEdit->setText(Parameter::ManyCasesAddress);
     ui->Hearbeat_checkBox->setChecked(Parameter::Heartbeat);
     ui->Resulting_checkBox->setChecked(Parameter::Resultting);
+    ui->ShortLink_checkBox->setChecked(Parameter::ShortLink);
 
     /*****************************
     * @brief:Upload

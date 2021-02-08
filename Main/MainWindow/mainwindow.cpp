@@ -77,7 +77,7 @@ void MainWindow::initializing()
         if(var<DataProcessingList.size()){
             QStringList addrTmp=tcpAddr.at(var).split(":");
             if(addrTmp.size()==2){
-                DataProcessingList.at(var).data()->signal_InitializationParameter(addrTmp[0],static_cast<quint16>(addrTmp[1].toUInt()),Parameter::Service_Type,Parameter::Heartbeat,Parameter::Service_Model);
+                DataProcessingList.at(var).data()->signal_InitializationParameter(addrTmp[0],static_cast<quint16>(addrTmp[1].toUInt()),Parameter::Service_Type,Parameter::Heartbeat,Parameter::Service_Model,Parameter::ShortLink);
             }
             else {
                 qCritical().noquote()<<"Error setting network service address or port";

@@ -53,6 +53,10 @@ namespace Parameter {
     ///
     extern int HCNET_Load_Plugin;
 
+    ///
+    /// \brief LogicType 红外逻辑类型
+    ///
+    extern int LogicType;
 
     /*****************************
     * @brief:Upload
@@ -203,6 +207,11 @@ namespace Parameter {
     /// \brief Resultting 回应结果
     ///
     extern int Resultting;
+
+    ///
+    /// \brief ShortLink 短链接,主动断开
+    ///
+    extern int ShortLink;
 }
 
 #endif // PARAMETER_H

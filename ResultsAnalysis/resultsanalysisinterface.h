@@ -82,7 +82,7 @@ public slots:
     virtual void resultsAnalysisStateslot(const int& channel, const QString& msg)=0;
 };
 
-#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.3.2.3"
+#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.3.3.3"
 Q_DECLARE_INTERFACE(ResultsAnalysisInterface,ResultsAnalysisInterfaceIID);
 
 #endif // RESULTSANALYSISINTERFACE_H

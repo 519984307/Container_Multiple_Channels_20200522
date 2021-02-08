@@ -263,33 +263,37 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     if(notISO){
         switch (conType) {
         case 0:
-            if(isoTemp.count()==4){
-                isoTemp[0]="22G1";
-            }
+            isoTemp[0]="22G1";
+//            if(isoTemp.count()==4){
+//                isoTemp[0]="22G1";
+//            }
             break;
         case 1:
-            if(isoTemp.count()==6){
-                isoTemp[0]="45G1";
-            }
+            isoTemp[0]="45G1";
+//            if(isoTemp.count()==6){
+//                isoTemp[0]="45G1";
+//            }
             break;
         case 2:
-            if(isoTemp.count()==6){
-                isoTemp[0]="22G1";
-                isoTemp[3]="22G1";
-            }
+            isoTemp[0]="22G1";
+            isoTemp[3]="22G1";
+//            if(isoTemp.count()==6){
+//                isoTemp[0]="22G1";
+//                isoTemp[3]="22G1";
+//            }
             break;
         }
     }
-    else {        
-        if(isoTemp.count()==6){/* 过滤双箱误判成长箱,系统改正双箱 */
-            foreach (auto var, isoTemp) {
-                if(var.startsWith("22")){
-                    conType=2;
-                    break;
-                }                
-            }
-        }
-    }
+//    else {
+//        if(isoTemp.count()==6){/* 过滤双箱误判成长箱,系统改正双箱 */
+//            foreach (auto var, isoTemp) {
+//                if(var.startsWith("22")){
+//                    conType=2;
+//                    break;
+//                }
+//            }
+//        }
+//    }
 
     /* 双箱，分前3个结果和后3个结果独立处理,前箱下标,前箱型下标,后箱下标,后箱型下标,箱号置信度下表,箱型置信度下标 */
     int Cindex1=0;    int Iindex1=0;    int Cindex2=0;    int Iindex2=0;    uint32_t Cprobability=0;    uint32_t Iprobability=0;
@@ -468,7 +472,12 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             }
         }
         if(isoTemp[Iindex1].isEmpty()){
-            isoTemp[Iindex1]="45G1";
+            if(conType==0){
+                isoTemp[Iindex1]="22G1";
+            }
+            if(conType==1){
+                isoTemp[Iindex1]="45G1";
+            }
         }
         emit containerSignal(conType,conTemp[Cindex1],checkConList[Cindex1],isoTemp[Iindex1]);
     }

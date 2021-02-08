@@ -61,8 +61,9 @@ public slots:
     /// \param serviceType 服务类型
     /// \param heartBeat 心跳包 状态
     /// \param serviceMode 服务模式
+    /// \param shortLink 短链接状态
     ///
-    virtual void  InitializationParameterSlot(const QString& address,const quint16& port,const int& serviceType,const bool& heartBeat,const int& serviceMode)=0;
+    virtual void  InitializationParameterSlot(const QString& address,const quint16& port,const int& serviceType,const bool& heartBeat, const int& serviceMode,const int& shortLink)=0;
 
     ///
     /// \brief toSendDataSlot 发送数据
@@ -77,7 +78,7 @@ public slots:
 
 };
 
-#define DataInterchangeInterfaceIID "ZBY.ContainerServer.DataInterchangeInterface/1.1.3"
+#define DataInterchangeInterfaceIID "ZBY.ContainerServer.DataInterchangeInterface/1.2.3"
 Q_DECLARE_INTERFACE(DataInterchangeInterface,DataInterchangeInterfaceIID);
 
 #endif // DATAINTERCHANGEINTERFACE_H

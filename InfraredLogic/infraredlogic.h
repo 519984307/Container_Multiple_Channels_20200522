@@ -33,111 +33,100 @@ private:
     int tmpStatus[8];
 
     /* 红外信号值 */
-    int valueOne,valueTwo;
+    int valueOne,valueTwo;    
 
-     /* 箱型逻辑条件 45尺,22尺,双22尺中间状态,双22尺 */
-     bool _45G1,_22G1,_22G1_MID_22G1,_22G1_22G1;
+    ///
+    /// \brief type 模拟抓拍类型
+    ///
+    int type;
 
-     ///
-     /// \brief _22G1_22G1_STATE 双箱状态
-     ///
-     bool  _22G1_22G1_STATE;
+    /* 来车，车头，长箱，双箱 */
+    bool comming,isCar,isLong,isDouble,health1,health2;
 
-     ///
-     /// \brief health 红外健康状态
-     ///
-     bool health;
+    ///
+    /// \brief carInChannel 车辆在通道里面
+    ///
+    bool carInChannel;
 
-     ///
-     /// \brief type 模拟抓拍类型
-     ///
-     int type;
+    ///
+    /// \brief exit 退出循环状态
+    ///
+    bool exit;
 
+    ///
+    /// \brief doubleFrontPut 双22G1箱前面抓拍状态
+    ///
+    bool doubleFrontPut;
 
-     /* 来车，车头，长箱，双箱 */
-     bool comming,isCar,isLong,isDouble,health1,health2;
+    ///
+    /// \brief pTimerFront 前循环抓拍定时器
+    ///
+    QTimer* pTimerFront;
 
-     ///
-     /// \brief carInChannel 车辆在通道里面
-     ///
-     bool carInChannel;
+    ///
+    /// \brief pTimerAfter 后循环抓拍定时器
+    ///
+    QTimer* pTimerAfter;
 
-     ///
-     /// \brief exit 退出循环状态
-     ///
-     bool exit;
+    ///
+    /// \brief pDetectionTimer 检测红外状态定时器
+    ///
+    QTimer* pDetectionTimer;
 
-     ///
-     /// \brief doubleFrontPut 双22G1箱前面抓拍状态
-     ///
-     bool doubleFrontPut;
+    ///
+    /// \brief pRealySerialportTimer 重连串口定时器
+    ///
+    QTimer* pRealySerialportTimer;
 
-     ///
-     /// \brief pTimerFront 前循环抓拍定时器
-     ///
-     QTimer* pTimerFront;
+    ///
+    /// \brief pSerial1 串口1
+    ///
+    QSerialPort* pSerial1;
 
-     ///
-     /// \brief pTimerAfter 后循环抓拍定时器
-     ///
-     QTimer* pTimerAfter;
+    ///
+    /// \brief pSerial2 串口2
+    ///
+    QSerialPort* pSerial2;
 
-     ///
-     /// \brief pDetectionTimer 检测红外状态定时器
-     ///
-     QTimer* pDetectionTimer;
+    ///
+    /// \brief com1 串口打开状态1
+    ///
+    bool com1;
 
-     ///
-     /// \brief pRealySerialportTimer 重连串口定时器
-     ///
-     QTimer* pRealySerialportTimer;
+    ///
+    /// \brief com2 串口打开状态2
+    ///
+    bool com2;
 
-     ///
-     /// \brief pSerial1 串口1
-     ///
-     QSerialPort* pSerial1;
+    ///
+    /// \brief port1 串口1
+    ///
+    QString port1;
 
-     ///
-     /// \brief pSerial2 串口2
-     ///
-     QSerialPort* pSerial2;
+    ///
+    /// \brief port2 串口2
+    ///
+    QString port2;
 
-     ///
-     /// \brief com1 串口打开状态1
-     ///
-     bool com1;
+    ///
+    /// \brief channelNum 通道号
+    ///
+    int channelNum;
 
-     ///
-     /// \brief com2 串口打开状态2
-     ///
-     bool com2;
+    ///
+    /// \brief logFile 日志文件
+    ///
+    QFile logFile;
 
-     ///
-     /// \brief port1 串口1
-     ///
-     QString port1;
+    ///
+    /// \brief lock 写入锁
+    ///
+    QReadWriteLock lock;
 
-     ///
-     /// \brief port2 串口2
-     ///
-     QString port2;
-
-     ///
-     /// \brief channelNum 通道号
-     ///
-     int channelNum;
-
-     ///
-     /// \brief logFile 日志文件
-     ///
-     QFile logFile;
-
-     ///
-     /// \brief lock 写入锁
-     ///
-     QReadWriteLock lock;
-
-     bool start;
+    ///
+    /// \brief start 启动创建日志文件状态
+    ///
+    bool start;
 
 private:
 
@@ -153,40 +142,40 @@ private:
      /// \brief serialLogicStatus 逻辑判断
      /// \param status 状态
      ///
-      void serialLogic(int *status);
+     void serialLogic(int *status);
 
-      ///
-      /// \brief detectionLogicStatus 检测红外状态
-      ///
-      void detectionLogicStatus(bool com1,bool com2);
+     ///
+     /// \brief detectionLogicStatus 检测红外状态
+     ///
+     void detectionLogicStatus(bool com1,bool com2);
 
 private slots:
 
-      ///
-      /// \brief delayAfterCaptureSlot 延时抓拍后3张图片.
-      ///
-      void delayAfterCaptureSlot();
+     ///
+     /// \brief delayAfterCaptureSlot 延时抓拍后3张图片.
+     ///
+     void delayAfterCaptureSlot();
 
-      ///
-      /// \brief DelayFrontCaptureSlot 延时抓拍前3张图片.
-      ///
-      void delayFrontCaptureSlot();
+     ///
+     /// \brief DelayFrontCaptureSlot 延时抓拍前3张图片.
+     ///
+     void delayFrontCaptureSlot();
 
-      ///
-      /// \brief detectionLogicSlot 定时检测红外状态
-      ///
-      void detectionLogicSlot();
+     ///
+     /// \brief detectionLogicSlot 定时检测红外状态
+     ///
+     void detectionLogicSlot();
 
-      ///
-      /// \brief realyTheSerialport  串口打开失败重复打开
-      ///
-      void realyTheSerialport();
+     ///
+     /// \brief realyTheSerialport  串口打开失败重复打开
+     ///
+     void realyTheSerialport();
 
-      ///
-      /// \brief logicStateslot 红外状态写入日志
-      /// \param msg
-      ///
-      void logicStateslot(int* state);
+     ///
+     /// \brief logicStateslot 红外状态写入日志
+     /// \param msg
+     ///
+     void logicStateslot(int* state);
 
 public:
 

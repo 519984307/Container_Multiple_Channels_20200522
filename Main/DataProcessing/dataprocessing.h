@@ -53,8 +53,9 @@ signals:
     /// \param serviceType 服务类型
     /// \param heartBeat 心跳包 状态
     /// \param serviceMode 服务模式
+    /// \param shortLink 短链接状态
     ///
-    void  signal_InitializationParameter(const QString &address,const quint16 &port,const int &serviceType,bool heartBeat,const int &serviceMode);
+    void  signal_InitializationParameter(const QString &address,const quint16 &port,const int &serviceType,bool heartBeat,const int &serviceMode,const int& shortLink);
 
     ///
     /// \brief signal_toSendData 发送数据-

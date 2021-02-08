@@ -160,25 +160,11 @@ void Channel_Data_Form::clearnPixmap()
     ui->image_label_11->setPalette(palette);
     //ui->image_label_12->setPalette(palette);
 
-//    foreach (QLabel* obj, ui->gridLayout->findChildren<QLabel*>(QString(),Qt::FindChildrenRecursively)) {
-//        if(obj==ui->image_label_7 || obj==ui->image_label_12){
-//            break;
-//        }
-//        obj->setPalette(palette);
-//    }
-
     foreach (QLineEdit* obj, ui->toolBox->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
         obj->setText("");
         obj->clear();
         obj->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
     }
-
-//    ui->con_brfore_lineEdit->clear();
-//    ui->iso_before_lineEdit->clear();
-//    ui->con_after_lineEdit->clear();
-//    ui->iso_after_lineEdit->clear();
-//    ui->box_type_lineEdit->clear();
-//    ui->time_lineEdit->clear();
 }
 
 void Channel_Data_Form::on_SimulationPushButton_clicked()
@@ -488,7 +474,7 @@ void Channel_Data_Form::slot_initEquipment()
     * @brief:红外
     ******************************/
     emit signal_setAlarmMode(para->infraredStatus);
-    emit signal_startSlave(QString("COM%1").arg(para->SerialPortOne),QString("COM%1").arg(para->SerialPortTow),channelID);
+    emit signal_startSlave(QString("COM%1").arg(para->SerialPortOne),QString("COM%1").arg(para->SerialPortTow),para->Channel_number);
 
     /*****************************
     * @brief:数据库插入
@@ -609,8 +595,19 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         ******************************/
         emit signal_channelState(channelID,0);
         break;
+    case 6:
+        /*****************************
+        * @brief:南京三宝红外逻辑
+        ******************************/
+    {
+        emit signal_putCommand(4,imgTimer,signatureList.at(2));
+        emit signal_putCommand(5,imgTimer,signatureList.at(3));
+        emit signal_putCommand(6,imgTimer,signatureList.at(1));
+        this->putCount=6;
+        this->putComType=0;
     }
-
+        break;
+    }
 }
 
 void Channel_Data_Form::slot_serialPortState(bool com1, bool com2)

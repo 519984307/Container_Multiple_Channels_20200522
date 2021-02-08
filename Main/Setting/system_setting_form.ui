@@ -26,9 +26,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-151</y>
         <width>829</width>
-        <height>844</height>
+        <height>836</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -53,7 +53,7 @@
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>7</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
@@ -441,16 +441,6 @@
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_43">
-             <property name="text">
-              <string>Haikang camera capture mode, this option and plug-in mode associated</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="0">
             <widget class="QComboBox" name="HCNET_Capture_Type_comboBox">
              <item>
@@ -480,6 +470,39 @@
              </item>
             </widget>
            </item>
+           <item row="3" column="0">
+            <spacer name="verticalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_42">
+             <property name="text">
+              <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_43">
+             <property name="text">
+              <string>Haikang camera capture mode, this option and plug-in mode associated</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item row="0" column="0">
             <widget class="QComboBox" name="HCNET_Load_Plugin_comboBox">
              <property name="currentIndex">
@@ -497,28 +520,29 @@
              </item>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_42">
+           <item row="2" column="0">
+            <widget class="QComboBox" name="LogicType_comboBox">
+             <item>
+              <property name="text">
+               <string>Standard logic</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Nanjing sanbao</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_49">
              <property name="text">
-              <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
+              <string>Infrared logic setting, different logic infrared trigger sequence is not the same, this option needs to consult the developer!</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
              </property>
             </widget>
-           </item>
-           <item row="2" column="0">
-            <spacer name="verticalSpacer_9">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
            </item>
           </layout>
          </widget>
@@ -941,7 +965,7 @@ More than pair of:One service corresponds to all channels, and only the server m
             </widget>
            </item>
            <item row="9" column="0">
-            <widget class="QCheckBox" name="Disconnected_checkBox">
+            <widget class="QCheckBox" name="ShortLink_checkBox">
              <property name="text">
               <string>Short link</string>
              </property>
@@ -1852,7 +1876,7 @@ More than pair of:One service corresponds to all channels, and only the server m
   <tabstop>Contains_lineEdit</tabstop>
   <tabstop>Eliminate_lineEdit</tabstop>
   <tabstop>comboBox_2</tabstop>
-  <tabstop>Disconnected_checkBox</tabstop>
+  <tabstop>ShortLink_checkBox</tabstop>
   <tabstop>comboBox_3</tabstop>
   <tabstop>Resulting_checkBox</tabstop>
   <tabstop>checkBox_2</tabstop>

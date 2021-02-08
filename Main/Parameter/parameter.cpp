@@ -19,6 +19,7 @@ namespace Parameter {
 
     int HCNET_Capture_Type=0;
     int HCNET_Load_Plugin=0;
+    int LogicType=0;
 
 
     /*****************************
@@ -65,6 +66,7 @@ namespace Parameter {
     int Service_Type= 0;
     int Heartbeat= 0;
     int Resultting= 0;
+    int ShortLink=0;
     QString SingletonAddress= QString("");
     QString ManyCasesAddress= QString("");
 }

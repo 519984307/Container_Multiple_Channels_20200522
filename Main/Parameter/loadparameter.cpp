@@ -65,7 +65,7 @@ bool LoadParameter::loadSysParameter()
                     ******************************/
                     Parameter::HCNET_Load_Plugin=getJsonValue("Camera","HCNET_Load_Plugin",value.toObject()).toInt();
                     Parameter::HCNET_Capture_Type=getJsonValue("Camera","HCNET_Capture_Type",value.toObject()).toInt();
-
+                    Parameter::LogicType=getJsonValue("Camera","LogicType",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Upload

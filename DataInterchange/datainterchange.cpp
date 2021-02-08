@@ -22,10 +22,11 @@ QString DataInterchange::InterfaceType()
     return "DataInterchange";
 }
 
-void DataInterchange::InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode)
+void DataInterchange::InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode,const int& shortLink)
 {
     this->address=address;
     this->port=port;
+    this->shortLink=shortLink;
 
     if(serviceMode==1){/* 服务器模式 */
         pTcpServer=new TcpServer (this);
@@ -56,7 +57,12 @@ void DataInterchange::InitializationParameterSlot(const QString& address, const 
         connect(pTcpClient,QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::error),this,&DataInterchange::displayErrorSlot);
         connect(pTimerLinkState,&QTimer::timeout,this,&DataInterchange::heartbeatSlot);
 
-        startLinkSlot();
+        /*****************************
+        * @brief:不是短链接，服务器启动主动链接
+        ******************************/
+        if(!shortLink){
+            startLinkSlot();
+        }
     }
     emit setHeartbeatPackStateSignal(heartBeat);
 }
@@ -64,6 +70,7 @@ void DataInterchange::InitializationParameterSlot(const QString& address, const 
 void DataInterchange::startLinkSlot()
 {
     if(!isConnected){
+        pTcpClient->close();
         pTcpClient->abort();
         pTcpClient->connectToHost(address,port);
     }
@@ -73,7 +80,7 @@ void DataInterchange::startListenSlot()
 {
     if(!pTcpServer->listen(QHostAddress::AnyIPv4,port)){/* 服务器使用本机地址 */
         emit messageSignal(ZBY_LOG("ERROR"),tr("IP:%1 Listen error<errocCode=%2>").arg(QHostAddress::LocalHost).arg(pTcpServer->errorString()));
-        qCritical().noquote()<<QString("IP:%1 Listen error<errocCode=%2>").arg(address).arg(pTcpServer->errorString());
+        qWarning().noquote()<<QString("IP:%1 Listen error<errocCode=%2>").arg(address).arg(pTcpServer->errorString());
     }
     else {
         emit messageSignal(ZBY_LOG("INFO"),tr("IP:%1 Start listen.").arg(QHostAddress::LocalHost));
@@ -130,7 +137,9 @@ void DataInterchange::displayErrorSlot(QAbstractSocket::SocketError socketError)
 {
     isConnected=false;
 
-    QTimer::singleShot(15000, this, SLOT(startLinkSlot()));
+    if(!shortLink){
+        QTimer::singleShot(15000, this, SLOT(startLinkSlot()));
+    }
     emit messageSignal(ZBY_LOG("ERROR"), tr("IP:%1:%3  link error<errorCode=%2>").arg(address).arg(socketError).arg(port));
     qWarning().noquote()<<QString("IP:%1:%3  link error<errorCode=%2>").arg(address).arg(socketError).arg(port);
 }
@@ -145,8 +154,20 @@ void DataInterchange::toSendDataSlot(int channel_number,const QString &data)
     Q_UNUSED(channel_number);
 
     resultOfMemory=data;
-    if(pTcpClient->isOpen()){
-        pTcpClient->write(data.toLocal8Bit());
+
+    if(!pTcpClient->isOpen()){
+        startLinkSlot();
+        pTcpClient->waitForConnected(3000);
+    }
+    pTcpClient->write(data.toLocal8Bit());
+
+    if(shortLink){
+        /*****************************
+        * @brief:发送完成主动断开
+        ******************************/
+        pTcpClient->waitForBytesWritten();
+        pTcpClient->close();
+        pTcpClient->abort();
     }
 }
 

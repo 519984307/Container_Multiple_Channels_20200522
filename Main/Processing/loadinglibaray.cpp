@@ -114,10 +114,19 @@ void LoadingLibaray::slot_createLibaray()
                 pIMiddleware=nullptr;
             }
             else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
-                if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */                    
-                    pluginsNum=channelCount;
-                    loadMisarrangement(pluginName,"Protector");
+                if(0==Parameter::LogicType){
+                    if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */
+                        pluginsNum=channelCount;
+                        loadMisarrangement(pluginName,"Protector");
+                    }
                 }
+                if(1==Parameter::LogicType){
+                    if("Protector_NJSB" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */
+                        pluginsNum=channelCount;
+                        loadMisarrangement(pluginName,"Protector");
+                    }
+                }
+
                 pInfraredlogicInterface=nullptr;
             }
             else if (DataBaseInsertInterface *pDataBaseInsertInterface=qobject_cast<DataBaseInsertInterface*>(plugin)) {

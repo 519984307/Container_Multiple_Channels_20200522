@@ -28,12 +28,9 @@ InfraredLogic::InfraredLogic(QObject *parent)
     com1=false;
     com2=false;
     exit=false;
-    health=false;
     doubleFrontPut=false;
     channelNum=-1;
     carInChannel=false;
-
-    _45G1=false;_22G1=false;_22G1_MID_22G1=false;_22G1_22G1=false;_22G1_22G1_STATE=false;
 
     comming=false;isCar=false;isLong=false;isDouble=false;health1=true;health2=true;
 
@@ -104,10 +101,10 @@ void InfraredLogic::serialLogic(int *status)
         isDouble=false;
         isCar=false;
 
-        //carInChannel=false;
+        carInChannel=false;
 
         emit logicPutImageSignal(-1);
-        qDebug()<<"1";
+        qDebug()<<"Vehicles entering[1]";
     }
 
     /*****************************
@@ -116,7 +113,7 @@ void InfraredLogic::serialLogic(int *status)
     if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
         comming=false;
         isCar=true;/* 判断是高车头 */
-        qDebug()<<"2";
+        qDebug()<<"High truck head[2]";
     }
 
     /*****************************
@@ -129,7 +126,7 @@ void InfraredLogic::serialLogic(int *status)
         if(health2){
             emit logicPutImageSignal(0);
         }
-        qDebug()<<"3";
+        qDebug()<<"Grab (front, left, right)[3]";
 
         return;
     }
@@ -142,12 +139,12 @@ void InfraredLogic::serialLogic(int *status)
             if(isDouble){
                 /* 如果是双箱就触发双箱标志 */
                 emit logicPutImageSignal(4);
-                qDebug()<<"4-4";
+                qDebug()<<"Grab (double box) (back, left, right)[4-4}]";
             }
             else {
                 /* 如果是长箱就触发长箱标志 */
                 logicPutImageSignal(1);
-                qDebug()<<"4-1";
+                qDebug()<<"Grab (Long Box) (Back, Left, Right)[4-1]";
             }
             carInChannel=true;
         }
@@ -181,41 +178,32 @@ void InfraredLogic::serialLogic(int *status)
         health2=true;
         health1=true;
 
-        qDebug()<<"5";
+        qDebug()<<"Grasp (small box) (front , back, left, right)[5]";
 
         return;
     }
-
-//    /*****************************
-//    * @brief: 高车头，小箱放前，距离较近,(测试)                   7
-//    ******************************/
-//    if(comming && !isCar && status[0]==valueTwo && status[1]==valueOne && status[3]==valueOne && status[4]==valueTwo){
-//        isLong=false;
-//        isCar=false;
-
-//        qDebug()<<"7";
-//    }
 
     /*****************************
     * @brief:                                               8
     ******************************/
     if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
-        //双箱 A2
+        /* 双箱 A2 */
         isDouble=true;
 
-        qDebug()<<"8-1";
+        qDebug()<<"Double box state(A2)[8-1]";
     }
     if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueOne){
-        //双箱 B1
+        /* 双箱 B1 */
         isDouble=true;
 
-        qDebug()<<"8-2";
+        qDebug()<<"Double box state(B1)[8-2]";
     }
     if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
+        /* 双箱 B2 */
         isDouble=false;
         isLong=false;
 
-        qDebug()<<"8-3";
+        qDebug()<<"Double box state(B2)[8-3]";
     }
 }
 
@@ -454,11 +442,7 @@ void InfraredLogic::detectionLogicStatus(bool com1, bool com2)
     if(com1&&com2){
         /* 比对红外状态有没有变化 有变化才做相应处理 */
         if(compareStatus(status,tmpStatus)){
-            if(com1 && com2){
-                serialLogic(status); /* 逻辑判断 */
-            }
-//            emit logicStatusSignal(status);/* 传递状态 */
-//            memcpy(tmpStatus,status,sizeof (status));
+            serialLogic(status); /* 逻辑判断 */
         }
         pRealySerialportTimer->stop();
     }
@@ -504,7 +488,7 @@ void InfraredLogic::logicStateslot(int *state)
     QString eol = "\r\n";
 #endif
     logFile.open( QIODevice::Append | QIODevice::Text | QIODevice::Unbuffered );
-    logFile.write(QString("%9: A1[%1] A2[%2] B1[%3] B2[%4] -  D1[%5] D2[%6] D3[%7] D4[%8]").arg(state[0]).arg(state[1]).arg(state[2]).arg(state[3]).arg(state[4]).arg(state[5]).arg(state[6]).arg(state[7]).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss:zzz")).toUtf8() );
+    logFile.write(QString("%9: A1[%1] A2[%2] B1[%3] B2[%4] -  D1[%5] D2[%6] D3[%7] D4[%8]").arg(state[0]).arg(state[1]).arg(state[2]).arg(state[3]).arg(state[4]).arg(state[5]).arg(state[6]).arg(state[7]).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss zzz::")).toUtf8() );
     logFile.write( eol.toUtf8() );
     logFile.close();
 

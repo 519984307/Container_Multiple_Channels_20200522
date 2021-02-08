@@ -6,6 +6,7 @@ SUBDIRS +=\
 #    PluginProcessing \
 #    TheLicensePlateWTY \
     CaptureUnderlying\
+    InrearedLogic_NJSB \
     LicensePlateHCNET \
     ToUploadData\
     DataInterchange \

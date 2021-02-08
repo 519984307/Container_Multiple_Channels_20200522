@@ -68,6 +68,11 @@ private:
     ///
     QString resultOfMemory;
 
+    ///
+    /// \brief shortLink 短链接状态
+    ///
+    int shortLink;
+
 private slots:
 
     ///
@@ -121,8 +126,9 @@ public:
     /// \param serviceType 服务类型
     /// \param heartBeat 心跳包 状态
     /// \param serviceMode 服务模式
+    /// \param shortLink 短链接状态
     ///
-    void  InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode)Q_DECL_OVERRIDE;
+    void  InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode,const int& shortLink)Q_DECL_OVERRIDE;
 
     ///
     /// \brief toSendDataSlot 发送数据
