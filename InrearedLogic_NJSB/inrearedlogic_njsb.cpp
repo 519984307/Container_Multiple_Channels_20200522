@@ -124,14 +124,14 @@ void InrearedLogic_NJSB::serialLogic(int *status)
     }
 
     if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
-        if(isLong){
+        if(isDouble){
+            emit logicPutImageSignal(4);/* 双箱 */
+        }
+        else if(isLong){
             emit logicPutImageSignal(1);/* 长箱 */
         }
         else {
             emit logicPutImageSignal(6);/* 短箱 */
-        }
-        if(isDouble){
-            emit logicPutImageSignal(4);/* 双箱 */
         }
 
         qDebug()<<"Grab (Back, left, right)[3]";
@@ -182,7 +182,7 @@ void InrearedLogic_NJSB::serialLogic(int *status)
     }
     if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
         /* 双箱 B2 */
-        isDouble=true;
+        isDouble=false;
         isLong=false;
 
         qDebug()<<"Double box state(B2)[8-3]";

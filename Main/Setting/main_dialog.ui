@@ -654,7 +654,7 @@ As memory increases in multi-page mode, switching pages will display a full snap
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox_2">
+      <widget class="QComboBox" name="language_comboBox">
        <property name="editable">
         <bool>false</bool>
        </property>
@@ -796,7 +796,7 @@ As memory increases in multi-page mode, switching pages will display a full snap
   <tabstop>pushButton</tabstop>
   <tabstop>ChannelNumber</tabstop>
   <tabstop>comboBox</tabstop>
-  <tabstop>comboBox_2</tabstop>
+  <tabstop>language_comboBox</tabstop>
  </tabstops>
  <resources>
   <include location="../ico.qrc"/>

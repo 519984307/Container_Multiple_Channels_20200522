@@ -391,7 +391,7 @@ void DataBase_Form::on_pushButton_7_clicked()
         if (file.open(QFile::WriteOnly | QIODevice::Text))
         {
             QTextStream ts(&file);
-            ts.setCodec("GB2312");//这个地方大家自己判断是否用“utf-8”
+            ts.setCodec("GB2312");/* 这个地方大家自己判断是否用“utf-8” */
             ts << textEdit.document()->toPlainText();
             file.close();
             QMessageBox::information(this,"excel data","Data export successful");
@@ -399,7 +399,6 @@ void DataBase_Form::on_pushButton_7_clicked()
             QMessageBox::warning(this,"excel data","Data export failed");
         }
     }
-
 }
 
 void DataBase_Form::on_tableView_clicked(const QModelIndex &index)

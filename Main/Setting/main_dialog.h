@@ -1,4 +1,4 @@
-#ifndef MAIN_DIALOG_H
+﻿#ifndef MAIN_DIALOG_H
 #define MAIN_DIALOG_H
 
 #include <QDialog>
@@ -15,6 +15,11 @@ class Main_Dialog : public QDialog
 public:
     explicit Main_Dialog(QWidget *parent = nullptr);
     ~Main_Dialog();
+
+    ///
+    /// \brief language 预设值
+    ///
+    int language;
 
 private:
 

@@ -200,7 +200,7 @@ void InfraredLogic::serialLogic(int *status)
     }
     if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
         /* 双箱 B2 */
-        isDouble=true;
+        isDouble=false;
         isLong=false;
 
         qDebug()<<"Double box state(B2)[8-3]";

@@ -104,6 +104,8 @@ bool LoadParameter::loadSysParameter()
                     Parameter::ManyCasesAddress=getJsonValue("Service","ManyCasesAddress",value.toObject()).toString();
                     Parameter::Heartbeat=getJsonValue("Service","Heartbeat",value.toObject()).toInt();
                     Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
+                    Parameter::ShortLink=getJsonValue("Service","ShortLink",value.toObject()).toInt();
+
 
                     configurationFolder.close();
                     return true;

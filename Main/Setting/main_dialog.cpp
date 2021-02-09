@@ -75,6 +75,7 @@ void Main_Dialog::startTheTimer()
 void Main_Dialog::on_pushButton_clicked()
 {
     Parameter::ChannelNumber=ui->ChannelNumber->value();
+    language=ui->language_comboBox->currentIndex();
     this->done(10);
 }
 
@@ -92,7 +93,7 @@ void Main_Dialog::on_ChannelNumber_valueChanged(int arg1)
     }
     else {
         ui->comboBox->setCurrentIndex(1);
-    }
+    }    
 }
 
 void Main_Dialog::theCountdown()
