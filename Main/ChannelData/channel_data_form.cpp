@@ -597,7 +597,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         break;
     case 6:
         /*****************************
-        * @brief:南京三宝红外逻辑
+        * @brief:南京三宝短箱红外逻辑
         ******************************/
     {
         emit signal_putCommand(4,imgTimer,signatureList.at(2));

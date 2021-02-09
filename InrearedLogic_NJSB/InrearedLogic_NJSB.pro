@@ -15,7 +15,7 @@ DEFINES += INREAREDLOGIC_NJSB_LIBRARY
 CONFIG += plugin
 
 CONFIG += skip_target_version_ext
-VERSION = 1.4.5
+VERSION = 1.4.5.1
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use
