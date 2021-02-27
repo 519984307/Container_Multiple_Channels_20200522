@@ -51,10 +51,10 @@ private slots:
     void on_AutomaticStart_stateChanged(int arg1);
 
     void on_ChannelNumber_valueChanged(int arg1);
+
     void on_HCNET_Capture_Type_comboBox_currentIndexChanged(int index);
 
-
-    void on_HCNET_Load_Plugin_comboBox_currentIndexChanged(int index);
+    void on_Camera_Load_Plugin_comboBox_currentIndexChanged(int index);
 
 signals:
 

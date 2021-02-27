@@ -59,7 +59,12 @@ void MainWindow::initializing()
     /*****************************
     * @brief:设置海康相机抓拍模式
     ******************************/
-    emit signal_setCaptureType(Parameter::HCNET_Capture_Type+1);
+    emit signal_setCameraCaptureType(Parameter::HCNET_Capture_Type+1,0);
+
+    /*****************************
+    * @brief:设置海康车牌抓拍模式（车牌抓拍默认3，回调函数默认1）
+    ******************************/
+    emit signal_setPlateCaptureType(3,1);
 
     /*****************************
     * @brief:登录相机
@@ -611,33 +616,35 @@ void MainWindow::bindingPlugin()
     }
 
     if(pLoadinglibaray->IMiddlewareLit.size()>=1){
-        if(TYPE){
-            int ind=0;
-            for (int var = 0; var < pLoadinglibaray->ICaptureImagesLit.size(); ++var) {
-                if(1==pLoadinglibaray->IMiddlewareLit.size()){
-                    ind=0;
-                }
-                else {
-                    ind=var;
-                }
-                connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_initCamera,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::initCameraSlot);
-                connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_openTheVideo,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::openTheVideoSlot);
-                connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_simulationCapture,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::simulationCaptureSlot);
-                connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_liftingElectronicRailing,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::liftingElectronicRailingSlot);
-                connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_transparentTransmission485,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::transparentTransmission485Slot);
-
-                connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::signal_pictureStream,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_pictureStream);
-                connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::signal_setCameraID,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_setCameraID);
-                connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::equipmentStateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_equipmentState);
-                connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::resultsTheLicensePlateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_resultsTheLicensePlate);
-
-                connect(this,&MainWindow::signal_setCaptureType,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::setCaptureTypeSlot);
-                connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::releaseResourcesSlot,Qt::BlockingQueuedConnection);
-
-            }
+        int ind=0;
+        int cout=pLoadinglibaray->IMiddlewareLit.size();
+        /*****************************
+        * @brief:海康车牌增加一个库
+        ******************************/
+        if(0==Parameter::PlateType){
+            cout-=1;
         }
-        else {
-            Pointer_Parameter->ParmeterMap.count();
+
+        for (int var = 0; var < pLoadinglibaray->ICaptureImagesLit.size(); ++var) {
+            if(1==cout){
+                ind=0;
+            }
+            else {
+                ind=var;
+            }
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_initCamera,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::initCameraSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_openTheVideo,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::openTheVideoSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_simulationCapture,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::simulationCaptureSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_liftingElectronicRailing,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::liftingElectronicRailingSlot);
+            connect(pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::signal_transparentTransmission485,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::transparentTransmission485Slot);
+
+            connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::signal_pictureStream,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_pictureStream);
+            connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::signal_setCameraID,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_setCameraID);
+            connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::equipmentStateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_equipmentState);
+            connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::resultsTheLicensePlateSignal,pLoadinglibaray->ICaptureImagesLit.at(var).data(),&ICaptureImages::slot_resultsTheLicensePlate);
+
+            connect(this,&MainWindow::signal_setCameraCaptureType,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::setCaptureTypeSlot);
+            connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::releaseResourcesSlot,Qt::BlockingQueuedConnection);
         }
     }
 
@@ -711,14 +718,44 @@ void MainWindow::bindingPlugin()
 
     if(pLoadinglibaray->IToUploadDataList.size()>=1){
         for (int var = 1; var <= Channel_Data_From_Map.size(); ++var) {
-            connect(Channel_Data_From_Map.value(var),SIGNAL(signal_uploadData( QString)),pLoadinglibaray->IToUploadDataList.at(0).data(),SLOT(uploadDataSlot(QString)));
+            connect(Channel_Data_From_Map.value(var),&Channel_Data_Form::signal_uploadData,pLoadinglibaray->IToUploadDataList.at(0).data(),&ToUploadDataInterface::uploadDataSlot);
         }
         connect(this,&MainWindow::signal_InitializationFTPParameter,pLoadinglibaray->IToUploadDataList.at(0).data(),&ToUploadDataInterface::InitializationParameterSlot);
         connect(pLoadinglibaray->IToUploadDataList.at(0).data(),&ToUploadDataInterface::theProgressOfSignal,this,&MainWindow::slot_theFtpProgress);
         connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IToUploadDataList.at(0).data(),&ToUploadDataInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
     }
 
-    if(pLoadinglibaray->ILicensePlateList.size()>=1){
+    if(pLoadinglibaray->ILicensePlateList.size()>=1 && Channel_Data_From_Map.size()==pLoadinglibaray->ILicensePlateList.size()){
+        int var = pLoadinglibaray->IMiddlewareLit.size()-1;
+        for (int ind = 1; ind <= Channel_Data_From_Map.count(); ++ind) {
+            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_initCamer_plate,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::initCamerSlot);
+            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_simulationCapture,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::simulationCaptureSlot);
+            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_liftingElectronicRailing,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::liftingElectronicRailingSlot);
+            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_transparentTransmission485,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::transparentTransmission485Slot);
+            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_openTheVideo,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::openTheVideoSlot);
 
+            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::imageFlowSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_imageFlow);
+            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::theVideoStreamSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_theVideoStream);
+            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::resultsTheLicensePlateSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_resultsTheLicensePlate);
+            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::equipmentStateSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_camerState);
+
+            /*****************************
+            * @brief:和海康插件对接
+            ******************************/
+
+            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_initCamera,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::initCameraSlot);
+            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_openTheVideo,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::openTheVideoSlot);
+            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_simulationCapture,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::simulationCaptureSlot);
+            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_liftingElectronicRailing,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::liftingElectronicRailingSlot);
+            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_transparentTransmission485,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::transparentTransmission485Slot);
+
+            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::signal_pictureStream,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_pictureStream);
+            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::signal_setCameraID,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_setCameraID);
+            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::equipmentStateSignal,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_equipmentState);
+            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::resultsTheLicensePlateSignal,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_resultsTheLicensePlate);
+
+            connect(this,&MainWindow::signal_setPlateCaptureType,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::setCaptureTypeSlot);
+            connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
+        }
     }
 }

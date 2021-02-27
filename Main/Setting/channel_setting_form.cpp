@@ -97,7 +97,7 @@ bool Channel_Setting_Form::loadParameter()
                     p_ChannelParameter->Plate_Camera_Model=getJsonValue("Other","Plate_Camera_Model",value.toObject()).toInt();
                     p_ChannelParameter->Container_Camera_Model=getJsonValue("Other","Container_Camera_Model",value.toObject()).toInt();                   
                     p_ChannelParameter->HCNET_Capture_Type=getJsonValue("Other","HCNET_Capture_Type",value.toObject()).toInt();
-                    p_ChannelParameter->HCNET_Load_Plugin=getJsonValue("Other","HCNET_Load_Plugin",value.toObject()).toInt();
+                    p_ChannelParameter->Camera_Load_Plugin=getJsonValue("Other","Camera_Load_Plugin",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:SerialPort
@@ -187,7 +187,7 @@ bool Channel_Setting_Form::writeParameterSlot()
     jsonObj3.insert(QString("Plate_Camera_Model"),ui->Plate_Camera_Model->currentIndex());
     jsonObj3.insert(QString("Container_Camera_Model"),ui->Container_Camera_Model->currentIndex());
     jsonObj3.insert(QString("HCNET_Capture_Type"),ui->HCNET_Capture_Type_comboBox_2->currentIndex());
-    jsonObj3.insert(QString("HCNET_Load_Plugin"),ui->HCNET_Load_Plugin_comboBox_2->currentIndex());
+    jsonObj3.insert(QString("Camera_Load_Plugin"),ui->Camera_Load_Plugin_comboBox_2->currentIndex());
     jsonChild.insert("Other",QJsonValue(jsonObj3));
 
     jsonObjRoot.insert(QString("Channel"),QJsonValue(jsonChild));
@@ -245,7 +245,7 @@ void Channel_Setting_Form::parameterToUi()
     ui->Plate_Camera_Model->setCurrentIndex(p_ChannelParameter->Plate_Camera_Model);
     ui->Container_Camera_Model->setCurrentIndex(p_ChannelParameter->Container_Camera_Model);    
     ui->HCNET_Capture_Type_comboBox_2->setCurrentIndex(p_ChannelParameter->HCNET_Capture_Type);
-    ui->HCNET_Load_Plugin_comboBox_2->setCurrentIndex(p_ChannelParameter->HCNET_Load_Plugin);
+    ui->Camera_Load_Plugin_comboBox_2->setCurrentIndex(p_ChannelParameter->Camera_Load_Plugin);
 }
 
 QVariant Channel_Setting_Form::getJsonValue(const QString &child, const QString &key, QJsonObject obj)

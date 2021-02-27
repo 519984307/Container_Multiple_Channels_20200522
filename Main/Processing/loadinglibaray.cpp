@@ -78,39 +78,37 @@ void LoadingLibaray::slot_createLibaray()
                 pICaptureImages=nullptr;
             }
             else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
-                if(TYPE){
-                    if(0==Parameter::HCNET_Load_Plugin){
-                        pluginsNum=1;
-                    }
-                    if(1==Parameter::HCNET_Load_Plugin){
-                        pluginsNum=channelCount*LocalPar::CamerNumber;
-                    }
+                if(0==Parameter::Camera_Load_Plugin){
+                    pluginsNum=1;
+                }
+                if(1==Parameter::Camera_Load_Plugin){
+                    pluginsNum=channelCount*LocalPar::CamerNumber;
+                }
 
-                    if(4==Parameter::HCNET_Capture_Type){
-                        if("Underlying" == pIMiddleware->InterfaceType()){
-                            loadMisarrangement(pluginName,"Underlying");
-                        }
-                        else {
-                            pluginsNum=0;
-                        }
-                    }
-                    else if ("HCNET" == pIMiddleware->InterfaceType()) {
-                        loadMisarrangement(pluginName,"HCNET");
+                if(4==Parameter::HCNET_Capture_Type){
+                    if("Underlying" == pIMiddleware->InterfaceType()){
+                        loadMisarrangement(pluginName,"Underlying");
                     }
                     else {
                         pluginsNum=0;
                     }
                 }
                 else {
-                    if("Underlying" == pIMiddleware->InterfaceType()){
-                        pluginsNum=channelCount*LocalPar::CamerNumber;
-                        loadMisarrangement(pluginName,"Underlying");
-                    }
                     if ("HCNET" == pIMiddleware->InterfaceType()) {
-                        pluginsNum=channelCount*LocalPar::CamerNumber;
                         loadMisarrangement(pluginName,"HCNET");
                     }
+                    else {
+                        pluginsNum=0;
+                    }
                 }
+
+                /*****************************
+                * @brief:所有海康车牌使用一个库
+                ******************************/
+                if(0==Parameter::PlateType && "HCNET" == pIMiddleware->InterfaceType()){
+                    pluginsNum+=1;
+                }
+
                 pIMiddleware=nullptr;
             }
             else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
@@ -194,7 +192,7 @@ void LoadingLibaray::slot_createLibaray()
                 processingPlugins(pluginsDir);
             }
             else {
-                emit signal_loadPluginError(fileName);/* 加载插件插件报错 */
+                //emit signal_loadPluginError(fileName);/* 加载插件插件报错 */
             }
 
             pluginsDir.cdUp();

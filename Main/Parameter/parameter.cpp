@@ -14,13 +14,13 @@ namespace Parameter {
     int channel_id_placeholder=2;
 
     /*****************************
-    * @brief:Camera
+    * @brief:Model
     ******************************/
 
     int HCNET_Capture_Type=0;
-    int HCNET_Load_Plugin=0;
+    int Camera_Load_Plugin=0;
     int LogicType=0;
-
+    int PlateType=0;
 
     /*****************************
     * @brief:Upload

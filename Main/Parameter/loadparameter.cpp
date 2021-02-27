@@ -59,13 +59,13 @@ bool LoadParameter::loadSysParameter()
                     Parameter::camera_id_placeholder=getJsonValue("Channel","camera_id_placeholder",value.toObject()).toInt();
                     Parameter::channel_id_placeholder=getJsonValue("Channel","channel_id_placeholder",value.toObject()).toInt();
 
-
                     /*****************************
-                    * @brief:Camera
+                    * @brief:Model
                     ******************************/
-                    Parameter::HCNET_Load_Plugin=getJsonValue("Camera","HCNET_Load_Plugin",value.toObject()).toInt();
-                    Parameter::HCNET_Capture_Type=getJsonValue("Camera","HCNET_Capture_Type",value.toObject()).toInt();
-                    Parameter::LogicType=getJsonValue("Camera","LogicType",value.toObject()).toInt();
+                    Parameter::Camera_Load_Plugin=getJsonValue("Model","Camera_Load_Plugin",value.toObject()).toInt();
+                    Parameter::HCNET_Capture_Type=getJsonValue("Model","HCNET_Capture_Type",value.toObject()).toInt();
+                    Parameter::LogicType=getJsonValue("Model","LogicType",value.toObject()).toInt();
+                    Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Upload
@@ -185,7 +185,7 @@ void LoadParameter::loadChannelParameter(int Channels)
                         p_ChannelParameter->Channel_number=getJsonValue("Other","Channel_Number",value.toObject()).toInt();
                         p_ChannelParameter->Plate_Camera_Model=getJsonValue("Other","Plate_Camera_Model",value.toObject()).toInt();
                         p_ChannelParameter->Container_Camera_Model=getJsonValue("Other","Container_Camera_Model",value.toObject()).toInt();                                                
-                        p_ChannelParameter->HCNET_Load_Plugin=getJsonValue("Other","HCNET_Load_Plugin",value.toObject()).toInt();
+                        p_ChannelParameter->Camera_Load_Plugin=getJsonValue("Other","Camera_Load_Plugin",value.toObject()).toInt();
                         p_ChannelParameter->HCNET_Capture_Type=getJsonValue("Other","HCNET_Capture_Type",value.toObject()).toInt();
 
                         /*****************************

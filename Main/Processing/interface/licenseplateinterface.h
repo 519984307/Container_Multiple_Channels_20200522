@@ -150,7 +150,7 @@ public slots:
     /// \brief slot_resultsTheLicensePlate 车牌结果
     /// \param plate
     ///
-    virtual void slot_resultsTheLicensePlate(int ID,const QString &plate,const QString &color,const QString &time,QByteArray arrImg)=0;
+    virtual void slot_resultsTheLicensePlate(int ID,const QString &plate,const QString &color,const QString &time,const QByteArray &arrImg)=0;
 
     ///
     /// \brief slot_equipmentState  设备额在线状态
@@ -159,7 +159,7 @@ public slots:
     virtual void slot_equipmentState(int ID, bool state)=0;
 };
 
-#define LicensePlateInterfaceIID "ZBY.ContainerServer.LicensePlateInterface/2.2.0"
+#define LicensePlateInterfaceIID "ZBY.ContainerServer.LicensePlateInterface/2.2.0.1"
 Q_DECLARE_INTERFACE(LicensePlateInterface,LicensePlateInterfaceIID);
 
 #endif // LICENSEPLATEINTERFACE_H

@@ -26,7 +26,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-151</y>
+        <y>0</y>
         <width>829</width>
         <height>836</height>
        </rect>
@@ -53,7 +53,7 @@
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
@@ -430,9 +430,9 @@
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="Camera">
+         <widget class="QWidget" name="Model">
           <attribute name="title">
-           <string>Camera</string>
+           <string>Model</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_16">
            <property name="horizontalSpacing">
@@ -441,6 +441,33 @@
            <property name="verticalSpacing">
             <number>20</number>
            </property>
+           <item row="0" column="0">
+            <widget class="QComboBox" name="Camera_Load_Plugin_comboBox">
+             <property name="currentIndex">
+              <number>1</number>
+             </property>
+             <item>
+              <property name="text">
+               <string>A single instance</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Multiple instances</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_42">
+             <property name="text">
+              <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="0">
             <widget class="QComboBox" name="HCNET_Capture_Type_comboBox">
              <item>
@@ -470,29 +497,6 @@
              </item>
             </widget>
            </item>
-           <item row="3" column="0">
-            <spacer name="verticalSpacer_9">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_42">
-             <property name="text">
-              <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="1">
             <widget class="QLabel" name="label_43">
              <property name="text">
@@ -501,23 +505,6 @@
              <property name="wordWrap">
               <bool>true</bool>
              </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QComboBox" name="HCNET_Load_Plugin_comboBox">
-             <property name="currentIndex">
-              <number>1</number>
-             </property>
-             <item>
-              <property name="text">
-               <string>A single instance</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Multiple instances</string>
-              </property>
-             </item>
             </widget>
            </item>
            <item row="2" column="0">
@@ -543,6 +530,49 @@
               <bool>true</bool>
              </property>
             </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QComboBox" name="PlateType_comboBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <item>
+              <property name="text">
+               <string>hikvision</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>WTY</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="label_50">
+             <property name="text">
+              <string>Type of license plate camera</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <spacer name="verticalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>

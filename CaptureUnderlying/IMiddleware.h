@@ -72,8 +72,9 @@ public slots:
     ///
     /// \brief setCaptureTypeSlot 设置抓拍模式
     /// \param capType
+    /// \param msgCallBackInd
     ///
-    virtual void setCaptureTypeSlot(const int &capType)=0;
+    virtual void setCaptureTypeSlot(const int &capType, const int &msgCallBackInd)=0;
 
     ///
     /// \brief openTheVideoSlot 打开视频/关闭视频
@@ -103,7 +104,7 @@ public slots:
     virtual void releaseResourcesSlot()=0;
 };
 
-#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/1.3.1.8"
+#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/2.4.2.11"
 Q_DECLARE_INTERFACE(IMiddleware,IMiddlewareIID);
 
 #endif // IMIDDLEWARE_H

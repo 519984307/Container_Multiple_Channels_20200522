@@ -1,8 +1,6 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#define TYPE 1
-
 #include <QMainWindow>
 #include <QtGlobal>
 #include <QDesktopWidget>
@@ -458,11 +456,18 @@ signals:
     void signal_InitializationFTPParameter(const QString &user,const QString &pass,const QString &path,const QString &host,const int &port=21);
 
     ///
-    /// \brief signal_setCaptureType 设置海康相机抓拍模式
+    /// \brief signal_setCameraCaptureType 设置相机抓拍模式
     /// \param capType
+    /// \param msgCallBackInd
     ///
-    void signal_setCaptureType(const int &capType);
+    void signal_setCameraCaptureType(const int &capType, const int &msgCallBackInd);
 
+    ///
+    /// \brief signal_setPlateCaptureType 设置车牌抓拍模式
+    /// \param capType
+    /// \param msgCallBackInd
+    ///
+    void signal_setPlateCaptureType(const int &capType, const int &msgCallBackInd);
 };
 
 #endif // MAINWINDOW_H

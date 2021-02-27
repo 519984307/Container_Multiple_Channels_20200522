@@ -157,9 +157,10 @@ void CaptureUnderlying::initCameraSlot(const QString &localAddr, const QString &
     startLinkCamer();
 }
 
-void CaptureUnderlying::setCaptureTypeSlot(const int &capType)
+void CaptureUnderlying::setCaptureTypeSlot(const int &capType,const int &msgCallBackInd)
 {
     Q_UNUSED(capType);
+    Q_UNUSED(msgCallBackInd);
 }
 
 void CaptureUnderlying::openTheVideoSlot(int ID, bool play, quint64 winID)

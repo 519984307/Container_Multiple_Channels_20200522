@@ -115,11 +115,12 @@ bool System_Setting_Form::loadParameter()
                     Parameter::channel_id_placeholder=getJsonValue("Channel","channel_id_placeholder",value.toObject()).toInt();
 
                     /*****************************
-                    * @brief:Camera
+                    * @brief:Model
                     ******************************/
-                    Parameter::HCNET_Load_Plugin=getJsonValue("Camera","HCNET_Load_Plugin",value.toObject()).toInt();
-                    Parameter::HCNET_Capture_Type=getJsonValue("Camera","HCNET_Capture_Type",value.toObject()).toInt();
-                    Parameter::LogicType=getJsonValue("Camera","LogicType",value.toObject()).toInt();
+                    Parameter::Camera_Load_Plugin=getJsonValue("Model","Camera_Load_Plugin",value.toObject()).toInt();
+                    Parameter::HCNET_Capture_Type=getJsonValue("Model","HCNET_Capture_Type",value.toObject()).toInt();
+                    Parameter::LogicType=getJsonValue("Model","LogicType",value.toObject()).toInt();
+                    Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Upload
@@ -271,14 +272,14 @@ bool System_Setting_Form::writeParameterSlot()
     jsonChild.insert("Other",QJsonValue(obj5));
 
     /*****************************
-    * @brief:Camera
+    * @brief:Model
     ******************************/
     QJsonObject obj6;
     obj6.insert("HCNET_Capture_Type",ui->HCNET_Capture_Type_comboBox->currentIndex());
-    obj6.insert("HCNET_Load_Plugin",ui->HCNET_Load_Plugin_comboBox->currentIndex());
+    obj6.insert("Camera_Load_Plugin",ui->Camera_Load_Plugin_comboBox->currentIndex());
     obj6.insert("LogicType",ui->LogicType_comboBox->currentIndex());
-    jsonChild.insert("Camera",QJsonValue(obj6));
-
+    obj6.insert("PlateType",ui->PlateType_comboBox->currentIndex());
+    jsonChild.insert("Model",QJsonValue(obj6));
 
     jsonRoot.insert("Main",QJsonValue(jsonChild));
     jsonDoc.setObject(jsonRoot);
@@ -318,11 +319,12 @@ void System_Setting_Form::parameterToUi()
     ui->channel_id_lineEdit->setText(QString::number(Parameter::channel_id_placeholder));
 
     /*****************************
-    * @brief:Camera
+    * @brief:Model
     ******************************/
     ui->HCNET_Capture_Type_comboBox->setCurrentIndex(Parameter::HCNET_Capture_Type);
-    ui->HCNET_Load_Plugin_comboBox->setCurrentIndex(Parameter::HCNET_Load_Plugin);
+    ui->Camera_Load_Plugin_comboBox->setCurrentIndex(Parameter::Camera_Load_Plugin);
     ui->LogicType_comboBox->setCurrentIndex(Parameter::LogicType);
+    ui->PlateType_comboBox->setCurrentIndex(Parameter::PlateType);
 
     /*****************************
     * @brief:Recognizer
@@ -506,27 +508,27 @@ void System_Setting_Form::on_ChannelNumber_valueChanged(int arg1)
 void System_Setting_Form::on_HCNET_Capture_Type_comboBox_currentIndexChanged(int index)
 {
     if(3==index){
-        ui->HCNET_Load_Plugin_comboBox->setCurrentIndex(1);
+        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
     }
     if(2==index){
-        ui->HCNET_Load_Plugin_comboBox->setCurrentIndex(0);
+        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(0);
     }
     if(4==index){
-        ui->HCNET_Load_Plugin_comboBox->setCurrentIndex(1);
+        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
     }
 }
 
-void System_Setting_Form::on_HCNET_Load_Plugin_comboBox_currentIndexChanged(int index)
+void System_Setting_Form::on_Camera_Load_Plugin_comboBox_currentIndexChanged(int index)
 {
     Q_UNUSED(index);
 
     if(3==ui->HCNET_Capture_Type_comboBox->currentIndex()){
-        ui->HCNET_Load_Plugin_comboBox->setCurrentIndex(1);
+        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
     }
     if(2==ui->HCNET_Capture_Type_comboBox->currentIndex()){
-        ui->HCNET_Load_Plugin_comboBox->setCurrentIndex(0);
+        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(0);
     }
     if(4==ui->HCNET_Capture_Type_comboBox->currentIndex()){
-        ui->HCNET_Load_Plugin_comboBox->setCurrentIndex(1);
+        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
     }
 }

@@ -38,9 +38,9 @@ public:
     int HCNET_Capture_Type;
 
     ///
-    /// \brief HCNET_Load_Plugin 海康相机插件加载类型
+    /// \brief Camera_Load_Plugin 相机插件加载类型
     ///
-    int HCNET_Load_Plugin;
+    int Camera_Load_Plugin;
 
 
     /*****************************

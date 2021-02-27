@@ -123,7 +123,7 @@ void CaptureImages::slot_setCameraID(int ID, QString cameraIP)
     }
 }
 
-void CaptureImages::slot_resultsTheLicensePlate(int ID, const QString &plate, const QString &color, const QString &time, QByteArray arrImg)
+void CaptureImages::slot_resultsTheLicensePlate(int ID, const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
 {
     Q_UNUSED(ID);
     Q_UNUSED(plate);

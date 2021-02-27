@@ -1,11 +1,8 @@
 ﻿#ifndef THEMIDDLEWAREHCNET_H
 #define THEMIDDLEWAREHCNET_H
 
-#define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
-
 #define IMG_BYTE 1920*1080+1
 //#define CAMERA_TYPE 0
-
 
 #include "TheMiddlewareHCNET_global.h"
 #include "IMiddleware.h"
@@ -65,9 +62,10 @@ public:
 
     ///
     /// \brief setCaptureTypeSlot 设置抓拍模式
-    /// \param capType
+    /// \param capType 相机抓拍模式
+    /// \param msgCallBackInd 数据回调函数ID
     ///
-    void setCaptureTypeSlot(const int &capType)Q_DECL_OVERRIDE;
+    void setCaptureTypeSlot(const int &capType, const int &msgCallBackInd)Q_DECL_OVERRIDE;
 
     ///
     /// \brief initializationParameter 初始化参数
@@ -157,13 +155,18 @@ private:/* 参数  */
     ///
     int CAMERA_TYPE;
 
+    ///
+    /// \brief MSGID 回调函数ID
+    ///
+    int MSGID;
+
 private:
 
     /*****************************
     * @brief:交通系列（2CD9），抓图需要布防
     ******************************/
     ///
-    /// \brief exceptionMSGCallBack_V31  注册回调函数，接收设备报警消息等。
+    /// \brief MSGCallBack  注册回调函数，接收设备报警消息等。
     /// \param lCommand 上传的消息类型，不同的报警信息对应不同的类型，通过类型区分是什么报警信息，详见“Remarks”中列表
     /// \param pAlarmer 报警设备信息，包括设备序列号、IP地址、登录IUserID句柄等
     /// \param pAlarmInfo 报警信息，通过lCommand值判断pAlarmer对应的结构体，详见“Remarks”中列表
@@ -171,7 +174,7 @@ private:
     /// \param pUser 用户数据
     /// \return TRUE表示成功，FALSE表示失败。接口返回失败请调用NET_DVR_GetLastError获取错误码，通过错误码判断出错原因
     ///
-    static BOOL CALLBACK exceptionMSGCallBack_V31(LONG lCommand,NET_DVR_ALARMER *pAlarmer,char *pAlarmInfo,DWORD dwBufLen,void *pUser);
+    static BOOL CALLBACK MSGCallBack(LONG lCommand,NET_DVR_ALARMER *pAlarmer,char *pAlarmInfo,DWORD dwBufLen,void *pUser);
 
     typedef   LONG (*NET_DVR_SetupAlarmChan_V41FUN)(LONG lUserID,LPNET_DVR_SETUPALARM_PARAM   lpSetupParam);
     ///
@@ -185,11 +188,11 @@ private:
     ///
     NET_DVR_CloseAlarmChan_V30FUN NET_DVR_CloseAlarmChan_V30_L;
 
-    typedef   BOOL (*NET_DVR_SetDVRMessageCallBack_V31FUN)(MSGCallBack_V31 fMessageCallBack,void *pUser);
+    typedef   BOOL (*NET_DVR_SetDVRMessageCallBack_V50FUN)(int iIndex,MSGCallBack_V31 fMessageCallBack,void *pUser);
     ///
-    /// \brief NET_DVR_SetDVRMessageCallBack_V31_L 设置回调函数
+    /// \brief NET_DVR_SetDVRMessageCallBack_V50_L 设置回调函数
     ///
-    NET_DVR_SetDVRMessageCallBack_V31FUN NET_DVR_SetDVRMessageCallBack_V31_L;
+    NET_DVR_SetDVRMessageCallBack_V50FUN NET_DVR_SetDVRMessageCallBack_V50_L;
 
     typedef   BOOL (*NET_DVR_ContinuousShootFUN)(LONG lUserID,LPNET_DVR_SNAPCFG    lpInter);
     ///
@@ -398,8 +401,6 @@ private:
 
 
 private:
-
-
 
     ///
     /// \brief exceptionCallBack_V30 接收异常、重连等消息的窗口句柄或回调函数。

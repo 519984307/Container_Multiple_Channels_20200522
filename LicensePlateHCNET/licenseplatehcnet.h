@@ -102,7 +102,7 @@ public:
     /// \brief slot_resultsTheLicensePlate 车牌结果
     /// \param plate
     ///
-    void slot_resultsTheLicensePlate(int ID,const QString &plate,const QString &color,const QString &time,QByteArray arrImg)Q_DECL_OVERRIDE;
+    void slot_resultsTheLicensePlate(int ID, const QString &plate, const QString &color, const QString &time, const QByteArray &arrImg)Q_DECL_OVERRIDE;
 
     ///
     /// \brief slot_equipmentState  设备额在线状态

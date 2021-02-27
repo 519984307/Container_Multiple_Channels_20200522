@@ -40,7 +40,7 @@ namespace Parameter {
     extern QString ImagePath;
 
     /*****************************
-    * @brief:Camera
+    * @brief:Model
     ******************************/
 
     ///
@@ -49,14 +49,19 @@ namespace Parameter {
     extern int HCNET_Capture_Type;
 
     ///
-    /// \brief HCNET_Load_Plugin 海康相机插件加载类型
+    /// \brief Camera_Load_Plugin 相机插件加载类型
     ///
-    extern int HCNET_Load_Plugin;
+    extern int Camera_Load_Plugin;
 
     ///
     /// \brief LogicType 红外逻辑类型
     ///
     extern int LogicType;
+
+    ///
+    /// \brief PlateType 车牌相机类型
+    ///
+    extern int PlateType;
 
     /*****************************
     * @brief:Upload

@@ -171,8 +171,8 @@ void Channel_Data_Form::on_SimulationPushButton_clicked()
 {
     QPointer<SimulationDialog> Dlg=new SimulationDialog(channelNumber,this);
     connect(Dlg,&SimulationDialog::signal_logicPutImage,this,&Channel_Data_Form::slot_logicPutImage);
-    connect(this,&Channel_Data_Form::signal_container,Dlg,&SimulationDialog::slot_container);
     connect(Dlg,&SimulationDialog::sendResultSignal,this,&Channel_Data_Form::sendResultSignal);
+    connect(this,&Channel_Data_Form::signal_container,Dlg,&SimulationDialog::slot_container);
     Dlg->exec();
 }
 
@@ -359,6 +359,42 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
         ui->image_label_6->setPalette(palette);
     }
         break;
+    case 7:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_7->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_7->setPalette(palette);
+    }
+        break;
+    case 8:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_8->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_8->setPalette(palette);
+    }
+        break;
+    case 9:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_9->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_9->setPalette(palette);
+    }
+        break;
+    case 10:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_10->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_10->setPalette(palette);
+    }
+        break;
+    case 11:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_11->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_11->setPalette(palette);
+    }
+        break;
+    case 12:
+    {
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_12->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_12->setPalette(palette);
+    }
+        break;
     }
 }
 
@@ -468,7 +504,8 @@ void Channel_Data_Form::slot_initEquipment()
         emit signal_initCamer_top(para->LocalAddr,para->TopCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(4));
         emit signal_initCamer_prospects(para->LocalAddr,para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(5));
         emit signal_initCamer_foreground(para->LocalAddr,para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(6));
-    }
+        emit signal_initCamer_plate(para->LocalAddr,para->PlateCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(7));
+    }    
 
     /*****************************
     * @brief:红外
@@ -496,14 +533,24 @@ void Channel_Data_Form::slot_bindingCameraID(QString cameraAddr, int ID)
 void Channel_Data_Form::slot_captureTest(int channelID, int cameraID)
 {
     if(this->channelID==channelID){
-        emit signal_putCommand(0,"",signatureList.at(cameraID-1));
+        if("Plate"==signatureList.at(cameraID-1)){
+            emit signal_simulationCapture();
+        }
+        else {
+            emit signal_putCommand(0,"",signatureList.at(cameraID-1));
+        }
     }
 }
 
 void Channel_Data_Form::slot_playStream(quint64 winID, bool play, int channelID, int cameraID)
 {
     if(this->channelID==channelID){
-        emit signal_playStream(winID,play,signatureList.at(cameraID-1));
+        if("Plate"==signatureList.at(cameraID-1)){
+            emit signal_openTheVideo(play,winID);
+        }
+        else {
+            emit signal_playStream(winID,play,signatureList.at(cameraID-1));
+        }
     }
 }
 
@@ -683,4 +730,37 @@ void Channel_Data_Form::slot_container(const int &type, const QString &result1, 
         break;
     }
     ui->box_type_lineEdit->setText(logic);
+}
+
+void Channel_Data_Form::slot_imageFlow(const QByteArray &jpgStream)
+{    
+    QScopedPointer<QPixmap> pix(new QPixmap());
+    if(jpgStream!=nullptr){
+        pix->loadFromData(jpgStream);
+        QPalette palette;
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_7->setPalette(palette);
+        streamMap.insert(7,jpgStream);
+    }
+}
+
+void Channel_Data_Form::slot_theVideoStream(const QByteArray &arrImg)
+{
+
+}
+
+void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
+{
+    ui->plate_lineEdit->setText(plate);
+    ui->plate_time_lineEdit->setText(time);
+    ui->plate_color_lineEdit->setText(color);
+
+    QScopedPointer<QPixmap> pix(new QPixmap());
+    if(arrImg!=nullptr){
+        pix->loadFromData(arrImg);
+        QPalette palette;
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_7->setPalette(palette);
+        streamMap.insert(7,arrImg);
+    }
 }

@@ -143,6 +143,11 @@ signals:
     ///
     void signal_setDeviceStatus(int channel, int equipment,bool state);
 
+
+    /*****************************
+    * @brief:箱号相机
+    ******************************/
+
     void signal_initCamer_front(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
     void signal_initCamer_before(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
     void signal_initCamer_left(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
@@ -169,10 +174,6 @@ signals:
     /// \param state
     ///
     void signal_channelState(const int &channelID,const int &state);
-
-    /*****************************
-    * @brief:箱号相机
-    ******************************/
 
     ///
     /// \brief signal_enlargeImages 放大图片
@@ -326,13 +327,38 @@ signals:
     /// \brief signal_uploadData 上传数据
     /// \param data 数据
     ///
-   void signal_uploadData(const QString &data);
+    void signal_uploadData(const QString &data);
 
-public slots:
 
     /*****************************
-    * @brief:箱号相机
+    * @brief:车牌相机
     ******************************/
+    void signal_initCamer_plate(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
+
+    ///
+    /// \brief signal_simulationCapture 模拟抓拍
+    ///
+    void signal_simulationCapture();
+
+    ///
+    /// \brief signal_liftingElectronicRailing 抬杆/落杆
+    ///
+    void signal_liftingElectronicRailing(bool gate);
+
+    ///
+    /// \brief signal_transparentTransmission485 透明传输
+    /// \param dmsg
+    ///
+    void signal_transparentTransmission485(const QString &msg);
+
+    ///
+    /// \brief signal_openTheVideo 打开视频/关闭视频
+    /// \param play
+    ///
+    void signal_openTheVideo(bool play,quint64 winID=0);
+
+
+public slots:
 
     ///
     /// \brief camerStateSingals 相机连接状态信号
@@ -345,6 +371,11 @@ public slots:
     /// \brief slot_initEquipment 初始化相机
     ///
     void slot_initEquipment();
+
+
+    /*****************************
+    * @brief:箱号相机
+    ******************************/
 
     ///
     /// \brief slot_bindingCameraID 绑定相机地址和ID号
@@ -381,46 +412,70 @@ public slots:
     ///
     void slot_logicStatus(int* status);
 
-     ///
-     /// \brief slot_logicPutImage 逻辑抓图
-     /// \param putCommnd 逻辑
-     ///
-     void slot_logicPutImage(const int &putCommnd);
+    ///
+    /// \brief slot_logicPutImage 逻辑抓图
+    /// \param putCommnd 逻辑
+    ///
+    void slot_logicPutImage(const int &putCommnd);
 
-     ///
-     /// \brief slot_serialPortState 串口状态
-     /// \param com1
-     /// \param com2
-     ///
-     void slot_serialPortState(bool com1,bool com2);
+    ///
+    /// \brief slot_serialPortState 串口状态
+    /// \param com1
+    /// \param com2
+    ///
+    void slot_serialPortState(bool com1,bool com2);
 
 
-     /*****************************
+    /*****************************
     * @brief:识别器
     ******************************/
 
-     ///
-     /// \brief slot_recognitionResult 识别结果
-     /// \param result 识别结果
-     /// \param imgName 图片名
-     /// \param imgNumber 图片编号
-     ///
-     void slot_recognitionResult(const QString &result,const QString& imgName,const int& imgNumber);
+    ///
+    /// \brief slot_recognitionResult 识别结果
+    /// \param result 识别结果
+    /// \param imgName 图片名
+    /// \param imgNumber 图片编号
+    ///
+    void slot_recognitionResult(const QString &result,const QString& imgName,const int& imgNumber);
 
-     /*****************************
+    /*****************************
     * @brief:结果分析
     ******************************/
 
-     ///
-     /// \brief slot_container 箱号分析结果
-     /// \param result1 前箱
-     /// \param resultCheck1 校验
-     /// \param iso1 箱型
-     /// \param result2 后箱
-     /// \param resultCheck2 校验
-     /// \param iso2 箱型
-     ///
-     void slot_container(const int& type,const QString &result1,const int& resultCheck1,const QString &iso1,const QString &result2="",const int& resultCheck2=0,const QString &iso2="");
+    ///
+    /// \brief slot_container 箱号分析结果
+    /// \param result1 前箱
+    /// \param resultCheck1 校验
+    /// \param iso1 箱型
+    /// \param result2 后箱
+    /// \param resultCheck2 校验
+    /// \param iso2 箱型
+    ///
+    void slot_container(const int& type,const QString &result1,const int& resultCheck1,const QString &iso1,const QString &result2="",const int& resultCheck2=0,const QString &iso2="");
+
+
+    /*****************************
+    * @brief:车牌
+    ******************************/
+
+    ///
+    /// \brief slot_imageFlow 图片流
+    /// \param img
+    ///
+    void slot_imageFlow(const QByteArray &jpgStream);
+
+    ///
+    /// \brief slot_theVideoStream 视频流
+    /// \param stream
+    ///
+    void slot_theVideoStream(const QByteArray &arrImg);
+
+    ///
+    /// \brief slot_resultsTheLicensePlate 车牌结果
+    /// \param plate
+    ///
+    void slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time, const QByteArray &arrImg);
+
 };
 
 #endif // CHANNEL_DATA_FORM_H

@@ -139,7 +139,7 @@ public:
     /// \brief setCaptureTypeSlot 设置抓拍模式
     /// \param capType
     ///
-    void setCaptureTypeSlot(const int &capType)Q_DECL_OVERRIDE;
+    void setCaptureTypeSlot(const int &capType,const int &msgCallBackInd)Q_DECL_OVERRIDE;
 
     ///
     /// \brief openTheVideoSlot 打开视频/关闭视频

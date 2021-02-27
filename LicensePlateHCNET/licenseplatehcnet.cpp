@@ -99,7 +99,7 @@ void LicensePlateHCNET::slot_setCameraID(int ID, QString cameraIP)
     }
 }
 
-void LicensePlateHCNET::slot_resultsTheLicensePlate(int ID, const QString &plate, const QString &color, const QString &time, QByteArray arrImg)
+void LicensePlateHCNET::slot_resultsTheLicensePlate(int ID, const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
 {
     if(camerID==ID){
         emit resultsTheLicensePlateSignal(plate,color,time,arrImg);

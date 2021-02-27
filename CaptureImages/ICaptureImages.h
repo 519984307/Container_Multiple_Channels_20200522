@@ -119,7 +119,7 @@ public slots:
     /// \brief slot_resultsTheLicensePlate 车牌结果
     /// \param plate
     ///
-    virtual void slot_resultsTheLicensePlate(int ID,const QString &plate,const QString &color,const QString &time,QByteArray arrImg)=0;
+    virtual void slot_resultsTheLicensePlate(int ID,const QString &plate,const QString &color,const QString &time,const QByteArray &arrImg)=0;
 
     ///
     /// \brief slot_equipmentState  设备额在线状态
@@ -169,7 +169,7 @@ signals:
     void signal_bindingCameraID(QString cameraAddr,int ID);
 };
 
-#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.2.2"
+#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.2.3"
 Q_DECLARE_INTERFACE(ICaptureImages,ICaptureImagesIID);
 
 #endif // ICAPTUREIMAGES_H
