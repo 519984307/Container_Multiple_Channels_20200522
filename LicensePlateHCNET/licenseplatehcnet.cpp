@@ -7,7 +7,7 @@ LicensePlateHCNET::LicensePlateHCNET(QObject *parent)
     signature="";
     imgNumber=-1;
     camerID=-1;
-    put=false;
+    put=true;
     imgGetTimeOut=new QTimer(this);
     imgGetTimeOut->setSingleShot(true);
     connect(imgGetTimeOut,SIGNAL(timeout()),this,SLOT(slot_imgGetTimeOut()));
@@ -36,7 +36,14 @@ void LicensePlateHCNET::slot_imgGetTimeOut()
 
 void LicensePlateHCNET::simulationCaptureSlot()
 {
-    emit signal_simulationCapture(camerID);
+    if(this->signature.isEmpty() || this->signature==signature){
+        if(camerID==-1){
+            emit imageFlowSignal(nullptr);
+        }
+        else {
+            emit signal_simulationCapture(camerID);
+        }
+    }
 }
 
 void LicensePlateHCNET::liftingElectronicRailingSlot(bool gate)
@@ -51,7 +58,9 @@ void LicensePlateHCNET::transparentTransmission485Slot(const QString &msg)
 
 void LicensePlateHCNET::openTheVideoSlot(bool play,quint64 winID)
 {
-    emit signal_openTheVideo(camerID,play,winID);
+    if(this->signature.isEmpty() || this->signature==signature){
+         emit signal_openTheVideo(camerID,play,winID);
+    }
 }
 
 void LicensePlateHCNET::releaseResourcesSlot()
@@ -81,7 +90,7 @@ void LicensePlateHCNET::slot_pictureStream(int ID, QByteArray arrJpg)
         emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(camerIP));
         qInfo().noquote()<<signature<<":Put Command Sucess";
 
-        put=false;
+        //put=false;
         imgGetTimeOut->stop();
 
         if(nullptr==arrJpg){

@@ -15,10 +15,6 @@ public:
     ///
     virtual QString InterfaceType()=0;
 
-    /*****************************
-    * @brief:标准车牌接口
-    ******************************/
-
 signals:
 
     ///
@@ -91,11 +87,6 @@ public slots:
     ///
     virtual void releaseResourcesSlot()=0;
 
-
-    /*****************************
-    * @brief:海康相机其它实现
-    ******************************/
-
 signals:
 
     ///
@@ -118,7 +109,6 @@ signals:
     /// \brief signal_simulationCapture 模拟抓拍
     ///
     void signal_simulationCapture(int ID);
-
 
     ///
     /// \brief signal_liftingElectronicRailing 抬杆/落杆
@@ -159,7 +149,7 @@ public slots:
     virtual void slot_equipmentState(int ID, bool state)=0;
 };
 
-#define LicensePlateInterfaceIID "ZBY.ContainerServer.LicensePlateInterface/2.2.0.1"
+#define LicensePlateInterfaceIID "ZBY.ContainerServer.LicensePlateInterface/2.2.2.1"
 Q_DECLARE_INTERFACE(LicensePlateInterface,LicensePlateInterfaceIID);
 
 #endif // LICENSEPLATEINTERFACE_H

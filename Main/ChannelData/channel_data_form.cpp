@@ -741,12 +741,17 @@ void Channel_Data_Form::slot_imageFlow(const QByteArray &jpgStream)
         palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
         ui->image_label_7->setPalette(palette);
         streamMap.insert(7,jpgStream);
+
+        /*****************************
+        * @brief:调试页面显示车牌你图片
+        ******************************/
+        emit signal_pictureStream(jpgStream,0,"");
     }
 }
 
 void Channel_Data_Form::slot_theVideoStream(const QByteArray &arrImg)
 {
-
+    Q_UNUSED(arrImg);
 }
 
 void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
@@ -755,12 +760,13 @@ void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const 
     ui->plate_time_lineEdit->setText(time);
     ui->plate_color_lineEdit->setText(color);
 
-    QScopedPointer<QPixmap> pix(new QPixmap());
-    if(arrImg!=nullptr){
-        pix->loadFromData(arrImg);
-        QPalette palette;
-        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
-        ui->image_label_7->setPalette(palette);
-        streamMap.insert(7,arrImg);
-    }
+//    QScopedPointer<QPixmap> pix(new QPixmap());
+//    if(arrImg!=nullptr){
+//        pix->loadFromData(arrImg);
+//        //pix->save()
+//        QPalette palette;
+//        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
+//        ui->image_label_7->setPalette(palette);
+//        streamMap.insert(7,arrImg);
+//    }
 }

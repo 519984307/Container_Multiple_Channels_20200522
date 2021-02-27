@@ -149,7 +149,7 @@ public slots:
     virtual void slot_equipmentState(int ID, bool state)=0;
 };
 
-#define LicensePlateInterfaceIID "ZBY.ContainerServer.LicensePlateInterface/2.2.0.1"
+#define LicensePlateInterfaceIID "ZBY.ContainerServer.LicensePlateInterface/2.2.2.1"
 Q_DECLARE_INTERFACE(LicensePlateInterface,LicensePlateInterfaceIID);
 
 #endif // LICENSEPLATEINTERFACE_H
