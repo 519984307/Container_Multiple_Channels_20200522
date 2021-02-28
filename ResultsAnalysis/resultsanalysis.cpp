@@ -533,7 +533,7 @@ void ResultsAnalysis::slot_plateSendData(const int &Identify_Protocol,const bool
         }
         else {
             /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|车牌|颜色] */
-            result=QString("[U|%1|%2|%3]").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(color);
+            result=QString("[U|%1|%2|%3|%4]").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(color);
         }
         emit resultsAnalysisStateSignal(channel,result);
         emit sendResultSignal(channel,result);

@@ -732,6 +732,9 @@ color: rgb(255, 0, 0);</string>
           <pointsize>14</pointsize>
          </font>
         </property>
+        <property name="autoFillBackground">
+         <bool>true</bool>
+        </property>
         <property name="text">
          <string>*******</string>
         </property>

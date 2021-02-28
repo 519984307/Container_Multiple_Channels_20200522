@@ -323,7 +323,7 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
     databaseMap.insert("Channel",QString::number(channelNumber));
     databaseMap.insert("PlateTimer",QString("%1").arg(QDateTime::fromString(plateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
     databaseMap.insert("Plate",plate);
-    databaseMap.insert("Plate",plateColor);
+    databaseMap.insert("plateColor",plateColor);
 
     emit signal_insertDataBase(databaseMap);
 }

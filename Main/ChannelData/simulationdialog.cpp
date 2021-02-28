@@ -155,16 +155,13 @@ void SimulationDialog::slot_plate(const int &channelID, const QString &plate, co
 
     ui->plate_lineEdit->setText(plate);
     if("黄"==color){
-        ui->plate_lineEdit->setStyleSheet("background-color: rgb(255, 255, 0);");
-        ui->plate_lineEdit->setStyleSheet("color: rgb(0, 0, 0);");
+        ui->plate_lineEdit->setStyleSheet("background-color: rgb(255, 255, 0);color: rgb(0, 0, 0);");
     }
     if("蓝"==color){
-        ui->plate_lineEdit->setStyleSheet("background-color: rgb(0, 0, 255);");
-        ui->plate_lineEdit->setStyleSheet("color: rgb(255, 255, 255);");
+        ui->plate_lineEdit->setStyleSheet("background-color: rgb(0, 0, 255);color: rgb(255, 255, 255);");
     }
     if("无车牌"==plate){
-        ui->plate_lineEdit->setStyleSheet("background-color: rgb(235, 235, 235);");
-        ui->plate_lineEdit->setStyleSheet("color: rgb(255, 0, 0);");
+        ui->plate_lineEdit->setStyleSheet("background-color: rgb(235, 235, 235);color: rgb(255, 0, 0);");
     }
 }
 
