@@ -3,6 +3,11 @@
 ResultsAnalysis::ResultsAnalysis(QObject *parent)
 {
     this->setParent(parent);
+
+    /*****************************
+    * @brief:数据协议默认箱号和车牌单独发送
+    ******************************/
+    Identify_Protocol=0;
 }
 
 ResultsAnalysis::~ResultsAnalysis()
@@ -511,6 +516,30 @@ void ResultsAnalysis::resultsAnalysisStateslot(const int &channel, const QString
     lock.unlock();
 }
 
+void ResultsAnalysis::slot_plateSendData(const int &Identify_Protocol,const bool &isConCar, const QString &plate, const QString &color, const QString &time)
+{
+    this->isConCar=isConCar;
+    this->plate=plate;
+    this->plateColor=color;
+    this->plateTime=time;
+    this->Identify_Protocol=Identify_Protocol;
+
+    if(!isConCar){
+        QString result="";
+        if(1==Identify_Protocol){
+            /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱型|车牌|颜色] */
+            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(-1).arg("").arg("").arg(plate).arg(color);
+
+        }
+        else {
+            /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|车牌|颜色] */
+            result=QString("[U|%1|%2|%3]").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(color);
+        }
+        emit resultsAnalysisStateSignal(channel,result);
+        emit sendResultSignal(channel,result);
+    }
+}
+
 void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cindex2, int Iindex2,QMap<int,QString> imgMap)
 {    
     /* Tupe,集装箱类别:
@@ -541,14 +570,28 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
     }
 
     if(type==2){
-        /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱号|校验|箱型|箱型] */
-        QString result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(type).arg(conTemp[Cindex1]).arg(checkConList[Cindex1]?"Y":"N").arg(conTemp[Cindex2]).arg(checkConList[Cindex2]?"Y":"N").arg(isoTemp[Iindex1]).arg(isoTemp[Iindex2]);
+        QString result="";
+        if(1==Identify_Protocol){
+            /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱号|校验|箱型|箱型|车牌|颜色] */
+            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10|%11|%12]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(type).arg(conTemp[Cindex1]).arg(checkConList[Cindex1]?"Y":"N").arg(conTemp[Cindex2]).arg(checkConList[Cindex2]?"Y":"N").arg(isoTemp[Iindex1]).arg(isoTemp[Iindex2]).arg(plate).arg(plateColor);
+        }
+        else {
+            /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱号|校验|箱型|箱型] */
+            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(type).arg(conTemp[Cindex1]).arg(checkConList[Cindex1]?"Y":"N").arg(conTemp[Cindex2]).arg(checkConList[Cindex2]?"Y":"N").arg(isoTemp[Iindex1]).arg(isoTemp[Iindex2]);
+        }
+
         emit resultsAnalysisStateSignal(channel,result);
         emit sendResultSignal(channel,result);
     }
     else {
-        /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱型]*/
-        QString result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(type).arg(conTemp[Cindex1]).arg(checkConList[Cindex1]?"Y":"N").arg(isoTemp[Iindex1]);
+        QString result="";
+        if(1==Identify_Protocol){
+            /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱型|车牌|颜色]*/
+            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(type).arg(conTemp[Cindex1]).arg(checkConList[Cindex1]?"Y":"N").arg(isoTemp[Iindex1]).arg(plate).arg(plateColor);
+        }
+        else {
+            result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(type).arg(conTemp[Cindex1]).arg(checkConList[Cindex1]?"Y":"N").arg(isoTemp[Iindex1]);
+        }
         emit resultsAnalysisStateSignal(channel,result);
         emit sendResultSignal(channel,result);
     }

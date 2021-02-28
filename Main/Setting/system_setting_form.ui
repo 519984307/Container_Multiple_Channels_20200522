@@ -53,7 +53,7 @@
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
@@ -786,7 +786,7 @@ More than pair of:One service corresponds to all channels, and only the server m
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
-             <widget class="QComboBox" name="comboBox_2">
+             <widget class="QComboBox" name="Identify_Protocol_comboBox_2">
               <item>
                <property name="text">
                 <string>Container_number</string>
@@ -795,6 +795,11 @@ More than pair of:One service corresponds to all channels, and only the server m
               <item>
                <property name="text">
                 <string>Container_number+Plate</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Container_number+Plate+Weight</string>
                </property>
               </item>
              </widget>
@@ -1905,7 +1910,7 @@ More than pair of:One service corresponds to all channels, and only the server m
   <tabstop>ImageFormat_2</tabstop>
   <tabstop>Contains_lineEdit</tabstop>
   <tabstop>Eliminate_lineEdit</tabstop>
-  <tabstop>comboBox_2</tabstop>
+  <tabstop>Identify_Protocol_comboBox_2</tabstop>
   <tabstop>ShortLink_checkBox</tabstop>
   <tabstop>comboBox_3</tabstop>
   <tabstop>Resulting_checkBox</tabstop>

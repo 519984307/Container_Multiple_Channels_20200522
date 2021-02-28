@@ -105,7 +105,7 @@ bool LoadParameter::loadSysParameter()
                     Parameter::Heartbeat=getJsonValue("Service","Heartbeat",value.toObject()).toInt();
                     Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
                     Parameter::ShortLink=getJsonValue("Service","ShortLink",value.toObject()).toInt();
-
+                    Parameter::Identify_Protocol=getJsonValue("Service","Identify_Protocol",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;

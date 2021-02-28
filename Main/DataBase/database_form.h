@@ -98,7 +98,8 @@ private:
         ImgProspects=37,
         ImgForeground=38,
         ImgTop1=39,
-        ImgTop2=40
+        ImgTop2=40,
+        PlateColor=41
     };
 
 private slots:

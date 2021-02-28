@@ -110,6 +110,26 @@ void Equipment_State_From::slot_container(const int &channelID, const int &type,
     }
 }
 
+void Equipment_State_From::slot_plate(const int &channelID, const QString &plate, const QString &color, const QString &time)
+{
+    Q_UNUSED(time);
+
+    ui->tableWidget->item(channelID-1,LocalPar::Msg)->setText(time);
+    ui->tableWidget->item(channelID-1,LocalPar::Plate1)->setText(plate);
+    if("黄"==color){
+        ui->tableWidget->item(channelID-1,LocalPar::Plate1)->setBackgroundColor(Qt::yellow);
+        ui->tableWidget->item(channelID-1,LocalPar::Plate1)->setTextColor(Qt::black);
+    }
+    if("蓝"==color){
+        ui->tableWidget->item(channelID-1,LocalPar::Plate1)->setBackgroundColor(Qt::blue);
+        ui->tableWidget->item(channelID-1,LocalPar::Plate1)->setTextColor(Qt::white);
+    }
+    if("无车牌"==plate){
+        ui->tableWidget->item(channelID-1,LocalPar::Plate1)->setBackgroundColor("#ebebeb");
+        ui->tableWidget->item(channelID-1,LocalPar::Plate1)->setTextColor(Qt::red);
+    }
+}
+
 void Equipment_State_From::slot_channelState(const int &channelID, const int &state)
 {
     ui->tableWidget->item(channelID-1,LocalPar::Msg)->setTextColor(state?Qt::green:Qt::red);

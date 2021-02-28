@@ -20,6 +20,33 @@ public:
     ///
     QString InterfaceType()Q_DECL_OVERRIDE;
 
+private:
+
+    ///
+    /// \brief isConCar 是否为集装箱车辆
+    ///
+    bool isConCar;
+
+    ///
+    /// \brief plate 车牌
+    ///
+    QString plate;
+
+    ///
+    /// \brief plateColor 车牌颜色
+    ///
+    QString plateColor;
+
+    ///
+    /// \brief plateTime 车牌时间
+    ///
+    QString plateTime;
+
+    ///
+    /// \brief Identify_Protocol 数据协议类型
+    ///
+    int Identify_Protocol;
+
 public:
 
     ///
@@ -43,6 +70,17 @@ public:
     /// \param msg 信息体
     ///
     void resultsAnalysisStateslot(const int& channel, const QString& msg)Q_DECL_OVERRIDE;
+
+    ///
+    /// \brief slot_plateSendData 发送车牌数据
+    /// \param Identify_Protocol
+    /// \param isConCar
+    /// \param channelNumber
+    /// \param plate
+    /// \param color
+    /// \param time
+    ///
+    void slot_plateSendData(const int &Identify_Protocol,const bool &isConCar,const QString &plate,const QString &color,const QString &time)Q_DECL_OVERRIDE;
 
 private:
 

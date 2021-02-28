@@ -54,7 +54,7 @@ public slots:
     virtual void updateDataBaseSlot(QMap<QString, QString> data)=0;
 };
 
-#define DataBaseInsertInterfaceIID "ZBY.ContainerServer.DataBaseInsertInterface/1.2.2"
+#define DataBaseInsertInterfaceIID "ZBY.ContainerServer.DataBaseInsertInterface/1.3.2"
 Q_DECLARE_INTERFACE(DataBaseInsertInterface,DataBaseInsertInterfaceIID);
 
 #endif // DATABASELOGICINTERFACE_H

@@ -46,6 +46,14 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     ui->toolBox->setCurrentIndex(0);
 
     this->channelNumber=channelNumber;
+    isConCar=false;
+
+    plateSendTimer=new QTimer(this);
+    plateSendTimer->setSingleShot(true);
+    connect(plateSendTimer,SIGNAL(timeout()),this,SLOT(logicStateSlot()));
+    sendDataOutTimer=new QTimer(this);
+    sendDataOutTimer->setSingleShot(true);
+    connect(sendDataOutTimer,SIGNAL(timeout()),this,SLOT(timeOutSendData()));
 
     foreach (QCheckBox* obj, ui->toolBox->findChildren<QCheckBox*>(QString(),Qt::FindChildrenRecursively)) {
         /*****************************
@@ -63,6 +71,10 @@ Channel_Data_Form::~Channel_Data_Form()
 {
     qDebug()<<"~Channel_Data_Form";
 
+    plateSendTimer->stop();
+    sendDataOutTimer->stop();
+
+    LogicStateTmpList.clear();
     streamMap.clear();
     signatureList.clear();
     imgNameMap.clear();
@@ -173,6 +185,11 @@ void Channel_Data_Form::on_SimulationPushButton_clicked()
     connect(Dlg,&SimulationDialog::signal_logicPutImage,this,&Channel_Data_Form::slot_logicPutImage);
     connect(Dlg,&SimulationDialog::sendResultSignal,this,&Channel_Data_Form::sendResultSignal);
     connect(this,&Channel_Data_Form::signal_container,Dlg,&SimulationDialog::slot_container);
+
+    connect(this,&Channel_Data_Form::signal_plate,Dlg,&SimulationDialog::slot_plate);
+    connect(Dlg,&SimulationDialog::signal_simulationCapture,this,&Channel_Data_Form::signal_simulationCapture);
+    connect(Dlg,&SimulationDialog::signal_liftingElectronicRailing,this,&Channel_Data_Form::signal_liftingElectronicRailing);
+    connect(Dlg,&SimulationDialog::signal_transparentTransmission485,this,&Channel_Data_Form::signal_transparentTransmission485);
     Dlg->exec();
 }
 
@@ -233,18 +250,22 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         }
         QString imgPath=QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgName));
 
-        if(nullptr == stream.value(key,nullptr)){
+        if(nullptr == stream.value(key,nullptr) && 7 != key){
             slot_recognitionResult("RESULT: ||0|0",imgPath,key);
             continue;
         }
         QScopedPointer<QPixmap> pix(new QPixmap());
         pix.data()->loadFromData(stream.value(key));
         if(false == pix.data()->scaled(1280,720, Qt::IgnoreAspectRatio, Qt::SmoothTransformation).save(imgPath)){
-            slot_recognitionResult("RESULT: ||0|0",imgPath,key);
+            if(7 != key){
+                slot_recognitionResult("RESULT: ||0|0",imgPath,key);
+            }
             continue;
         }
         else {
-            emit signal_identifyImages(imgPath,key);
+            if(7 != key){
+                emit signal_identifyImages(imgPath,key);
+            }
             if(Parameter::Ftp){
                 /*****************************
                 * @brief:上传图片
@@ -276,14 +297,33 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         case 6:
             databaseMap.insert("ImgAfter",imgName);
             break;
+        case 7:
+            databaseMap.insert("PlateImg",imgName);
+            break;
         }
     }
-    /*****************************
-    * @brief:插入数据库
-    ******************************/
-    databaseMap.insert("Timer",QDateTime::fromString(datetime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss"));
+
+    if(stream.size()>=2){
+        /*****************************
+        * @brief:插入箱号数据库到数据库
+        ******************************/
+        databaseMap.insert("Timer",QDateTime::fromString(datetime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss"));
+        databaseMap.insert("Type",QString::number(this->putComType));
+
+    }
+    else {
+        /*****************************
+        * @brief:插入车牌数据到数据库
+        ******************************/
+        databaseMap.insert("Timer",QString("%1").arg(QDateTime::fromString(plateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
+        databaseMap.insert("Type",QString::number(-1));
+
+    }
+
     databaseMap.insert("Channel",QString::number(channelNumber));
-    databaseMap.insert("Type",QString::number(this->putComType));
+    databaseMap.insert("PlateTimer",QString("%1").arg(QDateTime::fromString(plateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
+    databaseMap.insert("Plate",plate);
+    databaseMap.insert("Plate",plateColor);
 
     emit signal_insertDataBase(databaseMap);
 }
@@ -306,7 +346,7 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
     this->imgTimerAf=imgTime;
     streamMap.insert(imgNumber,jpgStream);
 
-    if(-1!=putCount && streamMap.size()==putCount && watcher->isFinished()){
+    if(-1!=putCount && streamMap.size()>=putCount && watcher->isFinished()){
         QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTime);
         watcher->setFuture(future);
         putCount=-1;
@@ -396,6 +436,41 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
     }
         break;
     }
+}
+
+void Channel_Data_Form::logicStateSlot()
+{
+    isConCar=false;
+
+    /*****************************
+    * @brief:记录红外状态,判断是否为集装箱车辆
+    ******************************/
+    QVector<int> tmpStatusList;
+    tmpStatusList<<ui->a1checkBox->checkState()<<ui->a2checkBox->checkState()<<ui->b1checkBox->checkState()<<ui->b2checkBox->checkState();
+    for (int var = 0; var < tmpStatusList.count(); ++var) {
+        if(LogicStateTmpList[var]!=tmpStatusList[var]){
+            isConCar=true;
+        }
+    }
+    tmpStatusList.clear();
+    LogicStateTmpList.clear();
+
+    if(!isConCar){
+        saveImages(plateStream,plateTime);
+        emit signal_plateSendData(Parameter::Identify_Protocol,isConCar,plate,plateColor,plateTime);
+    }
+    else {
+        if(plateSendTimer->isActive()){
+            plateSendTimer->stop();
+        }
+        plateSendTimer->start(15000);
+    }
+}
+
+void Channel_Data_Form::timeOutSendData()
+{
+    isConCar=false;
+    emit signal_plateSendData(Parameter::Identify_Protocol,isConCar,plate,plateColor,plateTime);
 }
 
 void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
@@ -569,7 +644,7 @@ void Channel_Data_Form::slot_logicStatus(int *status)
     LocalPar::equipment=LocalPar::A1;
     for (int var = 0; var < 8; ++var) {
         emit signal_setDeviceStatus(channelID,LocalPar::equipment+var,status[var]);
-    }
+    }    
 }
 
 void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
@@ -691,7 +766,14 @@ void Channel_Data_Form::slot_recognitionResult(const QString &result, const QStr
 
 void Channel_Data_Form::slot_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
 {
+    /*****************************
+    * @brief:关闭检测车牌和箱号定时器
+    ******************************/
+    plateSendTimer->stop();
+    sendDataOutTimer->stop();
+
     emit signal_container(channelID, type, result1, resultCheck1, iso1, result2, resultCheck2, iso2);
+
     ui->time_lineEdit->setText(QDateTime::fromString(imgTimer,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss"));
     ui->con_brfore_lineEdit->setText(result1);
     ui->iso_before_lineEdit->setText(iso1);
@@ -734,16 +816,9 @@ void Channel_Data_Form::slot_container(const int &type, const QString &result1, 
 
 void Channel_Data_Form::slot_imageFlow(const QByteArray &jpgStream)
 {    
-    QScopedPointer<QPixmap> pix(new QPixmap());
     if(jpgStream!=nullptr){
-        pix->loadFromData(jpgStream);
-        QPalette palette;
-        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
-        ui->image_label_7->setPalette(palette);
-        streamMap.insert(7,jpgStream);
-
         /*****************************
-        * @brief:调试页面显示车牌你图片
+        * @brief:调试页面显示车牌你图片（主页面可以显示小车牌图片，后续需要再处理）
         ******************************/
         emit signal_pictureStream(jpgStream,0,"");
     }
@@ -756,17 +831,38 @@ void Channel_Data_Form::slot_theVideoStream(const QByteArray &arrImg)
 
 void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
 {
+    plateStream.clear();
+    plateStream.insert(7,arrImg);
+
     ui->plate_lineEdit->setText(plate);
     ui->plate_time_lineEdit->setText(time);
     ui->plate_color_lineEdit->setText(color);
 
-//    QScopedPointer<QPixmap> pix(new QPixmap());
-//    if(arrImg!=nullptr){
-//        pix->loadFromData(arrImg);
-//        //pix->save()
-//        QPalette palette;
-//        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
-//        ui->image_label_7->setPalette(palette);
-//        streamMap.insert(7,arrImg);
-//    }
+    emit signal_plate(channelID,plate,color,time);
+
+    QScopedPointer<QPixmap> pix(new QPixmap());
+    if(arrImg!=nullptr){
+        pix->loadFromData(arrImg);
+        QPalette palette;
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_7->setPalette(palette);
+        streamMap.insert(7,arrImg);
+    }
+
+    LogicStateTmpList.clear();
+    LogicStateTmpList<<ui->a1checkBox->checkState()<<ui->a2checkBox->checkState()<<ui->b1checkBox->checkState()<<ui->b2checkBox->checkState();
+
+    this->plate=plate;
+    this->plateColor=color;
+    this->plateTime=QString("%1").arg(QDateTime::fromString(time,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss"));
+
+    /*****************************
+    * @brief:有可能会出现编码问题
+    ******************************/
+    if("黄" == color || color==""){
+        plateSendTimer->start(6000);
+    }
+    else {
+        plateSendTimer->start(1);
+    }
 }

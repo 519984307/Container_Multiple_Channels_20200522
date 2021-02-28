@@ -161,6 +161,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::Service_Type=getJsonValue("Service","Service_Type",value.toObject()).toInt();
                     Parameter::SingletonAddress=getJsonValue("Service","SingletonAddress",value.toObject()).toString();
                     Parameter::ManyCasesAddress=getJsonValue("Service","ManyCasesAddress",value.toObject()).toString();
+                    Parameter::Identify_Protocol=getJsonValue("Service","Identify_Protocol",value.toObject()).toInt();
                     Parameter::Heartbeat=getJsonValue("Service","Heartbeat",value.toObject()).toInt();
                     Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
                     Parameter::ShortLink=getJsonValue("Service","ShortLink",value.toObject()).toInt();
@@ -256,6 +257,7 @@ bool System_Setting_Form::writeParameterSlot()
     obj4.insert("Heartbeat",int(ui->Hearbeat_checkBox->isChecked()));
     obj4.insert("Resultting",int(ui->Resulting_checkBox->isChecked()));
     obj4.insert("ShortLink",int(ui->ShortLink_checkBox->isChecked()));
+    obj4.insert("Identify_Protocol",int(ui->Identify_Protocol_comboBox_2->currentIndex()));
     jsonChild.insert("Service",QJsonValue(obj4));
 
     /*****************************
@@ -351,6 +353,7 @@ void System_Setting_Form::parameterToUi()
     ui->Hearbeat_checkBox->setChecked(Parameter::Heartbeat);
     ui->Resulting_checkBox->setChecked(Parameter::Resultting);
     ui->ShortLink_checkBox->setChecked(Parameter::ShortLink);
+    ui->Identify_Protocol_comboBox_2->setCurrentIndex(Parameter::Identify_Protocol);
 
     /*****************************
     * @brief:Upload

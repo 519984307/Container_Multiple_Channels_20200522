@@ -74,10 +74,26 @@ public slots:
     /// \param imgNameMap 图片名
     ///
     virtual void resultsOfAnalysisSlot(QMap<int,QString> resultMap, int type,QMap<int,QString> imgNameMap)=0;
+
+    ///
+    /// \brief resultsAnalysisStateSignal 识别结果写入日志
+    /// \param msg 信息体
+    ///
+    virtual void resultsAnalysisStateslot(const int& channel, const QString& msg)=0;
+
+    ///
+    /// \brief slot_plateSendData 发送车牌数据
+    /// \param Identify_Protocol
+    /// \param isConCar
+    /// \param channelNumber
+    /// \param plate
+    /// \param color
+    /// \param time
+    ///
+    virtual void slot_plateSendData(const int &Identify_Protocol,const bool &isConCar,const QString &plate,const QString &color,const QString &time)=0;
 };
 
-#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.3.3.3"
+#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.4.4.3"
 Q_DECLARE_INTERFACE(ResultsAnalysisInterface,ResultsAnalysisInterfaceIID);
 
 #endif // RESULTSANALYSISINTERFACE_H
-

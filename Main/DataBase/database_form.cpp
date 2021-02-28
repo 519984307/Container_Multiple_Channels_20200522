@@ -11,7 +11,7 @@ DataBase_Form::DataBase_Form(QWidget *parent) :
 \
     this->setParent(parent);
     this->setAttribute(Qt::WA_DeleteOnClose,true);
-    this->setFixedSize(this->size());
+    //this->setFixedSize(this->size());
 
     InitializationWindow();
 }
@@ -290,6 +290,7 @@ void DataBase_Form::slot_returnModel(QSqlTableModel *ml)
     ui->tableView->setColumnHidden(ImgTop1,true);
     ui->tableView->setColumnHidden(ImgFrontISO,true);
     ui->tableView->setColumnHidden(ImgTop2,true);
+    ui->tableView->setColumnHidden(PlateColor,true);
 }
 
 void DataBase_Form::slot_statisticalData(int total, double correct, double error, double statistical)
@@ -407,7 +408,20 @@ void DataBase_Form::on_tableView_clicked(const QModelIndex &index)
     ui->result_lineEdit_before->setText(index.sibling(index.row(),ContainerAfter).data().toString());/* 后箱 */
     ui->iso_lineEdit_front->setText(index.sibling(index.row(),ISOFront).data().toString());/* 前箱型 */
     ui->iso_lineEdit_before->setText(index.sibling(index.row(),ISOAfter).data().toString());/* 后箱型 */
+
     ui->plate_lineEdit_front->setText(index.sibling(index.row(),Plate).data().toString());/* 车牌 */
+    if("黄"==index.sibling(index.row(),PlateColor).data().toString()){
+        ui->plate_lineEdit_front->setStyleSheet("background-color: rgb(255, 255, 0);");
+        ui->plate_lineEdit_front->setStyleSheet("color: rgb(0, 0, 0);");
+    }
+    if("蓝"==index.sibling(index.row(),PlateColor).data().toString()){
+        ui->plate_lineEdit_front->setStyleSheet("background-color: rgb(0, 0, 255);");
+        ui->plate_lineEdit_front->setStyleSheet("color: rgb(255, 255, 255);");
+    }
+    if("无车牌"==index.sibling(index.row(),PlateColor).data().toString()){
+        ui->plate_lineEdit_front->setStyleSheet("background-color: rgb(235, 235, 235);");
+        ui->plate_lineEdit_front->setStyleSheet("color: rgb(255, 0, 0);");
+    }
 
     ui->result_lineEdit_1->setText(index.sibling(index.row(),ImgFrontNumber).data().toString()+" | "+index.sibling(index.row(),ImgFrontISO).data().toString());
     if(index.sibling(index.row(),ImgFrontCheck).data().toBool()){

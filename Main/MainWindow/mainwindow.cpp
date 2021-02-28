@@ -359,6 +359,7 @@ void MainWindow::connectProcess()
         connect(from,SIGNAL(signal_setDeviceStatus(int,int,bool)),this,SIGNAL(setDeviceStatusSignal(int,int,bool)));
         if(p_Equipment_State_Form!=nullptr){
             connect(from,&Channel_Data_Form::signal_container,p_Equipment_State_Form,&Equipment_State_From::slot_container);
+            connect(from,&Channel_Data_Form::signal_plate,p_Equipment_State_Form,&Equipment_State_From::slot_plate);
             connect(from,&Channel_Data_Form::signal_channelState,p_Equipment_State_Form,&Equipment_State_From::slot_channelState);
         }
     }
@@ -684,6 +685,7 @@ void MainWindow::bindingPlugin()
         for (int var = 0; var < pLoadinglibaray->IResultsAnalysisList.size(); ++var) {
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_initReAnaParameter,pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::initParameter);
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_resultsOfAnalysis,pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::resultsOfAnalysisSlot);
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_plateSendData,pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::slot_plateSendData);
             connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::containerSignal,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_container);
             connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::updateDataBaseSignal,pLoadinglibaray->IDataBaseInsertList.at(var).data(),&DataBaseInsertInterface::updateDataBaseSlot);
         }

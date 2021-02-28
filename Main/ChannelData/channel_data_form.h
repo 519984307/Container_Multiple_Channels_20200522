@@ -10,6 +10,7 @@
 #include <QMutex>
 #include <QDir>
 #include <QtConcurrent>
+#include <QTimer>
 
 #include "Parameter/channelparameter.h"
 #include "Parameter/LocalPar.h"
@@ -101,9 +102,49 @@ private:
     int putComType;
 
     ///
+    /// \brief plate 电子车牌
+    ///
+    QString plate;
+
+    ///
+    /// \brief plateTime 电子车牌时间戳
+    ///
+    QString plateTime;
+
+    ///
+    /// \brief plateColor 电子车牌颜色
+    ///
+    QString plateColor;
+
+    ///
+    /// \brief isConCar 判断为集装箱车辆
+    ///
+    bool isConCar;
+
+    ///
+    /// \brief plateStream 车牌图片流
+    ///
+    QMap<int,QByteArray> plateStream;
+
+    ///
     /// \brief watcher 监视异步加载插件完成状态
     ///
     QFutureWatcher<void> *watcher;
+
+    ///
+    /// \brief LogicStateTmpList  红外临时状态，判断集装箱和车牌关系
+    ///
+    QVector<int> LogicStateTmpList;
+
+    ///
+    /// \brief plateSendTimer 延时发送车牌数据(判断是否集装箱车辆)
+    ///
+    QTimer *plateSendTimer;
+
+    ///
+    /// \brief sendDataOutTimer 超时发送接口数据
+    ///
+    QTimer *sendDataOutTimer;
 
     ///
     /// \brief clearnPixmap 清除图片
@@ -132,6 +173,16 @@ private slots:
     /// \param imgTime 图片时间戳
     ///
     void slot_pictureStream(const QByteArray &jpgStream,const int &imgNumber,const QString &imgTime="");
+
+    ///
+    /// \brief logicStateSlot 检测红外状态
+    ///
+    void logicStateSlot();
+
+    ///
+    /// \brief timeOutSendData 超时发送数据
+    ///
+    void timeOutSendData();
 
 signals:
 
@@ -357,6 +408,25 @@ signals:
     ///
     void signal_openTheVideo(bool play,quint64 winID=0);
 
+    ///
+    /// \brief signal_plate 车牌结果写入主页面
+    /// \param channelID
+    /// \param plate
+    /// \param color
+    /// \param time
+    ///
+    void signal_plate(const int &channelID,const QString &plate,const QString &color,const QString &time);
+
+    ///
+    /// \brief signal_plateSendData 发送车牌数据
+    /// \param Identify_Protocol
+    /// \param isConCar
+    /// \param channelNumber
+    /// \param plate
+    /// \param color
+    /// \param time
+    ///
+    void signal_plateSendData(const int &Identify_Protocol,const bool &isConCar,const QString &plate,const QString &color,const QString &time);
 
 public slots:
 
@@ -475,7 +545,6 @@ public slots:
     /// \param plate
     ///
     void slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time, const QByteArray &arrImg);
-
 };
 
 #endif // CHANNEL_DATA_FORM_H

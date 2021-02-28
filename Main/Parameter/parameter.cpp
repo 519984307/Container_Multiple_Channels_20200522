@@ -64,9 +64,10 @@ namespace Parameter {
 
     int Service_Model= 0;
     int Service_Type= 0;
+    int Identify_Protocol= 0;
     int Heartbeat= 0;
     int Resultting= 0;
-    int ShortLink=0;
+    int ShortLink= 0;
     QString SingletonAddress= QString("");
     QString ManyCasesAddress= QString("");
 }

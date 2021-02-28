@@ -85,7 +85,8 @@ void DataBaseRead::initDataBaseSlot(const QString &connectName,const QString &us
                       `ImgProspects` TEXT,\
                       `ImgForeground` TEXT,\
                       `ImgTop1` TEXT,\
-                      `ImgTop2` TEXT\
+                      `ImgTop2` TEXT,\
+                      `PlateColor`	TEXT\
                   )"));
         if(!query.exec()){
                           emit messageSignal(ZBY_LOG("ERROR"),tr("Create table containers error<errorCode=%1>").arg(query.lastError().text()));

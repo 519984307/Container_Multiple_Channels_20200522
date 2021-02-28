@@ -204,6 +204,11 @@ namespace Parameter {
     extern int Service_Type;
 
     ///
+    /// \brief Identify_Protocol 接口协议
+    ///
+    extern int Identify_Protocol;
+
+    ///
     /// \brief Heartbeat 心跳包
     ///
     extern int Heartbeat;

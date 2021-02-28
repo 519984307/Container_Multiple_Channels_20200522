@@ -8,7 +8,7 @@ DEFINES += LICENSEPLATEHCNET_LIBRARY
 CONFIG += c++11
 
 CONFIG += skip_target_version_ext
-VERSION = 2.2.2.1
+VERSION = 2.2.2.2
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use

@@ -57,6 +57,15 @@ public slots:
     void slot_container(const int &channelID,const int& type,const QString &result1,const int& resultCheck1,const QString &iso1,const QString &result2="",const int& resultCheck2=0,const QString &iso2="");
 
     ///
+    /// \brief slot_plate 车牌结果写入主页面
+    /// \param channelID
+    /// \param plate
+    /// \param color
+    /// \param time
+    ///
+    void slot_plate(const int &channelID,const QString &plate,const QString &color,const QString &time);
+
+    ///
     /// \brief signal_channelState 通道过车状态
     /// \param channelID
     /// \param state

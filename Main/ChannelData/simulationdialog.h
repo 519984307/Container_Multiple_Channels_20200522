@@ -50,6 +50,14 @@ public slots:
     ///
     void slot_container(const int &channelID,const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2);
 
+    ///
+    /// \brief slot_plate 车牌结果写入主页面
+    /// \param channelID
+    /// \param plate
+    /// \param color
+    /// \param time
+    ///
+    void slot_plate(const int &channelID,const QString &plate,const QString &color,const QString &time);
 
 private:
     Ui::SimulationDialog *ui;
@@ -72,6 +80,27 @@ signals:
     /// \param result 识别结果
     ///
     void sendResultSignal(int channel,const QString& result);
+
+
+    /*****************************
+    * @brief:车牌
+    ******************************/
+
+    ///
+    /// \brief signal_simulationCapture 模拟抓拍
+    ///
+    void signal_simulationCapture();
+
+    ///
+    /// \brief signal_liftingElectronicRailing 抬杆/落杆
+    ///
+    void signal_liftingElectronicRailing(bool gate);
+
+    ///
+    /// \brief signal_transparentTransmission485 透明传输
+    /// \param dmsg
+    ///
+    void signal_transparentTransmission485(const QString &msg);
 };
 
 #endif // SIMULATIONDIALOG_H
