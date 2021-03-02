@@ -260,10 +260,15 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     ///
     /// \brief numberList 防止双箱，未检测到箱型
     ///
-//    QStringList numberList=queueContainerNumber(conTemp);
-//    if(numberList.size()>=2 && isoTemp.count()==6){
-//        conType=2;
-//    }
+    QStringList numberList=queueContainerNumber(conTemp);
+    if(numberList.size()>=2 && isoTemp.count()==6){
+        foreach (auto iso, isoTemp) {
+            if(iso.startsWith("22")){
+                conType=2;
+                break;
+            }
+        }
+    }
 
     if(notISO){
         switch (conType) {
