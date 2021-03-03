@@ -50,13 +50,13 @@ void Equipment_State_From::initializesTheDeviceStateListSlot(int count, QStringL
                 state=QString::number(0);
             }
             else if(column==LocalPar::Con1 || column==LocalPar::Con2){
-                state="***********";
+                state=QString("***********");
             }
             else if(column==LocalPar::Plate1){
-                state="******";
+                state=QString("******");
             }
             else if(column==LocalPar::Msg){
-                state=tr("%1").arg("");
+                state=QString("%1").arg("");
             }
             ui->tableWidget->setItem(row,column,new QTableWidgetItem (state));
             //ui->tableWidget->setStyleSheet("background-color:#a8a8a8");

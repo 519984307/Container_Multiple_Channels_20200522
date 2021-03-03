@@ -44,7 +44,7 @@ void DataBaseRead::initDataBaseSlot(const QString &connectName,const QString &us
     if(db.open()){
 
         QSqlQuery query(db);
-        query.prepare(tr("CREATE TABLE `Containers` (\
+        query.prepare(QString("CREATE TABLE `Containers` (\
                       `ID`	INTEGER PRIMARY KEY AUTOINCREMENT,\
                       `Timer`	TEXT,\
                       `Channel`	INTEGER NOT NULL,\
@@ -89,17 +89,14 @@ void DataBaseRead::initDataBaseSlot(const QString &connectName,const QString &us
                       `PlateColor`	TEXT\
                   )"));
         if(!query.exec()){
-                          emit messageSignal(ZBY_LOG("ERROR"),tr("Create table containers error<errorCode=%1>").arg(query.lastError().text()));
                           qWarning().noquote()<<QString("Create table containers error<errorCode=%1>").arg(query.lastError().text());
                       }
                       else {
-                          emit messageSignal(ZBY_LOG("INFO"),tr("Create table Containers sucess"));
                           qInfo().noquote()<<QString("Create table Containers sucess");
                       }
                       query.clear();
     }
     else {
-        emit messageSignal(ZBY_LOG("ERROR"),tr("Open databse  error<errorCode=%1>").arg(db.lastError().text()));
         qWarning().noquote()<<QString("Open databse  error<errorCode=%1>").arg(db.lastError().text());
     }
     db.close();
@@ -113,7 +110,7 @@ void DataBaseRead::setDataBaseFilterSlot(const QString &filter)
         QScopedPointer<QSqlTableModel> model(new QSqlTableModel(this,db));
         //QSqlTableModel* model=new  QSqlTableModel(this,db);/* 在数据库界面已做删除 */
         qDebug().noquote()<<"Query database:"<<filter;
-        model->setTable(tr("Containers"));
+        model->setTable(QString("Containers"));
         model->setFilter(filter);
         model->select();
         while (model->canFetchMore()) {
@@ -125,7 +122,7 @@ void DataBaseRead::setDataBaseFilterSlot(const QString &filter)
         emit returnModelSingal(model.take());
     }
     else {
-        emit messageSignal(ZBY_LOG("ERROR"),tr("Open databse  error<errorCode=%1>").arg(db.lastError().text()));
+        qWarning().noquote()<<QString("Open databse  error<errorCode=%1>").arg(db.lastError().text());
     }
     db.close();
     locker.unlock();

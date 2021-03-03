@@ -1,8 +1,6 @@
 ﻿#ifndef LICENSEPLATEHCNET_H
 #define LICENSEPLATEHCNET_H
 
-#define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
-
 #include "LicensePlateHCNET_global.h"
 #include "licenseplateinterface.h"
 

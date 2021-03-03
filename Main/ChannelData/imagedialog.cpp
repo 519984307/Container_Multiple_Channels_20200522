@@ -52,17 +52,17 @@ void ImageDialog::slot_enlargeImages(QByteArray arry)
 
 void ImageDialog::on_savePushButton_clicked()
 {
-    QString file=QFileDialog::getSaveFileName(this,tr("Save Image"),QStandardPaths::writableLocation(QStandardPaths::DesktopLocation),"*.bmp;; *.png;; *.jpg;; *.tif;; *.GIF");
+    QString file=QFileDialog::getSaveFileName(this,QString("Save Image"),QStandardPaths::writableLocation(QStandardPaths::DesktopLocation),"*.bmp;; *.png;; *.jpg;; *.tif;; *.GIF");
     if(!file.isEmpty()){
         if(nullptr != imgArr){
             QScopedPointer<QPixmap> pix(new QPixmap());
             pix->loadFromData(imgArr);
             if(pix->save(file)){
-                QMessageBox::information(this,tr("Info"),tr("Save picture Chen successfully"));
+                QMessageBox::information(this,QString("Info"),QString("Save picture Chen successfully"));
             }
         }
         else {
-            QMessageBox::information(this,tr("Error"),tr("Save image does not exist"));
+            QMessageBox::information(this,QString("Error"),QString("Save image does not exist"));
         }
     }
 }

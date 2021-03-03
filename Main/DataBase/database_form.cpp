@@ -68,25 +68,25 @@ void DataBase_Form::showImgaes(const QModelIndex &index)
         QStringList tmpList=date[0].split("/");
         switch (Parameter::ImageFormat) {
         case 0:
-            suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(QString::number(land)).arg(tmpList.join("/")));
+            suffixPath=QDir::toNativeSeparators(QString("%1/%2").arg(QString::number(land)).arg(tmpList.join("/")));
             break;
         case 1:
-            suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(QString::number(land)).arg(tmpList[0].append("/").append(tmpList[1])));
+            suffixPath=QDir::toNativeSeparators(QString("%1/%2").arg(QString::number(land)).arg(tmpList[0].append("/").append(tmpList[1])));
             break;
         case 2:
-            suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(QString::number(land)).arg(tmpList[0]));
+            suffixPath=QDir::toNativeSeparators(QString("%1/%2").arg(QString::number(land)).arg(tmpList[0]));
             break;
         case 3:
-            suffixPath=QDir::toNativeSeparators(tr("%1").arg(land));
+            suffixPath=QDir::toNativeSeparators(QString("%1").arg(land));
             break;
         case 4:
-            suffixPath=QDir::toNativeSeparators(tr("%1").arg(tmpList.join("/")));
+            suffixPath=QDir::toNativeSeparators(QString("%1").arg(tmpList.join("/")));
             break;
         case 5:
-            suffixPath=QDir::toNativeSeparators(tr("%1").arg(tmpList[0].append("/").append(tmpList[1])));
+            suffixPath=QDir::toNativeSeparators(QString("%1").arg(tmpList[0].append("/").append(tmpList[1])));
             break;
         case 6:
-            suffixPath=QDir::toNativeSeparators(tr("%1").arg(tmpList[0]));
+            suffixPath=QDir::toNativeSeparators(QString("%1").arg(tmpList[0]));
             break;
         case 7:
             isRoot=true;
@@ -102,56 +102,56 @@ void DataBase_Form::showImgaes(const QModelIndex &index)
 
     QString imgTmp=index.sibling(index.row(),ImgFront).data().toString();
     if(imgTmp!=""){
-        imgMap.insert(1,QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)));
-        if(labelPix->load(QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)))){
+        imgMap.insert(1,QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)));
+        if(labelPix->load(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)))){
             palette.setBrush(QPalette::Background, QBrush(labelPix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
             ui->image_label_1->setPalette(palette);
         }
     }
     imgTmp=index.sibling(index.row(),ImgLeftFront).data().toString();
     if(imgTmp!=""){
-        imgMap.insert(2,QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)));
-        if(labelPix->load(QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)))){
+        imgMap.insert(2,QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)));
+        if(labelPix->load(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)))){
             palette.setBrush(QPalette::Background, QBrush(labelPix.data()->scaled(ui->image_label_2->size(), Qt::IgnoreAspectRatio)));
             ui->image_label_2->setPalette(palette);
         }
     }
     imgTmp=index.sibling(index.row(),ImgRightFront).data().toString();
     if(imgTmp!=""){
-        imgMap.insert(3,QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)));
-        if(labelPix->load(QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)))){
+        imgMap.insert(3,QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)));
+        if(labelPix->load(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)))){
             palette.setBrush(QPalette::Background, QBrush(labelPix.data()->scaled(ui->image_label_3->size(), Qt::IgnoreAspectRatio)));
             ui->image_label_3->setPalette(palette);
         }
     }
     imgTmp=index.sibling(index.row(),ImgLeftAfter).data().toString();
     if(imgTmp!=""){
-        imgMap.insert(4,QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)));
-        if(labelPix->load(QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)))){
+        imgMap.insert(4,QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)));
+        if(labelPix->load(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)))){
             palette.setBrush(QPalette::Background, QBrush(labelPix.data()->scaled(ui->image_label_4->size(), Qt::IgnoreAspectRatio)));
             ui->image_label_4->setPalette(palette);
         }
     }
     imgTmp=index.sibling(index.row(),ImgRightAfter).data().toString();
     if(imgTmp!=""){
-        imgMap.insert(5,QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)));
-        if(labelPix->load(QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)))){
+        imgMap.insert(5,QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)));
+        if(labelPix->load(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)))){
             palette.setBrush(QPalette::Background, QBrush(labelPix.data()->scaled(ui->image_label_5->size(), Qt::IgnoreAspectRatio)));
             ui->image_label_5->setPalette(palette);
         }
     }
     imgTmp=index.sibling(index.row(),ImgAfter).data().toString();
     if(imgTmp!=""){
-        imgMap.insert(6,QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)));
-        if(labelPix->load(QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)))){
+        imgMap.insert(6,QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)));
+        if(labelPix->load(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)))){
             palette.setBrush(QPalette::Background, QBrush(labelPix.data()->scaled(ui->image_label_6->size(), Qt::IgnoreAspectRatio)));
             ui->image_label_6->setPalette(palette);
         }
     }
     imgTmp=index.sibling(index.row(),PlateImg).data().toString();
     if(imgTmp!=""){
-        imgMap.insert(7,QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)));
-        if(labelPix->load(QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgTmp)))){
+        imgMap.insert(7,QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)));
+        if(labelPix->load(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)))){
             palette.setBrush(QPalette::Background, QBrush(labelPix.data()->scaled(ui->image_label_7->size(), Qt::IgnoreAspectRatio)));
             ui->image_label_7->setPalette(palette);
         }
@@ -358,8 +358,8 @@ void DataBase_Form::on_pushButton_11_clicked()
 void DataBase_Form::on_pushButton_7_clicked()
 {
 
-    QString filepath = QFileDialog::getSaveFileName(this, tr("Save as..."),
-                                                  QString(), tr("EXCEL files (*.xls);;HTML-Files (*.txt);;"));
+    QString filepath = QFileDialog::getSaveFileName(this, QString("Save as..."),
+                                                  QString(), QString("EXCEL files (*.xls);;HTML-Files (*.txt);;"));
 
     if (filepath != "")
     {

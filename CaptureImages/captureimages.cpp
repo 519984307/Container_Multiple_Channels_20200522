@@ -103,8 +103,7 @@ void CaptureImages::slot_pictureStream(int ID, QByteArray arrJpg)
 {
     if(put && ID==camerID){
         emit pictureStreamSignal(arrJpg,imgNumber,imgTime);
-        emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(camerIP));
-        qInfo().noquote()<<signature<<":Put Command Sucess";
+        qDebug().noquote()<<QString("IP=%1[%2]:%3").arg(camerIP).arg(signature).arg(":Put Command Sucess");
         put=false;
         imgGetTimeOut->stop();
 
@@ -118,27 +117,20 @@ void CaptureImages::slot_setCameraID(int ID, QString cameraIP)
 {
     if(camerIP==cameraIP && -1==camerID){
         camerID=ID;
-        emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Set the ID[%2]").arg(cameraIP).arg(ID));
-        qInfo()<<tr("IP=%1 Set the ID[%2]").arg(cameraIP).arg(ID);
+        qDebug()<<QString("IP=%1 Set the ID[%2]").arg(cameraIP).arg(ID);
     }
 }
 
 void CaptureImages::slot_resultsTheLicensePlate(int ID, const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
 {
+    /*****************************
+    * @brief:集装箱不接受车牌信息
+    ******************************/
     Q_UNUSED(ID);
     Q_UNUSED(plate);
     Q_UNUSED(color);
     Q_UNUSED(time);
     Q_UNUSED(arrImg);
-
-    /*****************************
-    * @brief:集装箱不接受车牌信息
-    ******************************/
-//    if(camerID==ID){
-//        saveImg(arrImg,time);
-//        emit resultsTheLicensePlateSignal(plate,color,time,arrImg);
-//        emit messageSignal(ZBY_LOG("INFO"),tr("License Plate recognition results:%1 %2").arg(plate).arg(time));
-//    }
 }
 
 void CaptureImages::slot_equipmentState(int ID, bool state)

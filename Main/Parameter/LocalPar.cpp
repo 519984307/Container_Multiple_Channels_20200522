@@ -5,7 +5,7 @@
 #include "LocalPar.h"
 
 namespace LocalPar {
-    QString App="ContainerMultiple";
+    QString App="ZBYCS";
     QString version="1.1.0.2012091107_BUILD-SNAPSHOT";
     QString copyright="深圳众百源科技有限公司";
     QString msg="集装箱号码识别系统";

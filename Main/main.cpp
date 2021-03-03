@@ -9,6 +9,7 @@
 #include <QMessageBox>
 
 #include "Setting/main_dialog.h"
+#include "Parameter/parameter.h"
 #include "MainWindow/mainwindow.h"
 
 int main(int argc, char *argv[])
@@ -17,16 +18,28 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForLocale(codec);
 
     QApplication::addLibraryPath(QDir::toNativeSeparators("./Plugins"));
-    QApplication::addLibraryPath(QDir::toNativeSeparators("./translations"));
 
     QApplication a(argc, argv);
+
+    int language=0;
+    QPointer<LoadParameter> Pointer(new LoadParameter(nullptr));
+    if(Pointer->loadSysParameter()){
+        language=Parameter::Language;
+    }
+
+    QTranslator translator;
+    translator.load("zh_hans.qm", QDir::toNativeSeparators("./translations"));
+    if(1==language){
+        a.installTranslator(&translator);
+    }
+
 
     //连接LocalServer
     QString serverName = "localserver";
     QLocalSocket socket;
     socket.connectToServer(serverName);
     if(socket.waitForConnected(1000)){
-        QMessageBox::critical(nullptr,"Container","Startup error, the program is already running.");
+        QMessageBox::critical(nullptr,"ZBY","Startup error, the program is already running.");
         return(-1);
     }
 
@@ -45,12 +58,6 @@ int main(int argc, char *argv[])
     if(main_Dlg->exec()!=10){
         return 0;
     }
-
-//    QTranslator translator;
-//    translator.load("zh_hans.qm", QDir::toNativeSeparators("./translations"));
-//    if(0==main_Dlg.data()->language){
-//        //a.installTranslator(&translator);
-//    }
 
     /*****************************
     * @brief:根据软件状态显示

@@ -1,7 +1,6 @@
 ﻿#ifndef DATABASEREADINTERFACE_H
 #define DATABASEREADINTERFACE_H
 
-#define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
 #include <QObject>
 #include <QMap>
 #include <QSqlTableModel>

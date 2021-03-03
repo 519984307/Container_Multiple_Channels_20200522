@@ -36,7 +36,7 @@
    <property name="spacing">
     <number>0</number>
    </property>
-   <item row="0" column="0" colspan="4">
+   <item row="0" column="0" colspan="3">
     <widget class="QGroupBox" name="groupBox">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -568,7 +568,7 @@
      </layout>
     </widget>
    </item>
-   <item row="1" column="1" colspan="2">
+   <item row="1" column="1">
     <spacer name="verticalSpacer_2">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -595,87 +595,26 @@
     </spacer>
    </item>
    <item row="2" column="1">
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>The channel number</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>System  mode</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Language</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>The channel number</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="ChannelNumber">
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>199</number>
+      </property>
+     </widget>
+    </widget>
    </item>
    <item row="2" column="2">
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QSpinBox" name="ChannelNumber">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>199</number>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBox">
-       <property name="toolTip">
-        <string>Single-page mode saves memory, switching pages can only show subsequent captures. Previous captures do not show.
-
-As memory increases in multi-page mode, switching pages will display a full snapshot of the flow, so records will remain the same.</string>
-       </property>
-       <property name="whatsThis">
-        <string/>
-       </property>
-       <item>
-        <property name="text">
-         <string>Single page mode</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Multi-page mode</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="language_comboBox">
-       <property name="editable">
-        <bool>false</bool>
-       </property>
-       <property name="currentIndex">
-        <number>1</number>
-       </property>
-       <item>
-        <property name="text">
-         <string>中文</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>English</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="2" column="3">
     <spacer name="horizontalSpacer_3">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -688,7 +627,72 @@ As memory increases in multi-page mode, switching pages will display a full snap
      </property>
     </spacer>
    </item>
-   <item row="3" column="1" colspan="2">
+   <item row="3" column="1">
+    <widget class="QSplitter" name="splitter_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QLabel" name="label_2">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>System  mode</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox">
+      <property name="toolTip">
+       <string>Single-page mode saves memory, switching pages can only show subsequent captures. Previous captures do not show.
+
+As memory increases in multi-page mode, switching pages will display a full snapshot of the flow, so records will remain the same.</string>
+      </property>
+      <property name="whatsThis">
+       <string/>
+      </property>
+      <item>
+       <property name="text">
+        <string>Single page mode</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Multi-page mode</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QSplitter" name="splitter_3">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>Language</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="language_comboBox">
+      <property name="editable">
+       <bool>false</bool>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>中文</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>English</string>
+       </property>
+      </item>
+     </widget>
+    </widget>
+   </item>
+   <item row="5" column="1">
     <spacer name="verticalSpacer_3">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -701,7 +705,7 @@ As memory increases in multi-page mode, switching pages will display a full snap
      </property>
     </spacer>
    </item>
-   <item row="4" column="1" colspan="2">
+   <item row="6" column="1">
     <widget class="QPushButton" name="pushButton">
      <property name="minimumSize">
       <size>
@@ -746,7 +750,7 @@ As memory increases in multi-page mode, switching pages will display a full snap
      </property>
     </widget>
    </item>
-   <item row="5" column="1" colspan="2">
+   <item row="7" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -759,7 +763,7 @@ As memory increases in multi-page mode, switching pages will display a full snap
      </property>
     </spacer>
    </item>
-   <item row="6" column="0" colspan="4">
+   <item row="8" column="0" colspan="3">
     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1">
      <item>
       <widget class="QLabel" name="label_4">

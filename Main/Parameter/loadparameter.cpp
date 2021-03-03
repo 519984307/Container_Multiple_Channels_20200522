@@ -20,7 +20,7 @@ bool LoadParameter::loadSysParameter()
 
     QFile configurationFolder(fileRoot);
     if(!configurationFolder.open(QIODevice::ReadOnly)){
-        qWarning()<<tr("Failed to load the System parameter, create the default parameter error<errorCode=%1>").arg(errCode(configurationFolder.OpenError));
+        qWarning()<<QString("Failed to load the System parameter, create the default parameter error<errorCode=%1>").arg(errCode(configurationFolder.OpenError));
         return false;
     }
 
@@ -115,7 +115,7 @@ bool LoadParameter::loadSysParameter()
     }
     else {
         configurationFolder.remove();
-        QByteArray msg=tr("Load System.json error<errorCode=%1>").arg(jsonError.errorString()).toLocal8Bit();
+        QByteArray msg=QString("Load System.json error<errorCode=%1>").arg(jsonError.errorString()).toLocal8Bit();
         qWarning("%s", msg.data());
     }
 
@@ -139,7 +139,7 @@ void LoadParameter::loadChannelParameter(int Channels)
 
         QFile configurationFolder(fileRoot);
         if(!configurationFolder.open(QIODevice::ReadOnly)){
-            QByteArray msg=tr("Failed to load the Channel_%1 parameter, create the default parameter error<errorCode=%2>").arg(ind).arg(errCode(configurationFolder.OpenError)).toLocal8Bit();
+            QByteArray msg=QString("Failed to load the Channel_%1 parameter, create the default parameter error<errorCode=%2>").arg(ind).arg(errCode(configurationFolder.OpenError)).toLocal8Bit();
             qWarning("%s", msg.data());
             continue;
         }
@@ -208,7 +208,7 @@ void LoadParameter::loadChannelParameter(int Channels)
             }
         else {
             configurationFolder.remove();
-            QByteArray msg=tr("load Channel_%2.json error<errorCode=%1>").arg(jsonError.errorString()).arg(ind).toLocal8Bit();
+            QByteArray msg=QString("load Channel_%2.json error<errorCode=%1>").arg(jsonError.errorString()).arg(ind).toLocal8Bit();
             qWarning("%s",msg.data());
             continue;
         }

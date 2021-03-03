@@ -24,8 +24,7 @@ QString CaptureUnderlying::InterfaceType()
 
 void CaptureUnderlying::connected()
 {
-    emit messageSignal(ZBY_LOG("INFO"), tr("IP:%1 Camera Link Success").arg(camerIP));
-    qInfo().noquote()<<QString("IP:%1 Camera Link Success").arg(camerIP);
+    qDebug().noquote()<<QString("IP:%1 Camera Link Success").arg(camerIP);
 
     ID=tcpSocket->localPort();
     if(0==ID){
@@ -77,8 +76,7 @@ void CaptureUnderlying::readFortune()
             jpgStream.clear();
             //QThread::msleep(10);
 
-            emit messageSignal(ZBY_LOG("INFO"), tr("IP:%1 Get Camera Image Data").arg(camerIP));
-            qInfo().noquote()<<QString("IP:%1 Get Camera Image Data").arg(camerIP);
+            qDebug().noquote()<<QString("IP:%1 Get Camera Image Data").arg(camerIP);
         }
         else {
             emit signal_pictureStream(ID,nullptr);
@@ -99,14 +97,12 @@ void CaptureUnderlying::readFortune()
 void CaptureUnderlying::disconnected()
 {
     emit equipmentStateSignal(ID,false);
-    emit messageSignal(ZBY_LOG("ERROR") ,tr("%1 Camera Disconnected").arg(camerIP));
     qWarning().noquote()<<QString("%1 Camera Disconnected").arg(camerIP);
 }
 
 void CaptureUnderlying::displayError(QAbstractSocket::SocketError socketError)
 {
     emit equipmentStateSignal(ID,false);
-    emit messageSignal(ZBY_LOG("ERROR"), tr("IP:%1 Camera Link Error<errorCode=%2>").arg(camerIP).arg(socketError));
     qWarning().noquote()<<QString("IP:%1 Camera Link Error<errorCode=%2>").arg(camerIP).arg(socketError);
 
     if(pTimerLinkCamer->isActive())
@@ -175,9 +171,6 @@ void CaptureUnderlying::simulationCaptureSlot(int ID)
     putState=true;
     streamState=false;
     jpgStream.clear();
-
-    qDebug().noquote()<<"CaptureUnderlying:tcpSocket:"<<tcpSocket->state();
-    emit messageSignal(ZBY_LOG("DEBUG"),"capture");
 
     if(!pPutCommand->putCommandSlot())
     {

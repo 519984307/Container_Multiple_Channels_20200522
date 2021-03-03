@@ -18,6 +18,11 @@ Main_Dialog::Main_Dialog(QWidget *parent) :
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
     this->setAttribute(Qt::WA_DeleteOnClose,true);
 
+    ui->label_2->setHidden(true);
+    ui->label_7->setHidden(true);
+    ui->comboBox->setHidden(true);
+    ui->language_comboBox->setHidden(true);
+
     ui->ChannelNumber->setMaximum(LocalPar::Channels);
     /*****************************
     * @brief: 加载系统配置参数,【优先加载】

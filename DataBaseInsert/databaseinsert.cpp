@@ -42,7 +42,6 @@ void DataBaseInsert::initDataBaseSlot(const QString &connectName,const QString &
     //db.setPort(3366);
 
     if(!db.open()){
-        emit messageSignal(ZBY_LOG("ERROR"),tr("Open databse  error<errorCode=%1>").arg(db.lastError().text()));
         qWarning().noquote()<<QString("Open databse  error<errorCode=%1>").arg(db.lastError().text());
     }
     db.close();
@@ -55,7 +54,7 @@ void DataBaseInsert::insertDataBaseSlot(QMap<QString, QString> data)
     if(db.open()){
         QScopedPointer<QSqlTableModel> model(new QSqlTableModel(this,db));
         //QSqlTableModel model(this,db);
-        model->setTable(tr("Containers"));
+        model->setTable(QString("Containers"));
         QSqlRecord record=model->record();
 
         foreach (auto key, data.keys()) {
@@ -89,12 +88,10 @@ void DataBaseInsert::insertDataBaseSlot(QMap<QString, QString> data)
 //            record.setValue("ImgTop2",data.value("ImgTop2"));
 //        }
         if(!model->insertRecord(-1,record)){
-            emit messageSignal(ZBY_LOG("ERROR"),tr("Insert data to databse  error<errorCode=%1>").arg(model->lastError().text()));
             qWarning().noquote()<<QString("%1:Insert data to databse  error<errorCode=%2>").arg(record.value("Timer").toString()).arg(model->lastError().text());
         }
         else {
-            emit messageSignal(ZBY_LOG("INFO"),tr("Insert data to databse  sucessful"));
-            qInfo().noquote()<<QString("%1:Insert data to databse  sucessful").arg(record.value("Timer").toString());
+            qDebug().noquote()<<QString("%1:Insert data to databse  sucessful").arg(record.value("Timer").toString());
         }
         model->submitAll();
 
@@ -103,7 +100,6 @@ void DataBaseInsert::insertDataBaseSlot(QMap<QString, QString> data)
         model->clear();
     }
     else {
-        emit messageSignal(ZBY_LOG("ERROR"),tr("Open databse  error<errorCode=%1>").arg(db.lastError().text()));
         qWarning().noquote()<<QString("Open databse  error<errorCode=%1>").arg(db.lastError().text());
     }
     db.close();
@@ -117,8 +113,8 @@ void DataBaseInsert::updateDataBaseSlot(QMap<QString, QString> data)
     if(db.open()){
         QScopedPointer<QSqlTableModel> model(new QSqlTableModel(this,db));
         //QSqlTableModel model(this,db);
-        model->setTable(tr("Containers"));
-        model->setFilter(tr("Timer='%1' AND Channel='%2'").arg(data.value("Timer")).arg(data.value("Channel")));
+        model->setTable(QString("Containers"));
+        model->setFilter(QString("Timer='%1' AND Channel='%2'").arg(data.value("Timer")).arg(data.value("Channel")));
         model->select();
         if(model->rowCount()==1){
             QSqlRecord record=model->record(0);
@@ -164,7 +160,6 @@ void DataBaseInsert::updateDataBaseSlot(QMap<QString, QString> data)
 //            }
 
             if(!model->setRecord(0,record)){
-                emit messageSignal(ZBY_LOG("ERROR"),tr("Update data to databse  error<errorCode=%1>").arg(model->lastError().text()));
                 qWarning().noquote()<<QString("Update data to databse  error<errorCode=%1>").arg(model->lastError().text());
             }
             else {
@@ -175,8 +170,7 @@ void DataBaseInsert::updateDataBaseSlot(QMap<QString, QString> data)
                 else {
                     timer=data.value("PlateTimer");
                 }
-                emit messageSignal(ZBY_LOG("INFO"),tr("Update data to databse  sucessful time=%1").arg(timer));
-                qInfo().noquote()<<QString("Update data to databse  sucessful time=%1").arg(timer);
+                qDebug().noquote()<<QString("Update data to databse  sucessful time=%1").arg(timer);
             }
             model->submitAll();
             data.clear();

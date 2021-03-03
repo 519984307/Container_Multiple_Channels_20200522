@@ -4,8 +4,6 @@
 #include "captureimages_global.h"
 #include "ICaptureImages.h"
 
-#define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
-
 class CAPTUREIMAGESSHARED_EXPORT CaptureImages:public ICaptureImages
 {
     Q_OBJECT

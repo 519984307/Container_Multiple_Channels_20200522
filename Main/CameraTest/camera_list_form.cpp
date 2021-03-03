@@ -98,7 +98,7 @@ void Camera_List_Form::on_CameraList_itemClicked(QTreeWidgetItem *item, int colu
 void Camera_List_Form::slot_capture()
 {
     if(nullptr== tmpItem){
-        QMessageBox::warning(this,"Warning",tr("Please select the camera you want to capture"));
+        QMessageBox::warning(this,"Warning",QString("Please select the camera you want to capture"));
     }
     else {
         on_CameraList_itemDoubleClicked(tmpItem,0);
@@ -108,7 +108,7 @@ void Camera_List_Form::slot_capture()
 void Camera_List_Form::slot_play(quint64 winID)
 {
     if(nullptr== tmpItem){
-        QMessageBox::warning(this,"Warning",tr("Please select the camera you want to play"));
+        QMessageBox::warning(this,"Warning",QString("Please select the camera you want to play"));
     }
     else {
         if(0==this->winID){

@@ -54,6 +54,7 @@ RCC_DIR=tmp/rcc
 UI_DIR=tmp/ui
 OBJECTS_DIR=tmp/obj
 
+TRANSLATIONS = zh_hans.ts
 
 QMAKE_LFLAGS+="-Wl,-rpath=./Library/"
 

@@ -563,7 +563,7 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
 
     QString dateTime=QDateTime::fromString(time,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss");
 
-    emit resultsAnalysisStateSignal(channel,tr("%1 start").arg(dateTime));/* 日志起始 */
+    emit resultsAnalysisStateSignal(channel,QString("%1 start").arg(dateTime));/* 日志起始 */
 
     for (int var = 0; var < conTemp.count(); ++var) {
         /* 识别结果写入日志,[标志|时间戳|通道号(2位)|相机号(2位)|箱号|校验|箱型] */

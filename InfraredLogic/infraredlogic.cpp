@@ -249,7 +249,6 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
         pSerial1->setPortName(portName1);
 
         if(!pSerial1->open(QIODevice::ReadOnly)){
-            emit messageSignal(ZBY_LOG("ERROR"), tr("portName1:%1 Open error<errorCode=%2>").arg(portName1).arg(pSerial1->error()));
             qWarning().noquote()<<QString("Channel:%1 | portName1:%2 Open error<errorCode=%3>").arg(channelNum).arg(portName1).arg(pSerial1->error());
         }
         else{
@@ -257,12 +256,10 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
              * 设置DTR电平高
             */
             if(pSerial1->setDataTerminalReady(true)){
-                emit messageSignal(ZBY_LOG("INFO"), tr("portName1:%1 Set DataTerminalReady successful").arg(portName1));
-                qInfo().noquote()<<QString("portName1:%1 Set DataTerminalReady successful").arg(portName1);
+                qDebug().noquote()<<QString("Channel:%1 | portName1:%2 Set DataTerminalReady successful").arg(channelNum).arg(portName1);
                 com1=true;
             }
             else {
-                emit messageSignal(ZBY_LOG("ERROR"), tr("portName1:%1 Set DataTerminalReady  error<errorCode=%2>").arg(portName1).arg(pSerial1->error()));
                 qWarning().noquote()<<QString("Channel:%1 | portName1:%2 Set DataTerminalReady error<errorCode=%3>").arg(channelNum).arg(portName1).arg(pSerial1->error());
             }
             /*
@@ -270,11 +267,9 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
             */
             if(pSerial1->setRequestToSend(true))
             {
-                emit messageSignal(ZBY_LOG("INFO"),tr("portName1:%1 Set RequestToSend successful").arg(portName1));
-                qInfo().noquote()<<QString("portName1:%1 Set RequestToSend successful").arg(portName1);
+                qDebug().noquote()<<QString("Channel:%1 | portName1:%2 Set RequestToSend successful").arg(channelNum).arg(portName1);
             }
             else{
-                emit messageSignal(ZBY_LOG("ERROR"),tr("portName1:%1 Set RequestToSend error<errorCode=%2>").arg(portName1).arg(pSerial1->error()));
                 qWarning().noquote()<<QString("Channel:%1 | portName1:%2 Set RequestToSend error<errorCode=%3>").arg(channelNum).arg(portName1).arg(pSerial1->error());
             }
         }
@@ -289,7 +284,6 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
         pSerial2->setPortName(portName2);
 
         if(!pSerial2->open(QIODevice::ReadOnly)){
-            emit messageSignal(ZBY_LOG("ERROR"),tr("portName2:%1 Open error<errorCode=%2>").arg(portName2).arg(pSerial2->error()));
             qWarning().noquote()<<QString("Channel:%1 | portName2:%2 Open error<errorCode=%3>").arg(channelNum).arg(portName2).arg(pSerial2->error());
         }
         else{
@@ -297,12 +291,10 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
              * 设置DTR电平高
             */
             if(pSerial2->setDataTerminalReady(true)){
-                emit messageSignal(ZBY_LOG("INFO"),tr("portName2:%1 Set DataTerminalReady successful").arg(portName2));
-                qInfo().noquote()<<QString("portName2:%1 Set DataTerminalReady successful").arg(portName2);
+                qDebug().noquote()<<QString("Channel:%1 | portName2:%2 Set DataTerminalReady successful").arg(channelNum).arg(portName2);
                 com2=true;
             }
             else {
-                emit messageSignal(ZBY_LOG("ERROR"),tr("portName2:%1 Set DataTerminalReady error<errorCode=%2>").arg(portName2).arg(pSerial2->error()));
                 qWarning().noquote()<<QString("Channel:%1 | portName2:%2 Set DataTerminalReady error<errorCode=%3>").arg(channelNum).arg(portName2).arg(pSerial2->error());
             }
             /*
@@ -310,11 +302,9 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
             */
             if(pSerial2->setRequestToSend(true))
             {
-                emit messageSignal(ZBY_LOG("INFO"),tr("portName2:%1 Set RequestToSend successful").arg(portName2));
-                qInfo().noquote()<<QString("portName2:%1 Set RequestToSend successful").arg(portName2);
+                qDebug().noquote()<<QString("Channel:%1 | portName2:%2 Set RequestToSend successful").arg(channelNum).arg(portName2);
             }
             else{
-                emit messageSignal(ZBY_LOG("ERROR"),tr("portName2:%1 Set RequestToSend error<errorCode=%2>").arg(portName2).arg(pSerial2->error()));
                 qWarning().noquote()<<QString("Channel:%1 | portName2:%2 Set RequestToSend error<errorCode=%3>").arg(channelNum).arg(portName2).arg(pSerial2->error());
             }
         }
@@ -323,7 +313,6 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
     emit serialPortStateSignal(com1,com2);
 
     if(!com1 && !com2){/* com1和com2都未打开,不做后续处理 */
-        emit messageSignal(ZBY_LOG("INFO"),tr("Channel:%1 serial port exception").arg(channelNum));
         qWarning().noquote()<<QString("Channel:%1 serial port exception").arg(channelNum);
         QTimer::singleShot(15000,this,SLOT(realyTheSerialport()));
 

@@ -197,35 +197,35 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
 {
     QMutexLocker locket(&mutex);
     if(Parameter::ImagePath.isEmpty()){
-        Parameter::ImagePath="C:\\images";
+        Parameter::ImagePath=QString("C:\\images");
     }
 
     QString suffixPath;
 
     switch (Parameter::ImageFormat) {
     case 0:
-        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
+        suffixPath=QDir::toNativeSeparators(QString("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
         break;
     case 1:
-        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM")));
+        suffixPath=QDir::toNativeSeparators(QString("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy/MM")));
         break;
     case 2:
-        suffixPath=QDir::toNativeSeparators(tr("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy")));
+        suffixPath=QDir::toNativeSeparators(QString("%1/%2").arg(channelNumber).arg(QDateTime::currentDateTime().toString("yyyy")));
         break;
     case 3:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(channelNumber));
+        suffixPath=QDir::toNativeSeparators(QString("%1").arg(channelNumber));
         break;
     case 4:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
+        suffixPath=QDir::toNativeSeparators(QString("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM/dd")));
         break;
     case 5:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM")));
+        suffixPath=QDir::toNativeSeparators(QString("%1").arg(QDateTime::currentDateTime().toString("yyyy/MM")));
         break;
     case 6:
-        suffixPath=QDir::toNativeSeparators(tr("%1").arg(QDateTime::currentDateTime().toString("yyyy")));
+        suffixPath=QDir::toNativeSeparators(QString("%1").arg(QDateTime::currentDateTime().toString("yyyy")));
         break;
     case 7:
-        suffixPath=QDir::toNativeSeparators("./");
+        suffixPath=QDir::toNativeSeparators(QString("./"));
         break;
     }
 
@@ -248,7 +248,7 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
             imgName=QString("%1%2%3.jpg").arg(datetime).arg(key,Parameter::camera_id_placeholder,10,QLatin1Char('0')).arg(channelNumber,Parameter::channel_id_placeholder,10,QLatin1Char('0'));
             break;
         }
-        QString imgPath=QDir::toNativeSeparators(tr("%1/%2").arg(dir.path()).arg(imgName));
+        QString imgPath=QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgName));
 
         if(nullptr == stream.value(key,nullptr) && 7 != key){
             slot_recognitionResult("RESULT: ||0|0",imgPath,key);

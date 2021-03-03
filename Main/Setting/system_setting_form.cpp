@@ -68,7 +68,7 @@ bool System_Setting_Form::loadParameter()
     configurationFolder.setFileName(fileRoot);
 
     if(!configurationFolder.open(QIODevice::ReadOnly)){
-        QByteArray msg=tr("Failed to load the parameter,create the default parameter error<errorCode=%1>").arg(configurationFolder.OpenError).toLocal8Bit();
+        QByteArray msg=QString("Failed to load the parameter,create the default parameter error<errorCode=%1>").arg(configurationFolder.OpenError).toLocal8Bit();
         qWarning("%s", msg.data());
 
         return false;
@@ -174,7 +174,7 @@ bool System_Setting_Form::loadParameter()
     }
     else {
         configurationFolder.remove();
-        QByteArray msg=tr("Load System.json error<errorCode=%1>").arg(jsonError.errorString()).toLocal8Bit();
+        QByteArray msg=QString("Load System.json error<errorCode=%1>").arg(jsonError.errorString()).toLocal8Bit();
         qWarning("%s", msg.data());
     }
 
@@ -188,7 +188,7 @@ bool System_Setting_Form::writeParameterSlot()
     configurationFolder.setFileName(fileRoot);
 
     if(!configurationFolder.open(QIODevice::WriteOnly)){
-        const char* msg=tr("Failed to load the parameter,create the default parameter error<errorCode=%1>").arg(configurationFolder.OpenError).toLocal8Bit();
+        const char* msg=QString("Failed to load the parameter,create the default parameter error<errorCode=%1>").arg(configurationFolder.OpenError).toLocal8Bit();
         qWarning("%s", msg);
         return false;
     }
@@ -401,7 +401,7 @@ QVariant System_Setting_Form::getJsonValue(const QString &child, const QString &
             }
         }
     }
-    QByteArray msg=tr("load SYSTEM.json value error:%1-%2").arg(child).arg(key).toLocal8Bit();
+    QByteArray msg=QString("load SYSTEM.json value error:%1-%2").arg(child).arg(key).toLocal8Bit();
     qWarning("%s", msg.data());
     return  QString("");
 }
@@ -457,7 +457,7 @@ void System_Setting_Form::conditionsOfButton_clicked()
             file.close();
 
             if(index!=-1){/* 添加项 */
-                QMessageBox::StandardButton bt= QMessageBox::warning(this,check,tr("Whether to delete the record=%1").arg(check),QMessageBox::Yes|QMessageBox::No);
+                QMessageBox::StandardButton bt= QMessageBox::warning(this,check,QString("Whether to delete the record=%1").arg(check),QMessageBox::Yes|QMessageBox::No);
                 if(bt==QMessageBox::Yes){
                     if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
                         strList.removeAt(index);
@@ -472,10 +472,10 @@ void System_Setting_Form::conditionsOfButton_clicked()
                 }
             }
             else {/* 删除项 */
-                QMessageBox::StandardButton bt= QMessageBox::warning(this,check,tr("Whether to add the record=%1").arg(check),QMessageBox::Yes|QMessageBox::No);
+                QMessageBox::StandardButton bt= QMessageBox::warning(this,check,QString("Whether to add the record=%1").arg(check),QMessageBox::Yes|QMessageBox::No);
                 if(bt==QMessageBox::Yes){
                     if(file.open(QIODevice::WriteOnly | QIODevice::Text)){
-                        strList.append(tr("%1").arg(check));
+                        strList.append(QString("%1").arg(check));
                         #ifdef Q_OS_LINUX
                             stream<<strList.join("\n");
                         #endif
@@ -503,7 +503,7 @@ void System_Setting_Form::on_ChannelNumber_valueChanged(int arg1)
 {
     QStringList rowLabels;
     for(int i=1;i<=arg1;i++){
-        rowLabels.append(tr("%1 # Channel").arg(i,2,10,QChar('0')));
+        rowLabels.append(QString("%1 # Channel").arg(i,2,10,QChar('0')));
     }
     emit initializesTheDeviceTemporaryTableSignal(arg1,rowLabels);
 }

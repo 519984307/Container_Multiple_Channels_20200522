@@ -55,7 +55,7 @@ bool Channel_Setting_Form::loadParameter()
 {
     configurationFolder.setFileName(fileRoot);
     if(!configurationFolder.open(QIODevice::ReadOnly)){
-        qWarning().noquote()<<tr("Failed to load the Channel_%1 parameter, create the default parameter error<errorCode=%2>").arg(channel_number).arg(configurationFolder.OpenError);
+        qWarning().noquote()<<QString("Failed to load the Channel_%1 parameter, create the default parameter error<errorCode=%2>").arg(channel_number).arg(configurationFolder.OpenError);
         return false;
     }
 
@@ -119,7 +119,7 @@ bool Channel_Setting_Form::loadParameter()
         }
     else {
         configurationFolder.remove();
-        qWarning().noquote()<<tr("load Channel_%2.json error<errorCode=%1>").arg(jsonError.errorString()).arg(channel_number);
+        qWarning().noquote()<<QString("load Channel_%2.json error<errorCode=%1>").arg(jsonError.errorString()).arg(channel_number);
     }
     configurationFolder.close();
 
@@ -131,7 +131,7 @@ bool Channel_Setting_Form::writeParameterSlot()
     configurationFolder.setFileName(fileRoot);
 
     if(!configurationFolder.open(QIODevice::WriteOnly)){
-        qWarning().noquote()<<tr("open Channel_%1.json error<errorCode=%2>").arg(channel_number).arg(configurationFolder.OpenError);              
+        qWarning().noquote()<<QString("open Channel_%1.json error<errorCode=%2>").arg(channel_number).arg(configurationFolder.OpenError);
         return false;
     }
 
@@ -268,7 +268,7 @@ QVariant Channel_Setting_Form::getJsonValue(const QString &child, const QString 
         }
     }
     else {
-        qInfo().noquote()<<tr("load Channel_%3.json value error:%1-%2").arg(child).arg(key).arg(this->channel_number);
+        qDebug().noquote()<<QString("load Channel_%3.json value error:%1-%2").arg(child).arg(key).arg(this->channel_number);
     }
     return  QString("");
 }

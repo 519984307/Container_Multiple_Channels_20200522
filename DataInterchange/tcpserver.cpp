@@ -30,8 +30,7 @@ void TcpServer::incomingConnection(qintptr socketID)
     clientSocketIdMap.insert(socketID,pClient);
 
     emit connectCountSignal(1);
-    emit messageSignal(ZBY_LOG("INFO"),tr("New client in join<IP:%1 PORT:%2>").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()));
-    qInfo().noquote()<<QString("New client in join<IP:%1 PORT:%2>").arg(pClient->peerAddress().toString()).arg(pClient->peerPort());
+    qDebug().noquote()<<QString("New client in join<IP:%1 PORT:%2>").arg(pClient->peerAddress().toString()).arg(pClient->peerPort());
 
     connect(pClient,&QIODevice::readyRead,pClient,&TcpClient::receiveDataSlot);
     connect(pClient,&TcpClient::disconnected,this,&TcpServer::disconnectedSlot);
@@ -44,8 +43,7 @@ void TcpServer::disconnectedSlot()
     TcpClient* pClient=qobject_cast<TcpClient*>(sender());
 
     emit connectCountSignal(-1);
-    emit messageSignal(ZBY_LOG("INFO"),tr("Client offline <IP:%1 PORT:%2>").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()));
-    qInfo().noquote()<<QString("Client offline <IP:%1 PORT:%2>").arg(pClient->peerAddress().toString()).arg(pClient->peerPort());
+    qDebug().noquote()<<QString("Client offline <IP:%1 PORT:%2>").arg(pClient->peerAddress().toString()).arg(pClient->peerPort());
 
     qintptr socketID= clientSocketIdMap.key(pClient);
     clientSocketIdMap.remove(socketID);
@@ -62,8 +60,7 @@ void TcpServer::getLastResultSlot(qintptr socktID)
     TcpClient* pClient=clientSocketIdMap.value(socktID);
     if(pClient!=nullptr && pClient->isOpen()){
         pClient ->write(resultOfMemory.toLocal8Bit());
-        messageSignal(ZBY_LOG("INFO"),tr("Send Data %1:%2:%3").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()).arg(resultOfMemory));
-        qInfo().noquote()<<QString("Send Data %1:%2:%3").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()).arg(resultOfMemory);
+        qDebug().noquote()<<QString("Send Data %1:%2:%3").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()).arg(resultOfMemory);
     }
 }
 
@@ -81,8 +78,7 @@ void TcpServer::toSendDataSlot(int channel_number, const QString &result)
             TcpClient* pClient=clientSocketIdMap.value(socketID,nullptr);
             if(pClient!=nullptr){
                 pClient->write(result.toLocal8Bit());
-                messageSignal(ZBY_LOG("INFO"),tr("Send Data %1:%2:%3").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()).arg(result));
-                qInfo().noquote()<<QString("Send Data %1:%2:%3").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()).arg(result);
+                qDebug().noquote()<<QString("Send Data %1:%2:%3").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()).arg(result);
             }
         }
     }
@@ -93,8 +89,7 @@ void TcpServer::heartbeatSlot()
     if(isHeartPack){
         foreach (auto client, clientSocketIdMap.values()) {
             client->write("[H]");
-            messageSignal(ZBY_LOG("INFO"),tr("Send HeartPackets"));
-            qInfo().noquote()<<QString("Send HeartPackets");
+            qDebug().noquote()<<QString("Send HeartPackets");
         }
     }
 }

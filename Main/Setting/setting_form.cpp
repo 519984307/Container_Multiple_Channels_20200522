@@ -1,4 +1,4 @@
-#include "setting_form.h"
+﻿#include "setting_form.h"
 #include "ui_setting_form.h"
 
 Setting_Form::Setting_Form(QWidget *parent) :
@@ -153,9 +153,9 @@ void Setting_Form::on_listWidget_currentRowChanged(int currentRow)
 void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
 {
     if(button==ui->buttonBox->button(QDialogButtonBox::Save)){
-        QByteArray msg=tr("Save System Json Sucess").toLocal8Bit();
+        QByteArray msg=QString("Save System Json Sucess").toLocal8Bit();
         qInfo("%s", msg.data());
-        QMessageBox::warning(this,tr("Save System Settings"),tr("Parameter saved successfully, software restart takes effect"));
+        QMessageBox::warning(this,QString("Save System Settings"),QString("Parameter saved successfully, software restart takes effect"));
 
         if(!writeParameterSignal()){
             /*****************************
@@ -176,7 +176,7 @@ void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
         /*****************************
         * @brief: 参数未保存做提示
         ******************************/
-        QByteArray msg=tr("Not Save System Json").toLocal8Bit();
+        QByteArray msg=QString("Not Save System Json").toLocal8Bit();
         qWarning("%s", msg.data());
         QMessageBox::warning(this,"Save System Settings","Not Save System Json");
     }

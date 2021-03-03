@@ -39,7 +39,7 @@ void LicensePlateHCNET::simulationCaptureSlot()
     if(this->signature.isEmpty() || this->signature==signature){
         if(camerID==-1){
             emit imageFlowSignal(nullptr);
-            qWarning().noquote()<<signature<<":Camera not logged in, return null";
+            qWarning().noquote()<<QString("IP=%1[%2]:%3").arg(camerIP).arg(signature).arg("Camera not logged in, return null");
 
             return;
         }
@@ -47,7 +47,7 @@ void LicensePlateHCNET::simulationCaptureSlot()
             emit signal_simulationCapture(camerID);
         }
 
-        qDebug().noquote()<<"Capture the image:"<<camerID;
+        qDebug().noquote()<<QString("IP=%1[%2]:%3").arg(camerIP).arg(signature).arg("Capture the image");
         put=true;
     }
 }
@@ -66,7 +66,7 @@ void LicensePlateHCNET::openTheVideoSlot(bool play,quint64 winID)
 {
     if(this->signature.isEmpty() || this->signature==signature){
         emit signal_openTheVideo(camerID,play,winID);
-        qDebug().noquote()<<signature<<":The camera preview";
+        qDebug().noquote()<<QString("IP=%1[%2]:%3").arg(camerIP).arg(signature).arg("The camera preview");
     }
 }
 
@@ -94,14 +94,13 @@ void LicensePlateHCNET::slot_pictureStream(int ID, QByteArray arrJpg)
 {
     if(put && ID==camerID){
         emit imageFlowSignal(arrJpg);
-        emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Put Command Sucess").arg(camerIP));
-        qInfo().noquote()<<signature<<":Put Command Sucess";
+        qDebug().noquote()<<QString("IP=%1[%2] Put Command Sucess").arg(camerIP).arg(signature);
 
         put=false;
         imgGetTimeOut->stop();
 
         if(nullptr==arrJpg){
-            qWarning().noquote()<<signature<<":Capture image data is empty";
+            qWarning().noquote()<<QString("IP=%1[%2]:%3").arg(camerIP).arg(signature).arg("Capture image data is empty");
         }
     }
 }
@@ -110,8 +109,7 @@ void LicensePlateHCNET::slot_setCameraID(int ID, QString cameraIP)
 {
     if(camerIP==cameraIP && -1==camerID){
         camerID=ID;
-        emit messageSignal(ZBY_LOG("INFO"), tr("IP=%1 Set the ID[%2]").arg(cameraIP).arg(ID));
-        qInfo()<<tr("IP=%1 Set the ID[%2]").arg(cameraIP).arg(ID);
+        qDebug()<<QString("IP=%1[%2] Set the ID[%3]").arg(cameraIP).arg(signature).arg(ID);
     }
 }
 
@@ -119,7 +117,7 @@ void LicensePlateHCNET::slot_resultsTheLicensePlate(int ID, const QString &plate
 {
     if(camerID==ID){
         emit resultsTheLicensePlateSignal(plate,color,time,arrImg);
-        emit messageSignal(ZBY_LOG("INFO"),tr("License Plate recognition results:%1 %2").arg(plate).arg(time));
+        qDebug().noquote()<<QString("IP=[%1]: License Plate recognition results:%2 %3").arg(camerIP).arg(plate).arg(time);
     }
 }
 

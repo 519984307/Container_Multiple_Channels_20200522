@@ -586,7 +586,9 @@ void MainWindow::slot_progressValueChanged(int progressValue)
 
 void MainWindow::slot_theFtpProgress(qint64 bytesSent, qint64 bytesTotal)
 {
-    qDebug()<<"Ftp:"<<bytesSent;
+    statusProgressBar->setFormat(tr("Uploading a picture"));
+    statusProgressBar->setRange(0,bytesTotal);
+    statusProgressBar->setValue(bytesSent);
 }
 
 void MainWindow::bindingPlugin()
