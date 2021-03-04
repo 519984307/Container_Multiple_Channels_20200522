@@ -1,4 +1,5 @@
-﻿#include "camera_list_form.h"
+﻿
+#include "camera_list_form.h"
 #include "ui_camera_list_form.h"
 
 #include <QDebug>

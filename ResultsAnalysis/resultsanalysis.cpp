@@ -57,38 +57,19 @@ void ResultsAnalysis::initParameter(const int &channel,const int &ImageNamingRul
     ******************************/
     connect(this,&ResultsAnalysis::resultsAnalysisStateSignal,this,&ResultsAnalysis::resultsAnalysisStateslot);
 
-//    QString program="QRecognition";
-//    QString path=QDir::toNativeSeparators(tr("%1/%2/").arg(QCoreApplication::applicationDirPath()).arg(program));
+    QFile file(QCoreApplication::applicationDirPath()+"/ISO.txt");
+    if(file.open( QIODevice::ReadOnly ) )
+    {
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString iso=in.readLine().trimmed();
+            if(!iso.isEmpty()){
+                ISOContains.append(iso);
+            }
+        }
+    }
+    file.close();
 
-//    QFile file(path+("ISO.txt"),this);
-//    if(file.open( QIODevice::ReadOnly ) )
-//    {
-//        QTextStream in(&file);
-//        while (!in.atEnd()) {
-//            QString iso=in.readLine().trimmed();
-//            if(!iso.isEmpty()){
-//                ISOContains.append(iso);
-//                //qDebug()<<iso;
-//            }
-//        }
-//    }
-//    file.close();
-
-//    QFile file1(path+("ISO1.txt"),this);
-//    if(file1.open( QIODevice::ReadOnly ) )
-//    {
-//        QTextStream in(&file1);
-//        while (!in.atEnd()) {
-//            QString iso=in.readLine().trimmed();
-//            if(!iso.isEmpty()){
-//                QStringList str=in.readLine().trimmed().split('-');
-//                if(str.count()==2){
-//                    ISOReplaceMap.insert(str[0],str[1]);
-//                }
-//            }
-//        }
-//    }
-//    file1.close();
     initCheckMap();
 }
 
@@ -259,7 +240,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     /* 防止双箱,未检测到箱型。默认为长箱，南京三宝小箱为6张图，后续系统判断修改 */
     if(isoTemp.count()==6){
         foreach (auto iso, isoTemp) {
-            if(iso.startsWith("22")){
+            if(-1!=iso.indexOf("22")){
                 conType=2;
                 break;
             }
@@ -328,6 +309,9 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             if(isoTemp[Iindex1].isEmpty()){
                 isoTemp[Iindex1]="45G1";
             }
+            if(-1==ISOContains.indexOf(isoTemp[Iindex1])){
+                isoTemp[Iindex1]=conType?"45G1":"22G1";
+            }
             emit containerSignal(conType,conTemp[Cindex1],checkConList[Cindex1],isoTemp[Iindex1]);
         }
 
@@ -336,6 +320,12 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
                 isoTemp[Iindex1]="22G1";
             }
             if(isoTemp[Iindex2].isEmpty()){
+                isoTemp[Iindex2]="22G1";
+            }
+            if(-1==ISOContains.indexOf(isoTemp[Iindex1])){
+                isoTemp[Iindex1]="22G1";
+            }
+            if(-1==ISOContains.indexOf(isoTemp[Iindex2])){
                 isoTemp[Iindex2]="22G1";
             }
             emit containerSignal(conType,conTemp[Cindex1], checkConList[Cindex1],isoTemp[Iindex1],conTemp[Cindex2],checkConList[Cindex2],isoTemp[Iindex2]);
@@ -353,12 +343,15 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             isoTemp[Iindex1]=conType?"22G1":"45G1";
         }
         else {
-            if(isoTemp[Iindex1].startsWith("22")){
+            if(-1!=isoTemp[Iindex1].indexOf("22")){
                 conType=0;
             }
             else {
                 conType=1;
             }
+        }
+        if(-1==ISOContains.indexOf(isoTemp[Iindex1])){
+            isoTemp[Iindex1]=conType?"45G1":"22G1";
         }
         emit containerSignal(conType,conTemp[Cindex1],checkConList[Cindex1],isoTemp[Iindex1]);
     }

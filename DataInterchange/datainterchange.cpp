@@ -9,7 +9,14 @@ DataInterchange::DataInterchange(QObject *parent)
     isConnected=false;
     pTcpServer=nullptr;
     pTcpClient=nullptr;
-    pTimerLinkState=nullptr;
+    pTimerLinkState=nullptr;    
+
+#ifdef Q_OS_LINUX
+    eol = "\n";
+#endif
+#ifdef Q_OS_WIN
+    eol = "\r\n";
+#endif
 }
 
 DataInterchange::~DataInterchange()
@@ -117,6 +124,7 @@ void DataInterchange::receiveDataSlot()
         if(tmp.count()==2){
             if (tmp[0].indexOf('R')!=-1) {/* 找到取结果标志位 */
                 pTcpClient->write(resultOfMemory.toLocal8Bit());
+                pTcpClient->write(eol.toUtf8());
             }
         }
     }
@@ -156,6 +164,7 @@ void DataInterchange::toSendDataSlot(int channel_number,const QString &data)
         pTcpClient->waitForConnected(3000);
     }
     pTcpClient->write(data.toLocal8Bit());
+    pTcpClient->write(eol.toUtf8());
 
     if(shortLink){
         /*****************************

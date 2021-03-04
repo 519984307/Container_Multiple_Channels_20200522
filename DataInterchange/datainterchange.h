@@ -23,6 +23,8 @@ public:
 
 private:
 
+    QString eol;
+
     ///
     /// \brief isConnected 客户端链接状态
     ///

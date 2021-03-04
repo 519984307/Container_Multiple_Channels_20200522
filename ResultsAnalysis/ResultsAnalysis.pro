@@ -12,7 +12,7 @@ TARGET = ResultsAnalysis
 TEMPLATE = lib
 
 CONFIG += skip_target_version_ext
-VERSION = 2.6.4.5
+VERSION = 2.7.4.5
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 DEFINES += RESULTSANALYSIS_LIBRARY

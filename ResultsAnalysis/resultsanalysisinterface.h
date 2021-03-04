@@ -92,7 +92,7 @@ public slots:
     virtual void slot_plateSendData(const int &Identify_Protocol,const bool &isConCar,const QString &plate,const QString &color,const QString &time)=0;
 };
 
-#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.6.4.5"
+#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.7.4.5"
 Q_DECLARE_INTERFACE(ResultsAnalysisInterface,ResultsAnalysisInterfaceIID);
 
 #endif // RESULTSANALYSISINTERFACE_H

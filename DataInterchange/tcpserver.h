@@ -34,6 +34,8 @@ public:
 
 private:
 
+    QString eol;
+
     ///
     /// \brief serviceType TCP模式
     ///
