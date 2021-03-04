@@ -864,7 +864,7 @@
     <message>
         <location filename="DataBase/database_form.cpp" line="492"/>
         <source>Two boxes</source>
-        <translation type="unfinished">两级小集装箱</translation>
+        <translation type="unfinished">两个小集装箱</translation>
     </message>
     <message>
         <location filename="DataBase/database_form.cpp" line="502"/>

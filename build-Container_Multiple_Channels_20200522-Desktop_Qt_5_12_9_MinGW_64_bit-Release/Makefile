@@ -31,6 +31,7 @@ SUBTARGETS    =  \
 		sub-CaptureUnderlying \
 		sub-InrearedLogic_NJSB \
 		sub-LicensePlateHCNET \
+		sub-LicensePlateWTY \
 		sub-ToUploadData \
 		sub-DataInterchange \
 		sub-DatabaseInsert \
@@ -119,6 +120,31 @@ sub-LicensePlateHCNET-install_subtargets: FORCE
 sub-LicensePlateHCNET-uninstall_subtargets: FORCE
 	@if not exist LicensePlateHCNET\ mkdir LicensePlateHCNET\ & if not exist LicensePlateHCNET\ exit 1
 	cd LicensePlateHCNET\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateHCNET\LicensePlateHCNET.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile uninstall
+sub-LicensePlateWTY-qmake_all:  FORCE
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
+	cd LicensePlateWTY\ && $(MAKE) -f Makefile qmake_all
+sub-LicensePlateWTY: FORCE
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile
+sub-LicensePlateWTY-make_first: FORCE
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile 
+sub-LicensePlateWTY-all: FORCE
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile all
+sub-LicensePlateWTY-clean: FORCE
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile clean
+sub-LicensePlateWTY-distclean: FORCE
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile distclean
+sub-LicensePlateWTY-install_subtargets: FORCE
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile install
+sub-LicensePlateWTY-uninstall_subtargets: FORCE
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile uninstall
 sub-ToUploadData-qmake_all:  FORCE
 	@if not exist ToUploadData\ mkdir ToUploadData\ & if not exist ToUploadData\ exit 1
 	cd ToUploadData\ && $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\ToUploadData\ToUploadData.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
@@ -761,16 +787,16 @@ C:/Qt/Qt5.12.9/5.12.9/mingw73_64/mkspecs/features/lex.prf:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
 
-qmake_all: sub-CaptureUnderlying-qmake_all sub-InrearedLogic_NJSB-qmake_all sub-LicensePlateHCNET-qmake_all sub-ToUploadData-qmake_all sub-DataInterchange-qmake_all sub-DatabaseInsert-qmake_all sub-DatabaseRead-qmake_all sub-ResultsAnalysis-qmake_all sub-InfraredLogic-qmake_all sub-IdentifyImages-qmake_all sub-CaptureImages-qmake_all sub-LogController-qmake_all sub-TheMiddlewareHCNET-qmake_all sub-Main-qmake_all FORCE
+qmake_all: sub-CaptureUnderlying-qmake_all sub-InrearedLogic_NJSB-qmake_all sub-LicensePlateHCNET-qmake_all sub-LicensePlateWTY-qmake_all sub-ToUploadData-qmake_all sub-DataInterchange-qmake_all sub-DatabaseInsert-qmake_all sub-DatabaseRead-qmake_all sub-ResultsAnalysis-qmake_all sub-InfraredLogic-qmake_all sub-IdentifyImages-qmake_all sub-CaptureImages-qmake_all sub-LogController-qmake_all sub-TheMiddlewareHCNET-qmake_all sub-Main-qmake_all FORCE
 
-make_first: sub-CaptureUnderlying-make_first sub-InrearedLogic_NJSB-make_first sub-LicensePlateHCNET-make_first sub-ToUploadData-make_first sub-DataInterchange-make_first sub-DatabaseInsert-make_first sub-DatabaseRead-make_first sub-ResultsAnalysis-make_first sub-InfraredLogic-make_first sub-IdentifyImages-make_first sub-CaptureImages-make_first sub-LogController-make_first sub-TheMiddlewareHCNET-make_first sub-Main-make_first  FORCE
-all: sub-CaptureUnderlying-all sub-InrearedLogic_NJSB-all sub-LicensePlateHCNET-all sub-ToUploadData-all sub-DataInterchange-all sub-DatabaseInsert-all sub-DatabaseRead-all sub-ResultsAnalysis-all sub-InfraredLogic-all sub-IdentifyImages-all sub-CaptureImages-all sub-LogController-all sub-TheMiddlewareHCNET-all sub-Main-all  FORCE
-clean: sub-CaptureUnderlying-clean sub-InrearedLogic_NJSB-clean sub-LicensePlateHCNET-clean sub-ToUploadData-clean sub-DataInterchange-clean sub-DatabaseInsert-clean sub-DatabaseRead-clean sub-ResultsAnalysis-clean sub-InfraredLogic-clean sub-IdentifyImages-clean sub-CaptureImages-clean sub-LogController-clean sub-TheMiddlewareHCNET-clean sub-Main-clean  FORCE
-distclean: sub-CaptureUnderlying-distclean sub-InrearedLogic_NJSB-distclean sub-LicensePlateHCNET-distclean sub-ToUploadData-distclean sub-DataInterchange-distclean sub-DatabaseInsert-distclean sub-DatabaseRead-distclean sub-ResultsAnalysis-distclean sub-InfraredLogic-distclean sub-IdentifyImages-distclean sub-CaptureImages-distclean sub-LogController-distclean sub-TheMiddlewareHCNET-distclean sub-Main-distclean  FORCE
+make_first: sub-CaptureUnderlying-make_first sub-InrearedLogic_NJSB-make_first sub-LicensePlateHCNET-make_first sub-LicensePlateWTY-make_first sub-ToUploadData-make_first sub-DataInterchange-make_first sub-DatabaseInsert-make_first sub-DatabaseRead-make_first sub-ResultsAnalysis-make_first sub-InfraredLogic-make_first sub-IdentifyImages-make_first sub-CaptureImages-make_first sub-LogController-make_first sub-TheMiddlewareHCNET-make_first sub-Main-make_first  FORCE
+all: sub-CaptureUnderlying-all sub-InrearedLogic_NJSB-all sub-LicensePlateHCNET-all sub-LicensePlateWTY-all sub-ToUploadData-all sub-DataInterchange-all sub-DatabaseInsert-all sub-DatabaseRead-all sub-ResultsAnalysis-all sub-InfraredLogic-all sub-IdentifyImages-all sub-CaptureImages-all sub-LogController-all sub-TheMiddlewareHCNET-all sub-Main-all  FORCE
+clean: sub-CaptureUnderlying-clean sub-InrearedLogic_NJSB-clean sub-LicensePlateHCNET-clean sub-LicensePlateWTY-clean sub-ToUploadData-clean sub-DataInterchange-clean sub-DatabaseInsert-clean sub-DatabaseRead-clean sub-ResultsAnalysis-clean sub-InfraredLogic-clean sub-IdentifyImages-clean sub-CaptureImages-clean sub-LogController-clean sub-TheMiddlewareHCNET-clean sub-Main-clean  FORCE
+distclean: sub-CaptureUnderlying-distclean sub-InrearedLogic_NJSB-distclean sub-LicensePlateHCNET-distclean sub-LicensePlateWTY-distclean sub-ToUploadData-distclean sub-DataInterchange-distclean sub-DatabaseInsert-distclean sub-DatabaseRead-distclean sub-ResultsAnalysis-distclean sub-InfraredLogic-distclean sub-IdentifyImages-distclean sub-CaptureImages-distclean sub-LogController-distclean sub-TheMiddlewareHCNET-distclean sub-Main-distclean  FORCE
 	-$(DEL_FILE) Makefile
 	-$(DEL_FILE) .qmake.stash
-install_subtargets: sub-CaptureUnderlying-install_subtargets sub-InrearedLogic_NJSB-install_subtargets sub-LicensePlateHCNET-install_subtargets sub-ToUploadData-install_subtargets sub-DataInterchange-install_subtargets sub-DatabaseInsert-install_subtargets sub-DatabaseRead-install_subtargets sub-ResultsAnalysis-install_subtargets sub-InfraredLogic-install_subtargets sub-IdentifyImages-install_subtargets sub-CaptureImages-install_subtargets sub-LogController-install_subtargets sub-TheMiddlewareHCNET-install_subtargets sub-Main-install_subtargets FORCE
-uninstall_subtargets: sub-CaptureUnderlying-uninstall_subtargets sub-InrearedLogic_NJSB-uninstall_subtargets sub-LicensePlateHCNET-uninstall_subtargets sub-ToUploadData-uninstall_subtargets sub-DataInterchange-uninstall_subtargets sub-DatabaseInsert-uninstall_subtargets sub-DatabaseRead-uninstall_subtargets sub-ResultsAnalysis-uninstall_subtargets sub-InfraredLogic-uninstall_subtargets sub-IdentifyImages-uninstall_subtargets sub-CaptureImages-uninstall_subtargets sub-LogController-uninstall_subtargets sub-TheMiddlewareHCNET-uninstall_subtargets sub-Main-uninstall_subtargets FORCE
+install_subtargets: sub-CaptureUnderlying-install_subtargets sub-InrearedLogic_NJSB-install_subtargets sub-LicensePlateHCNET-install_subtargets sub-LicensePlateWTY-install_subtargets sub-ToUploadData-install_subtargets sub-DataInterchange-install_subtargets sub-DatabaseInsert-install_subtargets sub-DatabaseRead-install_subtargets sub-ResultsAnalysis-install_subtargets sub-InfraredLogic-install_subtargets sub-IdentifyImages-install_subtargets sub-CaptureImages-install_subtargets sub-LogController-install_subtargets sub-TheMiddlewareHCNET-install_subtargets sub-Main-install_subtargets FORCE
+uninstall_subtargets: sub-CaptureUnderlying-uninstall_subtargets sub-InrearedLogic_NJSB-uninstall_subtargets sub-LicensePlateHCNET-uninstall_subtargets sub-LicensePlateWTY-uninstall_subtargets sub-ToUploadData-uninstall_subtargets sub-DataInterchange-uninstall_subtargets sub-DatabaseInsert-uninstall_subtargets sub-DatabaseRead-uninstall_subtargets sub-ResultsAnalysis-uninstall_subtargets sub-InfraredLogic-uninstall_subtargets sub-IdentifyImages-uninstall_subtargets sub-CaptureImages-uninstall_subtargets sub-LogController-uninstall_subtargets sub-TheMiddlewareHCNET-uninstall_subtargets sub-Main-uninstall_subtargets FORCE
 
 sub-CaptureUnderlying-debug:
 	@if not exist CaptureUnderlying\ mkdir CaptureUnderlying\ & if not exist CaptureUnderlying\ exit 1
@@ -781,6 +807,9 @@ sub-InrearedLogic_NJSB-debug:
 sub-LicensePlateHCNET-debug:
 	@if not exist LicensePlateHCNET\ mkdir LicensePlateHCNET\ & if not exist LicensePlateHCNET\ exit 1
 	cd LicensePlateHCNET\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateHCNET\LicensePlateHCNET.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile debug
+sub-LicensePlateWTY-debug:
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile debug
 sub-ToUploadData-debug:
 	@if not exist ToUploadData\ mkdir ToUploadData\ & if not exist ToUploadData\ exit 1
 	cd ToUploadData\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\ToUploadData\ToUploadData.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile debug
@@ -814,7 +843,7 @@ sub-TheMiddlewareHCNET-debug:
 sub-Main-debug:
 	@if not exist Main\ mkdir Main\ & if not exist Main\ exit 1
 	cd Main\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\Main.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile debug
-debug: sub-CaptureUnderlying-debug sub-InrearedLogic_NJSB-debug sub-LicensePlateHCNET-debug sub-ToUploadData-debug sub-DataInterchange-debug sub-DatabaseInsert-debug sub-DatabaseRead-debug sub-ResultsAnalysis-debug sub-InfraredLogic-debug sub-IdentifyImages-debug sub-CaptureImages-debug sub-LogController-debug sub-TheMiddlewareHCNET-debug sub-Main-debug
+debug: sub-CaptureUnderlying-debug sub-InrearedLogic_NJSB-debug sub-LicensePlateHCNET-debug sub-LicensePlateWTY-debug sub-ToUploadData-debug sub-DataInterchange-debug sub-DatabaseInsert-debug sub-DatabaseRead-debug sub-ResultsAnalysis-debug sub-InfraredLogic-debug sub-IdentifyImages-debug sub-CaptureImages-debug sub-LogController-debug sub-TheMiddlewareHCNET-debug sub-Main-debug
 
 sub-CaptureUnderlying-release:
 	@if not exist CaptureUnderlying\ mkdir CaptureUnderlying\ & if not exist CaptureUnderlying\ exit 1
@@ -825,6 +854,9 @@ sub-InrearedLogic_NJSB-release:
 sub-LicensePlateHCNET-release:
 	@if not exist LicensePlateHCNET\ mkdir LicensePlateHCNET\ & if not exist LicensePlateHCNET\ exit 1
 	cd LicensePlateHCNET\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateHCNET\LicensePlateHCNET.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile release
+sub-LicensePlateWTY-release:
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile release
 sub-ToUploadData-release:
 	@if not exist ToUploadData\ mkdir ToUploadData\ & if not exist ToUploadData\ exit 1
 	cd ToUploadData\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\ToUploadData\ToUploadData.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile release
@@ -858,7 +890,7 @@ sub-TheMiddlewareHCNET-release:
 sub-Main-release:
 	@if not exist Main\ mkdir Main\ & if not exist Main\ exit 1
 	cd Main\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\Main.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile release
-release: sub-CaptureUnderlying-release sub-InrearedLogic_NJSB-release sub-LicensePlateHCNET-release sub-ToUploadData-release sub-DataInterchange-release sub-DatabaseInsert-release sub-DatabaseRead-release sub-ResultsAnalysis-release sub-InfraredLogic-release sub-IdentifyImages-release sub-CaptureImages-release sub-LogController-release sub-TheMiddlewareHCNET-release sub-Main-release
+release: sub-CaptureUnderlying-release sub-InrearedLogic_NJSB-release sub-LicensePlateHCNET-release sub-LicensePlateWTY-release sub-ToUploadData-release sub-DataInterchange-release sub-DatabaseInsert-release sub-DatabaseRead-release sub-ResultsAnalysis-release sub-InfraredLogic-release sub-IdentifyImages-release sub-CaptureImages-release sub-LogController-release sub-TheMiddlewareHCNET-release sub-Main-release
 
 sub-CaptureUnderlying-check:
 	@if not exist CaptureUnderlying\ mkdir CaptureUnderlying\ & if not exist CaptureUnderlying\ exit 1
@@ -869,6 +901,9 @@ sub-InrearedLogic_NJSB-check:
 sub-LicensePlateHCNET-check:
 	@if not exist LicensePlateHCNET\ mkdir LicensePlateHCNET\ & if not exist LicensePlateHCNET\ exit 1
 	cd LicensePlateHCNET\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateHCNET\LicensePlateHCNET.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile check
+sub-LicensePlateWTY-check:
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile check
 sub-ToUploadData-check:
 	@if not exist ToUploadData\ mkdir ToUploadData\ & if not exist ToUploadData\ exit 1
 	cd ToUploadData\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\ToUploadData\ToUploadData.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile check
@@ -902,7 +937,7 @@ sub-TheMiddlewareHCNET-check:
 sub-Main-check:
 	@if not exist Main\ mkdir Main\ & if not exist Main\ exit 1
 	cd Main\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\Main.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile check
-check: sub-CaptureUnderlying-check sub-InrearedLogic_NJSB-check sub-LicensePlateHCNET-check sub-ToUploadData-check sub-DataInterchange-check sub-DatabaseInsert-check sub-DatabaseRead-check sub-ResultsAnalysis-check sub-InfraredLogic-check sub-IdentifyImages-check sub-CaptureImages-check sub-LogController-check sub-TheMiddlewareHCNET-check sub-Main-check
+check: sub-CaptureUnderlying-check sub-InrearedLogic_NJSB-check sub-LicensePlateHCNET-check sub-LicensePlateWTY-check sub-ToUploadData-check sub-DataInterchange-check sub-DatabaseInsert-check sub-DatabaseRead-check sub-ResultsAnalysis-check sub-InfraredLogic-check sub-IdentifyImages-check sub-CaptureImages-check sub-LogController-check sub-TheMiddlewareHCNET-check sub-Main-check
 
 sub-CaptureUnderlying-benchmark:
 	@if not exist CaptureUnderlying\ mkdir CaptureUnderlying\ & if not exist CaptureUnderlying\ exit 1
@@ -913,6 +948,9 @@ sub-InrearedLogic_NJSB-benchmark:
 sub-LicensePlateHCNET-benchmark:
 	@if not exist LicensePlateHCNET\ mkdir LicensePlateHCNET\ & if not exist LicensePlateHCNET\ exit 1
 	cd LicensePlateHCNET\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateHCNET\LicensePlateHCNET.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile benchmark
+sub-LicensePlateWTY-benchmark:
+	@if not exist LicensePlateWTY\ mkdir LicensePlateWTY\ & if not exist LicensePlateWTY\ exit 1
+	cd LicensePlateWTY\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\LicensePlateWTY.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile benchmark
 sub-ToUploadData-benchmark:
 	@if not exist ToUploadData\ mkdir ToUploadData\ & if not exist ToUploadData\ exit 1
 	cd ToUploadData\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\ToUploadData\ToUploadData.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile benchmark
@@ -946,7 +984,7 @@ sub-TheMiddlewareHCNET-benchmark:
 sub-Main-benchmark:
 	@if not exist Main\ mkdir Main\ & if not exist Main\ exit 1
 	cd Main\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\Main.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile benchmark
-benchmark: sub-CaptureUnderlying-benchmark sub-InrearedLogic_NJSB-benchmark sub-LicensePlateHCNET-benchmark sub-ToUploadData-benchmark sub-DataInterchange-benchmark sub-DatabaseInsert-benchmark sub-DatabaseRead-benchmark sub-ResultsAnalysis-benchmark sub-InfraredLogic-benchmark sub-IdentifyImages-benchmark sub-CaptureImages-benchmark sub-LogController-benchmark sub-TheMiddlewareHCNET-benchmark sub-Main-benchmark
+benchmark: sub-CaptureUnderlying-benchmark sub-InrearedLogic_NJSB-benchmark sub-LicensePlateHCNET-benchmark sub-LicensePlateWTY-benchmark sub-ToUploadData-benchmark sub-DataInterchange-benchmark sub-DatabaseInsert-benchmark sub-DatabaseRead-benchmark sub-ResultsAnalysis-benchmark sub-InfraredLogic-benchmark sub-IdentifyImages-benchmark sub-CaptureImages-benchmark sub-LogController-benchmark sub-TheMiddlewareHCNET-benchmark sub-Main-benchmark
 install:install_subtargets  FORCE
 
 uninstall: uninstall_subtargets FORCE

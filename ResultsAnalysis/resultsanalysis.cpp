@@ -227,15 +227,12 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
      */
 
     int conType=type;  /* 逻辑类型 */
-    QList<uint32_t> conProbabilityTemp;/* 箱号置信度 */
-    QList<uint32_t> isoProbabilityTemp;/* 箱型置信度 */   
 
     for(auto var:resultMap.values()){
         QString con=""; QString iso=""; uint32_t Cprobability=0;  uint32_t Iprobability=0;   int check=0;
         if(var.startsWith("RESULT")){
             QStringList tmp=var.split(":")[1].split("|");
             if(tmp.count()==4){
-                //con="BSIU9815070";
                 con=tmp[0].trimmed();
                 check=numberCheck(con);
                 iso=tmp[1];
@@ -250,18 +247,17 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
         isoProbabilityTemp.append(Iprobability);/* 箱型置信度 */
     }
 
-    bool notISO=true;/* 没有识别到箱型代码就默认指定一个 */
+    /* 没有识别到箱型代码就默认指定一个 */
+    bool notISO=true;
     foreach (auto var, isoTemp) {
         if(!var.isEmpty()){
             notISO=false;
             break;
         }
     }
-    ///
-    /// \brief numberList 防止双箱，未检测到箱型
-    ///
-    QStringList numberList=queueContainerNumber(conTemp);
-    if(numberList.size()>=2 && isoTemp.count()==6){
+
+    /* 防止双箱,未检测到箱型。默认为长箱，南京三宝小箱为6张图，后续系统判断修改 */
+    if(isoTemp.count()==6){
         foreach (auto iso, isoTemp) {
             if(iso.startsWith("22")){
                 conType=2;
@@ -274,151 +270,67 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
         switch (conType) {
         case 0:
             isoTemp[0]="22G1";
-//            if(isoTemp.count()==4){
-//                isoTemp[0]="22G1";
-//            }
             break;
         case 1:
             isoTemp[0]="45G1";
-//            if(isoTemp.count()==6){
-//                isoTemp[0]="45G1";
-//            }
             break;
         case 2:
             isoTemp[0]="22G1";
             isoTemp[3]="22G1";
-//            if(isoTemp.count()==6){
-//                isoTemp[0]="22G1";
-//                isoTemp[3]="22G1";
-//            }
             break;
         }
     }
-//    else {
-//        if(isoTemp.count()==6){/* 过滤双箱误判成长箱,系统改正双箱 */
-//            foreach (auto var, isoTemp) {
-//                if(var.startsWith("22")){
-//                    conType=2;
-//                    break;
-//                }
-//            }
-//        }
-//    }
+
 
     /* 双箱，分前3个结果和后3个结果独立处理,前箱下标,前箱型下标,后箱下标,后箱型下标,箱号置信度下表,箱型置信度下标 */
-    int Cindex1=0;    int Iindex1=0;    int Cindex2=0;    int Iindex2=0;    uint32_t Cprobability=0;    uint32_t Iprobability=0;
+    int Cindex1=0;    int Iindex1=0;    int Cindex2=0;    int Iindex2=0;
+
     if(conType==2 && conProbabilityTemp.count()==6){
-        /*****************************
-        * @brief:20210105 12:23
-        ******************************/
-        bool check=false;
-        QStringList numberList=queueContainerNumber(conTemp.mid(0,3));
-        if(numberList.count()==1){/* 有多组相同箱号，分析置信度和校验*/
-            for (int var = 0; var < 3; ++var) {
-                if(numberList[0]==conTemp[var]){
-                    if(!checkConList[var]){
-                        check=false;
-                    }
-                    else {
-                       check=true;
-                    }
-                    Cindex1=var;
-                }
-            }
-        }
-        if(!check) {
-            check=false;
-            int i=0;
-            for (int var = 0; var < 3; ++var) {/* 箱号校验 */
-                if(checkConList[var]){/* 只有一个检验正确，直接输出 */
-                    Cindex1=var;
-                    ++i;
-                }
-            }
-            if(i>1){
-                for (int var = 0; var < 3; ++var) {/* 箱号校验正确大于1个，对比置信度 */
-                    if(checkConList[var] && conProbabilityTemp[var]>Cprobability){
-                        Cindex1=var;
-                    }
-                }
-            }
-            if(i==0){/* 箱号校验都错，直接对比置信度 */
-                for (int var = 0; var < 3; ++var) {
-                    if(conProbabilityTemp[var]>Cprobability){/* 比对箱号置信度 */
-                        Cprobability=conProbabilityTemp[var];
-                        Cindex1=var;
-                    }
-                }
-            }
+        QList<int> checkResult1,checkResult2;
 
+        checkResult1=checkContainerNumber(0,3);
+        if(checkResult1.size()==2){
+            Cindex1=checkResult1.at(0);
+            Iindex1=checkResult1.at(1);
         }
-        for (int var = 0; var < 3; ++var) {/* 箱型校验 */
-            if(isoProbabilityTemp[var]>Iprobability){
-                Iprobability=isoProbabilityTemp[var];/* 比对箱型置信度 */
-                Iindex1=var;
-            }
+        checkResult2=checkContainerNumber(3,6);
+        if(checkResult2.size()==2){
+            Cindex2=checkResult2.at(0);
+            Iindex2=checkResult2.at(1);
         }
 
-        Cprobability=0; Iprobability=0;//checkCon=false;
-        numberList.clear();
-        numberList=queueContainerNumber(conTemp.mid(3,6));
-        if(numberList.count()==1){/* 有多组相同箱号，分析置信度和校验*/
-            for (int var = 3; var < 6; ++var) {
-                if(numberList[0]==conTemp[var]){
-                    if(!checkConList[var]){
-                        check=false;
-                    }
-                    else {
-                       check=true;
-                    }
-                    Cindex2=var;
-                }
-            }
-        }
-        if(!check)  {
-            check=false;
-            int i=0;
-            for (int var = 3; var < 6; ++var) {/* 箱号校验 */
-                if(checkConList[var]){/* 只有一个检验正确，直接输出 */
-                    Cindex2=var;
-                    ++i;
-                }
-            }
-            if(i>1){
-                for (int var = 3; var < 6; ++var) {/* 箱号校验正确大于1个，对比置信度 */
-                    if(checkConList[var] && conProbabilityTemp[var]>Cprobability){
-                        Cindex2=var;
-                    }
-                }
-            }
-            if(i==0){/* 箱号校验都错，直接对比置信度 */
-                for (int var = 3; var < 6; ++var) {
-                    if(conProbabilityTemp[var]>Cprobability){/* 比对箱号置信度 */
-                        Cprobability=conProbabilityTemp[var];
-                        Cindex2=var;
-                    }
-                }
-            }
-
-        }
-        for (int var = 3; var < 6; ++var) {/* 箱型校验 */
-            if(isoProbabilityTemp[var]>Iprobability){
-                Iprobability=isoProbabilityTemp[var];/* 比对箱型置信度 */
-                Iindex2=var;
-            }
-        }
-
+        bool isOne=false;
         if(conTemp[Cindex1]==conTemp[Cindex2] && !conTemp[Cindex1].isEmpty()){/* 前后相同修正长箱 */
-            conType=1;
-            if(isoTemp[Iindex1].isEmpty()){
-                isoTemp[Iindex1]="45G1";
+            isOne=true;
+        }
+        else if(conTemp[Cindex1]!=conTemp[Cindex2] && !conTemp[Cindex1].isEmpty() && !conTemp[Cindex2].isEmpty()){/* 前后相同修正长箱 */
+            if(ConsecutiveLCS(conTemp[Cindex1],conTemp[Cindex2])<=4){/* 两个箱号相似度大于4,判定为一个集装箱 */
+                uint32_t Cprobability=0;
+                for (int var = 0; var < conTemp.size(); ++var) {
+                    if(conProbabilityTemp[var]>Cprobability){/* 比对箱号置信度 */
+                        Cprobability=conProbabilityTemp[var];
+                        Cindex1=var;
+                    }
+                }
+                isOne=true;
             }
+        }
+        else if(conTemp[Cindex2].isEmpty() || conTemp[Cindex1].isEmpty()){/* 前后有空修装小箱 */
+            isOne=true;
+        }
+
+        if(isOne){
+            conType=1;
             if (-1 != isoTemp[Iindex1].indexOf("22") || -1 != isoTemp[Iindex2].indexOf("22")) {
                 isoTemp[Iindex1]="22G1";
                 conType=0;
             }
+            if(isoTemp[Iindex1].isEmpty()){
+                isoTemp[Iindex1]="45G1";
+            }
             emit containerSignal(conType,conTemp[Cindex1],checkConList[Cindex1],isoTemp[Iindex1]);
         }
+
         if(conType==2){
             if(isoTemp[Iindex1].isEmpty()){
                 isoTemp[Iindex1]="22G1";
@@ -427,66 +339,25 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
                 isoTemp[Iindex2]="22G1";
             }
             emit containerSignal(conType,conTemp[Cindex1], checkConList[Cindex1],isoTemp[Iindex1],conTemp[Cindex2],checkConList[Cindex2],isoTemp[Iindex2]);
-
         }
     }
     else {
-        /*****************************
-        * @brief:20210105 12:23
-        ******************************/
-        bool check=false;
-        QStringList numberList=queueContainerNumber(conTemp);
-        if(numberList.count()==1){/* 有多组相同箱号，分析置信度和校验*/
-            for (int var = 0; var < conTemp.count(); ++var) {
-                if(numberList[0]==conTemp[var]){
-                    if(!checkConList[var]){
-                        check=false;
-                    }
-                    else {
-                       check=true;
-                    }
-                    Cindex1=var;
-                }
-            }
+        QList<int> checkResult;
+        checkResult=checkContainerNumber(0,conTemp.size());
+        if(checkResult.size()==2){
+            Cindex1=checkResult.at(0);
+            Iindex1=checkResult.at(1);
         }
-        if(!check) {
-            check=false;
-            int i=0;
-            for (int var = 0; var < checkConList.count(); ++var) {/* 箱号校验 */
-                if(checkConList[var]){/* 只有一个检验正确，直接输出 */
-                    Cindex1=var;
-                    i++;
-                }
-            }
-            if(i>1){
-                for (int var = 0; var < checkConList.count(); ++var) {/* 箱号校验正确大于1个，对比置信度 */
-                    if(checkConList[var] && conProbabilityTemp[var]>Cprobability){
-                        Cindex1=var;
-                    }
-                }
-            }
-            if(i==0){/* 箱号校验都错，直接对比置信度 */
-                for (int var = 0; var < checkConList.count(); ++var) {
-                    if(conProbabilityTemp[var]>Cprobability){/* 比对箱号置信度 */
-                        Cprobability=conProbabilityTemp[var];
-                        Cindex1=var;
-                    }
-                }
-            }
 
-        }
-        for (int var = 0; var < isoProbabilityTemp.count(); ++var) {/* 箱型校验 */
-            if(isoProbabilityTemp[var]>Iprobability){
-                Iprobability=isoProbabilityTemp[var];/* 比对箱型置信度 */
-                Iindex1=var;
-            }
-        }
         if(isoTemp[Iindex1].isEmpty()){
-            if(conType==0){
-                isoTemp[Iindex1]="22G1";
+            isoTemp[Iindex1]=conType?"22G1":"45G1";
+        }
+        else {
+            if(isoTemp[Iindex1].startsWith("22")){
+                conType=0;
             }
-            if(conType==1){
-                isoTemp[Iindex1]="45G1";
+            else {
+                conType=1;
             }
         }
         emit containerSignal(conType,conTemp[Cindex1],checkConList[Cindex1],isoTemp[Iindex1]);
@@ -496,9 +367,86 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     conTemp.clear();
     isoTemp.clear();
     checkConList.clear();
-    resultMap.clear();
     conProbabilityTemp.clear();
     isoProbabilityTemp.clear();
+    resultMap.clear();
+}
+
+QList<int> ResultsAnalysis::checkContainerNumber(int start, int end)
+{
+    /* 双箱，分前3个结果和后3个结果独立处理,前箱下标,前箱型下标,后箱下标,后箱型下标,箱号置信度下表,箱型置信度下标 */
+    int Cindex=0;    int Iindex=0;      uint32_t Cprobability=0;    uint32_t Iprobability=0;
+    bool check=false;
+    QList<int> checkResult;
+
+    QStringList numberList=queueContainerNumber(conTemp.mid(start,end));
+    if(numberList.count()==1){/* 有多组相同箱号，分析置信度和校验*/
+        for (int var = start; var < end; ++var) {
+            if(numberList[0]==conTemp[var]){
+                if(!checkConList[var]){
+                    check=false;
+                }
+                else {
+                   check=true;
+                }
+                Cindex=var;
+            }
+        }
+    }
+    if(!check) {
+        int i=0;
+        for (int var = start; var < end; ++var) {/* 箱号校验 */
+            if(checkConList[var]){/* 只有一个检验正确，直接输出 */
+                Cindex=var;
+                ++i;
+            }
+        }
+        if(i>1){
+            for (int var = start; var < end; ++var) {/* 箱号校验正确大于1个，对比置信度 */
+                if(checkConList[var] && conProbabilityTemp[var]>Cprobability){
+                    Cindex=var;
+                }
+            }
+        }
+        if(i==0){/* 箱号校验都错，直接对比置信度 */
+            for (int var = start; var < end; ++var) {
+                if(conProbabilityTemp[var]>Cprobability){/* 比对箱号置信度 */
+                    Cprobability=conProbabilityTemp[var];
+                    Cindex=var;
+                }
+            }
+        }
+    }
+    for (int var = start; var < end; ++var) {/* 箱型校验 */
+        if(isoProbabilityTemp[var]>Iprobability){
+            Iprobability=isoProbabilityTemp[var];/* 比对箱型置信度 */
+            Iindex=var;
+        }
+    }
+    return checkResult<<Cindex<<Iindex;
+}
+
+int ResultsAnalysis::ConsecutiveLCS(QString rs1, QString rs2)
+{
+    int len1=rs1.size();
+    int len2=rs2.size();
+    QVector<QVector<int>> dp(len1+1,QVector<int>(len2+1,0));
+    dp[0][0]=0;
+    for (int i = 1; i <= len2; ++i)
+        dp[0][i] = i;
+    for (int i = 1; i <= len1; ++i)
+        dp[i][0] = i;
+    for (int i = 1; i <= len1; ++i)
+    {
+        for (int j = 1; j <= len2; ++j)
+        {
+            int one = dp[i - 1][j] + 1, two = dp[i][j - 1] + 1, three = dp[i - 1][j - 1];
+            if (rs1[i - 1] != rs2[j - 1])
+                three += 1;
+            dp[i][j] = qMin(qMin(one, two), three);
+        }
+    }
+    return dp[len1][len2];
 }
 
 void ResultsAnalysis::resultsAnalysisStateslot(const int &channel, const QString &msg)

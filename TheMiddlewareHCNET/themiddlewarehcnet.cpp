@@ -698,7 +698,7 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
             pThis-> NET_DVR_Logout_L(lUserID);
         }
 
-        qWarning().noquote()<<QString("IP=%1 Camrea Exception<errorCode=%2>").arg(QString::fromLocal8Bit(LoginInfo->sDeviceAddress)).arg(QString::number(pThis->NET_DVR_GetLastError_L()));
+        qWarning().noquote()<<QString("IP=%1 Camrea Exception<errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(QString::number(pThis->NET_DVR_GetLastError_L()));
     }
 }
 

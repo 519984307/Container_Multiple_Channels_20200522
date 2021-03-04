@@ -83,7 +83,7 @@ void *ResultsAnalysis::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_ResultsAnalysis.stringdata0))
         return static_cast<void*>(this);
-    if (!strcmp(_clname, "ZBY.ContainerServer.ResultsAnalysisInterface/2.4.4.3"))
+    if (!strcmp(_clname, "ZBY.ContainerServer.ResultsAnalysisInterface/2.6.4.5"))
         return static_cast< ResultsAnalysisInterface*>(this);
     return ResultsAnalysisInterface::qt_metacast(_clname);
 }
@@ -107,7 +107,7 @@ static constexpr unsigned char qt_pluginMetaData[] = {
     'e',  's',  'u',  'l',  't',  's',  'A',  'n', 
     'a',  'l',  'y',  's',  'i',  's',  'I',  'n', 
     't',  'e',  'r',  'f',  'a',  'c',  'e',  '/', 
-    '2',  '.',  '4',  '.',  '4',  '.',  '3', 
+    '2',  '.',  '6',  '.',  '4',  '.',  '5', 
     // "className"
     0x03,  0x6f,  'R',  'e',  's',  'u',  'l',  't', 
     's',  'A',  'n',  'a',  'l',  'y',  's',  'i', 

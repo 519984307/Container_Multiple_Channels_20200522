@@ -120,6 +120,22 @@ private:
     ///
     QStringList queueContainerNumber(QStringList list);
 
+    ///
+    /// \brief checkContainerNumber 校验箱号
+    /// \param start 下标起始
+    /// \param end 下标结束
+    /// \return
+    ///
+    QList<int> checkContainerNumber(int start,int end);
+
+    ///
+    /// \brief ConsecutiveLCS 计算两个结果相似度
+    /// \param rs1
+    /// \param rs2
+    /// \return
+    ///
+    int ConsecutiveLCS(QString rs1,QString rs2);
+
 private:
 
     ///
@@ -136,6 +152,16 @@ private:
     /// \brief checkMap 校验列表
     ///
     QMap<QChar,int> checkMap;
+
+    ///
+    /// \brief conProbabilityTemp 箱号置信度
+    ///
+    QList<uint32_t> conProbabilityTemp;
+
+    ///
+    /// \brief isoProbabilityTemp 箱型置信度
+    ///
+    QList<uint32_t> isoProbabilityTemp;
 
     ///
     /// \brief conTemp 箱号列表

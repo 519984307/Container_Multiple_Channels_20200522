@@ -1,12 +1,14 @@
 QT -= gui
 
+TEMPLATE = lib
+DEFINES += LICENSEPLATEWTY_LIBRARY
+
 CONFIG += plugin
 
-TEMPLATE = lib
-DEFINES += LICENSEPLATEHCNET_LIBRARY
+TARGET = LicensePlateWTY
 
 CONFIG += skip_target_version_ext
-VERSION = 2.2.2.2
+VERSION = 1.1.2.3
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use
@@ -21,12 +23,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    licenseplatehcnet.cpp
+    licenseplatewty.cpp
 
 HEADERS += \
-    LicensePlateHCNET_global.h \
-    licenseplatehcnet.h \
-    licenseplateinterface.h
+    LicensePlateWTY_global.h \
+    licenseplateinterface.h \
+    licenseplatewty.h
 
 # Default rules for deployment.
 unix {
@@ -34,4 +36,5 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-DESTDIR+=../MainUI/Plugins
+DESTDIR += ../MainUI/Plugins
+#QMAKE_LFLAGS+="-Wl,-rpath=../MainUI/plugins/HCNetSDK/"

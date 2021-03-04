@@ -1,17 +1,17 @@
 {
     "Channel": {
         "Camer": {
-            "AfterCamer": "...",
+            "AfterCamer": "192.168.1.64",
             "ForgroundCamer": "...",
-            "FrontCamer": "...",
+            "FrontCamer": "192.168.1.64",
             "LeftCamer": "...",
             "LocalAddr": "...",
-            "PasswordCamer": "",
+            "PasswordCamer": "ABCabc123",
             "PlateCamer": "...",
             "ProspectsCamer": "...",
             "RgihtCamer": "...",
             "TopCamer": "...",
-            "UserCamer": ""
+            "UserCamer": "admin"
         },
         "Other": {
             "Alias": "",
