@@ -684,9 +684,9 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
     Q_UNUSED(dwType);
     Q_UNUSED(lHandle);
 
-    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logInfoMap.value(lUserID);
+    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logMap.value(lUserID,nullptr);
 
-    if(pThis->NET_DVR_GetLastError_L()>0){
+    if(nullptr!=LoginInfo && pThis->NET_DVR_GetLastError_L()>0){
 
         emit pThis->equipmentStateSignal(lUserID,false);
         int key =pThis->logInfoMap.key(LoginInfo,-1);
@@ -707,6 +707,8 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
     Q_UNUSED(lpDeviceInfo);
 
     LPNET_DVR_USER_LOGIN_INFO LoginInfo=reinterpret_cast<LPNET_DVR_USER_LOGIN_INFO>(pUser);
+
+    pThis->logMap.insert(lUserID,LoginInfo);/* 异步登录异常判断使用 */
 
     /*****************************
     * @brief:异步登录

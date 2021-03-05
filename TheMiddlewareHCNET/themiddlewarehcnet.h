@@ -84,6 +84,7 @@ private:/* 参数  */
     QList<LPNET_DVR_USER_LOGIN_INFO> logfalList;
     QMap<int,LPNET_DVR_USER_LOGIN_INFO> logInfoMap;
     QMap<int,LPNET_DVR_USER_LOGIN_INFO> alarmInfoMap;
+    QMap<int,LPNET_DVR_USER_LOGIN_INFO> logMap;
 
     ///
     /// \brief isSDKInit 动态库初始化状态
