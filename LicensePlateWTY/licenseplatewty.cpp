@@ -33,6 +33,7 @@ LicensePlateWTY::LicensePlateWTY(QObject *parent)
 
 LicensePlateWTY::~LicensePlateWTY()
 {
+    qDebug().noquote()<<QString("~LicensePlateWTY");
 }
 
 QString LicensePlateWTY::InterfaceType()
@@ -81,6 +82,10 @@ void LicensePlateWTY::initCamerSlot(const QString &localAddr, const QString &cam
             return;
         }
         isSDKinit=true;
+    }
+
+    if(camerIP.isEmpty() || camerIP=="..."){
+        return;
     }
 
     this->localAddr=localAddr;
