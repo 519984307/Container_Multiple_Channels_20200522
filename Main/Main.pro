@@ -8,7 +8,7 @@ QT += core gui sql serialport concurrent network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ZBY_Container
+TARGET = ZBYCS
 TEMPLATE = app
 
 CONFIG += skip_target_version_ext

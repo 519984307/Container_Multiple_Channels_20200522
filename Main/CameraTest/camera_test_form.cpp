@@ -12,6 +12,8 @@ Camera_Test_Form::Camera_Test_Form(QWidget *parent) :
     this->setAttribute(Qt::WA_DeleteOnClose,true);
     this->setParent(parent);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+
+    pixStream=QSharedPointer<QPixmap>(new QPixmap ());
 }
 
 Camera_Test_Form::~Camera_Test_Form()
@@ -48,5 +50,13 @@ void Camera_Test_Form::slot_pictureStream(const QByteArray &jpgStream, const int
             ui->label->clear();
             qCritical()<<"Capture image data is empty";
         }
+    }
+}
+
+void Camera_Test_Form::slot_videoStream(const QByteArray &arr)
+{
+    if(nullptr != arr){
+        pixStream->loadFromData(arr);
+        ui->label->setPixmap(pixStream.data()->scaled(ui->label->size(), Qt::IgnoreAspectRatio));
     }
 }

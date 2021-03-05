@@ -25,6 +25,7 @@ private slots:
 
 private:
     Ui::Camera_Test_Form *ui;
+    QSharedPointer<QPixmap> pixStream;
 
 public slots:
 
@@ -35,6 +36,12 @@ public slots:
     /// \param imgTime 图片时间戳
     ///
     void slot_pictureStream(const QByteArray &jpgStream,const int &imgNumber,const QString &imgTime="");
+
+    ///
+    /// \brief slot_videoStream 视频流数据
+    /// \param arr
+    ///
+    void slot_videoStream(const QByteArray &arr);
 
 signals:
     ///

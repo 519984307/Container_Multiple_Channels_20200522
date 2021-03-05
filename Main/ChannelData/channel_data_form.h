@@ -428,6 +428,12 @@ signals:
     ///
     void signal_plateSendData(const int &Identify_Protocol,const bool &isConCar,const QString &plate,const QString &color,const QString &time);
 
+    ///
+    /// \brief signal_videoStream 视频流数据
+    /// \param arr
+    ///
+    void signal_videoStream(const QByteArray &arr);
+
 public slots:
 
     ///

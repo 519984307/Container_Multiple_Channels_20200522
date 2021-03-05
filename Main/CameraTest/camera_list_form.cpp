@@ -43,6 +43,7 @@ void Camera_List_Form::initializingObject()
 {
     p_Camera_Test_Form=QPointer<Camera_Test_Form>(new Camera_Test_Form (this));
     connect(this,SIGNAL(signal_pictureStream(QByteArray,int,QString)),p_Camera_Test_Form,SLOT(slot_pictureStream(QByteArray,int,QString)));
+    connect(this,SIGNAL(signal_videoStream(QByteArray)),p_Camera_Test_Form,SLOT(slot_videoStream(QByteArray)));
     connect(p_Camera_Test_Form,SIGNAL(signal_capture()),this,SLOT(slot_capture()));
     connect(p_Camera_Test_Form,SIGNAL(signal_play(quint64)),this,SLOT(slot_play(quint64)));
 

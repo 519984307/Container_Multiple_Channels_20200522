@@ -1,0 +1,54 @@
+{
+    "Main": {
+        "Channel": {
+            "ChannelNumber": 1,
+            "ImageFormat": 0,
+            "ImageNamingRules": 0,
+            "ImagePath": "",
+            "camera_id_placeholder": "2",
+            "channel_id_placeholder": "2"
+        },
+        "Model": {
+            "Camera_Load_Plugin": 1,
+            "HCNET_Capture_Type": 0,
+            "LogicType": 0,
+            "PlateType": 1
+        },
+        "Other": {
+            "Automatic": 0,
+            "DebugLog": 1,
+            "DelayStart": 10,
+            "FullScreen": 0,
+            "InfoLog": 1,
+            "Language": 1,
+            "Minimization": 0
+        },
+        "Recognizer": {
+            "ResultsTheCheck": 0
+        },
+        "Service": {
+            "Heartbeat": 1,
+            "Identify_Protocol": 1,
+            "ManyCasesAddress": "127.0.0.1:12011,127.0.0.1:60001",
+            "Resultting": 1,
+            "Service_Model": 1,
+            "Service_Type": 0,
+            "ShortLink": 0,
+            "SingletonAddress": ""
+        },
+        "Upload": {
+            "DatabaseType": 0,
+            "Ftp": 0,
+            "FtpAddress": "",
+            "FtpLocalPath": "",
+            "FtpPassword": "",
+            "FtpPort": 0,
+            "FtpRemotePath": "",
+            "FtpUser": "",
+            "ReduceImage": 0,
+            "databaseAddr": "",
+            "databasePass": "",
+            "databaseUser": ""
+        }
+    }
+}

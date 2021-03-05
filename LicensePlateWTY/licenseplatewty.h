@@ -194,11 +194,12 @@ private:
     ///
     CLIENT_LPRC_QuitDeviceFUN CLIENT_LPRC_QuitDevice;
 
-    QString address;
-    QString imgPath;
-    int imgFormat;
-    int channel;
-    int port;
+    QString localAddr;
+    QString camerIP;
+    QString camerUser;
+    QString camerPow;
+    QString signature;
+    int camerPort;
 
     bool isSDKinit;
     QLibrary* pDLL;
@@ -207,7 +208,6 @@ private:
     QMutex mutex;
 
     static LicensePlateWTY *pThis;
-    static bool complate;
 
 private slots:
 

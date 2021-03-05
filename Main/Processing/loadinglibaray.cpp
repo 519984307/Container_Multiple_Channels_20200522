@@ -175,8 +175,12 @@ void LoadingLibaray::slot_createLibaray()
                 pDataInterchangeInterface=nullptr;
             }
             else if(LicensePlateInterface *pLicensePlateInterface=qobject_cast<LicensePlateInterface*>(plugin)){
-                if("HCNET_PLATE"==pLicensePlateInterface->InterfaceType()){/* 海康车牌 */
+                if(0==Parameter::PlateType && "HCNET_PLATE"==pLicensePlateInterface->InterfaceType()){/* 海康车牌 */
                     loadMisarrangement(pluginName,"HCNET_PLATE");
+                    pluginsNum=channelCount;
+                }
+                else if (1==Parameter::PlateType && "WTY_PLATE"==pLicensePlateInterface->InterfaceType()) {
+                    loadMisarrangement(pluginName,"WTY_PLATE");
                     pluginsNum=channelCount;
                 }
                 pLicensePlateInterface=nullptr;

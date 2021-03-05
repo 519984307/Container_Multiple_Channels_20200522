@@ -112,6 +112,12 @@ signals:
     void signal_pictureStream(const QByteArray &jpgStream,const int &imgNumber,const QString &imgTime="");
 
     ///
+    /// \brief signal_videoStream 视频流数据
+    /// \param arr
+    ///
+    void signal_videoStream(const QByteArray &arr);
+
+    ///
     /// \brief signal_playStream 预览实时视频
     /// \param winID 窗口句柄
     /// \param play 播放状态

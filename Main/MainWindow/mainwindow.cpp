@@ -496,6 +496,7 @@ void MainWindow::on_actionCamera_Test_triggered()
         connect(p_Channel_Data_Form,SIGNAL(signal_getCameraState(int,int)),p_Camera_List_Form,SLOT(slot_getCameraState(int,int)));
         connect(p_Channel_Data_Form,SIGNAL(signal_pictureStream(QByteArray, int, QString)),p_Camera_List_Form,SIGNAL(signal_pictureStream(QByteArray,int,QString)));
         connect(p_Camera_List_Form,SIGNAL(signal_playStream(quint64,bool,int,int)),p_Channel_Data_Form,SLOT(slot_playStream(quint64,bool,int,int)));
+        connect(p_Channel_Data_Form,SIGNAL(signal_videoStream(QByteArray)),p_Camera_List_Form,SIGNAL(signal_videoStream(QByteArray)));
     }
 
     /*****************************

@@ -8,7 +8,7 @@ SUBDIRS +=\
     CaptureUnderlying\
     InrearedLogic_NJSB \
     LicensePlateHCNET \
-    #LicensePlateWTY \
+    LicensePlateWTY \
     ToUploadData\
     DataInterchange \
     #DataProcessing \

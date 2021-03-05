@@ -826,7 +826,7 @@ void Channel_Data_Form::slot_imageFlow(const QByteArray &jpgStream)
 
 void Channel_Data_Form::slot_theVideoStream(const QByteArray &arrImg)
 {
-    Q_UNUSED(arrImg);
+    emit signal_videoStream(arrImg);
 }
 
 void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
