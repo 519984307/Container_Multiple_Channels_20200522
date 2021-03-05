@@ -680,11 +680,11 @@ void TheMiddlewareHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataTy
 
 void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
 {
-    Q_UNUSED(lUserID);
+    Q_UNUSED(pUser);
     Q_UNUSED(dwType);
     Q_UNUSED(lHandle);
 
-    LPNET_DVR_USER_LOGIN_INFO LoginInfo=reinterpret_cast<LPNET_DVR_USER_LOGIN_INFO>(pUser);
+    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logInfoMap.value(lUserID);
 
     if(pThis->NET_DVR_GetLastError_L()>0){
 

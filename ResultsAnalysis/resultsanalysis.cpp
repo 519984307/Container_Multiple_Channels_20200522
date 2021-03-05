@@ -280,6 +280,13 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             Iindex2=checkResult2.at(1);
         }
 
+        /*****************************
+        * @brief:系统逻辑判断检测为双箱,
+        ******************************/
+//        if(2==type){
+//            emit containerSignal(conType,conTemp[Cindex1], checkConList[Cindex1],"22G1",conTemp[Cindex2],checkConList[Cindex2],"22G1");
+//        }
+
         bool isOne=false;
         if(conTemp[Cindex1]==conTemp[Cindex2] && !conTemp[Cindex1].isEmpty()){/* 前后相同修正长箱 */
             isOne=true;
