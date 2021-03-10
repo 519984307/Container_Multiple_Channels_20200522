@@ -4,6 +4,7 @@
 #include "LicensePlateWTY_global.h"
 #include "licenseplateinterface.h"
 #include "LPRCClientSDK.h"
+//#include "WT_H264.h"
 
 class LICENSEPLATEWTY_EXPORT LicensePlateWTY:public LicensePlateInterface
 {    
@@ -71,6 +72,54 @@ public:
 
 private:
 
+//    /*****************************
+//    * @brief:WTY_H264
+//    ******************************/
+//    typedef   int (*WT_H264InitFUN)();
+//    ///
+//    /// \brief WT_H264Init_L 初始化解码库
+//    ///
+//    WT_H264InitFUN WT_H264Init_L;
+
+//    /*****************************
+//    * @brief:参数
+//    device_ip[in]:要连接的设备IP地址
+//    show_window_hwnd[in]:要显示的控件句柄
+//    pixelFormat[in]：设置H264解码后的像素格式参照像素格式定义
+//    show_enable[in]:设置解码后是否主动显示到控件上 1：显示0：不显示
+//    返回值
+//    成功：返回H264句柄
+//    失败：0
+//    ******************************/
+//    typedef   WT_H264HANDLE  (*WT_H264StartFUN)(char *device_ip, HWND show_window_hwnd, enum WT_PixelFormat_t pixelFormat, int show_enable) ;
+//    ///
+//    /// \brief WT_H264Start_L 打开H.264流，并解码显示
+//    ///
+//    WT_H264StartFUN WT_H264Start_L;
+
+//    /*****************************
+//    * @brief:参数：
+//    decode_handle[in]:解码器的句柄
+//    返回值：
+//    成功：0
+//    失败：<0
+//    ******************************/
+//    typedef int (*WT_H264EndFUN)(WT_H264HANDLE decode_handle);
+//    ///
+//    /// \brief WT_H264End_L 结束H264的链接
+//    ///
+//    WT_H264EndFUN WT_H264End_L;
+
+//    typedef   void  (*WT_H264DestoryFUN)();
+//    ///
+//    /// \brief WT_H264Destory_L 销毁解码库，释放资源
+//    ///
+//    WT_H264DestoryFUN WT_H264Destory_L;
+
+
+    /*****************************
+    * @brief:WTY
+    ******************************/
     static void connectCallback(char *chWTYIP,UINT nStatus,LDWORD dwUser);
     typedef   void (*CLIENT_LPRC_RegCLIENTConnEventFUN)(CLIENT_LPRC_ConnectCallback CLIENTConnect);
     ///

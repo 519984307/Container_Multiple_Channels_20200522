@@ -501,8 +501,8 @@ void DataBase_Form::on_tableView_clicked(const QModelIndex &index)
             ui->result_lineEdit_before->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
             ui->type_lineEdit->setText(tr("A long box"));
             if(type==0){
-                ui->result_lineEdit_4->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
-                ui->result_lineEdit_5->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
+//                ui->result_lineEdit_4->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
+//                ui->result_lineEdit_5->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
                 ui->type_lineEdit->setText(tr("A small box"));
             }
         }

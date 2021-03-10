@@ -111,7 +111,7 @@ private:
     /// \param number 集装箱号码
     /// \return  校验结果
     ///
-    bool numberCheck(QString &number);
+    bool numberCheck(QString number);
 
     ///
     /// \brief queueContainerNumber 统计箱号出现次数，分析箱号
