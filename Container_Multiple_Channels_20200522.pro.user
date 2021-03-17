@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.12.2, 2021-03-08T11:29:13. -->
+<!-- Written by QtCreator 4.12.2, 2021-03-17T18:07:39. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -328,7 +328,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release/Main</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

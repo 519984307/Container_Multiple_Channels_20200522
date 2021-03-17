@@ -17,6 +17,8 @@ TcpServer::TcpServer(QObject *parent):QTcpServer (parent)
 void TcpServer::InitializationParameter()
 {
     isHeartPack=false;
+    newline=false;
+
     pTimerSendHeartPack=new QTimer (this);
     connect(pTimerSendHeartPack,&QTimer::timeout,this,&TcpServer::heartbeatSlot);
 
@@ -67,7 +69,9 @@ void TcpServer::getLastResultSlot(qintptr socktID)
     TcpClient* pClient=clientSocketIdMap.value(socktID);
     if(pClient!=nullptr && pClient->isOpen()){
         pClient->write(resultOfMemory.toLocal8Bit());
-        pClient->write(eol.toUtf8());
+        if(newline){
+            pClient->write(eol.toUtf8());
+        }
         qDebug().noquote()<<QString("Send Data %1:%2:%3").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()).arg(resultOfMemory);
     }
 }
@@ -79,7 +83,9 @@ void TcpServer::toSendDataSlot(int channel_number, const QString &result)
     if(serviceType==0){/* 多服务模式发送到所有链接的客户端 */
         foreach (auto tcp, clientSocketIdMap.values()) {
             tcp->write(result.toLocal8Bit());
-            tcp->write(eol.toUtf8());
+            if(newline){
+                tcp->write(eol.toUtf8());
+            }
         }
     }
     else if (serviceType==1) {/* 单服务模式只发送对应通道客户端 */
@@ -87,7 +93,9 @@ void TcpServer::toSendDataSlot(int channel_number, const QString &result)
             TcpClient* pClient=clientSocketIdMap.value(socketID,nullptr);
             if(pClient!=nullptr){
                 pClient->write(result.toLocal8Bit());
-                pClient->write(eol.toUtf8());
+                if(newline){
+                    pClient->write(eol.toUtf8());
+                }
                 qDebug().noquote()<<QString("Send Data %1:%2:%3").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()).arg(result);
             }
         }
@@ -127,4 +135,9 @@ void TcpServer::releaseResourcesSlot()
 
     clientChannelMap.clear();
     clientSocketIdMap.clear();
+}
+
+void TcpServer::slot_setMessageFormat(int newline)
+{
+    this->newline=newline;
 }

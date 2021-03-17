@@ -66,6 +66,11 @@ private:
     ///
     QString resultOfMemory;
 
+    ///
+    /// \brief newline 换行符
+    ///
+    int newline;
+
 public slots:
 
     ///
@@ -108,6 +113,12 @@ public slots:
     /// \brief releaseResourcesSlot 释放动资源
     ///
     void releaseResourcesSlot();
+
+    ///
+    /// \brief slot_setMessageFormat 设置数据格式
+    /// \param newline
+    ///
+    void slot_setMessageFormat(int newline);
 
 signals:
 

@@ -222,6 +222,11 @@ namespace Parameter {
     /// \brief ShortLink 短链接,主动断开
     ///
     extern int ShortLink;
+
+    ///
+    /// \brief newline 信息添加换行符
+    ///
+    extern int newline;
 }
 
 #endif // PARAMETER_H

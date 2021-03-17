@@ -75,6 +75,11 @@ private:
     ///
     int shortLink;
 
+    ///
+    /// \brief newline 换行符
+    ///
+    int newline;
+
 private slots:
 
     ///
@@ -129,8 +134,9 @@ public:
     /// \param heartBeat 心跳包 状态
     /// \param serviceMode 服务模式
     /// \param shortLink 短链接状态
+    /// \param newline 换行符
     ///
-    void  InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode,const int& shortLink)Q_DECL_OVERRIDE;
+    void  InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode,const int& shortLink,const int& newline)Q_DECL_OVERRIDE;
 
     ///
     /// \brief toSendDataSlot 发送数据
@@ -142,6 +148,14 @@ public:
     /// \brief releaseResourcesSlot 释放动资源
     ///
     void releaseResourcesSlot()Q_DECL_OVERRIDE;
+
+signals:
+
+    ///
+    /// \brief signal_setMessageFormat 设置数据格式
+    /// \param newline
+    ///
+    void signal_setMessageFormat(int newline);
 };
 
 #endif // DATAINTERCHANGE_H

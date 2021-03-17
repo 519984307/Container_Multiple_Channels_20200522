@@ -106,6 +106,7 @@ bool LoadParameter::loadSysParameter()
                     Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
                     Parameter::ShortLink=getJsonValue("Service","ShortLink",value.toObject()).toInt();
                     Parameter::Identify_Protocol=getJsonValue("Service","Identify_Protocol",value.toObject()).toInt();
+                    Parameter::newline=getJsonValue("Service","newline",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;

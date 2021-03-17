@@ -68,6 +68,7 @@ namespace Parameter {
     int Heartbeat= 0;
     int Resultting= 0;
     int ShortLink= 0;
+    int newline=0;
     QString SingletonAddress= QString("");
     QString ManyCasesAddress= QString("");
 }

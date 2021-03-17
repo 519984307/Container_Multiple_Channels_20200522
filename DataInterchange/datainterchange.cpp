@@ -29,11 +29,12 @@ QString DataInterchange::InterfaceType()
     return "DataInterchange";
 }
 
-void DataInterchange::InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode,const int& shortLink)
+void DataInterchange::InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode,const int& shortLink,const int& newline)
 {
     this->address=address;
     this->port=port;
     this->shortLink=shortLink;
+    this->newline=newline;
 
     if(serviceMode==1){/* 服务器模式 */
         pTcpServer=new TcpServer (this);
@@ -45,7 +46,9 @@ void DataInterchange::InitializationParameterSlot(const QString& address, const 
         /* 绑定客户端数量 */
         connect(pTcpServer,&TcpServer::connectCountSignal,this,&DataInterchange::connectCountSignal);
         /* 发送识别结果 */
-        connect(this,&DataInterchange::toSendDataSignal,pTcpServer,&TcpServer::toSendDataSlot);                
+        connect(this,&DataInterchange::toSendDataSignal,pTcpServer,&TcpServer::toSendDataSlot);
+        /* 设置数据格式 */
+        connect(this,&DataInterchange::signal_setMessageFormat,pTcpServer,&TcpServer::slot_setMessageFormat);
 
         startListenSlot();
     }
@@ -71,7 +74,9 @@ void DataInterchange::InitializationParameterSlot(const QString& address, const 
             startLinkSlot();
         }
     }
+
     emit setHeartbeatPackStateSignal(heartBeat);
+    emit signal_setMessageFormat(newline);
 }
 
 void DataInterchange::startLinkSlot()
@@ -124,7 +129,9 @@ void DataInterchange::receiveDataSlot()
         if(tmp.count()==2){
             if (tmp[0].indexOf('R')!=-1) {/* 找到取结果标志位 */
                 pTcpClient->write(resultOfMemory.toLocal8Bit());
-                pTcpClient->write(eol.toUtf8());
+                if(newline){
+                    pTcpClient->write(eol.toUtf8());
+                }
             }
         }
     }
@@ -164,7 +171,9 @@ void DataInterchange::toSendDataSlot(int channel_number,const QString &data)
         pTcpClient->waitForConnected(3000);
     }
     pTcpClient->write(data.toLocal8Bit());
-    pTcpClient->write(eol.toUtf8());
+    if(newline){
+        pTcpClient->write(eol.toUtf8());
+    }
 
     if(shortLink){
         /*****************************

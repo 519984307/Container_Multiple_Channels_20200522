@@ -165,6 +165,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::Heartbeat=getJsonValue("Service","Heartbeat",value.toObject()).toInt();
                     Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
                     Parameter::ShortLink=getJsonValue("Service","ShortLink",value.toObject()).toInt();
+                    Parameter::newline=getJsonValue("Service","newline",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;
@@ -257,6 +258,7 @@ bool System_Setting_Form::writeParameterSlot()
     obj4.insert("Heartbeat",int(ui->Hearbeat_checkBox->isChecked()));
     obj4.insert("Resultting",int(ui->Resulting_checkBox->isChecked()));
     obj4.insert("ShortLink",int(ui->ShortLink_checkBox->isChecked()));
+    obj4.insert("newline",int(ui->newline_checkBox->isChecked()));
     obj4.insert("Identify_Protocol",int(ui->Identify_Protocol_comboBox_2->currentIndex()));
     jsonChild.insert("Service",QJsonValue(obj4));
 
@@ -353,6 +355,7 @@ void System_Setting_Form::parameterToUi()
     ui->Hearbeat_checkBox->setChecked(Parameter::Heartbeat);
     ui->Resulting_checkBox->setChecked(Parameter::Resultting);
     ui->ShortLink_checkBox->setChecked(Parameter::ShortLink);
+    ui->newline_checkBox->setChecked(Parameter::newline);
     ui->Identify_Protocol_comboBox_2->setCurrentIndex(Parameter::Identify_Protocol);
 
     /*****************************
