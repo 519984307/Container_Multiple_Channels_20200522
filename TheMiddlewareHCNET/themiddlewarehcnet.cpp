@@ -691,10 +691,10 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
     if(nullptr!=LoginInfo && pThis->NET_DVR_GetLastError_L()>0){
 
         emit pThis->equipmentStateSignal(lUserID,false);
-        int key =pThis->logInfoMap.key(LoginInfo,-1);
-        if(key!=-1){
-            pThis->logInfoMap.remove(key);
-        }
+//        int key =pThis->logInfoMap.key(LoginInfo,-1);
+//        if(key!=-1){
+//            pThis->logInfoMap.remove(key);
+//        }
 
         if(nullptr != pThis->NET_DVR_Logout_L){
             pThis-> NET_DVR_Logout_L(lUserID);
