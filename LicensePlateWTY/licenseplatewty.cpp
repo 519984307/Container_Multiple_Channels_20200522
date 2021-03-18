@@ -137,6 +137,9 @@ void LicensePlateWTY::connectCallback(char *chWTYIP, UINT nStatus, LDWORD dwUser
     emit pThis->equipmentStateSignal(QString::fromUtf8(chWTYIP),nStatus?true:false);
 
     if(nStatus?true:false){
+        if(pThis->CLIENT_LPRC_QuitDevice!=nullptr){
+            pThis->CLIENT_LPRC_QuitDevice(pThis->arrAddr.data());
+        }
         QTimer::singleShot(10000,pThis,SLOT(autoLinkCamer()));
     }
 }
