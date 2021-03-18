@@ -155,7 +155,7 @@ bool TheMiddlewareHCNET::initializationParameter()
             if(NET_DVR_SetExceptionCallBack_V30_L!=nullptr && NET_DVR_SetExceptionCallBack_V30_L(0,nullptr,TheMiddlewareHCNET::exceptionCallBack_V30,this)){
                 qDebug().noquote()<<"Set exception callback successful";
                 NET_DVR_SetLogToFile_L(3, QString(".\\Log\\sdkLog").toLatin1().data(), true);
-                NET_DVR_SetConnectTime_L(3000,0);
+                NET_DVR_SetConnectTime_L(3000,-1);
                 NET_DVR_SetReconnect_L(3000,0);
                 NET_DVR_SetRecvTimeOut_L(1000);
             }

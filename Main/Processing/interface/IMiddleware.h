@@ -104,7 +104,7 @@ public slots:
     virtual void releaseResourcesSlot()=0;
 };
 
-#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/2.4.2.11"
+#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/2.4.2.12"
 Q_DECLARE_INTERFACE(IMiddleware,IMiddlewareIID);
 
 #endif // IMIDDLEWARE_H

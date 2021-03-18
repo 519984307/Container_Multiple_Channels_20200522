@@ -6,7 +6,7 @@ TEMPLATE = lib
 DEFINES += LICENSEPLATEHCNET_LIBRARY
 
 CONFIG += skip_target_version_ext
-VERSION = 2.2.2.2
+VERSION = 2.2.2.3
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use
