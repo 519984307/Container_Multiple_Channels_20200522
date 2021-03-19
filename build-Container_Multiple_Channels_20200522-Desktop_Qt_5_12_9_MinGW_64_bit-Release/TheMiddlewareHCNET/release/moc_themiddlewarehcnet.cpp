@@ -101,7 +101,7 @@ void *TheMiddlewareHCNET::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_TheMiddlewareHCNET.stringdata0))
         return static_cast<void*>(this);
-    if (!strcmp(_clname, "ZBY.ContainerServer.IMiddleware/2.4.2.11"))
+    if (!strcmp(_clname, "ZBY.ContainerServer.IMiddleware/2.4.2.12"))
         return static_cast< IMiddleware*>(this);
     return IMiddleware::qt_metacast(_clname);
 }
@@ -135,7 +135,7 @@ static constexpr unsigned char qt_pluginMetaData[] = {
     'S',  'e',  'r',  'v',  'e',  'r',  '.',  'I', 
     'M',  'i',  'd',  'd',  'l',  'e',  'w',  'a', 
     'r',  'e',  '/',  '2',  '.',  '4',  '.',  '2', 
-    '.',  '1',  '1', 
+    '.',  '1',  '2', 
     // "className"
     0x03,  0x72,  'T',  'h',  'e',  'M',  'i',  'd', 
     'd',  'l',  'e',  'w',  'a',  'r',  'e',  'H', 

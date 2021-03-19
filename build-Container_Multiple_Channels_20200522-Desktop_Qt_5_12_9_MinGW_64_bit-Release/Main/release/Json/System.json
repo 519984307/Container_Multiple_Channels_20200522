@@ -10,9 +10,9 @@
         },
         "Model": {
             "Camera_Load_Plugin": 1,
-            "HCNET_Capture_Type": 0,
+            "HCNET_Capture_Type": 3,
             "LogicType": 0,
-            "PlateType": 1
+            "PlateType": 0
         },
         "Other": {
             "Automatic": 0,
@@ -27,24 +27,25 @@
             "ResultsTheCheck": 0
         },
         "Service": {
-            "Heartbeat": 1,
-            "Identify_Protocol": 1,
+            "Heartbeat": 0,
+            "Identify_Protocol": 0,
             "ManyCasesAddress": "127.0.0.1:12011,127.0.0.1:60001",
-            "Resultting": 1,
+            "Resultting": 0,
             "Service_Model": 1,
             "Service_Type": 0,
-            "ShortLink": 0,
-            "SingletonAddress": ""
+            "ShortLink": 1,
+            "SingletonAddress": "",
+            "newline": 0
         },
         "Upload": {
             "DatabaseType": 0,
-            "Ftp": 0,
-            "FtpAddress": "",
+            "Ftp": 1,
+            "FtpAddress": "192.168.1.188",
             "FtpLocalPath": "",
-            "FtpPassword": "",
-            "FtpPort": 0,
-            "FtpRemotePath": "",
-            "FtpUser": "",
+            "FtpPassword": "sam123",
+            "FtpPort": 21,
+            "FtpRemotePath": "C:\\Users\\cc\\Documents\\FTP",
+            "FtpUser": "sam",
             "ReduceImage": 0,
             "databaseAddr": "",
             "databasePass": "",

@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_TcpServer_t {
-    QByteArrayData data[20];
-    char stringdata0[248];
+    QByteArrayData data[22];
+    char stringdata0[278];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -50,7 +50,9 @@ QT_MOC_LITERAL(15, 176, 6), // "result"
 QT_MOC_LITERAL(16, 183, 13), // "heartbeatSlot"
 QT_MOC_LITERAL(17, 197, 23), // "setHeartPacketStateSlot"
 QT_MOC_LITERAL(18, 221, 5), // "state"
-QT_MOC_LITERAL(19, 227, 20) // "releaseResourcesSlot"
+QT_MOC_LITERAL(19, 227, 20), // "releaseResourcesSlot"
+QT_MOC_LITERAL(20, 248, 21), // "slot_setMessageFormat"
+QT_MOC_LITERAL(21, 270, 7) // "newline"
 
     },
     "TcpServer\0messageSignal\0\0type\0msg\0"
@@ -59,7 +61,8 @@ QT_MOC_LITERAL(19, 227, 20) // "releaseResourcesSlot"
     "qintptr\0socketID\0getLastResultSlot\0"
     "socktID\0toSendDataSlot\0result\0"
     "heartbeatSlot\0setHeartPacketStateSlot\0"
-    "state\0releaseResourcesSlot"
+    "state\0releaseResourcesSlot\0"
+    "slot_setMessageFormat\0newline"
 };
 #undef QT_MOC_LITERAL
 
@@ -69,7 +72,7 @@ static const uint qt_meta_data_TcpServer[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -77,17 +80,18 @@ static const uint qt_meta_data_TcpServer[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   59,    2, 0x06 /* Public */,
-       5,    1,   64,    2, 0x06 /* Public */,
+       1,    2,   64,    2, 0x06 /* Public */,
+       5,    1,   69,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       7,    0,   67,    2, 0x0a /* Public */,
-       8,    2,   68,    2, 0x0a /* Public */,
-      12,    1,   73,    2, 0x0a /* Public */,
-      14,    2,   76,    2, 0x0a /* Public */,
-      16,    0,   81,    2, 0x0a /* Public */,
-      17,    1,   82,    2, 0x0a /* Public */,
-      19,    0,   85,    2, 0x0a /* Public */,
+       7,    0,   72,    2, 0x0a /* Public */,
+       8,    2,   73,    2, 0x0a /* Public */,
+      12,    1,   78,    2, 0x0a /* Public */,
+      14,    2,   81,    2, 0x0a /* Public */,
+      16,    0,   86,    2, 0x0a /* Public */,
+      17,    1,   87,    2, 0x0a /* Public */,
+      19,    0,   90,    2, 0x0a /* Public */,
+      20,    1,   91,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
@@ -101,6 +105,7 @@ static const uint qt_meta_data_TcpServer[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Bool,   18,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   21,
 
        0        // eod
 };
@@ -120,6 +125,7 @@ void TcpServer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 6: _t->heartbeatSlot(); break;
         case 7: _t->setHeartPacketStateSlot((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 8: _t->releaseResourcesSlot(); break;
+        case 9: _t->slot_setMessageFormat((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -170,13 +176,13 @@ int TcpServer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }

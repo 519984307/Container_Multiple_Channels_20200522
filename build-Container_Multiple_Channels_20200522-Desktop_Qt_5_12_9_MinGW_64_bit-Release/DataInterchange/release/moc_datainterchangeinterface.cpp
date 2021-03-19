@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DataInterchangeInterface_t {
-    QByteArrayData data[23];
-    char stringdata0[289];
+    QByteArrayData data[24];
+    char stringdata0[297];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -51,9 +51,10 @@ QT_MOC_LITERAL(16, 204, 11), // "serviceType"
 QT_MOC_LITERAL(17, 216, 9), // "heartBeat"
 QT_MOC_LITERAL(18, 226, 11), // "serviceMode"
 QT_MOC_LITERAL(19, 238, 9), // "shortLink"
-QT_MOC_LITERAL(20, 248, 14), // "toSendDataSlot"
-QT_MOC_LITERAL(21, 263, 4), // "data"
-QT_MOC_LITERAL(22, 268, 20) // "releaseResourcesSlot"
+QT_MOC_LITERAL(20, 248, 7), // "newline"
+QT_MOC_LITERAL(21, 256, 14), // "toSendDataSlot"
+QT_MOC_LITERAL(22, 271, 4), // "data"
+QT_MOC_LITERAL(23, 276, 20) // "releaseResourcesSlot"
 
     },
     "DataInterchangeInterface\0messageSignal\0"
@@ -63,7 +64,7 @@ QT_MOC_LITERAL(22, 268, 20) // "releaseResourcesSlot"
     "setHeartbeatPackStateSignal\0"
     "InitializationParameterSlot\0port\0"
     "serviceType\0heartBeat\0serviceMode\0"
-    "shortLink\0toSendDataSlot\0data\0"
+    "shortLink\0newline\0toSendDataSlot\0data\0"
     "releaseResourcesSlot"
 };
 #undef QT_MOC_LITERAL
@@ -89,9 +90,9 @@ static const uint qt_meta_data_DataInterchangeInterface[] = {
       13,    1,   72,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      14,    6,   75,    2, 0x0a /* Public */,
-      20,    2,   88,    2, 0x0a /* Public */,
-      22,    0,   93,    2, 0x0a /* Public */,
+      14,    7,   75,    2, 0x0a /* Public */,
+      21,    2,   90,    2, 0x0a /* Public */,
+      23,    0,   95,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
@@ -101,8 +102,8 @@ static const uint qt_meta_data_DataInterchangeInterface[] = {
     QMetaType::Void, QMetaType::Bool,    7,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::UShort, QMetaType::Int, QMetaType::Bool, QMetaType::Int, QMetaType::Int,    6,   15,   16,   17,   18,   19,
-    QMetaType::Void, QMetaType::Int, QMetaType::QString,   11,   21,
+    QMetaType::Void, QMetaType::QString, QMetaType::UShort, QMetaType::Int, QMetaType::Bool, QMetaType::Int, QMetaType::Int, QMetaType::Int,    6,   15,   16,   17,   18,   19,   20,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,   11,   22,
     QMetaType::Void,
 
        0        // eod
@@ -119,7 +120,7 @@ void DataInterchangeInterface::qt_static_metacall(QObject *_o, QMetaObject::Call
         case 2: _t->connectCountSignal((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->toSendDataSignal((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
         case 4: _t->setHeartbeatPackStateSignal((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 5: _t->InitializationParameterSlot((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const quint16(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< const bool(*)>(_a[4])),(*reinterpret_cast< const int(*)>(_a[5])),(*reinterpret_cast< const int(*)>(_a[6]))); break;
+        case 5: _t->InitializationParameterSlot((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const quint16(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< const bool(*)>(_a[4])),(*reinterpret_cast< const int(*)>(_a[5])),(*reinterpret_cast< const int(*)>(_a[6])),(*reinterpret_cast< const int(*)>(_a[7]))); break;
         case 6: _t->toSendDataSlot((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
         case 7: _t->releaseResourcesSlot(); break;
         default: ;

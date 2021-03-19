@@ -95,20 +95,6 @@ public:
     QSpacerItem *verticalSpacer_2;
     QWidget *Service;
     QGridLayout *gridLayout_7;
-    QLabel *label_32;
-    QHBoxLayout *horizontalLayout;
-    QRadioButton *ServerModel;
-    QRadioButton *ClientModel;
-    QLabel *label_17;
-    QLabel *label_31;
-    QCheckBox *checkBox_2;
-    QCheckBox *Hearbeat_checkBox;
-    QSplitter *splitter;
-    QComboBox *Identify_Protocol_comboBox_2;
-    QLabel *label_30;
-    QSpacerItem *verticalSpacer_7;
-    QSplitter *splitter_2;
-    QComboBox *comboBox_3;
     QStackedWidget *Service_Type_stackedWidget;
     QWidget *page_6;
     QGridLayout *gridLayout_28;
@@ -117,18 +103,34 @@ public:
     QGridLayout *gridLayout_11;
     QSpacerItem *verticalSpacer_6;
     QLineEdit *Address_Singleton_lineEdit;
-    QLabel *label_44;
     QLabel *label_45;
     QCheckBox *Resulting_checkBox;
+    QComboBox *Service_Type_comboBox;
+    QLabel *label_31;
+    QCheckBox *newline_checkBox;
+    QSplitter *splitter_2;
+    QComboBox *comboBox_3;
+    QCheckBox *Hearbeat_checkBox;
+    QHBoxLayout *horizontalLayout;
+    QRadioButton *ServerModel;
+    QRadioButton *ClientModel;
+    QSpacerItem *verticalSpacer_7;
+    QLabel *label_17;
+    QLabel *label_47;
+    QCheckBox *checkBox;
+    QLabel *label_32;
+    QLabel *label_44;
     QSplitter *splitter_3;
     QComboBox *comboBox_4;
-    QCheckBox *checkBox;
-    QComboBox *Service_Type_comboBox;
     QLabel *label_16;
-    QCheckBox *ShortLink_checkBox;
     QLabel *label_46;
+    QLabel *label_30;
+    QCheckBox *checkBox_2;
+    QCheckBox *ShortLink_checkBox;
     QLabel *label_48;
-    QLabel *label_47;
+    QSplitter *splitter;
+    QComboBox *Identify_Protocol_comboBox_2;
+    QLabel *label_51;
     QWidget *Upload;
     QGridLayout *gridLayout_9;
     QSpacerItem *verticalSpacer_4;
@@ -567,86 +569,6 @@ public:
         gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
         gridLayout_7->setHorizontalSpacing(50);
         gridLayout_7->setVerticalSpacing(20);
-        label_32 = new QLabel(Service);
-        label_32->setObjectName(QString::fromUtf8("label_32"));
-        label_32->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_32, 4, 1, 1, 2);
-
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        ServerModel = new QRadioButton(Service);
-        ServerModel->setObjectName(QString::fromUtf8("ServerModel"));
-        ServerModel->setChecked(true);
-
-        horizontalLayout->addWidget(ServerModel);
-
-        ClientModel = new QRadioButton(Service);
-        ClientModel->setObjectName(QString::fromUtf8("ClientModel"));
-        ClientModel->setEnabled(true);
-
-        horizontalLayout->addWidget(ClientModel);
-
-
-        gridLayout_7->addLayout(horizontalLayout, 0, 0, 1, 1);
-
-        label_17 = new QLabel(Service);
-        label_17->setObjectName(QString::fromUtf8("label_17"));
-        label_17->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_17, 6, 1, 1, 2);
-
-        label_31 = new QLabel(Service);
-        label_31->setObjectName(QString::fromUtf8("label_31"));
-        label_31->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-        label_31->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_31, 2, 1, 1, 2);
-
-        checkBox_2 = new QCheckBox(Service);
-        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
-
-        gridLayout_7->addWidget(checkBox_2, 11, 0, 1, 1);
-
-        Hearbeat_checkBox = new QCheckBox(Service);
-        Hearbeat_checkBox->setObjectName(QString::fromUtf8("Hearbeat_checkBox"));
-        Hearbeat_checkBox->setChecked(true);
-
-        gridLayout_7->addWidget(Hearbeat_checkBox, 7, 0, 1, 1);
-
-        splitter = new QSplitter(Service);
-        splitter->setObjectName(QString::fromUtf8("splitter"));
-        splitter->setOrientation(Qt::Horizontal);
-        Identify_Protocol_comboBox_2 = new QComboBox(splitter);
-        Identify_Protocol_comboBox_2->addItem(QString());
-        Identify_Protocol_comboBox_2->addItem(QString());
-        Identify_Protocol_comboBox_2->addItem(QString());
-        Identify_Protocol_comboBox_2->setObjectName(QString::fromUtf8("Identify_Protocol_comboBox_2"));
-        splitter->addWidget(Identify_Protocol_comboBox_2);
-
-        gridLayout_7->addWidget(splitter, 4, 0, 1, 1);
-
-        label_30 = new QLabel(Service);
-        label_30->setObjectName(QString::fromUtf8("label_30"));
-        label_30->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_30, 0, 1, 1, 2);
-
-        verticalSpacer_7 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_7->addItem(verticalSpacer_7, 3, 2, 1, 1);
-
-        splitter_2 = new QSplitter(Service);
-        splitter_2->setObjectName(QString::fromUtf8("splitter_2"));
-        splitter_2->setOrientation(Qt::Horizontal);
-        comboBox_3 = new QComboBox(splitter_2);
-        comboBox_3->addItem(QString());
-        comboBox_3->addItem(QString());
-        comboBox_3->setObjectName(QString::fromUtf8("comboBox_3"));
-        splitter_2->addWidget(comboBox_3);
-
-        gridLayout_7->addWidget(splitter_2, 5, 0, 1, 1);
-
         Service_Type_stackedWidget = new QStackedWidget(Service);
         Service_Type_stackedWidget->setObjectName(QString::fromUtf8("Service_Type_stackedWidget"));
         page_6 = new QWidget();
@@ -680,23 +602,103 @@ public:
 
         gridLayout_7->addWidget(Service_Type_stackedWidget, 2, 0, 1, 1);
 
-        label_44 = new QLabel(Service);
-        label_44->setObjectName(QString::fromUtf8("label_44"));
-        label_44->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_44, 7, 1, 1, 2);
-
         label_45 = new QLabel(Service);
         label_45->setObjectName(QString::fromUtf8("label_45"));
         label_45->setWordWrap(true);
 
-        gridLayout_7->addWidget(label_45, 8, 1, 1, 2);
+        gridLayout_7->addWidget(label_45, 9, 1, 1, 2);
 
         Resulting_checkBox = new QCheckBox(Service);
         Resulting_checkBox->setObjectName(QString::fromUtf8("Resulting_checkBox"));
         Resulting_checkBox->setChecked(true);
 
-        gridLayout_7->addWidget(Resulting_checkBox, 8, 0, 1, 1);
+        gridLayout_7->addWidget(Resulting_checkBox, 9, 0, 1, 1);
+
+        Service_Type_comboBox = new QComboBox(Service);
+        Service_Type_comboBox->addItem(QString());
+        Service_Type_comboBox->addItem(QString());
+        Service_Type_comboBox->setObjectName(QString::fromUtf8("Service_Type_comboBox"));
+
+        gridLayout_7->addWidget(Service_Type_comboBox, 1, 0, 1, 1);
+
+        label_31 = new QLabel(Service);
+        label_31->setObjectName(QString::fromUtf8("label_31"));
+        label_31->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+        label_31->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_31, 2, 1, 1, 2);
+
+        newline_checkBox = new QCheckBox(Service);
+        newline_checkBox->setObjectName(QString::fromUtf8("newline_checkBox"));
+
+        gridLayout_7->addWidget(newline_checkBox, 7, 0, 1, 1);
+
+        splitter_2 = new QSplitter(Service);
+        splitter_2->setObjectName(QString::fromUtf8("splitter_2"));
+        splitter_2->setOrientation(Qt::Horizontal);
+        comboBox_3 = new QComboBox(splitter_2);
+        comboBox_3->addItem(QString());
+        comboBox_3->addItem(QString());
+        comboBox_3->setObjectName(QString::fromUtf8("comboBox_3"));
+        splitter_2->addWidget(comboBox_3);
+
+        gridLayout_7->addWidget(splitter_2, 5, 0, 1, 1);
+
+        Hearbeat_checkBox = new QCheckBox(Service);
+        Hearbeat_checkBox->setObjectName(QString::fromUtf8("Hearbeat_checkBox"));
+        Hearbeat_checkBox->setChecked(true);
+
+        gridLayout_7->addWidget(Hearbeat_checkBox, 8, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        ServerModel = new QRadioButton(Service);
+        ServerModel->setObjectName(QString::fromUtf8("ServerModel"));
+        ServerModel->setChecked(true);
+
+        horizontalLayout->addWidget(ServerModel);
+
+        ClientModel = new QRadioButton(Service);
+        ClientModel->setObjectName(QString::fromUtf8("ClientModel"));
+        ClientModel->setEnabled(true);
+
+        horizontalLayout->addWidget(ClientModel);
+
+
+        gridLayout_7->addLayout(horizontalLayout, 0, 0, 1, 1);
+
+        verticalSpacer_7 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_7->addItem(verticalSpacer_7, 3, 2, 1, 1);
+
+        label_17 = new QLabel(Service);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+        label_17->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_17, 6, 1, 1, 2);
+
+        label_47 = new QLabel(Service);
+        label_47->setObjectName(QString::fromUtf8("label_47"));
+        label_47->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_47, 12, 1, 1, 2);
+
+        checkBox = new QCheckBox(Service);
+        checkBox->setObjectName(QString::fromUtf8("checkBox"));
+
+        gridLayout_7->addWidget(checkBox, 11, 0, 1, 1);
+
+        label_32 = new QLabel(Service);
+        label_32->setObjectName(QString::fromUtf8("label_32"));
+        label_32->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_32, 4, 1, 1, 2);
+
+        label_44 = new QLabel(Service);
+        label_44->setObjectName(QString::fromUtf8("label_44"));
+        label_44->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_44, 8, 1, 1, 2);
 
         splitter_3 = new QSplitter(Service);
         splitter_3->setObjectName(QString::fromUtf8("splitter_3"));
@@ -709,46 +711,57 @@ public:
 
         gridLayout_7->addWidget(splitter_3, 6, 0, 1, 1);
 
-        checkBox = new QCheckBox(Service);
-        checkBox->setObjectName(QString::fromUtf8("checkBox"));
-
-        gridLayout_7->addWidget(checkBox, 10, 0, 1, 1);
-
-        Service_Type_comboBox = new QComboBox(Service);
-        Service_Type_comboBox->addItem(QString());
-        Service_Type_comboBox->addItem(QString());
-        Service_Type_comboBox->setObjectName(QString::fromUtf8("Service_Type_comboBox"));
-
-        gridLayout_7->addWidget(Service_Type_comboBox, 1, 0, 1, 1);
-
         label_16 = new QLabel(Service);
         label_16->setObjectName(QString::fromUtf8("label_16"));
         label_16->setWordWrap(true);
 
         gridLayout_7->addWidget(label_16, 5, 1, 1, 2);
 
-        ShortLink_checkBox = new QCheckBox(Service);
-        ShortLink_checkBox->setObjectName(QString::fromUtf8("ShortLink_checkBox"));
-
-        gridLayout_7->addWidget(ShortLink_checkBox, 9, 0, 1, 1);
-
         label_46 = new QLabel(Service);
         label_46->setObjectName(QString::fromUtf8("label_46"));
         label_46->setWordWrap(true);
 
-        gridLayout_7->addWidget(label_46, 9, 1, 1, 2);
+        gridLayout_7->addWidget(label_46, 10, 1, 1, 2);
+
+        label_30 = new QLabel(Service);
+        label_30->setObjectName(QString::fromUtf8("label_30"));
+        label_30->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_30, 0, 1, 1, 2);
+
+        checkBox_2 = new QCheckBox(Service);
+        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
+
+        gridLayout_7->addWidget(checkBox_2, 12, 0, 1, 1);
+
+        ShortLink_checkBox = new QCheckBox(Service);
+        ShortLink_checkBox->setObjectName(QString::fromUtf8("ShortLink_checkBox"));
+
+        gridLayout_7->addWidget(ShortLink_checkBox, 10, 0, 1, 1);
 
         label_48 = new QLabel(Service);
         label_48->setObjectName(QString::fromUtf8("label_48"));
         label_48->setWordWrap(true);
 
-        gridLayout_7->addWidget(label_48, 10, 1, 1, 2);
+        gridLayout_7->addWidget(label_48, 11, 1, 1, 2);
 
-        label_47 = new QLabel(Service);
-        label_47->setObjectName(QString::fromUtf8("label_47"));
-        label_47->setWordWrap(true);
+        splitter = new QSplitter(Service);
+        splitter->setObjectName(QString::fromUtf8("splitter"));
+        splitter->setOrientation(Qt::Horizontal);
+        Identify_Protocol_comboBox_2 = new QComboBox(splitter);
+        Identify_Protocol_comboBox_2->addItem(QString());
+        Identify_Protocol_comboBox_2->addItem(QString());
+        Identify_Protocol_comboBox_2->addItem(QString());
+        Identify_Protocol_comboBox_2->setObjectName(QString::fromUtf8("Identify_Protocol_comboBox_2"));
+        splitter->addWidget(Identify_Protocol_comboBox_2);
 
-        gridLayout_7->addWidget(label_47, 11, 1, 1, 2);
+        gridLayout_7->addWidget(splitter, 4, 0, 1, 1);
+
+        label_51 = new QLabel(Service);
+        label_51->setObjectName(QString::fromUtf8("label_51"));
+        label_51->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_51, 7, 1, 1, 2);
 
         tabWidget->addTab(Service, QString());
         Upload = new QWidget();
@@ -1413,41 +1426,43 @@ public:
         Eliminate_pushButton->setText(QApplication::translate("System_Setting_Form", "DEL", nullptr));
         label_29->setText(QApplication::translate("System_Setting_Form", "Add the prefix of container number. If the container number is clear and the prefix is wrong, the response prefix can be deleted.", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Recognizer), QApplication::translate("System_Setting_Form", "Recognizer", nullptr));
-        label_32->setText(QApplication::translate("System_Setting_Form", "Identify the data docking protocol", nullptr));
-        ServerModel->setText(QApplication::translate("System_Setting_Form", "Tcp Server", nullptr));
-        ClientModel->setText(QApplication::translate("System_Setting_Form", "Tcp Client", nullptr));
-        label_17->setText(QApplication::translate("System_Setting_Form", "Web service data format", nullptr));
+        Address_Many_textEdit->setPlaceholderText(QApplication::translate("System_Setting_Form", "if(server)192.168.1.100:5000,192.168.1.100:5001,192.168.1.100:5002 if(client)192.168.1.100:5000,192.168.1.101:5000,192.168.1.102:5000", nullptr));
+        Address_Singleton_lineEdit->setPlaceholderText(QApplication::translate("System_Setting_Form", "127.0.0.1:5000", nullptr));
+        label_45->setText(QApplication::translate("System_Setting_Form", "The intermediate result set starts with [I, and is opened as required, not as the final result.", nullptr));
+        Resulting_checkBox->setText(QApplication::translate("System_Setting_Form", "Send an intermediate result set", nullptr));
+        Service_Type_comboBox->setItemText(0, QApplication::translate("System_Setting_Form", "One to one", nullptr));
+        Service_Type_comboBox->setItemText(1, QApplication::translate("System_Setting_Form", "More than a pair of", nullptr));
+
         label_31->setText(QApplication::translate("System_Setting_Form", "One to one:One service corresponds to one channel, and either server mode or client mode can be set.\n"
 "\n"
 "\n"
 "More than pair of:One service corresponds to all channels, and only the server mode can be set, One service corresponds to all channels (Need to respond to channel instruction [L|Number])", nullptr));
-        checkBox_2->setText(QApplication::translate("System_Setting_Form", "Send astern signal", nullptr));
+        newline_checkBox->setText(QApplication::translate("System_Setting_Form", "A newline", nullptr));
+        comboBox_3->setItemText(0, QApplication::translate("System_Setting_Form", "TCP", nullptr));
+        comboBox_3->setItemText(1, QApplication::translate("System_Setting_Form", "HTTP", nullptr));
+
         Hearbeat_checkBox->setText(QApplication::translate("System_Setting_Form", "The heartbeat packets", nullptr));
+        ServerModel->setText(QApplication::translate("System_Setting_Form", "Tcp Server", nullptr));
+        ClientModel->setText(QApplication::translate("System_Setting_Form", "Tcp Client", nullptr));
+        label_17->setText(QApplication::translate("System_Setting_Form", "Web service data format", nullptr));
+        label_47->setText(QApplication::translate("System_Setting_Form", "The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process", nullptr));
+        checkBox->setText(QApplication::translate("System_Setting_Form", "Send a car signal", nullptr));
+        label_32->setText(QApplication::translate("System_Setting_Form", "Identify the data docking protocol", nullptr));
+        label_44->setText(QApplication::translate("System_Setting_Form", "The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!", nullptr));
+        comboBox_4->setItemText(0, QApplication::translate("System_Setting_Form", "JSON", nullptr));
+        comboBox_4->setItemText(1, QApplication::translate("System_Setting_Form", "XML", nullptr));
+
+        label_16->setText(QApplication::translate("System_Setting_Form", "Identify the data docking interface", nullptr));
+        label_46->setText(QApplication::translate("System_Setting_Form", "The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.", nullptr));
+        label_30->setText(QApplication::translate("System_Setting_Form", "Identify data docking patterns", nullptr));
+        checkBox_2->setText(QApplication::translate("System_Setting_Form", "Send astern signal", nullptr));
+        ShortLink_checkBox->setText(QApplication::translate("System_Setting_Form", "Short link", nullptr));
+        label_48->setText(QApplication::translate("System_Setting_Form", "Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process", nullptr));
         Identify_Protocol_comboBox_2->setItemText(0, QApplication::translate("System_Setting_Form", "Container_number", nullptr));
         Identify_Protocol_comboBox_2->setItemText(1, QApplication::translate("System_Setting_Form", "Container_number+Plate", nullptr));
         Identify_Protocol_comboBox_2->setItemText(2, QApplication::translate("System_Setting_Form", "Container_number+Plate+Weight", nullptr));
 
-        label_30->setText(QApplication::translate("System_Setting_Form", "Identify data docking patterns", nullptr));
-        comboBox_3->setItemText(0, QApplication::translate("System_Setting_Form", "TCP", nullptr));
-        comboBox_3->setItemText(1, QApplication::translate("System_Setting_Form", "HTTP", nullptr));
-
-        Address_Many_textEdit->setPlaceholderText(QApplication::translate("System_Setting_Form", "if(server)192.168.1.100:5000,192.168.1.100:5001,192.168.1.100:5002 if(client)192.168.1.100:5000,192.168.1.101:5000,192.168.1.102:5000", nullptr));
-        Address_Singleton_lineEdit->setPlaceholderText(QApplication::translate("System_Setting_Form", "127.0.0.1:5000", nullptr));
-        label_44->setText(QApplication::translate("System_Setting_Form", "The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!", nullptr));
-        label_45->setText(QApplication::translate("System_Setting_Form", "The intermediate result set starts with [I, and is opened as required, not as the final result.", nullptr));
-        Resulting_checkBox->setText(QApplication::translate("System_Setting_Form", "Send an intermediate result set", nullptr));
-        comboBox_4->setItemText(0, QApplication::translate("System_Setting_Form", "JSON", nullptr));
-        comboBox_4->setItemText(1, QApplication::translate("System_Setting_Form", "XML", nullptr));
-
-        checkBox->setText(QApplication::translate("System_Setting_Form", "Send a car signal", nullptr));
-        Service_Type_comboBox->setItemText(0, QApplication::translate("System_Setting_Form", "One to one", nullptr));
-        Service_Type_comboBox->setItemText(1, QApplication::translate("System_Setting_Form", "More than a pair of", nullptr));
-
-        label_16->setText(QApplication::translate("System_Setting_Form", "Identify the data docking interface", nullptr));
-        ShortLink_checkBox->setText(QApplication::translate("System_Setting_Form", "Short link", nullptr));
-        label_46->setText(QApplication::translate("System_Setting_Form", "The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.", nullptr));
-        label_48->setText(QApplication::translate("System_Setting_Form", "Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process", nullptr));
-        label_47->setText(QApplication::translate("System_Setting_Form", "The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process", nullptr));
+        label_51->setText(QApplication::translate("System_Setting_Form", "A newline character is added to each piece of data to form a complete line.", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Service), QApplication::translate("System_Setting_Form", "Service", nullptr));
         groupBox_15->setTitle(QApplication::translate("System_Setting_Form", "Database", nullptr));
         label_20->setText(QApplication::translate("System_Setting_Form", "Database type    ", nullptr));

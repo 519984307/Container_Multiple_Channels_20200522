@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DataProcessing_t {
-    QByteArrayData data[20];
-    char stringdata0[242];
+    QByteArrayData data[21];
+    char stringdata0[250];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,25 +40,26 @@ QT_MOC_LITERAL(5, 60, 11), // "serviceType"
 QT_MOC_LITERAL(6, 72, 9), // "heartBeat"
 QT_MOC_LITERAL(7, 82, 11), // "serviceMode"
 QT_MOC_LITERAL(8, 94, 9), // "shortLink"
-QT_MOC_LITERAL(9, 104, 17), // "signal_toSendData"
-QT_MOC_LITERAL(10, 122, 14), // "channel_number"
-QT_MOC_LITERAL(11, 137, 4), // "data"
-QT_MOC_LITERAL(12, 142, 14), // "slot_linkState"
-QT_MOC_LITERAL(13, 157, 5), // "state"
-QT_MOC_LITERAL(14, 163, 17), // "slot_connectCount"
-QT_MOC_LITERAL(15, 181, 5), // "count"
-QT_MOC_LITERAL(16, 187, 18), // "slot_sendDataToLog"
-QT_MOC_LITERAL(17, 206, 6), // "result"
-QT_MOC_LITERAL(18, 213, 20), // "slot_containerResult"
-QT_MOC_LITERAL(19, 234, 7) // "channel"
+QT_MOC_LITERAL(9, 104, 7), // "newline"
+QT_MOC_LITERAL(10, 112, 17), // "signal_toSendData"
+QT_MOC_LITERAL(11, 130, 14), // "channel_number"
+QT_MOC_LITERAL(12, 145, 4), // "data"
+QT_MOC_LITERAL(13, 150, 14), // "slot_linkState"
+QT_MOC_LITERAL(14, 165, 5), // "state"
+QT_MOC_LITERAL(15, 171, 17), // "slot_connectCount"
+QT_MOC_LITERAL(16, 189, 5), // "count"
+QT_MOC_LITERAL(17, 195, 18), // "slot_sendDataToLog"
+QT_MOC_LITERAL(18, 214, 6), // "result"
+QT_MOC_LITERAL(19, 221, 20), // "slot_containerResult"
+QT_MOC_LITERAL(20, 242, 7) // "channel"
 
     },
     "DataProcessing\0signal_InitializationParameter\0"
     "\0address\0port\0serviceType\0heartBeat\0"
-    "serviceMode\0shortLink\0signal_toSendData\0"
-    "channel_number\0data\0slot_linkState\0"
-    "state\0slot_connectCount\0count\0"
-    "slot_sendDataToLog\0result\0"
+    "serviceMode\0shortLink\0newline\0"
+    "signal_toSendData\0channel_number\0data\0"
+    "slot_linkState\0state\0slot_connectCount\0"
+    "count\0slot_sendDataToLog\0result\0"
     "slot_containerResult\0channel"
 };
 #undef QT_MOC_LITERAL
@@ -77,24 +78,24 @@ static const uint qt_meta_data_DataProcessing[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    6,   44,    2, 0x06 /* Public */,
-       9,    2,   57,    2, 0x06 /* Public */,
+       1,    7,   44,    2, 0x06 /* Public */,
+      10,    2,   59,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      12,    2,   62,    2, 0x0a /* Public */,
-      14,    1,   67,    2, 0x0a /* Public */,
-      16,    2,   70,    2, 0x0a /* Public */,
-      18,    2,   75,    2, 0x0a /* Public */,
+      13,    2,   64,    2, 0x0a /* Public */,
+      15,    1,   69,    2, 0x0a /* Public */,
+      17,    2,   72,    2, 0x0a /* Public */,
+      19,    2,   77,    2, 0x0a /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::UShort, QMetaType::Int, QMetaType::Bool, QMetaType::Int, QMetaType::Int,    3,    4,    5,    6,    7,    8,
-    QMetaType::Void, QMetaType::Int, QMetaType::QString,   10,   11,
+    QMetaType::Void, QMetaType::QString, QMetaType::UShort, QMetaType::Int, QMetaType::Bool, QMetaType::Int, QMetaType::Int, QMetaType::Int,    3,    4,    5,    6,    7,    8,    9,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,   11,   12,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::Bool,    3,   13,
-    QMetaType::Void, QMetaType::Int,   15,
-    QMetaType::Void, QMetaType::Int, QMetaType::QString,   10,   17,
-    QMetaType::Void, QMetaType::Int, QMetaType::QString,   19,   17,
+    QMetaType::Void, QMetaType::QString, QMetaType::Bool,    3,   14,
+    QMetaType::Void, QMetaType::Int,   16,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,   11,   18,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,   20,   18,
 
        0        // eod
 };
@@ -105,7 +106,7 @@ void DataProcessing::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         auto *_t = static_cast<DataProcessing *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->signal_InitializationParameter((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const quint16(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< bool(*)>(_a[4])),(*reinterpret_cast< const int(*)>(_a[5])),(*reinterpret_cast< const int(*)>(_a[6]))); break;
+        case 0: _t->signal_InitializationParameter((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const quint16(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< bool(*)>(_a[4])),(*reinterpret_cast< const int(*)>(_a[5])),(*reinterpret_cast< const int(*)>(_a[6])),(*reinterpret_cast< const int(*)>(_a[7]))); break;
         case 1: _t->signal_toSendData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
         case 2: _t->slot_linkState((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         case 3: _t->slot_connectCount((*reinterpret_cast< int(*)>(_a[1]))); break;
@@ -116,7 +117,7 @@ void DataProcessing::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (DataProcessing::*)(const QString & , const quint16 & , const int & , bool , const int & , const int & );
+            using _t = void (DataProcessing::*)(const QString & , const quint16 & , const int & , bool , const int & , const int & , const int & );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DataProcessing::signal_InitializationParameter)) {
                 *result = 0;
                 return;
@@ -173,9 +174,9 @@ int DataProcessing::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void DataProcessing::signal_InitializationParameter(const QString & _t1, const quint16 & _t2, const int & _t3, bool _t4, const int & _t5, const int & _t6)
+void DataProcessing::signal_InitializationParameter(const QString & _t1, const quint16 & _t2, const int & _t3, bool _t4, const int & _t5, const int & _t6, const int & _t7)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)), const_cast<void*>(reinterpret_cast<const void*>(&_t6)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)), const_cast<void*>(reinterpret_cast<const void*>(&_t6)), const_cast<void*>(reinterpret_cast<const void*>(&_t7)) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 
