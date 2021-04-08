@@ -55,6 +55,8 @@ private slots:
     void on_HCNET_Capture_Type_comboBox_currentIndexChanged(int index);
 
     void on_Camera_Load_Plugin_comboBox_currentIndexChanged(int index);
+    void on_DataChaneType_combox_currentIndexChanged(int index);
+
 
 signals:
 

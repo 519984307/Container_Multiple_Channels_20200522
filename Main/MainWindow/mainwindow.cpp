@@ -72,16 +72,27 @@ void MainWindow::initializing()
     emit signal_initEquipment();
 
     QStringList tcpAddr;
-    if(Parameter::Service_Type){
-        tcpAddr.append(Parameter::SingletonAddress);
+    if(Parameter::DataChaneType==0){
+        if(Parameter::Service_Type){
+            tcpAddr.append(Parameter::SingletonAddress);
+        }
+        else {
+            tcpAddr.append(Parameter::ManyCasesAddress.split(","));
+        }
     }
-    else {
-        tcpAddr.append(Parameter::ManyCasesAddress.split(","));
+    else if (Parameter::DataChaneType==1) {
+        if(Parameter::Service_Type){
+            tcpAddr.append(Parameter::SingletonAddressMQ);
+        }
+        else {
+            tcpAddr.append(Parameter::ManyCasesAddressMQ.split(","));
+        }
     }
+
     for (int var = 0; var < tcpAddr.size(); ++var) {
         if(var<DataProcessingList.size()){
             QStringList addrTmp=tcpAddr.at(var).split(":");
-            if(addrTmp.size()==2){
+            if(addrTmp.size()>=2){
                 DataProcessingList.at(var).data()->signal_InitializationParameter(addrTmp[0],static_cast<quint16>(addrTmp[1].toUInt()),Parameter::Service_Type,Parameter::Heartbeat,Parameter::Service_Model,Parameter::ShortLink,Parameter::newline);
             }
             else {

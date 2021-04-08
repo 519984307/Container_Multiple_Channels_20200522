@@ -28,7 +28,7 @@
         <x>0</x>
         <y>0</y>
         <width>829</width>
-        <height>836</height>
+        <height>888</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -704,10 +704,30 @@
            <property name="verticalSpacing">
             <number>20</number>
            </property>
+           <item row="8" column="0">
+            <widget class="QCheckBox" name="Hearbeat_checkBox">
+             <property name="text">
+              <string>The heartbeat packets</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="2">
+            <widget class="QLabel" name="label_30">
+             <property name="text">
+              <string>Identify data docking patterns</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item row="2" column="0">
             <widget class="QStackedWidget" name="Service_Type_stackedWidget">
              <property name="currentIndex">
-              <number>0</number>
+              <number>3</number>
              </property>
              <widget class="QWidget" name="page_6">
               <layout class="QGridLayout" name="gridLayout_28">
@@ -774,90 +794,79 @@
                </item>
               </layout>
              </widget>
-            </widget>
-           </item>
-           <item row="9" column="1" colspan="2">
-            <widget class="QLabel" name="label_45">
-             <property name="text">
-              <string>The intermediate result set starts with [I, and is opened as required, not as the final result.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="0">
-            <widget class="QCheckBox" name="Resulting_checkBox">
-             <property name="text">
-              <string>Send an intermediate result set</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QComboBox" name="Service_Type_comboBox">
-             <item>
-              <property name="text">
-               <string>One to one</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>More than a pair of</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="2" column="1" colspan="2">
-            <widget class="QLabel" name="label_31">
-             <property name="text">
-              <string>One to one:One service corresponds to one channel, and either server mode or client mode can be set.
-
-
-More than pair of:One service corresponds to all channels, and only the server mode can be set, One service corresponds to all channels (Need to respond to channel instruction [L|Number])</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QCheckBox" name="newline_checkBox">
-             <property name="text">
-              <string>A newline</string>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QSplitter" name="splitter_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <widget class="QComboBox" name="comboBox_3">
-              <item>
-               <property name="text">
-                <string>TCP</string>
+             <widget class="QWidget" name="page">
+              <layout class="QGridLayout" name="gridLayout_17">
+               <property name="leftMargin">
+                <number>0</number>
                </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>HTTP</string>
+               <property name="topMargin">
+                <number>0</number>
                </property>
-              </item>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QTextEdit" name="Address_Many_MQ_textEdit">
+                 <property name="placeholderText">
+                  <string>If the data interface pattern MQ: 127.0.0.1|user|pass|vhost:5672, 127.0.0.1|user|pass|vhost:</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="page_2">
+              <layout class="QGridLayout" name="gridLayout_18">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <item row="0" column="0">
+                <widget class="QLineEdit" name="Address_Singleton_MQ_lineEdit">
+                 <property name="placeholderText">
+                  <string>If the data interface pattern MQ: 127.0.0.1|user|pass|vhost:5672</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <spacer name="verticalSpacer_10">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+              </layout>
              </widget>
             </widget>
            </item>
-           <item row="8" column="0">
-            <widget class="QCheckBox" name="Hearbeat_checkBox">
+           <item row="10" column="1" colspan="2">
+            <widget class="QLabel" name="label_46">
              <property name="text">
-              <string>The heartbeat packets</string>
+              <string>The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.</string>
              </property>
-             <property name="checked">
+             <property name="wordWrap">
               <bool>true</bool>
              </property>
             </widget>
@@ -886,52 +895,12 @@ More than pair of:One service corresponds to all channels, and only the server m
              </item>
             </layout>
            </item>
-           <item row="3" column="2">
-            <spacer name="verticalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="6" column="1" colspan="2">
-            <widget class="QLabel" name="label_17">
+           <item row="9" column="0">
+            <widget class="QCheckBox" name="Resulting_checkBox">
              <property name="text">
-              <string>Web service data format</string>
+              <string>Send an intermediate result set</string>
              </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="12" column="1" colspan="2">
-            <widget class="QLabel" name="label_47">
-             <property name="text">
-              <string>The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="11" column="0">
-            <widget class="QCheckBox" name="checkBox">
-             <property name="text">
-              <string>Send a car signal</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1" colspan="2">
-            <widget class="QLabel" name="label_32">
-             <property name="text">
-              <string>Identify the data docking protocol</string>
-             </property>
-             <property name="wordWrap">
+             <property name="checked">
               <bool>true</bool>
              </property>
             </widget>
@@ -940,6 +909,23 @@ More than pair of:One service corresponds to all channels, and only the server m
             <widget class="QLabel" name="label_44">
              <property name="text">
               <string>The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QCheckBox" name="newline_checkBox">
+             <property name="text">
+              <string>A newline</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1" colspan="2">
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>Web service data format</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -963,60 +949,6 @@ More than pair of:One service corresponds to all channels, and only the server m
                </property>
               </item>
              </widget>
-            </widget>
-           </item>
-           <item row="5" column="1" colspan="2">
-            <widget class="QLabel" name="label_16">
-             <property name="text">
-              <string>Identify the data docking interface</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="10" column="1" colspan="2">
-            <widget class="QLabel" name="label_46">
-             <property name="text">
-              <string>The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1" colspan="2">
-            <widget class="QLabel" name="label_30">
-             <property name="text">
-              <string>Identify data docking patterns</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="12" column="0">
-            <widget class="QCheckBox" name="checkBox_2">
-             <property name="text">
-              <string>Send astern signal</string>
-             </property>
-            </widget>
-           </item>
-           <item row="10" column="0">
-            <widget class="QCheckBox" name="ShortLink_checkBox">
-             <property name="text">
-              <string>Short link</string>
-             </property>
-            </widget>
-           </item>
-           <item row="11" column="1" colspan="2">
-            <widget class="QLabel" name="label_48">
-             <property name="text">
-              <string>Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
             </widget>
            </item>
            <item row="4" column="0">
@@ -1043,10 +975,143 @@ More than pair of:One service corresponds to all channels, and only the server m
              </widget>
             </widget>
            </item>
+           <item row="12" column="1" colspan="2">
+            <widget class="QLabel" name="label_47">
+             <property name="text">
+              <string>The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1" colspan="2">
+            <widget class="QLabel" name="label_45">
+             <property name="text">
+              <string>The intermediate result set starts with [I, and is opened as required, not as the final result.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1" colspan="2">
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>Identify the data docking interface</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item row="7" column="1" colspan="2">
             <widget class="QLabel" name="label_51">
              <property name="text">
               <string>A newline character is added to each piece of data to form a complete line.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1" colspan="2">
+            <widget class="QLabel" name="label_32">
+             <property name="text">
+              <string>Identify the data docking protocol</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="0">
+            <widget class="QCheckBox" name="checkBox_2">
+             <property name="text">
+              <string>Send astern signal</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <spacer name="verticalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="11" column="0">
+            <widget class="QCheckBox" name="checkBox">
+             <property name="text">
+              <string>Send a car signal</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" colspan="2">
+            <widget class="QLabel" name="label_31">
+             <property name="text">
+              <string>One to one:One service corresponds to one channel, and either server mode or client mode can be set.
+
+
+More than pair of:One service corresponds to all channels, and only the server mode can be set, One service corresponds to all channels (Need to respond to channel instruction [L|Number])</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QComboBox" name="Service_Type_comboBox">
+             <item>
+              <property name="text">
+               <string>One to one</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>More than a pair of</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="10" column="0">
+            <widget class="QCheckBox" name="ShortLink_checkBox">
+             <property name="text">
+              <string>Short link</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QSplitter" name="splitter_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <widget class="QComboBox" name="DataChaneType_combox">
+              <item>
+               <property name="text">
+                <string>TCP</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>MQ</string>
+               </property>
+              </item>
+             </widget>
+            </widget>
+           </item>
+           <item row="11" column="1" colspan="2">
+            <widget class="QLabel" name="label_48">
+             <property name="text">
+              <string>Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -1929,7 +1994,7 @@ More than pair of:One service corresponds to all channels, and only the server m
   <tabstop>Eliminate_lineEdit</tabstop>
   <tabstop>Identify_Protocol_comboBox_2</tabstop>
   <tabstop>ShortLink_checkBox</tabstop>
-  <tabstop>comboBox_3</tabstop>
+  <tabstop>DataChaneType_combox</tabstop>
   <tabstop>Resulting_checkBox</tabstop>
   <tabstop>checkBox_2</tabstop>
   <tabstop>checkBox</tabstop>

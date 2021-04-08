@@ -26,7 +26,7 @@ DataInterchange::~DataInterchange()
 
 QString DataInterchange::InterfaceType()
 {
-    return "DataInterchange";
+    return "TCP";
 }
 
 void DataInterchange::InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode,const int& shortLink,const int& newline)

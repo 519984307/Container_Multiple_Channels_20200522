@@ -163,14 +163,18 @@ void LoadingLibaray::slot_createLibaray()
                 pToUploadDataInterface=nullptr;
             }
             else if (DataInterchangeInterface *pDataInterchangeInterface=qobject_cast<DataInterchangeInterface*>(plugin)) {
-                if("DataInterchange"==pDataInterchangeInterface->InterfaceType()){/* 数据传输 */
-                    loadMisarrangement(pluginName,"DataInterchange");
+                if(0==Parameter::DataChaneType && "TCP"==pDataInterchangeInterface->InterfaceType()){/* 数据传输 */
+                    loadMisarrangement(pluginName,"TCP");
                     if(Parameter::Service_Type){
                         pluginsNum=1;
                     }
                     else {
                         pluginsNum=channelCount;
                     }
+                }
+                else if (1==Parameter::DataChaneType && "MQ"==pDataInterchangeInterface->InterfaceType()) {
+                    loadMisarrangement(pluginName,"MQ");
+                    pluginsNum=channelCount;
                 }
                 pDataInterchangeInterface=nullptr;
             }

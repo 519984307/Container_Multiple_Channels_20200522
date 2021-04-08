@@ -6,10 +6,12 @@ SUBDIRS +=\
 #    PluginProcessing \
 #    TheLicensePlateWTY \
     CaptureUnderlying\
+    DataInterRabbitMQ \
     InrearedLogic_NJSB \
     LicensePlateHCNET \
     #LicensePlateVZ \
     LicensePlateWTY \
+    #LicensePlateZS \
     ToUploadData\
     DataInterchange \
     #DataProcessing \
@@ -24,4 +26,5 @@ SUBDIRS +=\
     CaptureImages \
     LogController \
     TheMiddlewareHCNET \
+    Qamqp \
     Main \

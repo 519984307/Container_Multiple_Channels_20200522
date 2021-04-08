@@ -199,6 +199,16 @@ namespace Parameter {
     extern QString ManyCasesAddress;
 
     ///
+    /// \brief SingletonAddressMQ 单例地址
+    ///
+    extern QString SingletonAddressMQ;
+
+    ///
+    /// \brief ManyCasesAddressMQ 多例地址
+    ///
+    extern QString ManyCasesAddressMQ;
+
+    ///
     /// \brief Service_Type 服务类型
     ///
     extern int Service_Type;
@@ -227,6 +237,11 @@ namespace Parameter {
     /// \brief newline 信息添加换行符
     ///
     extern int newline;
+
+    ///
+    /// \brief DataChaneType 数据接口模式
+    ///
+    extern int DataChaneType;
 }
 
 #endif // PARAMETER_H

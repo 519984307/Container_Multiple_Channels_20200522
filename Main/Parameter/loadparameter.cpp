@@ -65,7 +65,7 @@ bool LoadParameter::loadSysParameter()
                     Parameter::Camera_Load_Plugin=getJsonValue("Model","Camera_Load_Plugin",value.toObject()).toInt();
                     Parameter::HCNET_Capture_Type=getJsonValue("Model","HCNET_Capture_Type",value.toObject()).toInt();
                     Parameter::LogicType=getJsonValue("Model","LogicType",value.toObject()).toInt();
-                    Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();
+                    Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();                    
 
                     /*****************************
                     * @brief:Upload
@@ -107,6 +107,9 @@ bool LoadParameter::loadSysParameter()
                     Parameter::ShortLink=getJsonValue("Service","ShortLink",value.toObject()).toInt();
                     Parameter::Identify_Protocol=getJsonValue("Service","Identify_Protocol",value.toObject()).toInt();
                     Parameter::newline=getJsonValue("Service","newline",value.toObject()).toInt();
+                    Parameter::DataChaneType=getJsonValue("Service","DataChaneType",value.toObject()).toInt();
+                    Parameter::SingletonAddressMQ=getJsonValue("Service","SingletonAddressMQ",value.toObject()).toString();
+                    Parameter::ManyCasesAddressMQ=getJsonValue("Service","ManyCasesAddressMQ",value.toObject()).toString();
 
                     configurationFolder.close();
                     return true;

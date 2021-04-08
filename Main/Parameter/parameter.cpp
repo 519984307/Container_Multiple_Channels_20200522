@@ -69,6 +69,9 @@ namespace Parameter {
     int Resultting= 0;
     int ShortLink= 0;
     int newline=0;
+    int DataChaneType=0;
     QString SingletonAddress= QString("");
     QString ManyCasesAddress= QString("");
+    QString SingletonAddressMQ= QString("");
+    QString ManyCasesAddressMQ= QString("");
 }

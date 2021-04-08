@@ -28,7 +28,24 @@ System_Setting_Form::~System_Setting_Form()
 void System_Setting_Form::InitializationParameter(int channelNumber)
 {
     ui->tabWidget->setCurrentIndex(0);
-    ui->Service_Type_comboBox->setCurrentIndex(0);
+
+    if (Parameter::DataChaneType==0){
+        if(Parameter::Service_Type==0){
+            ui->Service_Type_comboBox->setCurrentIndex(0);
+        }
+        else if (Parameter::Service_Type==1) {
+            ui->Service_Type_comboBox->setCurrentIndex(1);
+        }
+    }
+    else if(Parameter::DataChaneType==1){
+        if(Parameter::Service_Type==0){
+            ui->Service_Type_comboBox->setCurrentIndex(2);
+        }
+        else if (Parameter::Service_Type==1) {
+            ui->Service_Type_comboBox->setCurrentIndex(3);
+        }
+    }
+
     /*****************************
     * @brief:创建配置文件夹
     ******************************/
@@ -166,6 +183,9 @@ bool System_Setting_Form::loadParameter()
                     Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
                     Parameter::ShortLink=getJsonValue("Service","ShortLink",value.toObject()).toInt();
                     Parameter::newline=getJsonValue("Service","newline",value.toObject()).toInt();
+                    Parameter::DataChaneType=getJsonValue("Service","DataChaneType",value.toObject()).toInt();
+                    Parameter::SingletonAddressMQ=getJsonValue("Service","SingletonAddressMQ",value.toObject()).toString();
+                    Parameter::ManyCasesAddressMQ=getJsonValue("Service","ManyCasesAddressMQ",value.toObject()).toString();
 
                     configurationFolder.close();
                     return true;
@@ -250,14 +270,16 @@ bool System_Setting_Form::writeParameterSlot()
     }
     if(ui->ServerModel->isChecked()){
         obj4.insert("Service_Model",1);
-    }
-
+    }   
+    obj4.insert("SingletonAddressMQ",ui->Address_Singleton_MQ_lineEdit->text());
+    obj4.insert("ManyCasesAddressMQ",ui->Address_Many_MQ_textEdit->toPlainText());
     obj4.insert("Service_Type",ui->Service_Type_comboBox->currentIndex());
     obj4.insert("SingletonAddress",ui->Address_Singleton_lineEdit->text());
     obj4.insert("ManyCasesAddress",ui->Address_Many_textEdit->toPlainText());
     obj4.insert("Heartbeat",int(ui->Hearbeat_checkBox->isChecked()));
     obj4.insert("Resultting",int(ui->Resulting_checkBox->isChecked()));
     obj4.insert("ShortLink",int(ui->ShortLink_checkBox->isChecked()));
+    obj4.insert("DataChaneType",ui->DataChaneType_combox->currentIndex());
     obj4.insert("newline",int(ui->newline_checkBox->isChecked()));
     obj4.insert("Identify_Protocol",int(ui->Identify_Protocol_comboBox_2->currentIndex()));
     jsonChild.insert("Service",QJsonValue(obj4));
@@ -348,7 +370,9 @@ void System_Setting_Form::parameterToUi()
     }
     else {/* 服务器模式 */
         ui->ServerModel->setChecked(1);
-    }
+    }   
+    ui->Address_Singleton_MQ_lineEdit->setText(Parameter::SingletonAddressMQ);
+    ui->Address_Many_MQ_textEdit->setText(Parameter::ManyCasesAddressMQ);
     ui->Service_Type_comboBox->setCurrentIndex(Parameter::Service_Type);
     ui->Address_Singleton_lineEdit->setText(Parameter::SingletonAddress);
     ui->Address_Many_textEdit->setText(Parameter::ManyCasesAddress);
@@ -356,6 +380,7 @@ void System_Setting_Form::parameterToUi()
     ui->Resulting_checkBox->setChecked(Parameter::Resultting);
     ui->ShortLink_checkBox->setChecked(Parameter::ShortLink);
     ui->newline_checkBox->setChecked(Parameter::newline);
+    ui->DataChaneType_combox->setCurrentIndex(Parameter::DataChaneType);
     ui->Identify_Protocol_comboBox_2->setCurrentIndex(Parameter::Identify_Protocol);
 
     /*****************************
@@ -411,12 +436,22 @@ QVariant System_Setting_Form::getJsonValue(const QString &child, const QString &
 
 void System_Setting_Form::on_Service_Type_comboBox_currentIndexChanged(int index)
 {
-    if(index==0){
-        ui->ClientModel->setEnabled(true);
+    if(ui->DataChaneType_combox->currentIndex()==1){
+        if(index==0){
+            ui->Service_Type_stackedWidget->setCurrentIndex(2);
+        }
+        else if (index==1) {
+            ui->Service_Type_stackedWidget->setCurrentIndex(3);
+        }
     }
-    else if (index==1) {
-        ui->ClientModel->setEnabled(false);
-        ui->ServerModel->setChecked(true);
+    else if (ui->DataChaneType_combox->currentIndex()==0) {
+        if(index==0){
+            ui->ClientModel->setEnabled(true);
+        }
+        else if (index==1) {
+            ui->ClientModel->setEnabled(false);
+            ui->ServerModel->setChecked(true);
+        }
     }
 }
 
@@ -536,5 +571,25 @@ void System_Setting_Form::on_Camera_Load_Plugin_comboBox_currentIndexChanged(int
     }
     if(4==ui->HCNET_Capture_Type_comboBox->currentIndex()){
         ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
+    }
+}
+
+void System_Setting_Form::on_DataChaneType_combox_currentIndexChanged(int index)
+{
+    if(index==0){
+        if(ui->Service_Type_comboBox->currentIndex()==0){
+            ui->Service_Type_stackedWidget->setCurrentIndex(0);
+        }
+        else if (ui->Service_Type_comboBox->currentIndex()==1) {
+            ui->Service_Type_stackedWidget->setCurrentIndex(1);
+        }
+    }
+    if(index==1){
+        if(ui->Service_Type_comboBox->currentIndex()==0){
+            ui->Service_Type_stackedWidget->setCurrentIndex(2);
+        }
+        else if (ui->Service_Type_comboBox->currentIndex()==1) {
+            ui->Service_Type_stackedWidget->setCurrentIndex(3);
+        }
     }
 }
