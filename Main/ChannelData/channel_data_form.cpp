@@ -596,7 +596,7 @@ void Channel_Data_Form::slot_initEquipment()
     /*****************************
     * @brief:结果分析
     ******************************/
-    emit signal_initReAnaParameter(channelNumber,Parameter::ImageNamingRules,Parameter::ResultsTheCheck,Parameter::Resultting);
+    emit signal_initReAnaParameter(channelNumber,Parameter::ImageNamingRules,Parameter::ResultsTheCheck,Parameter::Resultting,Parameter::Identify_Protocol);
 }
 
 void Channel_Data_Form::slot_bindingCameraID(QString cameraAddr, int ID)
@@ -859,8 +859,8 @@ void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const 
     /*****************************
     * @brief:有可能会出现编码问题
     ******************************/
-    if("黄" == color || color==""){
-        plateSendTimer->start(6000);
+    if("黄" == color){
+        plateSendTimer->start(10000);
     }
     else {
         plateSendTimer->start(1);

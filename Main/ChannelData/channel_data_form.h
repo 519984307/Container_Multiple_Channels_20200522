@@ -352,7 +352,7 @@ signals:
     /// \param check
     /// \param sendMid
     ///
-    void signal_initReAnaParameter(const int &channel,const int &ImageNamingRules,bool check,bool sendMid);
+    void signal_initReAnaParameter(const int &channel,const int &ImageNamingRules,bool check,bool sendMid,int Identify_Protocol);
 
     ///
     /// \brief signal_resultsOfAnalysis 分析箱号

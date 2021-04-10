@@ -242,6 +242,11 @@ namespace Parameter {
     /// \brief DataChaneType 数据接口模式
     ///
     extern int DataChaneType;
+
+    ///
+    /// \brief DataChange_Format 数据接口格式
+    ///
+    extern int DataChange_Format;
 }
 
 #endif // PARAMETER_H

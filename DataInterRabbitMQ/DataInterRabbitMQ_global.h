@@ -4,6 +4,7 @@
 #include <QtCore/qglobal.h>
 #include <QSharedPointer>
 #include <QScopedPointer>
+#include <QPointer>
 
 #if defined(DATAINTERRABBITMQ_LIBRARY)
 #  define DATAINTERRABBITMQ_EXPORT Q_DECL_EXPORT

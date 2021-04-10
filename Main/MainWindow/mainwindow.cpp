@@ -215,6 +215,9 @@ void MainWindow::initializingObject()
 //    QFuture<void> future =QtConcurrent::run(this,&MainWindow::loadingLibaray,Parameter::ChannelNumber);
 //    watcher->setFuture(future);
 
+    /*****************************
+    * @brief:数据处理类
+    ******************************/
     for (int var = 0; var < Parameter::ChannelNumber; ++var) {
         DataProcessingList.append(QSharedPointer<DataProcessing>(new DataProcessing(nullptr)));
     }
@@ -708,7 +711,7 @@ void MainWindow::bindingPlugin()
     if(pLoadinglibaray->IDataInterchangeList.size()>=1 && DataProcessingList.size()>=1 && pLoadinglibaray->IResultsAnalysisList.size()==DataProcessingList.size()){
         int cot=pLoadinglibaray->IDataInterchangeList.size();
         for (int var = 0; var < DataProcessingList.size(); ++var) {
-            if(Parameter::Service_Type){
+            if(Parameter::Service_Type || Parameter::DataChaneType==1){
                 cot=0;
             }
             else {
@@ -717,6 +720,7 @@ void MainWindow::bindingPlugin()
             connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::linkStateSingal,DataProcessingList.at(var).data(),&DataProcessing::slot_linkState);
             connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::connectCountSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_connectCount);
             connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_sendDataToLog);
+
             connect(DataProcessingList.at(var).data(),&DataProcessing::signal_toSendData,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSignal);
             connect(DataProcessingList.at(var).data(),&DataProcessing::signal_InitializationParameter,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::InitializationParameterSlot);
 

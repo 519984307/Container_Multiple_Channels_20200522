@@ -2,6 +2,11 @@
 #define DATAPROCESSING_H
 
 #include <QObject>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QDateTime>
+#include <QDebug>
+
 #include "Parameter/parameter.h"
 
 class DataProcessing : public QObject
@@ -64,6 +69,21 @@ signals:
     ///
     void signal_toSendData(int channel_number, const QString &data);
 
+private:
+    QJsonObject jsonChild;
+
+    QString today;
+    QString time;
+    QString content;
+    QString CPH;
+    QString XH;
+    QString roadindex;
+    QString cartype;
+    QString boxtype;
+    QString discern;
+    QString SOURCE;
+    QString type;
+    QString isguard;
 };
 
 #endif // DATAPROCESSING_H

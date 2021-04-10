@@ -31,18 +31,18 @@ void System_Setting_Form::InitializationParameter(int channelNumber)
 
     if (Parameter::DataChaneType==0){
         if(Parameter::Service_Type==0){
-            ui->Service_Type_comboBox->setCurrentIndex(0);
+            ui->Service_Type_stackedWidget->setCurrentIndex(0);
         }
         else if (Parameter::Service_Type==1) {
-            ui->Service_Type_comboBox->setCurrentIndex(1);
+            ui->Service_Type_stackedWidget->setCurrentIndex(1);
         }
     }
     else if(Parameter::DataChaneType==1){
         if(Parameter::Service_Type==0){
-            ui->Service_Type_comboBox->setCurrentIndex(2);
+            ui->Service_Type_stackedWidget->setCurrentIndex(2);
         }
         else if (Parameter::Service_Type==1) {
-            ui->Service_Type_comboBox->setCurrentIndex(3);
+            ui->Service_Type_stackedWidget->setCurrentIndex(3);
         }
     }
 
@@ -186,6 +186,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::DataChaneType=getJsonValue("Service","DataChaneType",value.toObject()).toInt();
                     Parameter::SingletonAddressMQ=getJsonValue("Service","SingletonAddressMQ",value.toObject()).toString();
                     Parameter::ManyCasesAddressMQ=getJsonValue("Service","ManyCasesAddressMQ",value.toObject()).toString();
+                    Parameter::DataChange_Format=getJsonValue("Service","DataChange_Format",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;
@@ -271,6 +272,8 @@ bool System_Setting_Form::writeParameterSlot()
     if(ui->ServerModel->isChecked()){
         obj4.insert("Service_Model",1);
     }   
+
+    obj4.insert("DataChange_Format",ui->DataChange_Format_comboBox->currentIndex());
     obj4.insert("SingletonAddressMQ",ui->Address_Singleton_MQ_lineEdit->text());
     obj4.insert("ManyCasesAddressMQ",ui->Address_Many_MQ_textEdit->toPlainText());
     obj4.insert("Service_Type",ui->Service_Type_comboBox->currentIndex());
@@ -371,6 +374,7 @@ void System_Setting_Form::parameterToUi()
     else {/* 服务器模式 */
         ui->ServerModel->setChecked(1);
     }   
+    ui->DataChange_Format_comboBox->setCurrentIndex(Parameter::DataChange_Format);
     ui->Address_Singleton_MQ_lineEdit->setText(Parameter::SingletonAddressMQ);
     ui->Address_Many_MQ_textEdit->setText(Parameter::ManyCasesAddressMQ);
     ui->Service_Type_comboBox->setCurrentIndex(Parameter::Service_Type);

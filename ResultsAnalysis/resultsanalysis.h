@@ -55,7 +55,7 @@ public:
     /// \param check
     /// \param sendMid
     ///
-    void initParameter(const int &channel,const int &ImageNamingRules ,bool check,bool sendMid)Q_DECL_OVERRIDE;
+    void initParameter(const int &channel, const int &ImageNamingRules , bool check, bool sendMid, int Identify_Protocol)Q_DECL_OVERRIDE;
 
     ///
     /// \brief resultsOfAnalysisSlot 分析箱号

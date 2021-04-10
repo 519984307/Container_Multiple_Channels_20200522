@@ -72,8 +72,8 @@ void ToUploadData::replyFinishedSlot(QNetworkReply *reply)
     if (reply && reply->error() != QNetworkReply::NoError) {
         qCritical().noquote()<<QString("Data upload error<errorCode=%1>").arg(reply->errorString());
     }
-    reply->abort();
     reply->close();
+    reply->abort();
     reply->deleteLater();
 }
 

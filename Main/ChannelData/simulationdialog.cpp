@@ -14,6 +14,7 @@ SimulationDialog::SimulationDialog(int channelNumber, QWidget *parent) :
     ui->manualGroupBox->setVisible(false);
 
     timer=new QTimer(this);
+    timer->setSingleShot(true);
     connect(timer,&QTimer::timeout,this,&SimulationDialog::slot_timerCap);
 
     col=0;
@@ -104,6 +105,7 @@ void SimulationDialog::slot_timerCap()
 void SimulationDialog::slot_whileCap()
 {
     emit signal_logicPutImage(1);
+    timer->start(10000);
 }
 
 void SimulationDialog::slot_container(const int &channelID, const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
@@ -172,8 +174,7 @@ void SimulationDialog::on_while_cycle_capture_checkBox_stateChanged(int arg1)
         if(timer->isActive()){
             timer->stop();
         }
-        timer->setSingleShot(false);
-        timer->start(20000);
+        timer->start(10000);
     }
     else {
         ui->capturePushButton->setEnabled(true);

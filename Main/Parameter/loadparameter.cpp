@@ -110,6 +110,7 @@ bool LoadParameter::loadSysParameter()
                     Parameter::DataChaneType=getJsonValue("Service","DataChaneType",value.toObject()).toInt();
                     Parameter::SingletonAddressMQ=getJsonValue("Service","SingletonAddressMQ",value.toObject()).toString();
                     Parameter::ManyCasesAddressMQ=getJsonValue("Service","ManyCasesAddressMQ",value.toObject()).toString();
+                    Parameter::DataChange_Format=getJsonValue("Service","DataChange_Format",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;

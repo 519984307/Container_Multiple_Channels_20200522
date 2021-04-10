@@ -51,12 +51,14 @@ public:
 private:
     QAmqpClient m_client;
 
+    QAmqpMessage::PropertyHash properties;
     QString sendData;
-    QString address;
+    QString addr;
+    int channel_number;
 
 private slots:
 
-    void disconnected();
+    void clientDisconnected();
 
     void clientConnected();
 

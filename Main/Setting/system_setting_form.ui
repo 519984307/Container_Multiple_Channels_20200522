@@ -937,7 +937,12 @@
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
-             <widget class="QComboBox" name="comboBox_4">
+             <widget class="QComboBox" name="DataChange_Format_comboBox">
+              <item>
+               <property name="text">
+                <string>TEXT</string>
+               </property>
+              </item>
               <item>
                <property name="text">
                 <string>JSON</string>
@@ -1999,7 +2004,7 @@ More than pair of:One service corresponds to all channels, and only the server m
   <tabstop>checkBox_2</tabstop>
   <tabstop>checkBox</tabstop>
   <tabstop>Hearbeat_checkBox</tabstop>
-  <tabstop>comboBox_4</tabstop>
+  <tabstop>DataChange_Format_comboBox</tabstop>
   <tabstop>Ftp</tabstop>
   <tabstop>FtpUser</tabstop>
   <tabstop>FtpPassword</tabstop>

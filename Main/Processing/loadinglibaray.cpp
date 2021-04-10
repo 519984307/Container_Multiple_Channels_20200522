@@ -165,7 +165,7 @@ void LoadingLibaray::slot_createLibaray()
             else if (DataInterchangeInterface *pDataInterchangeInterface=qobject_cast<DataInterchangeInterface*>(plugin)) {
                 if(0==Parameter::DataChaneType && "TCP"==pDataInterchangeInterface->InterfaceType()){/* 数据传输 */
                     loadMisarrangement(pluginName,"TCP");
-                    if(Parameter::Service_Type){
+                    if(Parameter::Service_Type || Parameter::DataChaneType==1){
                         pluginsNum=1;
                     }
                     else {
@@ -174,7 +174,12 @@ void LoadingLibaray::slot_createLibaray()
                 }
                 else if (1==Parameter::DataChaneType && "MQ"==pDataInterchangeInterface->InterfaceType()) {
                     loadMisarrangement(pluginName,"MQ");
-                    pluginsNum=channelCount;
+                    if(Parameter::Service_Type || Parameter::DataChaneType==1){
+                        pluginsNum=1;
+                    }
+                    else {
+                        pluginsNum=channelCount;
+                    }
                 }
                 pDataInterchangeInterface=nullptr;
             }
@@ -275,10 +280,10 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 IResultsAnalysisList.append(QSharedPointer<ResultsAnalysisInterface>(pResultsAnalysisInterface));
             }
             else if (DataInterchangeInterface *pDataInterchangeInterface=qobject_cast<DataInterchangeInterface*>(plugin)) {
-                QThread *th=new QThread(this);
-                tdList.append(th);
-                pDataInterchangeInterface->moveToThread(th);
-                th->start();
+//                QThread *th=new QThread(this);
+//                tdList.append(th);
+//                pDataInterchangeInterface->moveToThread(th);
+//                th->start();
                 IDataInterchangeList.append(QSharedPointer<DataInterchangeInterface>(pDataInterchangeInterface));
             }
             else if (ToUploadDataInterface *pToUploadDataInterface=qobject_cast<ToUploadDataInterface*>(plugin)) {

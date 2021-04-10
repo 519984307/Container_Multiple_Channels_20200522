@@ -22,8 +22,9 @@ QString ResultsAnalysis::InterfaceType()
     return  "ResultsAnalysis";
 }
 
-void ResultsAnalysis::initParameter(const int &channel,const int &ImageNamingRules , bool check, bool sendMid)
+void ResultsAnalysis::initParameter(const int &channel,const int &ImageNamingRules , bool check, bool sendMid,int Identify_Protocol)
 {
+    this->Identify_Protocol=Identify_Protocol;
     this->ImageNamingRules=ImageNamingRules;
     this->correct=check;
     this->channel=channel;
@@ -294,7 +295,9 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
                 }
             }
             else if(conTemp[Cindex2].isEmpty() || conTemp[Cindex1].isEmpty()){/* 前后有空修装小箱 */
-                isOne=true;
+                if(type!=2){
+                    isOne=true;
+                }
             }
 
             if(isOne){
@@ -303,8 +306,9 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
                     isoTemp[Iindex1]="22G1";
                     conType=0;
                 }
-                else if(isoTemp[Iindex1].isEmpty() && isoTemp[Iindex2].isEmpty()){
+                if(isoTemp[Iindex1].isEmpty() && isoTemp[Iindex2].isEmpty() && (-1 != isoTemp[Iindex1].indexOf("4") || -1 != isoTemp[Iindex2].indexOf("4"))){
                     isoTemp[Iindex1]="45G1";
+                    conType=1;
                 }
 
                 QList<int> checkResult;/* 判断为一个箱，重新合在一起校验 */
