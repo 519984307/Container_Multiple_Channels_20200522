@@ -49,6 +49,10 @@ void DataInterchange::InitializationParameterSlot(const QString& address, const 
         connect(this,&DataInterchange::toSendDataSignal,pTcpServer,&TcpServer::toSendDataSlot);
         /* 设置数据格式 */
         connect(this,&DataInterchange::signal_setMessageFormat,pTcpServer,&TcpServer::slot_setMessageFormat);
+        /* 发送成功写入日志和UI */
+        connect(pTcpServer,&TcpServer::signal_sendDataSuccToLog,this,&DataInterchange::signal_sendDataSuccToLog);
+        /* tcp链接状态 */
+        connect(pTcpServer,&TcpServer::linkStateSingal,this,&DataInterchange::linkStateSingal);
 
         startListenSlot();
     }
@@ -114,7 +118,7 @@ void DataInterchange::connectedSlot()
     }
 
     emit connectCountSignal(1);
-    emit linkStateSingal(address,true);
+    emit linkStateSingal(address,port,true);
     qDebug().noquote()<<QString("IP:%1:%2 link successful").arg(address).arg(port);
 }
 
@@ -142,7 +146,7 @@ void DataInterchange::disconnectedSlot()
 {
     isConnected=false;
     emit connectCountSignal(-1);
-    emit linkStateSingal(address,false);
+    emit linkStateSingal(address,port,false);
 }
 
 void DataInterchange::displayErrorSlot(QAbstractSocket::SocketError socketError)
@@ -174,6 +178,8 @@ void DataInterchange::toSendDataSlot(int channel_number,const QString &data)
     if(newline){
         pTcpClient->write(eol.toUtf8());
     }
+
+    emit signal_sendDataSuccToLog(channel_number,data);
 
     if(shortLink){
         /*****************************

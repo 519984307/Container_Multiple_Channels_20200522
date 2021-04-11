@@ -5,6 +5,8 @@
 #include <QTimer>
 #include <QDateTime>
 
+#include "Parameter/parameter.h"
+
 namespace Ui {
 class SimulationDialog;
 }

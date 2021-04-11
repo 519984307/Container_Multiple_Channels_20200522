@@ -9,8 +9,9 @@ SimulationDialog::SimulationDialog(int channelNumber, QWidget *parent) :
 
     this->setParent(parent);
     this->setAttribute(Qt::WA_DeleteOnClose,true);
-    this->layout()->setSizeConstraint( QLayout::SetFixedSize );
+    //this->layout()->setSizeConstraint( QLayout::SetFixedSize );
 
+    //this->setWindowFlags(Qt::WindowCloseButtonHint | Qt::MSWindowsFixedSizeDialogHint);
     ui->manualGroupBox->setVisible(false);
 
     timer=new QTimer(this);
@@ -194,12 +195,18 @@ void SimulationDialog::on_pushButton_clicked()
         }
         /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱号|校验|箱型|箱型] */
         QString result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text()).arg("Y").arg(ui->send_iso_before_lineEdit->text().trimmed());
+        if(Parameter::DataChange_Format==1){
+            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text()).arg("Y").arg(ui->send_iso_before_lineEdit->text().trimmed()).arg(ui->send_plate_lineEdit->text()).arg(ui->send_plate_color_lineEdit->text());
+        }
         emit sendResultSignal(channelNumber,result);
     }
     else {
         /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱型]*/
         int type=2;
         QString result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text().trimmed()).arg("Y").arg(ui->send_con_after_lineEdit->text().trimmed()).arg("Y").arg(ui->send_iso_before_lineEdit->text().trimmed()).arg(ui->send_iso_after_lineEdit->text().trimmed());
+        if(Parameter::DataChange_Format==1){
+            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10|%11|%12]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text().trimmed()).arg("Y").arg(ui->send_con_after_lineEdit->text().trimmed()).arg("Y").arg(ui->send_iso_before_lineEdit->text().trimmed()).arg(ui->send_iso_after_lineEdit->text().trimmed()).arg(ui->send_plate_lineEdit->text()).arg(ui->send_plate_color_lineEdit->text());
+        }
         emit sendResultSignal(channelNumber,result);
     }
 }

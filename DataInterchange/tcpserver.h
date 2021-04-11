@@ -134,6 +134,20 @@ signals:
     /// \param count
     ///
     void connectCountSignal(int count);
+
+    ///
+    /// \brief signal_sendDataSuccToLog 发送结果成功写入UI和log
+    /// \param channel_number
+    /// \param result
+    ///
+    void signal_sendDataSuccToLog(int channel_number, const QString &result);
+
+    ///
+    /// \brief linkStateSingal TCP链接状态
+    /// \param address 地址
+    /// \param state 状态
+    ///
+    void linkStateSingal(const QString &address,quint16 port,bool state);
 };
 
 #endif // TCPSERVER_H

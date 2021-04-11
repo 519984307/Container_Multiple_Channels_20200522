@@ -21,6 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     //delete pLoadinglibaray;
+    if(getDiskFreeTimer!=nullptr){
+        getDiskFreeTimer->stop();
+    }
 
     delete ui;
 }
@@ -49,8 +52,26 @@ void MainWindow::changeEvent(QEvent *event)
     QWidget::changeEvent(event);
 }
 
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event);
+
+    if(pErrorForm!=nullptr){
+        int w=this->geometry().width();
+        pErrorForm->setGeometry(0,30,w,50);
+    }
+}
+
 void MainWindow::initializing()
 {
+    linkCount=0;
+
+    getDiskFreeTimer = new QTimer(this);
+    getDiskFreeTimer->setSingleShot(false);
+    connect(getDiskFreeTimer,SIGNAL(timeout()),this,SLOT(slot_getDiskFreeSpace()));
+    QTimer::singleShot(3000,this,SLOT(slot_getDiskFreeSpace()));
+    getDiskFreeTimer->start(600000);
+
     /*****************************
     * @brief:初始化数据库
     ******************************/
@@ -281,7 +302,7 @@ void MainWindow::initializationParameter()
 
         ui->gridLayout_2->addWidget(p_Equipment_State_Form);
         p_Equipment_State_Form->setVisible(true);
-        setStatusBar(tr("System ready"));
+        setStatusBar(0,tr("System ready"));
     }
 
     for (int channel=1;channel<=channelCount;channel++) {
@@ -324,7 +345,7 @@ void MainWindow::initializationParameter()
 
         if(nullptr==p_Equipment_State_Form && 1==channel){
             p_Channel_Data_Form->setVisible(true);
-            setStatusBar(tr("The preview page %1").arg(name));
+            setStatusBar(0,tr("The preview page %1").arg(name));
             channelSelect=1;
         }
 
@@ -402,27 +423,27 @@ void MainWindow::loadStyleSheet(const QString &fileName)
     }      
 }
 
-void MainWindow::setStatusBar(/*int type */const QString &msg)
+void MainWindow::setStatusBar(int type, const QString &msg)
 {
-//    switch (type) {
-//    case 0:
-//        permanentLabel->setText(msg);
-//        break;
-//    case 1:
-//        runTimeLabel->setText(msg);
-//        break;
-//    case 2:
-//        throughTheNumberLabel->setText(msg);
-//        break;
-//    case 3:
-//        hardDriveCapacityLabel->setText(msg);
-//        break;
-//    case 4:
-//        socketLinkCountLabel->setText(msg);
-//        break;
-//    }
+    switch (type) {
+    case 0:
+        permanentLabel->setText(msg);
+        break;
+    case 1:
+        runTimeLabel->setText(msg);
+        break;
+    case 2:
+        throughTheNumberLabel->setText(msg);
+        break;
+    case 3:
+        hardDriveCapacityLabel->setText(msg);
+        break;
+    case 4:
+        socketLinkCountLabel->setText(msg);
+        break;
+    }
 
-    permanentLabel->setText(msg);
+    //permanentLabel->setText(msg);
     ui->statusBar->showMessage("Technical support telephone:18565659070",100000);
 }
 
@@ -475,13 +496,13 @@ void MainWindow::actionTiggeredSlot()
         if(0==channelSelect){
             if(nullptr!=p_Equipment_State_Form){
                 p_Equipment_State_Form->setVisible(true);
-                setStatusBar(tr("System ready"));
+                setStatusBar(0,tr("System ready"));
             }
         }
 
         if(nullptr!= Channel_Data_From_Map.value(channelSelect,nullptr)){
             Channel_Data_From_Map.value(channelSelect)->setVisible(true);
-            setStatusBar(tr("The preview page %1").arg( it.key()->text()));
+            setStatusBar(0,tr("The preview page %1").arg( it.key()->text()));
         }
     }
 }
@@ -573,7 +594,7 @@ void MainWindow::slot_Error(QString pluginName)
 
     emit signal_setAlarmMsg(++alarmNum,text);
 
-    int w=this->size().width();
+    int w=this->geometry().width();
     pErrorForm->setGeometry(0,30,w,50);
     pErrorForm->setTipInfo(text);
     QTimer::singleShot(10000,this,SLOT(slot_hideErrorForm()));
@@ -604,6 +625,31 @@ void MainWindow::slot_theFtpProgress(qint64 bytesSent, qint64 bytesTotal)
     statusProgressBar->setFormat(tr("Uploading a picture"));
     statusProgressBar->setRange(0,bytesTotal);
     statusProgressBar->setValue(bytesSent);
+}
+
+void MainWindow::slot_getDiskFreeSpace()
+{
+    QDir dir(Parameter::ImagePath);
+    QString dirName = dir.absolutePath();
+    LPCWSTR lpcwstrDriver = (LPCWSTR)dirName.utf16();
+    ULARGE_INTEGER liFreeBytesAvailable, liTotalBytes, liTotalFreeBytes;
+
+    if (GetDiskFreeSpaceEx(lpcwstrDriver, &liFreeBytesAvailable, &liTotalBytes, &liTotalFreeBytes)) {
+        QString use = QString::number((double)(liTotalBytes.QuadPart - liTotalFreeBytes.QuadPart) / GB, 'f', 1);
+        use += "G";
+        QString free = QString::number((double) liTotalFreeBytes.QuadPart / GB, 'f', 1);
+        free += "G";
+        QString all = QString::number((double) liTotalBytes.QuadPart / GB, 'f', 1);
+        all += "G";
+        int percent = 100 - ((double)liTotalFreeBytes.QuadPart / liTotalBytes.QuadPart) * 100;
+        setStatusBar(3,QString("Dir:%1  Use:%2  Free:%3  All:%4  Percent:%5%").arg(dirName.mid(0,3)).arg(use).arg(free).arg(all).arg(percent));
+    }
+}
+
+void MainWindow::slot_connectCount(int count)
+{
+    linkCount+=count;
+    setStatusBar(4,QString("Service:%1  Format:%2  Count:%3").arg(Parameter::DataChaneType?"MQ":"TCP").arg(Parameter::DataChange_Format?"JSON":"TEXT").arg(QString::number(linkCount<0?0:linkCount)));
 }
 
 void MainWindow::bindingPlugin()
@@ -717,9 +763,9 @@ void MainWindow::bindingPlugin()
             else {
                 cot=var;
             }
-            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::linkStateSingal,DataProcessingList.at(var).data(),&DataProcessing::slot_linkState);
-            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::connectCountSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_connectCount);
-            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_sendDataToLog);
+            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::linkStateSingal,p_Data_Log_Form.data(),&Data_Log_Form::slot_linkState);
+            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::connectCountSignal,p_Data_Log_Form.data(),&Data_Log_Form::slot_connectCount);
+            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::signal_sendDataSuccToLog,p_Data_Log_Form.data(),&Data_Log_Form::slot_sendLogToUi);
 
             connect(DataProcessingList.at(var).data(),&DataProcessing::signal_toSendData,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::toSendDataSignal);
             connect(DataProcessingList.at(var).data(),&DataProcessing::signal_InitializationParameter,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::InitializationParameterSlot);
@@ -727,12 +773,18 @@ void MainWindow::bindingPlugin()
             connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_containerResult);
             connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
 
-            if(Channel_Data_From_Map.size()==pLoadinglibaray->IDataInterchangeList.size()){
-                /*****************************
-                * @brief:模拟发送数据
-                ******************************/
-                connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_containerResult);
-            }
+            /*****************************
+            * @brief:链接状态道状态页面
+            ******************************/
+            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::connectCountSignal,this,&MainWindow::slot_connectCount);
+            /*****************************
+            * @brief:模拟发送数据
+            ******************************/
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_containerResult);
+            /*****************************
+            * @brief:发送的数据道日志页面
+            ******************************/
+            //connect(DataProcessingList.at(var).data(),&DataProcessing::signal_sendLogToUi,p_Data_Log_Form.data(),&Data_Log_Form::slot_sendLogToUi);
         }
     }
 

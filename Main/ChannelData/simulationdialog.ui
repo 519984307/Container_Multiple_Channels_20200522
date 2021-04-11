@@ -10,6 +10,12 @@
     <height>450</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>450</height>
+   </size>
+  </property>
   <property name="maximumSize">
    <size>
     <width>600</width>
@@ -20,7 +26,7 @@
    <string>Simulation</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="../ico.qrc">
     <normaloff>:/UI_ICO/ICO/ICO.ico</normaloff>:/UI_ICO/ICO/ICO.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
@@ -399,24 +405,10 @@
       <string>Manual data</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="2">
-       <widget class="QLineEdit" name="send_plate_lineEdit">
-        <property name="placeholderText">
-         <string>Plate</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLineEdit" name="send_iso_before_lineEdit">
         <property name="placeholderText">
          <string>ISO1</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QPushButton" name="pushButton">
-        <property name="text">
-         <string>Send</string>
         </property>
        </widget>
       </item>
@@ -427,17 +419,38 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2" colspan="2">
+      <item row="0" column="0" colspan="2">
+       <widget class="QLineEdit" name="send_con_before_lineEdit">
+        <property name="placeholderText">
+         <string>Container Before</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="send_plate_lineEdit">
+        <property name="placeholderText">
+         <string>Plate</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" colspan="3">
        <widget class="QLineEdit" name="send_con_after_lineEdit">
         <property name="placeholderText">
          <string>Container After</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="0" colspan="2">
-       <widget class="QLineEdit" name="send_con_before_lineEdit">
+      <item row="1" column="4">
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Send</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="send_plate_color_lineEdit">
         <property name="placeholderText">
-         <string>Container Before</string>
+         <string>Plate color</string>
         </property>
        </widget>
       </item>
@@ -453,7 +466,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../ico.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>exitPushButton</sender>

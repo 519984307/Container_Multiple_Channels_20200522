@@ -29,7 +29,7 @@ void DataInterRabbitMQ::InitializationParameterSlot(const QString &address, cons
     QString user="zby";
     QString pass="ABCabc123";
     QString vhost="/zby";
-    quint16 lport=5672;
+    lport=5672;
     addr="127.0.0.1";
 
     if(port!=0){
@@ -73,19 +73,22 @@ void DataInterRabbitMQ::toSendDataSlot(int channel_number, const QString &data)
 }
 
 void DataInterRabbitMQ::releaseResourcesSlot()
-{   
+{
+    m_client.disconnectFromHost();
     m_client.abort();
 }
 
 void DataInterRabbitMQ::clientDisconnected()
 {
-    emit linkStateSingal(addr,false);
+    emit linkStateSingal(addr,m_client.port(),false);
+    emit connectCountSignal(-1);
     //m_client.abort();
 }
 
 void DataInterRabbitMQ::clientConnected()
 {
-    emit linkStateSingal(addr,true);
+    emit linkStateSingal(addr,lport,true);
+    emit connectCountSignal(1);
 
     QAmqpQueue *queue = m_client.createQueue("zby_"+QString::number(channel_number));
     connect(queue, SIGNAL(declared()), this, SLOT(queueDeclared()));
@@ -97,6 +100,8 @@ void DataInterRabbitMQ::queueDeclared()
     QAmqpQueue *queue = qobject_cast<QAmqpQueue*>(sender());
     if (!queue)
         return;
+
+    emit signal_sendDataSuccToLog(channel_number,sendData);
 
     QAmqpExchange *defaultExchange = m_client.createExchange();
     defaultExchange->publish(sendData,"zby_"+QString::number(channel_number),properties);

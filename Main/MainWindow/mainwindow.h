@@ -15,6 +15,7 @@
 #include <QAction>
 #include <QMenu>
 #include <QCloseEvent>
+#include <QResizeEvent>
 #include <QCoreApplication>
 #include <QDir>
 #include <QProgressBar>
@@ -51,6 +52,13 @@
 #include "alarmform.h"
 #include "errorform.h"
 
+#ifdef Q_OS_WIN
+#include "windows.h"
+#endif
+#define GB (1024 * 1024 * 1024)
+#define MB (1024 * 1024)
+#define KB (1024)
+
 namespace Ui {
 class MainWindow;
 }
@@ -66,6 +74,7 @@ public:
 protected:
     void closeEvent(QCloseEvent *event)Q_DECL_OVERRIDE;
     void changeEvent(QEvent* event)Q_DECL_OVERRIDE;
+    void resizeEvent(QResizeEvent* event)Q_DECL_OVERRIDE;
 
 private:
 
@@ -96,7 +105,7 @@ private:
     ///
     /// \brief setStatusBar 设置状态栏信息
     ///
-    void setStatusBar(const QString &msg);
+    void setStatusBar(int type, const QString &msg);
 
     ///
     /// \brief connectProcess 主窗口信号与槽
@@ -178,6 +187,16 @@ private:
     /// \brief alarmNum 警报数量
     ///
     int alarmNum;
+
+    ///
+    /// \brief getDiskFreeTimer 获取硬盘空间
+    ///
+    QTimer* getDiskFreeTimer;
+
+    ///
+    /// \brief linkCount 数据接口链接数量
+    ///
+    int linkCount;
 
     /*****************************
     * object
@@ -386,6 +405,17 @@ private slots:
     /// \param bytesTotal 上传总量
     ///
     void slot_theFtpProgress(qint64 bytesSent, qint64 bytesTotal);
+
+    ///
+    /// \brief slot_getDiskFreeSpace 获取可用硬盘空间
+    ///
+    void slot_getDiskFreeSpace();
+
+    ///
+    /// \brief slot_connectCount 数据接口链接数量
+    /// \param count
+    ///
+    void slot_connectCount(int count);
 
 signals:
 

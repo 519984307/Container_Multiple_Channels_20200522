@@ -54,6 +54,7 @@ private:
     QAmqpMessage::PropertyHash properties;
     QString sendData;
     QString addr;
+    quint16 lport;
     int channel_number;
 
 private slots:

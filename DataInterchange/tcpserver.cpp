@@ -38,6 +38,7 @@ void TcpServer::incomingConnection(qintptr socketID)
     pClient->setSocketDescriptor(socketID);
     clientSocketIdMap.insert(socketID,pClient);
 
+    emit linkStateSingal(pClient->peerAddress().toString(),pClient->peerPort(),true);
     emit connectCountSignal(1);
     qDebug().noquote()<<QString("New client in join<IP:%1 PORT:%2>").arg(pClient->peerAddress().toString()).arg(pClient->peerPort());
 
@@ -51,6 +52,7 @@ void TcpServer::disconnectedSlot()
 {
     TcpClient* pClient=qobject_cast<TcpClient*>(sender());
 
+    emit linkStateSingal(pClient->peerAddress().toString(),pClient->peerPort(),false);
     emit connectCountSignal(-1);
     qDebug().noquote()<<QString("Client offline <IP:%1 PORT:%2>").arg(pClient->peerAddress().toString()).arg(pClient->peerPort());
 
@@ -86,6 +88,7 @@ void TcpServer::toSendDataSlot(int channel_number, const QString &result)
             if(newline){
                 tcp->write(eol.toUtf8());
             }
+            emit signal_sendDataSuccToLog(channel_number,result);
         }
     }
     else if (serviceType==1) {/* 单服务模式只发送对应通道客户端 */
@@ -97,6 +100,7 @@ void TcpServer::toSendDataSlot(int channel_number, const QString &result)
                     pClient->write(eol.toUtf8());
                 }
                 qDebug().noquote()<<QString("Send Data %1:%2:%3").arg(pClient->peerAddress().toString()).arg(pClient->peerPort()).arg(result);
+                emit signal_sendDataSuccToLog(channel_number,result);
             }
         }
     }

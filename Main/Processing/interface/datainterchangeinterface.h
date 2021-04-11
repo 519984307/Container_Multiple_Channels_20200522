@@ -29,7 +29,7 @@ signals:
     /// \param address 地址
     /// \param state 状态
     ///
-    void linkStateSingal(const QString &address,bool state);
+    void linkStateSingal(const QString &address,quint16 port,bool state);
 
     ///
     /// \brief connectCountSignal 链接数量
@@ -49,6 +49,13 @@ signals:
     /// \param state
     ///
     void setHeartbeatPackStateSignal(bool state);
+
+    ///
+    /// \brief signal_sendDataSuccToLog 发送结果成功写入UI和log
+    /// \param channel_number
+    /// \param result
+    ///
+    void signal_sendDataSuccToLog(int channel_number,  QString result);
 
 public slots:
 
@@ -77,7 +84,7 @@ public slots:
 
 };
 
-#define DataInterchangeInterfaceIID "ZBY.ContainerServer.DataInterchangeInterface/1.2.3.1"
+#define DataInterchangeInterfaceIID "ZBY.ContainerServer.DataInterchangeInterface/1.2.3.4"
 Q_DECLARE_INTERFACE(DataInterchangeInterface,DataInterchangeInterfaceIID);
 
 #endif // DATAINTERCHANGEINTERFACE_H

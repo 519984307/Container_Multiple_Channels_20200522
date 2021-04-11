@@ -6,6 +6,9 @@
 #include <QJsonDocument>
 #include <QDateTime>
 #include <QDebug>
+#include <QStandardPaths>
+#include <QDir>
+#include <QReadWriteLock>
 
 #include "Parameter/parameter.h"
 
@@ -17,19 +20,6 @@ public:
     explicit DataProcessing(QObject *parent = nullptr);
 
 public slots:
-
-    ///
-    /// \brief slot_linkState TCP链接状态
-    /// \param address 地址
-    /// \param state 状态
-    ///
-    void slot_linkState(const QString &address,bool state);
-
-    ///
-    /// \brief slot_connectCount 链接数量
-    /// \param count
-    ///
-    void slot_connectCount(int count);
 
     ///
     /// \brief slot_sendDataToLog 发送结果写入到日志
@@ -69,6 +59,12 @@ signals:
     ///
     void signal_toSendData(int channel_number, const QString &data);
 
+    ///
+    /// \brief signal_sendLogToUi 发送的数据写入log页面
+    /// \param msg
+    ///
+    void signal_sendLogToUi(int channel_number,const QString &msg);
+
 private:
     QJsonObject jsonChild;
 
@@ -84,6 +80,16 @@ private:
     QString SOURCE;
     QString type;
     QString isguard;
+
+    ///
+    /// \brief logFile 日志文件
+    ///
+    QFile logFile;
+
+    ///
+    /// \brief lock 写入锁
+    ///
+    QReadWriteLock lock;
 };
 
 #endif // DATAPROCESSING_H

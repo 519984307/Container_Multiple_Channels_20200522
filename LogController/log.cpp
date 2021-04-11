@@ -9,13 +9,13 @@ Log::Log(QString App, QObject *parent) : QObject(parent)
     QString stringDateTime = dateTime.toString( "yyyy_MM_dd_hh_mm_ss" );
     QString path = QStandardPaths::writableLocation( QStandardPaths::AppConfigLocation );
 
-    QString logFolderName = path + "/" + "log";
+    QString logFolderName = path + "/" + "Debug_log";
     if( !QDir( logFolderName ).exists() )
     {
         QDir().mkpath( logFolderName );
     }
 
-    logFile.setFileName( path + "/" + "log" + "/" + stringDateTime + ".log" );
+    logFile.setFileName( path + "/" + "Debug_log" + "/" + stringDateTime + ".log" );
 
     // If more 30 files, remove the last.
     QDir dir( logFolderName );

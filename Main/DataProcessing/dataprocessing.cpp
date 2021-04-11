@@ -1,23 +1,30 @@
 ﻿#include "dataprocessing.h"
 
+#include <QStandardPaths>
+
 DataProcessing::DataProcessing(QObject *parent) : QObject(parent)
-{
-
-}
-
-void DataProcessing::slot_linkState(const QString &address, bool state)
-{
-
-}
-
-void DataProcessing::slot_connectCount(int count)
 {
 
 }
 
 void DataProcessing::slot_sendDataToLog(int channel_number, const QString &result)
 {
+    lock.lockForWrite();
 
+#ifdef Q_OS_LINUX
+    QString eol = "\n";
+#endif
+#ifdef Q_OS_WIN
+    QString eol = "\r\n";
+#endif
+    logFile.open( QIODevice::Append | QIODevice::Text | QIODevice::Unbuffered );
+    logFile.write( QString("[%1   Channel   :   %2]    ").arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss zzz")).arg(channel_number).toUtf8()+result.toUtf8() );
+    logFile.write( eol.toUtf8() );
+    logFile.close();
+
+    lock.unlock();
+
+    emit signal_sendLogToUi(channel_number,result);
 }
 
 void DataProcessing::slot_containerResult(int channel, const QString &result)
@@ -93,7 +100,6 @@ void DataProcessing::slot_containerResult(int channel, const QString &result)
 
         if (Parameter::DataChange_Format==1) {
             emit signal_toSendData(channel,QString(QJsonDocument(jsonChild).toJson()));
-            qDebug()<<QString(QJsonDocument(jsonChild).toJson());
         }
 
         return;
