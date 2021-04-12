@@ -42,6 +42,16 @@ private:
     Ui::Channel_Data_Form *ui;    
 
     ///
+    /// \brief plateTmpArr 车牌图片流，防止箱号图片检测清除掉
+    ///
+    QByteArray plateTmpArr;
+
+    ///
+    /// \brief simulationdialog 对话框状态
+    ///
+    bool simulationdialog;
+
+    ///
     /// \brief para 通道参数
     ///
     ChannelParameter *para;
@@ -102,19 +112,19 @@ private:
     int putComType;
 
     ///
-    /// \brief plate 电子车牌
+    /// \brief localPlate 电子车牌
     ///
-    QString plate;
+    QString localPlate;
 
     ///
-    /// \brief plateTime 电子车牌时间戳
+    /// \brief localPlateTime 电子车牌时间戳
     ///
-    QString plateTime;
+    QString localPlateTime;
 
     ///
-    /// \brief plateColor 电子车牌颜色
+    /// \brief localPlateColor 电子车牌颜色
     ///
-    QString plateColor;
+    QString localPlateColor;
 
     ///
     /// \brief isConCar 判断为集装箱车辆
@@ -551,6 +561,12 @@ public slots:
     /// \param plate
     ///
     void slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time, const QByteArray &arrImg);
+
+
+    ///
+    /// \brief slot_simulationCloseState 窗口关闭状态
+    ///
+    void slot_simulationCloseState();
 };
 
 #endif // CHANNEL_DATA_FORM_H

@@ -10,7 +10,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-
     initializingObject();
     initializationParameter();
     connectProcess();
@@ -23,6 +22,10 @@ MainWindow::~MainWindow()
     //delete pLoadinglibaray;
     if(getDiskFreeTimer!=nullptr){
         getDiskFreeTimer->stop();
+    }
+
+    if(systemRunTime!=nullptr){
+        systemRunTime->stop();
     }
 
     delete ui;
@@ -64,14 +67,6 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
 void MainWindow::initializing()
 {
-    linkCount=0;
-
-    getDiskFreeTimer = new QTimer(this);
-    getDiskFreeTimer->setSingleShot(false);
-    connect(getDiskFreeTimer,SIGNAL(timeout()),this,SLOT(slot_getDiskFreeSpace()));
-    QTimer::singleShot(3000,this,SLOT(slot_getDiskFreeSpace()));
-    getDiskFreeTimer->start(600000);
-
     /*****************************
     * @brief:初始化数据库
     ******************************/
@@ -123,6 +118,40 @@ void MainWindow::initializing()
     }
 
     emit signal_InitializationFTPParameter(Parameter::FtpUser,Parameter::FtpPassword,Parameter::FtpRemotePath,Parameter::FtpAddress,Parameter::FtpPort);
+
+    linkCount=0;
+
+    /*****************************
+    * @brief:获取硬盘空间
+    ******************************/
+    getDiskFreeTimer = new QTimer(this);
+    getDiskFreeTimer->setSingleShot(false);
+    connect(getDiskFreeTimer,SIGNAL(timeout()),this,SLOT(slot_getDiskFreeSpace()));
+    QTimer::singleShot(3000,this,SLOT(slot_getDiskFreeSpace()));
+    getDiskFreeTimer->start(600000);
+
+
+    runTime=QDateTime::currentDateTime();
+    /*****************************
+    * @brief:系统运行时长
+    ******************************/
+    systemRunTime=new QTimer(this);
+    systemRunTime->setSingleShot(false);
+    connect(systemRunTime,SIGNAL(timeout()),this,SLOT(slot_systemRunTimer()));
+    QTimer::singleShot(3000,this,SLOT(slot_getDiskFreeSpace()));
+    systemRunTime->start(5000);
+
+    /*****************************
+    * @brief:数据接口统计
+    ******************************/
+    slot_connectCount(0);
+
+    /*****************************
+    * @brief:流量统计
+    ******************************/
+    QString start=QString("%1 %2").arg(QDate::currentDate().toString("yyyy/MM/dd")).arg(QTime(0,0,0).toString("HH:mm:ss"));
+    QString end=QString("%1 %2").arg(QDate::currentDate().toString("yyyy/MM/dd")).arg(QTime(23,59,59).toString("HH:mm:ss"));
+    emit signal_setDataBaseFilter(QString("((Timer>='%1' AND Timer<='%2'))").arg(start).arg(end));
 }
 
 void MainWindow::clearnContainer()
@@ -147,6 +176,11 @@ void MainWindow::clearnContainer()
 //    qDeleteAll (Form_Map);
 //    qDeleteAll (From_Action_Map.keys());
 //    qDeleteAll (Channel_Data_From_Map.values());
+
+    if(p_Data_Log_Form!=nullptr){
+         p_Data_Log_Form->close();
+    }
+
 
     Channel_Data_From_Map.clear();
     From_Action_Map.clear();
@@ -201,7 +235,8 @@ void MainWindow::initializingObject()
     pErrorForm=QPointer<ErrorForm>(new ErrorForm(this));
 
     p_Data_Log_Form=QSharedPointer<Data_Log_Form>(new Data_Log_Form (nullptr));
-    p_Data_Log_Form.data()->setWindowModality(Qt::ApplicationModal);
+    //p_Data_Log_Form->setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
+    p_Data_Log_Form.data()->setWindowModality(Qt::NonModal  );
 
     connect(pLog.data(),SIGNAL(signal_newLogText(QtMsgType,QDateTime,QString)),p_Data_Log_Form.data(),SLOT(slot_newLogText(QtMsgType,QDateTime,QString)));
 
@@ -442,9 +477,8 @@ void MainWindow::setStatusBar(int type, const QString &msg)
         socketLinkCountLabel->setText(msg);
         break;
     }
-
     //permanentLabel->setText(msg);
-    ui->statusBar->showMessage("Technical support telephone:18565659070",100000);
+    //ui->statusBar->showMessage("Technical support telephone:18565659070",100000);
 }
 
 void MainWindow::systemTrayAction()
@@ -649,7 +683,39 @@ void MainWindow::slot_getDiskFreeSpace()
 void MainWindow::slot_connectCount(int count)
 {
     linkCount+=count;
-    setStatusBar(4,QString("Service:%1  Format:%2  Count:%3").arg(Parameter::DataChaneType?"MQ":"TCP").arg(Parameter::DataChange_Format?"JSON":"TEXT").arg(QString::number(linkCount<0?0:linkCount)));
+    setStatusBar(4,QString("Service:%1  Format:%2  Count:%3").arg(Parameter::DataChaneType?"MQ":"TCP").arg(Parameter::DataChange_Format?"JSON":"TEXT").arg(linkCount<0?0:linkCount));
+}
+
+void MainWindow::slot_statisticalData(int total, double correct, double error, double statistical)
+{
+    this->total=total;
+    this->correct=correct;
+    this->error=error;
+    this->statistical=statistical;
+    setStatusBar(2,QString("Total:%1  Correct:%2  Error:%3  Statistical:%4%").arg(total).arg(correct).arg(error).arg(statistical));
+}
+
+void MainWindow::slot_trafficStatistics(bool state)
+{
+    total+=1;
+    if(state){
+        correct+=1;
+        statistical=correct/total*100;
+    }
+    else {
+        error+=1;
+        statistical=correct/total*100;
+    }
+    setStatusBar(2,QString("Total:%1  Correct:%2  Error:%3  Statistical:%4%").arg(total).arg(correct).arg(error).arg(statistical));
+}
+
+void MainWindow::slot_systemRunTimer()
+{
+    QTime m_time;
+    m_time.setHMS(0, 0, 0, 0);
+    QString tt= m_time.addSecs(runTime.secsTo(QDateTime::currentDateTime())).toString("hh:mm:ss");
+
+    setStatusBar(1,QString("Start:%1  Run:%2").arg(runTime.toString("yyyy-MM-dd HH:mm:ss")).arg(tt));
 }
 
 void MainWindow::bindingPlugin()
@@ -734,6 +800,11 @@ void MainWindow::bindingPlugin()
 
     if(pLoadinglibaray->IDataBaseReadList.size()>=1){
         connect(this,&MainWindow::signal_initDataBaseR,pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::initDataBaseSlot);
+        /*****************************
+        * @brief:当日数据流量统计
+        ******************************/
+        connect(this,&MainWindow::signal_setDataBaseFilter,pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::setDataBaseFilterSlot);
+        connect(pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::statisticalDataSignal,this,&MainWindow::slot_statisticalData);
     }
 
     if(pLoadinglibaray->IRecognizerList.size()>=1 && pLoadinglibaray->IRecognizerList.size()==Channel_Data_From_Map.size()){
@@ -782,9 +853,9 @@ void MainWindow::bindingPlugin()
             ******************************/
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_containerResult);
             /*****************************
-            * @brief:发送的数据道日志页面
+            * @brief:流量统计
             ******************************/
-            //connect(DataProcessingList.at(var).data(),&DataProcessing::signal_sendLogToUi,p_Data_Log_Form.data(),&Data_Log_Form::slot_sendLogToUi);
+            connect(DataProcessingList.at(var).data(),&DataProcessing::signal_trafficStatistics,this,&MainWindow::slot_trafficStatistics);
         }
     }
 
@@ -800,31 +871,37 @@ void MainWindow::bindingPlugin()
     if(pLoadinglibaray->ILicensePlateList.size()>=1 && Channel_Data_From_Map.size()==pLoadinglibaray->ILicensePlateList.size()){
         int var = pLoadinglibaray->IMiddlewareLit.size()-1;
         for (int ind = 1; ind <= Channel_Data_From_Map.count(); ++ind) {
-            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_initCamer_plate,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::initCamerSlot);
-            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_simulationCapture,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::simulationCaptureSlot);
-            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_liftingElectronicRailing,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::liftingElectronicRailingSlot);
-            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_transparentTransmission485,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::transparentTransmission485Slot);
-            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_openTheVideo,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::openTheVideoSlot);
+            if(1==Parameter::PlateType){
+                connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_initCamer_plate,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::initCamerSlot);
+                connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_simulationCapture,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::simulationCaptureSlot);
+                connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_liftingElectronicRailing,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::liftingElectronicRailingSlot);
+                connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_transparentTransmission485,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::transparentTransmission485Slot);
+                connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_openTheVideo,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::openTheVideoSlot);
 
-            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::imageFlowSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_imageFlow);
-            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::theVideoStreamSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_theVideoStream);
-            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::resultsTheLicensePlateSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_resultsTheLicensePlate);
-            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::equipmentStateSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_camerState);
+                connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::imageFlowSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_imageFlow);
+                connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::theVideoStreamSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_theVideoStream);
+                connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::resultsTheLicensePlateSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_resultsTheLicensePlate);
+                connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::equipmentStateSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_camerState);
+
+            }
 
             /*****************************
             * @brief:和海康插件对接
             ******************************/
 
-            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_initCamera,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::initCameraSlot);
-            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_openTheVideo,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::openTheVideoSlot);
-            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_simulationCapture,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::simulationCaptureSlot);
-            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_liftingElectronicRailing,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::liftingElectronicRailingSlot);
-            connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_transparentTransmission485,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::transparentTransmission485Slot);
+            if(0==Parameter::PlateType){
+                connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_initCamera,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::initCameraSlot);
+                connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_openTheVideo,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::openTheVideoSlot);
+                connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_simulationCapture,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::simulationCaptureSlot);
+                connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_liftingElectronicRailing,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::liftingElectronicRailingSlot);
+                connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::signal_transparentTransmission485,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::transparentTransmission485Slot);
 
-            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::signal_pictureStream,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_pictureStream);
-            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::signal_setCameraID,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_setCameraID);
-            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::equipmentStateSignal,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_equipmentState);
-            connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::resultsTheLicensePlateSignal,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_resultsTheLicensePlate);
+                connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::signal_pictureStream,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_pictureStream);
+                connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::signal_setCameraID,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_setCameraID);
+                connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::equipmentStateSignal,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_equipmentState);
+                connect(pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::resultsTheLicensePlateSignal,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::slot_resultsTheLicensePlate);
+
+            }
 
             connect(this,&MainWindow::signal_setPlateCaptureType,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::setCaptureTypeSlot);
             connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);

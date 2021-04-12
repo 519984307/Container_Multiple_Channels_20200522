@@ -29,6 +29,12 @@ SimulationDialog::~SimulationDialog()
     delete ui;
 }
 
+void SimulationDialog::closeEvent(QCloseEvent *event)
+{
+    Q_UNUSED(event);
+    emit signal_dialogCloseState();
+}
+
 void SimulationDialog::on_capturePushButton_clicked()
 {
     foreach (QLineEdit* obj, ui->groupBox->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
@@ -155,6 +161,11 @@ void SimulationDialog::slot_plate(const int &channelID, const QString &plate, co
 {
     Q_UNUSED(time);
     Q_UNUSED(channelID);
+
+    ui->con_before_lineEdit->clear();
+    ui->iso_before_lineEdit->clear();
+    ui->con_after_lineEdit->clear();
+    ui->iso_after_lineEdit->clear();
 
     ui->plate_lineEdit->setText(plate);
     if("黄"==color){

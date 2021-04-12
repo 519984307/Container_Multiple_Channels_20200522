@@ -4,10 +4,32 @@
 
 DataProcessing::DataProcessing(QObject *parent) : QObject(parent)
 {
+    QDateTime dateTime = QDateTime::currentDateTime();
+    QString stringDateTime = dateTime.toString( "yyyy_MM_dd_hh_mm_ss" );
+    QString path = QStandardPaths::writableLocation( QStandardPaths::AppConfigLocation );
+
+    QString logFolderName =QDir::toNativeSeparators(path + "/" + "send_log");
+    if( !QDir( logFolderName ).exists() )
+    {
+        QDir().mkpath( logFolderName );
+    }
+
+    logFile.setFileName( QDir::toNativeSeparators(logFolderName+ "/" + stringDateTime + ".log" ));
+
+    // If more 30 files, remove the last.
+    QDir dir( logFolderName );
+    dir.setFilter( QDir::Files );
+    dir.setSorting( QDir::Name );
+    QList<QFileInfo> list = dir.entryInfoList();
+    if ( list.count() > 30 )
+    {
+        QFile file( list.at(0).absoluteFilePath() );
+        file.remove();
+    }
 
 }
 
-void DataProcessing::slot_sendDataToLog(int channel_number, const QString &result)
+void DataProcessing::writeDataToLog(int channel_number, const QString &result)
 {
     lock.lockForWrite();
 
@@ -24,19 +46,27 @@ void DataProcessing::slot_sendDataToLog(int channel_number, const QString &resul
 
     lock.unlock();
 
-    emit signal_sendLogToUi(channel_number,result);
 }
 
 void DataProcessing::slot_containerResult(int channel, const QString &result)
-{
-    if(Parameter::DataChange_Format==0){
-        emit signal_toSendData(channel,result);
-        return;
-    }
-
-    if(result.startsWith("[") && result.endsWith("]")){
+{        
+    if(result.startsWith("[") && result.endsWith("]")){        
         QString tmpMsg=result.mid(1,result.size()-2);
         QStringList msgList=tmpMsg.split("|");
+
+        if(msgList.size()>=5){
+            /*****************************
+            * @brief:数据流量统计到主页面
+            ******************************/
+            emit signal_trafficStatistics(msgList.at(5)=="Y"?true:false);
+        }
+
+        if(Parameter::DataChange_Format==0){
+            emit signal_toSendData(channel,result);
+            writeDataToLog(channel,result);
+            return;
+        }
+
         if(msgList.size()>=3){
 
             today=QDateTime::fromString(msgList.at(1).mid(0,8),"yyyyMMdd").toString("yyyy-MM-dd");
@@ -100,6 +130,7 @@ void DataProcessing::slot_containerResult(int channel, const QString &result)
 
         if (Parameter::DataChange_Format==1) {
             emit signal_toSendData(channel,QString(QJsonDocument(jsonChild).toJson()));
+            writeDataToLog(channel,QString(QJsonDocument(jsonChild).toJson()));
         }
 
         return;

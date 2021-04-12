@@ -22,6 +22,8 @@ Main_Dialog::Main_Dialog(QWidget *parent) :
     ui->label_7->setHidden(true);
     ui->comboBox->setHidden(true);
     ui->language_comboBox->setHidden(true);
+    ui->label->setHidden(true);
+    ui->ChannelNumber->setHidden(true);
 
     ui->ChannelNumber->setMaximum(LocalPar::Channels);
     /*****************************

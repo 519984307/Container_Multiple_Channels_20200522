@@ -194,10 +194,27 @@ private:
     QTimer* getDiskFreeTimer;
 
     ///
+    /// \brief systemRunTime 系统运行时长
+    ///
+    QTimer* systemRunTime;
+
+    ///
     /// \brief linkCount 数据接口链接数量
     ///
     int linkCount;
 
+    ///
+    /// \brief runTime 系统启动时间
+    ///
+    QDateTime runTime;
+
+    /*****************************
+    * @brief:流量统计
+    ******************************/
+    int total;
+    double correct;
+    double error;
+    double statistical;
     /*****************************
     * object
     ******************************/
@@ -417,6 +434,26 @@ private slots:
     ///
     void slot_connectCount(int count);
 
+    ///
+    /// \brief slot_statisticalData 统计当日数据流量
+    /// \param total 总计
+    /// \param correct 正确
+    /// \param error 错误
+    /// \param statistical 统计
+    ///
+    void slot_statisticalData(int total,double correct,double error,double statistical);
+
+    ///
+    /// \brief signal_trafficStatistics 数据流量统计到主页面
+    /// \param state
+    ///
+    void slot_trafficStatistics(bool state);
+
+    ///
+    /// \brief slot_systemRunTimer 系统运行时长
+    ///
+    void slot_systemRunTimer();
+
 signals:
 
     /*****************************
@@ -498,6 +535,12 @@ signals:
     /// \param msgCallBackInd
     ///
     void signal_setPlateCaptureType(const int &capType, const int &msgCallBackInd);
+
+    ///
+    /// \brief signal_setDataBaseFilter 设置数据库筛选条件
+    /// \param filter 筛选条件
+    ///
+    void signal_setDataBaseFilter(const QString &filter);
 };
 
 #endif // MAINWINDOW_H

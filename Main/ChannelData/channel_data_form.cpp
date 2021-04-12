@@ -65,11 +65,14 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     }
 
     connect(this,&Channel_Data_Form::signal_pictureStream,this,&Channel_Data_Form::slot_pictureStream);
+
+    simulationdialog=false;
+    plateTmpArr=nullptr;
 }
 
 Channel_Data_Form::~Channel_Data_Form()
 {
-    qDebug()<<"~Channel_Data_Form";
+    qDebug()<<"~Channel_Data_Form";        
 
     plateSendTimer->stop();
     sendDataOutTimer->stop();
@@ -173,6 +176,9 @@ void Channel_Data_Form::clearnPixmap()
     //ui->image_label_12->setPalette(palette);
 
     foreach (QLineEdit* obj, ui->toolBox->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
+        if(obj==ui->plate_lineEdit || obj==ui->plate_color_lineEdit || obj==ui->plate_time_lineEdit){
+            continue;
+        }
         obj->setText("");
         obj->clear();
         obj->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
@@ -181,7 +187,12 @@ void Channel_Data_Form::clearnPixmap()
 
 void Channel_Data_Form::on_SimulationPushButton_clicked()
 {
+    if(simulationdialog){
+        return;
+    }
+
     QPointer<SimulationDialog> Dlg=new SimulationDialog(channelNumber,this);
+    Dlg->setWindowTitle(QString("SimulationDialog[%1]").arg(QString::number(channelNumber)));
     connect(Dlg,&SimulationDialog::signal_logicPutImage,this,&Channel_Data_Form::slot_logicPutImage);
     connect(Dlg,&SimulationDialog::sendResultSignal,this,&Channel_Data_Form::sendResultSignal);
     connect(this,&Channel_Data_Form::signal_container,Dlg,&SimulationDialog::slot_container);
@@ -190,7 +201,11 @@ void Channel_Data_Form::on_SimulationPushButton_clicked()
     connect(Dlg,&SimulationDialog::signal_simulationCapture,this,&Channel_Data_Form::signal_simulationCapture);
     connect(Dlg,&SimulationDialog::signal_liftingElectronicRailing,this,&Channel_Data_Form::signal_liftingElectronicRailing);
     connect(Dlg,&SimulationDialog::signal_transparentTransmission485,this,&Channel_Data_Form::signal_transparentTransmission485);
-    Dlg->exec();
+
+    connect(Dlg,&SimulationDialog::signal_dialogCloseState,this,&Channel_Data_Form::slot_simulationCloseState);
+    Dlg->show();
+
+    simulationdialog=true;
 }
 
 void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime)
@@ -315,15 +330,15 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         /*****************************
         * @brief:插入车牌数据到数据库
         ******************************/
-        databaseMap.insert("Timer",QString("%1").arg(QDateTime::fromString(plateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
+        databaseMap.insert("Timer",QString("%1").arg(QDateTime::fromString(localPlateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
         databaseMap.insert("Type",QString::number(-1));
 
     }
 
     databaseMap.insert("Channel",QString::number(channelNumber));
-    databaseMap.insert("PlateTimer",QString("%1").arg(QDateTime::fromString(plateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
-    databaseMap.insert("Plate",plate);
-    databaseMap.insert("plateColor",plateColor);
+    databaseMap.insert("PlateTimer",QString("%1").arg(QDateTime::fromString(localPlateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
+    databaseMap.insert("Plate",localPlate);
+    databaseMap.insert("plateColor",localPlateColor);
 
     emit signal_insertDataBase(databaseMap);
 }
@@ -347,6 +362,19 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
     streamMap.insert(imgNumber,jpgStream);
 
     if(-1!=putCount && streamMap.size()>=putCount && watcher->isFinished()){
+
+        /*****************************
+        * @brief:恢复车牌图片
+        ******************************/
+        if(plateTmpArr!=nullptr){
+            streamMap.insert(7,plateTmpArr);
+            plateTmpArr=nullptr;
+        }
+        else {
+            QPalette palette;
+            ui->image_label_7->setPalette(palette);
+        }
+
         QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTime);
         watcher->setFuture(future);
         putCount=-1;
@@ -456,21 +484,26 @@ void Channel_Data_Form::logicStateSlot()
     LogicStateTmpList.clear();
 
     if(!isConCar){
-        saveImages(plateStream,plateTime);
-        emit signal_plateSendData(Parameter::Identify_Protocol,isConCar,plate,plateColor,plateTime);
+        saveImages(plateStream,localPlateTime);
+        emit signal_plateSendData(Parameter::Identify_Protocol,isConCar,localPlate,localPlateColor,localPlateTime);
+        plateTmpArr=nullptr;
     }
     else {
         if(plateSendTimer->isActive()){
             plateSendTimer->stop();
         }
-        plateSendTimer->start(15000);
+        sendDataOutTimer->start(15000);
+        emit signal_plateSendData(Parameter::Identify_Protocol,isConCar,localPlate,localPlateColor,localPlateTime);
+        plateTmpArr=nullptr;
     }
 }
 
 void Channel_Data_Form::timeOutSendData()
 {
-    isConCar=false;
-    emit signal_plateSendData(Parameter::Identify_Protocol,isConCar,plate,plateColor,plateTime);
+    saveImages(plateStream,localPlateTime);
+    emit signal_plateSendData(Parameter::Identify_Protocol,false,localPlate,localPlateColor,localPlateTime);
+
+    qDebug().noquote()<<"load container result timeout,send plate date";
 }
 
 void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
@@ -579,7 +612,15 @@ void Channel_Data_Form::slot_initEquipment()
         emit signal_initCamer_top(para->LocalAddr,para->TopCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(4));
         emit signal_initCamer_prospects(para->LocalAddr,para->ProspectsCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(5));
         emit signal_initCamer_foreground(para->LocalAddr,para->ForgroundCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(6));
-        emit signal_initCamer_plate(para->LocalAddr,para->PlateCamer,8000,para->UserCamer,para->PasswordCamer,signatureList.at(7));
+
+        int port=0;
+        if(Parameter::PlateType==0){
+            port=8000;
+        }
+        else if (Parameter::PlateType==1) {
+            port=8080;
+        }
+        emit signal_initCamer_plate(para->LocalAddr,para->PlateCamer,port,para->UserCamer,para->PasswordCamer,signatureList.at(7));
     }    
 
     /*****************************
@@ -757,15 +798,34 @@ void Channel_Data_Form::slot_recognitionResult(const QString &result, const QStr
 {
     recogMap.insert(imgNumber,result);
     imgNameMap.insert(imgNumber,imgName);
-    if(recogMap.size()==streamMap.size()){
-        emit signal_resultsOfAnalysis(recogMap,putComType,imgNameMap);
-        recogMap.clear();
-        imgNameMap.clear();
+    if(streamMap.value(7,nullptr)!=nullptr){
+        if(recogMap.size()==streamMap.size()-1){
+            emit signal_resultsOfAnalysis(recogMap,putComType,imgNameMap);
+            recogMap.clear();
+            imgNameMap.clear();
+        }
     }
+    else {
+        if(recogMap.size()==streamMap.size()){
+            emit signal_resultsOfAnalysis(recogMap,putComType,imgNameMap);
+            recogMap.clear();
+            imgNameMap.clear();
+        }
+    }
+
 }
 
 void Channel_Data_Form::slot_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
 {
+    /*****************************
+    * @brief:是集装箱车辆，把车牌发送过去，组成一条数据 202010412
+    * 考虑车速很快或者很慢情况。
+    ******************************/
+    if(plateSendTimer->isActive()){
+        emit signal_plateSendData(Parameter::Identify_Protocol,true,localPlate,localPlateColor,localPlateTime);
+        isConCar=true;
+    }
+
     /*****************************
     * @brief:关闭检测车牌和箱号定时器
     ******************************/
@@ -830,7 +890,23 @@ void Channel_Data_Form::slot_theVideoStream(const QByteArray &arrImg)
 }
 
 void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
-{
+{   
+//    /*****************************
+//    * @brief:后续处理，需要判断是先识别车牌还是先识别箱号
+//    ******************************/
+//    if(!isConCar &&  localPlate!=plate && plateSendTimer->isActive()){
+//        /*****************************
+//        * @brief:防止非集卡车，前方车辆通过（检测集装箱延时未完成），后车通过导致前车结果未发送。
+//        ******************************/
+//        saveImages(plateStream,localPlateTime);
+//        emit signal_plateSendData(Parameter::Identify_Protocol,false,localPlate,localPlateColor,localPlateTime);
+//    }
+
+    isConCar=false;
+    streamMap.clear();/* 先识别车牌 */
+    clearnPixmap();
+    plateTmpArr=arrImg;
+
     plateStream.clear();
     plateStream.insert(7,arrImg);
 
@@ -852,17 +928,22 @@ void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const 
     LogicStateTmpList.clear();
     LogicStateTmpList<<ui->a1checkBox->checkState()<<ui->a2checkBox->checkState()<<ui->b1checkBox->checkState()<<ui->b2checkBox->checkState();
 
-    this->plate=plate;
-    this->plateColor=color;
-    this->plateTime=QString("%1").arg(QDateTime::fromString(time,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss"));
+    localPlate=plate;
+    localPlateColor=color;
+    localPlateTime=QString("%1").arg(QDateTime::fromString(time,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss"));
 
     /*****************************
     * @brief:有可能会出现编码问题
     ******************************/
-    if("黄" == color){
-        plateSendTimer->start(10000);
+    if("黄" == color || color==""){
+        plateSendTimer->start(12000);
     }
     else {
         plateSendTimer->start(1);
     }
+}
+
+void Channel_Data_Form::slot_simulationCloseState()
+{
+    simulationdialog=false;
 }

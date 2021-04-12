@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QTimer>
 #include <QDateTime>
+#include <QCloseEvent>
 
 #include "Parameter/parameter.h"
 
@@ -18,6 +19,8 @@ class SimulationDialog : public QDialog
 public:
     explicit SimulationDialog(int channelNumber,QWidget *parent = nullptr);
     ~SimulationDialog();
+
+    void closeEvent(QCloseEvent* event)Q_DECL_OVERRIDE;
 
 private slots:
     void on_capturePushButton_clicked();
@@ -59,7 +62,7 @@ public slots:
     /// \param color
     /// \param time
     ///
-    void slot_plate(const int &channelID,const QString &plate,const QString &color,const QString &time);
+    void slot_plate(const int &channelID,const QString &plate,const QString &color,const QString &time);   
 
 private:
     Ui::SimulationDialog *ui;
@@ -103,6 +106,13 @@ signals:
     /// \param dmsg
     ///
     void signal_transparentTransmission485(const QString &msg);
+
+
+
+    ///
+    /// \brief signal_dialogCloseState 窗口关闭状态
+    ///
+    void signal_dialogCloseState();
 };
 
 #endif // SIMULATIONDIALOG_H

@@ -12,6 +12,8 @@ Data_Log_Form::Data_Log_Form(QWidget *parent) :
     this->setVisible(false);
     textCount=0;
     ServiceCount=0;
+
+    ui->tabWidget->setCurrentIndex(0);
 }
 
 Data_Log_Form::~Data_Log_Form()

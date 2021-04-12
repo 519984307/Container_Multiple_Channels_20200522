@@ -6,14 +6,23 @@ LicensePlateWTY::LicensePlateWTY(QObject *parent)
 {
     this->setParent(parent);
 
+    LicensePlateWTY::pThis=this;
+
     pDLL=nullptr;
-    isSDKinit=false;   
+    isSDKinit=false;
+    isPlay=false;
+
     localAddr="";
     camerIP="";
     camerUser="";
     camerPow="";
     signature="";
     camerPort=0;
+
+    linkTimer=new QTimer(this);
+    linkTimer->setSingleShot(false);
+    connect(linkTimer,SIGNAL(timeout()),this,SLOT(autoLinkCamer()));
+
 
     CLIENT_LPRC_RegCLIENTConnEvent=nullptr;
     CLIENT_LPRC_RegDataEx2Event=nullptr;
@@ -43,8 +52,6 @@ QString LicensePlateWTY::InterfaceType()
 
 bool LicensePlateWTY::initializationParameter()
 {
-    LicensePlateWTY::pThis=this;
-
     pDLL=new QLibrary ("WTY",this) ;/* windows*/
     //pDLL=new QLibrary (QDir::toNativeSeparators(QString("%1/%2").arg(QCoreApplication::applicationDirPath()).arg("Plugins/WTY/linux/libwty")),this) ;/* linux */
 
@@ -67,6 +74,7 @@ bool LicensePlateWTY::initializationParameter()
         CLIENT_LPRC_RS485Send=reinterpret_cast<CLIENT_LPRC_RS485SendFUN>(pDLL->resolve("CLIENT_LPRC_RS485Send"));
         CLIENT_LPRC_QuitDevice=reinterpret_cast<CLIENT_LPRC_QuitDeviceFUN>(pDLL->resolve("CLIENT_LPRC_QuitDevice"));
 
+        qDebug().noquote()<<QString("WTY Load sucess");
         return true;
     }
 
@@ -116,6 +124,7 @@ void LicensePlateWTY::initCamerSlot(const QString &localAddr, const QString &cam
     }
     else {
         qWarning().noquote()<<QString("IP:%1 License plate camera link error").arg(camerIP);
+        linkTimer->start(10000);
     }
 }
 
@@ -125,7 +134,13 @@ void LicensePlateWTY::autoLinkCamer()
         /*****************************
         * @brief:链接失败重新链接
         ******************************/
-        CLIENT_LPRC_InitSDK(static_cast<uint>(camerPort),nullptr,0,arrAddr.data(),0);
+        if(CLIENT_LPRC_InitSDK(static_cast<uint>(camerPort),nullptr,0,arrAddr.data(),0)==1){
+            qDebug().noquote()<<QString("IP:%1 License plate camera linking").arg(camerIP);
+        }
+        else {
+            pThis->linkTimer->stop();
+            qDebug().noquote()<<QString("IP:%1 License plate camera link successful").arg(camerIP);
+        }
     }
 }
 
@@ -136,11 +151,12 @@ void LicensePlateWTY::connectCallback(char *chWTYIP, UINT nStatus, LDWORD dwUser
 
     emit pThis->equipmentStateSignal(QString::fromUtf8(chWTYIP),nStatus?true:false);
 
-    if(nStatus?true:false){
+    if(1!=nStatus){
         if(pThis->CLIENT_LPRC_QuitDevice!=nullptr){
             pThis->CLIENT_LPRC_QuitDevice(pThis->arrAddr.data());
         }
-        QTimer::singleShot(10000,pThis,SLOT(autoLinkCamer()));
+        pThis->linkTimer->start(10000);
+        qWarning().noquote()<<QString("IP:%1 License plate camera link error").arg(pThis->camerIP);
     }
 }
 
@@ -167,11 +183,15 @@ void LicensePlateWTY::jpegCallback(CLIENT_LPRC_DEVDATA_INFO *JpegInfo, LDWORD dw
 {
     Q_UNUSED(dwUser);
 
-    QThread::msleep(20);
-    if(strcmp(JpegInfo->chIp,pThis->arrAddr.data())==0 && JpegInfo->nStatus==0 && JpegInfo->nLen>0){
-        QByteArray arrImg(reinterpret_cast<const char*>(JpegInfo->pchBuf),JpegInfo->nLen);
-        emit pThis->theVideoStreamSignal(arrImg);
-        arrImg.clear();
+    QCoreApplication::processEvents();
+
+    if(pThis->isPlay){
+        QThread::msleep(200);
+        if(strcmp(JpegInfo->chIp,pThis->arrAddr.data())==0 && JpegInfo->nStatus==0 && JpegInfo->nLen>0){
+            QByteArray arrImg(reinterpret_cast<const char*>(JpegInfo->pchBuf),JpegInfo->nLen);
+            emit pThis->theVideoStreamSignal(arrImg);
+            arrImg.clear();
+        }
     }
 }
 
@@ -223,6 +243,11 @@ void LicensePlateWTY::openTheVideoSlot(bool play,quint64 winID)
 {
     Q_UNUSED(winID);
 
+    isPlay=play;
+
+    /*****************************
+    * @brief:最新版本不支持关闭流
+    ******************************/
     if(CLIENT_LPRC_SetJpegStreamPlayOrStop!=nullptr && CLIENT_LPRC_SetJpegStreamPlayOrStop(arrAddr.data(),play?1:0)==0){
         qDebug().noquote()<<QString("IP:%1 Video streaming operation successful").arg(camerIP);
     }
@@ -233,9 +258,15 @@ void LicensePlateWTY::openTheVideoSlot(bool play,quint64 winID)
 
 void LicensePlateWTY::releaseResourcesSlot()
 {
+    if(linkTimer!=nullptr){
+        linkTimer->stop();
+    }
+
     if(CLIENT_LPRC_QuitDevice!=nullptr){
         CLIENT_LPRC_QuitDevice(arrAddr.data());
     }
+
+    qDebug().noquote()<<"releaseResourcesSlot";
 }
 
 /*****************************

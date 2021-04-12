@@ -122,6 +122,7 @@ signals:
     void signal_transparentTransmission485(const QString &msg);
 
 public slots:
+
     ///
     /// \brief slot_pictureStream 分发图片数据
     /// \param ID

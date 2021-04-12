@@ -19,14 +19,16 @@ class DataProcessing : public QObject
 public:
     explicit DataProcessing(QObject *parent = nullptr);
 
-public slots:
+private:
 
     ///
-    /// \brief slot_sendDataToLog 发送结果写入到日志
+    /// \brief writeDataToLog 发送结果写入到日志
     /// \param channel 通道号
     /// \param result 识别结果
     ///
-    void slot_sendDataToLog(int channel_number,const QString& result);
+    void writeDataToLog(int channel_number,const QString& result);
+
+public slots:
 
     /*****************************
     * @brief:集装箱
@@ -60,10 +62,10 @@ signals:
     void signal_toSendData(int channel_number, const QString &data);
 
     ///
-    /// \brief signal_sendLogToUi 发送的数据写入log页面
-    /// \param msg
+    /// \brief signal_trafficStatistics 数据流量统计到主页面
+    /// \param state
     ///
-    void signal_sendLogToUi(int channel_number,const QString &msg);
+    void signal_trafficStatistics(bool state);
 
 private:
     QJsonObject jsonChild;

@@ -256,6 +256,10 @@ private:
     QByteArray arrAddr;
     QMutex mutex;
 
+    QTimer* linkTimer;
+
+    bool isPlay;
+
     static LicensePlateWTY *pThis;
 
 private slots:

@@ -468,7 +468,7 @@ void ResultsAnalysis::slot_plateSendData(const int &Identify_Protocol,const bool
         QString result="";
         if(1==Identify_Protocol){
             /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱型|车牌|颜色] */
-            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(-1).arg("").arg("").arg(plate).arg(color);
+            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(-1).arg("").arg("").arg("").arg(plate).arg(color);
 
         }
         else {
@@ -530,6 +530,11 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
         emit resultsAnalysisStateSignal(channel,result);
         emit sendResultSignal(channel,result);
     }
+
+    isConCar=false;
+    plate.clear();
+    plateColor.clear();
+    plateTime.clear();
 
     QMap<QString,QString> data;
     data["Timer"]=dateTime;
