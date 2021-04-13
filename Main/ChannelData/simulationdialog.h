@@ -41,6 +41,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_pushButton_2_clicked();
+
 public slots:
 
     ///
@@ -71,6 +73,8 @@ private:
     int col;
     int channelNumber;
 
+    QString plateTime;
+
 signals:
 
     ///
@@ -80,12 +84,20 @@ signals:
     void signal_logicPutImage(const int &putCommnd);
 
     ///
-    /// \brief sendResultSignal 发送识别结果
+    /// \brief sendResultSignal 模拟发送箱号识别结果
     /// \param channel 通道号
     /// \param result 识别结果
     ///
     void sendResultSignal(int channel,const QString& result);
 
+    ///
+    /// \brief signal_plateResult 模拟发送车牌结果
+    /// \param channel
+    /// \param plate
+    /// \param color
+    /// \param time
+    ///
+    void signal_plateResult(int channel, bool isConCar, const QString &plate, const QString &color, const QString &plateTime);
 
     /*****************************
     * @brief:车牌
@@ -106,8 +118,6 @@ signals:
     /// \param dmsg
     ///
     void signal_transparentTransmission485(const QString &msg);
-
-
 
     ///
     /// \brief signal_dialogCloseState 窗口关闭状态

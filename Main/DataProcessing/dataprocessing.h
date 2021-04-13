@@ -41,6 +41,15 @@ public slots:
     ///
     void slot_containerResult(int channel,const QString& result);
 
+    ///
+    /// \brief slot_plateResult 车牌结果
+    /// \param channel
+    /// \param plate
+    /// \param color
+    /// \param time
+    ///
+    void slot_plateResult(int channel, bool isConCar, const QString &plate, const QString &color, const QString &plateTime);
+
 signals:
 
     ///
@@ -83,6 +92,9 @@ private:
     QString type;
     QString isguard;
 
+    QString plate;
+    QString plateColor;
+    QString plateTime;
     ///
     /// \brief logFile 日志文件
     ///

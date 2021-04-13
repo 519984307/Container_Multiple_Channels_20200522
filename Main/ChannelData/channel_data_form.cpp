@@ -201,6 +201,7 @@ void Channel_Data_Form::on_SimulationPushButton_clicked()
     connect(Dlg,&SimulationDialog::signal_simulationCapture,this,&Channel_Data_Form::signal_simulationCapture);
     connect(Dlg,&SimulationDialog::signal_liftingElectronicRailing,this,&Channel_Data_Form::signal_liftingElectronicRailing);
     connect(Dlg,&SimulationDialog::signal_transparentTransmission485,this,&Channel_Data_Form::signal_transparentTransmission485);
+    connect(Dlg,&SimulationDialog::signal_plateResult,this,&Channel_Data_Form::signal_plateResult);
 
     connect(Dlg,&SimulationDialog::signal_dialogCloseState,this,&Channel_Data_Form::slot_simulationCloseState);
     Dlg->show();
@@ -347,7 +348,8 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
 {
     if(imgNumber==0){
         return;
-    }
+    }   
+
     if(imgTime!=this->imgTimerAf){
         QMutableMapIterator<int, QByteArray> i(streamMap);
          while (i.hasNext()) {
@@ -364,13 +366,9 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
     if(-1!=putCount && streamMap.size()>=putCount && watcher->isFinished()){
 
         /*****************************
-        * @brief:恢复车牌图片
+        * @brief:清除上一辆车牌图片
         ******************************/
-        if(plateTmpArr!=nullptr){
-            streamMap.insert(7,plateTmpArr);
-            plateTmpArr=nullptr;
-        }
-        else {
+        if(plateTmpArr==nullptr){
             QPalette palette;
             ui->image_label_7->setPalette(palette);
         }
@@ -485,23 +483,21 @@ void Channel_Data_Form::logicStateSlot()
 
     if(!isConCar){
         saveImages(plateStream,localPlateTime);
-        emit signal_plateSendData(Parameter::Identify_Protocol,isConCar,localPlate,localPlateColor,localPlateTime);
-        plateTmpArr=nullptr;
+        emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,localPlateTime);
     }
     else {
-        if(plateSendTimer->isActive()){
-            plateSendTimer->stop();
+        if(sendDataOutTimer->isActive()){
+            sendDataOutTimer->stop();
         }
         sendDataOutTimer->start(15000);
-        emit signal_plateSendData(Parameter::Identify_Protocol,isConCar,localPlate,localPlateColor,localPlateTime);
-        plateTmpArr=nullptr;
     }
 }
 
 void Channel_Data_Form::timeOutSendData()
 {
     saveImages(plateStream,localPlateTime);
-    emit signal_plateSendData(Parameter::Identify_Protocol,false,localPlate,localPlateColor,localPlateTime);
+    emit signal_plateSendData(channelNumber,false,localPlate,localPlateColor,localPlateTime);
+    plateTmpArr=nullptr;
 
     qDebug().noquote()<<"load container result timeout,send plate date";
 }
@@ -798,21 +794,11 @@ void Channel_Data_Form::slot_recognitionResult(const QString &result, const QStr
 {
     recogMap.insert(imgNumber,result);
     imgNameMap.insert(imgNumber,imgName);
-    if(streamMap.value(7,nullptr)!=nullptr){
-        if(recogMap.size()==streamMap.size()-1){
-            emit signal_resultsOfAnalysis(recogMap,putComType,imgNameMap);
-            recogMap.clear();
-            imgNameMap.clear();
-        }
+    if(recogMap.size()==streamMap.size()){
+        emit signal_resultsOfAnalysis(recogMap,putComType,imgNameMap);
+        recogMap.clear();
+        imgNameMap.clear();
     }
-    else {
-        if(recogMap.size()==streamMap.size()){
-            emit signal_resultsOfAnalysis(recogMap,putComType,imgNameMap);
-            recogMap.clear();
-            imgNameMap.clear();
-        }
-    }
-
 }
 
 void Channel_Data_Form::slot_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
@@ -821,10 +807,19 @@ void Channel_Data_Form::slot_container(const int &type, const QString &result1, 
     * @brief:是集装箱车辆，把车牌发送过去，组成一条数据 202010412
     * 考虑车速很快或者很慢情况。
     ******************************/
-    if(plateSendTimer->isActive()){
-        emit signal_plateSendData(Parameter::Identify_Protocol,true,localPlate,localPlateColor,localPlateTime);
+    if(plateSendTimer->isActive() || sendDataOutTimer->isActive()){
         isConCar=true;
+        /*****************************
+        * @brief:车牌和箱号使用同一时间戳
+        ******************************/
+        emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,imgTimer);
+        /*****************************
+        * @brief:保存车牌图片
+        ******************************/
+        QtConcurrent::run(this,&Channel_Data_Form::saveImages,plateStream,imgTimer);
+        streamMap.insert(7,plateStream.value(7));
     }
+    plateTmpArr=nullptr;
 
     /*****************************
     * @brief:关闭检测车牌和箱号定时器
@@ -891,21 +886,24 @@ void Channel_Data_Form::slot_theVideoStream(const QByteArray &arrImg)
 
 void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
 {   
-//    /*****************************
-//    * @brief:后续处理，需要判断是先识别车牌还是先识别箱号
-//    ******************************/
-//    if(!isConCar &&  localPlate!=plate && plateSendTimer->isActive()){
-//        /*****************************
-//        * @brief:防止非集卡车，前方车辆通过（检测集装箱延时未完成），后车通过导致前车结果未发送。
-//        ******************************/
-//        saveImages(plateStream,localPlateTime);
-//        emit signal_plateSendData(Parameter::Identify_Protocol,false,localPlate,localPlateColor,localPlateTime);
-//    }
+    /*****************************
+    * @brief:需要判断是先识别车牌还是先识别箱号，或者同时进行【后续处理】
+    * @brief:暂时按显示别车牌
+    ******************************/
+    if(localPlate!=plate && plateSendTimer->isActive()){
+        /*****************************
+        * @brief:防止非集卡车，前方车辆通过（检测集装箱延时未完成），后车通过导致前车结果未发送。
+        ******************************/
+        plateSendTimer->stop();
+        saveImages(plateStream,localPlateTime);
+        emit signal_plateSendData(channelNumber,false,localPlate,localPlateColor,localPlateTime);
+    }
 
-    isConCar=false;
-    streamMap.clear();/* 先识别车牌 */
     clearnPixmap();
+    streamMap.clear();
+
     plateTmpArr=arrImg;
+    isConCar=false;
 
     plateStream.clear();
     plateStream.insert(7,arrImg);

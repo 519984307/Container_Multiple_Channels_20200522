@@ -26,7 +26,6 @@ DataProcessing::DataProcessing(QObject *parent) : QObject(parent)
         QFile file( list.at(0).absoluteFilePath() );
         file.remove();
     }
-
 }
 
 void DataProcessing::writeDataToLog(int channel_number, const QString &result)
@@ -45,7 +44,6 @@ void DataProcessing::writeDataToLog(int channel_number, const QString &result)
     logFile.close();
 
     lock.unlock();
-
 }
 
 void DataProcessing::slot_containerResult(int channel, const QString &result)
@@ -61,59 +59,133 @@ void DataProcessing::slot_containerResult(int channel, const QString &result)
             emit signal_trafficStatistics(msgList.at(5)=="Y"?true:false);
         }
 
-        if(Parameter::DataChange_Format==0){
-            emit signal_toSendData(channel,result);
-            writeDataToLog(channel,result);
-            return;
+        if(Parameter::Identify_Protocol==0){
+            CPH="";
+        }
+        else if(Parameter::Identify_Protocol==1){
+            CPH=plate;
+            if(plate!=""){
+                discern="Y";
+            }
+            else {
+                discern="N";
+            }
         }
 
-        if(msgList.size()>=3){
+        //[C|20020919114100|01|1|TEXU7337250|Y|42G1]
+        //[C|20020919114100|01|2|MGLU2872320|Y|MGLU2782249|Y|22G1|22G1]
 
-            today=QDateTime::fromString(msgList.at(1).mid(0,8),"yyyyMMdd").toString("yyyy-MM-dd");
-            time=QDateTime::fromString(msgList.at(1),"yyyyMMddhhmmss").toString("yyyy-MM-dd hh:mm:ss");
-            roadindex=msgList.at(2);
-            cartype=msgList.at(0);
-            SOURCE="XAQ";
-            type=msgList.at(3);
-            isguard="1";
-            content="";
-            discern="";
+        today=QDateTime::fromString(msgList.at(1).mid(0,8),"yyyyMMdd").toString("yyyy-MM-dd");
+        time=QDateTime::fromString(msgList.at(1),"yyyyMMddhhmmss").toString("yyyy-MM-dd hh:mm:ss");
+        content="";
+        roadindex=QString("%1").arg(msgList.at(2).toInt(),2,10,QLatin1Char('0'));
+        cartype=msgList.at(0);
+        SOURCE="XAQ";
+        type=msgList.at(3);
+        isguard="1";
 
-            if(msgList.at(0)=="C"){
-                if(msgList.at(3).toInt()<2){
-                    XH=msgList.at(4);
-                    if(msgList.size()==9 &&Parameter::Identify_Protocol==1){
-                        CPH=msgList.at(7);
-                        if(!msgList.at(7).isEmpty()){
-                            discern="Y";
-                        }
-                        else {
-                            discern="N";
-                        }
-                    }
-                    discern.append(msgList.at(5));
-                    boxtype=msgList.at(6);
+        if(msgList.size()==7){
+            XH=msgList.at(4);
+            boxtype=msgList.at(6);
+            if(Parameter::Identify_Protocol==1){
+                if(msgList.at(5)=="Y"){
+                    discern.append("Y");
                 }
                 else {
-                    XH=QString("%1/%2").arg(msgList.at(4)).arg(msgList.at(6));
-                    if(msgList.size()==12 &&Parameter::Identify_Protocol==1){
-                        CPH=msgList.at(10);
-                        if(!msgList.at(10).isEmpty()){
-                            discern="Y";
-                        }
-                        else {
-                            discern="N";
-                        }
-                    }
-                    discern.append(msgList.at(5));
-                    discern.append(msgList.at(7));
-                    boxtype=QString("%1/%2").arg(msgList.at(8)).arg(msgList.at(9));
+                    discern.append("N");
                 }
             }
-            else if (msgList.at(0)=="U" && msgList.size()>=5) {
-                CPH=msgList.at(3);
+        }
+        if(msgList.size()==10){
+            XH=msgList.at(4)+"/"+msgList.at(6);
+            boxtype=msgList.at(8)+"/"+msgList.at(9);
+            if(Parameter::Identify_Protocol==1){
+                if(msgList.at(5)=="Y"){
+                    discern.append("Y");
+                }
+                else {
+                    discern.append("N");
+                }
+                if(msgList.at(7)=="Y"){
+                    discern.append("Y");
+                }
+                else {
+                    discern.append("N");
+                }
             }
         }
+
+        if(Parameter::DataChange_Format==0){
+            if(Parameter::Identify_Protocol==1 && result.endsWith("]")){
+                QString tmpR=result.mid(0,result.size()-1).append(QString("|%1|%2]").arg(plate).arg(plateColor));
+                emit signal_toSendData(channel,tmpR);
+                writeDataToLog(channel,tmpR);
+            }
+            if(Parameter::Identify_Protocol==0){
+                emit signal_toSendData(channel,result);
+                writeDataToLog(channel,result);
+            }
+        }
+        if(Parameter::DataChange_Format==1){
+            jsonChild.insert("today",today);
+            jsonChild.insert("time",time);
+            jsonChild.insert("content",content);
+            jsonChild.insert("CPH",CPH);
+            jsonChild.insert("XH",XH);
+            jsonChild.insert("roadindex",roadindex);
+            jsonChild.insert("cartype",cartype);
+            jsonChild.insert("boxtype",boxtype);
+            jsonChild.insert("discern",discern);
+            jsonChild.insert("SOURCE",SOURCE);
+            jsonChild.insert("type",type);
+            jsonChild.insert("isguard",isguard);
+
+            emit signal_toSendData(channel,QString(QJsonDocument(jsonChild).toJson()));
+            writeDataToLog(channel,QString(QJsonDocument(jsonChild).toJson()));
+        }
+        discern.clear();
+        plate.clear();
+        plateColor.clear();
+        plateTime.clear();
+    }
+    else {
+        qCritical().noquote()<<QString("If the data of box number is abnormal, it will not be processed.");
+    }
+}
+
+void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString &plate, const QString &color, const QString &plateTime)
+{
+    /*****************************
+    * @brief:车牌结果显出
+    ******************************/
+
+    QString result="";
+
+    if(Parameter::DataChange_Format==0){
+        /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|车牌|颜色] */
+        result=QString("[U|%1|%2|%3|%4]").arg(QDateTime::fromString(plateTime,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss")).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(color);
+    }
+    if (Parameter::DataChange_Format==1) {
+
+        QString tmpTime= QString("%1").arg(QDateTime::fromString(plateTime,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss"));
+
+        today=QDateTime::fromString(tmpTime.mid(0,8),"yyyyMMdd").toString("yyyy-MM-dd");
+        time=QDateTime::fromString(tmpTime,"yyyyMMddhhmmss").toString("yyyy-MM-dd hh:mm:ss");
+        content="";
+        CPH=plate;
+        XH="";
+        roadindex=QString("%1").arg(channel,2,10,QLatin1Char('0'));
+        cartype="U";
+        boxtype="";
+        if(plate!=nullptr){
+            discern="Y";
+        }
+        else {
+            discern="N";
+        }
+        SOURCE="XAQ";
+        type="-1";
+        isguard="1";
 
         jsonChild.insert("today",today);
         jsonChild.insert("time",time);
@@ -128,12 +200,21 @@ void DataProcessing::slot_containerResult(int channel, const QString &result)
         jsonChild.insert("type",type);
         jsonChild.insert("isguard",isguard);
 
-        if (Parameter::DataChange_Format==1) {
-            emit signal_toSendData(channel,QString(QJsonDocument(jsonChild).toJson()));
-            writeDataToLog(channel,QString(QJsonDocument(jsonChild).toJson()));
-        }
-
-        return;
+        result = QString(QJsonDocument(jsonChild).toJson());
     }
-    qCritical().noquote()<<QString("If the data of box number is abnormal, it will not be processed.");
+
+    if(Parameter::Identify_Protocol==0){
+        emit signal_toSendData(channel,result);
+    }
+    if(Parameter::Identify_Protocol==1){
+        if(!isConCar){
+            emit signal_toSendData(channel,result);
+        }
+        else {
+            this->plate=plate;
+            this->plateColor=color;
+            this->plateTime=time;
+        }
+    }
+    writeDataToLog(channel,result);
 }

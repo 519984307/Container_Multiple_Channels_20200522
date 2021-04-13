@@ -429,14 +429,23 @@ signals:
 
     ///
     /// \brief signal_plateSendData 发送车牌数据
-    /// \param Identify_Protocol
+    /// \param channelNumber
     /// \param isConCar
     /// \param channelNumber
     /// \param plate
     /// \param color
     /// \param time
     ///
-    void signal_plateSendData(const int &Identify_Protocol,const bool &isConCar,const QString &plate,const QString &color,const QString &time);
+    void signal_plateSendData(int channelNumber, bool isConCar,const QString &plate,const QString &color,const QString &time);
+
+    ///
+    /// \brief signal_plateResult 模拟发送车牌结果
+    /// \param channel
+    /// \param plate
+    /// \param color
+    /// \param time
+    ///
+    void signal_plateResult(int channel, bool isConCar, const QString &plate, const QString &color, const QString &plateTime);
 
     ///
     /// \brief signal_videoStream 视频流数据
@@ -561,7 +570,6 @@ public slots:
     /// \param plate
     ///
     void slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time, const QByteArray &arrImg);
-
 
     ///
     /// \brief slot_simulationCloseState 窗口关闭状态

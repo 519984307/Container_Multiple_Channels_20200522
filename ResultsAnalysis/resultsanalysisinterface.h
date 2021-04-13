@@ -64,7 +64,7 @@ public slots:
     /// \param check
     /// \param sendMid
     ///
-    virtual void initParameter(const int &channel,const int &ImageNamingRules ,bool check,bool sendMid,int Identify_Protocol)=0;
+    virtual void initParameter(const int &channel,const int &ImageNamingRules ,bool check,bool sendMid,int correctTheox)=0;
 
     ///
     /// \brief resultsOfAnalysisSlot 分析箱号
@@ -79,20 +79,9 @@ public slots:
     /// \param msg 信息体
     ///
     virtual void resultsAnalysisStateslot(const int& channel, const QString& msg)=0;
-
-    ///
-    /// \brief slot_plateSendData 发送车牌数据
-    /// \param Identify_Protocol
-    /// \param isConCar
-    /// \param channelNumber
-    /// \param plate
-    /// \param color
-    /// \param time
-    ///
-    virtual void slot_plateSendData(const int &Identify_Protocol,const bool &isConCar,const QString &plate,const QString &color,const QString &time)=0;
 };
 
-#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.8.4.8"
+#define ResultsAnalysisInterfaceIID "ZBY.ContainerServer.ResultsAnalysisInterface/2.8.4.9"
 Q_DECLARE_INTERFACE(ResultsAnalysisInterface,ResultsAnalysisInterfaceIID);
 
 #endif // RESULTSANALYSISINTERFACE_H

@@ -3,11 +3,6 @@
 ResultsAnalysis::ResultsAnalysis(QObject *parent)
 {
     this->setParent(parent);
-
-    /*****************************
-    * @brief:数据协议默认箱号和车牌单独发送
-    ******************************/
-    Identify_Protocol=0;
 }
 
 ResultsAnalysis::~ResultsAnalysis()
@@ -22,9 +17,12 @@ QString ResultsAnalysis::InterfaceType()
     return  "ResultsAnalysis";
 }
 
-void ResultsAnalysis::initParameter(const int &channel,const int &ImageNamingRules , bool check, bool sendMid,int Identify_Protocol)
+void ResultsAnalysis::initParameter(const int &channel,const int &ImageNamingRules , bool check, bool sendMid,int correctTheox)
 {
-    this->Identify_Protocol=Identify_Protocol;
+    /*****************************
+    * @brief:暂时未处理
+    ******************************/
+    this->correctTheox=correctTheox;
     this->ImageNamingRules=ImageNamingRules;
     this->correct=check;
     this->channel=channel;
@@ -226,7 +224,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     /* 没有识别到箱型代码就默认指定一个 */
     bool notISO=true;
     foreach (auto var, isoTemp) {
-        if(!var.isEmpty() && -1!=ISOContains.indexOf(var)){
+        if(!var.isEmpty() /*&& -1!=ISOContains.indexOf(var)*/){
             notISO=false;
             break;
         }
@@ -235,7 +233,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     /* 防止双箱,未检测到箱型。默认为长箱，南京三宝小箱为6张图，后续系统判断修改 */
     if(isoTemp.count()==6){
         foreach (auto iso, isoTemp) {
-            if(-1!=iso.indexOf("22")){
+            if(iso.startsWith("2")){
                 conType=2;
                 break;
             }
@@ -302,12 +300,12 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
 
             if(isOne){
                 conType=1;
-                if (-1 != isoTemp[Iindex1].indexOf("22") || -1 != isoTemp[Iindex2].indexOf("22")) {
-                    isoTemp[Iindex1]="22G1";
+                if (isoTemp[Iindex1].startsWith("2") || isoTemp[Iindex2].startsWith("2")) {
+                    //isoTemp[Iindex1]="22G1";
                     conType=0;
                 }
-                if(isoTemp[Iindex1].isEmpty() && isoTemp[Iindex2].isEmpty() && (-1 != isoTemp[Iindex1].indexOf("4") || -1 != isoTemp[Iindex2].indexOf("4"))){
-                    isoTemp[Iindex1]="45G1";
+                if(isoTemp[Iindex1].isEmpty() && isoTemp[Iindex2].isEmpty() && (!isoTemp[Iindex1].startsWith("2") || !isoTemp[Iindex2].startsWith("2"))){
+                    //isoTemp[Iindex1]="45G1";
                     conType=1;
                 }
 
@@ -321,10 +319,10 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             }
 
             if(conType==2){
-                if(isoTemp[Iindex1].isEmpty() && -1==ISOContains.indexOf(isoTemp[Iindex1])){
+                if(isoTemp[Iindex1].isEmpty() /*&& -1==ISOContains.indexOf(isoTemp[Iindex1])*/){
                     isoTemp[Iindex1]="22G1";
                 }
-                if(isoTemp[Iindex2].isEmpty() && -1==ISOContains.indexOf(isoTemp[Iindex2])){
+                if(isoTemp[Iindex2].isEmpty() /*&& -1==ISOContains.indexOf(isoTemp[Iindex2])*/){
                     isoTemp[Iindex2]="22G1";
                 }
                 emit containerSignal(conType,conTemp[Cindex1], checkConList[Cindex1],isoTemp[Iindex1],conTemp[Cindex2],checkConList[Cindex2],isoTemp[Iindex2]);
@@ -342,7 +340,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             isoTemp[Iindex1]=conType?"22G1":"45G1";
         }
         else {
-            conType = (-1!=isoTemp[Iindex1].indexOf("22"))?0:1;
+            conType = isoTemp[Iindex1].startsWith("2")?0:1;
             if(-1==ISOContains.indexOf(isoTemp[Iindex1])){
                 isoTemp[Iindex1]=conType?"45G1":"22G1";
             }
@@ -456,32 +454,8 @@ void ResultsAnalysis::resultsAnalysisStateslot(const int &channel, const QString
     lock.unlock();
 }
 
-void ResultsAnalysis::slot_plateSendData(const int &Identify_Protocol,const bool &isConCar, const QString &plate, const QString &color, const QString &time)
-{
-    this->isConCar=isConCar;
-    this->plate=plate;
-    this->plateColor=color;
-    this->plateTime=time;
-    this->Identify_Protocol=Identify_Protocol;
-
-    if(!isConCar){
-        QString result="";
-        if(1==Identify_Protocol){
-            /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱型|车牌|颜色] */
-            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(-1).arg("").arg("").arg("").arg(plate).arg(color);
-
-        }
-        else {
-            /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|车牌|颜色] */
-            result=QString("[U|%1|%2|%3|%4]").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(color);
-        }
-        emit resultsAnalysisStateSignal(channel,result);
-        emit sendResultSignal(channel,result);
-    }
-}
-
 void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cindex2, int Iindex2,QMap<int,QString> imgMap)
-{    
+{
     /* Tupe,集装箱类别:
      * -1 – 未知
      * 0 – 一个 20 集装箱
@@ -512,29 +486,14 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
     if(type==2){
         /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱号|校验|箱型|箱型] */
         QString result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(type).arg(conTemp[Cindex1]).arg(checkConList[Cindex1]?"Y":"N").arg(conTemp[Cindex2]).arg(checkConList[Cindex2]?"Y":"N").arg(isoTemp[Iindex1]).arg(isoTemp[Iindex2]);
-        if(1==Identify_Protocol){
-            /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱号|校验|箱型|箱型|车牌|颜色] */
-            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10|%11|%12]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(type).arg(conTemp[Cindex1]).arg(checkConList[Cindex1]?"Y":"N").arg(conTemp[Cindex2]).arg(checkConList[Cindex2]?"Y":"N").arg(isoTemp[Iindex1]).arg(isoTemp[Iindex2]).arg(plate).arg(plateColor);
-        }
-
         emit resultsAnalysisStateSignal(channel,result);
         emit sendResultSignal(channel,result);
     }
     else {
         QString result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(type).arg(conTemp[Cindex1]).arg(checkConList[Cindex1]?"Y":"N").arg(isoTemp[Iindex1]);
-        if(1==Identify_Protocol){
-            /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱型|车牌|颜色]*/
-            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9]").arg("C").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(type).arg(conTemp[Cindex1]).arg(checkConList[Cindex1]?"Y":"N").arg(isoTemp[Iindex1]).arg(plate).arg(plateColor);
-        }
-
         emit resultsAnalysisStateSignal(channel,result);
         emit sendResultSignal(channel,result);
     }
-
-    isConCar=false;
-    plate.clear();
-    plateColor.clear();
-    plateTime.clear();
 
     QMap<QString,QString> data;
     data["Timer"]=dateTime;

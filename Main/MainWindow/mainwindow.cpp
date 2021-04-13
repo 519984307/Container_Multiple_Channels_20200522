@@ -819,7 +819,6 @@ void MainWindow::bindingPlugin()
         for (int var = 0; var < pLoadinglibaray->IResultsAnalysisList.size(); ++var) {
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_initReAnaParameter,pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::initParameter);
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_resultsOfAnalysis,pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::resultsOfAnalysisSlot);
-            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_plateSendData,pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::slot_plateSendData);
             connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::containerSignal,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_container);
             connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::updateDataBaseSignal,pLoadinglibaray->IDataBaseInsertList.at(var).data(),&DataBaseInsertInterface::updateDataBaseSlot);
         }
@@ -852,10 +851,15 @@ void MainWindow::bindingPlugin()
             * @brief:模拟发送数据
             ******************************/
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_containerResult);
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_plateResult,DataProcessingList.at(var).data(),&DataProcessing::slot_plateResult);
             /*****************************
             * @brief:流量统计
             ******************************/
             connect(DataProcessingList.at(var).data(),&DataProcessing::signal_trafficStatistics,this,&MainWindow::slot_trafficStatistics);
+            /*****************************
+            * @brief:车牌结果
+            ******************************/
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_plateSendData,DataProcessingList.at(var).data(),&DataProcessing::slot_plateResult);
         }
     }
 

@@ -198,26 +198,36 @@ void SimulationDialog::on_while_cycle_capture_checkBox_stateChanged(int arg1)
 
 void SimulationDialog::on_pushButton_clicked()
 {
+    plateTime=QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
+    QString result="";
+
+    if(ui->send_plate_lineEdit->text()!=""){
+        emit signal_plateResult(channelNumber,ui->checkBox->isChecked(),ui->send_plate_lineEdit->text(),ui->send_plate_color_lineEdit->text(),QDateTime::fromString(plateTime,"yyyyMMddhhmmss").toString("yyyy-M-d h:m:s"));
+    }
+}
+
+void SimulationDialog::on_pushButton_2_clicked()
+{
+    QString result="";
     QString time=QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
+    if(ui->checkBox->isChecked() && !plateTime.isEmpty()){
+        time=plateTime;
+    }
+
     if(ui->send_con_after_lineEdit->text().isEmpty()){
         int type=0;
         if("45G1"==ui->send_iso_after_lineEdit->text().trimmed()){
             type=1;
         }
         /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱号|校验|箱型|箱型] */
-        QString result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text()).arg("Y").arg(ui->send_iso_before_lineEdit->text().trimmed());
-        if(Parameter::DataChange_Format==1){
-            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text()).arg("Y").arg(ui->send_iso_before_lineEdit->text().trimmed()).arg(ui->send_plate_lineEdit->text()).arg(ui->send_plate_color_lineEdit->text());
-        }
+        result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text()).arg(ui->send_con_before_lineEdit->text().isEmpty()?"N":"Y").arg(ui->send_iso_before_lineEdit->text().trimmed());
         emit sendResultSignal(channelNumber,result);
     }
     else {
         /* 识别结果写入日志,[标志|时间戳|通道号(2位)|逻辑|箱号|校验|箱型]*/
         int type=2;
-        QString result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text().trimmed()).arg("Y").arg(ui->send_con_after_lineEdit->text().trimmed()).arg("Y").arg(ui->send_iso_before_lineEdit->text().trimmed()).arg(ui->send_iso_after_lineEdit->text().trimmed());
-        if(Parameter::DataChange_Format==1){
-            result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10|%11|%12]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text().trimmed()).arg("Y").arg(ui->send_con_after_lineEdit->text().trimmed()).arg("Y").arg(ui->send_iso_before_lineEdit->text().trimmed()).arg(ui->send_iso_after_lineEdit->text().trimmed()).arg(ui->send_plate_lineEdit->text()).arg(ui->send_plate_color_lineEdit->text());
-        }
+        result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text().trimmed()).arg(ui->send_con_before_lineEdit->text().isEmpty()?"N":"Y").arg(ui->send_con_after_lineEdit->text().trimmed()).arg(ui->send_con_after_lineEdit->text().isEmpty()?"N":"Y").arg(ui->send_iso_before_lineEdit->text().trimmed()).arg(ui->send_iso_after_lineEdit->text().trimmed());
         emit sendResultSignal(channelNumber,result);
     }
+    plateTime.clear();
 }
