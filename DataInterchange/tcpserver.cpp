@@ -139,6 +139,8 @@ void TcpServer::releaseResourcesSlot()
 
     clientChannelMap.clear();
     clientSocketIdMap.clear();
+
+    qDebug().noquote()<<"TcpServer::releaseResourcesSlot";
 }
 
 void TcpServer::slot_setMessageFormat(int newline)

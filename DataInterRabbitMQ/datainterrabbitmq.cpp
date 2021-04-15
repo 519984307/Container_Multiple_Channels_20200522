@@ -76,6 +76,8 @@ void DataInterRabbitMQ::releaseResourcesSlot()
 {
     m_client.disconnectFromHost();
     m_client.abort();
+
+    qDebug().noquote()<<"DataInterRabbitMQ::releaseResourcesSlot";
 }
 
 void DataInterRabbitMQ::clientDisconnected()

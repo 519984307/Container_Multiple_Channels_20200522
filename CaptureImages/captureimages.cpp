@@ -97,6 +97,8 @@ void CaptureImages::resizeEventSlot()
 void CaptureImages::releaseResourcesSlot()
 {
     imgGetTimeOut->stop();
+
+    qDebug().noquote()<<"CaptureImages::releaseResourcesSlot";
 }
 
 void CaptureImages::slot_pictureStream(int ID, QByteArray arrJpg)

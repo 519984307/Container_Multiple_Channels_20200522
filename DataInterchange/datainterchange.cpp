@@ -210,4 +210,6 @@ void DataInterchange::releaseResourcesSlot()
     if(pTimerLinkState!=nullptr){
         pTimerLinkState->stop();
     }
+
+    qDebug().noquote()<<"DataInterchange::releaseResourcesSlot";
 }

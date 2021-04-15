@@ -259,6 +259,7 @@ void LicensePlateWTY::openTheVideoSlot(bool play,quint64 winID)
 void LicensePlateWTY::releaseResourcesSlot()
 {
     if(linkTimer!=nullptr){
+        linkTimer->setSingleShot(true);
         linkTimer->stop();
     }
 
@@ -266,7 +267,7 @@ void LicensePlateWTY::releaseResourcesSlot()
         CLIENT_LPRC_QuitDevice(arrAddr.data());
     }
 
-    qDebug().noquote()<<"releaseResourcesSlot";
+    qDebug().noquote()<<"LicensePlateWTY::releaseResourcesSlot";
 }
 
 /*****************************

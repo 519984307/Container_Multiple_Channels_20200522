@@ -163,14 +163,11 @@ void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString 
 
     if(Parameter::DataChange_Format==0){
         /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|车牌|颜色] */
-        result=QString("[U|%1|%2|%3|%4]").arg(QDateTime::fromString(plateTime,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss")).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(color);
+        result=QString("[U|%1|%2|%3|%4]").arg(plateTime).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(color);
     }
     if (Parameter::DataChange_Format==1) {
-
-        QString tmpTime= QString("%1").arg(QDateTime::fromString(plateTime,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss"));
-
-        today=QDateTime::fromString(tmpTime.mid(0,8),"yyyyMMdd").toString("yyyy-MM-dd");
-        time=QDateTime::fromString(tmpTime,"yyyyMMddhhmmss").toString("yyyy-MM-dd hh:mm:ss");
+        today=QDateTime::fromString(plateTime.mid(0,8),"yyyyMMdd").toString("yyyy-MM-dd");
+        time=QDateTime::fromString(plateTime,"yyyyMMddhhmmss").toString("yyyy-MM-dd hh:mm:ss");
         content="";
         CPH=plate;
         XH="";
@@ -213,7 +210,7 @@ void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString 
         else {
             this->plate=plate;
             this->plateColor=color;
-            this->plateTime=time;
+            this->plateTime=plateTime;
         }
     }
     writeDataToLog(channel,result);

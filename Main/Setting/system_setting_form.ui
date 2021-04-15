@@ -53,7 +53,7 @@
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>4</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
@@ -1787,37 +1787,7 @@ More than pair of:One service corresponds to all channels, and only the server m
               <property name="horizontalSpacing">
                <number>50</number>
               </property>
-              <item row="0" column="0" colspan="2">
-               <widget class="QCheckBox" name="InfoLog">
-                <property name="text">
-                 <string>save logic log</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0" colspan="2">
-               <widget class="QCheckBox" name="DebugLog">
-                <property name="text">
-                 <string>save debug log</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0" colspan="2">
-               <widget class="QCheckBox" name="DebugLog_2">
-                <property name="text">
-                 <string>save capture log</string>
-                </property>
-                <property name="checked">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="1">
+              <item row="4" column="1">
                <widget class="QSlider" name="horizontalSlider_3">
                 <property name="minimum">
                  <number>30</number>
@@ -1842,7 +1812,37 @@ More than pair of:One service corresponds to all channels, and only the server m
                 </property>
                </widget>
               </item>
-              <item row="3" column="0">
+              <item row="2" column="0" colspan="2">
+               <widget class="QCheckBox" name="DebugLog">
+                <property name="text">
+                 <string>save debug log</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <widget class="QCheckBox" name="CaptureLog">
+                <property name="text">
+                 <string>save capture log</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <widget class="QCheckBox" name="InfoLog">
+                <property name="text">
+                 <string>save logic log</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
                <widget class="QSpinBox" name="spinBox_3">
                 <property name="maximumSize">
                  <size>
@@ -1861,6 +1861,13 @@ More than pair of:One service corresponds to all channels, and only the server m
                 </property>
                 <property name="maximum">
                  <number>180</number>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QCheckBox" name="InterfaceLog">
+                <property name="text">
+                 <string>save intrface log</string>
                 </property>
                </widget>
               </item>
@@ -2014,7 +2021,7 @@ More than pair of:One service corresponds to all channels, and only the server m
   <tabstop>FtpLocal</tabstop>
   <tabstop>checkBox_3</tabstop>
   <tabstop>InfoLog</tabstop>
-  <tabstop>DebugLog_2</tabstop>
+  <tabstop>CaptureLog</tabstop>
   <tabstop>DebugLog</tabstop>
   <tabstop>spinBox_3</tabstop>
   <tabstop>horizontalSlider_3</tabstop>

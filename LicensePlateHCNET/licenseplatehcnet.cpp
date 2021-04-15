@@ -72,6 +72,7 @@ void LicensePlateHCNET::openTheVideoSlot(bool play,quint64 winID)
 
 void LicensePlateHCNET::releaseResourcesSlot()
 {
+    qDebug().noquote()<<"LicensePlateHCNET::releaseResourcesSlot";
 }
 
 void LicensePlateHCNET::initCamerSlot(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature)

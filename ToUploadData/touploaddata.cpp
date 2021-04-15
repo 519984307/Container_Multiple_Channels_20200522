@@ -17,6 +17,8 @@ void ToUploadData::releaseResourcesSlot()
         pManager->deleteResource(request);
     }
     pManager->deleteLater();
+
+    qDebug().noquote()<<"ToUploadData::releaseResourcesSlot";
 }
 
 QString ToUploadData::InterfaceType()

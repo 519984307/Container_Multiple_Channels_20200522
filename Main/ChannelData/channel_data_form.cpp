@@ -276,11 +276,17 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
             if(7 != key){
                 slot_recognitionResult("RESULT: ||0|0",imgPath,key);
             }
+            else {
+                streamMap.remove(7);
+            }
             continue;
         }
         else {
             if(7 != key){
                 emit signal_identifyImages(imgPath,key);
+            }
+            else {
+                streamMap.remove(7);
             }
             if(Parameter::Ftp){
                 /*****************************
@@ -333,7 +339,6 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         ******************************/
         databaseMap.insert("Timer",QString("%1").arg(QDateTime::fromString(localPlateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
         databaseMap.insert("Type",QString::number(-1));
-
     }
 
     databaseMap.insert("Channel",QString::number(channelNumber));
@@ -371,6 +376,12 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
         if(plateTmpArr==nullptr){
             QPalette palette;
             ui->image_label_7->setPalette(palette);
+        }
+        else {
+            /*****************************
+            * @brief:保存车牌图片
+            ******************************/
+            streamMap.insert(7,plateTmpArr);
         }
 
         QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTime);
@@ -484,6 +495,7 @@ void Channel_Data_Form::logicStateSlot()
     if(!isConCar){
         saveImages(plateStream,localPlateTime);
         emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,localPlateTime);
+        streamMap.insert(7,plateStream.value(7));
     }
     else {
         if(sendDataOutTimer->isActive()){
@@ -495,8 +507,10 @@ void Channel_Data_Form::logicStateSlot()
 
 void Channel_Data_Form::timeOutSendData()
 {
+    isConCar=false;
     saveImages(plateStream,localPlateTime);
-    emit signal_plateSendData(channelNumber,false,localPlate,localPlateColor,localPlateTime);
+    emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,localPlateTime);
+    streamMap.insert(7,plateStream.value(7));
     plateTmpArr=nullptr;
 
     qDebug().noquote()<<"load container result timeout,send plate date";
@@ -816,10 +830,12 @@ void Channel_Data_Form::slot_container(const int &type, const QString &result1, 
         /*****************************
         * @brief:保存车牌图片
         ******************************/
-        QtConcurrent::run(this,&Channel_Data_Form::saveImages,plateStream,imgTimer);
+        //QtConcurrent::run(this,&Channel_Data_Form::saveImages,plateStream,imgTimer);
         streamMap.insert(7,plateStream.value(7));
+
     }
     plateTmpArr=nullptr;
+    isConCar=false;
 
     /*****************************
     * @brief:关闭检测车牌和箱号定时器

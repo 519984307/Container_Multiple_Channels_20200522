@@ -312,7 +312,8 @@ void TheMiddlewareHCNET::openTheVideoSlot(int ID,bool play,quint64 winID)
 void TheMiddlewareHCNET::releaseResourcesSlot()
 {
     if(pTimerState!=nullptr){
-         pTimerState->stop();
+        pTimerState->setSingleShot(true);
+        pTimerState->stop();
     }
     foreach ( auto handID, alarmInfoMap.keys()) {
         if(NET_DVR_CloseAlarmChan_V30_L!=nullptr){
@@ -350,7 +351,7 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
         NET_DVR_Cleanup_L();
     }
 
-    qDebug().noquote()<<"releaseResourcesSlot";
+    qDebug().noquote()<<"TheMiddlewareHCNET::releaseResourcesSlot";
 }
 
 void TheMiddlewareHCNET::initCameraSlot(const QString &localAddr, const QString &addr, const int &port,const QString &user,const QString &pow)
