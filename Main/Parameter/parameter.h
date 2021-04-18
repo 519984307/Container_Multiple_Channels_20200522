@@ -247,6 +247,21 @@ namespace Parameter {
     /// \brief DataChange_Format 数据接口格式
     ///
     extern int DataChange_Format;
+
+
+    /*****************************
+    * @brief:storage
+    ******************************/
+
+    ///
+    /// \brief storage_monitoring 硬盘监测状态
+    ///
+    extern int storage_monitoring;
+
+    ///
+    /// \brief storage_value 硬盘监测值
+    ///
+    extern int storage_value;
 }
 
 #endif // PARAMETER_H
