@@ -206,6 +206,7 @@ void CaptureUnderlying::releaseResourcesSlot()
     delete tcpSocket;
     delete pTimerLinkCamer;
     delete pPutCommand;
+    pPutCommand=nullptr;
 
     qDebug().noquote()<<"CaptureUnderlying::releaseResourcesSlot";
 }

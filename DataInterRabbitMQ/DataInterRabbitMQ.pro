@@ -36,7 +36,7 @@ unix {
 !isEmpty(target.path): INSTALLS += target
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Qamqp/ -lCc1_Qamqp
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Qamqp/ -lCc1_Qamqpd
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Qamqp/ -lCc1_Qamqpdd
 
 INCLUDEPATH += $$PWD/../Qamqp
 DEPENDPATH += $$PWD/../Qamqp

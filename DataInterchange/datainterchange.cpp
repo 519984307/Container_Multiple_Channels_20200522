@@ -169,7 +169,7 @@ void DataInterchange::displayErrorSlot(QAbstractSocket::SocketError socketError)
 {
     isConnected=false;
 
-    emit connectCountSignal(-1);
+    //emit connectCountSignal(-1);
     emit linkStateSingal(address,port,false);
 
     if(!shortLink){
@@ -215,6 +215,13 @@ void DataInterchange::releaseResourcesSlot()
 {
     isConnected=false;
 
+    if(pTimerLinkState!=nullptr){
+        pTimerLinkState->stop();
+    }
+    if(pTimerAutoLink!=nullptr){
+        pTimerAutoLink->stop();
+    }
+
     if(pTcpServer!=nullptr && pTcpServer->isListening()){
         pTcpServer->releaseResourcesSlot();
         pTcpServer->close();
@@ -224,13 +231,6 @@ void DataInterchange::releaseResourcesSlot()
         pTcpClient->disconnected();
         pTcpClient->close();
         pTcpClient->abort();
-    }
-
-    if(pTimerLinkState!=nullptr){        
-        pTimerLinkState->stop();
-    }
-    if(pTimerAutoLink!=nullptr){
-        pTimerAutoLink->stop();
     }
 
     qDebug().noquote()<<QString("DataInterchange::releaseResourcesSlot");

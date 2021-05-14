@@ -43,7 +43,7 @@ InrearedLogic_NJSB::~InrearedLogic_NJSB()
 
 QString InrearedLogic_NJSB::InterfaceType()
 {
-    return "Protector_NJSB";
+    return QString("Protector_NJSB");
 }
 
 void InrearedLogic_NJSB::setAlarmModeSlot(bool model)
@@ -59,10 +59,22 @@ void InrearedLogic_NJSB::exitWhileSlot()
 {
     this->exit=true;
 
-    pRealySerialportTimer->stop();
-    pDetectionTimer->stop();
-    pTimerFront->stop();
-    pTimerAfter->stop();
+    if(pRealySerialportTimer!=nullptr){
+        pRealySerialportTimer->stop();
+    }
+
+    if(pDetectionTimer!=nullptr){
+         pDetectionTimer->stop();
+    }
+
+    if(pTimerFront!=nullptr){
+        pTimerFront->stop();
+    }
+
+    if(pTimerAfter!=nullptr){
+        pTimerAfter->stop();
+    }
+
     pSerial1->close();
     pSerial2->close();
 }

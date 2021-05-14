@@ -1,7 +1,7 @@
 {
     "Main": {
         "Channel": {
-            "ChannelNumber": 1,
+            "ChannelNumber": 2,
             "ImageFormat": 0,
             "ImageNamingRules": 0,
             "ImagePath": "",
@@ -12,7 +12,7 @@
             "Camera_Load_Plugin": 0,
             "HCNET_Capture_Type": 2,
             "LogicType": 0,
-            "PlateType": 0
+            "PlateType": 1
         },
         "Other": {
             "Automatic": 1,
@@ -24,7 +24,8 @@
             "Minimization": 0
         },
         "Recognizer": {
-            "ResultsTheCheck": 0
+            "ResultsTheCheck": 0,
+            "picture_size": 0
         },
         "Service": {
             "DataChaneType": 0,
@@ -34,7 +35,7 @@
             "ManyCasesAddress": "127.0.0.1:60000,127.0.0.1:60001",
             "ManyCasesAddressMQ": "127.0.0.1|zby|ABCabc123|/zby:5672",
             "Resultting": 0,
-            "Service_Model": 1,
+            "Service_Model": 0,
             "Service_Type": 0,
             "ShortLink": 0,
             "SingletonAddress": "",

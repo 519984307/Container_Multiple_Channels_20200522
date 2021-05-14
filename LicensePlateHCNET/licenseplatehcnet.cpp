@@ -8,9 +8,7 @@ LicensePlateHCNET::LicensePlateHCNET(QObject *parent)
     imgNumber=-1;
     camerID=-1;
     put=false;
-    imgGetTimeOut=new QTimer(this);
-    imgGetTimeOut->setSingleShot(true);
-    connect(imgGetTimeOut,SIGNAL(timeout()),this,SLOT(slot_imgGetTimeOut()));
+//    imgGetTimeOut=nullptr;
 }
 
 LicensePlateHCNET::~LicensePlateHCNET()
@@ -24,6 +22,9 @@ QString LicensePlateHCNET::InterfaceType()
 
 bool LicensePlateHCNET::initializationParameter()
 {
+//    imgGetTimeOut=new QTimer(this);
+//    imgGetTimeOut->setSingleShot(true);
+//    connect(imgGetTimeOut,SIGNAL(timeout()),this,SLOT(slot_imgGetTimeOut()));
     return false;
 }
 
@@ -71,6 +72,10 @@ void LicensePlateHCNET::openTheVideoSlot(bool play,quint64 winID)
 
 void LicensePlateHCNET::releaseResourcesSlot()
 {
+//    if(imgGetTimeOut!=nullptr){
+//        imgGetTimeOut->stop();
+//    }
+
     qDebug().noquote()<<QString("LicensePlateHCNET::releaseResourcesSlot");
 }
 
@@ -97,7 +102,7 @@ void LicensePlateHCNET::slot_pictureStream(int ID, QByteArray arrJpg)
         qDebug().noquote()<<QString("IP=%1[%2] Put Command Sucess").arg(camerIP).arg(signature);
 
         put=false;
-        imgGetTimeOut->stop();
+        //imgGetTimeOut->stop();
 
         if(nullptr==arrJpg){
             qWarning().noquote()<<QString("IP=%1[%2]:%3").arg(camerIP).arg(signature).arg("Capture image data is empty");

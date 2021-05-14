@@ -56,7 +56,7 @@ void Log::outPutMessage(QtMsgType type, const QMessageLogContext &context, const
     case QtFatalMsg:
         fprintf( stderr, "Fatal: %s (%s:%u, %s)\n", localMsg.constData(), context.file, context.line, context.function );
         msgType="Fatal";
-        abort();
+        //abort();
     }
     fflush(stderr);
 

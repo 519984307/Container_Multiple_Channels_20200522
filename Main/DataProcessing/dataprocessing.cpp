@@ -99,31 +99,27 @@ void DataProcessing::slot_containerResult(int channel, const QString &result)
         if(msgList.size()==7){
             XH=msgList.at(4);
             boxtype=msgList.at(6);
-            if(Parameter::Identify_Protocol==1){
-                if(msgList.at(5)=="Y"){
-                    discern.append("Y");
-                }
-                else {
-                    discern.append("N");
-                }
+            if(msgList.at(5)=="Y"){
+                discern.append("Y");
+            }
+            else {
+                discern.append("N");
             }
         }
         if(msgList.size()==10){
             XH=msgList.at(4)+"/"+msgList.at(6);
             boxtype=msgList.at(8)+"/"+msgList.at(9);
-            if(Parameter::Identify_Protocol==1){
-                if(msgList.at(5)=="Y"){
-                    discern.append("Y");
-                }
-                else {
-                    discern.append("N");
-                }
-                if(msgList.at(7)=="Y"){
-                    discern.append("Y");
-                }
-                else {
-                    discern.append("N");
-                }
+            if(msgList.at(5)=="Y"){
+                discern.append("Y");
+            }
+            else {
+                discern.append("N");
+            }
+            if(msgList.at(7)=="Y"){
+                discern.append("Y");
+            }
+            else {
+                discern.append("N");
             }
         }
 

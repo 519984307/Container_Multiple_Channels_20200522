@@ -265,8 +265,8 @@ void LicensePlateWTY::releaseResourcesSlot()
     }
 
     if(CLIENT_LPRC_QuitDevice!=nullptr){
-        //CLIENT_LPRC_QuitDevice(arrAddr.data());
-        CLIENT_LPRC_QuitSDK();
+        CLIENT_LPRC_QuitDevice(arrAddr.data());
+        //CLIENT_LPRC_QuitSDK();
     }
     
 //    if(pDLL!=nullptr){

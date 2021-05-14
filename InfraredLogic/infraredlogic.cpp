@@ -59,10 +59,22 @@ void InfraredLogic::exitWhileSlot()
 {
     this->exit=true;
 
-    pRealySerialportTimer->stop();
-    pDetectionTimer->stop();
-    pTimerFront->stop();
-    pTimerAfter->stop();
+    if(pRealySerialportTimer!=nullptr){
+        pRealySerialportTimer->stop();
+    }
+
+    if(pDetectionTimer!=nullptr){
+         pDetectionTimer->stop();
+    }
+
+    if(pTimerFront!=nullptr){
+        pTimerFront->stop();
+    }
+
+    if(pTimerAfter!=nullptr){
+        pTimerAfter->stop();
+    }
+
     pSerial1->close();
     pSerial2->close();
 }

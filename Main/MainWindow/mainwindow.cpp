@@ -120,6 +120,7 @@ void MainWindow::initializing()
     emit signal_InitializationFTPParameter(Parameter::FtpUser,Parameter::FtpPassword,Parameter::FtpRemotePath,Parameter::FtpAddress,Parameter::FtpPort);
 
     linkCount=0;
+    DD=0;
 
     /*****************************
     * @brief:获取硬盘空间
@@ -682,7 +683,7 @@ void MainWindow::slot_getDiskFreeSpace()
 
 void MainWindow::slot_connectCount(int count)
 {
-    if(linkCount<=0){
+    if(linkCount<0){
         linkCount=0;
     }
     linkCount+=count;
@@ -715,10 +716,13 @@ void MainWindow::slot_trafficStatistics(bool state)
 void MainWindow::slot_systemRunTimer()
 {
     QTime m_time;
-    m_time.setHMS(0, 0, 0, 0);
+    m_time.setHMS(0, 0, 0, 0);    
     QString tt= m_time.addSecs(runTime.secsTo(QDateTime::currentDateTime())).toString("hh:mm:ss");
 
-    setStatusBar(1,QString("Start:%1  Run:%2").arg(runTime.toString("yyyy-MM-dd HH:mm:ss")).arg(tt));
+    if(tt.split(":")[0].toInt()>=24){
+        DD+=1;
+    }
+    setStatusBar(1,QString("Start:%1  Run:%2(D) %3").arg(runTime.toString("yyyy-MM-dd HH:mm:ss")).arg(DD).arg(tt));
 }
 
 void MainWindow::bindingPlugin()

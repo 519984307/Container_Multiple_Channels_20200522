@@ -78,8 +78,13 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
 
 Channel_Data_Form::~Channel_Data_Form()
 {
-    plateSendTimer->stop();
-    sendDataOutTimer->stop();
+    if(plateSendTimer!=nullptr){
+        plateSendTimer->stop();
+    }
+
+    if(sendDataOutTimer!=nullptr){
+         sendDataOutTimer->stop();
+    }
 
     watcher->waitForFinished();
 
