@@ -683,11 +683,12 @@ void MainWindow::slot_getDiskFreeSpace()
 
 void MainWindow::slot_connectCount(int count)
 {
+    qDebug()<<"count:"<<count;
     if(linkCount<0){
         linkCount=0;
     }
-    linkCount+=count;
-    setStatusBar(4,QString("Service:%1  Format:%2  Count:%3").arg(Parameter::DataChaneType?"MQ":"TCP").arg(Parameter::DataChange_Format?"JSON":"TEXT").arg(linkCount<0?0:linkCount));
+    linkCount=linkCount+count;
+    setStatusBar(4,QString("Service:%1  Format:%2  Count:%3").arg(Parameter::DataChaneType?"MQ":"TCP").arg(Parameter::DataChange_Format?"JSON":"TEXT").arg(linkCount));
 }
 
 void MainWindow::slot_statisticalData(int total, double correct, double error, double statistical)
