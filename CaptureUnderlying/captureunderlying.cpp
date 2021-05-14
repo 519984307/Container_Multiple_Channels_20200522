@@ -14,12 +14,11 @@ CaptureUnderlying::CaptureUnderlying(QObject *parent)
 
 CaptureUnderlying::~CaptureUnderlying()
 {
-    qDebug().noquote()<<"~CaptureUnderlying";
 }
 
 QString CaptureUnderlying::InterfaceType()
 {
-    return "Underlying";
+    return QString("Underlying");
 }
 
 void CaptureUnderlying::connected()
@@ -200,6 +199,7 @@ void CaptureUnderlying::releaseResourcesSlot()
         pTimerLinkCamer->stop();
     }
     if(nullptr != tcpSocket){
+        tcpSocket->disconnected();
         tcpSocket->close();
         tcpSocket->abort();
     }

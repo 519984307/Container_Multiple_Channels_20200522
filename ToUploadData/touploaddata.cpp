@@ -8,22 +8,20 @@ ToUploadData::ToUploadData(QObject *parent)
 
 ToUploadData::~ToUploadData()
 {
-    qDebug()<<"~ToUploadData";
 }
 
 void ToUploadData::releaseResourcesSlot()
 {
     if(nullptr!=pManager){
-        pManager->deleteResource(request);
+        pManager->deleteLater();        
     }
-    pManager->deleteLater();
 
-    qDebug().noquote()<<"ToUploadData::releaseResourcesSlot";
+    qDebug().noquote()<<QString("ToUploadData::releaseResourcesSlot");
 }
 
 QString ToUploadData::InterfaceType()
 {
-    return "FTP";
+    return QString("FTP");
 }
 
 void ToUploadData::InitializationParameterSlot(const QString &user, const QString &pass, const QString &path, const QString &host, const int &port)

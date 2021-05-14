@@ -287,17 +287,12 @@ typedef struct PLAYM4_SYSTEM_TIME //绝对时间
 
 //ENCRYPT Info
 typedef struct{
-    long nVideoEncryptType;  //视频加密类型
-    long nAudioEncryptType;  //音频加密类型
-    long nSetSecretKey;      //是否设置，1表示设置密钥，0表示没有设置密钥
+    long nVideoEncryptType;  /* 视频加密类型 */
+    long nAudioEncryptType;  /* 音频加密类型 */
+    long nSetSecretKey;      /* 是否设置，1表示设置密钥，0表示没有设置密钥 */
 }ENCRYPT_INFO;
 
-//////////////////////////////////////////////////////////////////////////////
-//API
-//////////////////////////////////////////////////////////////////////////////
 
-////////////////ver 1.0///////////////////////////////////////
-//Initialize DirecDraw.Now invalid.
 PLAYM4_API BOOL __stdcall  PlayM4_InitDDraw(HWND hWnd);
 //Release directDraw; Now invalid.
 PLAYM4_API BOOL __stdcall PlayM4_RealeseDDraw();

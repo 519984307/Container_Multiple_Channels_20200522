@@ -1,4 +1,5 @@
 QT -= gui
+QT += network
 
 TEMPLATE = lib
 DEFINES += LICENSEPLATEZS_LIBRARY
@@ -21,10 +22,21 @@ SOURCES += \
 
 HEADERS += \
     LicensePlateZS_global.h \
+    licenseplateinterface.h \
     licenseplatezs.h
 
 # Default rules for deployment.
 unix {
     target.path = /usr/lib
 }
+
+CONFIG(debug, debug|release): {
+unix:TARGET=$$join(TARGET,,,_debug)
+win32:TARGET=$$join(TARGET,,Cc1_,d)
+}
+else:CONFIG(release, debug|release): {
+unix:TARGET=$$join(TARGET,,,_release)
+win32:TARGET=$$join(TARGET,,Cc1_,)
+}
+
 !isEmpty(target.path): INSTALLS += target

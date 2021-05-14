@@ -6,6 +6,9 @@ TARGET = Qamqp
 build_pass:CONFIG(debug, debug|release) {
     TARGET = $$join(TARGET,,,d)
 }
+#build_pass:CONFIG(release, debug|release) {
+#    TARGET = $$join(TARGET,,CC1_,)
+#}
 QT += core network
 QT -= gui
 DEFINES += QAMQP_BUILD
@@ -92,3 +95,12 @@ equals(QAMQP_LIBRARY_TYPE, staticlib) {
     QMAKE_PKGCONFIG_CFLAGS = -DQAMQP_SHARED
 }
 unix:QMAKE_CLEAN += -r pkgconfig lib$${TARGET}.prl
+
+CONFIG(debug, debug|release): {
+unix:TARGET=$$join(TARGET,,,_debug)
+win32:TARGET=$$join(TARGET,,Cc1_,d)
+}
+else:CONFIG(release, debug|release): {
+unix:TARGET=$$join(TARGET,,,_release)
+win32:TARGET=$$join(TARGET,,Cc1_,)
+}

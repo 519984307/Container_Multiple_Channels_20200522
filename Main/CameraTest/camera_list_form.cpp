@@ -22,8 +22,6 @@ Camera_List_Form::~Camera_List_Form()
 {
     ItemMap.clear();
     delete ui;
-
-    qDebug()<<"~Camera_List_Form()";
 }
 
 void Camera_List_Form::closeEvent(QCloseEvent *event)

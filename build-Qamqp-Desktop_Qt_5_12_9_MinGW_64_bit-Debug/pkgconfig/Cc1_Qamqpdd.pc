@@ -1,0 +1,11 @@
+prefix=C:/Qt/Qt5.12.9/5.12.9/mingw73_64
+exec_prefix=${prefix}
+libdir=/
+includedir=/include/qamqp
+
+
+Name: Cc1_qamqpdd
+Description: Cc1_qamqpdd Library
+Libs: -L${libdir} -lCc1_Qamqpdd 
+Cflags: -DQAMQP_SHARED -I${includedir}
+

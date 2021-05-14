@@ -1,10 +1,11 @@
-#include <QDataStream>
+﻿#include <QDataStream>
 #include <QDebug>
 
 #include "qamqpchannel.h"
 #include "qamqpchannel_p.h"
 #include "qamqpclient.h"
 #include "qamqpclient_p.h"
+
 
 quint16 QAmqpChannelPrivate::nextChannelNumber = 0;
 QAmqpChannelPrivate::QAmqpChannelPrivate(QAmqpChannel *q)

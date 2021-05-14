@@ -9,6 +9,7 @@
 #include <QStandardPaths>
 #include <QDir>
 #include <QReadWriteLock>
+#include <QtConcurrent>
 
 #include "Parameter/parameter.h"
 
@@ -49,6 +50,17 @@ public slots:
     /// \param time
     ///
     void slot_plateResult(int channel, bool isConCar, const QString &plate, const QString &color, const QString &plateTime);
+
+    ///
+    /// \brief slot_waiSendContainer 未检测到车牌，延时发送箱号
+    ///
+    void slot_waiSendContainer();
+
+    ///
+    /// \brief slot_waitPlate 箱号等待车牌数据
+    /// \param msec
+    ///
+    void slot_waitPlate(int msec);
 
 signals:
 
@@ -104,6 +116,11 @@ private:
     /// \brief lock 写入锁
     ///
     QReadWriteLock lock;
+
+    int channel;
+    QString result;
+    bool waitSend;
+    QTimer* sendConT;
 };
 
 #endif // DATAPROCESSING_H

@@ -160,7 +160,7 @@ void *DataInterchange::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_DataInterchange.stringdata0))
         return static_cast<void*>(this);
-    if (!strcmp(_clname, "ZBY.ContainerServer.DataInterchangeInterface/1.2.3.1"))
+    if (!strcmp(_clname, "ZBY.ContainerServer.DataInterchangeInterface/1.2.3.4"))
         return static_cast< DataInterchangeInterface*>(this);
     return DataInterchangeInterface::qt_metacast(_clname);
 }
@@ -202,7 +202,7 @@ static constexpr unsigned char qt_pluginMetaData[] = {
     'a',  't',  'a',  'I',  'n',  't',  'e',  'r', 
     'c',  'h',  'a',  'n',  'g',  'e',  'I',  'n', 
     't',  'e',  'r',  'f',  'a',  'c',  'e',  '/', 
-    '1',  '.',  '2',  '.',  '3',  '.',  '1', 
+    '1',  '.',  '2',  '.',  '3',  '.',  '4', 
     // "className"
     0x03,  0x6f,  'D',  'a',  't',  'a',  'I',  'n', 
     't',  'e',  'r',  'c',  'h',  'a',  'n',  'g', 

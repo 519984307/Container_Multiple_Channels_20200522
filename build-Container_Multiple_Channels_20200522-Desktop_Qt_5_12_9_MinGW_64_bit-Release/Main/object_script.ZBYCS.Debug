@@ -1,3 +1,4 @@
+tmp/obj/crashstack.o
 tmp/obj/main.o
 tmp/obj/camera_list_form.o
 tmp/obj/camera_test_form.o
@@ -9,6 +10,7 @@ tmp/obj/database_form.o
 tmp/obj/filterdialog.o
 tmp/obj/image_dialog.o
 tmp/obj/errcodeform.o
+tmp/obj/storagedialog.o
 tmp/obj/data_log_form.o
 tmp/obj/alarmform.o
 tmp/obj/errorform.o
@@ -34,6 +36,7 @@ tmp/obj/moc_database_form.o
 tmp/obj/moc_filterdialog.o
 tmp/obj/moc_image_dialog.o
 tmp/obj/moc_errcodeform.o
+tmp/obj/moc_storagedialog.o
 tmp/obj/moc_data_log_form.o
 tmp/obj/moc_alarmform.o
 tmp/obj/moc_errorform.o

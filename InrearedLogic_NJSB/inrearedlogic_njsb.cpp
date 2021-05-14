@@ -91,7 +91,7 @@ void InrearedLogic_NJSB::serialLogic(int *status)
         emit logicPutImageSignal(5);
         carInChannel=false;
 
-        qDebug()<<"Vehicle reversing[-1]";
+        qDebug().noquote()<<QString("Vehicle reversing[-1]");
     }
 
     /*****************************
@@ -106,7 +106,7 @@ void InrearedLogic_NJSB::serialLogic(int *status)
         carInChannel=false;
 
         emit logicPutImageSignal(-1);
-        qDebug()<<"Vehicles entering[1]";
+        qDebug().noquote()<<QString("Vehicles entering[1]");
     }
 
     if(comming &&!isDouble && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueOne){
@@ -120,7 +120,7 @@ void InrearedLogic_NJSB::serialLogic(int *status)
     if(comming && !isLong && !isDouble && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne){
         emit logicPutImageSignal(0);
 
-        qDebug()<<"Grab (front, left, right)[3]";
+        qDebug().noquote()<<QString("Grab (front, left, right)[3]");
     }
 
     if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
@@ -134,7 +134,7 @@ void InrearedLogic_NJSB::serialLogic(int *status)
             emit logicPutImageSignal(6);/* 短箱 */
         }
 
-        qDebug()<<"Grab (Back, left, right)[3]";
+        qDebug().noquote()<<QString("Grab (Back, left, right)[3]");
 
         comming=false;
         isLong=false;
@@ -153,7 +153,7 @@ void InrearedLogic_NJSB::serialLogic(int *status)
     if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
         comming=false;
         isCar=true;/* 判断是高车头 */
-        qDebug()<<"High truck head[2]";
+        qDebug().noquote()<<QString("High truck head[2]");
     }
 
     /*****************************
@@ -171,21 +171,21 @@ void InrearedLogic_NJSB::serialLogic(int *status)
         isDouble=true;
         //isLong=false;
 
-        qDebug()<<"Double box state(A2)[8-1]";
+        qDebug().noquote()<<QString("Double box state(A2)[8-1]");
     }
     if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueOne){
         /* 双箱 B1 */
         isDouble=true;
         //isLong=false;
 
-        qDebug()<<"Double box state(B1)[8-2]";
+        qDebug().noquote()<<QString("Double box state(B1)[8-2]");
     }
     if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
         /* 双箱 B2 */
         isDouble=false;
         isLong=false;
 
-        qDebug()<<"Double box state(B2)[8-3]";
+        qDebug().noquote()<<QString("Double box state(B2)[8-3]");
     }
 }
 

@@ -1,5 +1,4 @@
 ﻿#include "identifyimages.h"
-#include <QSharedPointer>
 
 IdentifyImages::IdentifyImages(QObject *parent)
 {
@@ -15,7 +14,7 @@ IdentifyImages::~IdentifyImages()
 
 QString IdentifyImages::InterfaceType()
 {
-    return "ImageIdentify";
+    return QString("ImageIdentify");
 }
 
 void IdentifyImages::identifyStreamSlot(const QByteArray &jpgStream, const int &imgNumber)

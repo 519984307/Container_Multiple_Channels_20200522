@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[55];
-    char stringdata0[912];
+    QByteArrayData data[66];
+    char stringdata0[1080];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -61,31 +61,42 @@ QT_MOC_LITERAL(26, 335, 27), // "signal_setCameraCaptureType"
 QT_MOC_LITERAL(27, 363, 7), // "capType"
 QT_MOC_LITERAL(28, 371, 14), // "msgCallBackInd"
 QT_MOC_LITERAL(29, 386, 26), // "signal_setPlateCaptureType"
-QT_MOC_LITERAL(30, 413, 16), // "systemTrayAction"
-QT_MOC_LITERAL(31, 430, 19), // "systemTrayTriggered"
-QT_MOC_LITERAL(32, 450, 33), // "QSystemTrayIcon::ActivationRe..."
-QT_MOC_LITERAL(33, 484, 6), // "reason"
-QT_MOC_LITERAL(34, 491, 18), // "actionTiggeredSlot"
-QT_MOC_LITERAL(35, 510, 37), // "on_actionParameter_Settings_t..."
-QT_MOC_LITERAL(36, 548, 30), // "on_actionCamera_Test_triggered"
-QT_MOC_LITERAL(37, 579, 33), // "on_actionHistory_Sqlite_trigg..."
-QT_MOC_LITERAL(38, 613, 27), // "on_actionData_log_triggered"
-QT_MOC_LITERAL(39, 641, 23), // "on_actionExit_triggered"
-QT_MOC_LITERAL(40, 665, 24), // "on_actionAbout_triggered"
-QT_MOC_LITERAL(41, 690, 19), // "slot_handleFinished"
-QT_MOC_LITERAL(42, 710, 25), // "slot_progressRangeChanged"
-QT_MOC_LITERAL(43, 736, 7), // "minimum"
-QT_MOC_LITERAL(44, 744, 7), // "maximum"
-QT_MOC_LITERAL(45, 752, 24), // "slot_progressTextChanged"
-QT_MOC_LITERAL(46, 777, 12), // "progressText"
-QT_MOC_LITERAL(47, 790, 25), // "slot_progressValueChanged"
-QT_MOC_LITERAL(48, 816, 13), // "progressValue"
-QT_MOC_LITERAL(49, 830, 10), // "slot_Error"
-QT_MOC_LITERAL(50, 841, 10), // "pluginName"
-QT_MOC_LITERAL(51, 852, 18), // "slot_hideErrorForm"
-QT_MOC_LITERAL(52, 871, 19), // "slot_theFtpProgress"
-QT_MOC_LITERAL(53, 891, 9), // "bytesSent"
-QT_MOC_LITERAL(54, 901, 10) // "bytesTotal"
+QT_MOC_LITERAL(30, 413, 24), // "signal_setDataBaseFilter"
+QT_MOC_LITERAL(31, 438, 6), // "filter"
+QT_MOC_LITERAL(32, 445, 16), // "systemTrayAction"
+QT_MOC_LITERAL(33, 462, 19), // "systemTrayTriggered"
+QT_MOC_LITERAL(34, 482, 33), // "QSystemTrayIcon::ActivationRe..."
+QT_MOC_LITERAL(35, 516, 6), // "reason"
+QT_MOC_LITERAL(36, 523, 18), // "actionTiggeredSlot"
+QT_MOC_LITERAL(37, 542, 37), // "on_actionParameter_Settings_t..."
+QT_MOC_LITERAL(38, 580, 30), // "on_actionCamera_Test_triggered"
+QT_MOC_LITERAL(39, 611, 33), // "on_actionHistory_Sqlite_trigg..."
+QT_MOC_LITERAL(40, 645, 27), // "on_actionData_log_triggered"
+QT_MOC_LITERAL(41, 673, 23), // "on_actionExit_triggered"
+QT_MOC_LITERAL(42, 697, 24), // "on_actionAbout_triggered"
+QT_MOC_LITERAL(43, 722, 19), // "slot_handleFinished"
+QT_MOC_LITERAL(44, 742, 25), // "slot_progressRangeChanged"
+QT_MOC_LITERAL(45, 768, 7), // "minimum"
+QT_MOC_LITERAL(46, 776, 7), // "maximum"
+QT_MOC_LITERAL(47, 784, 24), // "slot_progressTextChanged"
+QT_MOC_LITERAL(48, 809, 12), // "progressText"
+QT_MOC_LITERAL(49, 822, 25), // "slot_progressValueChanged"
+QT_MOC_LITERAL(50, 848, 13), // "progressValue"
+QT_MOC_LITERAL(51, 862, 10), // "slot_Error"
+QT_MOC_LITERAL(52, 873, 10), // "pluginName"
+QT_MOC_LITERAL(53, 884, 18), // "slot_hideErrorForm"
+QT_MOC_LITERAL(54, 903, 19), // "slot_theFtpProgress"
+QT_MOC_LITERAL(55, 923, 9), // "bytesSent"
+QT_MOC_LITERAL(56, 933, 10), // "bytesTotal"
+QT_MOC_LITERAL(57, 944, 21), // "slot_getDiskFreeSpace"
+QT_MOC_LITERAL(58, 966, 17), // "slot_connectCount"
+QT_MOC_LITERAL(59, 984, 20), // "slot_statisticalData"
+QT_MOC_LITERAL(60, 1005, 5), // "total"
+QT_MOC_LITERAL(61, 1011, 7), // "correct"
+QT_MOC_LITERAL(62, 1019, 5), // "error"
+QT_MOC_LITERAL(63, 1025, 11), // "statistical"
+QT_MOC_LITERAL(64, 1037, 22), // "slot_trafficStatistics"
+QT_MOC_LITERAL(65, 1060, 19) // "slot_systemRunTimer"
 
     },
     "MainWindow\0initializesTheDeviceStateListSignal\0"
@@ -98,8 +109,9 @@ QT_MOC_LITERAL(54, 901, 10) // "bytesTotal"
     "signal_InitializationFTPParameter\0"
     "path\0host\0port\0signal_setCameraCaptureType\0"
     "capType\0msgCallBackInd\0"
-    "signal_setPlateCaptureType\0systemTrayAction\0"
-    "systemTrayTriggered\0"
+    "signal_setPlateCaptureType\0"
+    "signal_setDataBaseFilter\0filter\0"
+    "systemTrayAction\0systemTrayTriggered\0"
     "QSystemTrayIcon::ActivationReason\0"
     "reason\0actionTiggeredSlot\0"
     "on_actionParameter_Settings_triggered\0"
@@ -113,7 +125,10 @@ QT_MOC_LITERAL(54, 901, 10) // "bytesTotal"
     "progressText\0slot_progressValueChanged\0"
     "progressValue\0slot_Error\0pluginName\0"
     "slot_hideErrorForm\0slot_theFtpProgress\0"
-    "bytesSent\0bytesTotal"
+    "bytesSent\0bytesTotal\0slot_getDiskFreeSpace\0"
+    "slot_connectCount\0slot_statisticalData\0"
+    "total\0correct\0error\0statistical\0"
+    "slot_trafficStatistics\0slot_systemRunTimer"
 };
 #undef QT_MOC_LITERAL
 
@@ -123,44 +138,50 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      28,   14, // methods
+      34,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      12,       // signalCount
+      13,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,  154,    2, 0x06 /* Public */,
-       5,    3,  159,    2, 0x06 /* Public */,
-       9,    0,  166,    2, 0x06 /* Public */,
-      10,    2,  167,    2, 0x06 /* Public */,
-      13,    0,  172,    2, 0x06 /* Public */,
-      14,    0,  173,    2, 0x06 /* Public */,
-      15,    0,  174,    2, 0x06 /* Public */,
-      16,    5,  175,    2, 0x06 /* Public */,
-      22,    5,  186,    2, 0x06 /* Public */,
-      22,    4,  197,    2, 0x26 /* Public | MethodCloned */,
-      26,    2,  206,    2, 0x06 /* Public */,
-      29,    2,  211,    2, 0x06 /* Public */,
+       1,    2,  184,    2, 0x06 /* Public */,
+       5,    3,  189,    2, 0x06 /* Public */,
+       9,    0,  196,    2, 0x06 /* Public */,
+      10,    2,  197,    2, 0x06 /* Public */,
+      13,    0,  202,    2, 0x06 /* Public */,
+      14,    0,  203,    2, 0x06 /* Public */,
+      15,    0,  204,    2, 0x06 /* Public */,
+      16,    5,  205,    2, 0x06 /* Public */,
+      22,    5,  216,    2, 0x06 /* Public */,
+      22,    4,  227,    2, 0x26 /* Public | MethodCloned */,
+      26,    2,  236,    2, 0x06 /* Public */,
+      29,    2,  241,    2, 0x06 /* Public */,
+      30,    1,  246,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      30,    0,  216,    2, 0x08 /* Private */,
-      31,    1,  217,    2, 0x08 /* Private */,
-      34,    0,  220,    2, 0x08 /* Private */,
-      35,    0,  221,    2, 0x08 /* Private */,
-      36,    0,  222,    2, 0x08 /* Private */,
-      37,    0,  223,    2, 0x08 /* Private */,
-      38,    0,  224,    2, 0x08 /* Private */,
-      39,    0,  225,    2, 0x08 /* Private */,
-      40,    0,  226,    2, 0x08 /* Private */,
-      41,    0,  227,    2, 0x08 /* Private */,
-      42,    2,  228,    2, 0x08 /* Private */,
-      45,    1,  233,    2, 0x08 /* Private */,
-      47,    1,  236,    2, 0x08 /* Private */,
-      49,    1,  239,    2, 0x08 /* Private */,
-      51,    0,  242,    2, 0x08 /* Private */,
-      52,    2,  243,    2, 0x08 /* Private */,
+      32,    0,  249,    2, 0x08 /* Private */,
+      33,    1,  250,    2, 0x08 /* Private */,
+      36,    0,  253,    2, 0x08 /* Private */,
+      37,    0,  254,    2, 0x08 /* Private */,
+      38,    0,  255,    2, 0x08 /* Private */,
+      39,    0,  256,    2, 0x08 /* Private */,
+      40,    0,  257,    2, 0x08 /* Private */,
+      41,    0,  258,    2, 0x08 /* Private */,
+      42,    0,  259,    2, 0x08 /* Private */,
+      43,    0,  260,    2, 0x08 /* Private */,
+      44,    2,  261,    2, 0x08 /* Private */,
+      47,    1,  266,    2, 0x08 /* Private */,
+      49,    1,  269,    2, 0x08 /* Private */,
+      51,    1,  272,    2, 0x08 /* Private */,
+      53,    0,  275,    2, 0x08 /* Private */,
+      54,    2,  276,    2, 0x08 /* Private */,
+      57,    0,  281,    2, 0x08 /* Private */,
+      58,    1,  282,    2, 0x08 /* Private */,
+      59,    4,  285,    2, 0x08 /* Private */,
+      64,    1,  294,    2, 0x08 /* Private */,
+      65,    0,  297,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::QStringList,    3,    4,
@@ -175,10 +196,11 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   18,   19,   23,   24,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,   27,   28,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,   27,   28,
+    QMetaType::Void, QMetaType::QString,   31,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 32,   33,
+    QMetaType::Void, 0x80000000 | 34,   35,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -187,12 +209,17 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,   43,   44,
-    QMetaType::Void, QMetaType::QString,   46,
-    QMetaType::Void, QMetaType::Int,   48,
-    QMetaType::Void, QMetaType::QString,   50,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   45,   46,
+    QMetaType::Void, QMetaType::QString,   48,
+    QMetaType::Void, QMetaType::Int,   50,
+    QMetaType::Void, QMetaType::QString,   52,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::LongLong, QMetaType::LongLong,   53,   54,
+    QMetaType::Void, QMetaType::LongLong, QMetaType::LongLong,   55,   56,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, QMetaType::Int, QMetaType::Double, QMetaType::Double, QMetaType::Double,   60,   61,   62,   63,
+    QMetaType::Void, QMetaType::Bool,    8,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -215,22 +242,28 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 9: _t->signal_InitializationFTPParameter((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4]))); break;
         case 10: _t->signal_setCameraCaptureType((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
         case 11: _t->signal_setPlateCaptureType((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
-        case 12: _t->systemTrayAction(); break;
-        case 13: _t->systemTrayTriggered((*reinterpret_cast< QSystemTrayIcon::ActivationReason(*)>(_a[1]))); break;
-        case 14: _t->actionTiggeredSlot(); break;
-        case 15: _t->on_actionParameter_Settings_triggered(); break;
-        case 16: _t->on_actionCamera_Test_triggered(); break;
-        case 17: _t->on_actionHistory_Sqlite_triggered(); break;
-        case 18: _t->on_actionData_log_triggered(); break;
-        case 19: _t->on_actionExit_triggered(); break;
-        case 20: _t->on_actionAbout_triggered(); break;
-        case 21: _t->slot_handleFinished(); break;
-        case 22: _t->slot_progressRangeChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 23: _t->slot_progressTextChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
-        case 24: _t->slot_progressValueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 25: _t->slot_Error((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 26: _t->slot_hideErrorForm(); break;
-        case 27: _t->slot_theFtpProgress((*reinterpret_cast< qint64(*)>(_a[1])),(*reinterpret_cast< qint64(*)>(_a[2]))); break;
+        case 12: _t->signal_setDataBaseFilter((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 13: _t->systemTrayAction(); break;
+        case 14: _t->systemTrayTriggered((*reinterpret_cast< QSystemTrayIcon::ActivationReason(*)>(_a[1]))); break;
+        case 15: _t->actionTiggeredSlot(); break;
+        case 16: _t->on_actionParameter_Settings_triggered(); break;
+        case 17: _t->on_actionCamera_Test_triggered(); break;
+        case 18: _t->on_actionHistory_Sqlite_triggered(); break;
+        case 19: _t->on_actionData_log_triggered(); break;
+        case 20: _t->on_actionExit_triggered(); break;
+        case 21: _t->on_actionAbout_triggered(); break;
+        case 22: _t->slot_handleFinished(); break;
+        case 23: _t->slot_progressRangeChanged((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 24: _t->slot_progressTextChanged((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 25: _t->slot_progressValueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 26: _t->slot_Error((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 27: _t->slot_hideErrorForm(); break;
+        case 28: _t->slot_theFtpProgress((*reinterpret_cast< qint64(*)>(_a[1])),(*reinterpret_cast< qint64(*)>(_a[2]))); break;
+        case 29: _t->slot_getDiskFreeSpace(); break;
+        case 30: _t->slot_connectCount((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 31: _t->slot_statisticalData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3])),(*reinterpret_cast< double(*)>(_a[4]))); break;
+        case 32: _t->slot_trafficStatistics((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 33: _t->slot_systemRunTimer(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -312,6 +345,13 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
                 return;
             }
         }
+        {
+            using _t = void (MainWindow::*)(const QString & );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&MainWindow::signal_setDataBaseFilter)) {
+                *result = 12;
+                return;
+            }
+        }
     }
 }
 
@@ -344,13 +384,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 28)
+        if (_id < 34)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 28;
+        _id -= 34;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 28)
+        if (_id < 34)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 28;
+        _id -= 34;
     }
     return _id;
 }
@@ -426,6 +466,13 @@ void MainWindow::signal_setPlateCaptureType(const int & _t1, const int & _t2)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 11, _a);
+}
+
+// SIGNAL 12
+void MainWindow::signal_setDataBaseFilter(const QString & _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 12, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

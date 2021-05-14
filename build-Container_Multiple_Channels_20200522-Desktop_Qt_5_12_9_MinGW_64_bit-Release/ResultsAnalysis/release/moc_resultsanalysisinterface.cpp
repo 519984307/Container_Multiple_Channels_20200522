@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ResultsAnalysisInterface_t {
-    QByteArrayData data[34];
-    char stringdata0[418];
+    QByteArrayData data[29];
+    char stringdata0[368];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -54,17 +54,12 @@ QT_MOC_LITERAL(19, 224, 13), // "initParameter"
 QT_MOC_LITERAL(20, 238, 16), // "ImageNamingRules"
 QT_MOC_LITERAL(21, 255, 5), // "check"
 QT_MOC_LITERAL(22, 261, 7), // "sendMid"
-QT_MOC_LITERAL(23, 269, 21), // "resultsOfAnalysisSlot"
-QT_MOC_LITERAL(24, 291, 17), // "QMap<int,QString>"
-QT_MOC_LITERAL(25, 309, 9), // "resultMap"
-QT_MOC_LITERAL(26, 319, 10), // "imgNameMap"
-QT_MOC_LITERAL(27, 330, 24), // "resultsAnalysisStateslot"
-QT_MOC_LITERAL(28, 355, 18), // "slot_plateSendData"
-QT_MOC_LITERAL(29, 374, 17), // "Identify_Protocol"
-QT_MOC_LITERAL(30, 392, 8), // "isConCar"
-QT_MOC_LITERAL(31, 401, 5), // "plate"
-QT_MOC_LITERAL(32, 407, 5), // "color"
-QT_MOC_LITERAL(33, 413, 4) // "time"
+QT_MOC_LITERAL(23, 269, 12), // "correctTheox"
+QT_MOC_LITERAL(24, 282, 21), // "resultsOfAnalysisSlot"
+QT_MOC_LITERAL(25, 304, 17), // "QMap<int,QString>"
+QT_MOC_LITERAL(26, 322, 9), // "resultMap"
+QT_MOC_LITERAL(27, 332, 10), // "imgNameMap"
+QT_MOC_LITERAL(28, 343, 24) // "resultsAnalysisStateslot"
 
     },
     "ResultsAnalysisInterface\0messageSignal\0"
@@ -75,10 +70,9 @@ QT_MOC_LITERAL(33, 413, 4) // "time"
     "resultsAnalysisStateSignal\0channel\0"
     "sendResultSignal\0result\0initParameter\0"
     "ImageNamingRules\0check\0sendMid\0"
-    "resultsOfAnalysisSlot\0QMap<int,QString>\0"
-    "resultMap\0imgNameMap\0resultsAnalysisStateslot\0"
-    "slot_plateSendData\0Identify_Protocol\0"
-    "isConCar\0plate\0color\0time"
+    "correctTheox\0resultsOfAnalysisSlot\0"
+    "QMap<int,QString>\0resultMap\0imgNameMap\0"
+    "resultsAnalysisStateslot"
 };
 #undef QT_MOC_LITERAL
 
@@ -88,7 +82,7 @@ static const uint qt_meta_data_ResultsAnalysisInterface[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      11,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -96,20 +90,19 @@ static const uint qt_meta_data_ResultsAnalysisInterface[] = {
        8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   74,    2, 0x06 /* Public */,
-       5,    7,   79,    2, 0x06 /* Public */,
-       5,    6,   94,    2, 0x26 /* Public | MethodCloned */,
-       5,    5,  107,    2, 0x26 /* Public | MethodCloned */,
-       5,    4,  118,    2, 0x26 /* Public | MethodCloned */,
-      12,    1,  127,    2, 0x06 /* Public */,
-      15,    2,  130,    2, 0x06 /* Public */,
-      17,    2,  135,    2, 0x06 /* Public */,
+       1,    2,   69,    2, 0x06 /* Public */,
+       5,    7,   74,    2, 0x06 /* Public */,
+       5,    6,   89,    2, 0x26 /* Public | MethodCloned */,
+       5,    5,  102,    2, 0x26 /* Public | MethodCloned */,
+       5,    4,  113,    2, 0x26 /* Public | MethodCloned */,
+      12,    1,  122,    2, 0x06 /* Public */,
+      15,    2,  125,    2, 0x06 /* Public */,
+      17,    2,  130,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      19,    4,  140,    2, 0x0a /* Public */,
-      23,    3,  149,    2, 0x0a /* Public */,
-      27,    2,  156,    2, 0x0a /* Public */,
-      28,    5,  161,    2, 0x0a /* Public */,
+      19,    5,  135,    2, 0x0a /* Public */,
+      24,    3,  146,    2, 0x0a /* Public */,
+      28,    2,  153,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
@@ -122,10 +115,9 @@ static const uint qt_meta_data_ResultsAnalysisInterface[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::QString,   16,   18,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Bool, QMetaType::Bool,   16,   20,   21,   22,
-    QMetaType::Void, 0x80000000 | 24, QMetaType::Int, 0x80000000 | 24,   25,    3,   26,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Bool, QMetaType::Bool, QMetaType::Int,   16,   20,   21,   22,   23,
+    QMetaType::Void, 0x80000000 | 25, QMetaType::Int, 0x80000000 | 25,   26,    3,   27,
     QMetaType::Void, QMetaType::Int, QMetaType::QString,   16,    4,
-    QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::QString,   29,   30,   31,   32,   33,
 
        0        // eod
 };
@@ -144,10 +136,9 @@ void ResultsAnalysisInterface::qt_static_metacall(QObject *_o, QMetaObject::Call
         case 5: _t->updateDataBaseSignal((*reinterpret_cast< QMap<QString,QString>(*)>(_a[1]))); break;
         case 6: _t->resultsAnalysisStateSignal((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
         case 7: _t->sendResultSignal((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
-        case 8: _t->initParameter((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3])),(*reinterpret_cast< bool(*)>(_a[4]))); break;
+        case 8: _t->initParameter((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3])),(*reinterpret_cast< bool(*)>(_a[4])),(*reinterpret_cast< int(*)>(_a[5]))); break;
         case 9: _t->resultsOfAnalysisSlot((*reinterpret_cast< QMap<int,QString>(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< QMap<int,QString>(*)>(_a[3]))); break;
         case 10: _t->resultsAnalysisStateslot((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
-        case 11: _t->slot_plateSendData((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const bool(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -219,13 +210,13 @@ int ResultsAnalysisInterface::qt_metacall(QMetaObject::Call _c, int _id, void **
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 11)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 12;
+        _id -= 11;
     }
     return _id;
 }

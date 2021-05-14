@@ -1,10 +1,11 @@
-#ifndef IDENTIFYIMAGES_GLOBAL_H
+﻿#ifndef IDENTIFYIMAGES_GLOBAL_H
 #define IDENTIFYIMAGES_GLOBAL_H
 
 #include <QtCore/qglobal.h>
 #include <QThreadPool>
 #include <QThread>
 #include <QDebug>
+#include <QSharedPointer>
 
 #if defined(IDENTIFYIMAGES_LIBRARY)
 #  define IDENTIFYIMAGESSHARED_EXPORT Q_DECL_EXPORT

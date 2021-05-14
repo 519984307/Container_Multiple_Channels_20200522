@@ -16,7 +16,6 @@ CaptureImages::CaptureImages(QObject *parent)
 
 CaptureImages::~CaptureImages()
 {
-    qDebug().noquote()<<"~CaptureImages";
 }
 
 bool CaptureImages::InitializationSlot()
@@ -105,7 +104,7 @@ void CaptureImages::slot_pictureStream(int ID, QByteArray arrJpg)
 {
     if(put && ID==camerID){
         emit pictureStreamSignal(arrJpg,imgNumber,imgTime);
-        qDebug().noquote()<<QString("IP=%1[%2]:%3").arg(camerIP).arg(signature).arg(":Put Command Sucess");
+        qDebug().noquote()<<QString("IP=%1[%2]:%3").arg(camerIP,signature,":Put Command Sucess");
         put=false;
         imgGetTimeOut->stop();
 

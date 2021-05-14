@@ -177,7 +177,10 @@ namespace Parameter {
     ///
     extern int ResultsTheCheck;
 
-
+    ///
+    /// \brief picture_size 识别图片大小
+    ///
+    extern int picture_size;
 
     /*****************************
     * @brief:Service
@@ -248,6 +251,20 @@ namespace Parameter {
     ///
     extern int DataChange_Format;
 
+    ///
+    /// \brief decision_Container 判定是否为集装箱
+    ///
+    extern int decision_Container;
+
+    ///
+    /// \brief container_timeout 集装箱结果超时时间
+    ///
+    extern int container_timeout;
+
+    ///
+    /// \brief not_plate_color 接口协议不需要车牌颜色
+    ///
+    extern int not_plate_color;
 
     /*****************************
     * @brief:storage

@@ -5,6 +5,7 @@
 #include <QSharedPointer>
 #include <QScopedPointer>
 #include <QPointer>
+#include <QDebug>
 
 #if defined(DATAINTERRABBITMQ_LIBRARY)
 #  define DATAINTERRABBITMQ_EXPORT Q_DECL_EXPORT

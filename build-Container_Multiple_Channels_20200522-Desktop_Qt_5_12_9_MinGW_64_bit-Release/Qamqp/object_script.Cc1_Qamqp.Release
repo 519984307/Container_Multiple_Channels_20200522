@@ -1,0 +1,12 @@
+release/qamqpauthenticator.o
+release/qamqpchannel.o
+release/qamqpchannelhash.o
+release/qamqpclient.o
+release/qamqpexchange.o
+release/qamqpframe.o
+release/qamqpmessage.o
+release/qamqpqueue.o
+release/qamqptable.o
+release/moc_qamqpexchange.o
+release/moc_qamqpqueue.o
+release/moc_qamqpchannelhash_p.o

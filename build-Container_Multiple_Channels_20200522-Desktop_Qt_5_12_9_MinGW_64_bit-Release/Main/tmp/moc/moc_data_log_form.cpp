@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Data_Log_Form_t {
-    QByteArrayData data[7];
-    char stringdata0[57];
+    QByteArrayData data[16];
+    char stringdata0[151];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,11 +37,23 @@ QT_MOC_LITERAL(2, 30, 0), // ""
 QT_MOC_LITERAL(3, 31, 9), // "QtMsgType"
 QT_MOC_LITERAL(4, 41, 4), // "type"
 QT_MOC_LITERAL(5, 46, 4), // "time"
-QT_MOC_LITERAL(6, 51, 5) // "value"
+QT_MOC_LITERAL(6, 51, 5), // "value"
+QT_MOC_LITERAL(7, 57, 16), // "slot_sendLogToUi"
+QT_MOC_LITERAL(8, 74, 14), // "channel_number"
+QT_MOC_LITERAL(9, 89, 3), // "msg"
+QT_MOC_LITERAL(10, 93, 14), // "slot_linkState"
+QT_MOC_LITERAL(11, 108, 7), // "address"
+QT_MOC_LITERAL(12, 116, 4), // "port"
+QT_MOC_LITERAL(13, 121, 5), // "state"
+QT_MOC_LITERAL(14, 127, 17), // "slot_connectCount"
+QT_MOC_LITERAL(15, 145, 5) // "count"
 
     },
     "Data_Log_Form\0slot_newLogText\0\0QtMsgType\0"
-    "type\0time\0value"
+    "type\0time\0value\0slot_sendLogToUi\0"
+    "channel_number\0msg\0slot_linkState\0"
+    "address\0port\0state\0slot_connectCount\0"
+    "count"
 };
 #undef QT_MOC_LITERAL
 
@@ -51,7 +63,7 @@ static const uint qt_meta_data_Data_Log_Form[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -59,10 +71,16 @@ static const uint qt_meta_data_Data_Log_Form[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    3,   19,    2, 0x0a /* Public */,
+       1,    3,   34,    2, 0x0a /* Public */,
+       7,    2,   41,    2, 0x0a /* Public */,
+      10,    3,   46,    2, 0x0a /* Public */,
+      14,    1,   53,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, 0x80000000 | 3, QMetaType::QDateTime, QMetaType::QString,    4,    5,    6,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,    8,    9,
+    QMetaType::Void, QMetaType::QString, QMetaType::UShort, QMetaType::Bool,   11,   12,   13,
+    QMetaType::Void, QMetaType::Int,   15,
 
        0        // eod
 };
@@ -74,6 +92,9 @@ void Data_Log_Form::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->slot_newLogText((*reinterpret_cast< QtMsgType(*)>(_a[1])),(*reinterpret_cast< QDateTime(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
+        case 1: _t->slot_sendLogToUi((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 2: _t->slot_linkState((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< quint16(*)>(_a[2])),(*reinterpret_cast< bool(*)>(_a[3]))); break;
+        case 3: _t->slot_connectCount((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -108,13 +129,13 @@ int Data_Log_Form::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 4)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 4;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 4)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 1;
+        _id -= 4;
     }
     return _id;
 }

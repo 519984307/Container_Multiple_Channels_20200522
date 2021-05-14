@@ -10,6 +10,8 @@ PutCommand::PutCommand(QObject *parent) : QObject(parent)
 PutCommand::~PutCommand()
 {
     if(tcpSocket!=nullptr){
+        tcpSocket->disconnected();
+        tcpSocket->close();
         tcpSocket->abort();
     }
     delete  tcpSocket;

@@ -1,15 +1,15 @@
 {
     "Channel": {
         "Camer": {
-            "AfterCamer": "192.168.1.64",
+            "AfterCamer": "192.168.1.112",
             "ForgroundCamer": "...",
-            "FrontCamer": "192.168.1.64",
-            "LeftCamer": "192.168.1.64",
-            "LocalAddr": "...",
+            "FrontCamer": "192.168.1.111",
+            "LeftCamer": "192.168.1.113",
+            "LocalAddr": "192.168.1.155",
             "PasswordCamer": "ABCabc123",
-            "PlateCamer": "...",
+            "PlateCamer": "192.168.1.116",
             "ProspectsCamer": "...",
-            "RgihtCamer": "192.168.1.64",
+            "RgihtCamer": "192.168.1.114",
             "TopCamer": "...",
             "UserCamer": "admin"
         },
@@ -19,7 +19,7 @@
             "Channel_Number": 1,
             "Container_Camera_Model": 0,
             "HCNET_Capture_Type": 0,
-            "Plate_Camera_Model": 0
+            "Plate_Camera_Model": 1
         },
         "SerialPort": {
             "ControllerSignalMode": 0,

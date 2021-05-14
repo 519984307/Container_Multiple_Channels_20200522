@@ -123,7 +123,7 @@ void TcpServer::setHeartPacketStateSlot(bool state)
 
 void TcpServer::releaseResourcesSlot()
 {
-    this->close();
+    //this->close();
 
     if(pTimerSendHeartPack!=nullptr){
         pTimerSendHeartPack->stop();
@@ -140,7 +140,7 @@ void TcpServer::releaseResourcesSlot()
     clientChannelMap.clear();
     clientSocketIdMap.clear();
 
-    qDebug().noquote()<<"TcpServer::releaseResourcesSlot";
+    qDebug().noquote()<<QString("TcpServer::releaseResourcesSlot");
 }
 
 void TcpServer::slot_setMessageFormat(int newline)

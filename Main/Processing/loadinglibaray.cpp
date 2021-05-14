@@ -280,10 +280,10 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 IResultsAnalysisList.append(QSharedPointer<ResultsAnalysisInterface>(pResultsAnalysisInterface));
             }
             else if (DataInterchangeInterface *pDataInterchangeInterface=qobject_cast<DataInterchangeInterface*>(plugin)) {
-//                QThread *th=new QThread(this);
-//                tdList.append(th);
-//                pDataInterchangeInterface->moveToThread(th);
-//                th->start();
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pDataInterchangeInterface->moveToThread(th);
+                th->start();
                 IDataInterchangeList.append(QSharedPointer<DataInterchangeInterface>(pDataInterchangeInterface));
             }
             else if (ToUploadDataInterface *pToUploadDataInterface=qobject_cast<ToUploadDataInterface*>(plugin)) {

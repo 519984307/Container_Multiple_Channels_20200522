@@ -1,0 +1,8 @@
+﻿  Generate moc_predefs.h
+  Moc'ing databaseread.h...
+  Moc'ing databasereadinterface.h...
+  databaseread.cpp
+  moc_databaseread.cpp
+  moc_databasereadinterface.cpp
+    正在创建库 ..\MainUI\Plugins\\Cc1_DataBaseR.lib 和对象 ..\MainUI\Plugins\\Cc1_DataBaseR.exp
+  Cc1_DataBaseR.vcxproj -> C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DatabaseRead\..\MainUI\Plugins\Cc1_DataBaseR.dll

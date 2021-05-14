@@ -1,0 +1,8 @@
+﻿  Generate moc_predefs.h
+  Moc'ing ICaptureImages.h...
+  Moc'ing captureimages.h...
+  captureimages.cpp
+  moc_ICaptureImages.cpp
+  moc_captureimages.cpp
+    正在创建库 ..\MainUI\Plugins\\Cc1_GetImage.lib 和对象 ..\MainUI\Plugins\\Cc1_GetImage.exp
+  Cc1_GetImage.vcxproj -> C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\CaptureImages\..\MainUI\Plugins\Cc1_GetImage.dll

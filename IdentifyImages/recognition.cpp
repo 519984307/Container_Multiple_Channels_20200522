@@ -1,5 +1,5 @@
 ﻿#include "recognition.h"
-#include <QDebug>
+#include "identifyimages_global.h"
 
 Recognition::Recognition(QObject *parent, const QString &imgName, const int &imgNumber) : QObject(parent)
 {

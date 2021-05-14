@@ -169,7 +169,8 @@ bool System_Setting_Form::loadParameter()
                     /*****************************
                     * @brief:Recognizer
                     ******************************/
-                    Parameter::ResultsTheCheck=getJsonValue("Recognizer","ResultsTheCheck",value.toObject()).toInt();
+                    Parameter::ResultsTheCheck=getJsonValue("Recognizer","ResultsTheCheck",value.toObject()).toInt();                    
+                    Parameter::picture_size=getJsonValue("Recognizer","picture_size",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Service
@@ -183,10 +184,13 @@ bool System_Setting_Form::loadParameter()
                     Parameter::Resultting=getJsonValue("Service","Resultting",value.toObject()).toInt();
                     Parameter::ShortLink=getJsonValue("Service","ShortLink",value.toObject()).toInt();
                     Parameter::newline=getJsonValue("Service","newline",value.toObject()).toInt();
-                    Parameter::DataChaneType=getJsonValue("Service","DataChaneType",value.toObject()).toInt();
+                    Parameter::DataChaneType=getJsonValue("Service","DataChaneType",value.toObject()).toInt();                                      
                     Parameter::SingletonAddressMQ=getJsonValue("Service","SingletonAddressMQ",value.toObject()).toString();
                     Parameter::ManyCasesAddressMQ=getJsonValue("Service","ManyCasesAddressMQ",value.toObject()).toString();
                     Parameter::DataChange_Format=getJsonValue("Service","DataChange_Format",value.toObject()).toInt();
+                    Parameter::decision_Container=getJsonValue("Service","decision_Container",value.toObject()).toInt();
+                    Parameter::container_timeout=getJsonValue("Service","container_timeout",value.toObject()).toInt();
+                    Parameter::not_plate_color=getJsonValue("Service","not_plate_color",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;
@@ -241,6 +245,7 @@ bool System_Setting_Form::writeParameterSlot()
     else if (ui->AutomaticCorrection->isChecked()) {
         obj2.insert("ResultsTheCheck",1);
     }
+    obj2.insert("picture_size",ui->picture_size_comboBox->currentIndex());
     jsonChild.insert("Recognizer",QJsonValue(obj2));
 
     /*****************************
@@ -284,7 +289,10 @@ bool System_Setting_Form::writeParameterSlot()
     obj4.insert("ShortLink",int(ui->ShortLink_checkBox->isChecked()));
     obj4.insert("DataChaneType",ui->DataChaneType_combox->currentIndex());
     obj4.insert("newline",int(ui->newline_checkBox->isChecked()));
-    obj4.insert("Identify_Protocol",int(ui->Identify_Protocol_comboBox_2->currentIndex()));
+    obj4.insert("Identify_Protocol",int(ui->Identify_Protocol_comboBox_2->currentIndex()));    
+    obj4.insert("decision_Container",int(ui->decision_Container_spinBox->value()));
+    obj4.insert("container_timeout",int(ui->container_timeout_spinBox->value()));
+    obj4.insert("not_plate_color",int(ui->plate_color_checkBox->isChecked()));
     jsonChild.insert("Service",QJsonValue(obj4));
 
     /*****************************
@@ -364,6 +372,7 @@ void System_Setting_Form::parameterToUi()
     else {/* 自动校验 */
         ui->AutomaticCorrection->setChecked(1);
     }
+    ui->picture_size_comboBox->setCurrentIndex(Parameter::picture_size);
 
     /*****************************
     * @brief:Service
@@ -385,7 +394,10 @@ void System_Setting_Form::parameterToUi()
     ui->ShortLink_checkBox->setChecked(Parameter::ShortLink);
     ui->newline_checkBox->setChecked(Parameter::newline);
     ui->DataChaneType_combox->setCurrentIndex(Parameter::DataChaneType);
-    ui->Identify_Protocol_comboBox_2->setCurrentIndex(Parameter::Identify_Protocol);
+    ui->Identify_Protocol_comboBox_2->setCurrentIndex(Parameter::Identify_Protocol);    
+    ui->decision_Container_spinBox->setValue(Parameter::decision_Container);
+    ui->container_timeout_spinBox->setValue(Parameter::container_timeout);
+    ui->plate_color_checkBox->setChecked(Parameter::not_plate_color);
 
     /*****************************
     * @brief:Upload

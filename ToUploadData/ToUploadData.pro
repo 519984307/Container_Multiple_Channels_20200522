@@ -44,5 +44,13 @@ unix {
     INSTALLS += target
 }
 
+CONFIG(debug, debug|release): {
+unix:TARGET=$$join(TARGET,,,_debug)
+win32:TARGET=$$join(TARGET,,Cc1_,d)
+}
+else:CONFIG(release, debug|release): {
+unix:TARGET=$$join(TARGET,,,_release)
+win32:TARGET=$$join(TARGET,,Cc1_,)
+}
 
 DESTDIR+=../MainUI/Plugins

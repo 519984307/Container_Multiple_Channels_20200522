@@ -49,8 +49,8 @@ public:
     void releaseResourcesSlot()Q_DECL_OVERRIDE;
 
 private:
-    QAmqpClient m_client;
 
+    QAmqpClient m_client;
     QAmqpMessage::PropertyHash properties;
     QString sendData;
     QString addr;

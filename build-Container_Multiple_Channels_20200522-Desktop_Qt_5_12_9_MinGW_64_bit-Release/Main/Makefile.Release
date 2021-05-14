@@ -13,13 +13,13 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DQT_DEPRECATED_WARNINGS -DQT_MESSAGELOGCONTEXT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_SERIALPORT_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
+DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DAPP_VERSION=\"1.1.1.8_2104232321\" -DQT_DEPRECATED_WARNINGS -DQT_MESSAGELOGCONTEXT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_SERIALPORT_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -O2 -Wall -W -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -O2 -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
 INCPATH       = -I..\..\Container_Multiple_Channels_20200522\Main -I. -I..\..\Container_Multiple_Channels_20200522\LogController -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtWidgets -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtGui -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtANGLE -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtSql -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtSerialPort -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtConcurrent -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtNetwork -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtCore -Itmp\moc -Itmp\ui -I/include -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-rpath=./Library/ -Wl,-s -Wl,-subsystem,windows -mthreads
-LIBS        =        -LC:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release\LogController\release -lLogging C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Widgets.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Gui.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Sql.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5SerialPort.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Concurrent.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Network.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Core.a tmp\obj\res_res.o  -lmingw32 C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libqtmain.a -LC:\openssl\lib -LC:\Utils\my_sql\mysql-5.6.11-winx64\lib -LC:\Utils\postgresql\pgsql\lib -lshell32 
+LIBS        =        -LC:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release\LogController -lCc1_Logging C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Widgets.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Gui.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Sql.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5SerialPort.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Concurrent.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Network.a C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libQt5Core.a tmp\obj\res_res.o  -lmingw32 C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\libqtmain.a -LC:\openssl\lib -LC:\Utils\my_sql\mysql-5.6.11-winx64\lib -LC:\Utils\postgresql\pgsql\lib -lshell32 
 QMAKE         = C:\Qt\Qt5.12.9\5.12.9\mingw73_64\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -47,7 +47,8 @@ OBJECTS_DIR   = tmp\obj
 
 ####### Files
 
-SOURCES       = ..\..\Container_Multiple_Channels_20200522\Main\main.cpp \
+SOURCES       = ..\..\Container_Multiple_Channels_20200522\Main\crashstack.cpp \
+		..\..\Container_Multiple_Channels_20200522\Main\main.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_test_form.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\ChannelData\channel_data_form.cpp \
@@ -58,6 +59,7 @@ SOURCES       = ..\..\Container_Multiple_Channels_20200522\Main\main.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\DataBase\filterdialog.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\DataBase\image_dialog.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.cpp \
+		..\..\Container_Multiple_Channels_20200522\Main\ErrCode\storagedialog.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\Log\data_log_form.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\MainWindow\alarmform.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\MainWindow\errorform.cpp \
@@ -82,6 +84,7 @@ SOURCES       = ..\..\Container_Multiple_Channels_20200522\Main\main.cpp \
 		tmp\moc\moc_filterdialog.cpp \
 		tmp\moc\moc_image_dialog.cpp \
 		tmp\moc\moc_errcodeform.cpp \
+		tmp\moc\moc_storagedialog.cpp \
 		tmp\moc\moc_data_log_form.cpp \
 		tmp\moc\moc_alarmform.cpp \
 		tmp\moc\moc_errorform.cpp \
@@ -104,7 +107,8 @@ SOURCES       = ..\..\Container_Multiple_Channels_20200522\Main\main.cpp \
 		tmp\moc\moc_system_setting_form.cpp \
 		tmp\moc\moc_aboutdialog.cpp \
 		tmp\moc\moc_dataprocessing.cpp
-OBJECTS       = tmp/obj/main.o \
+OBJECTS       = tmp/obj/crashstack.o \
+		tmp/obj/main.o \
 		tmp/obj/camera_list_form.o \
 		tmp/obj/camera_test_form.o \
 		tmp/obj/channel_data_form.o \
@@ -115,6 +119,7 @@ OBJECTS       = tmp/obj/main.o \
 		tmp/obj/filterdialog.o \
 		tmp/obj/image_dialog.o \
 		tmp/obj/errcodeform.o \
+		tmp/obj/storagedialog.o \
 		tmp/obj/data_log_form.o \
 		tmp/obj/alarmform.o \
 		tmp/obj/errorform.o \
@@ -140,6 +145,7 @@ OBJECTS       = tmp/obj/main.o \
 		tmp/obj/moc_filterdialog.o \
 		tmp/obj/moc_image_dialog.o \
 		tmp/obj/moc_errcodeform.o \
+		tmp/obj/moc_storagedialog.o \
 		tmp/obj/moc_data_log_form.o \
 		tmp/obj/moc_alarmform.o \
 		tmp/obj/moc_errorform.o \
@@ -163,7 +169,9 @@ OBJECTS       = tmp/obj/main.o \
 		tmp/obj/moc_aboutdialog.o \
 		tmp/obj/moc_dataprocessing.o
 
-DIST          = res.rc ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.h \
+DIST          = res.rc \ \
+		..\..\Container_Multiple_Channels_20200522\Main\crashstack.h \
+		..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.h \
 		..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_test_form.h \
 		..\..\Container_Multiple_Channels_20200522\Main\ChannelData\channel_data_form.h \
 		..\..\Container_Multiple_Channels_20200522\Main\ChannelData\equipment_state_from.h \
@@ -173,6 +181,7 @@ DIST          = res.rc ..\..\Container_Multiple_Channels_20200522\Main\CameraTes
 		..\..\Container_Multiple_Channels_20200522\Main\DataBase\filterdialog.h \
 		..\..\Container_Multiple_Channels_20200522\Main\DataBase\image_dialog.h \
 		..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.h \
+		..\..\Container_Multiple_Channels_20200522\Main\ErrCode\storagedialog.h \
 		..\..\Container_Multiple_Channels_20200522\Main\Log\data_log_form.h \
 		..\..\Container_Multiple_Channels_20200522\Main\MainWindow\alarmform.h \
 		..\..\Container_Multiple_Channels_20200522\Main\MainWindow\errorform.h \
@@ -197,7 +206,8 @@ DIST          = res.rc ..\..\Container_Multiple_Channels_20200522\Main\CameraTes
 		..\..\Container_Multiple_Channels_20200522\Main\Setting\setting_form.h \
 		..\..\Container_Multiple_Channels_20200522\Main\Setting\system_setting_form.h \
 		..\..\Container_Multiple_Channels_20200522\Main\About\aboutdialog.h \
-		..\..\Container_Multiple_Channels_20200522\Main\DataProcessing\dataprocessing.h ..\..\Container_Multiple_Channels_20200522\Main\main.cpp \
+		..\..\Container_Multiple_Channels_20200522\Main\DataProcessing\dataprocessing.h ..\..\Container_Multiple_Channels_20200522\Main\crashstack.cpp \
+		..\..\Container_Multiple_Channels_20200522\Main\main.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_test_form.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\ChannelData\channel_data_form.cpp \
@@ -208,6 +218,7 @@ DIST          = res.rc ..\..\Container_Multiple_Channels_20200522\Main\CameraTes
 		..\..\Container_Multiple_Channels_20200522\Main\DataBase\filterdialog.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\DataBase\image_dialog.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.cpp \
+		..\..\Container_Multiple_Channels_20200522\Main\ErrCode\storagedialog.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\Log\data_log_form.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\MainWindow\alarmform.cpp \
 		..\..\Container_Multiple_Channels_20200522\Main\MainWindow\errorform.cpp \
@@ -232,7 +243,7 @@ DESTDIR_TARGET = release\ZBYCS.exe
 first: all
 all: Makefile.Release  release/ZBYCS.exe
 
-release/ZBYCS.exe: C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Widgets.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Gui.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Sql.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5SerialPort.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Concurrent.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Network.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Core.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libqtmain.a tmp/ui/ui_camera_list_form.h tmp/ui/ui_camera_test_form.h tmp/ui/ui_channel_data_form.h tmp/ui/ui_equipment_state_from.h tmp/ui/ui_imagedialog.h tmp/ui/ui_simulationdialog.h tmp/ui/ui_database_form.h tmp/ui/ui_filterdialog.h tmp/ui/ui_image_dialog.h tmp/ui/ui_errcodeform.h tmp/ui/ui_data_log_form.h tmp/ui/ui_alarmform.h tmp/ui/ui_errorform.h tmp/ui/ui_mainwindow.h tmp/ui/ui_channel_setting_form.h tmp/ui/ui_main_dialog.h tmp/ui/ui_setting_form.h tmp/ui/ui_system_setting_form.h tmp/ui/ui_aboutdialog.h $(OBJECTS) tmp/obj/res_res.o
+release/ZBYCS.exe: C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Widgets.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Gui.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Sql.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5SerialPort.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Concurrent.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Network.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libQt5Core.a C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/libqtmain.a tmp/ui/ui_camera_list_form.h tmp/ui/ui_camera_test_form.h tmp/ui/ui_channel_data_form.h tmp/ui/ui_equipment_state_from.h tmp/ui/ui_imagedialog.h tmp/ui/ui_simulationdialog.h tmp/ui/ui_database_form.h tmp/ui/ui_filterdialog.h tmp/ui/ui_image_dialog.h tmp/ui/ui_errcodeform.h tmp/ui/ui_storagedialog.h tmp/ui/ui_data_log_form.h tmp/ui/ui_alarmform.h tmp/ui/ui_errorform.h tmp/ui/ui_mainwindow.h tmp/ui/ui_channel_setting_form.h tmp/ui/ui_main_dialog.h tmp/ui/ui_setting_form.h tmp/ui/ui_system_setting_form.h tmp/ui/ui_aboutdialog.h $(OBJECTS) tmp/obj/res_res.o
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) @object_script.ZBYCS.Release  $(LIBS)
 
 tmp/obj/res_res.o: ../../Container_Multiple_Channels_20200522/Main/res.rc
@@ -244,10 +255,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) ZBYCS.zip $(SOURCES) $(DIST) ..\..\Container_Multiple_Channels_20200522\Main\Main.pro C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\spec_pre.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\qdevice.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\device_config.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\sanitize.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\gcc-base.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\g++-base.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\angle.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\win32\windows_vulkan_sdk.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\windows-vulkan.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\g++-win32.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\qconfig.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3danimation.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3danimation_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dextras.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dextras_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickextras.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickextras_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_accessibility_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_charts.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_charts_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_core.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_datavisualization.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_datavisualization_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_edid_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_egl_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_fb_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_gamepad.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_gamepad_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_help.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_location.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_network.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_networkauth.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_networkauth_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_positioningquick.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_positioningquick_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_purchasing.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_purchasing_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickshapes_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quicktemplates2.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_remoteobjects.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_remoteobjects_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_repparser.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_repparser_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_script.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_script_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_scripttools.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_scripttools_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_scxml.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_scxml_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_serialbus.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_serialbus_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_texttospeech.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_texttospeech_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_theme_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_virtualkeyboard.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_vulkan_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\qt_functions.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\qt_config.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\win32-g++\qmake.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\spec_post.prf ..\.qmake.stash C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\exclusive_builds.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\toolchain.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\default_pre.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\win32\default_pre.prf ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\CameraTest.pri ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\ChannelData.pri ..\..\Container_Multiple_Channels_20200522\Main\DataBase\DataBase.pri ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\ErrCode.pri ..\..\Container_Multiple_Channels_20200522\Main\Log\Log.pri ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\MainWindow.pri ..\..\Container_Multiple_Channels_20200522\Main\Parameter\Parameter.pri ..\..\Container_Multiple_Channels_20200522\Main\Processing\Processing.pri ..\..\Container_Multiple_Channels_20200522\Main\Setting\Setting.pri ..\..\Container_Multiple_Channels_20200522\Main\About\About.pri ..\..\Container_Multiple_Channels_20200522\Main\DataProcessing\DataProcessing.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\resolve_config.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\default_post.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\build_pass.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\resources.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\qtquickcompiler.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\precompile_header.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\warn_on.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\qt.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\moc.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\win32\opengl.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\uic.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\qmake_use.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\file_copies.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\win32\windows.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\testcase_targets.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\exceptions.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\yacc.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\lex.prf ..\..\Container_Multiple_Channels_20200522\Main\Main.pro ..\..\Container_Multiple_Channels_20200522\Main\ico.qrc C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Widgets.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Gui.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Sql.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5SerialPort.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Concurrent.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Network.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Core.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\qtmain.prl zh_hans.ts zh_hans.ts ..\..\Container_Multiple_Channels_20200522\Main\ico.qrc    C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\data\dummy.cpp ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.h ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_test_form.h ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\channel_data_form.h ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\equipment_state_from.h ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\imagedialog.h ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\simulationdialog.h ..\..\Container_Multiple_Channels_20200522\Main\DataBase\database_form.h ..\..\Container_Multiple_Channels_20200522\Main\DataBase\filterdialog.h ..\..\Container_Multiple_Channels_20200522\Main\DataBase\image_dialog.h ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.h ..\..\Container_Multiple_Channels_20200522\Main\Log\data_log_form.h ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\alarmform.h ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\errorform.h ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\mainwindow.h ..\..\Container_Multiple_Channels_20200522\Main\Parameter\LocalPar.h ..\..\Container_Multiple_Channels_20200522\Main\Parameter\channelparameter.h ..\..\Container_Multiple_Channels_20200522\Main\Parameter\loadparameter.h ..\..\Container_Multiple_Channels_20200522\Main\Parameter\parameter.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\INTERFACE\ICaptureImages.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\IMiddleware.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\databaseinsertinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\databasereadinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\datainterchangeinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\infraredlogicinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\licenseplateinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\recognizerinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\resultsanalysisinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\touploaddatainterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\loadinglibaray.h ..\..\Container_Multiple_Channels_20200522\Main\Setting\channel_setting_form.h ..\..\Container_Multiple_Channels_20200522\Main\Setting\main_dialog.h ..\..\Container_Multiple_Channels_20200522\Main\Setting\setting_form.h ..\..\Container_Multiple_Channels_20200522\Main\Setting\system_setting_form.h ..\..\Container_Multiple_Channels_20200522\Main\About\aboutdialog.h ..\..\Container_Multiple_Channels_20200522\Main\DataProcessing\dataprocessing.h  ..\..\Container_Multiple_Channels_20200522\Main\main.cpp ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_test_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\channel_data_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\equipment_state_from.cpp ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\imagedialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\simulationdialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\DataBase\database_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\DataBase\filterdialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\DataBase\image_dialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.cpp ..\..\Container_Multiple_Channels_20200522\Main\Log\data_log_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\alarmform.cpp ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\errorform.cpp ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\mainwindow.cpp ..\..\Container_Multiple_Channels_20200522\Main\Parameter\LocalPar.cpp ..\..\Container_Multiple_Channels_20200522\Main\Parameter\loadparameter.cpp ..\..\Container_Multiple_Channels_20200522\Main\Parameter\parameter.cpp ..\..\Container_Multiple_Channels_20200522\Main\Processing\loadinglibaray.cpp ..\..\Container_Multiple_Channels_20200522\Main\Setting\channel_setting_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\Setting\main_dialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\Setting\setting_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\Setting\system_setting_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\About\aboutdialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\DataProcessing\dataprocessing.cpp ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.ui ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_test_form.ui ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\channel_data_form.ui ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\equipment_state_from.ui ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\imagedialog.ui ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\simulationdialog.ui ..\..\Container_Multiple_Channels_20200522\Main\DataBase\database_form.ui ..\..\Container_Multiple_Channels_20200522\Main\DataBase\filterdialog.ui ..\..\Container_Multiple_Channels_20200522\Main\DataBase\image_dialog.ui ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.ui ..\..\Container_Multiple_Channels_20200522\Main\Log\data_log_form.ui ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\alarmform.ui ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\errorform.ui ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\mainwindow.ui ..\..\Container_Multiple_Channels_20200522\Main\Setting\channel_setting_form.ui ..\..\Container_Multiple_Channels_20200522\Main\Setting\main_dialog.ui ..\..\Container_Multiple_Channels_20200522\Main\Setting\setting_form.ui ..\..\Container_Multiple_Channels_20200522\Main\Setting\system_setting_form.ui ..\..\Container_Multiple_Channels_20200522\Main\About\aboutdialog.ui    
+	$(ZIP) ZBYCS.zip $(SOURCES) $(DIST) ..\..\Container_Multiple_Channels_20200522\Main\Main.pro C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\spec_pre.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\qdevice.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\device_config.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\sanitize.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\gcc-base.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\g++-base.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\angle.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\win32\windows_vulkan_sdk.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\windows-vulkan.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\common\g++-win32.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\qconfig.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3danimation.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3danimation_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dcore.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dcore_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dextras.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dextras_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dinput.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dinput_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dlogic.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dlogic_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquick.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquick_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickextras.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickextras_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickinput.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickinput_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickrender.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickrender_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3drender.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_3drender_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_accessibility_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axbase.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axbase_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axcontainer.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axcontainer_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axserver.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_axserver_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_bluetooth.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_bluetooth_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_bootstrap_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_charts.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_charts_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_concurrent.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_concurrent_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_core.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_core_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_datavisualization.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_datavisualization_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_dbus.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_dbus_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_designer.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_designer_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_designercomponents_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_edid_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_egl_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_fb_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_gamepad.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_gamepad_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_gui.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_gui_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_help.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_help_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_location.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_location_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_multimedia.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_multimedia_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_network.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_network_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_networkauth.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_networkauth_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_nfc.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_nfc_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_opengl.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_opengl_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_openglextensions.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_openglextensions_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_packetprotocol_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_positioning.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_positioning_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_positioningquick.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_positioningquick_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_printsupport.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_printsupport_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_purchasing.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_purchasing_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qml.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qml_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qmldebug_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qmldevtools_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qmltest.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qmltest_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quick.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quick_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickparticles_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickshapes_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quicktemplates2.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickwidgets.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_quickwidgets_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_remoteobjects.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_remoteobjects_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_repparser.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_repparser_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_script.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_script_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_scripttools.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_scripttools_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_scxml.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_scxml_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_sensors.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_sensors_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_serialbus.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_serialbus_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_serialport.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_serialport_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_sql.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_sql_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_svg.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_svg_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_testlib.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_testlib_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_texttospeech.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_texttospeech_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_theme_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_uiplugin.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_uitools.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_uitools_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_virtualkeyboard.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_virtualkeyboard_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_vulkan_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_webchannel.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_webchannel_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_websockets.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_websockets_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_widgets.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_widgets_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_winextras.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_winextras_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_xml.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_xml_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\qt_functions.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\qt_config.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\win32-g++\qmake.conf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\spec_post.prf ..\.qmake.stash C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\exclusive_builds.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\toolchain.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\default_pre.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\win32\default_pre.prf ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\CameraTest.pri ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\ChannelData.pri ..\..\Container_Multiple_Channels_20200522\Main\DataBase\DataBase.pri ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\ErrCode.pri ..\..\Container_Multiple_Channels_20200522\Main\Log\Log.pri ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\MainWindow.pri ..\..\Container_Multiple_Channels_20200522\Main\Parameter\Parameter.pri ..\..\Container_Multiple_Channels_20200522\Main\Processing\Processing.pri ..\..\Container_Multiple_Channels_20200522\Main\Setting\Setting.pri ..\..\Container_Multiple_Channels_20200522\Main\About\About.pri ..\..\Container_Multiple_Channels_20200522\Main\DataProcessing\DataProcessing.pri C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\resolve_config.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\exclusive_builds_post.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\default_post.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\build_pass.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\resources.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\qtquickcompiler.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\precompile_header.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\warn_on.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\qt.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\moc.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\win32\opengl.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\uic.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\qmake_use.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\file_copies.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\win32\windows.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\testcase_targets.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\exceptions.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\yacc.prf C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\lex.prf ..\..\Container_Multiple_Channels_20200522\Main\Main.pro ..\..\Container_Multiple_Channels_20200522\Main\ico.qrc C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Widgets.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Gui.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Sql.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5SerialPort.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Concurrent.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Network.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\Qt5Core.prl C:\Qt\Qt5.12.9\5.12.9\mingw73_64\lib\qtmain.prl zh_hans.ts zh_hans.ts ..\..\Container_Multiple_Channels_20200522\Main\ico.qrc    C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\data\dummy.cpp \ ..\..\Container_Multiple_Channels_20200522\Main\crashstack.h ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.h ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_test_form.h ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\channel_data_form.h ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\equipment_state_from.h ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\imagedialog.h ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\simulationdialog.h ..\..\Container_Multiple_Channels_20200522\Main\DataBase\database_form.h ..\..\Container_Multiple_Channels_20200522\Main\DataBase\filterdialog.h ..\..\Container_Multiple_Channels_20200522\Main\DataBase\image_dialog.h ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.h ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\storagedialog.h ..\..\Container_Multiple_Channels_20200522\Main\Log\data_log_form.h ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\alarmform.h ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\errorform.h ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\mainwindow.h ..\..\Container_Multiple_Channels_20200522\Main\Parameter\LocalPar.h ..\..\Container_Multiple_Channels_20200522\Main\Parameter\channelparameter.h ..\..\Container_Multiple_Channels_20200522\Main\Parameter\loadparameter.h ..\..\Container_Multiple_Channels_20200522\Main\Parameter\parameter.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\INTERFACE\ICaptureImages.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\IMiddleware.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\databaseinsertinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\databasereadinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\datainterchangeinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\infraredlogicinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\licenseplateinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\recognizerinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\resultsanalysisinterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\interface\touploaddatainterface.h ..\..\Container_Multiple_Channels_20200522\Main\Processing\loadinglibaray.h ..\..\Container_Multiple_Channels_20200522\Main\Setting\channel_setting_form.h ..\..\Container_Multiple_Channels_20200522\Main\Setting\main_dialog.h ..\..\Container_Multiple_Channels_20200522\Main\Setting\setting_form.h ..\..\Container_Multiple_Channels_20200522\Main\Setting\system_setting_form.h ..\..\Container_Multiple_Channels_20200522\Main\About\aboutdialog.h ..\..\Container_Multiple_Channels_20200522\Main\DataProcessing\dataprocessing.h  ..\..\Container_Multiple_Channels_20200522\Main\crashstack.cpp ..\..\Container_Multiple_Channels_20200522\Main\main.cpp ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_test_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\channel_data_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\equipment_state_from.cpp ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\imagedialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\simulationdialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\DataBase\database_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\DataBase\filterdialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\DataBase\image_dialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.cpp ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\storagedialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\Log\data_log_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\alarmform.cpp ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\errorform.cpp ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\mainwindow.cpp ..\..\Container_Multiple_Channels_20200522\Main\Parameter\LocalPar.cpp ..\..\Container_Multiple_Channels_20200522\Main\Parameter\loadparameter.cpp ..\..\Container_Multiple_Channels_20200522\Main\Parameter\parameter.cpp ..\..\Container_Multiple_Channels_20200522\Main\Processing\loadinglibaray.cpp ..\..\Container_Multiple_Channels_20200522\Main\Setting\channel_setting_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\Setting\main_dialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\Setting\setting_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\Setting\system_setting_form.cpp ..\..\Container_Multiple_Channels_20200522\Main\About\aboutdialog.cpp ..\..\Container_Multiple_Channels_20200522\Main\DataProcessing\dataprocessing.cpp ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.ui ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_test_form.ui ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\channel_data_form.ui ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\equipment_state_from.ui ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\imagedialog.ui ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\simulationdialog.ui ..\..\Container_Multiple_Channels_20200522\Main\DataBase\database_form.ui ..\..\Container_Multiple_Channels_20200522\Main\DataBase\filterdialog.ui ..\..\Container_Multiple_Channels_20200522\Main\DataBase\image_dialog.ui ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.ui ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\storagedialog.ui ..\..\Container_Multiple_Channels_20200522\Main\Log\data_log_form.ui ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\alarmform.ui ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\errorform.ui ..\..\Container_Multiple_Channels_20200522\Main\MainWindow\mainwindow.ui ..\..\Container_Multiple_Channels_20200522\Main\Setting\channel_setting_form.ui ..\..\Container_Multiple_Channels_20200522\Main\Setting\main_dialog.ui ..\..\Container_Multiple_Channels_20200522\Main\Setting\setting_form.ui ..\..\Container_Multiple_Channels_20200522\Main\Setting\system_setting_form.ui ..\..\Container_Multiple_Channels_20200522\Main\About\aboutdialog.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) tmp\obj\main.o tmp\obj\camera_list_form.o tmp\obj\camera_test_form.o tmp\obj\channel_data_form.o tmp\obj\equipment_state_from.o tmp\obj\imagedialog.o tmp\obj\simulationdialog.o tmp\obj\database_form.o tmp\obj\filterdialog.o tmp\obj\image_dialog.o tmp\obj\errcodeform.o tmp\obj\data_log_form.o tmp\obj\alarmform.o tmp\obj\errorform.o tmp\obj\mainwindow.o tmp\obj\LocalPar.o tmp\obj\loadparameter.o tmp\obj\parameter.o tmp\obj\loadinglibaray.o tmp\obj\channel_setting_form.o tmp\obj\main_dialog.o tmp\obj\setting_form.o tmp\obj\system_setting_form.o tmp\obj\aboutdialog.o tmp\obj\dataprocessing.o tmp\obj\qrc_ico.o tmp\obj\moc_camera_list_form.o tmp\obj\moc_camera_test_form.o tmp\obj\moc_channel_data_form.o tmp\obj\moc_equipment_state_from.o tmp\obj\moc_imagedialog.o tmp\obj\moc_simulationdialog.o tmp\obj\moc_database_form.o tmp\obj\moc_filterdialog.o tmp\obj\moc_image_dialog.o tmp\obj\moc_errcodeform.o tmp\obj\moc_data_log_form.o tmp\obj\moc_alarmform.o tmp\obj\moc_errorform.o tmp\obj\moc_mainwindow.o tmp\obj\moc_loadparameter.o tmp\obj\moc_ICaptureImages.o tmp\obj\moc_IMiddleware.o tmp\obj\moc_databaseinsertinterface.o tmp\obj\moc_databasereadinterface.o tmp\obj\moc_datainterchangeinterface.o tmp\obj\moc_infraredlogicinterface.o tmp\obj\moc_licenseplateinterface.o tmp\obj\moc_recognizerinterface.o tmp\obj\moc_resultsanalysisinterface.o tmp\obj\moc_touploaddatainterface.o tmp\obj\moc_loadinglibaray.o tmp\obj\moc_channel_setting_form.o tmp\obj\moc_main_dialog.o tmp\obj\moc_setting_form.o tmp\obj\moc_system_setting_form.o tmp\obj\moc_aboutdialog.o tmp\obj\moc_dataprocessing.o
+	-$(DEL_FILE) tmp\obj\crashstack.o tmp\obj\main.o tmp\obj\camera_list_form.o tmp\obj\camera_test_form.o tmp\obj\channel_data_form.o tmp\obj\equipment_state_from.o tmp\obj\imagedialog.o tmp\obj\simulationdialog.o tmp\obj\database_form.o tmp\obj\filterdialog.o tmp\obj\image_dialog.o tmp\obj\errcodeform.o tmp\obj\storagedialog.o tmp\obj\data_log_form.o tmp\obj\alarmform.o tmp\obj\errorform.o tmp\obj\mainwindow.o tmp\obj\LocalPar.o tmp\obj\loadparameter.o tmp\obj\parameter.o tmp\obj\loadinglibaray.o tmp\obj\channel_setting_form.o tmp\obj\main_dialog.o tmp\obj\setting_form.o tmp\obj\system_setting_form.o tmp\obj\aboutdialog.o tmp\obj\dataprocessing.o tmp\obj\qrc_ico.o tmp\obj\moc_camera_list_form.o tmp\obj\moc_camera_test_form.o tmp\obj\moc_channel_data_form.o tmp\obj\moc_equipment_state_from.o tmp\obj\moc_imagedialog.o tmp\obj\moc_simulationdialog.o tmp\obj\moc_database_form.o tmp\obj\moc_filterdialog.o tmp\obj\moc_image_dialog.o tmp\obj\moc_errcodeform.o tmp\obj\moc_storagedialog.o tmp\obj\moc_data_log_form.o tmp\obj\moc_alarmform.o tmp\obj\moc_errorform.o tmp\obj\moc_mainwindow.o tmp\obj\moc_loadparameter.o tmp\obj\moc_ICaptureImages.o tmp\obj\moc_IMiddleware.o tmp\obj\moc_databaseinsertinterface.o tmp\obj\moc_databasereadinterface.o tmp\obj\moc_datainterchangeinterface.o tmp\obj\moc_infraredlogicinterface.o tmp\obj\moc_licenseplateinterface.o tmp\obj\moc_recognizerinterface.o tmp\obj\moc_resultsanalysisinterface.o tmp\obj\moc_touploaddatainterface.o tmp\obj\moc_loadinglibaray.o tmp\obj\moc_channel_setting_form.o tmp\obj\moc_main_dialog.o tmp\obj\moc_setting_form.o tmp\obj\moc_system_setting_form.o tmp\obj\moc_aboutdialog.o tmp\obj\moc_dataprocessing.o
 	-$(DEL_FILE) tmp\obj\res_res.o
 
 distclean: clean 
@@ -297,9 +308,9 @@ compiler_moc_predefs_clean:
 tmp/moc/moc_predefs.h: C:/Qt/Qt5.12.9/5.12.9/mingw73_64/mkspecs/features/data/dummy.cpp
 	g++ -fno-keep-inline-dllexport -O2 -std=gnu++11 -Wall -W -Wextra -dM -E -o tmp\moc\moc_predefs.h C:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\features\data\dummy.cpp
 
-compiler_moc_header_make_all: tmp/moc/moc_camera_list_form.cpp tmp/moc/moc_camera_test_form.cpp tmp/moc/moc_channel_data_form.cpp tmp/moc/moc_equipment_state_from.cpp tmp/moc/moc_imagedialog.cpp tmp/moc/moc_simulationdialog.cpp tmp/moc/moc_database_form.cpp tmp/moc/moc_filterdialog.cpp tmp/moc/moc_image_dialog.cpp tmp/moc/moc_errcodeform.cpp tmp/moc/moc_data_log_form.cpp tmp/moc/moc_alarmform.cpp tmp/moc/moc_errorform.cpp tmp/moc/moc_mainwindow.cpp tmp/moc/moc_loadparameter.cpp tmp/moc/moc_ICaptureImages.cpp tmp/moc/moc_IMiddleware.cpp tmp/moc/moc_databaseinsertinterface.cpp tmp/moc/moc_databasereadinterface.cpp tmp/moc/moc_datainterchangeinterface.cpp tmp/moc/moc_infraredlogicinterface.cpp tmp/moc/moc_licenseplateinterface.cpp tmp/moc/moc_recognizerinterface.cpp tmp/moc/moc_resultsanalysisinterface.cpp tmp/moc/moc_touploaddatainterface.cpp tmp/moc/moc_loadinglibaray.cpp tmp/moc/moc_channel_setting_form.cpp tmp/moc/moc_main_dialog.cpp tmp/moc/moc_setting_form.cpp tmp/moc/moc_system_setting_form.cpp tmp/moc/moc_aboutdialog.cpp tmp/moc/moc_dataprocessing.cpp
+compiler_moc_header_make_all: tmp/moc/moc_camera_list_form.cpp tmp/moc/moc_camera_test_form.cpp tmp/moc/moc_channel_data_form.cpp tmp/moc/moc_equipment_state_from.cpp tmp/moc/moc_imagedialog.cpp tmp/moc/moc_simulationdialog.cpp tmp/moc/moc_database_form.cpp tmp/moc/moc_filterdialog.cpp tmp/moc/moc_image_dialog.cpp tmp/moc/moc_errcodeform.cpp tmp/moc/moc_storagedialog.cpp tmp/moc/moc_data_log_form.cpp tmp/moc/moc_alarmform.cpp tmp/moc/moc_errorform.cpp tmp/moc/moc_mainwindow.cpp tmp/moc/moc_loadparameter.cpp tmp/moc/moc_ICaptureImages.cpp tmp/moc/moc_IMiddleware.cpp tmp/moc/moc_databaseinsertinterface.cpp tmp/moc/moc_databasereadinterface.cpp tmp/moc/moc_datainterchangeinterface.cpp tmp/moc/moc_infraredlogicinterface.cpp tmp/moc/moc_licenseplateinterface.cpp tmp/moc/moc_recognizerinterface.cpp tmp/moc/moc_resultsanalysisinterface.cpp tmp/moc/moc_touploaddatainterface.cpp tmp/moc/moc_loadinglibaray.cpp tmp/moc/moc_channel_setting_form.cpp tmp/moc/moc_main_dialog.cpp tmp/moc/moc_setting_form.cpp tmp/moc/moc_system_setting_form.cpp tmp/moc/moc_aboutdialog.cpp tmp/moc/moc_dataprocessing.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) tmp\moc\moc_camera_list_form.cpp tmp\moc\moc_camera_test_form.cpp tmp\moc\moc_channel_data_form.cpp tmp\moc\moc_equipment_state_from.cpp tmp\moc\moc_imagedialog.cpp tmp\moc\moc_simulationdialog.cpp tmp\moc\moc_database_form.cpp tmp\moc\moc_filterdialog.cpp tmp\moc\moc_image_dialog.cpp tmp\moc\moc_errcodeform.cpp tmp\moc\moc_data_log_form.cpp tmp\moc\moc_alarmform.cpp tmp\moc\moc_errorform.cpp tmp\moc\moc_mainwindow.cpp tmp\moc\moc_loadparameter.cpp tmp\moc\moc_ICaptureImages.cpp tmp\moc\moc_IMiddleware.cpp tmp\moc\moc_databaseinsertinterface.cpp tmp\moc\moc_databasereadinterface.cpp tmp\moc\moc_datainterchangeinterface.cpp tmp\moc\moc_infraredlogicinterface.cpp tmp\moc\moc_licenseplateinterface.cpp tmp\moc\moc_recognizerinterface.cpp tmp\moc\moc_resultsanalysisinterface.cpp tmp\moc\moc_touploaddatainterface.cpp tmp\moc\moc_loadinglibaray.cpp tmp\moc\moc_channel_setting_form.cpp tmp\moc\moc_main_dialog.cpp tmp\moc\moc_setting_form.cpp tmp\moc\moc_system_setting_form.cpp tmp\moc\moc_aboutdialog.cpp tmp\moc\moc_dataprocessing.cpp
+	-$(DEL_FILE) tmp\moc\moc_camera_list_form.cpp tmp\moc\moc_camera_test_form.cpp tmp\moc\moc_channel_data_form.cpp tmp\moc\moc_equipment_state_from.cpp tmp\moc\moc_imagedialog.cpp tmp\moc\moc_simulationdialog.cpp tmp\moc\moc_database_form.cpp tmp\moc\moc_filterdialog.cpp tmp\moc\moc_image_dialog.cpp tmp\moc\moc_errcodeform.cpp tmp\moc\moc_storagedialog.cpp tmp\moc\moc_data_log_form.cpp tmp\moc\moc_alarmform.cpp tmp\moc\moc_errorform.cpp tmp\moc\moc_mainwindow.cpp tmp\moc\moc_loadparameter.cpp tmp\moc\moc_ICaptureImages.cpp tmp\moc\moc_IMiddleware.cpp tmp\moc\moc_databaseinsertinterface.cpp tmp\moc\moc_databasereadinterface.cpp tmp\moc\moc_datainterchangeinterface.cpp tmp\moc\moc_infraredlogicinterface.cpp tmp\moc\moc_licenseplateinterface.cpp tmp\moc\moc_recognizerinterface.cpp tmp\moc\moc_resultsanalysisinterface.cpp tmp\moc\moc_touploaddatainterface.cpp tmp\moc\moc_loadinglibaray.cpp tmp\moc\moc_channel_setting_form.cpp tmp\moc\moc_main_dialog.cpp tmp\moc\moc_setting_form.cpp tmp\moc\moc_system_setting_form.cpp tmp\moc\moc_aboutdialog.cpp tmp\moc\moc_dataprocessing.cpp
 tmp/moc/moc_camera_list_form.cpp: ../../Container_Multiple_Channels_20200522/Main/CameraTest/camera_list_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qwidget.h \
@@ -1143,6 +1154,9 @@ tmp/moc/moc_simulationdialog.cpp: ../../Container_Multiple_Channels_20200522/Mai
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDateTime \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdatetime.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QCloseEvent \
+		../../Container_Multiple_Channels_20200522/Main/Parameter/parameter.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString \
 		tmp/moc/moc_predefs.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/bin/moc.exe
 	C:\Qt\Qt5.12.9\5.12.9\mingw73_64\bin\moc.exe $(DEFINES) --include C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release/Main/tmp/moc/moc_predefs.h -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/mkspecs/win32-g++ -IC:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/Container_Multiple_Channels_20200522/Main -IC:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/Container_Multiple_Channels_20200522/LogController -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtANGLE -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtSql -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtSerialPort -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtNetwork -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore -I. -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.12.9/Tools/mingw730_64/x86_64-w64-mingw32/include ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\simulationdialog.h -o tmp\moc\moc_simulationdialog.cpp
@@ -1765,6 +1779,115 @@ tmp/moc/moc_errcodeform.cpp: ../../Container_Multiple_Channels_20200522/Main/Err
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/bin/moc.exe
 	C:\Qt\Qt5.12.9\5.12.9\mingw73_64\bin\moc.exe $(DEFINES) --include C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release/Main/tmp/moc/moc_predefs.h -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/mkspecs/win32-g++ -IC:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/Container_Multiple_Channels_20200522/Main -IC:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/Container_Multiple_Channels_20200522/LogController -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtANGLE -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtSql -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtSerialPort -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtNetwork -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore -I. -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.12.9/Tools/mingw730_64/x86_64-w64-mingw32/include ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.h -o tmp\moc\moc_errcodeform.cpp
 
+tmp/moc/moc_storagedialog.cpp: ../../Container_Multiple_Channels_20200522/Main/ErrCode/storagedialog.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QDialog \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qdialog.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qtwidgetsglobal.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtguiglobal.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qglobal.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qconfig-bootstrapped.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qconfig.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtcore-config.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsystemdetection.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qprocessordetection.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcompilerdetection.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtypeinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsysinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlogging.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qflags.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasicatomic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic_bootstrap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qgenericatomic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic_cxx11.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic_msvc.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qglobalstatic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmutex.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnumeric.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qversiontagging.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtgui-config.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qtwidgets-config.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qwidget.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qwindowdefs.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnamespace.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qwindowdefs_win.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstring.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qchar.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrefcount.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qarraydata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringliteral.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringalgorithms.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringview.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringbuilder.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qalgorithms.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiterator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhashfunctions.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpair.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearraylist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringlist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qregexp.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringmatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreevent.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qscopedpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmetatype.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvarlengtharray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontainerfwd.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmargins.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpaintdevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrect.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsize.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpoint.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpalette.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qcolor.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qrgb.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qrgba64.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qbrush.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvector.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qmatrix.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpolygon.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qregion.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdatastream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiodevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qline.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtransform.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpainterpath.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qimage.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpixelformat.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpixmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qshareddata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qfont.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qfontmetrics.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qfontinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qcursor.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qkeysequence.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qevent.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvariant.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlocale.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qset.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qurl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qurlquery.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfile.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfiledevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qvector2d.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtouchdevice.h \
+		tmp/moc/moc_predefs.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/bin/moc.exe
+	C:\Qt\Qt5.12.9\5.12.9\mingw73_64\bin\moc.exe $(DEFINES) --include C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release/Main/tmp/moc/moc_predefs.h -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/mkspecs/win32-g++ -IC:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/Container_Multiple_Channels_20200522/Main -IC:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/Container_Multiple_Channels_20200522/LogController -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtANGLE -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtSql -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtSerialPort -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtNetwork -IC:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore -I. -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32 -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.12.9/Tools/mingw730_64/lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.12.9/Tools/mingw730_64/x86_64-w64-mingw32/include ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\storagedialog.h -o tmp\moc\moc_storagedialog.cpp
+
 tmp/moc/moc_data_log_form.cpp: ../../Container_Multiple_Channels_20200522/Main/Log/data_log_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qwidget.h \
@@ -2248,6 +2371,7 @@ tmp/moc/moc_mainwindow.cpp: ../../Container_Multiple_Channels_20200522/Main/Main
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QMenu \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qmenu.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QCloseEvent \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QResizeEvent \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QCoreApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreapplication.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeventloop.h \
@@ -2400,7 +2524,6 @@ tmp/moc/moc_mainwindow.cpp: ../../Container_Multiple_Channels_20200522/Main/Main
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QMouseEvent \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QPaintEvent \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QResizeEvent \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QMutexLocker \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QMutex \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QTimer \
@@ -2483,6 +2606,8 @@ tmp/moc/moc_mainwindow.cpp: ../../Container_Multiple_Channels_20200522/Main/Main
 		../../Container_Multiple_Channels_20200522/Main/Processing/interface/touploaddatainterface.h \
 		../../Container_Multiple_Channels_20200522/Main/Processing/interface/licenseplateinterface.h \
 		../../Container_Multiple_Channels_20200522/Main/DataProcessing/dataprocessing.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QStandardPaths \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QReadWriteLock \
 		../../Container_Multiple_Channels_20200522/Main/MainWindow/alarmform.h \
 		../../Container_Multiple_Channels_20200522/Main/MainWindow/errorform.h \
 		tmp/moc/moc_predefs.h \
@@ -3962,6 +4087,174 @@ tmp/moc/moc_dataprocessing.cpp: ../../Container_Multiple_Channels_20200522/Main/
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvarlengtharray.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontainerfwd.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QJsonObject \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qjsonobject.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qjsonvalue.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QJsonDocument \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qjsondocument.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDateTime \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdatetime.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qshareddata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDebug \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiodevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlocale.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvariant.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvector.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpoint.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qset.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QStandardPaths \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstandardpaths.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDir \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdir.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfileinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfile.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfiledevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QReadWriteLock \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qreadwritelock.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/QtConcurrent \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/QtConcurrentDepends \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QtCore \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QtCoreDepends \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstractanimation.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstracteventdispatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstractnativeeventfilter.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstractproxymodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstractstate.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstracttransition.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qanimationgroup.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qarraydataops.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qarraydatapointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbitarray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbuffer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearraymatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcache.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcborarray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcborvalue.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcborcommon.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qregularexpression.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qurl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qurlquery.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/quuid.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcbormap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcborstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfloat16.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcollator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcommandlineoption.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcommandlineparser.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcryptographichash.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdatastream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdeadlinetimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qelapsedtimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdiriterator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeasingcurve.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qendian.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeventtransition.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qexception.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfactoryinterface.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfileselector.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QStringList \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfilesystemwatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfinalstate.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfuture.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfutureinterface.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrunnable.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qresultstore.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfuturesynchronizer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfuturewatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhistorystate.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qidentityproxymodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qisenum.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qjsonarray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlibrary.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlibraryinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qversionnumber.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qline.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlinkedlist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlockfile.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qloggingcategory.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmargins.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmath.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmessageauthenticationcode.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmetaobject.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmimedata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmimedatabase.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmimetype.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectcleanuphandler.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qoperatingsystemversion.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qparallelanimationgroup.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpauseanimation.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qplugin.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpluginloader.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qprocess.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpropertyanimation.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvariantanimation.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qqueue.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrandom.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrect.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsize.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qresource.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsavefile.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qscopedvaluerollback.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qscopeguard.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsemaphore.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsequentialanimationgroup.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsettings.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedmemory.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsignalmapper.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsignaltransition.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsocketnotifier.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsortfilterproxymodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstack.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstate.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstatemachine.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstorageinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringlistmodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsystemsemaphore.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtemporarydir.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtemporaryfile.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextboundaryfinder.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextcodec.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qthread.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qthreadpool.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qthreadstorage.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimeline.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimezone.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtranslator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtypetraits.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qwaitcondition.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qwineventnotifier.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qxmlstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtcoreversion.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentcompilertest.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrent_global.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentexception.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentfilter.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentfilterkernel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentiteratekernel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentmedian.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentthreadengine.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentmapkernel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentreducekernel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentfunctionwrappers.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentrun.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentrunbase.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentstoredfunctioncall.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentversion.h \
 		../../Container_Multiple_Channels_20200522/Main/Parameter/parameter.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString \
 		tmp/moc/moc_predefs.h \
@@ -3972,9 +4265,9 @@ compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: tmp/ui/ui_camera_list_form.h tmp/ui/ui_camera_test_form.h tmp/ui/ui_channel_data_form.h tmp/ui/ui_equipment_state_from.h tmp/ui/ui_imagedialog.h tmp/ui/ui_simulationdialog.h tmp/ui/ui_database_form.h tmp/ui/ui_filterdialog.h tmp/ui/ui_image_dialog.h tmp/ui/ui_errcodeform.h tmp/ui/ui_data_log_form.h tmp/ui/ui_alarmform.h tmp/ui/ui_errorform.h tmp/ui/ui_mainwindow.h tmp/ui/ui_channel_setting_form.h tmp/ui/ui_main_dialog.h tmp/ui/ui_setting_form.h tmp/ui/ui_system_setting_form.h tmp/ui/ui_aboutdialog.h
+compiler_uic_make_all: tmp/ui/ui_camera_list_form.h tmp/ui/ui_camera_test_form.h tmp/ui/ui_channel_data_form.h tmp/ui/ui_equipment_state_from.h tmp/ui/ui_imagedialog.h tmp/ui/ui_simulationdialog.h tmp/ui/ui_database_form.h tmp/ui/ui_filterdialog.h tmp/ui/ui_image_dialog.h tmp/ui/ui_errcodeform.h tmp/ui/ui_storagedialog.h tmp/ui/ui_data_log_form.h tmp/ui/ui_alarmform.h tmp/ui/ui_errorform.h tmp/ui/ui_mainwindow.h tmp/ui/ui_channel_setting_form.h tmp/ui/ui_main_dialog.h tmp/ui/ui_setting_form.h tmp/ui/ui_system_setting_form.h tmp/ui/ui_aboutdialog.h
 compiler_uic_clean:
-	-$(DEL_FILE) tmp\ui\ui_camera_list_form.h tmp\ui\ui_camera_test_form.h tmp\ui\ui_channel_data_form.h tmp\ui\ui_equipment_state_from.h tmp\ui\ui_imagedialog.h tmp\ui\ui_simulationdialog.h tmp\ui\ui_database_form.h tmp\ui\ui_filterdialog.h tmp\ui\ui_image_dialog.h tmp\ui\ui_errcodeform.h tmp\ui\ui_data_log_form.h tmp\ui\ui_alarmform.h tmp\ui\ui_errorform.h tmp\ui\ui_mainwindow.h tmp\ui\ui_channel_setting_form.h tmp\ui\ui_main_dialog.h tmp\ui\ui_setting_form.h tmp\ui\ui_system_setting_form.h tmp\ui\ui_aboutdialog.h
+	-$(DEL_FILE) tmp\ui\ui_camera_list_form.h tmp\ui\ui_camera_test_form.h tmp\ui\ui_channel_data_form.h tmp\ui\ui_equipment_state_from.h tmp\ui\ui_imagedialog.h tmp\ui\ui_simulationdialog.h tmp\ui\ui_database_form.h tmp\ui\ui_filterdialog.h tmp\ui\ui_image_dialog.h tmp\ui\ui_errcodeform.h tmp\ui\ui_storagedialog.h tmp\ui\ui_data_log_form.h tmp\ui\ui_alarmform.h tmp\ui\ui_errorform.h tmp\ui\ui_mainwindow.h tmp\ui\ui_channel_setting_form.h tmp\ui\ui_main_dialog.h tmp\ui\ui_setting_form.h tmp\ui\ui_system_setting_form.h tmp\ui\ui_aboutdialog.h
 tmp/ui/ui_camera_list_form.h: ../../Container_Multiple_Channels_20200522/Main/CameraTest/camera_list_form.ui \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/bin/uic.exe
 	C:\Qt\Qt5.12.9\5.12.9\mingw73_64\bin\uic.exe ..\..\Container_Multiple_Channels_20200522\Main\CameraTest\camera_list_form.ui -o tmp\ui\ui_camera_list_form.h
@@ -4014,6 +4307,10 @@ tmp/ui/ui_image_dialog.h: ../../Container_Multiple_Channels_20200522/Main/DataBa
 tmp/ui/ui_errcodeform.h: ../../Container_Multiple_Channels_20200522/Main/ErrCode/errcodeform.ui \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/bin/uic.exe
 	C:\Qt\Qt5.12.9\5.12.9\mingw73_64\bin\uic.exe ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.ui -o tmp\ui\ui_errcodeform.h
+
+tmp/ui/ui_storagedialog.h: ../../Container_Multiple_Channels_20200522/Main/ErrCode/storagedialog.ui \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/bin/uic.exe
+	C:\Qt\Qt5.12.9\5.12.9\mingw73_64\bin\uic.exe ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\storagedialog.ui -o tmp\ui\ui_storagedialog.h
 
 tmp/ui/ui_data_log_form.h: ../../Container_Multiple_Channels_20200522/Main/Log/data_log_form.ui \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/bin/uic.exe
@@ -4062,6 +4359,73 @@ compiler_clean: compiler_rcc_clean compiler_moc_predefs_clean compiler_moc_heade
 
 
 ####### Compile
+
+tmp/obj/crashstack.o: ../../Container_Multiple_Channels_20200522/Main/crashstack.cpp ../../Container_Multiple_Channels_20200522/Main/crashstack.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QtDebug \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qalgorithms.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qglobal.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qconfig-bootstrapped.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qconfig.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtcore-config.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsystemdetection.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qprocessordetection.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcompilerdetection.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtypeinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsysinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlogging.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qflags.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasicatomic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic_bootstrap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qgenericatomic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic_cxx11.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic_msvc.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qglobalstatic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmutex.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnumeric.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qversiontagging.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qchar.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiterator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrefcount.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qarraydata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhashfunctions.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstring.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnamespace.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringliteral.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringalgorithms.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringview.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringbuilder.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpair.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearraylist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringlist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qregexp.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringmatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiodevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreevent.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qscopedpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmetatype.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvarlengtharray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontainerfwd.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlocale.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvariant.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qshareddata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvector.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpoint.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qset.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer_impl.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\crashstack.o ..\..\Container_Multiple_Channels_20200522\Main\crashstack.cpp
 
 tmp/obj/main.o: ../../Container_Multiple_Channels_20200522/Main/main.cpp C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
@@ -4228,6 +4592,7 @@ tmp/obj/main.o: ../../Container_Multiple_Channels_20200522/Main/main.cpp C:/Qt/Q
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QMenu \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qmenu.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QCloseEvent \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QResizeEvent \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QProgressBar \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qprogressbar.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDateTime \
@@ -4367,7 +4732,6 @@ tmp/obj/main.o: ../../Container_Multiple_Channels_20200522/Main/main.cpp C:/Qt/Q
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QMouseEvent \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QPaintEvent \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QResizeEvent \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QMutexLocker \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QMutex \
 		../../Container_Multiple_Channels_20200522/Main/Parameter/channelparameter.h \
@@ -4446,8 +4810,11 @@ tmp/obj/main.o: ../../Container_Multiple_Channels_20200522/Main/main.cpp C:/Qt/Q
 		../../Container_Multiple_Channels_20200522/Main/Processing/interface/touploaddatainterface.h \
 		../../Container_Multiple_Channels_20200522/Main/Processing/interface/licenseplateinterface.h \
 		../../Container_Multiple_Channels_20200522/Main/DataProcessing/dataprocessing.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QStandardPaths \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QReadWriteLock \
 		../../Container_Multiple_Channels_20200522/Main/MainWindow/alarmform.h \
-		../../Container_Multiple_Channels_20200522/Main/MainWindow/errorform.h
+		../../Container_Multiple_Channels_20200522/Main/MainWindow/errorform.h \
+		../../Container_Multiple_Channels_20200522/Main/crashstack.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\main.o ..\..\Container_Multiple_Channels_20200522\Main\main.cpp
 
 tmp/obj/camera_list_form.o: ../../Container_Multiple_Channels_20200522/Main/CameraTest/camera_list_form.cpp ../../Container_Multiple_Channels_20200522/Main/CameraTest/camera_list_form.h \
@@ -4568,7 +4935,7 @@ tmp/obj/camera_list_form.o: ../../Container_Multiple_Channels_20200522/Main/Came
 		../../Container_Multiple_Channels_20200522/Main/Parameter/LocalPar.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QStringList \
-		tmp/ui/ui_camera_list_form.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_camera_list_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qicon.h \
@@ -4713,7 +5080,7 @@ tmp/obj/camera_test_form.o: ../../Container_Multiple_Channels_20200522/Main/Came
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QSharedPointer \
-		tmp/ui/ui_camera_test_form.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_camera_test_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
@@ -5000,7 +5367,7 @@ tmp/obj/channel_data_form.o: ../../Container_Multiple_Channels_20200522/Main/Cha
 		../../Container_Multiple_Channels_20200522/Main/Parameter/LocalPar.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString \
 		../../Container_Multiple_Channels_20200522/Main/Parameter/parameter.h \
-		tmp/ui/ui_channel_data_form.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_channel_data_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
@@ -5037,6 +5404,7 @@ tmp/obj/channel_data_form.o: ../../Container_Multiple_Channels_20200522/Main/Cha
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QDialog \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qdialog.h \
 		../../Container_Multiple_Channels_20200522/Main/ChannelData/simulationdialog.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QCloseEvent \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QPointer \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\channel_data_form.o ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\channel_data_form.cpp
@@ -5171,7 +5539,7 @@ tmp/obj/equipment_state_from.o: ../../Container_Multiple_Channels_20200522/Main/
 		../../Container_Multiple_Channels_20200522/Main/Parameter/LocalPar.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QStringList \
-		tmp/ui/ui_equipment_state_from.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_equipment_state_from.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
@@ -5297,7 +5665,7 @@ tmp/obj/imagedialog.o: ../../Container_Multiple_Channels_20200522/Main/ChannelDa
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtouchdevice.h \
-		tmp/ui/ui_imagedialog.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_imagedialog.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
@@ -5449,7 +5817,10 @@ tmp/obj/simulationdialog.o: ../../Container_Multiple_Channels_20200522/Main/Chan
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDateTime \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdatetime.h \
-		tmp/ui/ui_simulationdialog.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QCloseEvent \
+		../../Container_Multiple_Channels_20200522/Main/Parameter/parameter.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_simulationdialog.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qicon.h \
@@ -5494,6 +5865,8 @@ tmp/obj/simulationdialog.o: ../../Container_Multiple_Channels_20200522/Main/Chan
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QPushButton \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qpushbutton.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QSplitter \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qsplitter.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QToolButton \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qtoolbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\simulationdialog.o ..\..\Container_Multiple_Channels_20200522\Main\ChannelData\simulationdialog.cpp
@@ -5778,7 +6151,7 @@ tmp/obj/database_form.o: ../../Container_Multiple_Channels_20200522/Main/DataBas
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qpushbutton.h \
 		../../Container_Multiple_Channels_20200522/Main/Parameter/parameter.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString \
-		tmp/ui/ui_database_form.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_database_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
@@ -5928,7 +6301,7 @@ tmp/obj/filterdialog.o: ../../Container_Multiple_Channels_20200522/Main/DataBase
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qicon.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QPushButton \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qpushbutton.h \
-		tmp/ui/ui_filterdialog.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_filterdialog.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
@@ -6086,7 +6459,7 @@ tmp/obj/image_dialog.o: ../../Container_Multiple_Channels_20200522/Main/DataBase
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QPixmap \
-		tmp/ui/ui_image_dialog.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_image_dialog.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
@@ -6211,7 +6584,7 @@ tmp/obj/errcodeform.o: ../../Container_Multiple_Channels_20200522/Main/ErrCode/e
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtouchdevice.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QFile \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QCloseEvent \
-		tmp/ui/ui_errcodeform.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_errcodeform.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
@@ -6251,6 +6624,137 @@ tmp/obj/errcodeform.o: ../../Container_Multiple_Channels_20200522/Main/ErrCode/e
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qtableview.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QtDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\errcodeform.o ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\errcodeform.cpp
+
+tmp/obj/storagedialog.o: ../../Container_Multiple_Channels_20200522/Main/ErrCode/storagedialog.cpp ../../Container_Multiple_Channels_20200522/Main/ErrCode/storagedialog.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QDialog \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qdialog.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qtwidgetsglobal.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtguiglobal.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qglobal.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qconfig-bootstrapped.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qconfig.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtcore-config.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsystemdetection.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qprocessordetection.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcompilerdetection.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtypeinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsysinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlogging.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qflags.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasicatomic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic_bootstrap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qgenericatomic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic_cxx11.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qatomic_msvc.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qglobalstatic.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmutex.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnumeric.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qversiontagging.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtgui-config.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qtwidgets-config.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qwidget.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qwindowdefs.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnamespace.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qwindowdefs_win.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstring.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qchar.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrefcount.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qarraydata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringliteral.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringalgorithms.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringview.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringbuilder.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qalgorithms.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiterator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhashfunctions.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpair.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearraylist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringlist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qregexp.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringmatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreevent.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qscopedpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmetatype.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvarlengtharray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontainerfwd.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmargins.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpaintdevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrect.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsize.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpoint.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpalette.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qcolor.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qrgb.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qrgba64.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qbrush.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvector.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qmatrix.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpolygon.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qregion.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdatastream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiodevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qline.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtransform.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpainterpath.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qimage.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpixelformat.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpixmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qshareddata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qfont.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qfontmetrics.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qfontinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qcursor.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qkeysequence.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qevent.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvariant.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlocale.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qset.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qurl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qurlquery.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfile.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfiledevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qvector2d.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtouchdevice.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_storagedialog.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qicon.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qinputmethod.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QCheckBox \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qcheckbox.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QDialogButtonBox \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qdialogbuttonbox.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QGridLayout \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QLabel \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qlabel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qframe.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\storagedialog.o ..\..\Container_Multiple_Channels_20200522\Main\ErrCode\storagedialog.cpp
 
 tmp/obj/data_log_form.o: ../../Container_Multiple_Channels_20200522/Main/Log/data_log_form.cpp ../../Container_Multiple_Channels_20200522/Main/Log/data_log_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QWidget \
@@ -6378,7 +6882,7 @@ tmp/obj/data_log_form.o: ../../Container_Multiple_Channels_20200522/Main/Log/dat
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qtabbar.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qtabwidget.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qrubberband.h \
-		tmp/ui/ui_data_log_form.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_data_log_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
@@ -6395,6 +6899,19 @@ tmp/obj/data_log_form.o: ../../Container_Multiple_Channels_20200522/Main/Log/dat
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qboxlayout.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QHeaderView \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qheaderview.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QPlainTextEdit \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qplaintextedit.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qtextedit.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtextdocument.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtextoption.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtextcursor.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtextformat.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpen.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qabstracttextdocumentlayout.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtextlayout.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qglyphrun.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qrawfont.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qfontdatabase.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QSplitter \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qsplitter.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QTabWidget \
@@ -6509,7 +7026,7 @@ tmp/obj/alarmform.o: ../../Container_Multiple_Channels_20200522/Main/MainWindow/
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QMessageBox \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qmessagebox.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qdialog.h \
-		tmp/ui/ui_alarmform.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_alarmform.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qicon.h \
@@ -6635,7 +7152,7 @@ tmp/obj/errorform.o: ../../Container_Multiple_Channels_20200522/Main/MainWindow/
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtouchdevice.h \
-		tmp/ui/ui_errorform.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_errorform.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qicon.h \
@@ -6793,6 +7310,7 @@ tmp/obj/mainwindow.o: ../../Container_Multiple_Channels_20200522/Main/MainWindow
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QMenu \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qmenu.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QCloseEvent \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QResizeEvent \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QCoreApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreapplication.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeventloop.h \
@@ -6945,7 +7463,6 @@ tmp/obj/mainwindow.o: ../../Container_Multiple_Channels_20200522/Main/MainWindow
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QWidget \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QMouseEvent \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QPaintEvent \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QResizeEvent \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QMutexLocker \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QMutex \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QTimer \
@@ -7028,9 +7545,11 @@ tmp/obj/mainwindow.o: ../../Container_Multiple_Channels_20200522/Main/MainWindow
 		../../Container_Multiple_Channels_20200522/Main/Processing/interface/touploaddatainterface.h \
 		../../Container_Multiple_Channels_20200522/Main/Processing/interface/licenseplateinterface.h \
 		../../Container_Multiple_Channels_20200522/Main/DataProcessing/dataprocessing.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QStandardPaths \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QReadWriteLock \
 		../../Container_Multiple_Channels_20200522/Main/MainWindow/alarmform.h \
 		../../Container_Multiple_Channels_20200522/Main/MainWindow/errorform.h \
-		tmp/ui/ui_mainwindow.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_mainwindow.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qguiapplication.h \
@@ -7446,7 +7965,7 @@ tmp/obj/channel_setting_form.o: ../../Container_Multiple_Channels_20200522/Main/
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QSharedPointer \
 		../../Container_Multiple_Channels_20200522/Main/Parameter/channelparameter.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QObject \
-		tmp/ui/ui_channel_setting_form.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_channel_setting_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
@@ -7612,7 +8131,7 @@ tmp/obj/main_dialog.o: ../../Container_Multiple_Channels_20200522/Main/Setting/m
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QTimer \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimer.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
-		tmp/ui/ui_main_dialog.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_main_dialog.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qicon.h \
@@ -7816,7 +8335,7 @@ tmp/obj/setting_form.o: ../../Container_Multiple_Channels_20200522/Main/Setting/
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qmessagebox.h \
 		../../Container_Multiple_Channels_20200522/Main/Parameter/parameter.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString \
-		tmp/ui/ui_setting_form.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_setting_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qicon.h \
@@ -7979,7 +8498,7 @@ tmp/obj/system_setting_form.o: ../../Container_Multiple_Channels_20200522/Main/S
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QMessageLogger \
 		../../Container_Multiple_Channels_20200522/Main/Parameter/parameter.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString \
-		tmp/ui/ui_system_setting_form.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_system_setting_form.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
@@ -8155,7 +8674,7 @@ tmp/obj/aboutdialog.o: ../../Container_Multiple_Channels_20200522/Main/About/abo
 		../../Container_Multiple_Channels_20200522/Main/Parameter/LocalPar.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QStringList \
-		tmp/ui/ui_aboutdialog.h \
+		../../Container_Multiple_Channels_20200522/Main/tmp/ui/ui_aboutdialog.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QIcon \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qicon.h \
@@ -8234,6 +8753,174 @@ tmp/obj/dataprocessing.o: ../../Container_Multiple_Channels_20200522/Main/DataPr
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvarlengtharray.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontainerfwd.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QJsonObject \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qjsonobject.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qjsonvalue.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QJsonDocument \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qjsondocument.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDateTime \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdatetime.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qshareddata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDebug \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiodevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlocale.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvariant.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvector.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpoint.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qset.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer_impl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QStandardPaths \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstandardpaths.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDir \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdir.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfileinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfile.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfiledevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QReadWriteLock \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qreadwritelock.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/QtConcurrent \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/QtConcurrentDepends \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QtCore \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QtCoreDepends \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstractanimation.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstracteventdispatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstractitemmodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstractnativeeventfilter.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstractproxymodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstractstate.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qabstracttransition.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qanimationgroup.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qarraydataops.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qarraydatapointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbitarray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbuffer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearraymatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcache.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcborarray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcborvalue.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcborcommon.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qregularexpression.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qurl.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qurlquery.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/quuid.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcbormap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcborstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfloat16.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcollator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcommandlineoption.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcommandlineparser.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcryptographichash.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdatastream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdeadlinetimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qelapsedtimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdiriterator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeasingcurve.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qendian.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeventtransition.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qexception.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfactoryinterface.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfileselector.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QStringList \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfilesystemwatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfinalstate.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfuture.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfutureinterface.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrunnable.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qresultstore.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfuturesynchronizer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfuturewatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhistorystate.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qidentityproxymodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qisenum.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qitemselectionmodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qjsonarray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlibrary.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlibraryinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qversionnumber.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qline.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlinkedlist.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlockfile.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qloggingcategory.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmargins.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmath.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmessageauthenticationcode.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmetaobject.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmimedata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmimedatabase.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmimetype.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectcleanuphandler.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qoperatingsystemversion.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qparallelanimationgroup.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpauseanimation.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qplugin.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpluginloader.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qprocess.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpropertyanimation.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvariantanimation.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qqueue.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrandom.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrect.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsize.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qresource.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsavefile.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qscopedvaluerollback.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qscopeguard.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsemaphore.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsequentialanimationgroup.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsettings.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedmemory.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsignalmapper.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsignaltransition.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsocketnotifier.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsortfilterproxymodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstack.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstate.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstatemachine.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstorageinfo.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringlistmodel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsystemsemaphore.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtemporarydir.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtemporaryfile.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextboundaryfinder.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextcodec.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qthread.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qthreadpool.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qthreadstorage.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimeline.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimezone.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtranslator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtypetraits.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qwaitcondition.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qwineventnotifier.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qxmlstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtcoreversion.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentcompilertest.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrent_global.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentexception.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentfilter.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentfilterkernel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentiteratekernel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentmedian.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentthreadengine.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentmapkernel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentreducekernel.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentfunctionwrappers.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentrun.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentrunbase.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentstoredfunctioncall.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtConcurrent/qtconcurrentversion.h \
 		../../Container_Multiple_Channels_20200522/Main/Parameter/parameter.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\dataprocessing.o ..\..\Container_Multiple_Channels_20200522\Main\DataProcessing\dataprocessing.cpp
@@ -8270,6 +8957,9 @@ tmp/obj/moc_image_dialog.o: tmp/moc/moc_image_dialog.cpp
 
 tmp/obj/moc_errcodeform.o: tmp/moc/moc_errcodeform.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\moc_errcodeform.o tmp\moc\moc_errcodeform.cpp
+
+tmp/obj/moc_storagedialog.o: tmp/moc/moc_storagedialog.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\moc_storagedialog.o tmp\moc\moc_storagedialog.cpp
 
 tmp/obj/moc_data_log_form.o: tmp/moc/moc_data_log_form.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\moc_data_log_form.o tmp\moc\moc_data_log_form.cpp

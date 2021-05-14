@@ -62,6 +62,16 @@ private:
     int channelID;
 
     ///
+    /// \brief picture_w 图片宽
+    ///
+    int picture_w;
+
+    ///
+    /// \brief picture_h 图片高
+    ///
+    int picture_h;
+
+    ///
     /// \brief channelNumber 通道号
     ///
     int channelNumber;
@@ -273,6 +283,12 @@ signals:
     /// 海康相机：多次实时预览,linux出现内存不释放
     ///
     void signal_playStream(quint64 winID,bool play,const QString &signature);
+
+    ///
+    /// \brief signal_waitPlate 箱号结果等待车牌数据
+    /// \param msec
+    ///
+    void signal_waitPlate(int msec);
 
 
     /*****************************

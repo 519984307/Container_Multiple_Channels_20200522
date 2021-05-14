@@ -1,0 +1,153 @@
+﻿  themiddlewarehcnet.cpp
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(296): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(296): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(296): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(298): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(298): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(298): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(299): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(299): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(299): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(300): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(300): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(300): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(301): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(301): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(301): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(302): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(302): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(302): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(303): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(303): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(303): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(304): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(304): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(304): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(305): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(305): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(305): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(306): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(306): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(306): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(307): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(307): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(307): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(308): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(308): error C2144: 语法错误:“float”的前面应有“;”
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(308): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(309): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(309): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(309): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(310): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(310): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(310): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(311): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(311): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(311): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(312): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(312): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(312): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(313): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(313): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(313): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(314): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(314): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(314): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(315): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(315): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(315): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(316): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(316): error C2144: 语法错误:“int”的前面应有“;”
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(316): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(317): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(317): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(317): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(318): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(318): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(318): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(319): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(319): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(319): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(323): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(323): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(323): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(324): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(324): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(324): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(325): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(325): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(325): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(326): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(326): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(326): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(327): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(327): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(327): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(328): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(328): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(328): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(329): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(329): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(329): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(330): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(330): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(330): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(331): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(331): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(331): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(332): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(332): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(332): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(333): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(333): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(333): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(336): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(336): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(336): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(337): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(337): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(337): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(338): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(338): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(338): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(339): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(339): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(339): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(340): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(340): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(340): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(341): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(341): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(341): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(342): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(342): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(342): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(345): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(345): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(345): error C2146: 语法错误: 缺少“;”(在标识符“LONG”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(346): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(346): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(346): error C2146: 语法错误: 缺少“;”(在标识符“LONG”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(347): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(347): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(347): error C2146: 语法错误: 缺少“;”(在标识符“COLORREF”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(348): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(348): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(348): error C2146: 语法错误: 缺少“;”(在标识符“WORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(349): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(349): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(349): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(350): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(350): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(350): error C2146: 语法错误: 缺少“;”(在标识符“DWORD”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(351): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(351): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(351): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(352): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(352): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(352): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(353): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(353): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(353): error C2146: 语法错误: 缺少“;”(在标识符“BOOL”的前面)
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(354): error C3690: 应该为字符串文本，但找到的是用户定义的字符串文本
+c:\users\cc\documents\qt\container_multiple_channels_20200522\container_multiple_channels_20200522\themiddlewarehcnet\plaympeg4.h(354): fatal error C1003: 错误计数超过 100；正在停止编译

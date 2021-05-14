@@ -57,6 +57,7 @@ namespace Parameter {
     ******************************/
 
     int ResultsTheCheck= 0;
+    int picture_size=0;
 
     /*****************************
     * @brief:Service
@@ -71,6 +72,9 @@ namespace Parameter {
     int newline=0;
     int DataChaneType=0;
     int DataChange_Format=0;
+    int decision_Container=10;
+    int container_timeout=15;
+    int not_plate_color=0;
     QString SingletonAddress= QString("");
     QString ManyCasesAddress= QString("");
     QString SingletonAddressMQ= QString("");

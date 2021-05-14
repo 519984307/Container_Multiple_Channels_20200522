@@ -26,6 +26,11 @@ DataProcessing::DataProcessing(QObject *parent) : QObject(parent)
         QFile file( list.at(0).absoluteFilePath() );
         file.remove();
     }
+
+    waitSend=false;
+    sendConT=new QTimer(this);
+    sendConT->setSingleShot(true);
+    connect(sendConT,SIGNAL(timeout()),this,SLOT(slot_waiSendContainer()));
 }
 
 void DataProcessing::writeDataToLog(int channel_number, const QString &result)
@@ -47,7 +52,14 @@ void DataProcessing::writeDataToLog(int channel_number, const QString &result)
 }
 
 void DataProcessing::slot_containerResult(int channel, const QString &result)
-{        
+{
+    this->channel=channel;
+    this->result=result;
+
+    if(!waitSend){
+        return;
+    }
+
     if(result.startsWith("[") && result.endsWith("]")){        
         QString tmpMsg=result.mid(1,result.size()-2);
         QStringList msgList=tmpMsg.split("|");
@@ -118,6 +130,9 @@ void DataProcessing::slot_containerResult(int channel, const QString &result)
         if(Parameter::DataChange_Format==0){
             if(Parameter::Identify_Protocol==1 && result.endsWith("]")){
                 QString tmpR=result.mid(0,result.size()-1).append(QString("|%1|%2]").arg(plate).arg(plateColor));
+                if(Parameter::not_plate_color){
+                    tmpR=result.mid(0,result.size()-1).append(QString("|%1]").arg(plate));
+                }
                 emit signal_toSendData(channel,tmpR);
                 writeDataToLog(channel,tmpR);
             }
@@ -151,6 +166,8 @@ void DataProcessing::slot_containerResult(int channel, const QString &result)
     else {
         qCritical().noquote()<<QString("If the data of box number is abnormal, it will not be processed.");
     }
+
+    waitSend=false;
 }
 
 void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString &plate, const QString &color, const QString &plateTime)
@@ -164,6 +181,9 @@ void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString 
     if(Parameter::DataChange_Format==0){
         /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|车牌|颜色] */
         result=QString("[U|%1|%2|%3|%4]").arg(plateTime).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(color);
+        if(Parameter::not_plate_color){
+            result=QString("[U|%1|%2|%3]").arg(plateTime).arg(channel,2,10,QLatin1Char('0')).arg(plate);
+        }
     }
     if (Parameter::DataChange_Format==1) {
         today=QDateTime::fromString(plateTime.mid(0,8),"yyyyMMdd").toString("yyyy-MM-dd");
@@ -214,4 +234,15 @@ void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString 
         }
     }
     writeDataToLog(channel,result);
+}
+
+void DataProcessing::slot_waiSendContainer()
+{
+    waitSend=true;
+    slot_containerResult(channel,result);
+}
+
+void DataProcessing::slot_waitPlate(int msec)
+{
+    sendConT->start(msec);
 }

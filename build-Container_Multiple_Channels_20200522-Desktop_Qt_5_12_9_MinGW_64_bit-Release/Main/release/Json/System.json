@@ -9,13 +9,13 @@
             "channel_id_placeholder": "2"
         },
         "Model": {
-            "Camera_Load_Plugin": 1,
-            "HCNET_Capture_Type": 3,
+            "Camera_Load_Plugin": 0,
+            "HCNET_Capture_Type": 2,
             "LogicType": 0,
             "PlateType": 0
         },
         "Other": {
-            "Automatic": 0,
+            "Automatic": 1,
             "DebugLog": 1,
             "DelayStart": 10,
             "FullScreen": 0,
@@ -27,15 +27,22 @@
             "ResultsTheCheck": 0
         },
         "Service": {
+            "DataChaneType": 0,
+            "DataChange_Format": 0,
             "Heartbeat": 0,
-            "Identify_Protocol": 0,
-            "ManyCasesAddress": "127.0.0.1:12011,127.0.0.1:60001",
+            "Identify_Protocol": 1,
+            "ManyCasesAddress": "127.0.0.1:60000,127.0.0.1:60001",
+            "ManyCasesAddressMQ": "127.0.0.1|zby|ABCabc123|/zby:5672",
             "Resultting": 0,
             "Service_Model": 1,
             "Service_Type": 0,
-            "ShortLink": 1,
+            "ShortLink": 0,
             "SingletonAddress": "",
-            "newline": 0
+            "SingletonAddressMQ": "",
+            "container_timeout": 15,
+            "decision_Container": 12,
+            "newline": 0,
+            "not_plate_color": 0
         },
         "Upload": {
             "DatabaseType": 0,

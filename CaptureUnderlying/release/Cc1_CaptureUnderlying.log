@@ -1,0 +1,13 @@
+﻿  Generate moc_predefs.h
+  Moc'ing ICaptureUnderlying.h...
+  Moc'ing IMiddleware.h...
+  Moc'ing captureunderlying.h...
+  Moc'ing putcommand.h...
+  captureunderlying.cpp
+  putcommand.cpp
+  moc_ICaptureUnderlying.cpp
+  moc_IMiddleware.cpp
+  moc_captureunderlying.cpp
+  moc_putcommand.cpp
+    正在创建库 ..\MainUI\Plugins\\Cc1_CaptureUnderlying.lib 和对象 ..\MainUI\Plugins\\Cc1_CaptureUnderlying.exp
+  Cc1_CaptureUnderlying.vcxproj -> C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\CaptureUnderlying\..\MainUI\Plugins\Cc1_CaptureUnderlying.dll

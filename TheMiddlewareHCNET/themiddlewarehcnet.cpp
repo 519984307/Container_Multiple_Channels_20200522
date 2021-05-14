@@ -10,6 +10,8 @@ TheMiddlewareHCNET::TheMiddlewareHCNET(QObject *parent)
 {
     this->setParent(parent);
 
+    TheMiddlewareHCNET::pThis=this;
+    
     MSGID=0;
     CAMERA_TYPE=1;
     streamID=-1;
@@ -75,20 +77,19 @@ TheMiddlewareHCNET::TheMiddlewareHCNET(QObject *parent)
 
 TheMiddlewareHCNET::~TheMiddlewareHCNET()
 {
-    qDebug()<<"~TheMiddlewareHCNET";
-    free(imgBuff);
+    if(imgBuff!=nullptr){
+         free(imgBuff);
+    }
     playMap.clear();
 }
 
 QString TheMiddlewareHCNET::InterfaceType()
 {
-    return "HCNET";
+    return QString("HCNET");
 }
 
 bool TheMiddlewareHCNET::initializationParameter()
 {
-    TheMiddlewareHCNET::pThis=this;;
-
     pDLLplay=new QLibrary("PlayCtrl",this);
     if(pDLLplay->load()){
         qDebug().noquote()<<"load PlayCtrl sucess;";
@@ -142,21 +143,21 @@ bool TheMiddlewareHCNET::initializationParameter()
         strcpy(SDKPath.sPath,path.toLocal8Bit().data());
         if(NET_DVR_SetSDKInitCfg_L!=nullptr && NET_DVR_SetSDKInitCfg_L(cfgType,&SDKPath)){
              NET_DVR_SetSDKInitCfg_L(cfgType,&SDKPath);
-             qDebug().noquote()<<"The dynamic library path was set successfully";
+             qDebug().noquote()<<QString("The dynamic library path was set successfully");
         }
 
         if(nullptr!= NET_DVR_Init_L && NET_DVR_Init_L()){
-            qDebug().noquote()<<"Dynamic library initialization succeeded";
+            qDebug().noquote()<<QString("Dynamic library initialization succeeded");
 
             if(imgBuff==nullptr){
                 imgBuff=static_cast<char*>(malloc(charLen* sizeof(char)));
             }
 
             if(NET_DVR_SetExceptionCallBack_V30_L!=nullptr && NET_DVR_SetExceptionCallBack_V30_L(0,nullptr,TheMiddlewareHCNET::exceptionCallBack_V30,this)){
-                qDebug().noquote()<<"Set exception callback successful";
+                qDebug().noquote()<<QString("Set exception callback successful");
                 //NET_DVR_SetLogToFile_L(3, QString(".\\Log\\sdkLog").toLatin1().data(), true);
-                NET_DVR_SetConnectTime_L(3000,-1);
-                NET_DVR_SetReconnect_L(3000,0);
+                //NET_DVR_SetConnectTime_L(3000,-1);
+                //NET_DVR_SetReconnect_L(3000,0);
                 NET_DVR_SetRecvTimeOut_L(1000);
             }
 
@@ -164,7 +165,7 @@ bool TheMiddlewareHCNET::initializationParameter()
             * @brief:交通系列布防信息回调
             ******************************/
             if(NET_DVR_SetDVRMessageCallBack_V50_L!=nullptr && NET_DVR_SetDVRMessageCallBack_V50_L(MSGID,TheMiddlewareHCNET::MSGCallBack,this) && 3==CAMERA_TYPE){
-                qDebug().noquote()<<"Setup defense callback successful";
+                qDebug().noquote()<<QString("Setup defense callback successful");
             }
 
             if(pTimerState==nullptr){
@@ -175,10 +176,10 @@ bool TheMiddlewareHCNET::initializationParameter()
             return  true;
         }
         else if(nullptr!=NET_DVR_Cleanup_L && NET_DVR_Cleanup_L()){
-            qWarning().noquote()<<"Dynamic library initialization failed";
+            qWarning().noquote()<<QString("Dynamic library initialization failed");
         }
         else {
-            qWarning().noquote()<<"Dynamic library cleanup failed";
+            qWarning().noquote()<<QString("Dynamic library cleanup failed");
         }
         if(NET_DVR_GetLastError_L!=nullptr){
             qWarning().noquote()<<QString("Dynamic library cleanup failed <errorCode=%1>").arg(NET_DVR_GetLastError_L());
@@ -198,6 +199,11 @@ void TheMiddlewareHCNET::setCaptureTypeSlot(const int &capType,const int &msgCal
 
 void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
 {
+    if(NET_DVR_RemoteControl_L !=nullptr && !NET_DVR_RemoteControl_L(ID,NET_DVR_CHECK_USER_STATUS,nullptr,4)){
+        emit signal_pictureStream(ID,nullptr);
+        return;
+    }
+
     bool cap=true;
 
     switch (CAMERA_TYPE) {
@@ -312,12 +318,14 @@ void TheMiddlewareHCNET::openTheVideoSlot(int ID,bool play,quint64 winID)
 void TheMiddlewareHCNET::releaseResourcesSlot()
 {
     if(pTimerState!=nullptr){
-        pTimerState->setSingleShot(true);
+        //pTimerState->setSingleShot(true);
         pTimerState->stop();
+        qDebug().noquote()<<QString("HCNET Stop automatic reconnection");
     }
     foreach ( auto handID, alarmInfoMap.keys()) {
         if(NET_DVR_CloseAlarmChan_V30_L!=nullptr){
             NET_DVR_CloseAlarmChan_V30_L(handID);
+            qDebug().noquote()<<QString("NET_DVR_CloseAlarmChan_V30_L");
         }
     }
     if(4==CAMERA_TYPE){
@@ -325,6 +333,7 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
             if(-1!=nPort){
                 if(NET_DVR_StopRealPlay_L !=nullptr){
                     NET_DVR_StopRealPlay_L(nPort);
+                    qDebug().noquote()<<QString("NET_DVR_StopRealPlay_L");
                 }
                 /* 释放播放库资源 */
                 if(nullptr!=PlayM4_Stop_L){
@@ -336,6 +345,7 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
                 if(nullptr!=PlayM4_FreePort_L){
                     PlayM4_FreePort_L(nPort);
                 }
+                qDebug().noquote()<<QString("PlayM4_Stop_L");
             }
         }
     }
@@ -343,15 +353,24 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
     foreach ( auto userID, logInfoMap.keys()) {
         if(NET_DVR_Logout_L !=nullptr){
             NET_DVR_Logout_L(userID);
+            qDebug().noquote()<<QString("NET_DVR_Logout_L");
         }
-        delete  logInfoMap[userID];
-        logInfoMap[userID]=nullptr;
+//        delete  logInfoMap[userID];
+//        logInfoMap[userID]=nullptr;
     }
     if(NET_DVR_Cleanup_L!=nullptr){
         NET_DVR_Cleanup_L();
+        qDebug().noquote()<<QString("NET_DVR_Cleanup_L");
     }
 
-    qDebug().noquote()<<"TheMiddlewareHCNET::releaseResourcesSlot";
+//    if(pDLLplay!=nullptr){
+//        pDLLplay->unload();
+//    }
+//    if(pDLL!=nullptr){
+//        pDLL->unload();
+//    }
+        
+    qDebug().noquote()<<QString("TheMiddlewareHCNET::releaseResourcesSlot");
 }
 
 void TheMiddlewareHCNET::initCameraSlot(const QString &localAddr, const QString &addr, const int &port,const QString &user,const QString &pow)
@@ -472,7 +491,7 @@ int TheMiddlewareHCNET::MSGCallBack(LONG lCommand, NET_DVR_ALARMER *pAlarmer, ch
             }
             emit pThis->resultsTheLicensePlateSignal(pAlarmer->lUserID, plate,color,dateTime,arrayJpg);
             emit pThis->signal_pictureStream(pAlarmer->lUserID,arrayJpg);
-            qDebug().noquote()<<QString("License Plate recognition results:%1 %2").arg(plate).arg(dateTime);
+            qDebug().noquote()<<QString("[COMM_UPLOAD_PLATE_RESULT] License Plate recognition results:%1 %2").arg(plate).arg(dateTime);
             arrayJpg.clear();
         }
         /* 车牌图 */
@@ -483,7 +502,7 @@ int TheMiddlewareHCNET::MSGCallBack(LONG lCommand, NET_DVR_ALARMER *pAlarmer, ch
 //        }
 
     }
-    if(lCommand==COMM_ITS_PLATE_RESULT){
+    else if(lCommand==COMM_ITS_PLATE_RESULT){
         NET_ITS_PLATE_RESULT struITSPlateResult={};
         memcpy(&struITSPlateResult, pAlarmInfo, sizeof(struITSPlateResult));
 
@@ -519,7 +538,7 @@ int TheMiddlewareHCNET::MSGCallBack(LONG lCommand, NET_DVR_ALARMER *pAlarmer, ch
 
             emit pThis->resultsTheLicensePlateSignal(pAlarmer->lUserID,plate,color,dateTime,arrayJpg);
             emit pThis->signal_pictureStream(pAlarmer->lUserID,arrayJpg);
-            qDebug().noquote()<<QString("License Plate recognition results:%1 %2").arg(plate).arg(dateTime);
+            qDebug().noquote()<<QString("[COMM_ITS_PLATE_RESULT] License Plate recognition results:%1 %2").arg(plate).arg(dateTime);
             arrayJpg.clear();
         }
         /* 车牌图 */
@@ -752,7 +771,7 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
         pThis->logfalList.removeAt(var);
     }
     else {
-        if(-1 ==pThis->logfalList.indexOf(LoginInfo)){
+        if(-1 ==pThis->logfalList.indexOf(LoginInfo) && -1 == pThis->logInfoMap.key(LoginInfo,-1)){
             pThis->logfalList.append(LoginInfo);
         }
 

@@ -1,0 +1,4 @@
+﻿LINK : warning LNK4044: 无法识别的选项“/Wl,-rpath=./Library/”；已忽略
+qtmain.lib(qtmain_win.obj) : warning LNK4099: 未找到 PDB“qtmain.pdb”(使用“qtmain.lib(qtmain_win.obj)”或在“C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\release\qtmain.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+  ZBYCS.vcxproj -> C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\release\ZBYCS.exe
+  ZBYCS.vcxproj -> release\ZBYCS.pdb (Full PDB)

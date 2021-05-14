@@ -29,6 +29,7 @@ DEL_DIR       = rmdir
 MOVE          = move
 SUBTARGETS    =  \
 		sub-CaptureUnderlying \
+		sub-DataInterRabbitMQ \
 		sub-InrearedLogic_NJSB \
 		sub-LicensePlateHCNET \
 		sub-LicensePlateWTY \
@@ -42,6 +43,7 @@ SUBTARGETS    =  \
 		sub-CaptureImages \
 		sub-LogController \
 		sub-TheMiddlewareHCNET \
+		sub-Qamqp \
 		sub-Main
 
 
@@ -70,6 +72,31 @@ sub-CaptureUnderlying-install_subtargets: FORCE
 sub-CaptureUnderlying-uninstall_subtargets: FORCE
 	@if not exist CaptureUnderlying\ mkdir CaptureUnderlying\ & if not exist CaptureUnderlying\ exit 1
 	cd CaptureUnderlying\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\CaptureUnderlying\CaptureUnderlying.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile uninstall
+sub-DataInterRabbitMQ-qmake_all:  FORCE
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
+	cd DataInterRabbitMQ\ && $(MAKE) -f Makefile qmake_all
+sub-DataInterRabbitMQ: FORCE
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile
+sub-DataInterRabbitMQ-make_first: FORCE
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile 
+sub-DataInterRabbitMQ-all: FORCE
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile all
+sub-DataInterRabbitMQ-clean: FORCE
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile clean
+sub-DataInterRabbitMQ-distclean: FORCE
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile distclean
+sub-DataInterRabbitMQ-install_subtargets: FORCE
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile install
+sub-DataInterRabbitMQ-uninstall_subtargets: FORCE
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile uninstall
 sub-InrearedLogic_NJSB-qmake_all:  FORCE
 	@if not exist InrearedLogic_NJSB\ mkdir InrearedLogic_NJSB\ & if not exist InrearedLogic_NJSB\ exit 1
 	cd InrearedLogic_NJSB\ && $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\InrearedLogic_NJSB\InrearedLogic_NJSB.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
@@ -395,6 +422,31 @@ sub-TheMiddlewareHCNET-install_subtargets: FORCE
 sub-TheMiddlewareHCNET-uninstall_subtargets: FORCE
 	@if not exist TheMiddlewareHCNET\ mkdir TheMiddlewareHCNET\ & if not exist TheMiddlewareHCNET\ exit 1
 	cd TheMiddlewareHCNET\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\TheMiddlewareHCNET\TheMiddlewareHCNET.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile uninstall
+sub-Qamqp-qmake_all:  FORCE
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
+	cd Qamqp\ && $(MAKE) -f Makefile qmake_all
+sub-Qamqp: FORCE
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile
+sub-Qamqp-make_first: FORCE
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile 
+sub-Qamqp-all: FORCE
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile all
+sub-Qamqp-clean: FORCE
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile clean
+sub-Qamqp-distclean: FORCE
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile distclean
+sub-Qamqp-install_subtargets: FORCE
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile install
+sub-Qamqp-uninstall_subtargets: FORCE
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile uninstall
 sub-Main-qmake_all:  FORCE
 	@if not exist Main\ mkdir Main\ & if not exist Main\ exit 1
 	cd Main\ && $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\Main.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
@@ -787,20 +839,23 @@ C:/Qt/Qt5.12.9/5.12.9/mingw73_64/mkspecs/features/lex.prf:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
 
-qmake_all: sub-CaptureUnderlying-qmake_all sub-InrearedLogic_NJSB-qmake_all sub-LicensePlateHCNET-qmake_all sub-LicensePlateWTY-qmake_all sub-ToUploadData-qmake_all sub-DataInterchange-qmake_all sub-DatabaseInsert-qmake_all sub-DatabaseRead-qmake_all sub-ResultsAnalysis-qmake_all sub-InfraredLogic-qmake_all sub-IdentifyImages-qmake_all sub-CaptureImages-qmake_all sub-LogController-qmake_all sub-TheMiddlewareHCNET-qmake_all sub-Main-qmake_all FORCE
+qmake_all: sub-CaptureUnderlying-qmake_all sub-DataInterRabbitMQ-qmake_all sub-InrearedLogic_NJSB-qmake_all sub-LicensePlateHCNET-qmake_all sub-LicensePlateWTY-qmake_all sub-ToUploadData-qmake_all sub-DataInterchange-qmake_all sub-DatabaseInsert-qmake_all sub-DatabaseRead-qmake_all sub-ResultsAnalysis-qmake_all sub-InfraredLogic-qmake_all sub-IdentifyImages-qmake_all sub-CaptureImages-qmake_all sub-LogController-qmake_all sub-TheMiddlewareHCNET-qmake_all sub-Qamqp-qmake_all sub-Main-qmake_all FORCE
 
-make_first: sub-CaptureUnderlying-make_first sub-InrearedLogic_NJSB-make_first sub-LicensePlateHCNET-make_first sub-LicensePlateWTY-make_first sub-ToUploadData-make_first sub-DataInterchange-make_first sub-DatabaseInsert-make_first sub-DatabaseRead-make_first sub-ResultsAnalysis-make_first sub-InfraredLogic-make_first sub-IdentifyImages-make_first sub-CaptureImages-make_first sub-LogController-make_first sub-TheMiddlewareHCNET-make_first sub-Main-make_first  FORCE
-all: sub-CaptureUnderlying-all sub-InrearedLogic_NJSB-all sub-LicensePlateHCNET-all sub-LicensePlateWTY-all sub-ToUploadData-all sub-DataInterchange-all sub-DatabaseInsert-all sub-DatabaseRead-all sub-ResultsAnalysis-all sub-InfraredLogic-all sub-IdentifyImages-all sub-CaptureImages-all sub-LogController-all sub-TheMiddlewareHCNET-all sub-Main-all  FORCE
-clean: sub-CaptureUnderlying-clean sub-InrearedLogic_NJSB-clean sub-LicensePlateHCNET-clean sub-LicensePlateWTY-clean sub-ToUploadData-clean sub-DataInterchange-clean sub-DatabaseInsert-clean sub-DatabaseRead-clean sub-ResultsAnalysis-clean sub-InfraredLogic-clean sub-IdentifyImages-clean sub-CaptureImages-clean sub-LogController-clean sub-TheMiddlewareHCNET-clean sub-Main-clean  FORCE
-distclean: sub-CaptureUnderlying-distclean sub-InrearedLogic_NJSB-distclean sub-LicensePlateHCNET-distclean sub-LicensePlateWTY-distclean sub-ToUploadData-distclean sub-DataInterchange-distclean sub-DatabaseInsert-distclean sub-DatabaseRead-distclean sub-ResultsAnalysis-distclean sub-InfraredLogic-distclean sub-IdentifyImages-distclean sub-CaptureImages-distclean sub-LogController-distclean sub-TheMiddlewareHCNET-distclean sub-Main-distclean  FORCE
+make_first: sub-CaptureUnderlying-make_first sub-DataInterRabbitMQ-make_first sub-InrearedLogic_NJSB-make_first sub-LicensePlateHCNET-make_first sub-LicensePlateWTY-make_first sub-ToUploadData-make_first sub-DataInterchange-make_first sub-DatabaseInsert-make_first sub-DatabaseRead-make_first sub-ResultsAnalysis-make_first sub-InfraredLogic-make_first sub-IdentifyImages-make_first sub-CaptureImages-make_first sub-LogController-make_first sub-TheMiddlewareHCNET-make_first sub-Qamqp-make_first sub-Main-make_first  FORCE
+all: sub-CaptureUnderlying-all sub-DataInterRabbitMQ-all sub-InrearedLogic_NJSB-all sub-LicensePlateHCNET-all sub-LicensePlateWTY-all sub-ToUploadData-all sub-DataInterchange-all sub-DatabaseInsert-all sub-DatabaseRead-all sub-ResultsAnalysis-all sub-InfraredLogic-all sub-IdentifyImages-all sub-CaptureImages-all sub-LogController-all sub-TheMiddlewareHCNET-all sub-Qamqp-all sub-Main-all  FORCE
+clean: sub-CaptureUnderlying-clean sub-DataInterRabbitMQ-clean sub-InrearedLogic_NJSB-clean sub-LicensePlateHCNET-clean sub-LicensePlateWTY-clean sub-ToUploadData-clean sub-DataInterchange-clean sub-DatabaseInsert-clean sub-DatabaseRead-clean sub-ResultsAnalysis-clean sub-InfraredLogic-clean sub-IdentifyImages-clean sub-CaptureImages-clean sub-LogController-clean sub-TheMiddlewareHCNET-clean sub-Qamqp-clean sub-Main-clean  FORCE
+distclean: sub-CaptureUnderlying-distclean sub-DataInterRabbitMQ-distclean sub-InrearedLogic_NJSB-distclean sub-LicensePlateHCNET-distclean sub-LicensePlateWTY-distclean sub-ToUploadData-distclean sub-DataInterchange-distclean sub-DatabaseInsert-distclean sub-DatabaseRead-distclean sub-ResultsAnalysis-distclean sub-InfraredLogic-distclean sub-IdentifyImages-distclean sub-CaptureImages-distclean sub-LogController-distclean sub-TheMiddlewareHCNET-distclean sub-Qamqp-distclean sub-Main-distclean  FORCE
 	-$(DEL_FILE) Makefile
 	-$(DEL_FILE) .qmake.stash
-install_subtargets: sub-CaptureUnderlying-install_subtargets sub-InrearedLogic_NJSB-install_subtargets sub-LicensePlateHCNET-install_subtargets sub-LicensePlateWTY-install_subtargets sub-ToUploadData-install_subtargets sub-DataInterchange-install_subtargets sub-DatabaseInsert-install_subtargets sub-DatabaseRead-install_subtargets sub-ResultsAnalysis-install_subtargets sub-InfraredLogic-install_subtargets sub-IdentifyImages-install_subtargets sub-CaptureImages-install_subtargets sub-LogController-install_subtargets sub-TheMiddlewareHCNET-install_subtargets sub-Main-install_subtargets FORCE
-uninstall_subtargets: sub-CaptureUnderlying-uninstall_subtargets sub-InrearedLogic_NJSB-uninstall_subtargets sub-LicensePlateHCNET-uninstall_subtargets sub-LicensePlateWTY-uninstall_subtargets sub-ToUploadData-uninstall_subtargets sub-DataInterchange-uninstall_subtargets sub-DatabaseInsert-uninstall_subtargets sub-DatabaseRead-uninstall_subtargets sub-ResultsAnalysis-uninstall_subtargets sub-InfraredLogic-uninstall_subtargets sub-IdentifyImages-uninstall_subtargets sub-CaptureImages-uninstall_subtargets sub-LogController-uninstall_subtargets sub-TheMiddlewareHCNET-uninstall_subtargets sub-Main-uninstall_subtargets FORCE
+install_subtargets: sub-CaptureUnderlying-install_subtargets sub-DataInterRabbitMQ-install_subtargets sub-InrearedLogic_NJSB-install_subtargets sub-LicensePlateHCNET-install_subtargets sub-LicensePlateWTY-install_subtargets sub-ToUploadData-install_subtargets sub-DataInterchange-install_subtargets sub-DatabaseInsert-install_subtargets sub-DatabaseRead-install_subtargets sub-ResultsAnalysis-install_subtargets sub-InfraredLogic-install_subtargets sub-IdentifyImages-install_subtargets sub-CaptureImages-install_subtargets sub-LogController-install_subtargets sub-TheMiddlewareHCNET-install_subtargets sub-Qamqp-install_subtargets sub-Main-install_subtargets FORCE
+uninstall_subtargets: sub-CaptureUnderlying-uninstall_subtargets sub-DataInterRabbitMQ-uninstall_subtargets sub-InrearedLogic_NJSB-uninstall_subtargets sub-LicensePlateHCNET-uninstall_subtargets sub-LicensePlateWTY-uninstall_subtargets sub-ToUploadData-uninstall_subtargets sub-DataInterchange-uninstall_subtargets sub-DatabaseInsert-uninstall_subtargets sub-DatabaseRead-uninstall_subtargets sub-ResultsAnalysis-uninstall_subtargets sub-InfraredLogic-uninstall_subtargets sub-IdentifyImages-uninstall_subtargets sub-CaptureImages-uninstall_subtargets sub-LogController-uninstall_subtargets sub-TheMiddlewareHCNET-uninstall_subtargets sub-Qamqp-uninstall_subtargets sub-Main-uninstall_subtargets FORCE
 
 sub-CaptureUnderlying-debug:
 	@if not exist CaptureUnderlying\ mkdir CaptureUnderlying\ & if not exist CaptureUnderlying\ exit 1
 	cd CaptureUnderlying\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\CaptureUnderlying\CaptureUnderlying.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile debug
+sub-DataInterRabbitMQ-debug:
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile debug
 sub-InrearedLogic_NJSB-debug:
 	@if not exist InrearedLogic_NJSB\ mkdir InrearedLogic_NJSB\ & if not exist InrearedLogic_NJSB\ exit 1
 	cd InrearedLogic_NJSB\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\InrearedLogic_NJSB\InrearedLogic_NJSB.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile debug
@@ -840,14 +895,20 @@ sub-LogController-debug:
 sub-TheMiddlewareHCNET-debug:
 	@if not exist TheMiddlewareHCNET\ mkdir TheMiddlewareHCNET\ & if not exist TheMiddlewareHCNET\ exit 1
 	cd TheMiddlewareHCNET\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\TheMiddlewareHCNET\TheMiddlewareHCNET.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile debug
+sub-Qamqp-debug:
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile debug
 sub-Main-debug:
 	@if not exist Main\ mkdir Main\ & if not exist Main\ exit 1
 	cd Main\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\Main.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile debug
-debug: sub-CaptureUnderlying-debug sub-InrearedLogic_NJSB-debug sub-LicensePlateHCNET-debug sub-LicensePlateWTY-debug sub-ToUploadData-debug sub-DataInterchange-debug sub-DatabaseInsert-debug sub-DatabaseRead-debug sub-ResultsAnalysis-debug sub-InfraredLogic-debug sub-IdentifyImages-debug sub-CaptureImages-debug sub-LogController-debug sub-TheMiddlewareHCNET-debug sub-Main-debug
+debug: sub-CaptureUnderlying-debug sub-DataInterRabbitMQ-debug sub-InrearedLogic_NJSB-debug sub-LicensePlateHCNET-debug sub-LicensePlateWTY-debug sub-ToUploadData-debug sub-DataInterchange-debug sub-DatabaseInsert-debug sub-DatabaseRead-debug sub-ResultsAnalysis-debug sub-InfraredLogic-debug sub-IdentifyImages-debug sub-CaptureImages-debug sub-LogController-debug sub-TheMiddlewareHCNET-debug sub-Qamqp-debug sub-Main-debug
 
 sub-CaptureUnderlying-release:
 	@if not exist CaptureUnderlying\ mkdir CaptureUnderlying\ & if not exist CaptureUnderlying\ exit 1
 	cd CaptureUnderlying\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\CaptureUnderlying\CaptureUnderlying.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile release
+sub-DataInterRabbitMQ-release:
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile release
 sub-InrearedLogic_NJSB-release:
 	@if not exist InrearedLogic_NJSB\ mkdir InrearedLogic_NJSB\ & if not exist InrearedLogic_NJSB\ exit 1
 	cd InrearedLogic_NJSB\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\InrearedLogic_NJSB\InrearedLogic_NJSB.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile release
@@ -887,14 +948,20 @@ sub-LogController-release:
 sub-TheMiddlewareHCNET-release:
 	@if not exist TheMiddlewareHCNET\ mkdir TheMiddlewareHCNET\ & if not exist TheMiddlewareHCNET\ exit 1
 	cd TheMiddlewareHCNET\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\TheMiddlewareHCNET\TheMiddlewareHCNET.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile release
+sub-Qamqp-release:
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile release
 sub-Main-release:
 	@if not exist Main\ mkdir Main\ & if not exist Main\ exit 1
 	cd Main\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\Main.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile release
-release: sub-CaptureUnderlying-release sub-InrearedLogic_NJSB-release sub-LicensePlateHCNET-release sub-LicensePlateWTY-release sub-ToUploadData-release sub-DataInterchange-release sub-DatabaseInsert-release sub-DatabaseRead-release sub-ResultsAnalysis-release sub-InfraredLogic-release sub-IdentifyImages-release sub-CaptureImages-release sub-LogController-release sub-TheMiddlewareHCNET-release sub-Main-release
+release: sub-CaptureUnderlying-release sub-DataInterRabbitMQ-release sub-InrearedLogic_NJSB-release sub-LicensePlateHCNET-release sub-LicensePlateWTY-release sub-ToUploadData-release sub-DataInterchange-release sub-DatabaseInsert-release sub-DatabaseRead-release sub-ResultsAnalysis-release sub-InfraredLogic-release sub-IdentifyImages-release sub-CaptureImages-release sub-LogController-release sub-TheMiddlewareHCNET-release sub-Qamqp-release sub-Main-release
 
 sub-CaptureUnderlying-check:
 	@if not exist CaptureUnderlying\ mkdir CaptureUnderlying\ & if not exist CaptureUnderlying\ exit 1
 	cd CaptureUnderlying\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\CaptureUnderlying\CaptureUnderlying.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile check
+sub-DataInterRabbitMQ-check:
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile check
 sub-InrearedLogic_NJSB-check:
 	@if not exist InrearedLogic_NJSB\ mkdir InrearedLogic_NJSB\ & if not exist InrearedLogic_NJSB\ exit 1
 	cd InrearedLogic_NJSB\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\InrearedLogic_NJSB\InrearedLogic_NJSB.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile check
@@ -934,14 +1001,20 @@ sub-LogController-check:
 sub-TheMiddlewareHCNET-check:
 	@if not exist TheMiddlewareHCNET\ mkdir TheMiddlewareHCNET\ & if not exist TheMiddlewareHCNET\ exit 1
 	cd TheMiddlewareHCNET\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\TheMiddlewareHCNET\TheMiddlewareHCNET.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile check
+sub-Qamqp-check:
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile check
 sub-Main-check:
 	@if not exist Main\ mkdir Main\ & if not exist Main\ exit 1
 	cd Main\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\Main.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile check
-check: sub-CaptureUnderlying-check sub-InrearedLogic_NJSB-check sub-LicensePlateHCNET-check sub-LicensePlateWTY-check sub-ToUploadData-check sub-DataInterchange-check sub-DatabaseInsert-check sub-DatabaseRead-check sub-ResultsAnalysis-check sub-InfraredLogic-check sub-IdentifyImages-check sub-CaptureImages-check sub-LogController-check sub-TheMiddlewareHCNET-check sub-Main-check
+check: sub-CaptureUnderlying-check sub-DataInterRabbitMQ-check sub-InrearedLogic_NJSB-check sub-LicensePlateHCNET-check sub-LicensePlateWTY-check sub-ToUploadData-check sub-DataInterchange-check sub-DatabaseInsert-check sub-DatabaseRead-check sub-ResultsAnalysis-check sub-InfraredLogic-check sub-IdentifyImages-check sub-CaptureImages-check sub-LogController-check sub-TheMiddlewareHCNET-check sub-Qamqp-check sub-Main-check
 
 sub-CaptureUnderlying-benchmark:
 	@if not exist CaptureUnderlying\ mkdir CaptureUnderlying\ & if not exist CaptureUnderlying\ exit 1
 	cd CaptureUnderlying\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\CaptureUnderlying\CaptureUnderlying.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile benchmark
+sub-DataInterRabbitMQ-benchmark:
+	@if not exist DataInterRabbitMQ\ mkdir DataInterRabbitMQ\ & if not exist DataInterRabbitMQ\ exit 1
+	cd DataInterRabbitMQ\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DataInterRabbitMQ\DataInterRabbitMQ.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile benchmark
 sub-InrearedLogic_NJSB-benchmark:
 	@if not exist InrearedLogic_NJSB\ mkdir InrearedLogic_NJSB\ & if not exist InrearedLogic_NJSB\ exit 1
 	cd InrearedLogic_NJSB\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\InrearedLogic_NJSB\InrearedLogic_NJSB.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile benchmark
@@ -981,10 +1054,13 @@ sub-LogController-benchmark:
 sub-TheMiddlewareHCNET-benchmark:
 	@if not exist TheMiddlewareHCNET\ mkdir TheMiddlewareHCNET\ & if not exist TheMiddlewareHCNET\ exit 1
 	cd TheMiddlewareHCNET\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\TheMiddlewareHCNET\TheMiddlewareHCNET.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile benchmark
+sub-Qamqp-benchmark:
+	@if not exist Qamqp\ mkdir Qamqp\ & if not exist Qamqp\ exit 1
+	cd Qamqp\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Qamqp\Qamqp.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile benchmark
 sub-Main-benchmark:
 	@if not exist Main\ mkdir Main\ & if not exist Main\ exit 1
 	cd Main\ && ( if not exist Makefile $(QMAKE) -o Makefile C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\Main\Main.pro -spec win32-g++ "CONFIG+=qtquickcompiler" ) && $(MAKE) -f Makefile benchmark
-benchmark: sub-CaptureUnderlying-benchmark sub-InrearedLogic_NJSB-benchmark sub-LicensePlateHCNET-benchmark sub-LicensePlateWTY-benchmark sub-ToUploadData-benchmark sub-DataInterchange-benchmark sub-DatabaseInsert-benchmark sub-DatabaseRead-benchmark sub-ResultsAnalysis-benchmark sub-InfraredLogic-benchmark sub-IdentifyImages-benchmark sub-CaptureImages-benchmark sub-LogController-benchmark sub-TheMiddlewareHCNET-benchmark sub-Main-benchmark
+benchmark: sub-CaptureUnderlying-benchmark sub-DataInterRabbitMQ-benchmark sub-InrearedLogic_NJSB-benchmark sub-LicensePlateHCNET-benchmark sub-LicensePlateWTY-benchmark sub-ToUploadData-benchmark sub-DataInterchange-benchmark sub-DatabaseInsert-benchmark sub-DatabaseRead-benchmark sub-ResultsAnalysis-benchmark sub-InfraredLogic-benchmark sub-IdentifyImages-benchmark sub-CaptureImages-benchmark sub-LogController-benchmark sub-TheMiddlewareHCNET-benchmark sub-Qamqp-benchmark sub-Main-benchmark
 install:install_subtargets  FORCE
 
 uninstall: uninstall_subtargets FORCE

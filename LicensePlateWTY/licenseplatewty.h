@@ -239,9 +239,15 @@ private:
 
     typedef int (*CLIENT_LPRC_QuitDeviceFUN)(char *pCameraIP) ;
     ///
-    /// \brief CLIENT_LPRC_QuitDevice 断开链接
+    /// \brief CLIENT_LPRC_QuitDevice 断开指定设备链接
     ///
     CLIENT_LPRC_QuitDeviceFUN CLIENT_LPRC_QuitDevice;
+    
+    typedef void (*CLIENT_LPRC_QuitSDKFUN)();
+    /*****************************
+    * @brief:断开所有设备
+    ******************************/
+    CLIENT_LPRC_QuitSDKFUN CLIENT_LPRC_QuitSDK;
 
     QString localAddr;
     QString camerIP;

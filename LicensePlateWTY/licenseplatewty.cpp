@@ -18,11 +18,8 @@ LicensePlateWTY::LicensePlateWTY(QObject *parent)
     camerPow="";
     signature="";
     camerPort=0;
-
-    linkTimer=new QTimer(this);
-    linkTimer->setSingleShot(false);
-    connect(linkTimer,SIGNAL(timeout()),this,SLOT(autoLinkCamer()));
-
+    
+    linkTimer=nullptr;
 
     CLIENT_LPRC_RegCLIENTConnEvent=nullptr;
     CLIENT_LPRC_RegDataEx2Event=nullptr;
@@ -38,11 +35,11 @@ LicensePlateWTY::LicensePlateWTY(QObject *parent)
     CLIENT_LPRC_SetNetworkCardBind=nullptr;
     CLIENT_LPRC_RS485Send=nullptr;
     CLIENT_LPRC_QuitDevice=nullptr;
+    CLIENT_LPRC_QuitSDK=nullptr;
 }
 
 LicensePlateWTY::~LicensePlateWTY()
 {
-    qDebug().noquote()<<QString("~LicensePlateWTY");
 }
 
 QString LicensePlateWTY::InterfaceType()
@@ -73,7 +70,18 @@ bool LicensePlateWTY::initializationParameter()
         CLIENT_LPRC_SetNetworkCardBind=reinterpret_cast<CLIENT_LPRC_SetNetworkCardBindFUN>(pDLL->resolve("CLIENT_LPRC_SetNetworkCardBind"));
         CLIENT_LPRC_RS485Send=reinterpret_cast<CLIENT_LPRC_RS485SendFUN>(pDLL->resolve("CLIENT_LPRC_RS485Send"));
         CLIENT_LPRC_QuitDevice=reinterpret_cast<CLIENT_LPRC_QuitDeviceFUN>(pDLL->resolve("CLIENT_LPRC_QuitDevice"));
+        CLIENT_LPRC_QuitSDK=reinterpret_cast<CLIENT_LPRC_QuitSDKFUN>(pDLL->resolve("CLIENT_LPRC_QuitSDK"));
 
+        CLIENT_LPRC_RegCLIENTConnEvent(LicensePlateWTY::connectCallback);
+        CLIENT_LPRC_RegDataEx2Event(LicensePlateWTY::dataEx2Callback);
+        CLIENT_LPRC_RegJpegEvent(LicensePlateWTY::jpegCallback);
+        CLIENT_LPRC_RegWTYGetGpioState(LicensePlateWTY::getGpioStateCallback);
+        CLIENT_LPRC_RegSerialDataEvent(LicensePlateWTY::serialDataCallback);
+        
+        linkTimer=new QTimer(this);
+        linkTimer->setSingleShot(false);
+        connect(linkTimer,SIGNAL(timeout()),this,SLOT(autoLinkCamer()));
+        
         qDebug().noquote()<<QString("WTY Load sucess");
         return true;
     }
@@ -103,12 +111,6 @@ void LicensePlateWTY::initCamerSlot(const QString &localAddr, const QString &cam
     this->camerPow=CamerPow;
     this->signature=signature;
 
-    CLIENT_LPRC_RegCLIENTConnEvent(LicensePlateWTY::connectCallback);
-    CLIENT_LPRC_RegDataEx2Event(LicensePlateWTY::dataEx2Callback);
-    CLIENT_LPRC_RegJpegEvent(LicensePlateWTY::jpegCallback);
-    CLIENT_LPRC_RegWTYGetGpioState(LicensePlateWTY::getGpioStateCallback);
-    CLIENT_LPRC_RegSerialDataEvent(LicensePlateWTY::serialDataCallback);
-
     arrAddr=localAddr.toLatin1();
     if(CLIENT_LPRC_SetNetworkCardBind(arrAddr.data())==0){
         qDebug().noquote()<<QString("IP:%1 Bind network card successfully %2").arg(camerIP).arg(localAddr);
@@ -117,14 +119,13 @@ void LicensePlateWTY::initCamerSlot(const QString &localAddr, const QString &cam
         qWarning().noquote()<<QString("IP:%1 Failed to bind network card %2").arg(camerIP).arg(localAddr);
     }
 
-
     arrAddr=camerIP.toLatin1();
     if(CLIENT_LPRC_InitSDK(static_cast<uint>(camerPort),nullptr,0,arrAddr.data(),0)==0){
         qDebug().noquote()<<QString("IP:%1 License plate camera link successful").arg(camerIP);
     }
     else {
         qWarning().noquote()<<QString("IP:%1 License plate camera link error").arg(camerIP);
-        linkTimer->start(10000);
+        linkTimer->start(15000);
     }
 }
 
@@ -259,15 +260,20 @@ void LicensePlateWTY::openTheVideoSlot(bool play,quint64 winID)
 void LicensePlateWTY::releaseResourcesSlot()
 {
     if(linkTimer!=nullptr){
-        linkTimer->setSingleShot(true);
+        //linkTimer->setSingleShot(true);
         linkTimer->stop();
     }
 
     if(CLIENT_LPRC_QuitDevice!=nullptr){
-        CLIENT_LPRC_QuitDevice(arrAddr.data());
+        //CLIENT_LPRC_QuitDevice(arrAddr.data());
+        CLIENT_LPRC_QuitSDK();
     }
-
-    qDebug().noquote()<<"LicensePlateWTY::releaseResourcesSlot";
+    
+//    if(pDLL!=nullptr){
+//        pDLL->unload();
+//    }
+    
+    qDebug().noquote()<<QString("LicensePlateWTY::releaseResourcesSlot");
 }
 
 /*****************************

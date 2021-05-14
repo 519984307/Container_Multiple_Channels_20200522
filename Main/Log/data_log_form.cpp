@@ -18,7 +18,6 @@ Data_Log_Form::Data_Log_Form(QWidget *parent) :
 
 Data_Log_Form::~Data_Log_Form()
 {
-    qDebug()<<"~Data_Log_Form()";
     delete ui;
 }
 

@@ -43,7 +43,7 @@ InfraredLogic::~InfraredLogic()
 
 QString InfraredLogic::InterfaceType()
 {
-    return "Protector";
+    return QString("Protector");
 }
 
 void InfraredLogic::setAlarmModeSlot(bool model)
@@ -104,7 +104,7 @@ void InfraredLogic::serialLogic(int *status)
         carInChannel=false;
 
         emit logicPutImageSignal(-1);
-        qDebug()<<"Vehicles entering[1]";
+        qDebug().noquote()<<QString("Vehicles entering[1]");
     }
 
     /*****************************
@@ -113,7 +113,7 @@ void InfraredLogic::serialLogic(int *status)
     if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
         comming=false;
         isCar=true;/* 判断是高车头 */
-        qDebug()<<"High truck head[2]";
+        qDebug().noquote()<<QString("High truck head[2]");
     }
 
     /*****************************
@@ -126,7 +126,7 @@ void InfraredLogic::serialLogic(int *status)
         if(health2){
             emit logicPutImageSignal(0);
         }
-        qDebug()<<"Grab (front, left, right)[3]";
+        qDebug().noquote()<<QString("Grab (front, left, right)[3]");
 
         return;
     }
@@ -139,12 +139,12 @@ void InfraredLogic::serialLogic(int *status)
             if(isDouble){
                 /* 如果是双箱就触发双箱标志 */
                 emit logicPutImageSignal(4);
-                qDebug()<<"Grab (double box) (back, left, right)[4-4}]";
+                qDebug().noquote()<<QString("Grab (double box) (back, left, right)[4-4}]");
             }
             else {
                 /* 如果是长箱就触发长箱标志 */
                 logicPutImageSignal(1);
-                qDebug()<<"Grab (Long Box) (Back, Left, Right)[4-1]";
+                qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
             }
             carInChannel=true;
         }
@@ -155,8 +155,6 @@ void InfraredLogic::serialLogic(int *status)
         isCar=false;
         health2=true;
         health1=true;
-
-
 
         return;
     }
@@ -178,7 +176,7 @@ void InfraredLogic::serialLogic(int *status)
         health2=true;
         health1=true;
 
-        qDebug()<<"Grasp (small box) (front , back, left, right)[5]";
+        qDebug().noquote()<<QString("Grasp (small box) (front , back, left, right)[5]");
 
         return;
     }
@@ -190,20 +188,20 @@ void InfraredLogic::serialLogic(int *status)
         /* 双箱 A2 */
         isDouble=true;
 
-        qDebug()<<"Double box state(A2)[8-1]";
+        qDebug().noquote()<<QString("Double box state(A2)[8-1]");
     }
     if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueOne){
         /* 双箱 B1 */
         isDouble=true;
 
-        qDebug()<<"Double box state(B1)[8-2]";
+        qDebug().noquote()<<QString("Double box state(B1)[8-2]");
     }
     if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
         /* 双箱 B2 */
         isDouble=false;
         isLong=false;
 
-        qDebug()<<"Double box state(B2)[8-3]";
+        qDebug().noquote()<<QString("Double box state(B2)[8-3]");
     }
 }
 

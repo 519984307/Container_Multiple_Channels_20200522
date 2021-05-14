@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2012-2014 Alexey Shcherbakov
  * Copyright (C) 2014-2015 Matt Broadstone
  * Contact: https://github.com/mbroadst/qamqp

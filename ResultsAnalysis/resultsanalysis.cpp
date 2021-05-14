@@ -14,7 +14,7 @@ ResultsAnalysis::~ResultsAnalysis()
 
 QString ResultsAnalysis::InterfaceType()
 {
-    return  "ResultsAnalysis";
+    return  QString("ResultsAnalysis");
 }
 
 void ResultsAnalysis::initParameter(const int &channel,const int &ImageNamingRules , bool check, bool sendMid,int correctTheox)

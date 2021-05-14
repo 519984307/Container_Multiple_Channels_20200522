@@ -15,7 +15,6 @@ LicensePlateHCNET::LicensePlateHCNET(QObject *parent)
 
 LicensePlateHCNET::~LicensePlateHCNET()
 {
-    qDebug().noquote()<<QString("~ElectronicLicensePlateHCNET");
 }
 
 QString LicensePlateHCNET::InterfaceType()
@@ -72,7 +71,7 @@ void LicensePlateHCNET::openTheVideoSlot(bool play,quint64 winID)
 
 void LicensePlateHCNET::releaseResourcesSlot()
 {
-    qDebug().noquote()<<"LicensePlateHCNET::releaseResourcesSlot";
+    qDebug().noquote()<<QString("LicensePlateHCNET::releaseResourcesSlot");
 }
 
 void LicensePlateHCNET::initCamerSlot(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature)

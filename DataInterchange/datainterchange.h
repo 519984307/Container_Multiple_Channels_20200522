@@ -66,6 +66,11 @@ private:
     QTimer *pTimerLinkState;
 
     ///
+    /// \brief pTimerAutoLink 定时自动链接
+    ///
+    QTimer *pTimerAutoLink;
+
+    ///
     /// \brief resultOfMemory 保存上次发送的数据
     ///
     QString resultOfMemory;

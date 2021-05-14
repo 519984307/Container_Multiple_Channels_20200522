@@ -1,0 +1,8 @@
+﻿  Generate moc_predefs.h
+  Moc'ing databaseinsert.h...
+  Moc'ing databaseinsertinterface.h...
+  databaseinsert.cpp
+  moc_databaseinsert.cpp
+  moc_databaseinsertinterface.cpp
+    正在创建库 ..\MainUI\Plugins\\Cc1_DataBaseI.lib 和对象 ..\MainUI\Plugins\\Cc1_DataBaseI.exp
+  Cc1_DataBaseI.vcxproj -> C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\DatabaseInsert\..\MainUI\Plugins\Cc1_DataBaseI.dll

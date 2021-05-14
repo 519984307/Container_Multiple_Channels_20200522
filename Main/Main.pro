@@ -12,8 +12,10 @@ TARGET = ZBYCS
 TEMPLATE = app
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.1.7_2103120132
+VERSION = 1.1.1.8_2104232321
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
+
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
@@ -30,9 +32,11 @@ DEFINES += QT_MESSAGELOGCONTEXT
 CONFIG += c++11
 
 SOURCES += \
+    crashstack.cpp \
         main.cpp \
 
-HEADERS += \
+HEADERS += \ \
+    crashstack.h
 
 FORMS += \
 
@@ -70,9 +74,8 @@ include(Setting/Setting.pri)
 include(About/About.pri)
 include(DataProcessing/DataProcessing.pri)
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../LogController/release/ -lLogging
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../LogController/debug/ -lLogging
-else:unix: LIBS += -L$$OUT_PWD/../LogController/ -lLogging
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../LogController/ -lCc1_Logging
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../LogController/ -lCc1_Loggingd
 
 INCLUDEPATH += $$PWD/../LogController
 DEPENDPATH += $$PWD/../LogController

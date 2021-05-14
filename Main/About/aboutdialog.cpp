@@ -1,4 +1,4 @@
-#include "aboutdialog.h"
+﻿#include "aboutdialog.h"
 #include "ui_aboutdialog.h"
 
 #include <QDebug>
@@ -14,6 +14,5 @@ AboutDialog::AboutDialog(QWidget *parent) :
 
 AboutDialog::~AboutDialog()
 {
-    qDebug()<<"~AboutDialog";
     delete ui;
 }

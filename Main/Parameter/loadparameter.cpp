@@ -94,6 +94,8 @@ bool LoadParameter::loadSysParameter()
                     * @brief:Recognizer
                     ******************************/
                     Parameter::ResultsTheCheck=getJsonValue("Recognizer","ResultsTheCheck",value.toObject()).toInt();
+                    Parameter::picture_size=getJsonValue("Recognizer","picture_size",value.toObject()).toInt();
+
 
                     /*****************************
                     * @brief:Service
@@ -111,6 +113,9 @@ bool LoadParameter::loadSysParameter()
                     Parameter::SingletonAddressMQ=getJsonValue("Service","SingletonAddressMQ",value.toObject()).toString();
                     Parameter::ManyCasesAddressMQ=getJsonValue("Service","ManyCasesAddressMQ",value.toObject()).toString();
                     Parameter::DataChange_Format=getJsonValue("Service","DataChange_Format",value.toObject()).toInt();
+                    Parameter::decision_Container=getJsonValue("Service","decision_Container",value.toObject()).toInt();
+                    Parameter::container_timeout=getJsonValue("Service","container_timeout",value.toObject()).toInt();
+                    Parameter::not_plate_color=getJsonValue("Service","not_plate_color",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;

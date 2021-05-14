@@ -1,5 +1,4 @@
 ﻿#include "datainterrabbitmq.h"
-#include <QDebug>
 
 DataInterRabbitMQ::DataInterRabbitMQ(QObject *parent)
 {
@@ -8,8 +7,8 @@ DataInterRabbitMQ::DataInterRabbitMQ(QObject *parent)
 
 DataInterRabbitMQ::~DataInterRabbitMQ()
 {
+    m_client.disconnected();
     m_client.abort();
-    qDebug().noquote()<<QString("~DataInterRabbitMQ");
 }
 
 QString DataInterRabbitMQ::InterfaceType()
@@ -25,6 +24,9 @@ void DataInterRabbitMQ::InitializationParameterSlot(const QString &address, cons
     Q_UNUSED(shortLink);
     Q_UNUSED(newline);
 
+    /*****************************
+    * @brief:address="127.0.0.1|zby|ABCabc123|/zby"
+    ******************************/
     QStringList addrList=address.split("|");
     QString user="zby";
     QString pass="ABCabc123";
@@ -55,12 +57,16 @@ void DataInterRabbitMQ::InitializationParameterSlot(const QString &address, cons
 
     connect(&m_client, SIGNAL(connected()), this, SLOT(clientConnected()));
     connect(&m_client, SIGNAL(disconnected()), this, SLOT(clientDisconnected()));
-    /* 发送识别结果 */
+
+    /*****************************
+    * @brief:发送识别结果
+    ******************************/
     connect(this,&DataInterRabbitMQ::toSendDataSignal,this,&DataInterRabbitMQ::toSendDataSlot);
 
-    //defaultExchange->enableConfirms();
+    /*****************************
+    * @brief:设置持续保存
+    ******************************/
     properties[QAmqpMessage::DeliveryMode] = "2";
-
 }
 
 void DataInterRabbitMQ::toSendDataSlot(int channel_number, const QString &data)
@@ -68,7 +74,6 @@ void DataInterRabbitMQ::toSendDataSlot(int channel_number, const QString &data)
     this->channel_number=channel_number;
 
     sendData=data;
-    //m_client.abort();
     m_client.connectToHost();
 }
 
@@ -77,14 +82,13 @@ void DataInterRabbitMQ::releaseResourcesSlot()
     m_client.disconnectFromHost();
     m_client.abort();
 
-    qDebug().noquote()<<"DataInterRabbitMQ::releaseResourcesSlot";
+    qDebug().noquote()<<QString("DataInterRabbitMQ::releaseResourcesSlot");
 }
 
 void DataInterRabbitMQ::clientDisconnected()
 {
     emit linkStateSingal(addr,m_client.port(),false);
     emit connectCountSignal(-1);
-    //m_client.abort();
 }
 
 void DataInterRabbitMQ::clientConnected()
@@ -116,7 +120,7 @@ void DataInterRabbitMQ::queueDeclared()
 //        //defaultExchange->publish(sendData, "zby",properties);
 //    }
 
-    qDebug().noquote()<< QString("[X] send:")<<sendData;
+    qDebug().noquote()<< QString("[MQ] send:")<<sendData;
     m_client.disconnectFromHost();
     defaultExchange->deleteLater();
     queue->deleteLater();

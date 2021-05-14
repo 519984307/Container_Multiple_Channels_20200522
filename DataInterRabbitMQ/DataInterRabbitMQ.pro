@@ -35,10 +35,20 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Qamqp/ -lQamqp
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Qamqp/ -lQamqpd
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Qamqp/ -lCc1_Qamqp
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Qamqp/ -lCc1_Qamqpd
 
 INCLUDEPATH += $$PWD/../Qamqp
 DEPENDPATH += $$PWD/../Qamqp
 
+CONFIG(debug, debug|release): {
+unix:TARGET=$$join(TARGET,,,_debug)
+win32:TARGET=$$join(TARGET,,Cc1_,d)
+}
+else:CONFIG(release, debug|release): {
+unix:TARGET=$$join(TARGET,,,_release)
+win32:TARGET=$$join(TARGET,,Cc1_,)
+}
+
 DESTDIR+=../MainUI/Plugins
+

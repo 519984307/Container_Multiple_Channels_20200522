@@ -12,8 +12,14 @@
 #include "Parameter/parameter.h"
 #include "MainWindow/mainwindow.h"
 
+#include "crashstack.h"
+
 int main(int argc, char *argv[])
 {
+#ifdef Q_OS_WIN
+        crashstack dump;
+#endif
+
     QTextCodec *codec = QTextCodec::codecForName("gbk");
     QTextCodec::setCodecForLocale(codec);
 

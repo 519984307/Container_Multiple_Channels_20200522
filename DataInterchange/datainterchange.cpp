@@ -10,6 +10,7 @@ DataInterchange::DataInterchange(QObject *parent)
     pTcpServer=nullptr;
     pTcpClient=nullptr;
     pTimerLinkState=nullptr;    
+    pTimerAutoLink=nullptr;
 
 #ifdef Q_OS_LINUX
     eol = "\n";
@@ -21,12 +22,18 @@ DataInterchange::DataInterchange(QObject *parent)
 
 DataInterchange::~DataInterchange()
 {
-    qDebug()<<"~DataInterchange";
+//    if(nullptr != pTcpServer){
+//        pTcpServer->close();
+//    }
+//    if(nullptr != pTcpClient){
+//        pTcpClient->close();
+//        pTcpClient->abort();
+//    }
 }
 
 QString DataInterchange::InterfaceType()
 {
-    return "TCP";
+    return QString("TCP");
 }
 
 void DataInterchange::InitializationParameterSlot(const QString& address, const quint16& port, const int& serviceType,const bool& heartBeat, const int& serviceMode,const int& shortLink,const int& newline)
@@ -58,7 +65,9 @@ void DataInterchange::InitializationParameterSlot(const QString& address, const 
     }
     else if (serviceMode==0) {/* 客户端模式 */
         pTcpClient=new QTcpSocket(this);
-        pTimerLinkState=new QTimer (this);
+        pTimerLinkState=new QTimer(this);
+        pTimerAutoLink=new QTimer(this);
+        pTimerAutoLink->setSingleShot(true);
 
         /* 发送识别结果 */
         connect(this,&DataInterchange::toSendDataSignal,this,&DataInterchange::toSendDataSlot);
@@ -70,6 +79,7 @@ void DataInterchange::InitializationParameterSlot(const QString& address, const 
         connect(pTcpClient,&QAbstractSocket::disconnected,this,&DataInterchange::disconnectedSlot);
         connect(pTcpClient,QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::error),this,&DataInterchange::displayErrorSlot);
         connect(pTimerLinkState,&QTimer::timeout,this,&DataInterchange::heartbeatSlot);
+        connect(pTimerAutoLink,&QTimer::timeout,this,&DataInterchange::startLinkSlot);
 
         /*****************************
         * @brief:不是短链接，服务器启动主动链接
@@ -139,6 +149,12 @@ void DataInterchange::receiveDataSlot()
             }
         }
     }
+    else {
+        /*****************************
+        * @brief:202105062343(接收到不是指定数据，源数据转发输出)
+        ******************************/
+        emit toSendDataSignal(channel,buf);
+    }
     buf.clear();
 }
 
@@ -153,8 +169,12 @@ void DataInterchange::displayErrorSlot(QAbstractSocket::SocketError socketError)
 {
     isConnected=false;
 
+    emit connectCountSignal(-1);
+    emit linkStateSingal(address,port,false);
+
     if(!shortLink){
-        QTimer::singleShot(15000, this, SLOT(startLinkSlot()));
+        //QTimer::singleShot(15000, this, SLOT(startLinkSlot()));
+        pTimerAutoLink->start(15000);
     }
     qWarning().noquote()<<QString("IP:%1:%3  link error<errorCode=%2>").arg(address).arg(socketError).arg(port);
 }
@@ -195,21 +215,23 @@ void DataInterchange::releaseResourcesSlot()
 {
     isConnected=false;
 
-    if(pTcpServer!=nullptr){
+    if(pTcpServer!=nullptr && pTcpServer->isListening()){
         pTcpServer->releaseResourcesSlot();
+        pTcpServer->close();
     }
 
-    if(pTcpClient != nullptr){
-         pTcpClient->abort();
+    if(pTcpClient != nullptr && pTcpClient->isOpen()){
+        pTcpClient->disconnected();
+        pTcpClient->close();
+        pTcpClient->abort();
     }
 
-    if(pTcpServer!=nullptr){
-         pTcpServer->close();
-    }
-
-    if(pTimerLinkState!=nullptr){
+    if(pTimerLinkState!=nullptr){        
         pTimerLinkState->stop();
     }
+    if(pTimerAutoLink!=nullptr){
+        pTimerAutoLink->stop();
+    }
 
-    qDebug().noquote()<<"DataInterchange::releaseResourcesSlot";
+    qDebug().noquote()<<QString("DataInterchange::releaseResourcesSlot");
 }

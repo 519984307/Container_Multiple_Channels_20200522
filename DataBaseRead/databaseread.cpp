@@ -1,7 +1,4 @@
 ﻿#include "databaseread.h"
-#include <QDebug>
-#include <QSharedPointer>
-#include <QScopedPointer>
 
 DataBaseRead::DataBaseRead(QObject *parent)
 {
@@ -11,7 +8,6 @@ DataBaseRead::DataBaseRead(QObject *parent)
 DataBaseRead::~DataBaseRead()
 {
     //QSqlDatabase::removeDatabase(connectName);
-    qDebug()<<"~DataBaseRead";
 }
 
 QString DataBaseRead::InterfaceType()

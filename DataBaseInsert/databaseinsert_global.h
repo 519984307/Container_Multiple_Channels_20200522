@@ -12,6 +12,7 @@
 #include <QDir>
 #include <QCoreApplication>
 #include <QSharedPointer>
+#include <QDebug>
 
 #if defined(DATABASEINSERT_LIBRARY)
 #  define DATABASEINSERTSHARED_EXPORT Q_DECL_EXPORT

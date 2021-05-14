@@ -1,5 +1,4 @@
 ﻿#include "databaseinsert.h"
-#include <QDebug>
 
 DataBaseInsert::DataBaseInsert(QObject *parent)
 {
@@ -9,7 +8,6 @@ DataBaseInsert::DataBaseInsert(QObject *parent)
 DataBaseInsert::~DataBaseInsert()
 {
     //QSqlDatabase::removeDatabase(connectName);
-    qDebug().noquote()<<QString("~DataBaseInsert");
 }
 
 QString DataBaseInsert::InterfaceType()

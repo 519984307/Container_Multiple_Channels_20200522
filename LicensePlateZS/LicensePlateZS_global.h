@@ -1,7 +1,9 @@
-#ifndef LICENSEPLATEZS_GLOBAL_H
+﻿#ifndef LICENSEPLATEZS_GLOBAL_H
 #define LICENSEPLATEZS_GLOBAL_H
 
 #include <QtCore/qglobal.h>
+#include <QTcpSocket>
+#include <QTimer>
 
 #if defined(LICENSEPLATEZS_LIBRARY)
 #  define LICENSEPLATEZS_EXPORT Q_DECL_EXPORT

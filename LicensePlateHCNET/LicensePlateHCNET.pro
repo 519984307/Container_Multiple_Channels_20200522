@@ -5,6 +5,7 @@ CONFIG += plugin
 TEMPLATE = lib
 DEFINES += LICENSEPLATEHCNET_LIBRARY
 
+TARGET = LicensePlateHK
 CONFIG += skip_target_version_ext
 VERSION = 2.2.2.3
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
@@ -33,5 +34,14 @@ unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
+
+CONFIG(debug, debug|release): {
+unix:TARGET=$$join(TARGET,,,_debug)
+win32:TARGET=$$join(TARGET,,Cc1_,d)
+}
+else:CONFIG(release, debug|release): {
+unix:TARGET=$$join(TARGET,,,_release)
+win32:TARGET=$$join(TARGET,,Cc1_,)
+}
 
 DESTDIR+=../MainUI/Plugins
