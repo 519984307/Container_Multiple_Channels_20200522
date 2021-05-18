@@ -11,6 +11,10 @@ CONFIG += plugin
 TARGET = Encryption
 TEMPLATE = lib
 
+CONFIG += skip_target_version_ext
+VERSION =0.0.0.1
+QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
+
 DEFINES += ENCRYPTION_LIBRARY
 
 # The following define makes your compiler emit warnings if you use
@@ -35,6 +39,15 @@ HEADERS += \
 unix {
     target.path = /usr/lib
     INSTALLS += target
+}
+
+CONFIG(debug, debug|release): {
+unix:TARGET=$$join(TARGET,,,_debug)
+win32:TARGET=$$join(TARGET,,Cc1_,d)
+}
+else:CONFIG(release, debug|release): {
+unix:TARGET=$$join(TARGET,,,_release)
+win32:TARGET=$$join(TARGET,,Cc1_,)
 }
 
 DESTDIR+=../MainUI/Plugins

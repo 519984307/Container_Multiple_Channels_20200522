@@ -1,8 +1,8 @@
 #include <windows.h>
 
 VS_VERSION_INFO VERSIONINFO
-	FILEVERSION 2,4,3,15
-	PRODUCTVERSION 2,4,3,15
+	FILEVERSION 2,4,3,16
+	PRODUCTVERSION 2,4,3,16
 	FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
 	FILEFLAGS VS_FF_DEBUG
@@ -19,11 +19,11 @@ VS_VERSION_INFO VERSIONINFO
 			BEGIN
 				VALUE "CompanyName", "\0"
 				VALUE "FileDescription", "\0"
-				VALUE "FileVersion", "2.4.3.15\0"
+				VALUE "FileVersion", "2.4.3.16\0"
 				VALUE "LegalCopyright", "Copyright 2020 Shen zhen zhong bai yuan\0"
 				VALUE "OriginalFilename", "Cc1_plug-in_HCNETd.dll\0"
 				VALUE "ProductName", "Cc1_plug-in_HCNETd\0"
-				VALUE "ProductVersion", "2.4.3.15\0"
+				VALUE "ProductVersion", "2.4.3.16\0"
 			END
 		END
 		BLOCK "VarFileInfo"

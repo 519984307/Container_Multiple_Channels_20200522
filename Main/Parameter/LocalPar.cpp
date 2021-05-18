@@ -9,7 +9,7 @@ namespace LocalPar {
     QString version=QString(APP_VERSION);
     QString copyright="深圳众百源科技有限公司";
     QString msg="集装箱号码识别系统";
-    int Channels =2;
+    int Channels =1;
     /*****************************
     * @brief:箱号相机：前，后，左，右，顶，车头，车尾,车牌
     ******************************/

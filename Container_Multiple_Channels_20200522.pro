@@ -11,7 +11,7 @@ SUBDIRS +=\
     LicensePlateHCNET \
     #LicensePlateVZ \
     LicensePlateWTY \
-    #LicensePlateZS \
+    LicensePlateZS \
     ToUploadData\
     DataInterchange \
     #DataProcessing \
@@ -21,7 +21,7 @@ SUBDIRS +=\
     #Processing \
     ResultsAnalysis \
     InfraredLogic\
-#    Encryption\
+    Encryption\
     IdentifyImages\
     CaptureImages \
     LogController \

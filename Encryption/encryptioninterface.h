@@ -1,4 +1,4 @@
-#ifndef ENCRYPTIONINTERFACE_H
+﻿#ifndef ENCRYPTIONINTERFACE_H
 #define ENCRYPTIONINTERFACE_H
 
 #define ZBY_LOG(type)  tr("[%1][%2][%3]").arg(type).arg(Q_FUNC_INFO).arg(__LINE__)
@@ -47,7 +47,7 @@ public slots:
 
 };
 
-#define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/1.0"
+#define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/0.0.0.1"
 Q_DECLARE_INTERFACE(EncryptionInterface,EncryptionInterfaceIID);
 
 #endif // ENCRYPTIONINTERFACE_H

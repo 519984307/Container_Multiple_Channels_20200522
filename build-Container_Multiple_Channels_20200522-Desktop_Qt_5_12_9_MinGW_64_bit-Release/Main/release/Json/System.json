@@ -1,7 +1,7 @@
 {
     "Main": {
         "Channel": {
-            "ChannelNumber": 2,
+            "ChannelNumber": 1,
             "ImageFormat": 0,
             "ImageNamingRules": 0,
             "ImagePath": "",
@@ -15,7 +15,7 @@
             "PlateType": 1
         },
         "Other": {
-            "Automatic": 1,
+            "Automatic": 0,
             "DebugLog": 1,
             "DelayStart": 10,
             "FullScreen": 0,

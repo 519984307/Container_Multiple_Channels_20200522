@@ -1,4 +1,4 @@
-#include "encryption.h"
+﻿#include "encryption.h"
 
 #include <QCryptographicHash>
 #include <QProcess>
@@ -6,8 +6,6 @@
 Encryption::Encryption(QObject *parent)
 {
     this->setParent(parent);
-
-    //key1=QByteArray("cheng870888").toHex()+"5e8d317e83c2f7ace3584a929961fcb4";
 
     key1=QByteArray("cheng870888").toHex()+"0451031075c8f4a1a81913cad8c8593f";
     ind=5;
@@ -28,15 +26,6 @@ Encryption::Encryption(QObject *parent)
 
 Encryption::~Encryption()
 {
-    if(pDLL!=nullptr && pDLL->isLoaded()){
-        pDLL->unload();
-    }
-
-    delete  pTimer;
-    pTimer=nullptr;
-
-    delete pDLL;
-    pDLL=nullptr;
 }
 
 void Encryption::InitializationSlot()
@@ -51,7 +40,7 @@ void Encryption::InitializationSlot()
         /*****************************
         * @brief: 加密狗
         ******************************/
-        //smartXGetUidFunc();
+        smartXGetUidFunc();
         pTimer->start(10000);
 
         /*****************************
@@ -67,6 +56,12 @@ void Encryption::InitializationSlot()
 void Encryption::releaseResourcesSlot()
 {
     pTimer->stop();
+
+    delete  pTimer;
+    pTimer=nullptr;
+
+    delete pDLL;
+    pDLL=nullptr;
 }
 
 void Encryption::smartXGetUidFunc()
@@ -81,10 +76,13 @@ void Encryption::smartXGetUidFunc()
     /* 惠州key
      * 5e8d317e83c2f7ace3584a929961fcb4
     */
+    /*沈阳安信
+     * f19d15dec81584b5ce4f9edb0aae1789
+    */
     if(SmartX3Find!=nullptr && SmartX3Find(appID,keyHandles,&keyNumber)==0){
         if(SmartX3GetUid!=nullptr && SmartX3GetUid(keyHandles[0],UID)==0){
-            qDebug()<<"UID:"<<UID;
-            if(strncmp(UID,"2895743a6f3c423adfc444d16076e085",33)==0){
+            //qDebug()<<"UID:"<<UID;
+            if(strncmp(UID,"f19d15dec81584b5ce4f9edb0aae1789",33)==0){
                 dogState=true;
             }
             else {
@@ -97,16 +95,9 @@ void Encryption::smartXGetUidFunc()
 void Encryption::SmartXCheckExistSlot()
 {
     if(dogState && SmartX3CheckExist!=nullptr && SmartX3CheckExist(keyHandles[0])==0){
-        //emit GetTheEncryptedStateSignal(true);
-        qDebug()<<"find lock";
+        emit GetTheEncryptedStateSignal(true);
     }
-    else {
-        //emit GetTheEncryptedStateSignal(false);
-        //smartXGetUidFunc();
-        qDebug()<<"not find";
-    }
-
-    emit GetTheEncryptedStateSignal(true);
+    //emit GetTheEncryptedStateSignal(true);
 }
 
 void Encryption::checkTheKeyFunc()

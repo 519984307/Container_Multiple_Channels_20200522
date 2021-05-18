@@ -711,14 +711,28 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
     if(nullptr!=LoginInfo && pThis->NET_DVR_GetLastError_L()>0){
 
         emit pThis->equipmentStateSignal(lUserID,false);
-//        int key =pThis->logInfoMap.key(LoginInfo,-1);
-//        if(key!=-1){
-//            pThis->logInfoMap.remove(key);
-//        }
+        int key =pThis->logInfoMap.key(LoginInfo,-1);
+        if(key!=-1){
+            pThis->logInfoMap.remove(key);
+        }
 
         if(nullptr != pThis->NET_DVR_Logout_L){
             pThis-> NET_DVR_Logout_L(lUserID);
         }
+
+        if(-1 ==pThis->logfalList.indexOf(LoginInfo) && -1 == pThis->logInfoMap.key(LoginInfo,-1)){
+            pThis->logfalList.append(LoginInfo);
+        }
+
+//        for(int var=0;var<pThis->logfalList.size();++var){
+
+//            /*****************************
+//            * @brief:异步登录
+//            ******************************/
+//            if(pThis->NET_DVR_Login_V40_L !=nullptr){/* 登录设备 */
+//                pThis->NET_DVR_Login_V40_L(pThis->logfalList[var],&pThis->DeviceInfo);
+//            }
+//        }
 
         qWarning().noquote()<<QString("IP=%1 Camrea Exception<errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(QString::number(pThis->NET_DVR_GetLastError_L()));
     }
@@ -818,25 +832,28 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
             emit equipmentStateSignal(id,true);
         }
         else {
-            logfalList.append(logInfoMap[id]);
-            logInfoMap.remove(id);
-
             emit equipmentStateSignal(id,false);
-            /* 释放播放库资源 */
-            if(nullptr!=PlayM4_Stop_L){
-                PlayM4_Stop_L(playMap.value(id));
-            }
-            if(nullptr!=PlayM4_CloseStream_L){
-                PlayM4_CloseStream_L(playMap.value(id));
-            }
-            if(nullptr!=PlayM4_FreePort_L){
-                PlayM4_FreePort_L(playMap.value(id));
-            }
-            if(NET_DVR_Logout_L !=nullptr){
-                NET_DVR_Logout_L(id);
-            }
-            playMap.remove(id);
         }
+//        else {
+//            logfalList.append(logInfoMap[id]);
+//            logInfoMap.remove(id);
+
+//            emit equipmentStateSignal(id,false);
+//            /* 释放播放库资源 */
+//            if(nullptr!=PlayM4_Stop_L){
+//                PlayM4_Stop_L(playMap.value(id));
+//            }
+//            if(nullptr!=PlayM4_CloseStream_L){
+//                PlayM4_CloseStream_L(playMap.value(id));
+//            }
+//            if(nullptr!=PlayM4_FreePort_L){
+//                PlayM4_FreePort_L(playMap.value(id));
+//            }
+//            if(NET_DVR_Logout_L !=nullptr){
+//                NET_DVR_Logout_L(id);
+//            }
+//            playMap.remove(id);
+//        }
     }
 
     for(int var=0;var<logfalList.size();++var){

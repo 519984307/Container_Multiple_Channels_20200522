@@ -386,6 +386,7 @@ QList<int> ResultsAnalysis::checkContainerNumber(int start, int end)
         if(i>1){
             for (int var = start; var < end; ++var) {/* 箱号校验正确大于1个，对比置信度 */
                 if(checkConList[var] && conProbabilityTemp[var]>Cprobability){
+                    Cprobability=conProbabilityTemp[var];
                     Cindex=var;
                 }
             }
