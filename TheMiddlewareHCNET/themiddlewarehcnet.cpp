@@ -744,7 +744,7 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
 
     LPNET_DVR_USER_LOGIN_INFO LoginInfo=reinterpret_cast<LPNET_DVR_USER_LOGIN_INFO>(pUser);
 
-    pThis->logMap.insert(lUserID,LoginInfo);/* 异步登录异常判断使用 */
+    //pThis->logMap.insert(lUserID,LoginInfo);/* 异步登录异常判断使用 */
 
     /*****************************
     * @brief:异步登录

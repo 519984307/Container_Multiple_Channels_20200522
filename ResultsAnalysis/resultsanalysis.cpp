@@ -326,7 +326,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             }
         }
     }
-    else {
+    else {        
         QList<int> checkResult;
         checkResult=checkContainerNumber(0,conTemp.size());
         if(checkResult.size()==2){
@@ -376,6 +376,12 @@ QList<int> ResultsAnalysis::checkContainerNumber(int start, int end)
         }
     }
     if(!check) {
+
+        /*****************************
+        * @brief:箱号字头
+        ******************************/
+        QString startTmp= queueContainerStart(conTemp);
+
         int i=0;
         for (int var = start; var < end; ++var) {/* 箱号校验 */
             if(checkConList[var]){/* 只有一个检验正确，直接输出 */
@@ -386,8 +392,13 @@ QList<int> ResultsAnalysis::checkContainerNumber(int start, int end)
         if(i>1){
             for (int var = start; var < end; ++var) {/* 箱号校验正确大于1个，对比置信度 */
                 if(checkConList[var] && conProbabilityTemp[var]>Cprobability){
-                    Cprobability=conProbabilityTemp[var];
-                    Cindex=var;
+                    if(!startTmp.isEmpty() && conTemp.at(var).startsWith(startTmp)){
+                        /*****************************
+                        * @brief:同一箱号字头多次出现，就以次字头为主
+                        ******************************/
+                        Cprobability=conProbabilityTemp[var];
+                        Cindex=var;
+                    }
                 }
             }
         }
@@ -430,6 +441,20 @@ int ResultsAnalysis::ConsecutiveLCS(QString rs1, QString rs2)
         }
     }
     return dp[len1][len2];
+}
+
+QString ResultsAnalysis::queueContainerStart(QStringList conList)
+{
+    QStringList conStart;
+    foreach (QString var, conList) {
+        conStart.append(var.mid(0,4));
+    }
+    QStringList tmpStart= queueContainerNumber(conStart);
+
+    if(tmpStart.size()==1){
+        return tmpStart[0];
+    }
+    return QString("");
 }
 
 void ResultsAnalysis::resultsAnalysisStateslot(const int &channel, const QString &msg)

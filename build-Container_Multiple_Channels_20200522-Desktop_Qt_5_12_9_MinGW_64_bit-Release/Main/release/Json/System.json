@@ -12,7 +12,7 @@
             "Camera_Load_Plugin": 0,
             "HCNET_Capture_Type": 2,
             "LogicType": 0,
-            "PlateType": 1
+            "PlateType": 0
         },
         "Other": {
             "Automatic": 0,

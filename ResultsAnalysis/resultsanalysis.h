@@ -98,6 +98,13 @@ private:
     ///
     int ConsecutiveLCS(QString rs1,QString rs2);
 
+    ///
+    /// \brief queueContainerStart 统计箱号字头出现次数
+    /// \param conStart
+    /// \return
+    ///
+    QString queueContainerStart(QStringList conList);
+
 private:
 
     ///
