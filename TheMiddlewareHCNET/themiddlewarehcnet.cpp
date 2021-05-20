@@ -706,23 +706,21 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
     Q_UNUSED(dwType);
     Q_UNUSED(lHandle);
 
-    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logMap.value(lUserID,nullptr);
+    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logInfoMap.value(lUserID,nullptr);
 
     if(nullptr!=LoginInfo && pThis->NET_DVR_GetLastError_L()>0){
-
         emit pThis->equipmentStateSignal(lUserID,false);
-        int key =pThis->logInfoMap.key(LoginInfo,-1);
-        if(key!=-1){
-            pThis->logInfoMap.remove(key);
-        }
 
         if(nullptr != pThis->NET_DVR_Logout_L){
-            pThis-> NET_DVR_Logout_L(lUserID);
+            if(pThis-> NET_DVR_Logout_L(lUserID)){
+                if(-1 ==pThis->logfalList.indexOf(LoginInfo) && -1 != pThis->logInfoMap.key(LoginInfo,-1)){
+                    pThis->logInfoMap.remove(lUserID);
+                    pThis->logfalList.append(LoginInfo);
+                }
+            }
         }
 
-        if(-1 ==pThis->logfalList.indexOf(LoginInfo) && -1 == pThis->logInfoMap.key(LoginInfo,-1)){
-            pThis->logfalList.append(LoginInfo);
-        }
+
 
 //        for(int var=0;var<pThis->logfalList.size();++var){
 
