@@ -1,5 +1,4 @@
 ﻿#include "captureimages.h"
-#include <QDebug>
 
 CaptureImages::CaptureImages(QObject *parent)
 {

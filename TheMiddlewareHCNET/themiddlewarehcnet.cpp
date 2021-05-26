@@ -710,28 +710,11 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
 
     if(nullptr!=LoginInfo && pThis->NET_DVR_GetLastError_L()>0){
         emit pThis->equipmentStateSignal(lUserID,false);
-
-        if(nullptr != pThis->NET_DVR_Logout_L){
-            if(pThis-> NET_DVR_Logout_L(lUserID)){
-                if(-1 ==pThis->logfalList.indexOf(LoginInfo) && -1 != pThis->logInfoMap.key(LoginInfo,-1)){
-                    pThis->logInfoMap.remove(lUserID);
-                    pThis->logfalList.append(LoginInfo);
-                }
-            }
+        pThis->logInfoMap.remove(lUserID);
+        //pThis->logMap.remove(lUserID);
+        if(-1 ==pThis->logfalList.indexOf(LoginInfo)){
+            pThis->logfalList.append(LoginInfo);
         }
-
-
-
-//        for(int var=0;var<pThis->logfalList.size();++var){
-
-//            /*****************************
-//            * @brief:异步登录
-//            ******************************/
-//            if(pThis->NET_DVR_Login_V40_L !=nullptr){/* 登录设备 */
-//                pThis->NET_DVR_Login_V40_L(pThis->logfalList[var],&pThis->DeviceInfo);
-//            }
-//        }
-
         qWarning().noquote()<<QString("IP=%1 Camrea Exception<errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(QString::number(pThis->NET_DVR_GetLastError_L()));
     }
 }
@@ -741,8 +724,9 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
     Q_UNUSED(lpDeviceInfo);
 
     LPNET_DVR_USER_LOGIN_INFO LoginInfo=reinterpret_cast<LPNET_DVR_USER_LOGIN_INFO>(pUser);
+    qDebug()<<"lUserID:"<<lUserID<<LoginInfo->sDeviceAddress;
 
-    //pThis->logMap.insert(lUserID,LoginInfo);/* 异步登录异常判断使用 */
+    pThis->logMap.insert(lUserID,LoginInfo);/* 异步登录异常判断使用 */
 
     /*****************************
     * @brief:异步登录
@@ -786,7 +770,6 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
         if(-1 ==pThis->logfalList.indexOf(LoginInfo) && -1 == pThis->logInfoMap.key(LoginInfo,-1)){
             pThis->logfalList.append(LoginInfo);
         }
-
         if(pThis->NET_DVR_GetLastError_L!=nullptr){
             qWarning().noquote()<<QString("IP=%1 Login failed <errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(pThis->NET_DVR_GetLastError_L());
         }
@@ -856,6 +839,11 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
 
     for(int var=0;var<logfalList.size();++var){
 
+        if(nullptr != pThis->NET_DVR_Logout_L && pThis-> NET_DVR_Logout_L(logMap.key(logfalList.at(var)))){
+            qDebug().noquote()<<QString("IP=%1 Logout").arg(logfalList.at(var)->sDeviceAddress);
+            int id = logMap.key(logfalList.at(var));
+            logMap.remove(id);
+        }
         /*****************************
         * @brief:异步登录
         ******************************/

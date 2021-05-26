@@ -3,11 +3,12 @@
 
 #include <QObject>
 
-class LicensePlateInterface : public QObject
+class LicensePlateInterface:public QObject
 {
     Q_OBJECT
+
 public:
-    ~ LicensePlateInterface(){}
+    virtual ~LicensePlateInterface(){}
 
     ///
     /// \brief InterfaceType 插件类型，多插件调用统一接口

@@ -68,18 +68,18 @@ private:
     ///
     bool initializationParameter();
 
-private slots:
-    ///
-    /// \brief getDeviceStatusSlot 获取设备运行状态
-    /// \param lUserID 登录ID
-    /// \return
-    ///
-    void getDeviceStatusSlot();
+//private slots:
+//    ///
+//    /// \brief getDeviceStatusSlot 获取设备运行状态
+//    /// \param lUserID 登录ID
+//    /// \return
+//    ///
+//    void getDeviceStatusSlot();
 
-    ///
-    /// \brief slot_imgGetTimeOut 取图片超时
-    ///
-    void slot_imgGetTimeOut();
+//    ///
+//    /// \brief slot_imgGetTimeOut 取图片超时
+//    ///
+//    void slot_imgGetTimeOut();
 
 public:
     ///
@@ -115,7 +115,7 @@ public:
     QString localAddr;
 
     bool put;
-    QTimer *imgGetTimeOut;
+    //QTimer *imgGetTimeOut;
 };
 
 #endif // LICENSEPLATEHCNET_H

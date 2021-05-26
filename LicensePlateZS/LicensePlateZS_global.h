@@ -4,6 +4,8 @@
 #include <QtCore/qglobal.h>
 #include <QTcpSocket>
 #include <QTimer>
+#include <QJsonObject>
+#include <QJsonDocument>
 
 #if defined(LICENSEPLATEZS_LIBRARY)
 #  define LICENSEPLATEZS_EXPORT Q_DECL_EXPORT

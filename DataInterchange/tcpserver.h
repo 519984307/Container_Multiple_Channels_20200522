@@ -14,6 +14,7 @@ class TcpServer : public QTcpServer
 
 public:
     explicit TcpServer(QObject *parent=nullptr);
+    ~TcpServer();
 
     ///
     /// \brief InitializationParameter 初始化参数

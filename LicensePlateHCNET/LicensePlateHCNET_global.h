@@ -2,7 +2,7 @@
 #define LICENSEPLATEHCNET_GLOBAL_H
 
 #include <QtCore/qglobal.h>
-#include <QTimer>
+//#include <QTimer>
 #include <QDebug>
 
 #if defined(LICENSEPLATEHCNET_LIBRARY)

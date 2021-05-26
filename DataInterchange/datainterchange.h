@@ -161,6 +161,11 @@ signals:
     /// \param newline
     ///
     void signal_setMessageFormat(int newline);
+
+    ///
+    /// \brief signal_releaseResources 释放TCP服务资源
+    ///
+    void signal_releaseResources();
 };
 
 #endif // DATAINTERCHANGE_H

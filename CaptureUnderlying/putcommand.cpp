@@ -9,13 +9,13 @@ PutCommand::PutCommand(QObject *parent) : QObject(parent)
 
 PutCommand::~PutCommand()
 {
-    if(tcpSocket!=nullptr){
-        tcpSocket->disconnected();
-        tcpSocket->close();
-        tcpSocket->abort();
-    }
-    delete  tcpSocket;
-    tcpSocket=nullptr;
+//    if(tcpSocket!=nullptr){
+//        tcpSocket->disconnected();
+//        tcpSocket->close();
+//        tcpSocket->abort();
+//    }
+//    delete  tcpSocket;
+//    tcpSocket=nullptr;
 }
 
 void PutCommand::linktoServerSlot(QString addr, quint16 port)

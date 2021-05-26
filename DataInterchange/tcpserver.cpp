@@ -14,6 +14,20 @@ TcpServer::TcpServer(QObject *parent):QTcpServer (parent)
 #endif
 }
 
+TcpServer::~TcpServer()
+{
+        foreach (auto tcp, clientSocketIdMap.values()) {
+            tcp->disconnected();
+            tcp->abort();
+            tcp->close();
+            delete tcp;
+            tcp=nullptr;
+        }
+
+        clientChannelMap.clear();
+        clientSocketIdMap.clear();
+}
+
 void TcpServer::InitializationParameter()
 {
     isHeartPack=false;
@@ -123,22 +137,22 @@ void TcpServer::setHeartPacketStateSlot(bool state)
 
 void TcpServer::releaseResourcesSlot()
 {
-    //this->close();
+    this->close();
 
     if(pTimerSendHeartPack!=nullptr){
         pTimerSendHeartPack->stop();
     }
 
-    foreach (auto tcp, clientSocketIdMap.values()) {
-        tcp->disconnected();
-        tcp->abort();
-        tcp->close();
-        delete tcp;
-        tcp=nullptr;
-    }
+//    foreach (auto tcp, clientSocketIdMap.values()) {
+//        tcp->disconnected();
+//        tcp->abort();
+//        tcp->close();
+//        delete tcp;
+//        tcp=nullptr;
+//    }
 
-    clientChannelMap.clear();
-    clientSocketIdMap.clear();
+//    clientChannelMap.clear();
+//    clientSocketIdMap.clear();
 
     qDebug().noquote()<<QString("TcpServer::releaseResourcesSlot");
 }

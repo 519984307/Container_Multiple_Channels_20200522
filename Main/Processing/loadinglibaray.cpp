@@ -235,7 +235,7 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 tdList.append(th);
                 pICaptureImages->moveToThread(th);
                 th->start();
-                ICaptureImagesLit.append(QSharedPointer<ICaptureImages>(pICaptureImages));
+                ICaptureImagesLit.append(QSharedPointer<ICaptureImages>(pICaptureImages));                
             }
             else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
                 QThread *th=new QThread(this);

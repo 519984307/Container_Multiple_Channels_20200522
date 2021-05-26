@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForLocale(codec);
 
     QApplication::addLibraryPath(QDir::toNativeSeparators("./Plugins"));
+    QApplication::addLibraryPath(QDir::toNativeSeparators("./translations"));
 
     QApplication a(argc, argv);
 

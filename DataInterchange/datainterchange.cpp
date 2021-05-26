@@ -9,7 +9,7 @@ DataInterchange::DataInterchange(QObject *parent)
     isConnected=false;
     pTcpServer=nullptr;
     pTcpClient=nullptr;
-    pTimerLinkState=nullptr;    
+    pTimerLinkState=nullptr;
     pTimerAutoLink=nullptr;
 
 #ifdef Q_OS_LINUX
@@ -22,13 +22,6 @@ DataInterchange::DataInterchange(QObject *parent)
 
 DataInterchange::~DataInterchange()
 {
-//    if(nullptr != pTcpServer){
-//        pTcpServer->close();
-//    }
-//    if(nullptr != pTcpClient){
-//        pTcpClient->close();
-//        pTcpClient->abort();
-//    }
 }
 
 QString DataInterchange::InterfaceType()
@@ -60,11 +53,13 @@ void DataInterchange::InitializationParameterSlot(const QString& address, const 
         connect(pTcpServer,&TcpServer::signal_sendDataSuccToLog,this,&DataInterchange::signal_sendDataSuccToLog);
         /* tcp链接状态 */
         connect(pTcpServer,&TcpServer::linkStateSingal,this,&DataInterchange::linkStateSingal);
+        /* 释放资源 */
+        connect(this,&DataInterchange::signal_releaseResources,pTcpServer,&TcpServer::releaseResourcesSlot);
 
         startListenSlot();
     }
     else if (serviceMode==0) {/* 客户端模式 */
-        pTcpClient=new QTcpSocket(this);
+        pTcpClient=new QTcpSocket();
         pTimerLinkState=new QTimer(this);
         pTimerAutoLink=new QTimer(this);
         pTimerAutoLink->setSingleShot(true);
@@ -213,17 +208,8 @@ void DataInterchange::toSendDataSlot(int channel_number,const QString &data)
 
 void DataInterchange::releaseResourcesSlot()
 {
-    isConnected=false;
-
-    if(pTimerLinkState!=nullptr){
-        pTimerLinkState->stop();
-    }
-    if(pTimerAutoLink!=nullptr){
-        pTimerAutoLink->stop();
-    }
-
     if(pTcpServer!=nullptr && pTcpServer->isListening()){
-        pTcpServer->releaseResourcesSlot();
+        emit signal_releaseResources();
         pTcpServer->close();
     }
 
@@ -231,6 +217,15 @@ void DataInterchange::releaseResourcesSlot()
         pTcpClient->disconnected();
         pTcpClient->close();
         pTcpClient->abort();
+    }
+
+    isConnected=false;
+
+    if(pTimerLinkState!=nullptr){
+        pTimerLinkState->stop();
+    }
+    if(pTimerAutoLink!=nullptr){
+        pTimerAutoLink->stop();
     }
 
     qDebug().noquote()<<QString("DataInterchange::releaseResourcesSlot");

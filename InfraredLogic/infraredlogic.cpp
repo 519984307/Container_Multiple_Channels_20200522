@@ -409,6 +409,7 @@ void InfraredLogic::realyTheSerialport()
 void InfraredLogic::detectionLogicStatus(bool com1, bool com2)
 {
     QCoreApplication::processEvents();
+
     if(com1 && pSerial1->pinoutSignals()!=QSerialPort::NoSignal){
         /*A1*/
         status[0]= (pSerial1->pinoutSignals()&QSerialPort::ClearToSendSignal)?1:0;

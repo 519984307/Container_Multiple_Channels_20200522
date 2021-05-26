@@ -12,8 +12,8 @@ TARGET = ZBYCS
 TEMPLATE = app
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.1.8_2105151605
-QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
+VERSION = 1.1.1.8_2105251546
+QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 

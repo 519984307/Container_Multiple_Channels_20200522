@@ -102,6 +102,11 @@ private slots:
     void startLinkSlot();
 
     ///
+    /// \brief heartbeatSlot 定时发送心跳包
+    ///
+    void heartbeatSlot();
+
+    ///
     /// \brief connectedSlot 链接成功
     ///
     void connectedSlot();
@@ -130,9 +135,14 @@ private:
     QTcpSocket *pTcpClient;
 
     ///
-    /// \brief pTimerLinkState 定时器链接
+    /// \brief pTimerLinkState 心跳包定时器
     ///
     QTimer* pTimerLinkState;
+
+    ///
+    /// \brief pTimerAutoLink 定时器链接
+    ///
+    QTimer* pTimerAutoLink;
 
     ///
     /// \brief isConnected 客户端链接状态
@@ -153,11 +163,6 @@ private:
     /// \brief port 端口
     ///
     quint16 port;
-
-    ///
-    /// \brief cls 对象名
-    ///
-    QString cls;
 };
 
 #endif // LICENSEPLATEZS_H
