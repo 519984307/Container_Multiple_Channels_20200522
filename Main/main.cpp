@@ -24,7 +24,8 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForLocale(codec);
 
     QApplication::addLibraryPath(QDir::toNativeSeparators("./Plugins"));
-    QApplication::addLibraryPath(QDir::toNativeSeparators("./translations"));
+    //QApplication::addLibraryPath(QDir::toNativeSeparators("./translations"));
+    QDir::setCurrent(QCoreApplication::applicationDirPath());
 
     QApplication a(argc, argv);
 
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
     }
 
     QTranslator translator;
-    translator.load("zh_hans.qm", QDir::toNativeSeparators("./translations"));
+    translator.load("zh_hans.qm", QDir::toNativeSeparators(QString("%1/%2").arg(QCoreApplication::applicationDirPath(),"translations")));
     if(1==language){
         a.installTranslator(&translator);
     }
