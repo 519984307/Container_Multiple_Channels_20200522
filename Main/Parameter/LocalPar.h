@@ -13,6 +13,7 @@ namespace LocalPar {
     extern int CamerNumber;
     extern QStringList CamerNameList;
     extern QStringList DeviceStateList;
+    extern QString DogID;
 
     enum equipmentEnum{        Front=0,             /* 前相机 */
                                Before=1,             /* 后相机 */

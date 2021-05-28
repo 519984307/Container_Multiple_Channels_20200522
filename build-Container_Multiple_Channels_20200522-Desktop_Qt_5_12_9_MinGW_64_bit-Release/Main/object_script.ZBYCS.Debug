@@ -47,6 +47,7 @@ tmp/obj/moc_IMiddleware.o
 tmp/obj/moc_databaseinsertinterface.o
 tmp/obj/moc_databasereadinterface.o
 tmp/obj/moc_datainterchangeinterface.o
+tmp/obj/moc_encryptioninterface.o
 tmp/obj/moc_infraredlogicinterface.o
 tmp/obj/moc_licenseplateinterface.o
 tmp/obj/moc_recognizerinterface.o

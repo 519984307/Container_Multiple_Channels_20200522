@@ -7,35 +7,38 @@ Encryption::Encryption(QObject *parent)
 {
     this->setParent(parent);
 
-    key1=QByteArray("cheng870888").toHex()+"0451031075c8f4a1a81913cad8c8593f";
-    ind=5;
-
-    dogState=false;
-
     pDLL=nullptr;
     SmartX3Find=nullptr;
     SmartX3GetUid=nullptr;
     SmartX3CheckExist=nullptr;
 
+    dogState=false;
+
+    key1=QByteArray("cheng870888").toHex()+"0451031075c8f4a1a81913cad8c8593f";
+    ind=5;
+
     pTimer=new QTimer(this);
     connect(pTimer,SIGNAL(timeout()),this,SLOT(SmartXCheckExistSlot()));
     //connect(pTimer,SIGNAL(timeout()),this,SLOT(checkTheKeyFunc()));
-
-    InitializationSlot();
 }
 
 Encryption::~Encryption()
 {
 }
 
-void Encryption::InitializationSlot()
+void Encryption::InitializationSlot(int dogType,QString dogIdd)
 {
+    Q_UNUSED(dogType);
+    Q_UNUSED(dogIdd);
+
     pDLL=new QLibrary ("libsmart-x3",this);
 
     if(pDLL->load()){
         SmartX3Find=reinterpret_cast<SmartX3FindFUN>(pDLL->resolve("SmartX3Find"));
         SmartX3GetUid=reinterpret_cast<SmartX3GetUidFUN>(pDLL->resolve("SmartX3GetUid"));
         SmartX3CheckExist=reinterpret_cast<SmartX3CheckExistFUN>(pDLL->resolve("SmartX3CheckExist"));
+
+        qCritical().noquote()<<QString("load the Smart plug-in library sucess");
 
         /*****************************
         * @brief: 加密狗
@@ -49,7 +52,7 @@ void Encryption::InitializationSlot()
         //pTimer->start(10000);
     }
     else {
-        emit messageSignal(ZBY_LOG("ERROR"),"Smart DLL  not load");
+        qCritical().noquote()<<QString("Failed to load the Smart plug-in library!!!");
     }
 }
 
@@ -59,9 +62,6 @@ void Encryption::releaseResourcesSlot()
 
     delete  pTimer;
     pTimer=nullptr;
-
-    delete pDLL;
-    pDLL=nullptr;
 }
 
 void Encryption::smartXGetUidFunc()
@@ -88,6 +88,7 @@ void Encryption::smartXGetUidFunc()
             else {
                 dogState=false;
             }
+            emit GetTheEncryptedStateSignal(dogState);
         }
     }
 }
@@ -97,6 +98,12 @@ void Encryption::SmartXCheckExistSlot()
     if(dogState && SmartX3CheckExist!=nullptr && SmartX3CheckExist(keyHandles[0])==0){
         emit GetTheEncryptedStateSignal(true);
     }
+    else {
+        emit GetTheEncryptedStateSignal(false);
+    }
+    /*****************************
+    * @brief:test
+    ******************************/
     //emit GetTheEncryptedStateSignal(true);
 }
 

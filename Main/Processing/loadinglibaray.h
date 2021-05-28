@@ -21,6 +21,7 @@
 #include "interface/datainterchangeinterface.h"
 #include "interface/touploaddatainterface.h"
 #include "interface/licenseplateinterface.h"
+#include "interface/encryptioninterface.h"
 
 class LoadingLibaray : public QObject
 {
@@ -115,6 +116,11 @@ public:/* container */
     /// \brief ILicensePlateList 电子车牌
     ///
     QList<QSharedPointer<LicensePlateInterface>> ILicensePlateList;
+
+    ///
+    /// \brief IEncryptionList 加密装置
+    ///
+    QList<QSharedPointer<EncryptionInterface>> IEncryptionList;
 
 public slots:
 

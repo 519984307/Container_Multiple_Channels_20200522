@@ -3,6 +3,9 @@
 IdentifyImages::IdentifyImages(QObject *parent)
 {
     this->setParent(parent);
+
+    dogStatus=false;
+
     pPool=new QThreadPool (this);
     pPool->setMaxThreadCount(QThread::idealThreadCount());
 }
@@ -26,8 +29,17 @@ void IdentifyImages::identifyStreamSlot(const QByteArray &jpgStream, const int &
 
 void IdentifyImages::identifyImagesSlot(const QString &imgName, const int &imgNumber)
 {
+    if(!dogStatus){
+        emit recognitionResultSignal("RESULT: ||0|0",imgName,imgNumber);
+        return;
+    }
     Recognition* pRecognition=new Recognition(nullptr,imgName,imgNumber);
     connect(pRecognition,&Recognition::recognitionResultSignal,this,&IdentifyImages::recognitionResultSignal);
     connect(pRecognition,&Recognition::messageSignal,this,&IdentifyImages::messageSignal);
     pPool->start(pRecognition);
+}
+
+void IdentifyImages::identifyDogStatusSlot(bool status)
+{
+    dogStatus=status;
 }

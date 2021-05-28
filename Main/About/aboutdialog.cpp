@@ -10,6 +10,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui->copyrightLabel->setText(LocalPar::copyright);
     ui->appLabel->setText(LocalPar::App);
     ui->verLabel->setText(LocalPar::version);
+    ui->ID_label->setText(LocalPar::DogID);
 }
 
 AboutDialog::~AboutDialog()

@@ -12,7 +12,7 @@ void LoadingLibaray::slot_destructorThread()
         thread->wait();
     }
     loadVec.clear();
-    qDebug().noquote()<<"~LoadingLibaray";
+    qDebug().noquote()<<QString("~LoadingLibaray");
 }
 
 void LoadingLibaray::loadMisarrangement(QString pluginName,QString interType)
@@ -194,6 +194,10 @@ void LoadingLibaray::slot_createLibaray()
                 }
                 pLicensePlateInterface=nullptr;
             }
+            else if(EncryptionInterface *pEncryptionInterface=qobject_cast<EncryptionInterface*>(plugin)){
+                pluginsNum=1;/* 加密 */
+                pEncryptionInterface=nullptr;
+            }
             else {
                 emit signal_loadPluginError(fileName);/* 加载插件插件报错 */
             }
@@ -299,6 +303,13 @@ void LoadingLibaray::processingPlugins(QDir pluginPath)
                 pLicensePlateInterface->moveToThread(th);
                 th->start();
                 ILicensePlateList.append(QSharedPointer<LicensePlateInterface>(pLicensePlateInterface));
+            }
+            else if(EncryptionInterface *pEncryptionInterface=qobject_cast<EncryptionInterface*>(plugin)){
+                QThread *th=new QThread(this);
+                tdList.append(th);
+                pEncryptionInterface->moveToThread(th);
+                th->start();
+                IEncryptionList.append(QSharedPointer<EncryptionInterface>(pEncryptionInterface));
             }
             else {
                 pluginLoader.unload();

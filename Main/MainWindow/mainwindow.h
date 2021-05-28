@@ -542,6 +542,11 @@ signals:
     /// \param filter 筛选条件
     ///
     void signal_setDataBaseFilter(const QString &filter);
+
+    ///
+    /// \brief signal_initEncryption 初始化加密
+    ///
+    void signal_initEncryption(int dogType,QString dogIdd);
 };
 
 #endif // MAINWINDOW_H

@@ -83,7 +83,7 @@ void *IdentifyImages::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_IdentifyImages.stringdata0))
         return static_cast<void*>(this);
-    if (!strcmp(_clname, "ZBY.ContainerServer.RecognizerInterface/1.1.1"))
+    if (!strcmp(_clname, "ZBY.ContainerServer.RecognizerInterface/1.1.1.3"))
         return static_cast< RecognizerInterface*>(this);
     return RecognizerInterface::qt_metacast(_clname);
 }
@@ -101,12 +101,13 @@ static constexpr unsigned char qt_pluginMetaData[] = {
     0, QT_VERSION_MAJOR, QT_VERSION_MINOR, qPluginArchRequirements(),
     0xbf, 
     // "IID"
-    0x02,  0x78,  0x2d,  'Z',  'B',  'Y',  '.',  'C', 
+    0x02,  0x78,  0x2f,  'Z',  'B',  'Y',  '.',  'C', 
     'o',  'n',  't',  'a',  'i',  'n',  'e',  'r', 
     'S',  'e',  'r',  'v',  'e',  'r',  '.',  'R', 
     'e',  'c',  'o',  'g',  'n',  'i',  'z',  'e', 
     'r',  'I',  'n',  't',  'e',  'r',  'f',  'a', 
     'c',  'e',  '/',  '1',  '.',  '1',  '.',  '1', 
+    '.',  '3', 
     // "className"
     0x03,  0x6e,  'I',  'd',  'e',  'n',  't',  'i', 
     'f',  'y',  'I',  'm',  'a',  'g',  'e',  's', 

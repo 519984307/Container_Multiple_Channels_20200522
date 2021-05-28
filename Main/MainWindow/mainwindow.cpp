@@ -117,7 +117,15 @@ void MainWindow::initializing()
         }
     }
 
+    /*****************************
+    * @brief:初始化FTP
+    ******************************/
     emit signal_InitializationFTPParameter(Parameter::FtpUser,Parameter::FtpPassword,Parameter::FtpRemotePath,Parameter::FtpAddress,Parameter::FtpPort);
+
+    /*****************************
+    * @brief:初始化加密
+    ******************************/
+    emit signal_initEncryption(0,"");
 
     linkCount=0;
 
@@ -478,7 +486,7 @@ void MainWindow::setStatusBar(int type, const QString &msg)
         break;
     }
     //permanentLabel->setText(msg);
-    //ui->statusBar->showMessage("Technical support telephone:18565659070",100000);
+    ui->statusBar->showMessage(LocalPar::copyright,100000);
 }
 
 void MainWindow::systemTrayAction()
@@ -682,7 +690,6 @@ void MainWindow::slot_getDiskFreeSpace()
 
 void MainWindow::slot_connectCount(int count)
 {
-    qDebug()<<"count:"<<count;
     if(linkCount<0){
         linkCount=0;
     }
@@ -912,5 +919,12 @@ void MainWindow::bindingPlugin()
         }
         connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::releaseResourcesSlot,Qt::BlockingQueuedConnection);
         connect(this,&MainWindow::signal_setPlateCaptureType,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::setCaptureTypeSlot);
+    }
+    if(pLoadinglibaray->IEncryptionList.size()==1 && pLoadinglibaray->IRecognizerList.size()>=1){
+        for (int var = 0; var < pLoadinglibaray->IRecognizerList.size(); ++var) {
+            connect(pLoadinglibaray->IEncryptionList.at(0).data(),&EncryptionInterface::GetTheEncryptedStateSignal,pLoadinglibaray->IRecognizerList.at(var).data(),&RecognizerInterface::identifyDogStatusSlot);
+        }
+        connect(this,&MainWindow::signal_initEncryption,pLoadinglibaray->IEncryptionList.at(0).data(),&EncryptionInterface::InitializationSlot);
+        connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IEncryptionList.at(0).data(),&EncryptionInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
     }
 }

@@ -48,9 +48,15 @@ public slots:
     /// \param imgNumber 图片编号
     ///
     virtual void identifyImagesSlot(const QString &imgName,const int &imgNumber)=0;
+
+    ///
+    /// \brief identifyDogStatusSlot 识别器加密狗状态
+    /// \param status
+    ///
+    virtual void identifyDogStatusSlot(bool status)=0;
 };
 
-#define RecognizerInterfaceIID "ZBY.ContainerServer.RecognizerInterface/1.1.1"
+#define RecognizerInterfaceIID "ZBY.ContainerServer.RecognizerInterface/1.1.1.3"
 Q_DECLARE_INTERFACE(RecognizerInterface,RecognizerInterfaceIID);
 
 #endif // RECOGNIZERINTERFACE_H

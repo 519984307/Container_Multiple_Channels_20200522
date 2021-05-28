@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_RecognizerInterface_t {
-    QByteArrayData data[12];
-    char stringdata0[141];
+    QByteArrayData data[14];
+    char stringdata0[170];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -42,13 +42,16 @@ QT_MOC_LITERAL(7, 75, 7), // "imgName"
 QT_MOC_LITERAL(8, 83, 9), // "imgNumber"
 QT_MOC_LITERAL(9, 93, 18), // "identifyStreamSlot"
 QT_MOC_LITERAL(10, 112, 9), // "jpgStream"
-QT_MOC_LITERAL(11, 122, 18) // "identifyImagesSlot"
+QT_MOC_LITERAL(11, 122, 18), // "identifyImagesSlot"
+QT_MOC_LITERAL(12, 141, 21), // "identifyDogStatusSlot"
+QT_MOC_LITERAL(13, 163, 6) // "status"
 
     },
     "RecognizerInterface\0messageSignal\0\0"
     "type\0msg\0recognitionResultSignal\0"
     "result\0imgName\0imgNumber\0identifyStreamSlot\0"
-    "jpgStream\0identifyImagesSlot"
+    "jpgStream\0identifyImagesSlot\0"
+    "identifyDogStatusSlot\0status"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,7 +61,7 @@ static const uint qt_meta_data_RecognizerInterface[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -66,12 +69,13 @@ static const uint qt_meta_data_RecognizerInterface[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   34,    2, 0x06 /* Public */,
-       5,    3,   39,    2, 0x06 /* Public */,
+       1,    2,   39,    2, 0x06 /* Public */,
+       5,    3,   44,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       9,    2,   46,    2, 0x0a /* Public */,
-      11,    2,   51,    2, 0x0a /* Public */,
+       9,    2,   51,    2, 0x0a /* Public */,
+      11,    2,   56,    2, 0x0a /* Public */,
+      12,    1,   61,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
@@ -80,6 +84,7 @@ static const uint qt_meta_data_RecognizerInterface[] = {
  // slots: parameters
     QMetaType::Void, QMetaType::QByteArray, QMetaType::Int,   10,    8,
     QMetaType::Void, QMetaType::QString, QMetaType::Int,    7,    8,
+    QMetaType::Void, QMetaType::Bool,   13,
 
        0        // eod
 };
@@ -94,6 +99,7 @@ void RecognizerInterface::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         case 1: _t->recognitionResultSignal((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3]))); break;
         case 2: _t->identifyStreamSlot((*reinterpret_cast< const QByteArray(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
         case 3: _t->identifyImagesSlot((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
+        case 4: _t->identifyDogStatusSlot((*reinterpret_cast< bool(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -144,13 +150,13 @@ int RecognizerInterface::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }

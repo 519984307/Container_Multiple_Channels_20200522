@@ -1,4 +1,4 @@
-#ifndef ENCRYPTION_H
+﻿#ifndef ENCRYPTION_H
 #define ENCRYPTION_H
 
 #include "encryption_global.h"
@@ -25,7 +25,6 @@ private:
     /// \brief ind 检查KEY次数
     ///
     int ind;
-
 
     ///
     /// \brief pTimer 定时查找加密狗
@@ -56,6 +55,11 @@ private:
     /// \brief dogState 加密狗状态
     ///
     bool dogState;
+
+    ///
+    /// \brief dogID ID
+    ///
+    bool dogID;
 
     ///
     /// \brief pDLL 动态库对象
@@ -92,7 +96,6 @@ private slots:
     ///
     void checkTheKeyFunc();
 
-
 private:
 
     ///
@@ -109,7 +112,7 @@ public:
     ///
     /// \brief InitializationSlot 初始化参数
     ///
-    void InitializationSlot()Q_DECL_OVERRIDE;
+    void InitializationSlot(int dogType,QString dogIdd)Q_DECL_OVERRIDE;
 
     ///
     /// \brief releaseResourcesSlot 释放动资源

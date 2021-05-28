@@ -24,6 +24,11 @@ public:
 private:
     QThreadPool* pPool;
 
+    ///
+    /// \brief dogStatus 加密状态
+    ///
+    bool dogStatus;
+
 public:
 
     ///
@@ -39,6 +44,12 @@ public:
     /// \param imgNumber 图片编号
     ///
     void identifyImagesSlot(const QString &imgName,const int &imgNumber)Q_DECL_OVERRIDE;
+
+    ///
+    /// \brief identifyDogStatusSlot 识别器加密狗状态
+    /// \param status
+    ///
+    void identifyDogStatusSlot(bool status)Q_DECL_OVERRIDE;
 };
 
 #endif // IDENTIFYIMAGES_H
