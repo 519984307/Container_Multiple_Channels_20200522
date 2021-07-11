@@ -113,7 +113,7 @@ bool LoadParameter::loadSysParameter()
                     Parameter::SingletonAddressMQ=getJsonValue("Service","SingletonAddressMQ",value.toObject()).toString();
                     Parameter::ManyCasesAddressMQ=getJsonValue("Service","ManyCasesAddressMQ",value.toObject()).toString();
                     Parameter::DataChange_Format=getJsonValue("Service","DataChange_Format",value.toObject()).toInt();
-                    Parameter::decision_Container=getJsonValue("Service","decision_Container",value.toObject()).toInt();
+                    Parameter::plate_timeout=getJsonValue("Service","plate_timeout",value.toObject()).toInt();
                     Parameter::container_timeout=getJsonValue("Service","container_timeout",value.toObject()).toInt();
                     Parameter::not_plate_color=getJsonValue("Service","not_plate_color",value.toObject()).toInt();
 

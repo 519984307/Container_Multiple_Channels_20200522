@@ -7,6 +7,7 @@ SUBDIRS +=\
 #    TheLicensePlateWTY \
     CaptureUnderlying\
     DataInterRabbitMQ \
+    #DecodingTheVideo \
     InrearedLogic_NJSB \
     LicensePlateHCNET \
     #LicensePlateVZ \

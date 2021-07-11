@@ -39,9 +39,9 @@ private slots:
 
     void slot_whileCap();
 
-    void on_pushButton_clicked();
+    void on_sendCon_pushButton_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_sendPlate_pushButton_clicked();
 
 public slots:
 
@@ -76,6 +76,13 @@ private:
     QString plateTime;
 
 signals:
+
+    ///
+    /// \brief signal_setSimulationStatus 设置模拟数据，箱号和车牌状态
+    /// \param con
+    /// \param plate
+    ///
+    void signal_setSimulationStatus(bool con,bool plate);
 
     ///
     /// \brief signal_logicPutImage 模拟抓拍

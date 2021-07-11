@@ -14,6 +14,7 @@ namespace LocalPar {
     extern QStringList CamerNameList;
     extern QStringList DeviceStateList;
     extern QString DogID;
+    extern QString proName;
 
     enum equipmentEnum{        Front=0,             /* 前相机 */
                                Before=1,             /* 后相机 */

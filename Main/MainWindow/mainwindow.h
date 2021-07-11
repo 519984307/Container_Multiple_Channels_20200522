@@ -37,6 +37,7 @@
 #include "DataBase/database_form.h"
 #include "Log/data_log_form.h"
 #include "About/aboutdialog.h"
+#include "About/version_dialog.h"
 
 /*****************************
 * @brief:Parameter
@@ -325,6 +326,7 @@ private:
     ///
     QLabel *socketLinkCountLabel;
 
+
     ///
     /// \brief statusProgressBar 状态栏进度条
     ///
@@ -428,6 +430,8 @@ private slots:
     /// \brief slot_getDiskFreeSpace 获取可用硬盘空间
     ///
     void slot_getDiskFreeSpace();
+    void on_actionVersion_triggered();
+
 
     ///
     /// \brief slot_connectCount 数据接口链接数量

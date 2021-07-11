@@ -252,9 +252,9 @@ namespace Parameter {
     extern int DataChange_Format;
 
     ///
-    /// \brief decision_Container 判定是否为集装箱
+    /// \brief plate_timeout 车牌结果超时
     ///
-    extern int decision_Container;
+    extern int plate_timeout;
 
     ///
     /// \brief container_timeout 集装箱结果超时时间

@@ -174,9 +174,9 @@ void LicensePlateWTY::dataEx2Callback(CLIENT_LPRC_PLATE_RESULTEX *recResultEx, L
     QString dateTime=QDateTime::currentDateTime().toString("yyyy-M-d h:m:s");
     qDebug().noquote()<<QString("License Plate recognition results:%1-%2").arg(QString::fromLocal8Bit(recResultEx->chLicense)).arg(dateTime);
 
-    emit pThis->resultsTheLicensePlateSignal(QString::fromLocal8Bit(recResultEx->chLicense),QString::fromLocal8Bit(recResultEx->chColor),dateTime,arrImg);
-    emit pThis->imageFlowSignal(arrImg);
+    emit pThis->resultsTheLicensePlateSignal(QString::fromLocal8Bit(recResultEx->chLicense),QString::fromLocal8Bit(recResultEx->chColor),dateTime,arrImg);   
 
+    emit pThis->imageFlowSignal(arrImg);
     arrImg.clear();
 }
 

@@ -26,7 +26,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-6</y>
+        <y>0</y>
         <width>911</width>
         <height>969</height>
        </rect>
@@ -53,7 +53,7 @@
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>2</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
@@ -749,7 +749,7 @@
            <item row="8" column="1" colspan="2">
             <widget class="QLabel" name="label_53">
              <property name="text">
-              <string>The license plate waits for the container identification result to time out</string>
+              <string>Container identification result receiving timeout</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -935,7 +935,7 @@
             </widget>
            </item>
            <item row="7" column="0">
-            <widget class="QSpinBox" name="decision_Container_spinBox">
+            <widget class="QSpinBox" name="plate_timeout_spinBox">
              <property name="minimum">
               <number>0</number>
              </property>
@@ -1132,7 +1132,7 @@ More than pair of:One service corresponds to all channels, and only the server m
            <item row="7" column="1" colspan="2">
             <widget class="QLabel" name="label_52">
              <property name="text">
-              <string>Checks for timeout for container vehicles</string>
+              <string>License plate result receives timeout time</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>

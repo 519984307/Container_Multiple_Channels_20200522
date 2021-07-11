@@ -113,6 +113,7 @@ color: rgb(0, 0, 0);</string>
       <bool>false</bool>
      </property>
     </widget>
+    <addaction name="actionVersion"/>
     <addaction name="menuErrCode"/>
     <addaction name="actionAbout"/>
     <addaction name="actionExit"/>
@@ -199,6 +200,11 @@ color: rgb(255, 255, 255);</string>
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionVersion">
+   <property name="text">
+    <string>Version</string>
    </property>
   </action>
  </widget>

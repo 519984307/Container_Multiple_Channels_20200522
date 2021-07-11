@@ -188,7 +188,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::SingletonAddressMQ=getJsonValue("Service","SingletonAddressMQ",value.toObject()).toString();
                     Parameter::ManyCasesAddressMQ=getJsonValue("Service","ManyCasesAddressMQ",value.toObject()).toString();
                     Parameter::DataChange_Format=getJsonValue("Service","DataChange_Format",value.toObject()).toInt();
-                    Parameter::decision_Container=getJsonValue("Service","decision_Container",value.toObject()).toInt();
+                    Parameter::plate_timeout=getJsonValue("Service","plate_timeout",value.toObject()).toInt();
                     Parameter::container_timeout=getJsonValue("Service","container_timeout",value.toObject()).toInt();
                     Parameter::not_plate_color=getJsonValue("Service","not_plate_color",value.toObject()).toInt();
 
@@ -290,7 +290,7 @@ bool System_Setting_Form::writeParameterSlot()
     obj4.insert("DataChaneType",ui->DataChaneType_combox->currentIndex());
     obj4.insert("newline",int(ui->newline_checkBox->isChecked()));
     obj4.insert("Identify_Protocol",int(ui->Identify_Protocol_comboBox_2->currentIndex()));    
-    obj4.insert("decision_Container",int(ui->decision_Container_spinBox->value()));
+    obj4.insert("plate_timeout",int(ui->plate_timeout_spinBox->value()));
     obj4.insert("container_timeout",int(ui->container_timeout_spinBox->value()));
     obj4.insert("not_plate_color",int(ui->plate_color_checkBox->isChecked()));
     jsonChild.insert("Service",QJsonValue(obj4));
@@ -395,7 +395,7 @@ void System_Setting_Form::parameterToUi()
     ui->newline_checkBox->setChecked(Parameter::newline);
     ui->DataChaneType_combox->setCurrentIndex(Parameter::DataChaneType);
     ui->Identify_Protocol_comboBox_2->setCurrentIndex(Parameter::Identify_Protocol);    
-    ui->decision_Container_spinBox->setValue(Parameter::decision_Container);
+    ui->plate_timeout_spinBox->setValue(Parameter::plate_timeout);
     ui->container_timeout_spinBox->setValue(Parameter::container_timeout);
     ui->plate_color_checkBox->setChecked(Parameter::not_plate_color);
 

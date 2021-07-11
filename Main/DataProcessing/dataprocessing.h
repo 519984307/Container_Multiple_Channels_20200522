@@ -52,15 +52,9 @@ public slots:
     void slot_plateResult(int channel, bool isConCar, const QString &plate, const QString &color, const QString &plateTime);
 
     ///
-    /// \brief slot_waiSendContainer 未检测到车牌，延时发送箱号
+    /// \brief slot_waitSendData 等待发送数据
     ///
-    void slot_waiSendContainer();
-
-    ///
-    /// \brief slot_waitPlate 箱号等待车牌数据
-    /// \param msec
-    ///
-    void slot_waitPlate(int msec);
+    void slot_waitSendData();
 
 signals:
 
@@ -88,6 +82,12 @@ signals:
     ///
     void signal_trafficStatistics(bool state);
 
+    ///
+    /// \brief signal_pollsForCarStatus 轮询检查车辆状态，集装箱结果就要判断车牌状态，车牌结果就要判断红外状态。
+    /// \param type 0：集装箱，1：车牌
+    ///
+    void signal_pollsForCarStatus(int type);
+
 private:
     QJsonObject jsonChild;
 
@@ -104,6 +104,8 @@ private:
     QString type;
     QString isguard;
 
+    int channel;
+    QString conResult;
     QString plate;
     QString plateColor;
     QString plateTime;
@@ -116,11 +118,6 @@ private:
     /// \brief lock 写入锁
     ///
     QReadWriteLock lock;
-
-    int channel;
-    QString result;
-    bool waitSend;
-    QTimer* sendConT;
 };
 
 #endif // DATAPROCESSING_H

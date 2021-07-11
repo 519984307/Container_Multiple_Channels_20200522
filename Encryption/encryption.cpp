@@ -79,10 +79,13 @@ void Encryption::smartXGetUidFunc()
     /*沈阳安信
      * f19d15dec81584b5ce4f9edb0aae1789
     */
+    /*福建平潭
+     * ae68c66368a8e943bc260ae97003747f
+    */
     if(SmartX3Find!=nullptr && SmartX3Find(appID,keyHandles,&keyNumber)==0){
         if(SmartX3GetUid!=nullptr && SmartX3GetUid(keyHandles[0],UID)==0){
             //qDebug()<<"UID:"<<UID;
-            if(strncmp(UID,"f19d15dec81584b5ce4f9edb0aae1789",33)==0){
+            if(strncmp(UID,"ae68c66368a8e943bc260ae97003747f",33)==0){
                 dogState=true;
             }
             else {
@@ -104,7 +107,7 @@ void Encryption::SmartXCheckExistSlot()
     /*****************************
     * @brief:test
     ******************************/
-    //emit GetTheEncryptedStateSignal(true);
+//    emit GetTheEncryptedStateSignal(true);
 }
 
 void Encryption::checkTheKeyFunc()

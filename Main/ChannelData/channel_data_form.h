@@ -142,6 +142,16 @@ private:
     bool isConCar;
 
     ///
+    /// \brief simulationConStatus 模拟数据箱号状态
+    ///
+    bool simulationConStatus;
+
+    ///
+    /// \brief simulationPlateStatus 模拟数据车牌状态
+    ///
+    bool simulationPlateStatus;
+
+    ///
     /// \brief plateStream 车牌图片流
     ///
     QMap<int,QByteArray> plateStream;
@@ -157,9 +167,9 @@ private:
     QVector<int> LogicStateTmpList;
 
     ///
-    /// \brief plateSendTimer 延时发送车牌数据(判断是否集装箱车辆)
+    /// \brief logicStateTimer 定时检测红外状态
     ///
-    QTimer *plateSendTimer;
+    QTimer *logicStateTimer;
 
     ///
     /// \brief sendDataOutTimer 超时发送接口数据
@@ -214,6 +224,10 @@ signals:
     ///
     void signal_setDeviceStatus(int channel, int equipment,bool state);
 
+    ///
+    /// \brief signal_waitSendData 等待发送数据
+    ///
+    void signal_waitSendData();
 
     /*****************************
     * @brief:箱号相机
@@ -482,6 +496,19 @@ public slots:
     /// \brief slot_initEquipment 初始化相机
     ///
     void slot_initEquipment();
+
+    ///
+    /// \brief slot_pollsForCarStatus 轮询检查车辆状态，集装箱结果就要判断车牌状态，车牌结果就要判断红外状态。
+    /// \param type 0：集装箱，1：车牌
+    ///
+    void slot_pollsForCarStatus(int type);
+
+    ///
+    /// \brief slot_setSimulationStatus 设置模拟数据，箱号和车牌状态
+    /// \param con
+    /// \param plate
+    ///
+    void slot_setSimulationStatus(bool con,bool plate);
 
 
     /*****************************

@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>450</height>
+    <height>600</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>600</width>
-    <height>450</height>
+    <height>600</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>600</width>
-    <height>450</height>
+    <height>600</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -30,139 +30,6 @@
     <normaloff>:/UI_ICO/ICO/ICO.ico</normaloff>:/UI_ICO/ICO/ICO.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
-   <item row="4" column="0">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>488</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="2" column="0" colspan="2">
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="title">
-      <string>Simulation</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_6">
-      <item row="0" column="0" colspan="3">
-       <widget class="QComboBox" name="Simulatiion_comboBox">
-        <property name="editable">
-         <bool>false</bool>
-        </property>
-        <item>
-         <property name="text">
-          <string>A small container</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>A large container</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>front of two small containers</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>after of two small containers</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Clear pictures</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QPushButton" name="capturePushButton">
-        <property name="text">
-         <string>Capture</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QCheckBox" name="while_cycle_capture_checkBox">
-        <property name="text">
-         <string>Circular capture of containers</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QPushButton" name="plateCapPushButton">
-        <property name="text">
-         <string>Plate cap</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QPushButton" name="liftingLeverPushButton">
-        <property name="text">
-         <string>Lifting lever</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QPushButton" name="fallRodPushButton">
-        <property name="text">
-         <string>Fall rod</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <widget class="QToolButton" name="toolButton">
-        <property name="text">
-         <string>...</string>
-        </property>
-        <property name="shortcut">
-         <string>Alt+T</string>
-        </property>
-        <property name="checkable">
-         <bool>false</bool>
-        </property>
-        <property name="autoRepeat">
-         <bool>false</bool>
-        </property>
-        <property name="autoExclusive">
-         <bool>false</bool>
-        </property>
-        <property name="popupMode">
-         <enum>QToolButton::DelayedPopup</enum>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
-        </property>
-        <property name="autoRaise">
-         <bool>true</bool>
-        </property>
-        <property name="arrowType">
-         <enum>Qt::DownArrow</enum>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <spacer name="verticalSpacer_5">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
    <item row="0" column="0" colspan="2">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
@@ -396,6 +263,126 @@
      </layout>
     </widget>
    </item>
+   <item row="1" column="0">
+    <spacer name="verticalSpacer_5">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>Simulation</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_6">
+      <item row="0" column="0" colspan="3">
+       <widget class="QComboBox" name="Simulatiion_comboBox">
+        <property name="editable">
+         <bool>false</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>A small container</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>A large container</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>front of two small containers</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>after of two small containers</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Clear pictures</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QPushButton" name="capturePushButton">
+        <property name="text">
+         <string>Capture</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="2">
+       <widget class="QCheckBox" name="while_cycle_capture_checkBox">
+        <property name="text">
+         <string>Circular capture of containers</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="plateCapPushButton">
+        <property name="text">
+         <string>Plate cap</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="liftingLeverPushButton">
+        <property name="text">
+         <string>Lifting lever</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="fallRodPushButton">
+        <property name="text">
+         <string>Fall rod</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QToolButton" name="toolButton">
+        <property name="text">
+         <string>...</string>
+        </property>
+        <property name="shortcut">
+         <string>Alt+T</string>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <property name="autoRepeat">
+         <bool>false</bool>
+        </property>
+        <property name="autoExclusive">
+         <bool>false</bool>
+        </property>
+        <property name="popupMode">
+         <enum>QToolButton::DelayedPopup</enum>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonIconOnly</enum>
+        </property>
+        <property name="autoRaise">
+         <bool>true</bool>
+        </property>
+        <property name="arrowType">
+         <enum>Qt::DownArrow</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="3" column="0" colspan="2">
     <widget class="QGroupBox" name="manualGroupBox">
      <property name="enabled">
@@ -419,54 +406,127 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="pushButton_2">
-        <property name="text">
-         <string>SendCon</string>
+      <item row="2" column="0">
+       <widget class="QLineEdit" name="send_plate_lineEdit">
+        <property name="placeholderText">
+         <string>Plate</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QSplitter" name="splitter">
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="send_plate_color_lineEdit">
+        <property name="placeholderText">
+         <string>Plate color</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QSplitter" name="splitter_3">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
-        <widget class="QLineEdit" name="send_iso_before_lineEdit">
-         <property name="placeholderText">
-          <string>ISO1</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="send_iso_after_lineEdit">
-         <property name="placeholderText">
-          <string>ISO2</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="send_plate_lineEdit">
-         <property name="placeholderText">
-          <string>Plate</string>
-         </property>
-        </widget>
-        <widget class="QLineEdit" name="send_plate_color_lineEdit">
-         <property name="placeholderText">
-          <string>Plate color</string>
-         </property>
-        </widget>
-        <widget class="QCheckBox" name="checkBox">
+        <widget class="QCheckBox" name="container_checkBox">
          <property name="text">
-          <string>ConCar</string>
+          <string>Have A container</string>
+         </property>
+        </widget>
+        <widget class="QCheckBox" name="plate_checkBox">
+         <property name="text">
+          <string>Have a license plate</string>
          </property>
         </widget>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="pushButton">
+      <item row="3" column="2">
+       <spacer name="verticalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLineEdit" name="send_iso_before_lineEdit">
+          <property name="placeholderText">
+           <string>ISO1</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLineEdit" name="send_iso_after_lineEdit">
+          <property name="placeholderText">
+           <string>ISO2</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="sendPlate_pushButton">
         <property name="text">
          <string>SendPla</string>
         </property>
        </widget>
       </item>
+      <item row="0" column="2" rowspan="2">
+       <widget class="QPushButton" name="sendCon_pushButton">
+        <property name="text">
+         <string>SendCon</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
+   </item>
+   <item row="4" column="0">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>488</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item row="4" column="1">
     <widget class="QPushButton" name="exitPushButton">

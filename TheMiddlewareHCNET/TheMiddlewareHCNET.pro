@@ -8,7 +8,7 @@ CONFIG += plugin
 TARGET = plug-in_HCNET
 
 CONFIG += skip_target_version_ext
-VERSION = 2.4.3.17
+VERSION = 2.4.3.18
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 CONFIG += c++11
@@ -49,5 +49,8 @@ unix:TARGET=$$join(TARGET,,,_release)
 win32:TARGET=$$join(TARGET,,Cc1_,)
 }
 
-
 DESTDIR += ../MainUI/Plugins
+
+
+#2021/05/30 12:21 V:2.4.3.18
+#修复现有BUG

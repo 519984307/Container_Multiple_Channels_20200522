@@ -253,11 +253,11 @@ void MainWindow::initializingObject()
     statusProgressBar->setStyleSheet("color: rgb(0, 0, 0);");
     statusProgressBar->setAlignment(Qt::AlignLeft|Qt::AlignVCenter);
 
-    permanentLabel=new QLabel (tr("System ready"),this);;
-    runTimeLabel=new QLabel("0 H 0 M 0 S",this);;
-    throughTheNumberLabel=new QLabel("0 Car",this);;
-    hardDriveCapacityLabel=new QLabel("0 Mb",this);;
-    socketLinkCountLabel=new QLabel("0 Machines [Server]",this);;
+    permanentLabel=new QLabel (tr("System ready"),this);
+    runTimeLabel=new QLabel("0 H 0 M 0 S",this);
+    throughTheNumberLabel=new QLabel("0 Car",this);
+    hardDriveCapacityLabel=new QLabel("0 Mb",this);
+    socketLinkCountLabel=new QLabel("0 Machines [Server]",this);
 
     permanentLabel->setStyleSheet("background-color: rgb(0, 85, 0);");
 
@@ -486,7 +486,7 @@ void MainWindow::setStatusBar(int type, const QString &msg)
         break;
     }
     //permanentLabel->setText(msg);
-    ui->statusBar->showMessage(LocalPar::copyright,100000);
+    ui->statusBar->showMessage(LocalPar::copyright+"-"+LocalPar::proName,100000);
 }
 
 void MainWindow::systemTrayAction()
@@ -865,7 +865,11 @@ void MainWindow::bindingPlugin()
             /*****************************
             * @brief:发送箱号
             ******************************/
-            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_waitPlate,DataProcessingList.at(var).data(),&DataProcessing::slot_waitPlate);
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_waitSendData,DataProcessingList.at(var).data(),&DataProcessing::slot_waitSendData);
+            /*****************************
+            * @brief:检测数据逻辑
+            ******************************/
+            connect(DataProcessingList.at(var).data(),&DataProcessing::signal_pollsForCarStatus,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_pollsForCarStatus);
             /*****************************
             * @brief:流量统计
             ******************************/
@@ -927,4 +931,10 @@ void MainWindow::bindingPlugin()
         connect(this,&MainWindow::signal_initEncryption,pLoadinglibaray->IEncryptionList.at(0).data(),&EncryptionInterface::InitializationSlot);
         connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IEncryptionList.at(0).data(),&EncryptionInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
     }
+}
+
+void MainWindow::on_actionVersion_triggered()
+{
+    QSharedPointer<Version_Dialog> dlg(new Version_Dialog());
+    dlg->exec();
 }

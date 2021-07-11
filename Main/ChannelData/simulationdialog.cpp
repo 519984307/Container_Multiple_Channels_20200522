@@ -196,23 +196,15 @@ void SimulationDialog::on_while_cycle_capture_checkBox_stateChanged(int arg1)
     }
 }
 
-void SimulationDialog::on_pushButton_clicked()
+void SimulationDialog::on_sendCon_pushButton_clicked()
 {
-    plateTime=QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
-    QString result="";
+    /*****************************
+    * @brief:设置模拟数据逻辑状态
+    ******************************/
+    emit signal_setSimulationStatus(ui->container_checkBox->isChecked(),ui->plate_checkBox->isChecked());
 
-    if(ui->send_plate_lineEdit->text()!=""){
-        emit signal_plateResult(channelNumber,ui->checkBox->isChecked(),ui->send_plate_lineEdit->text(),ui->send_plate_color_lineEdit->text(),QDateTime::fromString(plateTime,"yyyyMMddhhmmss").toString("yyyy-M-d h:m:s"));
-    }
-}
-
-void SimulationDialog::on_pushButton_2_clicked()
-{
     QString result="";
     QString time=QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
-    if(ui->checkBox->isChecked() && !plateTime.isEmpty()){
-        time=plateTime;
-    }
 
     if(ui->send_con_after_lineEdit->text().isEmpty()){
         int type=0;
@@ -229,5 +221,19 @@ void SimulationDialog::on_pushButton_2_clicked()
         result=QString("[%1|%2|%3|%4|%5|%6|%7|%8|%9|%10]").arg("C").arg(time).arg(channelNumber,2,10,QLatin1Char('0')).arg(type).arg(ui->send_con_before_lineEdit->text().trimmed()).arg(ui->send_con_before_lineEdit->text().isEmpty()?"N":"Y").arg(ui->send_con_after_lineEdit->text().trimmed()).arg(ui->send_con_after_lineEdit->text().isEmpty()?"N":"Y").arg(ui->send_iso_before_lineEdit->text().trimmed()).arg(ui->send_iso_after_lineEdit->text().trimmed());
         emit sendResultSignal(channelNumber,result);
     }
-    plateTime.clear();
+}
+
+void SimulationDialog::on_sendPlate_pushButton_clicked()
+{
+    /*****************************
+    * @brief:设置模拟数据逻辑状态
+    ******************************/
+    emit signal_setSimulationStatus(ui->container_checkBox->isChecked(),ui->plate_checkBox->isChecked());
+
+    plateTime=QDateTime::currentDateTime().toString("yyyyMMddhhmmss");
+    QString result="";
+
+    if(ui->send_plate_lineEdit->text()!=""){
+        emit signal_plateResult(channelNumber,ui->plate_checkBox->isChecked(),ui->send_plate_lineEdit->text(),ui->send_plate_color_lineEdit->text(),QDateTime::fromString(plateTime,"yyyyMMddhhmmss").toString("yyyy-M-d h:m:s"));
+    }
 }

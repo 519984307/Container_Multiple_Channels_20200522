@@ -285,9 +285,10 @@ void TheMiddlewareHCNET::transparentTransmission485Slot(const QString &msg)
 
 void TheMiddlewareHCNET::openTheVideoSlot(int ID,bool play,quint64 winID)
 {
-    if(4 == CAMERA_TYPE){
-        return;
-    }
+//    if(4 == CAMERA_TYPE){.
+    
+//        return;
+//    }
     if(play){
         NET_DVR_PREVIEWINFO struPlayInfo = {};
         //struPlayInfo.hPlayWnd    =static_cast<HWND>(winID); /* linux */
@@ -635,8 +636,6 @@ void TheMiddlewareHCNET::DecCallBack(long nPort, char *pBuf, long nSize, FRAME_I
         }
         pThis->putID=-1;
     }
-
-
 }
 
 void TheMiddlewareHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void *dwUser)
@@ -647,7 +646,7 @@ void TheMiddlewareHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataTy
      case NET_DVR_SYSHEAD:
          /* 获取播放库未使用的通道号 */
          if(nullptr!=pThis->PlayM4_GetPort_L){
-             if(pThis->streamID!=lRealHandle){
+             if(-1 == pThis->playMap.key(lRealHandle,-1)){
                  if (!pThis->PlayM4_GetPort_L(&lRealHandle)) {
                      break;
                  }
@@ -677,27 +676,30 @@ void TheMiddlewareHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataTy
          }
          break;
      case NET_DVR_STREAMDATA:
-         /* 解码数据 */
+         /* 码流数据 */
          if (dwBufSize > 0 && lRealHandle != -1 ) {
-             BOOL inData = pThis->PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize);
-             while (!inData || lRealHandle!=pThis->streamID) {/* 防止解码库把多通道数据混淆 */
-                 //QThread::msleep(5);
-                 inData =pThis-> PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize);
+             if(nullptr!=pThis-> PlayM4_InputData_L){
+                 if (!pThis-> PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize))
+                 {
+                     break;
+                 }
+
              }
-           }
-           break;
-//     default: /* 其他数据 */
-//         if (dwBufSize > 0 && lRealHandle != -1)
-//         {
-//             if(nullptr!=pThis-> PlayM4_InputData_L){
-//                 if (!pThis-> PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize))
-//                 {
-//                     break;
-//                 }
+         }
+             //BOOL inData = pThis->PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize);
+//             while (!inData || lRealHandle!=pThis->streamID) {/* 防止解码库把多通道数据混淆 */
+//                 //QThread::msleep(5);
+//                 inData =pThis-> PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize);
 //             }
-//         }
-//         break;
-     }
+             /*****************************
+             * @brief:2021/05/30 12:44
+             ******************************/
+//             while (!inData || -1 == pThis->playMap.key(lRealHandle,-1)) {/* 防止解码库把多通道数据混淆 */
+//                 //QThread::msleep(5);
+//                 inData =pThis-> PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize);
+//             }
+           }
+           //break;
 }
 
 void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
@@ -787,14 +789,14 @@ void TheMiddlewareHCNET::initVideoStream(int ID, bool play)
         struPlayInfo.bBlocked     = 0;       /* 0- 非阻塞取流，1- 阻塞取流 */
 
         if(NET_DVR_RealPlay_V40_L !=nullptr){
-            streamID =NET_DVR_RealPlay_V40_L(ID,&struPlayInfo,g_RealDataCallBack_V30,nullptr);
-            if(streamID==-1){
+            long stream =NET_DVR_RealPlay_V40_L(ID,&struPlayInfo,g_RealDataCallBack_V30,nullptr);
+            if(stream==-1){
                 qWarning().noquote()<<QString("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
             }
             else {
-                playMap.insert(ID,streamID);
-                qDebug().noquote()<<QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)<<":"<<streamID<<"[stream]|[camerID]"<<ID;
-                qDebug().noquote()<<QString("IP=%1 Open Stream Sucess <Code=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(QString::number(streamID));
+                playMap.insert(ID,stream);
+                qDebug().noquote()<<QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)<<":"<<stream<<"[stream]|[camerID]"<<ID;
+                qDebug().noquote()<<QString("IP=%1 Open Stream Sucess <Code=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(QString::number(stream));
             }
         }
     }
