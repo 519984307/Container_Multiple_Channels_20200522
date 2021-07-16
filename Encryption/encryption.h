@@ -62,6 +62,11 @@ private:
     bool dogID;
 
     ///
+    /// \brief dogType 加密狗类型
+    ///
+    uint dogType;
+
+    ///
     /// \brief pDLL 动态库对象
     ///
     QLibrary* pDLL;

@@ -138,43 +138,40 @@ release/moc_licenseplatehcnet.cpp: ../../Container_Multiple_Channels_20200522/Li
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmutex.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnumeric.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qversiontagging.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QTimer \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimer.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnamespace.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs_impl.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstring.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDebug \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qalgorithms.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qchar.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiterator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlist.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrefcount.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qarraydata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhashfunctions.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstring.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnamespace.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringliteral.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringalgorithms.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringview.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringbuilder.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlist.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qalgorithms.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiterator.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhashfunctions.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpair.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearraylist.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringlist.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qregexp.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringmatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiodevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs_impl.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreevent.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qscopedpointer.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmetatype.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvarlengtharray.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontainerfwd.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject_impl.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDebug \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmap.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextstream.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiodevice.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlocale.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvariant.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qshareddata.h \
@@ -284,43 +281,40 @@ release/licenseplatehcnet.o: ../../Container_Multiple_Channels_20200522/LicenseP
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmutex.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnumeric.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qversiontagging.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QTimer \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimer.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnamespace.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs_impl.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstring.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDebug \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qalgorithms.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qchar.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiterator.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlist.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qrefcount.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qarraydata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhashfunctions.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstring.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearray.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qnamespace.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringliteral.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringalgorithms.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringview.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringbuilder.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlist.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qalgorithms.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiterator.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhashfunctions.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpair.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbytearraylist.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringlist.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qregexp.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qstringmatcher.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiodevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobjectdefs_impl.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreevent.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qscopedpointer.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmetatype.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvarlengtharray.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontainerfwd.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qobject_impl.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDebug \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmap.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextstream.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiodevice.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlocale.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvariant.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qshareddata.h \

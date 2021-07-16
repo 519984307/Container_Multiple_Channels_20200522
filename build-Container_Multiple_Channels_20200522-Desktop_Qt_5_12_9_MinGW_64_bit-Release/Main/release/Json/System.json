@@ -28,22 +28,22 @@
             "picture_size": 0
         },
         "Service": {
-            "DataChaneType": 0,
-            "DataChange_Format": 0,
+            "DataChaneType": 1,
+            "DataChange_Format": 1,
             "Heartbeat": 0,
-            "Identify_Protocol": 1,
+            "Identify_Protocol": 0,
             "ManyCasesAddress": "127.0.0.1:60000,127.0.0.1:60001",
             "ManyCasesAddressMQ": "127.0.0.1|zby|ABCabc123|/zby:5672",
             "Resultting": 0,
-            "Service_Model": 0,
+            "Service_Model": 1,
             "Service_Type": 0,
             "ShortLink": 0,
             "SingletonAddress": "",
             "SingletonAddressMQ": "",
             "container_timeout": 15,
-            "decision_Container": 12,
             "newline": 0,
-            "not_plate_color": 0
+            "not_plate_color": 0,
+            "plate_timeout": 10
         },
         "Upload": {
             "DatabaseType": 0,

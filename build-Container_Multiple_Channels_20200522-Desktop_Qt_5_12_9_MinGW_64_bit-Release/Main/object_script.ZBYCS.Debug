@@ -24,6 +24,7 @@ tmp/obj/main_dialog.o
 tmp/obj/setting_form.o
 tmp/obj/system_setting_form.o
 tmp/obj/aboutdialog.o
+tmp/obj/version_dialog.o
 tmp/obj/dataprocessing.o
 tmp/obj/qrc_ico.o
 tmp/obj/moc_camera_list_form.o
@@ -59,4 +60,5 @@ tmp/obj/moc_main_dialog.o
 tmp/obj/moc_setting_form.o
 tmp/obj/moc_system_setting_form.o
 tmp/obj/moc_aboutdialog.o
+tmp/obj/moc_version_dialog.o
 tmp/obj/moc_dataprocessing.o

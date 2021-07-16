@@ -49,7 +49,7 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     isConCar=false;
 
     /*****************************
-    * @brief:红外状态检测，1秒运行一次
+    * @brief:红外状态检测，2秒运行一次
     ******************************/
     logicStateTimer=new QTimer(this);
     connect(logicStateTimer,SIGNAL(timeout()),this,SLOT(logicStateSlot()));
@@ -178,27 +178,54 @@ void Channel_Data_Form::loadParamter(int channelID,ChannelParameter *para)
     emit signal_initDataBase(QString::number(channelID),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
 }
 
-void Channel_Data_Form::clearnPixmap()
+void Channel_Data_Form::clearnPixmap(int type)
 {
     QPalette palette;
-    ui->image_label_1->setPalette(palette);
-    ui->image_label_2->setPalette(palette);
-    ui->image_label_3->setPalette(palette);
-    ui->image_label_4->setPalette(palette);
-    ui->image_label_5->setPalette(palette);
-    ui->image_label_6->setPalette(palette);
-    //ui->image_label_7->setPalette(palette);
-    ui->image_label_8->setPalette(palette);
-    ui->image_label_9->setPalette(palette);
-    ui->image_label_10->setPalette(palette);
-    ui->image_label_11->setPalette(palette);
-    //ui->image_label_12->setPalette(palette);
+    switch (type) {
+    /*****************************
+    * @brief:车牌清除箱号
+    ******************************/
+    case -1:
+    {
+        ui->image_label_1->setPalette(palette);
+        ui->image_label_2->setPalette(palette);
+        ui->image_label_3->setPalette(palette);
+        ui->image_label_4->setPalette(palette);
+        ui->image_label_5->setPalette(palette);
+        ui->image_label_6->setPalette(palette);
+        ui->image_label_8->setPalette(palette);
+        ui->image_label_9->setPalette(palette);
+        ui->image_label_10->setPalette(palette);
+        ui->image_label_11->setPalette(palette);
+        ui->image_label_12->setPalette(palette);
+    }
+        break;
+    /*****************************
+    * @brief:箱号清除车牌
+    ******************************/
+    case 0:
+        ui->image_label_7->setPalette(palette);
+        break;
+    }
+
 
     foreach (QLineEdit* obj, ui->toolBox->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
-        if(obj==ui->plate_lineEdit || obj==ui->plate_color_lineEdit || obj==ui->plate_time_lineEdit || obj==ui->alias_lineEdit || obj==ui->channel_lineEdit){
+        if(obj==ui->alias_lineEdit || obj==ui->channel_lineEdit){
             /*****************************
             * @brief:车牌和固定信息不清除
             ******************************/
+            continue;
+        }
+        /*****************************
+        * @brief:车牌清除箱号
+        ******************************/
+        if(-1==type && (obj==ui->plate_lineEdit || obj==ui->plate_color_lineEdit || obj==ui->plate_time_lineEdit)){
+            continue;
+        }
+        /*****************************
+        * @brief:箱号清除车牌
+        ******************************/
+        if(0==type && (obj==ui->time_lineEdit || obj==ui->con_after_lineEdit || obj==ui->con_brfore_lineEdit || obj==ui->iso_after_lineEdit || obj==ui->iso_before_lineEdit || obj==ui->box_type_lineEdit)){
             continue;
         }
         obj->setText("");
@@ -234,7 +261,7 @@ void Channel_Data_Form::on_SimulationPushButton_clicked()
     simulationdialog=true;
 }
 
-void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime)
+void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream, QString datetime, QString type)
 {
     QMutexLocker locket(&mutex);
     if(Parameter::ImagePath.isEmpty()){
@@ -302,18 +329,18 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
             if(7 != key){
                 slot_recognitionResult("RESULT: ||0|0",imgPath,key);
             }
-            else {
-                streamMap.remove(7);
-            }
+//            else {
+//                streamMap.remove(7);
+//            }
             continue;
         }
         else {
             if(7 != key){
                 emit signal_identifyImages(imgPath,key);
             }
-            else {
-                streamMap.remove(7);
-            }
+//            else {
+//                streamMap.remove(7);
+//            }
             if(Parameter::Ftp){
                 /*****************************
                 * @brief:上传图片
@@ -351,7 +378,10 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         }
     }
 
-    if(stream.size()>=2){
+    /*****************************
+    * @brief:先箱号后车牌，需要更新车牌数据，要使用箱号时间戳和通道号
+    ******************************/
+    if(stream.size()>=2 || type=="U"){
         /*****************************
         * @brief:插入箱号数据库到数据库
         ******************************/
@@ -367,12 +397,20 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream,QString datetime
         databaseMap.insert("Type",QString::number(-1));
     }
 
-    databaseMap.insert("Channel",QString::number(channelNumber));
     databaseMap.insert("PlateTimer",QString("%1").arg(QDateTime::fromString(localPlateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
     databaseMap.insert("Plate",localPlate);
     databaseMap.insert("plateColor",localPlateColor);
+    databaseMap.insert("Channel",QString::number(channelNumber));
 
-    emit signal_insertDataBase(databaseMap);
+    if(type=="I"){
+         emit signal_insertDataBase(databaseMap);
+    }
+    else if (type=="U") {
+        emit signal_updateDataBase(databaseMap);
+    }
+    else {
+        ;
+    }
 }
 
 void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const int &imgNumber, const QString &imgTime)
@@ -391,11 +429,6 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
          imgNameMap.clear();
     }
 
-    /*****************************
-    * @brief:置集装箱状态
-    ******************************/
-    isConCar=true;
-
     this->imgTimerAf=imgTime;
     streamMap.insert(imgNumber,jpgStream);
 
@@ -413,9 +446,10 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
             * @brief:保存车牌图片
             ******************************/
             streamMap.insert(7,plateTmpArr);
+            plateTmpArr.clear();
         }
 
-        QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTime);
+        QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTime,QString("I"));
         watcher->setFuture(future);
         putCount=-1;
     }
@@ -511,6 +545,14 @@ void Channel_Data_Form::logicStateSlot()
     isConCar=false;
 
     /*****************************
+    * @brief:第一次没有检测道红外状态，默认初始化一次,下次循环再判断。
+    ******************************/
+    if(LogicStateTmpList.size()==0){
+        LogicStateTmpList<<ui->a1checkBox->checkState()<<ui->a2checkBox->checkState()<<ui->b1checkBox->checkState()<<ui->b2checkBox->checkState();
+        return;
+    }
+
+    /*****************************
     * @brief:记录红外状态,判断是否为集装箱车辆
     ******************************/
     QVector<int> tmpStatusList;
@@ -523,33 +565,18 @@ void Channel_Data_Form::logicStateSlot()
 
     tmpStatusList.clear();
     if(isConCar || simulationConStatus){
-        LogicStateTmpList.clear();
         logicStateTimer->stop();
-        sendDataOutTimer->start(Parameter::container_timeout*1000);
+        sendDataOutTimer->stop();
+        LogicStateTmpList.clear();
+        sendDataOutTimer->start(Parameter::container_timeout*2*1000);
     }
-
-//    if(!isConCar){
-//        saveImages(plateStream,localPlateTime);
-//        emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,localPlateTime);
-//        streamMap.insert(7,plateStream.value(7));
-//    }
-//    else {
-//        if(sendDataOutTimer->isActive()){
-//            sendDataOutTimer->stop();
-//        }
-//        sendDataOutTimer->start(Parameter::container_timeout*1000);
-//    }
 }
 
 void Channel_Data_Form::timeOutSendData()
 {
-//    isConCar=false;
-//    saveImages(plateStream,localPlateTime);
-//    emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,localPlateTime);
-//    streamMap.insert(7,plateStream.value(7));
-//    plateTmpArr=nullptr;
+    LogicStateTmpList.clear();
+    logicStateTimer->stop();
 
-//    qDebug().noquote()<<"load container result timeout,send plate date";
     emit signal_waitSendData();
     qDebug().noquote()<<"Logical data receive timeout, send data-+";
 }
@@ -692,16 +719,40 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
 {
     switch (type) {
     case -1:
+    {
+        /*****************************
+        * @brief:不是集装箱车辆，车牌写入数据库
+        ******************************/
+        if(!isConCar){
+            /*****************************
+            * @brief:非集装箱车辆，清除前一辆箱号图片和信息。
+            ******************************/
+            clearnPixmap(-1);
+
+            QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,localPlateTime,QString("I"));
+            watcher->setFuture(future);
+        }
+
         /*****************************
         * @brief:清除数据逻辑定时器
         ******************************/
         sendDataOutTimer->stop();
         logicStateTimer->stop();
+        isConCar=false;
+        plateTmpArr=nullptr;
+    }
         break;
     case 0:
+    {
+        /*****************************
+        * @brief:清除前一辆车牌图片和信息
+        ******************************/
+        clearnPixmap(0);
+
         /*****************************
         * @brief:收到箱号，检查车牌相机状态
         ******************************/
+        isConCar=true;
         if(ui->plateCheckBox->isChecked() || simulationPlateStatus){
             if(sendDataOutTimer->isActive()){
                 emit signal_waitSendData();
@@ -712,16 +763,29 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         else {
             emit signal_waitSendData();
         }
+    }
         break;
     case 1:
+    {
+        /*****************************
+        * @brief:清除前一辆箱号图片和信息
+        ******************************/
+        clearnPixmap(-1);
+
         /*****************************
         * @brief:收到车牌，检查箱号红外状态
         ******************************/
         if(logicStateTimer->isActive()){
             emit signal_waitSendData();
             logicStateTimer->stop();
+            sendDataOutTimer->stop();
         }
-        logicStateTimer->start(2000);
+        logicStateTimer->start(2500);
+        /*****************************
+        * @brief:超时没检测道红外状态默认发送
+        ******************************/
+        sendDataOutTimer->start(Parameter::container_timeout*1000);
+    }
         break;
     }
 }
@@ -799,7 +863,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
 
     switch (putCommnd) {
     case -1:
-        emit clearnPixmap();/* 通知来车,清除数据界面图片 */
+        clearnPixmap(-1);/* 通知来车,清除数据界面图片 */
         this->putCount=-1;
         this->putComType=-1;
         emit signal_channelState(channelID,1);
@@ -890,57 +954,32 @@ void Channel_Data_Form::slot_recognitionResult(const QString &result, const QStr
 {
     recogMap.insert(imgNumber,result);
     imgNameMap.insert(imgNumber,imgName);
+
     /*****************************
-    * @brief:20210514 1012
+    * @brief:20210715 0121
     ******************************/
-    if(recogMap.size()==streamMap.size() && recogMap.size()==imgNameMap.size()){
+    bool complete=false;
+    if(streamMap.value(7,nullptr)!=nullptr && recogMap.size()==(streamMap.size()-1) && recogMap.size()==imgNameMap.size()){
+        complete=true;
+    }
+    if(streamMap.value(7,nullptr)==nullptr && recogMap.size()==streamMap.size() && recogMap.size()==imgNameMap.size()){
+        complete=true;
+    }
+
+    if(complete){
         emit signal_resultsOfAnalysis(recogMap,putComType,imgNameMap);
         recogMap.clear();
         imgNameMap.clear();
     }
+    complete=false;
 }
 
 void Channel_Data_Form::slot_container(const int &type, const QString &result1, const int &resultCheck1, const QString &iso1, const QString &result2, const int &resultCheck2, const QString &iso2)
 {
-//    /*****************************
-//    * @brief:是集装箱车辆，把车牌发送过去，组成一条数据 202010412
-//    * 考虑车速很快或者很慢情况。
-//    ******************************/
-//    if(plateSendTimer->isActive() || sendDataOutTimer->isActive()){
-//        isConCar=true;
-//        /*****************************
-//        * @brief:车牌和箱号使用同一时间戳
-//        ******************************/
-//        emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,imgTimer);
-//        /*****************************
-//        * @brief:保存车牌图片
-//        ******************************/
-//        //QtConcurrent::run(this,&Channel_Data_Form::saveImages,plateStream,imgTimer);
-//        streamMap.insert(7,plateStream.value(7));
-
-//    }
-
-//    /*****************************
-//    * @brief:先箱号后车牌，箱号出来要延时检测车牌
-//    ******************************/
-//    if(ui->platestateCheckBox->isChecked() && localPlateTime.isEmpty()){
-//        emit signal_waitPlate(Parameter::container_timeout);
-//        isConCar=true;
-//    }
-//    else {
-//        emit signal_waitPlate(100);
-//        plateTmpArr=nullptr;
-//        isConCar=false;
-//    }
-
-//    /*****************************
-//    * @brief:关闭检测车牌和箱号定时器
-//    ******************************/
-//    plateSendTimer->stop();
-//    sendDataOutTimer->stop();
-
-//    logicStateTimer->stop();
-//    sendDataOutTimer->stop();
+    /*****************************
+    * @brief:设定为集装箱车辆
+    ******************************/
+    isConCar=true;
 
     /*****************************
     * @brief:抓拍页面显示信息
@@ -1003,119 +1042,72 @@ void Channel_Data_Form::slot_theVideoStream(const QByteArray &arrImg)
 }
 
 void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
-{   
-//    if(QDateTime::fromString(localPlateTime,"yyyyMMddhhmmss").secsTo(QDateTime::fromString(time,"yyyy-M-d h:m:s"))<=5 && plate==localPlate){
-//        qWarning().noquote()<<"Duplicate license plate (5S) not handled!";
-//        return;
-//    }
+{
+    //    /*****************************
+    //    * @brief:中文有可能会出现编码问题
+    //    ******************************/
 
-//    /*****************************
-//    * @brief:需要判断是先识别车牌还是先识别箱号，或者同时进行【后续处理】20210424已处理
-//    * @brief:暂时按显示别车牌
-//    ******************************/
-//    if(localPlate!=plate && plateSendTimer->isActive()){
-//        /*****************************
-//        * @brief:防止非集卡车，前方车辆通过（检测集装箱延时未完成），后车通过导致前车结果未发送。
-//        ******************************/
-//        plateSendTimer->stop();
-//        saveImages(plateStream,localPlateTime);
-//        emit signal_plateSendData(channelNumber,false,localPlate,localPlateColor,localPlateTime);
-//    }
+    plateStream.clear();
+    plateStream.insert(7,arrImg);
 
-//    if(!isConCar){
-//        isConCar=false;
+    plateTmpArr=arrImg;
+    localPlate=plate;
+    localPlateColor=color;
+    localPlateTime=QString("%1").arg(QDateTime::fromString(time,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss"));
 
-//        clearnPixmap();
-//        streamMap.clear();
-//    }
-
-//    plateTmpArr=arrImg;
-
-//    plateStream.clear();
-//    plateStream.insert(7,arrImg);
-
-
-
-//    sendDataOutTimer->stop();
-
-    emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,imgTimer);
-    emit signal_plate(channelID,plate,color,time);
+    LogicStateTmpList.clear();
+    LogicStateTmpList<<ui->a1checkBox->checkState()<<ui->a2checkBox->checkState()<<ui->b1checkBox->checkState()<<ui->b2checkBox->checkState();
 
     ui->plate_lineEdit->setText(plate);
     ui->plate_time_lineEdit->setText(time);
     ui->plate_color_lineEdit->setText(color);
 
-//    QScopedPointer<QPixmap> pix(new QPixmap());
-//    if(arrImg!=nullptr){
-//        pix->loadFromData(arrImg);
-//        QPalette palette;
-//        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
-//        ui->image_label_7->setPalette(palette);
-//        streamMap.insert(7,arrImg);
-//    }
+    /*****************************
+    * @brief:非集装箱车辆清除历史图片
+    ******************************/
+    if(!isConCar){
+        streamMap.clear();
+    }
 
-//    LogicStateTmpList.clear();
-//    LogicStateTmpList<<ui->a1checkBox->checkState()<<ui->a2checkBox->checkState()<<ui->b1checkBox->checkState()<<ui->b2checkBox->checkState();
+    /*****************************
+    * @brief:显示车牌图片
+    ******************************/
+    QScopedPointer<QPixmap> pix(new QPixmap());
+    if(arrImg!=nullptr){
+        pix->loadFromData(arrImg);
+        QPalette palette;
+        palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
+        ui->image_label_7->setPalette(palette);
+        streamMap.insert(7,arrImg);
+    }
 
-//    localPlate=plate;
-//    localPlateColor=color;
-//    localPlateTime=QString("%1").arg(QDateTime::fromString(time,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss"));
+    /*****************************
+    * @brief:跟车信息，先发送前面信息
+    ******************************/
+    if(sendDataOutTimer->isActive() && !isConCar){
+        emit signal_waitSendData();
+        qCritical().noquote()<<QString("The process of the preceding vehicle has not been processed, and the information of the following vehicle is not processed.");
+    }
 
-//    /*****************************
-//    * @brief:中文有可能会出现编码问题
-//    ******************************/
-//    if("黄" == color || color==""){
-//        if(isConCar){
-//            emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,imgTimer);
-//            /*****************************
-//            * @brief:保存车牌图片
-//            ******************************/
-//            //QtConcurrent::run(this,&Channel_Data_Form::saveImages,plateStream,imgTimer);
-//            streamMap.insert(7,plateStream.value(7));
-//        }
-//        else {
-//            if(para->infraredStatus){
-//                /*****************************
-//                * @brief:常闭
-//                ******************************/
-//                if(LogicStateTmpList.count(0)>=3){
-//                    /*****************************
-//                    * @brief:挡住3组红外，判定为集装箱
-//                    ******************************/
-//                    isConCar=true;
-//                }
-//            }
-//            else {
-//                /*****************************
-//                * @brief:常开
-//                ******************************/
-//                if(LogicStateTmpList.count(1)>=3){
-//                    /*****************************
-//                    * @brief:挡住3组红外，判定为集装箱
-//                    ******************************/
-//                    isConCar=true;
-//                }
-//            }
-//            if(isConCar){
-//                if(sendDataOutTimer->isActive()){
-//                    sendDataOutTimer->stop();
-//                }
-//                sendDataOutTimer->start(Parameter::container_timeout*1000);
-//            }
-//            else {
-//                if(plateSendTimer->isActive()){
-//                    plateSendTimer->stop();
-//                }
-//                plateSendTimer->start(Parameter::plate_timeout*1000);
-//            }
-//        }
-//    }
-//    else {
-//        plateSendTimer->start(1);
-//    }
+    if(sendDataOutTimer->isActive() && isConCar){
+        /*****************************
+        * @brief:保存车牌图片和箱号一致
+        ******************************/
+        QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTimer,QString("U"));
+        watcher->setFuture(future);
+    }
+
+    emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,time);
+    emit signal_plate(channelID,plate,color,time);
 }
 
 void Channel_Data_Form::slot_simulationCloseState()
 {
     simulationdialog=false;
+
+    /*****************************
+    * @brief:清除模拟抓拍页面的车牌和箱号状态
+    ******************************/
+    simulationPlateStatus=false;
+    simulationConStatus=false;
 }

@@ -178,8 +178,9 @@ private:
 
     ///
     /// \brief clearnPixmap 清除图片
+    /// \param type
     ///
-    void clearnPixmap();
+    void clearnPixmap(int type);
 
     ///
     /// \brief saveImages 保存图片
@@ -187,7 +188,7 @@ private:
     /// \param datetime 图片时间戳
     /// \return
     ///
-    void saveImages(QMap<int,QByteArray> stream, QString datetime);
+    void saveImages(QMap<int,QByteArray> stream, QString datetime,QString type="I");
 
 private slots:
 

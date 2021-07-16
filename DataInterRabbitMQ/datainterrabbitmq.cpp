@@ -67,14 +67,21 @@ void DataInterRabbitMQ::InitializationParameterSlot(const QString &address, cons
     * @brief:设置持续保存
     ******************************/
     properties[QAmqpMessage::DeliveryMode] = "2";
+
+    isConnected=false;
 }
 
 void DataInterRabbitMQ::toSendDataSlot(int channel_number, const QString &data)
 {
     this->channel_number=channel_number;
-
-    sendData=data;
-    m_client.connectToHost();
+    if(!isConnected){
+        isConnected=true;
+        sendData=data;
+        m_client.connectToHost();
+    }
+    else {
+        tmpMsg=data;
+    }
 }
 
 void DataInterRabbitMQ::releaseResourcesSlot()
@@ -89,6 +96,15 @@ void DataInterRabbitMQ::clientDisconnected()
 {
     emit linkStateSingal(addr,m_client.port(),false);
     emit connectCountSignal(-1);
+
+    if(isConnected && !tmpMsg.isEmpty()){
+        isConnected=false;
+        toSendDataSlot(channel_number, tmpMsg);
+        tmpMsg.clear();
+    }
+    else {
+        isConnected=false;
+    }
 }
 
 void DataInterRabbitMQ::clientConnected()

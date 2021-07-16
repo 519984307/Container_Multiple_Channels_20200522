@@ -13,6 +13,7 @@ Encryption::Encryption(QObject *parent)
     SmartX3CheckExist=nullptr;
 
     dogState=false;
+    dogType=0;
 
     key1=QByteArray("cheng870888").toHex()+"0451031075c8f4a1a81913cad8c8593f";
     ind=5;
@@ -27,9 +28,10 @@ Encryption::~Encryption()
 }
 
 void Encryption::InitializationSlot(int dogType,QString dogIdd)
-{
-    Q_UNUSED(dogType);
+{   
     Q_UNUSED(dogIdd);
+
+    this->dogType=dogType;
 
     pDLL=new QLibrary ("libsmart-x3",this);
 
@@ -82,15 +84,26 @@ void Encryption::smartXGetUidFunc()
     /*福建平潭
      * ae68c66368a8e943bc260ae97003747f
     */
+    /* 烟台贝奇
+     * f19d15dec81584b5ce4f9edb0aae1789
+    */
     if(SmartX3Find!=nullptr && SmartX3Find(appID,keyHandles,&keyNumber)==0){
         if(SmartX3GetUid!=nullptr && SmartX3GetUid(keyHandles[0],UID)==0){
             //qDebug()<<"UID:"<<UID;
-            if(strncmp(UID,"ae68c66368a8e943bc260ae97003747f",33)==0){
+            if(strncmp(UID,"f19d15dec81584b5ce4f9edb0aae1789",33)==0){
                 dogState=true;
             }
             else {
                 dogState=false;
             }
+
+            /*****************************
+            * @brief:单通道不需要加密狗号
+            ******************************/
+            if(0==dogType){
+                dogState=true;
+            }
+
             emit GetTheEncryptedStateSignal(dogState);
         }
     }
@@ -98,16 +111,20 @@ void Encryption::smartXGetUidFunc()
 
 void Encryption::SmartXCheckExistSlot()
 {
-    if(dogState && SmartX3CheckExist!=nullptr && SmartX3CheckExist(keyHandles[0])==0){
-        emit GetTheEncryptedStateSignal(true);
-    }
-    else {
-        emit GetTheEncryptedStateSignal(false);
-    }
     /*****************************
     * @brief:test
     ******************************/
-//    emit GetTheEncryptedStateSignal(true);
+    if(0==dogType){
+        emit GetTheEncryptedStateSignal(true);
+    }
+    else {
+        if(dogState && SmartX3CheckExist!=nullptr && SmartX3CheckExist(keyHandles[0])==0){
+            emit GetTheEncryptedStateSignal(true);
+        }
+        else {
+            emit GetTheEncryptedStateSignal(false);
+        }
+    }
 }
 
 void Encryption::checkTheKeyFunc()

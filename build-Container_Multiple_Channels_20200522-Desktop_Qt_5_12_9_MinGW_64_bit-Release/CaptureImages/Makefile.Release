@@ -228,6 +228,21 @@ release/moc_captureimages.cpp: ../../Container_Multiple_Channels_20200522/Captur
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QTimer \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimer.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDebug \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qmap.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtextstream.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qiodevice.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qlocale.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvariant.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qshareddata.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qvector.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qpoint.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qset.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontiguouscache.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer_impl.h \
 		../../Container_Multiple_Channels_20200522/CaptureImages/ICaptureImages.h \
 		release/moc_predefs.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/bin/moc.exe
@@ -307,7 +322,6 @@ release/captureimages.o: ../../Container_Multiple_Channels_20200522/CaptureImage
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QTimer \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimer.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
-		../../Container_Multiple_Channels_20200522/CaptureImages/ICaptureImages.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QDebug \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qdebug.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qhash.h \
@@ -322,7 +336,8 @@ release/captureimages.o: ../../Container_Multiple_Channels_20200522/CaptureImage
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qset.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcontiguouscache.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer_impl.h
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qsharedpointer_impl.h \
+		../../Container_Multiple_Channels_20200522/CaptureImages/ICaptureImages.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\captureimages.o ..\..\Container_Multiple_Channels_20200522\CaptureImages\captureimages.cpp
 
 release/moc_ICaptureImages.o: release/moc_ICaptureImages.cpp 

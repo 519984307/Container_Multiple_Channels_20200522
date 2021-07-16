@@ -32,6 +32,7 @@ public:
     QAction *actionData_log;
     QAction *actionExit;
     QAction *actionAbout;
+    QAction *actionVersion;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QGridLayout *gridLayout_2;
@@ -69,6 +70,8 @@ public:
         actionExit->setObjectName(QString::fromUtf8("actionExit"));
         actionAbout = new QAction(MainWindow);
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
+        actionVersion = new QAction(MainWindow);
+        actionVersion->setObjectName(QString::fromUtf8("actionVersion"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -130,6 +133,7 @@ public:
         menuParameter_Setting->addAction(actionParameter_Settings);
         menuParameter_Setting->addAction(actionCamera_Test);
         menuLog->addAction(actionData_log);
+        menuHelp->addAction(actionVersion);
         menuHelp->addAction(menuErrCode->menuAction());
         menuHelp->addAction(actionAbout);
         menuHelp->addAction(actionExit);
@@ -169,6 +173,7 @@ public:
 #endif // QT_NO_TOOLTIP
         actionExit->setText(QApplication::translate("MainWindow", "Exit", nullptr));
         actionAbout->setText(QApplication::translate("MainWindow", "About", nullptr));
+        actionVersion->setText(QApplication::translate("MainWindow", "Version", nullptr));
         menuChannel_To_View->setTitle(QApplication::translate("MainWindow", "Channel To View", nullptr));
         menuDatabase->setTitle(QApplication::translate("MainWindow", "&Data", nullptr));
         menuParameter_Setting->setTitle(QApplication::translate("MainWindow", "Setting", nullptr));

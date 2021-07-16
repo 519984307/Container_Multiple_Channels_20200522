@@ -24,7 +24,6 @@
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
-#include <QtWidgets/QSplitter>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTextEdit>
@@ -97,11 +96,9 @@ public:
     QComboBox *picture_size_comboBox;
     QWidget *Service;
     QGridLayout *gridLayout_7;
-    QSpacerItem *verticalSpacer_7;
-    QLabel *label_53;
-    QComboBox *Service_Type_comboBox;
-    QLabel *label_48;
-    QCheckBox *Resulting_checkBox;
+    QHBoxLayout *horizontalLayout;
+    QRadioButton *ServerModel;
+    QRadioButton *ClientModel;
     QStackedWidget *Service_Type_stackedWidget;
     QWidget *page_6;
     QGridLayout *gridLayout_28;
@@ -117,35 +114,34 @@ public:
     QGridLayout *gridLayout_18;
     QLineEdit *Address_Singleton_MQ_lineEdit;
     QSpacerItem *verticalSpacer_10;
-    QCheckBox *checkBox_2;
-    QSpinBox *decision_Container_spinBox;
-    QLabel *label_32;
-    QHBoxLayout *horizontalLayout;
-    QRadioButton *ServerModel;
-    QRadioButton *ClientModel;
     QLabel *label_31;
-    QLabel *label_16;
-    QLabel *label_30;
-    QCheckBox *checkBox;
-    QLabel *label_46;
-    QSplitter *splitter;
+    QSpacerItem *verticalSpacer_7;
     QComboBox *Identify_Protocol_comboBox_2;
-    QSplitter *splitter_2;
+    QLabel *label_32;
     QComboBox *DataChaneType_combox;
-    QCheckBox *ShortLink_checkBox;
-    QLabel *label_51;
-    QSplitter *splitter_3;
+    QLabel *label_16;
     QComboBox *DataChange_Format_comboBox;
-    QSpinBox *container_timeout_spinBox;
-    QCheckBox *Hearbeat_checkBox;
-    QLabel *label_52;
-    QLabel *label_47;
-    QCheckBox *newline_checkBox;
-    QLabel *label_44;
-    QLabel *label_45;
     QLabel *label_17;
+    QSpinBox *plate_timeout_spinBox;
+    QLabel *label_52;
+    QSpinBox *container_timeout_spinBox;
+    QLabel *label_53;
     QCheckBox *plate_color_checkBox;
     QLabel *label_54;
+    QCheckBox *newline_checkBox;
+    QLabel *label_51;
+    QCheckBox *Hearbeat_checkBox;
+    QLabel *label_44;
+    QCheckBox *Resulting_checkBox;
+    QLabel *label_45;
+    QCheckBox *ShortLink_checkBox;
+    QLabel *label_46;
+    QCheckBox *checkBox;
+    QLabel *label_48;
+    QCheckBox *checkBox_2;
+    QLabel *label_47;
+    QComboBox *Service_Type_comboBox;
+    QLabel *label_30;
     QWidget *Upload;
     QGridLayout *gridLayout_9;
     QSpacerItem *verticalSpacer_4;
@@ -243,7 +239,7 @@ public:
         if (System_Setting_Form->objectName().isEmpty())
             System_Setting_Form->setObjectName(QString::fromUtf8("System_Setting_Form"));
         System_Setting_Form->setEnabled(true);
-        System_Setting_Form->resize(874, 709);
+        System_Setting_Form->resize(959, 625);
         gridLayout_3 = new QGridLayout(System_Setting_Form);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
         scrollArea = new QScrollArea(System_Setting_Form);
@@ -251,7 +247,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, -6, 911, 969));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 914, 1009));
         gridLayout = new QGridLayout(scrollAreaWidgetContents);
         gridLayout->setSpacing(0);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
@@ -283,6 +279,8 @@ public:
 
         label_4 = new QLabel(Channel);
         label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setMinimumSize(QSize(400, 0));
+        label_4->setMaximumSize(QSize(400, 16777215));
         label_4->setWordWrap(true);
 
         gridLayout_2->addWidget(label_4, 6, 4, 1, 1);
@@ -354,18 +352,24 @@ public:
 
         label_26 = new QLabel(Channel);
         label_26->setObjectName(QString::fromUtf8("label_26"));
+        label_26->setMinimumSize(QSize(400, 0));
+        label_26->setMaximumSize(QSize(400, 16777215));
         label_26->setWordWrap(true);
 
         gridLayout_2->addWidget(label_26, 4, 4, 1, 1);
 
         label_39 = new QLabel(Channel);
         label_39->setObjectName(QString::fromUtf8("label_39"));
+        label_39->setMinimumSize(QSize(400, 0));
+        label_39->setMaximumSize(QSize(400, 16777215));
         label_39->setWordWrap(true);
 
         gridLayout_2->addWidget(label_39, 2, 4, 1, 1);
 
         label_27 = new QLabel(Channel);
         label_27->setObjectName(QString::fromUtf8("label_27"));
+        label_27->setMinimumSize(QSize(400, 0));
+        label_27->setMaximumSize(QSize(400, 16777215));
         label_27->setWordWrap(true);
 
         gridLayout_2->addWidget(label_27, 7, 4, 1, 1);
@@ -386,6 +390,8 @@ public:
 
         label_24 = new QLabel(Channel);
         label_24->setObjectName(QString::fromUtf8("label_24"));
+        label_24->setMinimumSize(QSize(400, 0));
+        label_24->setMaximumSize(QSize(400, 16777215));
         label_24->setWordWrap(true);
 
         gridLayout_2->addWidget(label_24, 1, 4, 1, 1);
@@ -393,6 +399,7 @@ public:
         ChannelNumber = new QSpinBox(Channel);
         ChannelNumber->setObjectName(QString::fromUtf8("ChannelNumber"));
         ChannelNumber->setEnabled(true);
+        ChannelNumber->setMaximumSize(QSize(16777215, 16777215));
         ChannelNumber->setFrame(true);
         ChannelNumber->setAlignment(Qt::AlignCenter);
         ChannelNumber->setMinimum(1);
@@ -403,6 +410,8 @@ public:
 
         label_25 = new QLabel(Channel);
         label_25->setObjectName(QString::fromUtf8("label_25"));
+        label_25->setMinimumSize(QSize(400, 0));
+        label_25->setMaximumSize(QSize(400, 16777215));
         label_25->setWordWrap(true);
 
         gridLayout_2->addWidget(label_25, 3, 4, 1, 1);
@@ -413,6 +422,8 @@ public:
 
         label_15 = new QLabel(Channel);
         label_15->setObjectName(QString::fromUtf8("label_15"));
+        label_15->setMinimumSize(QSize(400, 0));
+        label_15->setMaximumSize(QSize(400, 16777215));
         label_15->setWordWrap(true);
 
         gridLayout_2->addWidget(label_15, 0, 4, 1, 1);
@@ -456,6 +467,8 @@ public:
 
         label_42 = new QLabel(Model);
         label_42->setObjectName(QString::fromUtf8("label_42"));
+        label_42->setMinimumSize(QSize(400, 0));
+        label_42->setMaximumSize(QSize(400, 16777215));
         label_42->setWordWrap(true);
 
         gridLayout_16->addWidget(label_42, 0, 1, 1, 1);
@@ -472,6 +485,8 @@ public:
 
         label_43 = new QLabel(Model);
         label_43->setObjectName(QString::fromUtf8("label_43"));
+        label_43->setMinimumSize(QSize(400, 0));
+        label_43->setMaximumSize(QSize(400, 16777215));
         label_43->setWordWrap(true);
 
         gridLayout_16->addWidget(label_43, 1, 1, 1, 1);
@@ -485,6 +500,8 @@ public:
 
         label_49 = new QLabel(Model);
         label_49->setObjectName(QString::fromUtf8("label_49"));
+        label_49->setMinimumSize(QSize(400, 0));
+        label_49->setMaximumSize(QSize(400, 16777215));
         label_49->setWordWrap(true);
 
         gridLayout_16->addWidget(label_49, 2, 1, 1, 1);
@@ -503,6 +520,8 @@ public:
 
         label_50 = new QLabel(Model);
         label_50->setObjectName(QString::fromUtf8("label_50"));
+        label_50->setMinimumSize(QSize(400, 0));
+        label_50->setMaximumSize(QSize(400, 16777215));
         label_50->setWordWrap(true);
 
         gridLayout_16->addWidget(label_50, 3, 1, 1, 1);
@@ -520,6 +539,8 @@ public:
         gridLayout_6->setVerticalSpacing(20);
         label_28 = new QLabel(Recognizer);
         label_28->setObjectName(QString::fromUtf8("label_28"));
+        label_28->setMinimumSize(QSize(400, 0));
+        label_28->setMaximumSize(QSize(400, 16777215));
         label_28->setWordWrap(true);
 
         gridLayout_6->addWidget(label_28, 1, 2, 1, 1);
@@ -553,6 +574,8 @@ public:
 
         label_19 = new QLabel(Recognizer);
         label_19->setObjectName(QString::fromUtf8("label_19"));
+        label_19->setMinimumSize(QSize(400, 0));
+        label_19->setMaximumSize(QSize(400, 16777215));
         label_19->setWordWrap(true);
 
         gridLayout_6->addWidget(label_19, 0, 2, 1, 1);
@@ -570,6 +593,8 @@ public:
 
         label_29 = new QLabel(Recognizer);
         label_29->setObjectName(QString::fromUtf8("label_29"));
+        label_29->setMinimumSize(QSize(400, 0));
+        label_29->setMaximumSize(QSize(400, 16777215));
         label_29->setWordWrap(true);
 
         gridLayout_6->addWidget(label_29, 2, 2, 1, 1);
@@ -580,6 +605,8 @@ public:
 
         label_55 = new QLabel(Recognizer);
         label_55->setObjectName(QString::fromUtf8("label_55"));
+        label_55->setMinimumSize(QSize(400, 0));
+        label_55->setMaximumSize(QSize(400, 16777215));
         label_55->setWordWrap(true);
 
         gridLayout_6->addWidget(label_55, 3, 2, 1, 1);
@@ -599,34 +626,22 @@ public:
         gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
         gridLayout_7->setHorizontalSpacing(50);
         gridLayout_7->setVerticalSpacing(20);
-        verticalSpacer_7 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        ServerModel = new QRadioButton(Service);
+        ServerModel->setObjectName(QString::fromUtf8("ServerModel"));
+        ServerModel->setChecked(true);
 
-        gridLayout_7->addItem(verticalSpacer_7, 3, 2, 1, 1);
+        horizontalLayout->addWidget(ServerModel);
 
-        label_53 = new QLabel(Service);
-        label_53->setObjectName(QString::fromUtf8("label_53"));
-        label_53->setWordWrap(true);
+        ClientModel = new QRadioButton(Service);
+        ClientModel->setObjectName(QString::fromUtf8("ClientModel"));
+        ClientModel->setEnabled(true);
 
-        gridLayout_7->addWidget(label_53, 8, 1, 1, 2);
+        horizontalLayout->addWidget(ClientModel);
 
-        Service_Type_comboBox = new QComboBox(Service);
-        Service_Type_comboBox->addItem(QString());
-        Service_Type_comboBox->addItem(QString());
-        Service_Type_comboBox->setObjectName(QString::fromUtf8("Service_Type_comboBox"));
 
-        gridLayout_7->addWidget(Service_Type_comboBox, 1, 0, 1, 1);
-
-        label_48 = new QLabel(Service);
-        label_48->setObjectName(QString::fromUtf8("label_48"));
-        label_48->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_48, 14, 1, 1, 2);
-
-        Resulting_checkBox = new QCheckBox(Service);
-        Resulting_checkBox->setObjectName(QString::fromUtf8("Resulting_checkBox"));
-        Resulting_checkBox->setChecked(true);
-
-        gridLayout_7->addWidget(Resulting_checkBox, 12, 0, 1, 1);
+        gridLayout_7->addLayout(horizontalLayout, 0, 0, 1, 1);
 
         Service_Type_stackedWidget = new QStackedWidget(Service);
         Service_Type_stackedWidget->setObjectName(QString::fromUtf8("Service_Type_stackedWidget"));
@@ -689,115 +704,79 @@ public:
 
         gridLayout_7->addWidget(Service_Type_stackedWidget, 2, 0, 1, 1);
 
-        checkBox_2 = new QCheckBox(Service);
-        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
-
-        gridLayout_7->addWidget(checkBox_2, 15, 0, 1, 1);
-
-        decision_Container_spinBox = new QSpinBox(Service);
-        decision_Container_spinBox->setObjectName(QString::fromUtf8("decision_Container_spinBox"));
-        decision_Container_spinBox->setMinimum(0);
-
-        gridLayout_7->addWidget(decision_Container_spinBox, 7, 0, 1, 1);
-
-        label_32 = new QLabel(Service);
-        label_32->setObjectName(QString::fromUtf8("label_32"));
-        label_32->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_32, 4, 1, 1, 2);
-
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        ServerModel = new QRadioButton(Service);
-        ServerModel->setObjectName(QString::fromUtf8("ServerModel"));
-        ServerModel->setChecked(true);
-
-        horizontalLayout->addWidget(ServerModel);
-
-        ClientModel = new QRadioButton(Service);
-        ClientModel->setObjectName(QString::fromUtf8("ClientModel"));
-        ClientModel->setEnabled(true);
-
-        horizontalLayout->addWidget(ClientModel);
-
-
-        gridLayout_7->addLayout(horizontalLayout, 0, 0, 1, 1);
-
         label_31 = new QLabel(Service);
         label_31->setObjectName(QString::fromUtf8("label_31"));
+        label_31->setMinimumSize(QSize(400, 0));
+        label_31->setMaximumSize(QSize(400, 16777215));
         label_31->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
         label_31->setWordWrap(true);
 
         gridLayout_7->addWidget(label_31, 2, 1, 1, 2);
 
-        label_16 = new QLabel(Service);
-        label_16->setObjectName(QString::fromUtf8("label_16"));
-        label_16->setWordWrap(true);
+        verticalSpacer_7 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout_7->addWidget(label_16, 5, 1, 1, 2);
+        gridLayout_7->addItem(verticalSpacer_7, 3, 2, 1, 1);
 
-        label_30 = new QLabel(Service);
-        label_30->setObjectName(QString::fromUtf8("label_30"));
-        label_30->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_30, 0, 1, 1, 2);
-
-        checkBox = new QCheckBox(Service);
-        checkBox->setObjectName(QString::fromUtf8("checkBox"));
-
-        gridLayout_7->addWidget(checkBox, 14, 0, 1, 1);
-
-        label_46 = new QLabel(Service);
-        label_46->setObjectName(QString::fromUtf8("label_46"));
-        label_46->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_46, 13, 1, 1, 2);
-
-        splitter = new QSplitter(Service);
-        splitter->setObjectName(QString::fromUtf8("splitter"));
-        splitter->setOrientation(Qt::Horizontal);
-        Identify_Protocol_comboBox_2 = new QComboBox(splitter);
+        Identify_Protocol_comboBox_2 = new QComboBox(Service);
         Identify_Protocol_comboBox_2->addItem(QString());
         Identify_Protocol_comboBox_2->addItem(QString());
         Identify_Protocol_comboBox_2->addItem(QString());
         Identify_Protocol_comboBox_2->setObjectName(QString::fromUtf8("Identify_Protocol_comboBox_2"));
-        splitter->addWidget(Identify_Protocol_comboBox_2);
 
-        gridLayout_7->addWidget(splitter, 4, 0, 1, 1);
+        gridLayout_7->addWidget(Identify_Protocol_comboBox_2, 4, 0, 1, 1);
 
-        splitter_2 = new QSplitter(Service);
-        splitter_2->setObjectName(QString::fromUtf8("splitter_2"));
-        splitter_2->setOrientation(Qt::Horizontal);
-        DataChaneType_combox = new QComboBox(splitter_2);
+        label_32 = new QLabel(Service);
+        label_32->setObjectName(QString::fromUtf8("label_32"));
+        label_32->setMinimumSize(QSize(400, 0));
+        label_32->setMaximumSize(QSize(400, 16777215));
+        label_32->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_32, 4, 1, 1, 2);
+
+        DataChaneType_combox = new QComboBox(Service);
         DataChaneType_combox->addItem(QString());
         DataChaneType_combox->addItem(QString());
         DataChaneType_combox->setObjectName(QString::fromUtf8("DataChaneType_combox"));
-        splitter_2->addWidget(DataChaneType_combox);
 
-        gridLayout_7->addWidget(splitter_2, 5, 0, 1, 1);
+        gridLayout_7->addWidget(DataChaneType_combox, 5, 0, 1, 1);
 
-        ShortLink_checkBox = new QCheckBox(Service);
-        ShortLink_checkBox->setObjectName(QString::fromUtf8("ShortLink_checkBox"));
+        label_16 = new QLabel(Service);
+        label_16->setObjectName(QString::fromUtf8("label_16"));
+        label_16->setMinimumSize(QSize(400, 0));
+        label_16->setMaximumSize(QSize(400, 16777215));
+        label_16->setWordWrap(true);
 
-        gridLayout_7->addWidget(ShortLink_checkBox, 13, 0, 1, 1);
+        gridLayout_7->addWidget(label_16, 5, 1, 1, 2);
 
-        label_51 = new QLabel(Service);
-        label_51->setObjectName(QString::fromUtf8("label_51"));
-        label_51->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_51, 10, 1, 1, 2);
-
-        splitter_3 = new QSplitter(Service);
-        splitter_3->setObjectName(QString::fromUtf8("splitter_3"));
-        splitter_3->setOrientation(Qt::Horizontal);
-        DataChange_Format_comboBox = new QComboBox(splitter_3);
+        DataChange_Format_comboBox = new QComboBox(Service);
         DataChange_Format_comboBox->addItem(QString());
         DataChange_Format_comboBox->addItem(QString());
         DataChange_Format_comboBox->addItem(QString());
         DataChange_Format_comboBox->setObjectName(QString::fromUtf8("DataChange_Format_comboBox"));
-        splitter_3->addWidget(DataChange_Format_comboBox);
 
-        gridLayout_7->addWidget(splitter_3, 6, 0, 1, 1);
+        gridLayout_7->addWidget(DataChange_Format_comboBox, 6, 0, 1, 1);
+
+        label_17 = new QLabel(Service);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+        label_17->setMinimumSize(QSize(400, 0));
+        label_17->setMaximumSize(QSize(400, 16777215));
+        label_17->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_17, 6, 1, 1, 2);
+
+        plate_timeout_spinBox = new QSpinBox(Service);
+        plate_timeout_spinBox->setObjectName(QString::fromUtf8("plate_timeout_spinBox"));
+        plate_timeout_spinBox->setMinimum(0);
+
+        gridLayout_7->addWidget(plate_timeout_spinBox, 7, 0, 1, 1);
+
+        label_52 = new QLabel(Service);
+        label_52->setObjectName(QString::fromUtf8("label_52"));
+        label_52->setMinimumSize(QSize(400, 0));
+        label_52->setMaximumSize(QSize(400, 16777215));
+        label_52->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_52, 7, 1, 1, 2);
 
         container_timeout_spinBox = new QSpinBox(Service);
         container_timeout_spinBox->setObjectName(QString::fromUtf8("container_timeout_spinBox"));
@@ -805,46 +784,13 @@ public:
 
         gridLayout_7->addWidget(container_timeout_spinBox, 8, 0, 1, 1);
 
-        Hearbeat_checkBox = new QCheckBox(Service);
-        Hearbeat_checkBox->setObjectName(QString::fromUtf8("Hearbeat_checkBox"));
-        Hearbeat_checkBox->setChecked(true);
+        label_53 = new QLabel(Service);
+        label_53->setObjectName(QString::fromUtf8("label_53"));
+        label_53->setMinimumSize(QSize(400, 0));
+        label_53->setMaximumSize(QSize(400, 16777215));
+        label_53->setWordWrap(true);
 
-        gridLayout_7->addWidget(Hearbeat_checkBox, 11, 0, 1, 1);
-
-        label_52 = new QLabel(Service);
-        label_52->setObjectName(QString::fromUtf8("label_52"));
-        label_52->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_52, 7, 1, 1, 2);
-
-        label_47 = new QLabel(Service);
-        label_47->setObjectName(QString::fromUtf8("label_47"));
-        label_47->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_47, 15, 1, 1, 2);
-
-        newline_checkBox = new QCheckBox(Service);
-        newline_checkBox->setObjectName(QString::fromUtf8("newline_checkBox"));
-
-        gridLayout_7->addWidget(newline_checkBox, 10, 0, 1, 1);
-
-        label_44 = new QLabel(Service);
-        label_44->setObjectName(QString::fromUtf8("label_44"));
-        label_44->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_44, 11, 1, 1, 2);
-
-        label_45 = new QLabel(Service);
-        label_45->setObjectName(QString::fromUtf8("label_45"));
-        label_45->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_45, 12, 1, 1, 2);
-
-        label_17 = new QLabel(Service);
-        label_17->setObjectName(QString::fromUtf8("label_17"));
-        label_17->setWordWrap(true);
-
-        gridLayout_7->addWidget(label_17, 6, 1, 1, 2);
+        gridLayout_7->addWidget(label_53, 8, 1, 1, 2);
 
         plate_color_checkBox = new QCheckBox(Service);
         plate_color_checkBox->setObjectName(QString::fromUtf8("plate_color_checkBox"));
@@ -853,8 +799,105 @@ public:
 
         label_54 = new QLabel(Service);
         label_54->setObjectName(QString::fromUtf8("label_54"));
+        label_54->setMinimumSize(QSize(400, 0));
+        label_54->setMaximumSize(QSize(400, 16777215));
 
         gridLayout_7->addWidget(label_54, 9, 1, 1, 1);
+
+        newline_checkBox = new QCheckBox(Service);
+        newline_checkBox->setObjectName(QString::fromUtf8("newline_checkBox"));
+
+        gridLayout_7->addWidget(newline_checkBox, 10, 0, 1, 1);
+
+        label_51 = new QLabel(Service);
+        label_51->setObjectName(QString::fromUtf8("label_51"));
+        label_51->setMinimumSize(QSize(400, 0));
+        label_51->setMaximumSize(QSize(400, 16777215));
+        label_51->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_51, 10, 1, 1, 2);
+
+        Hearbeat_checkBox = new QCheckBox(Service);
+        Hearbeat_checkBox->setObjectName(QString::fromUtf8("Hearbeat_checkBox"));
+        Hearbeat_checkBox->setChecked(true);
+
+        gridLayout_7->addWidget(Hearbeat_checkBox, 11, 0, 1, 1);
+
+        label_44 = new QLabel(Service);
+        label_44->setObjectName(QString::fromUtf8("label_44"));
+        label_44->setMinimumSize(QSize(400, 0));
+        label_44->setMaximumSize(QSize(400, 16777215));
+        label_44->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_44, 11, 1, 1, 2);
+
+        Resulting_checkBox = new QCheckBox(Service);
+        Resulting_checkBox->setObjectName(QString::fromUtf8("Resulting_checkBox"));
+        Resulting_checkBox->setChecked(true);
+
+        gridLayout_7->addWidget(Resulting_checkBox, 12, 0, 1, 1);
+
+        label_45 = new QLabel(Service);
+        label_45->setObjectName(QString::fromUtf8("label_45"));
+        label_45->setMinimumSize(QSize(400, 0));
+        label_45->setMaximumSize(QSize(400, 16777215));
+        label_45->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_45, 12, 1, 1, 2);
+
+        ShortLink_checkBox = new QCheckBox(Service);
+        ShortLink_checkBox->setObjectName(QString::fromUtf8("ShortLink_checkBox"));
+
+        gridLayout_7->addWidget(ShortLink_checkBox, 13, 0, 1, 1);
+
+        label_46 = new QLabel(Service);
+        label_46->setObjectName(QString::fromUtf8("label_46"));
+        label_46->setMinimumSize(QSize(400, 0));
+        label_46->setMaximumSize(QSize(400, 16777215));
+        label_46->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_46, 13, 1, 1, 2);
+
+        checkBox = new QCheckBox(Service);
+        checkBox->setObjectName(QString::fromUtf8("checkBox"));
+
+        gridLayout_7->addWidget(checkBox, 14, 0, 1, 1);
+
+        label_48 = new QLabel(Service);
+        label_48->setObjectName(QString::fromUtf8("label_48"));
+        label_48->setMinimumSize(QSize(400, 0));
+        label_48->setMaximumSize(QSize(400, 16777215));
+        label_48->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_48, 14, 1, 1, 2);
+
+        checkBox_2 = new QCheckBox(Service);
+        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
+
+        gridLayout_7->addWidget(checkBox_2, 15, 0, 1, 1);
+
+        label_47 = new QLabel(Service);
+        label_47->setObjectName(QString::fromUtf8("label_47"));
+        label_47->setMinimumSize(QSize(400, 0));
+        label_47->setMaximumSize(QSize(400, 16777215));
+        label_47->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_47, 15, 1, 1, 2);
+
+        Service_Type_comboBox = new QComboBox(Service);
+        Service_Type_comboBox->addItem(QString());
+        Service_Type_comboBox->addItem(QString());
+        Service_Type_comboBox->setObjectName(QString::fromUtf8("Service_Type_comboBox"));
+
+        gridLayout_7->addWidget(Service_Type_comboBox, 1, 0, 1, 1);
+
+        label_30 = new QLabel(Service);
+        label_30->setObjectName(QString::fromUtf8("label_30"));
+        label_30->setMinimumSize(QSize(400, 0));
+        label_30->setMaximumSize(QSize(400, 16777215));
+        label_30->setWordWrap(true);
+
+        gridLayout_7->addWidget(label_30, 0, 1, 1, 2);
 
         tabWidget->addTab(Service, QString());
         Upload = new QWidget();
@@ -1018,12 +1061,16 @@ public:
 
         label_18 = new QLabel(Upload);
         label_18->setObjectName(QString::fromUtf8("label_18"));
+        label_18->setMinimumSize(QSize(400, 0));
+        label_18->setMaximumSize(QSize(400, 16777215));
         label_18->setWordWrap(true);
 
         gridLayout_9->addWidget(label_18, 0, 1, 1, 1);
 
         label_10 = new QLabel(Upload);
         label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setMinimumSize(QSize(400, 0));
+        label_10->setMaximumSize(QSize(400, 16777215));
         label_10->setWordWrap(true);
 
         gridLayout_9->addWidget(label_10, 1, 1, 1, 1);
@@ -1047,6 +1094,8 @@ public:
 
         label_11 = new QLabel(Storage);
         label_11->setObjectName(QString::fromUtf8("label_11"));
+        label_11->setMinimumSize(QSize(400, 0));
+        label_11->setMaximumSize(QSize(400, 16777215));
         label_11->setWordWrap(true);
 
         gridLayout_10->addWidget(label_11, 1, 1, 1, 1);
@@ -1083,6 +1132,8 @@ public:
 
         label_34 = new QLabel(Storage);
         label_34->setObjectName(QString::fromUtf8("label_34"));
+        label_34->setMinimumSize(QSize(400, 0));
+        label_34->setMaximumSize(QSize(400, 16777215));
         label_34->setWordWrap(true);
 
         gridLayout_10->addWidget(label_34, 2, 1, 1, 1);
@@ -1125,6 +1176,8 @@ public:
 
         label_35 = new QLabel(Storage);
         label_35->setObjectName(QString::fromUtf8("label_35"));
+        label_35->setMinimumSize(QSize(400, 0));
+        label_35->setMaximumSize(QSize(400, 16777215));
         label_35->setWordWrap(true);
 
         gridLayout_10->addWidget(label_35, 4, 1, 1, 1);
@@ -1147,6 +1200,8 @@ public:
 
         label_33 = new QLabel(Storage);
         label_33->setObjectName(QString::fromUtf8("label_33"));
+        label_33->setMinimumSize(QSize(400, 0));
+        label_33->setMaximumSize(QSize(400, 16777215));
         label_33->setWordWrap(true);
 
         gridLayout_10->addWidget(label_33, 5, 1, 1, 1);
@@ -1176,18 +1231,24 @@ public:
 
         label_38 = new QLabel(Additional);
         label_38->setObjectName(QString::fromUtf8("label_38"));
+        label_38->setMinimumSize(QSize(400, 0));
+        label_38->setMaximumSize(QSize(400, 16777215));
         label_38->setWordWrap(true);
 
         gridLayout_12->addWidget(label_38, 4, 3, 1, 2);
 
         label_9 = new QLabel(Additional);
         label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setMinimumSize(QSize(400, 0));
+        label_9->setMaximumSize(QSize(400, 16777215));
         label_9->setWordWrap(true);
 
         gridLayout_12->addWidget(label_9, 2, 3, 1, 2);
 
         label_36 = new QLabel(Additional);
         label_36->setObjectName(QString::fromUtf8("label_36"));
+        label_36->setMinimumSize(QSize(400, 0));
+        label_36->setMaximumSize(QSize(400, 16777215));
         label_36->setWordWrap(true);
 
         gridLayout_12->addWidget(label_36, 5, 3, 1, 2);
@@ -1205,6 +1266,8 @@ public:
 
         label_8 = new QLabel(Additional);
         label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setMinimumSize(QSize(400, 0));
+        label_8->setMaximumSize(QSize(400, 16777215));
         label_8->setWordWrap(true);
 
         gridLayout_12->addWidget(label_8, 1, 3, 1, 2);
@@ -1244,6 +1307,8 @@ public:
 
         label_12 = new QLabel(Additional);
         label_12->setObjectName(QString::fromUtf8("label_12"));
+        label_12->setMinimumSize(QSize(400, 0));
+        label_12->setMaximumSize(QSize(400, 16777215));
         label_12->setWordWrap(true);
 
         gridLayout_12->addWidget(label_12, 3, 3, 1, 2);
@@ -1316,6 +1381,8 @@ public:
 
         label_13 = new QLabel(Other);
         label_13->setObjectName(QString::fromUtf8("label_13"));
+        label_13->setMinimumSize(QSize(400, 0));
+        label_13->setMaximumSize(QSize(400, 16777215));
         label_13->setWordWrap(true);
 
         gridLayout_13->addWidget(label_13, 0, 2, 1, 1);
@@ -1352,6 +1419,8 @@ public:
 
         label_14 = new QLabel(Other);
         label_14->setObjectName(QString::fromUtf8("label_14"));
+        label_14->setMinimumSize(QSize(400, 0));
+        label_14->setMaximumSize(QSize(400, 16777215));
         label_14->setWordWrap(true);
 
         gridLayout_13->addWidget(label_14, 1, 2, 1, 1);
@@ -1365,6 +1434,8 @@ public:
 
         label_37 = new QLabel(Other);
         label_37->setObjectName(QString::fromUtf8("label_37"));
+        label_37->setMinimumSize(QSize(400, 0));
+        label_37->setMaximumSize(QSize(400, 16777215));
         label_37->setWordWrap(true);
 
         gridLayout_13->addWidget(label_37, 2, 2, 1, 1);
@@ -1445,9 +1516,9 @@ public:
         QObject::connect(saveImageDay_checkBox, SIGNAL(clicked(bool)), saveImageDay_spinBox, SLOT(setEnabled(bool)));
         QObject::connect(saveImageDay_checkBox, SIGNAL(clicked(bool)), horizontalSlider_2, SLOT(setEnabled(bool)));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(0);
         Camera_Load_Plugin_comboBox->setCurrentIndex(1);
-        Service_Type_stackedWidget->setCurrentIndex(3);
+        Service_Type_stackedWidget->setCurrentIndex(0);
         Language->setCurrentIndex(1);
 
 
@@ -1533,50 +1604,50 @@ public:
         picture_size_comboBox->setItemText(2, QApplication::translate("System_Setting_Form", "768*576", nullptr));
 
         tabWidget->setTabText(tabWidget->indexOf(Recognizer), QApplication::translate("System_Setting_Form", "Recognizer", nullptr));
-        label_53->setText(QApplication::translate("System_Setting_Form", "The license plate waits for the container identification result to time out", nullptr));
-        Service_Type_comboBox->setItemText(0, QApplication::translate("System_Setting_Form", "One to one", nullptr));
-        Service_Type_comboBox->setItemText(1, QApplication::translate("System_Setting_Form", "More than a pair of", nullptr));
-
-        label_48->setText(QApplication::translate("System_Setting_Form", "Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process", nullptr));
-        Resulting_checkBox->setText(QApplication::translate("System_Setting_Form", "Send an intermediate result set", nullptr));
+        ServerModel->setText(QApplication::translate("System_Setting_Form", "Tcp Server", nullptr));
+        ClientModel->setText(QApplication::translate("System_Setting_Form", "Tcp Client", nullptr));
         Address_Many_textEdit->setPlaceholderText(QApplication::translate("System_Setting_Form", "if(server)192.168.1.100:5000,192.168.1.100:5001,192.168.1.100:5002 if(client)192.168.1.100:5000,192.168.1.101:5000,192.168.1.102:5000", nullptr));
         Address_Singleton_lineEdit->setPlaceholderText(QApplication::translate("System_Setting_Form", "127.0.0.1:5000", nullptr));
         Address_Many_MQ_textEdit->setPlaceholderText(QApplication::translate("System_Setting_Form", "If the data interface pattern MQ: 127.0.0.1|user|pass|vhost:5672, 127.0.0.1|user|pass|vhost:", nullptr));
         Address_Singleton_MQ_lineEdit->setPlaceholderText(QApplication::translate("System_Setting_Form", "If the data interface pattern MQ: 127.0.0.1|user|pass|vhost:5672", nullptr));
-        checkBox_2->setText(QApplication::translate("System_Setting_Form", "Send astern signal", nullptr));
-        label_32->setText(QApplication::translate("System_Setting_Form", "Identify the data docking protocol", nullptr));
-        ServerModel->setText(QApplication::translate("System_Setting_Form", "Tcp Server", nullptr));
-        ClientModel->setText(QApplication::translate("System_Setting_Form", "Tcp Client", nullptr));
         label_31->setText(QApplication::translate("System_Setting_Form", "One to one:One service corresponds to one channel, and either server mode or client mode can be set.\n"
 "\n"
 "\n"
 "More than pair of:One service corresponds to all channels, and only the server mode can be set, One service corresponds to all channels (Need to respond to channel instruction [L|Number])", nullptr));
-        label_16->setText(QApplication::translate("System_Setting_Form", "Identify the data docking interface", nullptr));
-        label_30->setText(QApplication::translate("System_Setting_Form", "Identify data docking patterns", nullptr));
-        checkBox->setText(QApplication::translate("System_Setting_Form", "Send a car signal", nullptr));
-        label_46->setText(QApplication::translate("System_Setting_Form", "The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.", nullptr));
         Identify_Protocol_comboBox_2->setItemText(0, QApplication::translate("System_Setting_Form", "Container_number", nullptr));
         Identify_Protocol_comboBox_2->setItemText(1, QApplication::translate("System_Setting_Form", "Container_number+Plate", nullptr));
         Identify_Protocol_comboBox_2->setItemText(2, QApplication::translate("System_Setting_Form", "Container_number+Plate+Weight", nullptr));
 
+        label_32->setText(QApplication::translate("System_Setting_Form", "Identify the data docking protocol", nullptr));
         DataChaneType_combox->setItemText(0, QApplication::translate("System_Setting_Form", "TCP", nullptr));
         DataChaneType_combox->setItemText(1, QApplication::translate("System_Setting_Form", "MQ", nullptr));
 
-        ShortLink_checkBox->setText(QApplication::translate("System_Setting_Form", "Short link", nullptr));
-        label_51->setText(QApplication::translate("System_Setting_Form", "A newline character is added to each piece of data to form a complete line.", nullptr));
+        label_16->setText(QApplication::translate("System_Setting_Form", "Identify the data docking interface", nullptr));
         DataChange_Format_comboBox->setItemText(0, QApplication::translate("System_Setting_Form", "TEXT", nullptr));
         DataChange_Format_comboBox->setItemText(1, QApplication::translate("System_Setting_Form", "JSON", nullptr));
         DataChange_Format_comboBox->setItemText(2, QApplication::translate("System_Setting_Form", "XML", nullptr));
 
-        Hearbeat_checkBox->setText(QApplication::translate("System_Setting_Form", "The heartbeat packets", nullptr));
-        label_52->setText(QApplication::translate("System_Setting_Form", "Checks for timeout for container vehicles", nullptr));
-        label_47->setText(QApplication::translate("System_Setting_Form", "The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process", nullptr));
-        newline_checkBox->setText(QApplication::translate("System_Setting_Form", "A newline", nullptr));
-        label_44->setText(QApplication::translate("System_Setting_Form", "The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!", nullptr));
-        label_45->setText(QApplication::translate("System_Setting_Form", "The intermediate result set starts with [I, and is opened as required, not as the final result.", nullptr));
         label_17->setText(QApplication::translate("System_Setting_Form", "Web service data format", nullptr));
+        label_52->setText(QApplication::translate("System_Setting_Form", "License plate result receives timeout time", nullptr));
+        label_53->setText(QApplication::translate("System_Setting_Form", "Container identification result receiving timeout", nullptr));
         plate_color_checkBox->setText(QApplication::translate("System_Setting_Form", "not plate color", nullptr));
         label_54->setText(QApplication::translate("System_Setting_Form", "The interface protocol does not require a license plate color", nullptr));
+        newline_checkBox->setText(QApplication::translate("System_Setting_Form", "A newline", nullptr));
+        label_51->setText(QApplication::translate("System_Setting_Form", "A newline character is added to each piece of data to form a complete line.", nullptr));
+        Hearbeat_checkBox->setText(QApplication::translate("System_Setting_Form", "The heartbeat packets", nullptr));
+        label_44->setText(QApplication::translate("System_Setting_Form", "The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!", nullptr));
+        Resulting_checkBox->setText(QApplication::translate("System_Setting_Form", "Send an intermediate result set", nullptr));
+        label_45->setText(QApplication::translate("System_Setting_Form", "The intermediate result set starts with [I, and is opened as required, not as the final result.", nullptr));
+        ShortLink_checkBox->setText(QApplication::translate("System_Setting_Form", "Short link", nullptr));
+        label_46->setText(QApplication::translate("System_Setting_Form", "The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.", nullptr));
+        checkBox->setText(QApplication::translate("System_Setting_Form", "Send a car signal", nullptr));
+        label_48->setText(QApplication::translate("System_Setting_Form", "Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process", nullptr));
+        checkBox_2->setText(QApplication::translate("System_Setting_Form", "Send astern signal", nullptr));
+        label_47->setText(QApplication::translate("System_Setting_Form", "The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process", nullptr));
+        Service_Type_comboBox->setItemText(0, QApplication::translate("System_Setting_Form", "One to one", nullptr));
+        Service_Type_comboBox->setItemText(1, QApplication::translate("System_Setting_Form", "More than a pair of", nullptr));
+
+        label_30->setText(QApplication::translate("System_Setting_Form", "Identify data docking patterns", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Service), QApplication::translate("System_Setting_Form", "Service", nullptr));
         groupBox_15->setTitle(QApplication::translate("System_Setting_Form", "Database", nullptr));
         label_20->setText(QApplication::translate("System_Setting_Form", "Database type    ", nullptr));

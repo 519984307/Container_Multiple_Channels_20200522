@@ -57,6 +57,9 @@ private:
     quint16 lport;
     int channel_number;
 
+    bool isConnected;
+    QString tmpMsg;
+
 private slots:
 
     void clientDisconnected();

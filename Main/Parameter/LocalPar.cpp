@@ -9,7 +9,7 @@ namespace LocalPar {
     QString version=QString(APP_VERSION);
     QString copyright="深圳众百源科技有限公司";
     QString msg="集装箱号码识别系统";
-    QString proName="福建-平潭";
+    QString proName="山东-烟台-贝奇";
     int Channels =2;
     QString DogID=QString(DOG_ID);
     /*****************************

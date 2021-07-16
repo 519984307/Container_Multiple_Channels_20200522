@@ -123,9 +123,9 @@ void MainWindow::initializing()
     emit signal_InitializationFTPParameter(Parameter::FtpUser,Parameter::FtpPassword,Parameter::FtpRemotePath,Parameter::FtpAddress,Parameter::FtpPort);
 
     /*****************************
-    * @brief:初始化加密
+    * @brief:初始化加密,默认单通道，不比对加密狗
     ******************************/
-    emit signal_initEncryption(0,"");
+    emit signal_initEncryption(1,"");
 
     linkCount=0;
 
@@ -508,8 +508,10 @@ void MainWindow::systemTrayTriggered(QSystemTrayIcon::ActivationReason reason)
     case QSystemTrayIcon::Trigger:
         break;
     case QSystemTrayIcon::DoubleClick:
+    {
         setWindowState(Qt::WindowMaximized);
         this->show();
+    }
         break;
     default:
         break;

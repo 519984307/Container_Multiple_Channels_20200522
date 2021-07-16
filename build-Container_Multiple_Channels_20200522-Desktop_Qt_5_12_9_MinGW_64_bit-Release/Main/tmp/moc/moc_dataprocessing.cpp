@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DataProcessing_t {
     QByteArrayData data[26];
-    char stringdata0[307];
+    char stringdata0[313];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -46,17 +46,17 @@ QT_MOC_LITERAL(11, 130, 14), // "channel_number"
 QT_MOC_LITERAL(12, 145, 4), // "data"
 QT_MOC_LITERAL(13, 150, 24), // "signal_trafficStatistics"
 QT_MOC_LITERAL(14, 175, 5), // "state"
-QT_MOC_LITERAL(15, 181, 20), // "slot_containerResult"
-QT_MOC_LITERAL(16, 202, 7), // "channel"
-QT_MOC_LITERAL(17, 210, 6), // "result"
-QT_MOC_LITERAL(18, 217, 16), // "slot_plateResult"
-QT_MOC_LITERAL(19, 234, 8), // "isConCar"
-QT_MOC_LITERAL(20, 243, 5), // "plate"
-QT_MOC_LITERAL(21, 249, 5), // "color"
-QT_MOC_LITERAL(22, 255, 9), // "plateTime"
-QT_MOC_LITERAL(23, 265, 21), // "slot_waiSendContainer"
-QT_MOC_LITERAL(24, 287, 14), // "slot_waitPlate"
-QT_MOC_LITERAL(25, 302, 4) // "msec"
+QT_MOC_LITERAL(15, 181, 24), // "signal_pollsForCarStatus"
+QT_MOC_LITERAL(16, 206, 4), // "type"
+QT_MOC_LITERAL(17, 211, 20), // "slot_containerResult"
+QT_MOC_LITERAL(18, 232, 7), // "channel"
+QT_MOC_LITERAL(19, 240, 6), // "result"
+QT_MOC_LITERAL(20, 247, 16), // "slot_plateResult"
+QT_MOC_LITERAL(21, 264, 8), // "isConCar"
+QT_MOC_LITERAL(22, 273, 5), // "plate"
+QT_MOC_LITERAL(23, 279, 5), // "color"
+QT_MOC_LITERAL(24, 285, 9), // "plateTime"
+QT_MOC_LITERAL(25, 295, 17) // "slot_waitSendData"
 
     },
     "DataProcessing\0signal_InitializationParameter\0"
@@ -64,10 +64,10 @@ QT_MOC_LITERAL(25, 302, 4) // "msec"
     "serviceMode\0shortLink\0newline\0"
     "signal_toSendData\0channel_number\0data\0"
     "signal_trafficStatistics\0state\0"
+    "signal_pollsForCarStatus\0type\0"
     "slot_containerResult\0channel\0result\0"
     "slot_plateResult\0isConCar\0plate\0color\0"
-    "plateTime\0slot_waiSendContainer\0"
-    "slot_waitPlate\0msec"
+    "plateTime\0slot_waitSendData"
 };
 #undef QT_MOC_LITERAL
 
@@ -82,29 +82,29 @@ static const uint qt_meta_data_DataProcessing[] = {
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       3,       // signalCount
+       4,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
        1,    7,   49,    2, 0x06 /* Public */,
       10,    2,   64,    2, 0x06 /* Public */,
       13,    1,   69,    2, 0x06 /* Public */,
+      15,    1,   72,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      15,    2,   72,    2, 0x0a /* Public */,
-      18,    5,   77,    2, 0x0a /* Public */,
-      23,    0,   88,    2, 0x0a /* Public */,
-      24,    1,   89,    2, 0x0a /* Public */,
+      17,    2,   75,    2, 0x0a /* Public */,
+      20,    5,   80,    2, 0x0a /* Public */,
+      25,    0,   91,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::UShort, QMetaType::Int, QMetaType::Bool, QMetaType::Int, QMetaType::Int, QMetaType::Int,    3,    4,    5,    6,    7,    8,    9,
     QMetaType::Void, QMetaType::Int, QMetaType::QString,   11,   12,
     QMetaType::Void, QMetaType::Bool,   14,
+    QMetaType::Void, QMetaType::Int,   16,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int, QMetaType::QString,   16,   17,
-    QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::QString,   16,   19,   20,   21,   22,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,   18,   19,
+    QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::QString,   18,   21,   22,   23,   24,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   25,
 
        0        // eod
 };
@@ -118,10 +118,10 @@ void DataProcessing::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 0: _t->signal_InitializationParameter((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const quint16(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< bool(*)>(_a[4])),(*reinterpret_cast< const int(*)>(_a[5])),(*reinterpret_cast< const int(*)>(_a[6])),(*reinterpret_cast< const int(*)>(_a[7]))); break;
         case 1: _t->signal_toSendData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
         case 2: _t->signal_trafficStatistics((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 3: _t->slot_containerResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
-        case 4: _t->slot_plateResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5]))); break;
-        case 5: _t->slot_waiSendContainer(); break;
-        case 6: _t->slot_waitPlate((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 3: _t->signal_pollsForCarStatus((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: _t->slot_containerResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2]))); break;
+        case 5: _t->slot_plateResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5]))); break;
+        case 6: _t->slot_waitSendData(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -144,6 +144,13 @@ void DataProcessing::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
             using _t = void (DataProcessing::*)(bool );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DataProcessing::signal_trafficStatistics)) {
                 *result = 2;
+                return;
+            }
+        }
+        {
+            using _t = void (DataProcessing::*)(int );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&DataProcessing::signal_pollsForCarStatus)) {
+                *result = 3;
                 return;
             }
         }
@@ -209,6 +216,13 @@ void DataProcessing::signal_trafficStatistics(bool _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
+}
+
+// SIGNAL 3
+void DataProcessing::signal_pollsForCarStatus(int _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 3, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

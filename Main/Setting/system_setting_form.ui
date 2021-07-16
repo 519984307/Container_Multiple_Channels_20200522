@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>874</width>
-    <height>709</height>
+    <width>959</width>
+    <height>625</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,8 +27,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>911</width>
-        <height>969</height>
+        <width>914</width>
+        <height>1009</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -53,7 +53,7 @@
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
@@ -92,6 +92,18 @@
            </item>
            <item row="6" column="4">
             <widget class="QLabel" name="label_4">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>he picture saves the path, for the software third party use.</string>
              </property>
@@ -239,6 +251,18 @@
            </item>
            <item row="4" column="4">
             <widget class="QLabel" name="label_26">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Image save format, for software use, can only save local</string>
              </property>
@@ -249,6 +273,18 @@
            </item>
            <item row="2" column="4">
             <widget class="QLabel" name="label_39">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Number of camera number and channel number occupied (compatible with older versions)</string>
              </property>
@@ -259,6 +295,18 @@
            </item>
            <item row="7" column="4">
             <widget class="QLabel" name="label_27">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Image saving format for software third party use.</string>
              </property>
@@ -316,6 +364,18 @@
            </item>
            <item row="1" column="4">
             <widget class="QLabel" name="label_24">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Set save image naming rules</string>
              </property>
@@ -328,6 +388,12 @@
             <widget class="QSpinBox" name="ChannelNumber">
              <property name="enabled">
               <bool>true</bool>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
              </property>
              <property name="frame">
               <bool>true</bool>
@@ -351,6 +417,18 @@
            </item>
            <item row="3" column="4">
             <widget class="QLabel" name="label_25">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Image save path, for software use, can only save local</string>
              </property>
@@ -374,6 +452,18 @@
            </item>
            <item row="0" column="4">
             <widget class="QLabel" name="label_15">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Set control channel number, quantity limit requires purchase of license from supplier</string>
              </property>
@@ -460,6 +550,18 @@
            </item>
            <item row="0" column="1">
             <widget class="QLabel" name="label_42">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
              </property>
@@ -499,6 +601,18 @@
            </item>
            <item row="1" column="1">
             <widget class="QLabel" name="label_43">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Haikang camera capture mode, this option and plug-in mode associated</string>
              </property>
@@ -523,6 +637,18 @@
            </item>
            <item row="2" column="1">
             <widget class="QLabel" name="label_49">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Infrared logic setting, different logic infrared trigger sequence is not the same, this option needs to consult the developer!</string>
              </property>
@@ -553,6 +679,18 @@
            </item>
            <item row="3" column="1">
             <widget class="QLabel" name="label_50">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Type of license plate camera</string>
              </property>
@@ -589,6 +727,18 @@
            </property>
            <item row="1" column="2">
             <widget class="QLabel" name="label_28">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Add the prefix of container number. If the container number is clear and the prefix is wrong, the response prefix can be added for identification.</string>
              </property>
@@ -640,6 +790,18 @@
            </item>
            <item row="0" column="2">
             <widget class="QLabel" name="label_19">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Identify validation rules for results. Color displays the original result output, automatic calibration according to the algorithm, calibration (completion) the last bit.</string>
              </property>
@@ -670,6 +832,18 @@
            </item>
            <item row="2" column="2">
             <widget class="QLabel" name="label_29">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Add the prefix of container number. If the container number is clear and the prefix is wrong, the response prefix can be deleted.</string>
              </property>
@@ -693,6 +867,18 @@
            </item>
            <item row="3" column="2">
             <widget class="QLabel" name="label_55">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Identify the size of the picture, according to the machine performance selection, the larger the picture recognition speed is slower.</string>
              </property>
@@ -733,67 +919,34 @@
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="3" column="2">
-            <spacer name="verticalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="8" column="1" colspan="2">
-            <widget class="QLabel" name="label_53">
-             <property name="text">
-              <string>Container identification result receiving timeout</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QComboBox" name="Service_Type_comboBox">
+           <item row="0" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
-              <property name="text">
-               <string>One to one</string>
-              </property>
+              <widget class="QRadioButton" name="ServerModel">
+               <property name="text">
+                <string>Tcp Server</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
              <item>
-              <property name="text">
-               <string>More than a pair of</string>
-              </property>
+              <widget class="QRadioButton" name="ClientModel">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="text">
+                <string>Tcp Client</string>
+               </property>
+              </widget>
              </item>
-            </widget>
-           </item>
-           <item row="14" column="1" colspan="2">
-            <widget class="QLabel" name="label_48">
-             <property name="text">
-              <string>Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="12" column="0">
-            <widget class="QCheckBox" name="Resulting_checkBox">
-             <property name="text">
-              <string>Send an intermediate result set</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
+            </layout>
            </item>
            <item row="2" column="0">
             <widget class="QStackedWidget" name="Service_Type_stackedWidget">
              <property name="currentIndex">
-              <number>3</number>
+              <number>0</number>
              </property>
              <widget class="QWidget" name="page_6">
               <layout class="QGridLayout" name="gridLayout_28">
@@ -927,56 +1080,20 @@
              </widget>
             </widget>
            </item>
-           <item row="15" column="0">
-            <widget class="QCheckBox" name="checkBox_2">
-             <property name="text">
-              <string>Send astern signal</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QSpinBox" name="plate_timeout_spinBox">
-             <property name="minimum">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="1" colspan="2">
-            <widget class="QLabel" name="label_32">
-             <property name="text">
-              <string>Identify the data docking protocol</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QRadioButton" name="ServerModel">
-               <property name="text">
-                <string>Tcp Server</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="ClientModel">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="text">
-                <string>Tcp Client</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
            <item row="2" column="1" colspan="2">
             <widget class="QLabel" name="label_31">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>One to one:One service corresponds to one channel, and either server mode or client mode can be set.
 
@@ -991,8 +1108,88 @@ More than pair of:One service corresponds to all channels, and only the server m
              </property>
             </widget>
            </item>
+           <item row="3" column="2">
+            <spacer name="verticalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="4" column="0">
+            <widget class="QComboBox" name="Identify_Protocol_comboBox_2">
+             <item>
+              <property name="text">
+               <string>Container_number</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Container_number+Plate</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Container_number+Plate+Weight</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="4" column="1" colspan="2">
+            <widget class="QLabel" name="label_32">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Identify the data docking protocol</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="QComboBox" name="DataChaneType_combox">
+             <item>
+              <property name="text">
+               <string>TCP</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MQ</string>
+              </property>
+             </item>
+            </widget>
+           </item>
            <item row="5" column="1" colspan="2">
             <widget class="QLabel" name="label_16">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Identify the data docking interface</string>
              </property>
@@ -1001,115 +1198,74 @@ More than pair of:One service corresponds to all channels, and only the server m
              </property>
             </widget>
            </item>
-           <item row="0" column="1" colspan="2">
-            <widget class="QLabel" name="label_30">
-             <property name="text">
-              <string>Identify data docking patterns</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="14" column="0">
-            <widget class="QCheckBox" name="checkBox">
-             <property name="text">
-              <string>Send a car signal</string>
-             </property>
-            </widget>
-           </item>
-           <item row="13" column="1" colspan="2">
-            <widget class="QLabel" name="label_46">
-             <property name="text">
-              <string>The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QSplitter" name="splitter">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <widget class="QComboBox" name="Identify_Protocol_comboBox_2">
-              <item>
-               <property name="text">
-                <string>Container_number</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Container_number+Plate</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Container_number+Plate+Weight</string>
-               </property>
-              </item>
-             </widget>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <widget class="QSplitter" name="splitter_2">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <widget class="QComboBox" name="DataChaneType_combox">
-              <item>
-               <property name="text">
-                <string>TCP</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>MQ</string>
-               </property>
-              </item>
-             </widget>
-            </widget>
-           </item>
-           <item row="13" column="0">
-            <widget class="QCheckBox" name="ShortLink_checkBox">
-             <property name="text">
-              <string>Short link</string>
-             </property>
-            </widget>
-           </item>
-           <item row="10" column="1" colspan="2">
-            <widget class="QLabel" name="label_51">
-             <property name="text">
-              <string>A newline character is added to each piece of data to form a complete line.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="6" column="0">
-            <widget class="QSplitter" name="splitter_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+            <widget class="QComboBox" name="DataChange_Format_comboBox">
+             <item>
+              <property name="text">
+               <string>TEXT</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>JSON</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>XML</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="6" column="1" colspan="2">
+            <widget class="QLabel" name="label_17">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
              </property>
-             <widget class="QComboBox" name="DataChange_Format_comboBox">
-              <item>
-               <property name="text">
-                <string>TEXT</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>JSON</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>XML</string>
-               </property>
-              </item>
-             </widget>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Web service data format</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QSpinBox" name="plate_timeout_spinBox">
+             <property name="minimum">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1" colspan="2">
+            <widget class="QLabel" name="label_52">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>License plate result receives timeout time</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
            <item row="8" column="0">
@@ -1119,67 +1275,22 @@ More than pair of:One service corresponds to all channels, and only the server m
              </property>
             </widget>
            </item>
-           <item row="11" column="0">
-            <widget class="QCheckBox" name="Hearbeat_checkBox">
+           <item row="8" column="1" colspan="2">
+            <widget class="QLabel" name="label_53">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
-              <string>The heartbeat packets</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="1" colspan="2">
-            <widget class="QLabel" name="label_52">
-             <property name="text">
-              <string>License plate result receives timeout time</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="15" column="1" colspan="2">
-            <widget class="QLabel" name="label_47">
-             <property name="text">
-              <string>The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="10" column="0">
-            <widget class="QCheckBox" name="newline_checkBox">
-             <property name="text">
-              <string>A newline</string>
-             </property>
-            </widget>
-           </item>
-           <item row="11" column="1" colspan="2">
-            <widget class="QLabel" name="label_44">
-             <property name="text">
-              <string>The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="12" column="1" colspan="2">
-            <widget class="QLabel" name="label_45">
-             <property name="text">
-              <string>The intermediate result set starts with [I, and is opened as required, not as the final result.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1" colspan="2">
-            <widget class="QLabel" name="label_17">
-             <property name="text">
-              <string>Web service data format</string>
+              <string>Container identification result receiving timeout</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -1195,8 +1306,236 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="9" column="1">
             <widget class="QLabel" name="label_54">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>The interface protocol does not require a license plate color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="0">
+            <widget class="QCheckBox" name="newline_checkBox">
+             <property name="text">
+              <string>A newline</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="1" colspan="2">
+            <widget class="QLabel" name="label_51">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>A newline character is added to each piece of data to form a complete line.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="0">
+            <widget class="QCheckBox" name="Hearbeat_checkBox">
+             <property name="text">
+              <string>The heartbeat packets</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="1" colspan="2">
+            <widget class="QLabel" name="label_44">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="0">
+            <widget class="QCheckBox" name="Resulting_checkBox">
+             <property name="text">
+              <string>Send an intermediate result set</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="12" column="1" colspan="2">
+            <widget class="QLabel" name="label_45">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>The intermediate result set starts with [I, and is opened as required, not as the final result.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="13" column="0">
+            <widget class="QCheckBox" name="ShortLink_checkBox">
+             <property name="text">
+              <string>Short link</string>
+             </property>
+            </widget>
+           </item>
+           <item row="13" column="1" colspan="2">
+            <widget class="QLabel" name="label_46">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="14" column="0">
+            <widget class="QCheckBox" name="checkBox">
+             <property name="text">
+              <string>Send a car signal</string>
+             </property>
+            </widget>
+           </item>
+           <item row="14" column="1" colspan="2">
+            <widget class="QLabel" name="label_48">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="15" column="0">
+            <widget class="QCheckBox" name="checkBox_2">
+             <property name="text">
+              <string>Send astern signal</string>
+             </property>
+            </widget>
+           </item>
+           <item row="15" column="1" colspan="2">
+            <widget class="QLabel" name="label_47">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QComboBox" name="Service_Type_comboBox">
+             <item>
+              <property name="text">
+               <string>One to one</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>More than a pair of</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="2">
+            <widget class="QLabel" name="label_30">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Identify data docking patterns</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -1420,6 +1759,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="0" column="1">
             <widget class="QLabel" name="label_18">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Upload identification picture</string>
              </property>
@@ -1430,6 +1781,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="1" column="1">
             <widget class="QLabel" name="label_10">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Software database, network database needs to be installed and started independently.</string>
              </property>
@@ -1467,6 +1830,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="1" column="1">
             <widget class="QLabel" name="label_11">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Monitor the remaining capacity of image storage hard disk space</string>
              </property>
@@ -1543,6 +1918,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="2" column="1">
             <widget class="QLabel" name="label_34">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Save the percentage of file path capacity occupied</string>
              </property>
@@ -1629,6 +2016,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="4" column="1">
             <widget class="QLabel" name="label_35">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Number of days to save the file, exceeding the set value to actively delete the file</string>
              </property>
@@ -1660,6 +2059,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="5" column="1">
             <widget class="QLabel" name="label_33">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Software prompts the system administrator to change hardware or manually release space</string>
              </property>
@@ -1713,6 +2124,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="4" column="3" colspan="2">
             <widget class="QLabel" name="label_38">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Provide display screen to display vehicle or specified information, and develop access equipment separately according to the situation of field equipment.</string>
              </property>
@@ -1723,6 +2146,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="2" column="3" colspan="2">
             <widget class="QLabel" name="label_9">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Gate control board port</string>
              </property>
@@ -1733,6 +2168,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="5" column="3" colspan="2">
             <widget class="QLabel" name="label_36">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>To receive vehicle weight information, separate access equipment shall be developed according to the situation of field equipment.</string>
              </property>
@@ -1760,6 +2207,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="1" column="3" colspan="2">
             <widget class="QLabel" name="label_8">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Address of gate control panel</string>
              </property>
@@ -1827,6 +2286,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="3" column="3" colspan="2">
             <widget class="QLabel" name="label_12">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Camera control gate, need hardware support.</string>
              </property>
@@ -1965,6 +2436,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="0" column="2">
             <widget class="QLabel" name="label_13">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Save the log days and the timeout is automatically overwritten</string>
              </property>
@@ -2024,6 +2507,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="1" column="2">
             <widget class="QLabel" name="label_14">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Delay startup time to ensure the loading of field equipment is completed.</string>
              </property>
@@ -2051,6 +2546,18 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
            <item row="2" column="2">
             <widget class="QLabel" name="label_37">
+             <property name="minimumSize">
+              <size>
+               <width>400</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>400</width>
+               <height>16777215</height>
+              </size>
+             </property>
              <property name="text">
               <string>Set the system language, temporarily support Chinese and English.</string>
              </property>

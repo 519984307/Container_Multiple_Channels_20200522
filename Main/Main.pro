@@ -13,12 +13,12 @@ TEMPLATE = app
 
 CONFIG += skip_target_version_ext
 
-VERSION = 1.1.1.12_2105301250_2
+VERSION = 1.1.1.13_2107121930_1
 QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-ID=ae68c66368a8e943bc260ae97003747f
+ID=f19d15dec81584b5ce4f9edb0aae1789
 DEFINES += DOG_ID=\\\"$$ID\\\"
 
 # The following define makes your compiler emit warnings if you use

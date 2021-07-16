@@ -68,7 +68,10 @@ void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString 
     this->plateColor=color;
     this->plateTime=plateTime;
 
-    if(conResult.isEmpty()){
+    /*****************************
+    * @brief:车辆混走，排除空车牌和蓝色车牌
+    ******************************/
+    if(conResult.isEmpty() && color!="蓝" && !plate.isEmpty()){
         emit signal_pollsForCarStatus(1);
     }
     else {
@@ -99,10 +102,6 @@ void DataProcessing::slot_waitSendData()
                 writeDataToLog(channel,conResult);
             }
         }
-        else {
-            qCritical().noquote()<<QString("If the data of box number is abnormal, it will not be processed.");
-        }
-
         if (!plateTime.isEmpty() && Parameter::Identify_Protocol==0) {
             QString result="";
             QString TMP_time=QDateTime::fromString(plateTime,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss");
@@ -116,9 +115,6 @@ void DataProcessing::slot_waitSendData()
             }
             emit signal_toSendData(channel,result);
             writeDataToLog(channel,result);
-        }
-        else {
-            qCritical().noquote()<<QString("If the data of box number is abnormal, it will not be processed.");
         }
     }
     /*****************************
@@ -139,6 +135,7 @@ void DataProcessing::slot_waitSendData()
             /*****************************
             * @brief:车牌
             ******************************/
+            discern.clear();
             if(Parameter::Identify_Protocol==0){
                 CPH="";
             }
@@ -200,10 +197,16 @@ void DataProcessing::slot_waitSendData()
             jsonChild.insert("type",type);
             jsonChild.insert("isguard",isguard);
 
+            //QtConcurrent::run(this,&DataProcessing::signal_toSendData,channel,QString(QJsonDocument(jsonChild).toJson()));
             emit signal_toSendData(channel,QString(QJsonDocument(jsonChild).toJson()));
             writeDataToLog(channel,QString(QJsonDocument(jsonChild).toJson()));
         }
-        else if (!plateTime.isEmpty()) {
+
+        if (!plateTime.isEmpty()) {
+            bool complate=true;
+            if(Parameter::Identify_Protocol==1 && !conResult.isEmpty()){
+                complate=false;
+            }
             QString result="";
             QString TMP_time=QDateTime::fromString(plateTime,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss");
             today=QDateTime::fromString(TMP_time.mid(0,8),"yyyyMMdd").toString("yyyy-MM-dd");
@@ -214,7 +217,7 @@ void DataProcessing::slot_waitSendData()
             roadindex=QString("%1").arg(channel,2,10,QLatin1Char('0'));
             cartype="U";
             boxtype="";
-            if(plate!=nullptr){
+            if(!plate.isEmpty()){
                 discern="Y";
             }
             else {
@@ -237,12 +240,12 @@ void DataProcessing::slot_waitSendData()
             jsonChild.insert("type",type);
             jsonChild.insert("isguard",isguard);
 
-            result = QString(QJsonDocument(jsonChild).toJson());
-            emit signal_toSendData(channel,result);
-            writeDataToLog(channel,result);
-        }
-        else {
-            qCritical().noquote()<<QString("If the data of box number is abnormal, it will not be processed.");
+            if(complate){
+                result = QString(QJsonDocument(jsonChild).toJson());
+                //QtConcurrent::run(this,&DataProcessing::signal_toSendData,channel,result);
+                emit signal_toSendData(channel,result);
+                writeDataToLog(channel,result);
+            }
         }
     }
     else {

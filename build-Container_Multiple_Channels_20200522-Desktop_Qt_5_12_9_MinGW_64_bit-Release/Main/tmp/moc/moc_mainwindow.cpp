@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[69];
-    char stringdata0[1117];
+    QByteArrayData data[70];
+    char stringdata0[1144];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -92,14 +92,15 @@ QT_MOC_LITERAL(57, 940, 19), // "slot_theFtpProgress"
 QT_MOC_LITERAL(58, 960, 9), // "bytesSent"
 QT_MOC_LITERAL(59, 970, 10), // "bytesTotal"
 QT_MOC_LITERAL(60, 981, 21), // "slot_getDiskFreeSpace"
-QT_MOC_LITERAL(61, 1003, 17), // "slot_connectCount"
-QT_MOC_LITERAL(62, 1021, 20), // "slot_statisticalData"
-QT_MOC_LITERAL(63, 1042, 5), // "total"
-QT_MOC_LITERAL(64, 1048, 7), // "correct"
-QT_MOC_LITERAL(65, 1056, 5), // "error"
-QT_MOC_LITERAL(66, 1062, 11), // "statistical"
-QT_MOC_LITERAL(67, 1074, 22), // "slot_trafficStatistics"
-QT_MOC_LITERAL(68, 1097, 19) // "slot_systemRunTimer"
+QT_MOC_LITERAL(61, 1003, 26), // "on_actionVersion_triggered"
+QT_MOC_LITERAL(62, 1030, 17), // "slot_connectCount"
+QT_MOC_LITERAL(63, 1048, 20), // "slot_statisticalData"
+QT_MOC_LITERAL(64, 1069, 5), // "total"
+QT_MOC_LITERAL(65, 1075, 7), // "correct"
+QT_MOC_LITERAL(66, 1083, 5), // "error"
+QT_MOC_LITERAL(67, 1089, 11), // "statistical"
+QT_MOC_LITERAL(68, 1101, 22), // "slot_trafficStatistics"
+QT_MOC_LITERAL(69, 1124, 19) // "slot_systemRunTimer"
 
     },
     "MainWindow\0initializesTheDeviceStateListSignal\0"
@@ -130,9 +131,10 @@ QT_MOC_LITERAL(68, 1097, 19) // "slot_systemRunTimer"
     "progressValue\0slot_Error\0pluginName\0"
     "slot_hideErrorForm\0slot_theFtpProgress\0"
     "bytesSent\0bytesTotal\0slot_getDiskFreeSpace\0"
-    "slot_connectCount\0slot_statisticalData\0"
-    "total\0correct\0error\0statistical\0"
-    "slot_trafficStatistics\0slot_systemRunTimer"
+    "on_actionVersion_triggered\0slot_connectCount\0"
+    "slot_statisticalData\0total\0correct\0"
+    "error\0statistical\0slot_trafficStatistics\0"
+    "slot_systemRunTimer"
 };
 #undef QT_MOC_LITERAL
 
@@ -142,7 +144,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      35,   14, // methods
+      36,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -150,43 +152,44 @@ static const uint qt_meta_data_MainWindow[] = {
       14,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,  189,    2, 0x06 /* Public */,
-       5,    3,  194,    2, 0x06 /* Public */,
-       9,    0,  201,    2, 0x06 /* Public */,
-      10,    2,  202,    2, 0x06 /* Public */,
-      13,    0,  207,    2, 0x06 /* Public */,
-      14,    0,  208,    2, 0x06 /* Public */,
-      15,    0,  209,    2, 0x06 /* Public */,
-      16,    5,  210,    2, 0x06 /* Public */,
-      22,    5,  221,    2, 0x06 /* Public */,
-      22,    4,  232,    2, 0x26 /* Public | MethodCloned */,
-      26,    2,  241,    2, 0x06 /* Public */,
-      29,    2,  246,    2, 0x06 /* Public */,
-      30,    1,  251,    2, 0x06 /* Public */,
-      32,    2,  254,    2, 0x06 /* Public */,
+       1,    2,  194,    2, 0x06 /* Public */,
+       5,    3,  199,    2, 0x06 /* Public */,
+       9,    0,  206,    2, 0x06 /* Public */,
+      10,    2,  207,    2, 0x06 /* Public */,
+      13,    0,  212,    2, 0x06 /* Public */,
+      14,    0,  213,    2, 0x06 /* Public */,
+      15,    0,  214,    2, 0x06 /* Public */,
+      16,    5,  215,    2, 0x06 /* Public */,
+      22,    5,  226,    2, 0x06 /* Public */,
+      22,    4,  237,    2, 0x26 /* Public | MethodCloned */,
+      26,    2,  246,    2, 0x06 /* Public */,
+      29,    2,  251,    2, 0x06 /* Public */,
+      30,    1,  256,    2, 0x06 /* Public */,
+      32,    2,  259,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      35,    0,  259,    2, 0x08 /* Private */,
-      36,    1,  260,    2, 0x08 /* Private */,
-      39,    0,  263,    2, 0x08 /* Private */,
-      40,    0,  264,    2, 0x08 /* Private */,
-      41,    0,  265,    2, 0x08 /* Private */,
-      42,    0,  266,    2, 0x08 /* Private */,
-      43,    0,  267,    2, 0x08 /* Private */,
-      44,    0,  268,    2, 0x08 /* Private */,
-      45,    0,  269,    2, 0x08 /* Private */,
-      46,    0,  270,    2, 0x08 /* Private */,
-      47,    2,  271,    2, 0x08 /* Private */,
-      50,    1,  276,    2, 0x08 /* Private */,
-      52,    1,  279,    2, 0x08 /* Private */,
-      54,    1,  282,    2, 0x08 /* Private */,
-      56,    0,  285,    2, 0x08 /* Private */,
-      57,    2,  286,    2, 0x08 /* Private */,
-      60,    0,  291,    2, 0x08 /* Private */,
-      61,    1,  292,    2, 0x08 /* Private */,
-      62,    4,  295,    2, 0x08 /* Private */,
-      67,    1,  304,    2, 0x08 /* Private */,
-      68,    0,  307,    2, 0x08 /* Private */,
+      35,    0,  264,    2, 0x08 /* Private */,
+      36,    1,  265,    2, 0x08 /* Private */,
+      39,    0,  268,    2, 0x08 /* Private */,
+      40,    0,  269,    2, 0x08 /* Private */,
+      41,    0,  270,    2, 0x08 /* Private */,
+      42,    0,  271,    2, 0x08 /* Private */,
+      43,    0,  272,    2, 0x08 /* Private */,
+      44,    0,  273,    2, 0x08 /* Private */,
+      45,    0,  274,    2, 0x08 /* Private */,
+      46,    0,  275,    2, 0x08 /* Private */,
+      47,    2,  276,    2, 0x08 /* Private */,
+      50,    1,  281,    2, 0x08 /* Private */,
+      52,    1,  284,    2, 0x08 /* Private */,
+      54,    1,  287,    2, 0x08 /* Private */,
+      56,    0,  290,    2, 0x08 /* Private */,
+      57,    2,  291,    2, 0x08 /* Private */,
+      60,    0,  296,    2, 0x08 /* Private */,
+      61,    0,  297,    2, 0x08 /* Private */,
+      62,    1,  298,    2, 0x08 /* Private */,
+      63,    4,  301,    2, 0x08 /* Private */,
+      68,    1,  310,    2, 0x08 /* Private */,
+      69,    0,  313,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::QStringList,    3,    4,
@@ -222,8 +225,9 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::LongLong, QMetaType::LongLong,   58,   59,
     QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    3,
-    QMetaType::Void, QMetaType::Int, QMetaType::Double, QMetaType::Double, QMetaType::Double,   63,   64,   65,   66,
+    QMetaType::Void, QMetaType::Int, QMetaType::Double, QMetaType::Double, QMetaType::Double,   64,   65,   66,   67,
     QMetaType::Void, QMetaType::Bool,    8,
     QMetaType::Void,
 
@@ -267,10 +271,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 28: _t->slot_hideErrorForm(); break;
         case 29: _t->slot_theFtpProgress((*reinterpret_cast< qint64(*)>(_a[1])),(*reinterpret_cast< qint64(*)>(_a[2]))); break;
         case 30: _t->slot_getDiskFreeSpace(); break;
-        case 31: _t->slot_connectCount((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 32: _t->slot_statisticalData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3])),(*reinterpret_cast< double(*)>(_a[4]))); break;
-        case 33: _t->slot_trafficStatistics((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 34: _t->slot_systemRunTimer(); break;
+        case 31: _t->on_actionVersion_triggered(); break;
+        case 32: _t->slot_connectCount((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 33: _t->slot_statisticalData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< double(*)>(_a[2])),(*reinterpret_cast< double(*)>(_a[3])),(*reinterpret_cast< double(*)>(_a[4]))); break;
+        case 34: _t->slot_trafficStatistics((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 35: _t->slot_systemRunTimer(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -398,13 +403,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 35)
+        if (_id < 36)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 35;
+        _id -= 36;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 35)
+        if (_id < 36)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 35;
+        _id -= 36;
     }
     return _id;
 }
