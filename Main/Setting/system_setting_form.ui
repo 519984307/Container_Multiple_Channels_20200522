@@ -53,7 +53,7 @@
           <bool>true</bool>
          </property>
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="Channel">
           <attribute name="title">
@@ -667,12 +667,17 @@
              </property>
              <item>
               <property name="text">
-               <string>hikvision</string>
+               <string>HK</string>
               </property>
              </item>
              <item>
               <property name="text">
                <string>WTY</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ZS</string>
               </property>
              </item>
             </widget>

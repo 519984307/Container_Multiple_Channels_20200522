@@ -102,7 +102,7 @@ void DataProcessing::slot_waitSendData()
                 writeDataToLog(channel,conResult);
             }
         }
-        if (!plateTime.isEmpty() && Parameter::Identify_Protocol==0) {
+        if ((!plateTime.isEmpty() && Parameter::Identify_Protocol==0) || (!plateTime.isEmpty() && conResult.isEmpty() && Parameter::Identify_Protocol==1)) {
             QString result="";
             QString TMP_time=QDateTime::fromString(plateTime,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss");
             if(!conResult.isEmpty()){

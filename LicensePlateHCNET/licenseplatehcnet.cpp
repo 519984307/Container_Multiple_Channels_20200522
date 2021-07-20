@@ -82,6 +82,11 @@ void LicensePlateHCNET::initCamerSlot(const QString &localAddr,const QString &ca
     emit signal_initCamera(localAddr,camerIP,camerPort,CamerUser,CamerPow);
 }
 
+void LicensePlateHCNET::getLastPlateSlot()
+{
+
+}
+
 //void LicensePlateHCNET::getDeviceStatusSlot()
 //{
 

@@ -247,6 +247,7 @@ Makefile: ../../Container_Multiple_Channels_20200522/LicensePlateZS/LicensePlate
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/mkspecs/features/lex.prf \
 		../../Container_Multiple_Channels_20200522/LicensePlateZS/LicensePlateZS.pro \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/Qt5Network.prl \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/Qt5Concurrent.prl \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/Qt5Core.prl
 	$(QMAKE) -o Makefile ..\..\Container_Multiple_Channels_20200522\LicensePlateZS\LicensePlateZS.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
 C:/Qt/Qt5.12.9/5.12.9/mingw73_64/mkspecs/features/spec_pre.prf:
@@ -433,6 +434,7 @@ C:/Qt/Qt5.12.9/5.12.9/mingw73_64/mkspecs/features/yacc.prf:
 C:/Qt/Qt5.12.9/5.12.9/mingw73_64/mkspecs/features/lex.prf:
 ../../Container_Multiple_Channels_20200522/LicensePlateZS/LicensePlateZS.pro:
 C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/Qt5Network.prl:
+C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/Qt5Concurrent.prl:
 C:/Qt/Qt5.12.9/5.12.9/mingw73_64/lib/Qt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\..\Container_Multiple_Channels_20200522\LicensePlateZS\LicensePlateZS.pro -spec win32-g++ "CONFIG+=qtquickcompiler"
@@ -444,7 +446,7 @@ all: release-all debug-all  FORCE
 clean: release-clean debug-clean  FORCE
 distclean: release-distclean debug-distclean  FORCE
 	-$(DEL_FILE) Makefile
-	-$(DEL_FILE) libCc1_LicensePlateZS.a
+	-$(DEL_FILE) ..\MainUI\Plugins\libCc1_LicensePlateZS.a
 
 release-mocclean:
 	$(MAKE) -f $(MAKEFILE).Release mocclean

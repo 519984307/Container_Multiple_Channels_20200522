@@ -1,10 +1,17 @@
 QT -= gui
 QT += network
+QT += concurrent
 
 TEMPLATE = lib
 DEFINES += LICENSEPLATEZS_LIBRARY
 
-CONFIG += c++11
+CONFIG += plugin
+
+TARGET = LicensePlateZS
+
+CONFIG += skip_target_version_ext
+VERSION = 1.1.1.0
+QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -40,3 +47,7 @@ win32:TARGET=$$join(TARGET,,Cc1_,)
 }
 
 !isEmpty(target.path): INSTALLS += target
+
+LIBS += libwsock32 libws2_32
+
+DESTDIR += ../MainUI/Plugins

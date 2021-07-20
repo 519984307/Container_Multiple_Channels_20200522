@@ -484,6 +484,11 @@ signals:
     ///
     void signal_videoStream(const QByteArray &arr);
 
+    ///
+    /// \brief signal_getLastPlate 获取最后一次车牌数据
+    ///
+    void signal_getLastPlate();
+
 public slots:
 
     ///

@@ -83,7 +83,7 @@ void *LicensePlateHCNET::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_LicensePlateHCNET.stringdata0))
         return static_cast<void*>(this);
-    if (!strcmp(_clname, "ZBY.ContainerServer.LicensePlateInterface/2.2.2.3"))
+    if (!strcmp(_clname, "ZBY.ContainerServer.LicensePlateInterface/2.2.2.4"))
         return static_cast< LicensePlateInterface*>(this);
     return LicensePlateInterface::qt_metacast(_clname);
 }
@@ -107,7 +107,7 @@ static constexpr unsigned char qt_pluginMetaData[] = {
     'i',  'c',  'e',  'n',  's',  'e',  'P',  'l', 
     'a',  't',  'e',  'I',  'n',  't',  'e',  'r', 
     'f',  'a',  'c',  'e',  '/',  '2',  '.',  '2', 
-    '.',  '2',  '.',  '3', 
+    '.',  '2',  '.',  '4', 
     // "className"
     0x03,  0x71,  'L',  'i',  'c',  'e',  'n',  's', 
     'e',  'P',  'l',  'a',  't',  'e',  'H',  'C', 

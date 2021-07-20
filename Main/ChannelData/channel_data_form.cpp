@@ -695,6 +695,9 @@ void Channel_Data_Form::slot_initEquipment()
         else if (Parameter::PlateType==1) {
             port=8080;
         }
+        else if (Parameter::PlateType==2) {
+            port=8131;
+        }
         emit signal_initCamer_plate(para->LocalAddr,para->PlateCamer,port,para->UserCamer,para->PasswordCamer,signatureList.at(7));
     }    
 
@@ -753,7 +756,12 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         * @brief:收到箱号，检查车牌相机状态
         ******************************/
         isConCar=true;
-        if(ui->plateCheckBox->isChecked() || simulationPlateStatus){
+        if(Parameter::PlateType==2 || ui->plateCheckBox->isChecked() || simulationPlateStatus){
+            /*****************************
+            * @brief:臻视相机没有收到结果主动取一次
+            ******************************/
+            emit signal_getLastPlate();
+
             if(sendDataOutTimer->isActive()){
                 emit signal_waitSendData();
                 sendDataOutTimer->stop();
@@ -1098,7 +1106,7 @@ void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const 
     }
 
     emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,time);
-    emit signal_plate(channelID,plate,color,time);
+    emit signal_plate(channelID,localPlate,localPlateColor,time);
 }
 
 void Channel_Data_Form::slot_simulationCloseState()

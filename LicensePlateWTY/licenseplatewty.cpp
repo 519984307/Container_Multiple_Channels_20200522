@@ -129,6 +129,11 @@ void LicensePlateWTY::initCamerSlot(const QString &localAddr, const QString &cam
     }
 }
 
+void LicensePlateWTY::getLastPlateSlot()
+{
+
+}
+
 void LicensePlateWTY::autoLinkCamer()
 {
     if(isSDKinit){

@@ -69,6 +69,10 @@ public:
     ///
     void initCamerSlot(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature)Q_DECL_OVERRIDE;
 
+    ///
+    /// \brief getLastPlateSlot 获取最后一次车牌数据
+    ///
+    void getLastPlateSlot()Q_DECL_OVERRIDE;
 
 private:
 

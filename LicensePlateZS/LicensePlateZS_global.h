@@ -6,6 +6,8 @@
 #include <QTimer>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <QtConcurrent>
+#include <QDateTime>
 
 #if defined(LICENSEPLATEZS_LIBRARY)
 #  define LICENSEPLATEZS_EXPORT Q_DECL_EXPORT

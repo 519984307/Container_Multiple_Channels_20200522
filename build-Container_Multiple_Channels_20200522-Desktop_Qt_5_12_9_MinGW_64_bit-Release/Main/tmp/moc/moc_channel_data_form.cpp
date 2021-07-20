@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Channel_Data_Form_t {
-    QByteArrayData data[123];
-    char stringdata0[1779];
+    QByteArrayData data[124];
+    char stringdata0[1799];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -125,35 +125,36 @@ QT_MOC_LITERAL(90, 1267, 18), // "signal_plateResult"
 QT_MOC_LITERAL(91, 1286, 9), // "plateTime"
 QT_MOC_LITERAL(92, 1296, 18), // "signal_videoStream"
 QT_MOC_LITERAL(93, 1315, 3), // "arr"
-QT_MOC_LITERAL(94, 1319, 31), // "on_SimulationPushButton_clicked"
-QT_MOC_LITERAL(95, 1351, 18), // "slot_pictureStream"
-QT_MOC_LITERAL(96, 1370, 14), // "logicStateSlot"
-QT_MOC_LITERAL(97, 1385, 15), // "timeOutSendData"
-QT_MOC_LITERAL(98, 1401, 15), // "slot_camerState"
-QT_MOC_LITERAL(99, 1417, 18), // "slot_initEquipment"
-QT_MOC_LITERAL(100, 1436, 22), // "slot_pollsForCarStatus"
-QT_MOC_LITERAL(101, 1459, 24), // "slot_setSimulationStatus"
-QT_MOC_LITERAL(102, 1484, 3), // "con"
-QT_MOC_LITERAL(103, 1488, 20), // "slot_bindingCameraID"
-QT_MOC_LITERAL(104, 1509, 10), // "cameraAddr"
-QT_MOC_LITERAL(105, 1520, 2), // "ID"
-QT_MOC_LITERAL(106, 1523, 16), // "slot_captureTest"
-QT_MOC_LITERAL(107, 1540, 15), // "slot_playStream"
-QT_MOC_LITERAL(108, 1556, 16), // "slot_logicStatus"
-QT_MOC_LITERAL(109, 1573, 4), // "int*"
-QT_MOC_LITERAL(110, 1578, 6), // "status"
-QT_MOC_LITERAL(111, 1585, 18), // "slot_logicPutImage"
-QT_MOC_LITERAL(112, 1604, 9), // "putCommnd"
-QT_MOC_LITERAL(113, 1614, 20), // "slot_serialPortState"
-QT_MOC_LITERAL(114, 1635, 4), // "com1"
-QT_MOC_LITERAL(115, 1640, 4), // "com2"
-QT_MOC_LITERAL(116, 1645, 22), // "slot_recognitionResult"
-QT_MOC_LITERAL(117, 1668, 14), // "slot_container"
-QT_MOC_LITERAL(118, 1683, 14), // "slot_imageFlow"
-QT_MOC_LITERAL(119, 1698, 19), // "slot_theVideoStream"
-QT_MOC_LITERAL(120, 1718, 6), // "arrImg"
-QT_MOC_LITERAL(121, 1725, 27), // "slot_resultsTheLicensePlate"
-QT_MOC_LITERAL(122, 1753, 25) // "slot_simulationCloseState"
+QT_MOC_LITERAL(94, 1319, 19), // "signal_getLastPlate"
+QT_MOC_LITERAL(95, 1339, 31), // "on_SimulationPushButton_clicked"
+QT_MOC_LITERAL(96, 1371, 18), // "slot_pictureStream"
+QT_MOC_LITERAL(97, 1390, 14), // "logicStateSlot"
+QT_MOC_LITERAL(98, 1405, 15), // "timeOutSendData"
+QT_MOC_LITERAL(99, 1421, 15), // "slot_camerState"
+QT_MOC_LITERAL(100, 1437, 18), // "slot_initEquipment"
+QT_MOC_LITERAL(101, 1456, 22), // "slot_pollsForCarStatus"
+QT_MOC_LITERAL(102, 1479, 24), // "slot_setSimulationStatus"
+QT_MOC_LITERAL(103, 1504, 3), // "con"
+QT_MOC_LITERAL(104, 1508, 20), // "slot_bindingCameraID"
+QT_MOC_LITERAL(105, 1529, 10), // "cameraAddr"
+QT_MOC_LITERAL(106, 1540, 2), // "ID"
+QT_MOC_LITERAL(107, 1543, 16), // "slot_captureTest"
+QT_MOC_LITERAL(108, 1560, 15), // "slot_playStream"
+QT_MOC_LITERAL(109, 1576, 16), // "slot_logicStatus"
+QT_MOC_LITERAL(110, 1593, 4), // "int*"
+QT_MOC_LITERAL(111, 1598, 6), // "status"
+QT_MOC_LITERAL(112, 1605, 18), // "slot_logicPutImage"
+QT_MOC_LITERAL(113, 1624, 9), // "putCommnd"
+QT_MOC_LITERAL(114, 1634, 20), // "slot_serialPortState"
+QT_MOC_LITERAL(115, 1655, 4), // "com1"
+QT_MOC_LITERAL(116, 1660, 4), // "com2"
+QT_MOC_LITERAL(117, 1665, 22), // "slot_recognitionResult"
+QT_MOC_LITERAL(118, 1688, 14), // "slot_container"
+QT_MOC_LITERAL(119, 1703, 14), // "slot_imageFlow"
+QT_MOC_LITERAL(120, 1718, 19), // "slot_theVideoStream"
+QT_MOC_LITERAL(121, 1738, 6), // "arrImg"
+QT_MOC_LITERAL(122, 1745, 27), // "slot_resultsTheLicensePlate"
+QT_MOC_LITERAL(123, 1773, 25) // "slot_simulationCloseState"
 
     },
     "Channel_Data_Form\0signal_setDeviceStatus\0"
@@ -190,7 +191,7 @@ QT_MOC_LITERAL(122, 1753, 25) // "slot_simulationCloseState"
     "color\0time\0signal_plateSendData\0"
     "channelNumber\0isConCar\0signal_plateResult\0"
     "plateTime\0signal_videoStream\0arr\0"
-    "on_SimulationPushButton_clicked\0"
+    "signal_getLastPlate\0on_SimulationPushButton_clicked\0"
     "slot_pictureStream\0logicStateSlot\0"
     "timeOutSendData\0slot_camerState\0"
     "slot_initEquipment\0slot_pollsForCarStatus\0"
@@ -213,80 +214,81 @@ static const uint qt_meta_data_Channel_Data_Form[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      64,   14, // methods
+      65,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      40,       // signalCount
+      41,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    3,  334,    2, 0x06 /* Public */,
-       6,    0,  341,    2, 0x06 /* Public */,
-       7,    6,  342,    2, 0x06 /* Public */,
-      14,    6,  355,    2, 0x06 /* Public */,
-      15,    6,  368,    2, 0x06 /* Public */,
-      16,    6,  381,    2, 0x06 /* Public */,
-      17,    6,  394,    2, 0x06 /* Public */,
-      18,    6,  407,    2, 0x06 /* Public */,
-      19,    6,  420,    2, 0x06 /* Public */,
-      20,    8,  433,    2, 0x06 /* Public */,
-      29,    2,  450,    2, 0x06 /* Public */,
-      30,    1,  455,    2, 0x06 /* Public */,
-      32,    3,  458,    2, 0x06 /* Public */,
-      32,    2,  465,    2, 0x26 /* Public | MethodCloned */,
-      36,    2,  470,    2, 0x06 /* Public */,
-      38,    3,  475,    2, 0x06 /* Public */,
-      39,    3,  482,    2, 0x06 /* Public */,
-      42,    1,  489,    2, 0x06 /* Public */,
-      44,    3,  492,    2, 0x06 /* Public */,
-      48,    1,  499,    2, 0x06 /* Public */,
-      49,    1,  502,    2, 0x06 /* Public */,
-      51,    5,  505,    2, 0x06 /* Public */,
-      57,    1,  516,    2, 0x06 /* Public */,
-      60,    1,  519,    2, 0x06 /* Public */,
-      61,    2,  522,    2, 0x06 /* Public */,
-      62,    2,  527,    2, 0x06 /* Public */,
-      64,    5,  532,    2, 0x06 /* Public */,
-      69,    3,  543,    2, 0x06 /* Public */,
-      73,    2,  550,    2, 0x06 /* Public */,
-      75,    1,  555,    2, 0x06 /* Public */,
-      76,    6,  558,    2, 0x06 /* Public */,
-      77,    0,  571,    2, 0x06 /* Public */,
-      78,    1,  572,    2, 0x06 /* Public */,
-      80,    1,  575,    2, 0x06 /* Public */,
-      82,    2,  578,    2, 0x06 /* Public */,
-      82,    1,  583,    2, 0x26 /* Public | MethodCloned */,
-      83,    4,  586,    2, 0x06 /* Public */,
-      87,    5,  595,    2, 0x06 /* Public */,
-      90,    5,  606,    2, 0x06 /* Public */,
-      92,    1,  617,    2, 0x06 /* Public */,
+       1,    3,  339,    2, 0x06 /* Public */,
+       6,    0,  346,    2, 0x06 /* Public */,
+       7,    6,  347,    2, 0x06 /* Public */,
+      14,    6,  360,    2, 0x06 /* Public */,
+      15,    6,  373,    2, 0x06 /* Public */,
+      16,    6,  386,    2, 0x06 /* Public */,
+      17,    6,  399,    2, 0x06 /* Public */,
+      18,    6,  412,    2, 0x06 /* Public */,
+      19,    6,  425,    2, 0x06 /* Public */,
+      20,    8,  438,    2, 0x06 /* Public */,
+      29,    2,  455,    2, 0x06 /* Public */,
+      30,    1,  460,    2, 0x06 /* Public */,
+      32,    3,  463,    2, 0x06 /* Public */,
+      32,    2,  470,    2, 0x26 /* Public | MethodCloned */,
+      36,    2,  475,    2, 0x06 /* Public */,
+      38,    3,  480,    2, 0x06 /* Public */,
+      39,    3,  487,    2, 0x06 /* Public */,
+      42,    1,  494,    2, 0x06 /* Public */,
+      44,    3,  497,    2, 0x06 /* Public */,
+      48,    1,  504,    2, 0x06 /* Public */,
+      49,    1,  507,    2, 0x06 /* Public */,
+      51,    5,  510,    2, 0x06 /* Public */,
+      57,    1,  521,    2, 0x06 /* Public */,
+      60,    1,  524,    2, 0x06 /* Public */,
+      61,    2,  527,    2, 0x06 /* Public */,
+      62,    2,  532,    2, 0x06 /* Public */,
+      64,    5,  537,    2, 0x06 /* Public */,
+      69,    3,  548,    2, 0x06 /* Public */,
+      73,    2,  555,    2, 0x06 /* Public */,
+      75,    1,  560,    2, 0x06 /* Public */,
+      76,    6,  563,    2, 0x06 /* Public */,
+      77,    0,  576,    2, 0x06 /* Public */,
+      78,    1,  577,    2, 0x06 /* Public */,
+      80,    1,  580,    2, 0x06 /* Public */,
+      82,    2,  583,    2, 0x06 /* Public */,
+      82,    1,  588,    2, 0x26 /* Public | MethodCloned */,
+      83,    4,  591,    2, 0x06 /* Public */,
+      87,    5,  600,    2, 0x06 /* Public */,
+      90,    5,  611,    2, 0x06 /* Public */,
+      92,    1,  622,    2, 0x06 /* Public */,
+      94,    0,  625,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      94,    0,  620,    2, 0x08 /* Private */,
-      95,    3,  621,    2, 0x08 /* Private */,
-      95,    2,  628,    2, 0x28 /* Private | MethodCloned */,
-      96,    0,  633,    2, 0x08 /* Private */,
-      97,    0,  634,    2, 0x08 /* Private */,
-      98,    2,  635,    2, 0x0a /* Public */,
-      99,    0,  640,    2, 0x0a /* Public */,
-     100,    1,  641,    2, 0x0a /* Public */,
-     101,    2,  644,    2, 0x0a /* Public */,
-     103,    2,  649,    2, 0x0a /* Public */,
-     106,    2,  654,    2, 0x0a /* Public */,
-     107,    4,  659,    2, 0x0a /* Public */,
-     108,    1,  668,    2, 0x0a /* Public */,
-     111,    1,  671,    2, 0x0a /* Public */,
-     113,    2,  674,    2, 0x0a /* Public */,
-     116,    3,  679,    2, 0x0a /* Public */,
-     117,    7,  686,    2, 0x0a /* Public */,
-     117,    6,  701,    2, 0x2a /* Public | MethodCloned */,
-     117,    5,  714,    2, 0x2a /* Public | MethodCloned */,
-     117,    4,  725,    2, 0x2a /* Public | MethodCloned */,
-     118,    1,  734,    2, 0x0a /* Public */,
-     119,    1,  737,    2, 0x0a /* Public */,
-     121,    4,  740,    2, 0x0a /* Public */,
-     122,    0,  749,    2, 0x0a /* Public */,
+      95,    0,  626,    2, 0x08 /* Private */,
+      96,    3,  627,    2, 0x08 /* Private */,
+      96,    2,  634,    2, 0x28 /* Private | MethodCloned */,
+      97,    0,  639,    2, 0x08 /* Private */,
+      98,    0,  640,    2, 0x08 /* Private */,
+      99,    2,  641,    2, 0x0a /* Public */,
+     100,    0,  646,    2, 0x0a /* Public */,
+     101,    1,  647,    2, 0x0a /* Public */,
+     102,    2,  650,    2, 0x0a /* Public */,
+     104,    2,  655,    2, 0x0a /* Public */,
+     107,    2,  660,    2, 0x0a /* Public */,
+     108,    4,  665,    2, 0x0a /* Public */,
+     109,    1,  674,    2, 0x0a /* Public */,
+     112,    1,  677,    2, 0x0a /* Public */,
+     114,    2,  680,    2, 0x0a /* Public */,
+     117,    3,  685,    2, 0x0a /* Public */,
+     118,    7,  692,    2, 0x0a /* Public */,
+     118,    6,  707,    2, 0x2a /* Public | MethodCloned */,
+     118,    5,  720,    2, 0x2a /* Public | MethodCloned */,
+     118,    4,  731,    2, 0x2a /* Public | MethodCloned */,
+     119,    1,  740,    2, 0x0a /* Public */,
+     120,    1,  743,    2, 0x0a /* Public */,
+     122,    4,  746,    2, 0x0a /* Public */,
+     123,    0,  755,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Bool,    3,    4,    5,
@@ -329,6 +331,7 @@ static const uint qt_meta_data_Channel_Data_Form[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::QString,   88,   89,   84,   85,   86,
     QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::QString,    3,   89,   84,   85,   91,
     QMetaType::Void, QMetaType::QByteArray,   93,
+    QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void,
@@ -339,21 +342,21 @@ static const uint qt_meta_data_Channel_Data_Form[] = {
     QMetaType::Void, QMetaType::QString, QMetaType::Bool,    9,    5,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   22,
-    QMetaType::Void, QMetaType::Bool, QMetaType::Bool,  102,   84,
-    QMetaType::Void, QMetaType::QString, QMetaType::Int,  104,  105,
+    QMetaType::Void, QMetaType::Bool, QMetaType::Bool,  103,   84,
+    QMetaType::Void, QMetaType::QString, QMetaType::Int,  105,  106,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,   21,   37,
     QMetaType::Void, QMetaType::ULongLong, QMetaType::Bool, QMetaType::Int, QMetaType::Int,   40,   41,   21,   37,
-    QMetaType::Void, 0x80000000 | 109,  110,
-    QMetaType::Void, QMetaType::Int,  112,
-    QMetaType::Void, QMetaType::Bool, QMetaType::Bool,  114,  115,
+    QMetaType::Void, 0x80000000 | 110,  111,
+    QMetaType::Void, QMetaType::Int,  113,
+    QMetaType::Void, QMetaType::Bool, QMetaType::Bool,  115,  116,
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int,   74,   63,   34,
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString,   22,   23,   24,   25,   26,   27,   28,
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Int,   22,   23,   24,   25,   26,   27,
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString,   22,   23,   24,   25,   26,
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::Int, QMetaType::QString,   22,   23,   24,   25,
     QMetaType::Void, QMetaType::QByteArray,   33,
-    QMetaType::Void, QMetaType::QByteArray,  120,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QByteArray,   84,   85,   86,  120,
+    QMetaType::Void, QMetaType::QByteArray,  121,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QByteArray,   84,   85,   86,  121,
     QMetaType::Void,
 
        0        // eod
@@ -406,30 +409,31 @@ void Channel_Data_Form::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 37: _t->signal_plateSendData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5]))); break;
         case 38: _t->signal_plateResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5]))); break;
         case 39: _t->signal_videoStream((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
-        case 40: _t->on_SimulationPushButton_clicked(); break;
-        case 41: _t->slot_pictureStream((*reinterpret_cast< const QByteArray(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3]))); break;
-        case 42: _t->slot_pictureStream((*reinterpret_cast< const QByteArray(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
-        case 43: _t->logicStateSlot(); break;
-        case 44: _t->timeOutSendData(); break;
-        case 45: _t->slot_camerState((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
-        case 46: _t->slot_initEquipment(); break;
-        case 47: _t->slot_pollsForCarStatus((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 48: _t->slot_setSimulationStatus((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
-        case 49: _t->slot_bindingCameraID((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 50: _t->slot_captureTest((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 51: _t->slot_playStream((*reinterpret_cast< quint64(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
-        case 52: _t->slot_logicStatus((*reinterpret_cast< int*(*)>(_a[1]))); break;
-        case 53: _t->slot_logicPutImage((*reinterpret_cast< const int(*)>(_a[1]))); break;
-        case 54: _t->slot_serialPortState((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
-        case 55: _t->slot_recognitionResult((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3]))); break;
-        case 56: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5])),(*reinterpret_cast< const int(*)>(_a[6])),(*reinterpret_cast< const QString(*)>(_a[7]))); break;
-        case 57: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5])),(*reinterpret_cast< const int(*)>(_a[6]))); break;
-        case 58: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5]))); break;
-        case 59: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4]))); break;
-        case 60: _t->slot_imageFlow((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
-        case 61: _t->slot_theVideoStream((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
-        case 62: _t->slot_resultsTheLicensePlate((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QByteArray(*)>(_a[4]))); break;
-        case 63: _t->slot_simulationCloseState(); break;
+        case 40: _t->signal_getLastPlate(); break;
+        case 41: _t->on_SimulationPushButton_clicked(); break;
+        case 42: _t->slot_pictureStream((*reinterpret_cast< const QByteArray(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3]))); break;
+        case 43: _t->slot_pictureStream((*reinterpret_cast< const QByteArray(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
+        case 44: _t->logicStateSlot(); break;
+        case 45: _t->timeOutSendData(); break;
+        case 46: _t->slot_camerState((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 47: _t->slot_initEquipment(); break;
+        case 48: _t->slot_pollsForCarStatus((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 49: _t->slot_setSimulationStatus((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 50: _t->slot_bindingCameraID((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 51: _t->slot_captureTest((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 52: _t->slot_playStream((*reinterpret_cast< quint64(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
+        case 53: _t->slot_logicStatus((*reinterpret_cast< int*(*)>(_a[1]))); break;
+        case 54: _t->slot_logicPutImage((*reinterpret_cast< const int(*)>(_a[1]))); break;
+        case 55: _t->slot_serialPortState((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 56: _t->slot_recognitionResult((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3]))); break;
+        case 57: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5])),(*reinterpret_cast< const int(*)>(_a[6])),(*reinterpret_cast< const QString(*)>(_a[7]))); break;
+        case 58: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5])),(*reinterpret_cast< const int(*)>(_a[6]))); break;
+        case 59: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5]))); break;
+        case 60: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const int(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4]))); break;
+        case 61: _t->slot_imageFlow((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
+        case 62: _t->slot_theVideoStream((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
+        case 63: _t->slot_resultsTheLicensePlate((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QByteArray(*)>(_a[4]))); break;
+        case 64: _t->slot_simulationCloseState(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -700,6 +704,13 @@ void Channel_Data_Form::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
                 return;
             }
         }
+        {
+            using _t = void (Channel_Data_Form::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Channel_Data_Form::signal_getLastPlate)) {
+                *result = 40;
+                return;
+            }
+        }
     }
 }
 
@@ -732,13 +743,13 @@ int Channel_Data_Form::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 64)
+        if (_id < 65)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 64;
+        _id -= 65;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 64)
+        if (_id < 65)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 64;
+        _id -= 65;
     }
     return _id;
 }
@@ -1007,6 +1018,12 @@ void Channel_Data_Form::signal_videoStream(const QByteArray & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 39, _a);
+}
+
+// SIGNAL 40
+void Channel_Data_Form::signal_getLastPlate()
+{
+    QMetaObject::activate(this, &staticMetaObject, 40, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

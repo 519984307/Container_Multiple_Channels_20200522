@@ -87,6 +87,11 @@ public slots:
     ///
     virtual void releaseResourcesSlot()=0;
 
+    ///
+    /// \brief getLastPlateSlot 获取最后一次车牌数据
+    ///
+    virtual void getLastPlateSlot()=0;
+
 signals:
 
     ///
@@ -150,7 +155,7 @@ private slots:
     virtual void slot_equipmentState(int ID, bool state)=0;
 };
 
-#define LicensePlateInterfaceIID "ZBY.ContainerServer.LicensePlateInterface/2.2.2.3"
+#define LicensePlateInterfaceIID "ZBY.ContainerServer.LicensePlateInterface/2.2.2.4"
 Q_DECLARE_INTERFACE(LicensePlateInterface,LicensePlateInterfaceIID);
 
 #endif // LICENSEPLATEINTERFACE_H

@@ -125,7 +125,7 @@ void MainWindow::initializing()
     /*****************************
     * @brief:初始化加密,默认单通道，不比对加密狗
     ******************************/
-    emit signal_initEncryption(1,"");
+    emit signal_initEncryption(0,"");
 
     linkCount=0;
 
@@ -905,6 +905,11 @@ void MainWindow::bindingPlugin()
             connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::theVideoStreamSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_theVideoStream);
             connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::resultsTheLicensePlateSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_resultsTheLicensePlate);
             connect(pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::equipmentStateSignal,Channel_Data_From_Map.value(ind),&Channel_Data_Form::slot_camerState);
+
+            /*****************************
+            * @brief:主动获取车牌最后一次结果
+            ******************************/
+            connect(Channel_Data_From_Map.value(ind),&Channel_Data_Form::signal_getLastPlate,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::getLastPlateSlot);
 
             /*****************************
             * @brief:和海康插件对接

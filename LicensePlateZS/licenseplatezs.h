@@ -16,6 +16,12 @@ public:
     ~LicensePlateZS()Q_DECL_OVERRIDE;
 
     ///
+    /// \brief sendData 发送数据
+    /// \param data
+    ///
+    void sendData(QJsonObject obj);
+    
+    ///
     /// \brief InterfaceType 插件类型，多插件调用统一接口
     /// \return
     ///
@@ -59,6 +65,10 @@ public:
     ///
     void initCamerSlot(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature)Q_DECL_OVERRIDE;
 
+    ///
+    /// \brief getLastPlateSlot 获取最后一次车牌数据
+    ///
+    void getLastPlateSlot()Q_DECL_OVERRIDE;
 
     /*****************************
     * @brief:TCP协议链接车牌相机
@@ -127,6 +137,13 @@ private slots:
     ///
     void displayErrorSlot(QAbstractSocket::SocketError socketError);
 
+    ///
+    /// \brief processPlateResultSlot 处理接收的车牌数据
+    /// \param data 接收的数据
+    /// \param packetSize 数据大小
+    ///
+    void processPlateResultSlot(QByteArray data, int packetSize);
+
 private:
 
     ///
@@ -163,6 +180,17 @@ private:
     /// \brief port 端口
     ///
     quint16 port;
+
+    ///
+    /// \brief recvData 接收的数据
+    ///
+    QByteArray recvData;
+
+    int recvLen;
+
+    int nRecvLen;
+
+    bool recvHead;
 };
 
 #endif // LICENSEPLATEZS_H

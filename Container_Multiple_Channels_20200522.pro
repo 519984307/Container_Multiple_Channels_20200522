@@ -12,7 +12,7 @@ SUBDIRS +=\
     LicensePlateHCNET \
     #LicensePlateVZ \
     LicensePlateWTY \
-    #LicensePlateZS \
+    LicensePlateZS \
     ToUploadData\
     DataInterchange \
     #DataProcessing \

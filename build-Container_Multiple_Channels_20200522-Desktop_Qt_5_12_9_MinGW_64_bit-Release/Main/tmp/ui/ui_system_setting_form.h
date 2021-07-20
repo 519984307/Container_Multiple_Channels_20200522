@@ -509,6 +509,7 @@ public:
         PlateType_comboBox = new QComboBox(Model);
         PlateType_comboBox->addItem(QString());
         PlateType_comboBox->addItem(QString());
+        PlateType_comboBox->addItem(QString());
         PlateType_comboBox->setObjectName(QString::fromUtf8("PlateType_comboBox"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
@@ -1516,7 +1517,7 @@ public:
         QObject::connect(saveImageDay_checkBox, SIGNAL(clicked(bool)), saveImageDay_spinBox, SLOT(setEnabled(bool)));
         QObject::connect(saveImageDay_checkBox, SIGNAL(clicked(bool)), horizontalSlider_2, SLOT(setEnabled(bool)));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         Camera_Load_Plugin_comboBox->setCurrentIndex(1);
         Service_Type_stackedWidget->setCurrentIndex(0);
         Language->setCurrentIndex(1);
@@ -1584,8 +1585,9 @@ public:
         LogicType_comboBox->setItemText(1, QApplication::translate("System_Setting_Form", "Nanjing sanbao", nullptr));
 
         label_49->setText(QApplication::translate("System_Setting_Form", "Infrared logic setting, different logic infrared trigger sequence is not the same, this option needs to consult the developer!", nullptr));
-        PlateType_comboBox->setItemText(0, QApplication::translate("System_Setting_Form", "hikvision", nullptr));
+        PlateType_comboBox->setItemText(0, QApplication::translate("System_Setting_Form", "HK", nullptr));
         PlateType_comboBox->setItemText(1, QApplication::translate("System_Setting_Form", "WTY", nullptr));
+        PlateType_comboBox->setItemText(2, QApplication::translate("System_Setting_Form", "ZS", nullptr));
 
         label_50->setText(QApplication::translate("System_Setting_Form", "Type of license plate camera", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Model), QApplication::translate("System_Setting_Form", "Model", nullptr));

@@ -13,7 +13,7 @@ TEMPLATE = app
 
 CONFIG += skip_target_version_ext
 
-VERSION = 1.1.1.13_2107121930_1
+VERSION = 1.1.1.14_2107200930_1
 QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"

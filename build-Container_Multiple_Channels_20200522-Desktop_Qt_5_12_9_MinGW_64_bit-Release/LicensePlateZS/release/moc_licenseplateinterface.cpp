@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_LicensePlateInterface_t {
-    QByteArrayData data[46];
-    char stringdata0[631];
+    QByteArrayData data[47];
+    char stringdata0[648];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -71,12 +71,13 @@ QT_MOC_LITERAL(36, 433, 28), // "liftingElectronicRailingSlot"
 QT_MOC_LITERAL(37, 462, 30), // "transparentTransmission485Slot"
 QT_MOC_LITERAL(38, 493, 16), // "openTheVideoSlot"
 QT_MOC_LITERAL(39, 510, 20), // "releaseResourcesSlot"
-QT_MOC_LITERAL(40, 531, 18), // "slot_pictureStream"
-QT_MOC_LITERAL(41, 550, 6), // "arrJpg"
-QT_MOC_LITERAL(42, 557, 16), // "slot_setCameraID"
-QT_MOC_LITERAL(43, 574, 8), // "cameraIP"
-QT_MOC_LITERAL(44, 583, 27), // "slot_resultsTheLicensePlate"
-QT_MOC_LITERAL(45, 611, 19) // "slot_equipmentState"
+QT_MOC_LITERAL(40, 531, 16), // "getLastPlateSlot"
+QT_MOC_LITERAL(41, 548, 18), // "slot_pictureStream"
+QT_MOC_LITERAL(42, 567, 6), // "arrJpg"
+QT_MOC_LITERAL(43, 574, 16), // "slot_setCameraID"
+QT_MOC_LITERAL(44, 591, 8), // "cameraIP"
+QT_MOC_LITERAL(45, 600, 27), // "slot_resultsTheLicensePlate"
+QT_MOC_LITERAL(46, 628, 19) // "slot_equipmentState"
 
     },
     "LicensePlateInterface\0messageSignal\0"
@@ -94,8 +95,9 @@ QT_MOC_LITERAL(45, 611, 19) // "slot_equipmentState"
     "liftingElectronicRailingSlot\0"
     "transparentTransmission485Slot\0"
     "openTheVideoSlot\0releaseResourcesSlot\0"
-    "slot_pictureStream\0arrJpg\0slot_setCameraID\0"
-    "cameraIP\0slot_resultsTheLicensePlate\0"
+    "getLastPlateSlot\0slot_pictureStream\0"
+    "arrJpg\0slot_setCameraID\0cameraIP\0"
+    "slot_resultsTheLicensePlate\0"
     "slot_equipmentState"
 };
 #undef QT_MOC_LITERAL
@@ -106,7 +108,7 @@ static const uint qt_meta_data_LicensePlateInterface[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -114,29 +116,30 @@ static const uint qt_meta_data_LicensePlateInterface[] = {
       10,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,  119,    2, 0x06 /* Public */,
-       5,    1,  124,    2, 0x06 /* Public */,
-       7,    1,  127,    2, 0x06 /* Public */,
-       9,    4,  130,    2, 0x06 /* Public */,
-      13,    2,  139,    2, 0x06 /* Public */,
-      16,    5,  144,    2, 0x06 /* Public */,
-      22,    3,  155,    2, 0x06 /* Public */,
-      26,    1,  162,    2, 0x06 /* Public */,
-      27,    1,  165,    2, 0x06 /* Public */,
-      29,    1,  168,    2, 0x06 /* Public */,
+       1,    2,  124,    2, 0x06 /* Public */,
+       5,    1,  129,    2, 0x06 /* Public */,
+       7,    1,  132,    2, 0x06 /* Public */,
+       9,    4,  135,    2, 0x06 /* Public */,
+      13,    2,  144,    2, 0x06 /* Public */,
+      16,    5,  149,    2, 0x06 /* Public */,
+      22,    3,  160,    2, 0x06 /* Public */,
+      26,    1,  167,    2, 0x06 /* Public */,
+      27,    1,  170,    2, 0x06 /* Public */,
+      29,    1,  173,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      30,    6,  171,    2, 0x0a /* Public */,
-      35,    0,  184,    2, 0x0a /* Public */,
-      36,    1,  185,    2, 0x0a /* Public */,
-      37,    1,  188,    2, 0x0a /* Public */,
-      38,    2,  191,    2, 0x0a /* Public */,
-      38,    1,  196,    2, 0x2a /* Public | MethodCloned */,
-      39,    0,  199,    2, 0x0a /* Public */,
-      40,    2,  200,    2, 0x08 /* Private */,
-      42,    2,  205,    2, 0x08 /* Private */,
-      44,    5,  210,    2, 0x08 /* Private */,
-      45,    2,  221,    2, 0x08 /* Private */,
+      30,    6,  176,    2, 0x0a /* Public */,
+      35,    0,  189,    2, 0x0a /* Public */,
+      36,    1,  190,    2, 0x0a /* Public */,
+      37,    1,  193,    2, 0x0a /* Public */,
+      38,    2,  196,    2, 0x0a /* Public */,
+      38,    1,  201,    2, 0x2a /* Public | MethodCloned */,
+      39,    0,  204,    2, 0x0a /* Public */,
+      40,    0,  205,    2, 0x0a /* Public */,
+      41,    2,  206,    2, 0x08 /* Private */,
+      43,    2,  211,    2, 0x08 /* Private */,
+      45,    5,  216,    2, 0x08 /* Private */,
+      46,    2,  227,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::QString,    3,    4,
@@ -158,8 +161,9 @@ static const uint qt_meta_data_LicensePlateInterface[] = {
     QMetaType::Void, QMetaType::Bool, QMetaType::ULongLong,   24,   25,
     QMetaType::Void, QMetaType::Bool,   24,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int, QMetaType::QByteArray,   23,   41,
-    QMetaType::Void, QMetaType::Int, QMetaType::QString,   23,   43,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int, QMetaType::QByteArray,   23,   42,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString,   23,   44,
     QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QByteArray,   23,   10,   11,   12,    8,
     QMetaType::Void, QMetaType::Int, QMetaType::Bool,   23,   15,
 
@@ -189,10 +193,11 @@ void LicensePlateInterface::qt_static_metacall(QObject *_o, QMetaObject::Call _c
         case 14: _t->openTheVideoSlot((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< quint64(*)>(_a[2]))); break;
         case 15: _t->openTheVideoSlot((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 16: _t->releaseResourcesSlot(); break;
-        case 17: _t->slot_pictureStream((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QByteArray(*)>(_a[2]))); break;
-        case 18: _t->slot_setCameraID((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
-        case 19: _t->slot_resultsTheLicensePlate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QByteArray(*)>(_a[5]))); break;
-        case 20: _t->slot_equipmentState((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 17: _t->getLastPlateSlot(); break;
+        case 18: _t->slot_pictureStream((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QByteArray(*)>(_a[2]))); break;
+        case 19: _t->slot_setCameraID((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
+        case 20: _t->slot_resultsTheLicensePlate((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QByteArray(*)>(_a[5]))); break;
+        case 21: _t->slot_equipmentState((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -299,13 +304,13 @@ int LicensePlateInterface::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 22)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 22;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 22)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 21;
+        _id -= 22;
     }
     return _id;
 }

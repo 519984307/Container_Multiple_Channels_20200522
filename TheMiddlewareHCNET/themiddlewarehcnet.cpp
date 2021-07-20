@@ -641,6 +641,7 @@ void TheMiddlewareHCNET::DecCallBack(long nPort, char *pBuf, long nSize, FRAME_I
 void TheMiddlewareHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void *dwUser)
 {
      Q_UNUSED(dwUser);
+//     QThread::msleep(10);
 
      switch (dwDataType) {
      case NET_DVR_SYSHEAD:
@@ -780,11 +781,14 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
 
 void TheMiddlewareHCNET::initVideoStream(int ID, bool play)
 {
+    /*****************************
+    * @brief:降低码流减少CPU占用资源
+    ******************************/
     if(play){
         NET_DVR_PREVIEWINFO struPlayInfo = {};
         struPlayInfo.hPlayWnd= nullptr;
         struPlayInfo.lChannel     = 1;       /* 预览通道号 */
-        struPlayInfo.dwStreamType = 0;       /* 0-主码流，1-子码流，2-码流3，3-码流4，以此类推 */
+        struPlayInfo.dwStreamType = 1;       /* 0-主码流，1-子码流，2-码流3，3-码流4，以此类推 */
         struPlayInfo.dwLinkMode   = 0;       /* 0- TCP方式，1- UDP方式，2- 多播方式，3- RTP方式，4-RTP/RTSP，5-RSTP/HTTP */
         struPlayInfo.bBlocked     = 0;       /* 0- 非阻塞取流，1- 阻塞取流 */
 

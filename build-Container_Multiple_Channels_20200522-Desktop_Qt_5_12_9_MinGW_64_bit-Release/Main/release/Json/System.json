@@ -20,7 +20,7 @@
             "DelayStart": 10,
             "FullScreen": 0,
             "InfoLog": 1,
-            "Language": 1,
+            "Language": 0,
             "Minimization": 0
         },
         "Recognizer": {

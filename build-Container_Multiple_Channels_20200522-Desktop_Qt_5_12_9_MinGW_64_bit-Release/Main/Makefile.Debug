@@ -13,7 +13,7 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DAPP_VERSION=\"1.1.1.13_2107121930_1\" -DDOG_ID=\"f19d15dec81584b5ce4f9edb0aae1789\" -DQT_DEPRECATED_WARNINGS -DQT_MESSAGELOGCONTEXT -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_SERIALPORT_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
+DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DAPP_VERSION=\"1.1.1.14_2107200930_1\" -DDOG_ID=\"f19d15dec81584b5ce4f9edb0aae1789\" -DQT_DEPRECATED_WARNINGS -DQT_MESSAGELOGCONTEXT -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_SERIALPORT_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -g -Wall -W -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
 INCPATH       = -I..\..\Container_Multiple_Channels_20200522\Main -I. -I..\..\Container_Multiple_Channels_20200522\LogController -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtWidgets -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtGui -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtANGLE -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtSql -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtSerialPort -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtConcurrent -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtNetwork -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtCore -Itmp\moc -Itmp\ui -I/include -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\win32-g++ 
