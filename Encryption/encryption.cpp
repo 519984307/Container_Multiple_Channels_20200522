@@ -13,7 +13,7 @@ Encryption::Encryption(QObject *parent)
     SmartX3CheckExist=nullptr;
 
     dogState=false;
-    dogType=0;
+    dogType=1;
 
     key1=QByteArray("cheng870888").toHex()+"0451031075c8f4a1a81913cad8c8593f";
     ind=5;
@@ -68,29 +68,10 @@ void Encryption::releaseResourcesSlot()
 
 void Encryption::smartXGetUidFunc()
 {
-    /* 福建达远
-     * ed302361196401966c72f116402e9297
-     * ae68c66368a8e943bc260ae97003747f
-    */
-    /* 辽宁锦州
-     * 2895743a6f3c423adfc444d16076e085
-    */
-    /* 惠州key
-     * 5e8d317e83c2f7ace3584a929961fcb4
-    */
-    /*沈阳安信
-     * f19d15dec81584b5ce4f9edb0aae1789
-    */
-    /*福建平潭
-     * ae68c66368a8e943bc260ae97003747f
-    */
-    /* 烟台贝奇
-     * f19d15dec81584b5ce4f9edb0aae1789
-    */
     if(SmartX3Find!=nullptr && SmartX3Find(appID,keyHandles,&keyNumber)==0){
         if(SmartX3GetUid!=nullptr && SmartX3GetUid(keyHandles[0],UID)==0){
             //qDebug()<<"UID:"<<UID;
-            if(strncmp(UID,"f19d15dec81584b5ce4f9edb0aae1789",33)==0){
+            if(strncmp(UID,"430c4bdbd03296d3f0b2080eceadbe83",33)==0){
                 dogState=true;
             }
             else {
@@ -100,7 +81,7 @@ void Encryption::smartXGetUidFunc()
             /*****************************
             * @brief:单通道不需要加密狗号
             ******************************/
-            if(0==dogType){
+            if(1==dogType){
                 dogState=true;
             }
 
@@ -114,7 +95,7 @@ void Encryption::SmartXCheckExistSlot()
     /*****************************
     * @brief:test
     ******************************/
-    if(0==dogType){
+    if(1==dogType){
         emit GetTheEncryptedStateSignal(true);
     }
     else {

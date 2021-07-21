@@ -45,7 +45,37 @@ public slots:
 
 };
 
+/* 福建达远
+ * ed302361196401966c72f116402e9297
+ * ae68c66368a8e943bc260ae97003747f
+*/
+/* 辽宁锦州
+ * 2895743a6f3c423adfc444d16076e085
+*/
+/* 惠州key
+ * 5e8d317e83c2f7ace3584a929961fcb4
+*/
+/*沈阳安信
+ * f19d15dec81584b5ce4f9edb0aae1789
+*/
+/*福建平潭
+ * ae68c66368a8e943bc260ae97003747f
+*/
+/* 烟台贝奇
+ * f19d15dec81584b5ce4f9edb0aae1789
+*/
+/* 武汉软著
+ * 60b02f171e6d2b28673cdcb5faef01e1
+ * 430c4bdbd03296d3f0b2080eceadbe83
+*/
+
+//#define _ENCRYPTION_
+#ifdef _ENCRYPTION_
 #define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/0.0.0.1"
+#else
+#define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/430c4bdbd03296d3f0b2080eceadbe83"
+#endif
+
 Q_DECLARE_INTERFACE(EncryptionInterface,EncryptionInterfaceIID);
 
 #endif // ENCRYPTIONINTERFACE_H

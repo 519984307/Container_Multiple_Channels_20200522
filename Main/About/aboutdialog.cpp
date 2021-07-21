@@ -11,6 +11,8 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui->appLabel->setText(LocalPar::App);
     ui->verLabel->setText(LocalPar::version);
     ui->ID_label->setText(LocalPar::DogID);
+    ui->Project_label->setText(LocalPar::proName);
+    ui->Channel_label->setText(QString::number(LocalPar::Channels));
 }
 
 AboutDialog::~AboutDialog()

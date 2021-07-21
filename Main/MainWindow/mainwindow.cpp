@@ -125,7 +125,7 @@ void MainWindow::initializing()
     /*****************************
     * @brief:初始化加密,默认单通道，不比对加密狗
     ******************************/
-    emit signal_initEncryption(0,"");
+    emit signal_initEncryption(LocalPar::Channels,"");
 
     linkCount=0;
 

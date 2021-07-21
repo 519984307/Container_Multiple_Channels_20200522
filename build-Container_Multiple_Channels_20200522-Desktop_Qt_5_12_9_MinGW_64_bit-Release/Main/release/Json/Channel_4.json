@@ -1,0 +1,35 @@
+{
+    "Channel": {
+        "Camer": {
+            "AfterCamer": "...",
+            "ForgroundCamer": "...",
+            "FrontCamer": "...",
+            "LeftCamer": "...",
+            "LocalAddr": "...",
+            "PasswordCamer": "",
+            "PlateCamer": "...",
+            "ProspectsCamer": "...",
+            "RgihtCamer": "...",
+            "TopCamer": "...",
+            "UserCamer": ""
+        },
+        "Other": {
+            "Alias": "",
+            "Camera_Load_Plugin": 0,
+            "Channel_Number": 4,
+            "Container_Camera_Model": 0,
+            "HCNET_Capture_Type": 0,
+            "Plate_Camera_Model": 0
+        },
+        "SerialPort": {
+            "ControllerSignalMode": 0,
+            "PortOne": 0,
+            "PortTow": 0,
+            "SerialAddrOne": "...",
+            "SerialAddrTow": "...",
+            "SerialPortOne": 1,
+            "SerialPortTow": 2,
+            "infraredStatus": 1
+        }
+    }
+}
