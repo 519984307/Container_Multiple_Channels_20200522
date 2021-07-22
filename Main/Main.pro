@@ -17,11 +17,11 @@ QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
 VERSION = 1.1.1.14_2107200930_
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
-ID=430c4bdbd03296d3f0b2080eceadbe83
+ID = f19d15dec81584b5ce4f9edb0aae1789
 DEFINES += DOG_ID=\\\"$$ID\\\"
-PROJECT += 武汉-软著-阳逻集中查验场
+PROJECT += 烟台-贝奇
 DEFINES += APP_PROJECT=\\\"$$PROJECT\\\"
-CHANNEL += 4
+CHANNEL = 2
 DEFINES += APP_CHANNEL=\\\"$$CHANNEL\\\"
 #If it is a multi-channel version, the software conditions need to be changed:
 #1.EncryptionInterface plug-in version

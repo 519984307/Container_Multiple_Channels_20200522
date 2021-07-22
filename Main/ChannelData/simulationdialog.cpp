@@ -157,15 +157,19 @@ void SimulationDialog::slot_container(const int &channelID, const int &type, con
     ui->box_type_lineEdit->setText(logic);
 }
 
-void SimulationDialog::slot_plate(const int &channelID, const QString &plate, const QString &color, const QString &time)
+void SimulationDialog::slot_plate(const int &channelID, const QString &plate, const QString &color, const QString &time, const bool &isConCar)
 {
     Q_UNUSED(time);
     Q_UNUSED(channelID);
 
-    ui->con_before_lineEdit->clear();
-    ui->iso_before_lineEdit->clear();
-    ui->con_after_lineEdit->clear();
-    ui->iso_after_lineEdit->clear();
+    Q_UNUSED(isConCar);
+//    if(!isConCar){
+//        ui->con_before_lineEdit->clear();
+//        ui->iso_before_lineEdit->clear();
+//        ui->con_after_lineEdit->clear();
+//        ui->iso_after_lineEdit->clear();
+//        ui->box_type_lineEdit->clear();
+//    }
 
     ui->plate_lineEdit->setText(plate);
     if("黄"==color){

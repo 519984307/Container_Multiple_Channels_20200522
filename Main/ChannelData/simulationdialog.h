@@ -64,7 +64,7 @@ public slots:
     /// \param color
     /// \param time
     ///
-    void slot_plate(const int &channelID,const QString &plate,const QString &color,const QString &time);   
+    void slot_plate(const int &channelID, const QString &plate, const QString &color, const QString &time, const bool &isConCar);
 
 private:
     Ui::SimulationDialog *ui;

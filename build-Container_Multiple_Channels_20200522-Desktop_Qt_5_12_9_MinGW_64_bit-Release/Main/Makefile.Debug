@@ -13,7 +13,7 @@ EQ            = =
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DAPP_VERSION=\"1.1.1.14_2107200930_\" -DDOG_ID=\"430c4bdbd03296d3f0b2080eceadbe83\" -DAPP_PROJECT=\"武汉-软著-阳逻集中查验场\" -DAPP_CHANNEL=\"4\" -DQT_DEPRECATED_WARNINGS -DQT_MESSAGELOGCONTEXT -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_SERIALPORT_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
+DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DMINGW_HAS_SECURE_API=1 -DAPP_VERSION=\"1.1.1.14_2107200930_\" -DDOG_ID=\"f19d15dec81584b5ce4f9edb0aae1789\" -DAPP_PROJECT=\"烟台-贝奇\" -DAPP_CHANNEL=\"2\" -DQT_DEPRECATED_WARNINGS -DQT_MESSAGELOGCONTEXT -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_SERIALPORT_LIB -DQT_CONCURRENT_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -g -Wall -W -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
 INCPATH       = -I..\..\Container_Multiple_Channels_20200522\Main -I. -I..\..\Container_Multiple_Channels_20200522\LogController -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtWidgets -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtGui -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtANGLE -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtSql -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtSerialPort -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtConcurrent -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtNetwork -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\include\QtCore -Itmp\moc -Itmp\ui -I/include -IC:\Qt\Qt5.12.9\5.12.9\mingw73_64\mkspecs\win32-g++ 
@@ -8992,37 +8992,7 @@ tmp/obj/version_dialog.o: ../../Container_Multiple_Channels_20200522/Main/About/
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtouchdevice.h \
-		tmp/ui/ui_version_dialog.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QDialogButtonBox \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qdialogbuttonbox.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QGridLayout \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qgridlayout.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qlayout.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qlayoutitem.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qboxlayout.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QPlainTextEdit \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qplaintextedit.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qtextedit.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qframe.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtextdocument.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtextoption.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtextcursor.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtextformat.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qpen.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qabstracttextdocumentlayout.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qtextlayout.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qglyphrun.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qrawfont.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qfontdatabase.h
+		tmp/ui/ui_version_dialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tmp\obj\version_dialog.o ..\..\Container_Multiple_Channels_20200522\Main\About\version_dialog.cpp
 
 tmp/obj/dataprocessing.o: ../../Container_Multiple_Channels_20200522/Main/DataProcessing/dataprocessing.cpp ../../Container_Multiple_Channels_20200522/Main/DataProcessing/dataprocessing.h \

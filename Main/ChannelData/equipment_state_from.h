@@ -63,7 +63,7 @@ public slots:
     /// \param color
     /// \param time
     ///
-    void slot_plate(const int &channelID,const QString &plate,const QString &color,const QString &time);
+    void slot_plate(const int &channelID,const QString &plate,const QString &color,const QString &time,const bool &isConcar);
 
     ///
     /// \brief signal_channelState 通道过车状态

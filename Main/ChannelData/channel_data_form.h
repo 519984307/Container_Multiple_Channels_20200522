@@ -456,7 +456,7 @@ signals:
     /// \param color
     /// \param time
     ///
-    void signal_plate(const int &channelID,const QString &plate,const QString &color,const QString &time);
+    void signal_plate(const int &channelID,const QString &plate,const QString &color,const QString &time,const bool isConCar);
 
     ///
     /// \brief signal_plateSendData 发送车牌数据

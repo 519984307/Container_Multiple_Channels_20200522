@@ -11,7 +11,6 @@
 LicensePlateZS::LicensePlateZS(QObject *parent)
 {
     this->setParent(parent);
-    QTextCodec *tc = QTextCodec::codecForName("UTF-8");//防止中文乱码
 
     isConnected=false;
 
@@ -55,7 +54,7 @@ void LicensePlateZS::sendData(QJsonObject obj)
         int len=htonl(data.size());
         memcpy(&head[4], &len, 4);
         
-        if(8==pTcpClient->write(head,8)){
+        if(pTcpClient->write(head,8)>0){
             if(pTcpClient->write(data)>0){
                 //qDebug().noquote()<<QString("[%3] %1:%2 %4 send data sucess").arg(address,QString::number(port),this->metaObject()->className(),data.data());
                 return;
@@ -72,6 +71,12 @@ QString LicensePlateZS::InterfaceType()
 
 void LicensePlateZS::simulationCaptureSlot()
 {
+    if(pTcpClient!=nullptr){
+        pTcpClient->close();
+        pTcpClient->abort();
+        pTcpClient->connectToHost(address,port);
+    }
+
     QJsonObject obj;
     obj.insert("cmd","trigger");
 
@@ -123,6 +128,14 @@ void LicensePlateZS::openTheVideoSlot(bool play, quint64 winID)
 
 void LicensePlateZS::releaseResourcesSlot()
 {
+    if(nullptr != pTimerAutoLink){
+        pTimerAutoLink->stop();
+    }
+
+    if(nullptr != pTimerLinkState){
+        pTimerLinkState->stop();
+    }
+
     if(nullptr != pTcpClient){
         pTcpClient->close();
         pTcpClient->abort();
@@ -130,10 +143,6 @@ void LicensePlateZS::releaseResourcesSlot()
 
     if(nullptr != pTimerAutoLink){
         pTimerAutoLink->stop();
-    }
-
-    if(nullptr != pTimerLinkState){
-        pTimerLinkState->stop();
     }
 
     delete pTimerAutoLink;
@@ -278,7 +287,7 @@ void LicensePlateZS::receiveDataSlot()
         memcpy(&recvLen,buff.mid(4,4),4);
         nRecvLen=htonl(recvLen)+8;
         qDebug()<<"nRecvLen:"<<nRecvLen;
-        qDebug().noquote()<<QString("[%3] %1:%2 send data size (%4)").arg(address,QString::number(port),this->metaObject()->className(),QString::number(nRecvLen));
+        qDebug().noquote()<<QString("[%3] %1:%2 get data size (%4)").arg(address,QString::number(port),this->metaObject()->className(),QString::number(nRecvLen));
 
     }
 
@@ -327,16 +336,14 @@ void LicensePlateZS::displayErrorSlot(QAbstractSocket::SocketError socketError)
 
     pTimerLinkState->stop();
     if(!pTimerAutoLink->isActive()){
-        pTimerAutoLink->start(5000);
+        pTimerAutoLink->start(1000);
     }
     //qWarning().noquote()<<QString("[%4] %1:%3 link error<errorCode=%2>").arg(address,QString::number(socketError),QString::number(port),this->metaObject()->className());
 }
 
 void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
 {
-    Q_UNUSED(packetSize);
-
-    int colorType=0;
+    int colorType=5;
     int colorValue=0;
     int imageformat=0;
     int triggerType=0;
@@ -344,14 +351,18 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
     int clipImgSize=0;
     QString license="";
 
+    Q_UNUSED(packetSize);
     Q_UNUSED(imageformat);
+    Q_UNUSED(colorValue);
+    Q_UNUSED(triggerType);
 
     int pos=data.indexOf("\xFF\xD8");
 
-    QString tmp=data.mid(0,pos).data();
+    QString plateResult=QTextCodec::codecForName("GB2312")->toUnicode(data.mid(0,pos));
+    qDebug()<<"plateResult:"<<plateResult;
 
     QJsonParseError jsonError;
-    QJsonDocument jsonDoc=QJsonDocument::fromJson(tmp.toUtf8() ,&jsonError);
+    QJsonDocument jsonDoc=QJsonDocument::fromJson(plateResult.toLocal8Bit().data(),&jsonError);
     /* 加载文件 */
     if(!jsonDoc.isNull()&&jsonError.error==QJsonParseError::NoError){
         /* 读取根目录 */
@@ -369,10 +380,11 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
                         QJsonValue jsonValue=obj.value("colorValue");
                         colorValue=jsonValue.toInt();
                     }
-                    if(obj.contains("license")){
-                        QJsonValue jsonValue=obj.value("license");
-                        license=jsonValue.toString();
-                    }
+//                    if(obj.contains("license")){
+//                        QJsonValue jsonValue=obj.value("license");
+//                        license=QString::fromLocal8Bit(jsonValue.toString().toLocal8Bit().data());
+//                        qDebug()<<"license:"<<license;
+//                    }
                     if(obj.contains("imageformat")){
                         QJsonValue jsonValue=obj.value("imageformat");
                         imageformat=jsonValue.toInt();
@@ -389,12 +401,17 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
                         QJsonValue jsonValue=obj.value("clipImgSize");
                         clipImgSize=jsonValue.toInt();
                     }
+                    if(obj.contains("timeString")){
+                        QJsonValue jsonValue=obj.value("timeString");
+                        qDebug()<<"timeString:"<<jsonValue.toString();
+                    }
                 }
             }
         }
     }
     else {
         qDebug()<<"get json error:"<<jsonError.errorString();
+        return;
     }
 
     QByteArray fullImg;
@@ -405,41 +422,35 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
         clipImg=data.mid(pos+fullImgSize,clipImgSize);
     }
 
-//    // 车牌识别相关参数
-//    //---------------------------------------//
-//    //车牌颜色
-//    #define LC_UNKNOWN  0  //未知
-//    #define LC_BLUE     1  //蓝色
-//    #define LC_YELLOW   2  //黄色
-//    #define LC_WHITE    3  //白色
-//    #define LC_BLACK    4  //黑色
-//    #define LC_GREEN    5  //绿色
+    int std= plateResult.indexOf("colorType");
+    int end= plateResult.indexOf(',',std);
+    colorType=plateResult.mid(std+11,end-std-11).toInt();
 
-
-    Q_UNUSED(colorValue);
-    Q_UNUSED(triggerType);
-
-    QString plateColor;
+    QString plateColor="";
     switch (colorType) {
     case 0:
         plateColor="未知";
         break;
     case 1:
-        plateColor="蓝色";
+        plateColor="蓝";
         break;
     case 2:
-        plateColor="黄色";
+        plateColor="黄";
         break;
     case 3:
-        plateColor="白色";
+        plateColor="白";
         break;
     case 4:
-        plateColor="黑色";
+        plateColor="黑";
         break;
     case 5:
-        plateColor="绿色";
+        plateColor="绿";
         break;
     }
+
+    std= plateResult.indexOf("license");
+    end= plateResult.indexOf(',',std);
+    license=plateResult.mid(std+10,end-std-11);
 
     if(license.isEmpty()){
         license="无车牌";
@@ -452,6 +463,4 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
 
     fullImg.clear();
     clipImg.clear();
-//    recvLen=0;
-//    nRecvLen=0;
 }

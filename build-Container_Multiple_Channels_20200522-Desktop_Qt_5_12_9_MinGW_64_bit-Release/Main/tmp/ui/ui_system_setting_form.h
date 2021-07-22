@@ -16,6 +16,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
@@ -26,6 +27,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -196,22 +198,11 @@ public:
     QSpacerItem *verticalSpacer_5;
     QWidget *Additional;
     QGridLayout *gridLayout_12;
-    QLineEdit *lineEdit;
-    QCheckBox *checkBox_6;
-    QLabel *label_38;
-    QLabel *label_9;
-    QLabel *label_36;
-    QCheckBox *checkBox_5;
-    QCheckBox *checkBox_7;
-    QLabel *label_8;
-    QLineEdit *lineEdit_6;
-    QHBoxLayout *horizontalLayout_3;
-    QRadioButton *radioButton_3;
-    QRadioButton *radioButton_4;
+    QGroupBox *groupBox;
+    QGridLayout *gridLayout_19;
+    QTableWidget *tableWidget;
+    QPushButton *pushButton;
     QSpacerItem *verticalSpacer_8;
-    QSpinBox *spinBox_4;
-    QLabel *label_12;
-    QSpinBox *spinBox_5;
     QWidget *Other;
     QGridLayout *gridLayout_13;
     QGroupBox *groupBox_11;
@@ -247,7 +238,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 914, 1009));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 914, 712));
         gridLayout = new QGridLayout(scrollAreaWidgetContents);
         gridLayout->setSpacing(0);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
@@ -255,6 +246,14 @@ public:
         tabWidget = new QTabWidget(scrollAreaWidgetContents);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setEnabled(true);
+        tabWidget->setAutoFillBackground(false);
+        tabWidget->setTabPosition(QTabWidget::North);
+        tabWidget->setTabShape(QTabWidget::Triangular);
+        tabWidget->setUsesScrollButtons(true);
+        tabWidget->setDocumentMode(true);
+        tabWidget->setTabsClosable(false);
+        tabWidget->setMovable(false);
+        tabWidget->setTabBarAutoHide(true);
         Channel = new QWidget();
         Channel->setObjectName(QString::fromUtf8("Channel"));
         gridLayout_2 = new QGridLayout(Channel);
@@ -1217,109 +1216,26 @@ public:
         Additional->setEnabled(true);
         gridLayout_12 = new QGridLayout(Additional);
         gridLayout_12->setObjectName(QString::fromUtf8("gridLayout_12"));
-        gridLayout_12->setHorizontalSpacing(50);
-        gridLayout_12->setVerticalSpacing(20);
-        lineEdit = new QLineEdit(Additional);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setEnabled(false);
+        groupBox = new QGroupBox(Additional);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        gridLayout_19 = new QGridLayout(groupBox);
+        gridLayout_19->setObjectName(QString::fromUtf8("gridLayout_19"));
+        tableWidget = new QTableWidget(groupBox);
+        tableWidget->setObjectName(QString::fromUtf8("tableWidget"));
 
-        gridLayout_12->addWidget(lineEdit, 1, 0, 1, 3);
+        gridLayout_19->addWidget(tableWidget, 0, 0, 1, 1);
 
-        checkBox_6 = new QCheckBox(Additional);
-        checkBox_6->setObjectName(QString::fromUtf8("checkBox_6"));
+        pushButton = new QPushButton(groupBox);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
 
-        gridLayout_12->addWidget(checkBox_6, 4, 0, 1, 1);
-
-        label_38 = new QLabel(Additional);
-        label_38->setObjectName(QString::fromUtf8("label_38"));
-        label_38->setMinimumSize(QSize(400, 0));
-        label_38->setMaximumSize(QSize(400, 16777215));
-        label_38->setWordWrap(true);
-
-        gridLayout_12->addWidget(label_38, 4, 3, 1, 2);
-
-        label_9 = new QLabel(Additional);
-        label_9->setObjectName(QString::fromUtf8("label_9"));
-        label_9->setMinimumSize(QSize(400, 0));
-        label_9->setMaximumSize(QSize(400, 16777215));
-        label_9->setWordWrap(true);
-
-        gridLayout_12->addWidget(label_9, 2, 3, 1, 2);
-
-        label_36 = new QLabel(Additional);
-        label_36->setObjectName(QString::fromUtf8("label_36"));
-        label_36->setMinimumSize(QSize(400, 0));
-        label_36->setMaximumSize(QSize(400, 16777215));
-        label_36->setWordWrap(true);
-
-        gridLayout_12->addWidget(label_36, 5, 3, 1, 2);
-
-        checkBox_5 = new QCheckBox(Additional);
-        checkBox_5->setObjectName(QString::fromUtf8("checkBox_5"));
-
-        gridLayout_12->addWidget(checkBox_5, 5, 0, 1, 1);
-
-        checkBox_7 = new QCheckBox(Additional);
-        checkBox_7->setObjectName(QString::fromUtf8("checkBox_7"));
-        checkBox_7->setEnabled(true);
-
-        gridLayout_12->addWidget(checkBox_7, 0, 0, 1, 1);
-
-        label_8 = new QLabel(Additional);
-        label_8->setObjectName(QString::fromUtf8("label_8"));
-        label_8->setMinimumSize(QSize(400, 0));
-        label_8->setMaximumSize(QSize(400, 16777215));
-        label_8->setWordWrap(true);
-
-        gridLayout_12->addWidget(label_8, 1, 3, 1, 2);
-
-        lineEdit_6 = new QLineEdit(Additional);
-        lineEdit_6->setObjectName(QString::fromUtf8("lineEdit_6"));
-        lineEdit_6->setEnabled(false);
-
-        gridLayout_12->addWidget(lineEdit_6, 2, 0, 1, 3);
-
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
-        radioButton_3 = new QRadioButton(Additional);
-        radioButton_3->setObjectName(QString::fromUtf8("radioButton_3"));
-        radioButton_3->setChecked(true);
-
-        horizontalLayout_3->addWidget(radioButton_3);
-
-        radioButton_4 = new QRadioButton(Additional);
-        radioButton_4->setObjectName(QString::fromUtf8("radioButton_4"));
-
-        horizontalLayout_3->addWidget(radioButton_4);
+        gridLayout_19->addWidget(pushButton, 1, 0, 1, 1);
 
 
-        gridLayout_12->addLayout(horizontalLayout_3, 3, 0, 1, 3);
+        gridLayout_12->addWidget(groupBox, 0, 0, 1, 1);
 
         verticalSpacer_8 = new QSpacerItem(20, 273, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout_12->addItem(verticalSpacer_8, 6, 1, 1, 1);
-
-        spinBox_4 = new QSpinBox(Additional);
-        spinBox_4->setObjectName(QString::fromUtf8("spinBox_4"));
-        spinBox_4->setEnabled(false);
-        spinBox_4->setMinimum(1);
-
-        gridLayout_12->addWidget(spinBox_4, 5, 1, 1, 2);
-
-        label_12 = new QLabel(Additional);
-        label_12->setObjectName(QString::fromUtf8("label_12"));
-        label_12->setMinimumSize(QSize(400, 0));
-        label_12->setMaximumSize(QSize(400, 16777215));
-        label_12->setWordWrap(true);
-
-        gridLayout_12->addWidget(label_12, 3, 3, 1, 2);
-
-        spinBox_5 = new QSpinBox(Additional);
-        spinBox_5->setObjectName(QString::fromUtf8("spinBox_5"));
-        spinBox_5->setEnabled(false);
-        spinBox_5->setMinimum(1);
-
-        gridLayout_12->addWidget(spinBox_5, 4, 1, 1, 2);
+        gridLayout_12->addItem(verticalSpacer_8, 1, 0, 1, 1);
 
         tabWidget->addTab(Additional, QString());
         Other = new QWidget();
@@ -1506,18 +1422,12 @@ public:
         QObject::connect(save_image_checkBox, SIGNAL(clicked(bool)), CheckPathPushButton_2, SLOT(setEnabled(bool)));
         QObject::connect(Service_Type_comboBox, SIGNAL(currentIndexChanged(int)), Service_Type_stackedWidget, SLOT(setCurrentIndex(int)));
         QObject::connect(ReduceImage, SIGNAL(clicked(bool)), comboBox, SLOT(setEnabled(bool)));
-        QObject::connect(checkBox_6, SIGNAL(clicked(bool)), spinBox_5, SLOT(setEnabled(bool)));
-        QObject::connect(checkBox_5, SIGNAL(clicked(bool)), spinBox_4, SLOT(setEnabled(bool)));
-        QObject::connect(checkBox_7, SIGNAL(clicked(bool)), lineEdit, SLOT(setEnabled(bool)));
-        QObject::connect(checkBox_7, SIGNAL(clicked(bool)), lineEdit_6, SLOT(setEnabled(bool)));
-        QObject::connect(checkBox_7, SIGNAL(clicked(bool)), radioButton_3, SLOT(setEnabled(bool)));
-        QObject::connect(checkBox_7, SIGNAL(clicked(bool)), radioButton_4, SLOT(setEnabled(bool)));
         QObject::connect(storageSpace_monitoring_checkBox, SIGNAL(clicked(bool)), storage_spinBox, SLOT(setEnabled(bool)));
         QObject::connect(storageSpace_monitoring_checkBox, SIGNAL(clicked(bool)), horizontalSlider, SLOT(setEnabled(bool)));
         QObject::connect(saveImageDay_checkBox, SIGNAL(clicked(bool)), saveImageDay_spinBox, SLOT(setEnabled(bool)));
         QObject::connect(saveImageDay_checkBox, SIGNAL(clicked(bool)), horizontalSlider_2, SLOT(setEnabled(bool)));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(6);
         Camera_Load_Plugin_comboBox->setCurrentIndex(1);
         Service_Type_stackedWidget->setCurrentIndex(0);
         Language->setCurrentIndex(1);
@@ -1689,20 +1599,8 @@ public:
         radioButton_2->setText(QApplication::translate("System_Setting_Form", "The software prompts", nullptr));
         label_33->setText(QApplication::translate("System_Setting_Form", "Software prompts the system administrator to change hardware or manually release space", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Storage), QApplication::translate("System_Setting_Form", "Storage", nullptr));
-        checkBox_6->setText(QApplication::translate("System_Setting_Form", "Display information", nullptr));
-        label_38->setText(QApplication::translate("System_Setting_Form", "Provide display screen to display vehicle or specified information, and develop access equipment separately according to the situation of field equipment.", nullptr));
-        label_9->setText(QApplication::translate("System_Setting_Form", "Gate control board port", nullptr));
-        label_36->setText(QApplication::translate("System_Setting_Form", "To receive vehicle weight information, separate access equipment shall be developed according to the situation of field equipment.", nullptr));
-        checkBox_5->setText(QApplication::translate("System_Setting_Form", "Load the pound", nullptr));
-        checkBox_7->setText(QApplication::translate("System_Setting_Form", "The brake control", nullptr));
-        label_8->setText(QApplication::translate("System_Setting_Form", "Address of gate control panel", nullptr));
-        radioButton_3->setText(QApplication::translate("System_Setting_Form", "camera control", nullptr));
-        radioButton_4->setText(QApplication::translate("System_Setting_Form", "The mainboard control", nullptr));
-        spinBox_4->setSuffix(QString());
-        spinBox_4->setPrefix(QApplication::translate("System_Setting_Form", "COM", nullptr));
-        label_12->setText(QApplication::translate("System_Setting_Form", "Camera control gate, need hardware support.", nullptr));
-        spinBox_5->setSuffix(QString());
-        spinBox_5->setPrefix(QApplication::translate("System_Setting_Form", "COM", nullptr));
+        groupBox->setTitle(QApplication::translate("System_Setting_Form", "Network controller", nullptr));
+        pushButton->setText(QApplication::translate("System_Setting_Form", "PushButton", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(Additional), QApplication::translate("System_Setting_Form", "Additional", nullptr));
         groupBox_11->setTitle(QApplication::translate("System_Setting_Form", "Log", nullptr));
         DebugLog->setText(QApplication::translate("System_Setting_Form", "save debug log", nullptr));

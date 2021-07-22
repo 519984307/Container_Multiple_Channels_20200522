@@ -687,20 +687,7 @@ void TheMiddlewareHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataTy
 
              }
          }
-             //BOOL inData = pThis->PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize);
-//             while (!inData || lRealHandle!=pThis->streamID) {/* 防止解码库把多通道数据混淆 */
-//                 //QThread::msleep(5);
-//                 inData =pThis-> PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize);
-//             }
-             /*****************************
-             * @brief:2021/05/30 12:44
-             ******************************/
-//             while (!inData || -1 == pThis->playMap.key(lRealHandle,-1)) {/* 防止解码库把多通道数据混淆 */
-//                 //QThread::msleep(5);
-//                 inData =pThis-> PlayM4_InputData_L(lRealHandle, pBuffer, dwBufSize);
-//             }
-           }
-           //break;
+     }
 }
 
 void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
@@ -709,7 +696,7 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
     Q_UNUSED(dwType);
     Q_UNUSED(lHandle);
 
-    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logInfoMap.value(lUserID,nullptr);
+    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logMap.value(lUserID,nullptr);
 
     if(nullptr!=LoginInfo && pThis->NET_DVR_GetLastError_L()>0){
         emit pThis->equipmentStateSignal(lUserID,false);
@@ -718,6 +705,7 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
         if(-1 ==pThis->logfalList.indexOf(LoginInfo)){
             pThis->logfalList.append(LoginInfo);
         }
+
         qWarning().noquote()<<QString("IP=%1 Camrea Exception<errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(QString::number(pThis->NET_DVR_GetLastError_L()));
     }
 }
@@ -767,10 +755,12 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
         * @brief:登录成功，删除失败选项
         ******************************/
         int var=pThis->logfalList.indexOf(LoginInfo);
-        pThis->logfalList.removeAt(var);
+        if(var!=-1){
+            pThis->logfalList.removeAt(var);
+        }
     }
     else {
-        if(-1 ==pThis->logfalList.indexOf(LoginInfo) && -1 == pThis->logInfoMap.key(LoginInfo,-1)){
+        if(-1 ==pThis->logfalList.indexOf(LoginInfo) /*&& -1 == pThis->logInfoMap.key(LoginInfo,-1)*/){
             pThis->logfalList.append(LoginInfo);
         }
         if(pThis->NET_DVR_GetLastError_L!=nullptr){
@@ -820,6 +810,28 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
         }
         else {
             emit equipmentStateSignal(id,false);
+
+            if(-1 ==logfalList.indexOf(logInfoMap.value(id)) /*&& -1 == pThis->logInfoMap.key(LoginInfo,-1)*/){
+                logfalList.append(logInfoMap.value(id));
+            }
+
+            /* 释放播放库资源 */
+            if(nullptr!=PlayM4_Stop_L){
+                PlayM4_Stop_L(playMap.value(id));
+            }
+            if(nullptr!=PlayM4_CloseStream_L){
+                PlayM4_CloseStream_L(playMap.value(id));
+            }
+            if(nullptr!=PlayM4_FreePort_L){
+                PlayM4_FreePort_L(playMap.value(id));
+            }
+
+            logInfoMap.remove(id);
+            playMap.remove(id);
+
+//            if(NET_DVR_Logout_L !=nullptr){
+//                NET_DVR_Logout_L(id);
+//            }
         }
 //        else {
 //            logfalList.append(logInfoMap[id]);
@@ -843,18 +855,20 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
 //        }
     }
 
+    //qDebug()<<logfalList.size();
+
     for(int var=0;var<logfalList.size();++var){
 
         if(nullptr != pThis->NET_DVR_Logout_L && pThis-> NET_DVR_Logout_L(logMap.key(logfalList.at(var)))){
             qDebug().noquote()<<QString("IP=%1 Logout").arg(logfalList.at(var)->sDeviceAddress);
-            int id = logMap.key(logfalList.at(var));
-            logMap.remove(id);
+//            int id = logMap.key(logfalList.at(var));
+//            logMap.remove(id);
         }
         /*****************************
         * @brief:异步登录
         ******************************/
         if(NET_DVR_Login_V40_L !=nullptr){/* 登录设备 */
-            NET_DVR_Login_V40_L(logfalList[var],&DeviceInfo);
+            NET_DVR_Login_V40_L(logfalList.at(var),&DeviceInfo);
         }
     }
 

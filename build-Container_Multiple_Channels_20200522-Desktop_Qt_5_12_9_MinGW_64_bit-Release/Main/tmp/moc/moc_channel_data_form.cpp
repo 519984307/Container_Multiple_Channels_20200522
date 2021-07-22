@@ -118,9 +118,9 @@ QT_MOC_LITERAL(83, 1193, 12), // "signal_plate"
 QT_MOC_LITERAL(84, 1206, 5), // "plate"
 QT_MOC_LITERAL(85, 1212, 5), // "color"
 QT_MOC_LITERAL(86, 1218, 4), // "time"
-QT_MOC_LITERAL(87, 1223, 20), // "signal_plateSendData"
-QT_MOC_LITERAL(88, 1244, 13), // "channelNumber"
-QT_MOC_LITERAL(89, 1258, 8), // "isConCar"
+QT_MOC_LITERAL(87, 1223, 8), // "isConCar"
+QT_MOC_LITERAL(88, 1232, 20), // "signal_plateSendData"
+QT_MOC_LITERAL(89, 1253, 13), // "channelNumber"
 QT_MOC_LITERAL(90, 1267, 18), // "signal_plateResult"
 QT_MOC_LITERAL(91, 1286, 9), // "plateTime"
 QT_MOC_LITERAL(92, 1296, 18), // "signal_videoStream"
@@ -188,8 +188,8 @@ QT_MOC_LITERAL(123, 1773, 25) // "slot_simulationCloseState"
     "signal_liftingElectronicRailing\0gate\0"
     "signal_transparentTransmission485\0msg\0"
     "signal_openTheVideo\0signal_plate\0plate\0"
-    "color\0time\0signal_plateSendData\0"
-    "channelNumber\0isConCar\0signal_plateResult\0"
+    "color\0time\0isConCar\0signal_plateSendData\0"
+    "channelNumber\0signal_plateResult\0"
     "plateTime\0signal_videoStream\0arr\0"
     "signal_getLastPlate\0on_SimulationPushButton_clicked\0"
     "slot_pictureStream\0logicStateSlot\0"
@@ -258,37 +258,37 @@ static const uint qt_meta_data_Channel_Data_Form[] = {
       80,    1,  580,    2, 0x06 /* Public */,
       82,    2,  583,    2, 0x06 /* Public */,
       82,    1,  588,    2, 0x26 /* Public | MethodCloned */,
-      83,    4,  591,    2, 0x06 /* Public */,
-      87,    5,  600,    2, 0x06 /* Public */,
-      90,    5,  611,    2, 0x06 /* Public */,
-      92,    1,  622,    2, 0x06 /* Public */,
-      94,    0,  625,    2, 0x06 /* Public */,
+      83,    5,  591,    2, 0x06 /* Public */,
+      88,    5,  602,    2, 0x06 /* Public */,
+      90,    5,  613,    2, 0x06 /* Public */,
+      92,    1,  624,    2, 0x06 /* Public */,
+      94,    0,  627,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      95,    0,  626,    2, 0x08 /* Private */,
-      96,    3,  627,    2, 0x08 /* Private */,
-      96,    2,  634,    2, 0x28 /* Private | MethodCloned */,
-      97,    0,  639,    2, 0x08 /* Private */,
-      98,    0,  640,    2, 0x08 /* Private */,
-      99,    2,  641,    2, 0x0a /* Public */,
-     100,    0,  646,    2, 0x0a /* Public */,
-     101,    1,  647,    2, 0x0a /* Public */,
-     102,    2,  650,    2, 0x0a /* Public */,
-     104,    2,  655,    2, 0x0a /* Public */,
-     107,    2,  660,    2, 0x0a /* Public */,
-     108,    4,  665,    2, 0x0a /* Public */,
-     109,    1,  674,    2, 0x0a /* Public */,
-     112,    1,  677,    2, 0x0a /* Public */,
-     114,    2,  680,    2, 0x0a /* Public */,
-     117,    3,  685,    2, 0x0a /* Public */,
-     118,    7,  692,    2, 0x0a /* Public */,
-     118,    6,  707,    2, 0x2a /* Public | MethodCloned */,
-     118,    5,  720,    2, 0x2a /* Public | MethodCloned */,
-     118,    4,  731,    2, 0x2a /* Public | MethodCloned */,
-     119,    1,  740,    2, 0x0a /* Public */,
-     120,    1,  743,    2, 0x0a /* Public */,
-     122,    4,  746,    2, 0x0a /* Public */,
-     123,    0,  755,    2, 0x0a /* Public */,
+      95,    0,  628,    2, 0x08 /* Private */,
+      96,    3,  629,    2, 0x08 /* Private */,
+      96,    2,  636,    2, 0x28 /* Private | MethodCloned */,
+      97,    0,  641,    2, 0x08 /* Private */,
+      98,    0,  642,    2, 0x08 /* Private */,
+      99,    2,  643,    2, 0x0a /* Public */,
+     100,    0,  648,    2, 0x0a /* Public */,
+     101,    1,  649,    2, 0x0a /* Public */,
+     102,    2,  652,    2, 0x0a /* Public */,
+     104,    2,  657,    2, 0x0a /* Public */,
+     107,    2,  662,    2, 0x0a /* Public */,
+     108,    4,  667,    2, 0x0a /* Public */,
+     109,    1,  676,    2, 0x0a /* Public */,
+     112,    1,  679,    2, 0x0a /* Public */,
+     114,    2,  682,    2, 0x0a /* Public */,
+     117,    3,  687,    2, 0x0a /* Public */,
+     118,    7,  694,    2, 0x0a /* Public */,
+     118,    6,  709,    2, 0x2a /* Public | MethodCloned */,
+     118,    5,  722,    2, 0x2a /* Public | MethodCloned */,
+     118,    4,  733,    2, 0x2a /* Public | MethodCloned */,
+     119,    1,  742,    2, 0x0a /* Public */,
+     120,    1,  745,    2, 0x0a /* Public */,
+     122,    4,  748,    2, 0x0a /* Public */,
+     123,    0,  757,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::Bool,    3,    4,    5,
@@ -327,9 +327,9 @@ static const uint qt_meta_data_Channel_Data_Form[] = {
     QMetaType::Void, QMetaType::QString,   81,
     QMetaType::Void, QMetaType::Bool, QMetaType::ULongLong,   41,   40,
     QMetaType::Void, QMetaType::Bool,   41,
-    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString,   21,   84,   85,   86,
-    QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::QString,   88,   89,   84,   85,   86,
-    QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::QString,    3,   89,   84,   85,   91,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   21,   84,   85,   86,   87,
+    QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::QString,   89,   87,   84,   85,   86,
+    QMetaType::Void, QMetaType::Int, QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::QString,    3,   87,   84,   85,   91,
     QMetaType::Void, QMetaType::QByteArray,   93,
     QMetaType::Void,
 
@@ -405,7 +405,7 @@ void Channel_Data_Form::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 33: _t->signal_transparentTransmission485((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         case 34: _t->signal_openTheVideo((*reinterpret_cast< bool(*)>(_a[1])),(*reinterpret_cast< quint64(*)>(_a[2]))); break;
         case 35: _t->signal_openTheVideo((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 36: _t->signal_plate((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4]))); break;
+        case 36: _t->signal_plate((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const bool(*)>(_a[5]))); break;
         case 37: _t->signal_plateSendData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5]))); break;
         case 38: _t->signal_plateResult((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5]))); break;
         case 39: _t->signal_videoStream((*reinterpret_cast< const QByteArray(*)>(_a[1]))); break;
@@ -677,7 +677,7 @@ void Channel_Data_Form::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
             }
         }
         {
-            using _t = void (Channel_Data_Form::*)(const int & , const QString & , const QString & , const QString & );
+            using _t = void (Channel_Data_Form::*)(const int & , const QString & , const QString & , const QString & , const bool );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Channel_Data_Form::signal_plate)) {
                 *result = 36;
                 return;
@@ -993,9 +993,9 @@ void Channel_Data_Form::signal_openTheVideo(bool _t1, quint64 _t2)
 }
 
 // SIGNAL 36
-void Channel_Data_Form::signal_plate(const int & _t1, const QString & _t2, const QString & _t3, const QString & _t4)
+void Channel_Data_Form::signal_plate(const int & _t1, const QString & _t2, const QString & _t3, const QString & _t4, const bool _t5)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)) };
     QMetaObject::activate(this, &staticMetaObject, 36, _a);
 }
 

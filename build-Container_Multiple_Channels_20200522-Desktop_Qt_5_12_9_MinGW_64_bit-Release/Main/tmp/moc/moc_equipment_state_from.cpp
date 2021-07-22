@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Equipment_State_From_t {
-    QByteArrayData data[23];
-    char stringdata0[244];
+    QByteArrayData data[24];
+    char stringdata0[253];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -53,7 +53,8 @@ QT_MOC_LITERAL(18, 198, 10), // "slot_plate"
 QT_MOC_LITERAL(19, 209, 5), // "plate"
 QT_MOC_LITERAL(20, 215, 5), // "color"
 QT_MOC_LITERAL(21, 221, 4), // "time"
-QT_MOC_LITERAL(22, 226, 17) // "slot_channelState"
+QT_MOC_LITERAL(22, 226, 8), // "isConcar"
+QT_MOC_LITERAL(23, 235, 17) // "slot_channelState"
 
     },
     "Equipment_State_From\0"
@@ -62,7 +63,7 @@ QT_MOC_LITERAL(22, 226, 17) // "slot_channelState"
     "channel\0equipment\0state\0slot_container\0"
     "channelID\0type\0result1\0resultCheck1\0"
     "iso1\0result2\0resultCheck2\0iso2\0"
-    "slot_plate\0plate\0color\0time\0"
+    "slot_plate\0plate\0color\0time\0isConcar\0"
     "slot_channelState"
 };
 #undef QT_MOC_LITERAL
@@ -87,8 +88,8 @@ static const uint qt_meta_data_Equipment_State_From[] = {
        9,    7,   83,    2, 0x2a /* Public | MethodCloned */,
        9,    6,   98,    2, 0x2a /* Public | MethodCloned */,
        9,    5,  111,    2, 0x2a /* Public | MethodCloned */,
-      18,    4,  122,    2, 0x0a /* Public */,
-      22,    2,  131,    2, 0x0a /* Public */,
+      18,    5,  122,    2, 0x0a /* Public */,
+      23,    2,  133,    2, 0x0a /* Public */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::QStringList,    3,    4,
@@ -97,7 +98,7 @@ static const uint qt_meta_data_Equipment_State_From[] = {
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Int,   10,   11,   12,   13,   14,   15,   16,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString,   10,   11,   12,   13,   14,   15,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QString, QMetaType::Int, QMetaType::QString,   10,   11,   12,   13,   14,
-    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString,   10,   19,   20,   21,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   10,   19,   20,   21,   22,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,   10,    8,
 
        0        // eod
@@ -115,7 +116,7 @@ void Equipment_State_From::qt_static_metacall(QObject *_o, QMetaObject::Call _c,
         case 3: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const int(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5])),(*reinterpret_cast< const QString(*)>(_a[6])),(*reinterpret_cast< const int(*)>(_a[7]))); break;
         case 4: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const int(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5])),(*reinterpret_cast< const QString(*)>(_a[6]))); break;
         case 5: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const int(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5]))); break;
-        case 6: _t->slot_plate((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4]))); break;
+        case 6: _t->slot_plate((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const bool(*)>(_a[5]))); break;
         case 7: _t->slot_channelState((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2]))); break;
         default: ;
         }

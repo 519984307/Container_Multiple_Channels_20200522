@@ -739,8 +739,8 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         /*****************************
         * @brief:清除数据逻辑定时器
         ******************************/
-        sendDataOutTimer->stop();
         logicStateTimer->stop();
+        sendDataOutTimer->stop();
         isConCar=false;
         plateTmpArr=nullptr;
     }
@@ -757,16 +757,16 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         ******************************/
         isConCar=true;
         if(Parameter::PlateType==2 || ui->plateCheckBox->isChecked() || simulationPlateStatus){
-            /*****************************
-            * @brief:臻视相机没有收到结果主动取一次
-            ******************************/
-            emit signal_getLastPlate();
 
             if(sendDataOutTimer->isActive()){
                 emit signal_waitSendData();
                 sendDataOutTimer->stop();
             }
             sendDataOutTimer->start(Parameter::plate_timeout*1000);
+            /*****************************
+            * @brief:臻视相机没有收到结果主动取一次
+            ******************************/
+            emit signal_getLastPlate();
         }
         else {
             emit signal_waitSendData();
@@ -1101,12 +1101,12 @@ void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const 
         /*****************************
         * @brief:保存车牌图片和箱号一致
         ******************************/
-        QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTimer,QString("U"));
+        QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,plateStream,imgTimer,QString("U"));
         watcher->setFuture(future);
     }
 
     emit signal_plateSendData(channelNumber,isConCar,localPlate,localPlateColor,time);
-    emit signal_plate(channelID,localPlate,localPlateColor,time);
+    emit signal_plate(channelID,localPlate,localPlateColor,time,isConCar);
 }
 
 void Channel_Data_Form::slot_simulationCloseState()

@@ -133,7 +133,7 @@ static const uint qt_meta_data_SimulationDialog[] = {
       29,    0,  156,    2, 0x08 /* Private */,
       30,    0,  157,    2, 0x08 /* Private */,
       31,    8,  158,    2, 0x0a /* Public */,
-      40,    4,  175,    2, 0x0a /* Public */,
+      40,    5,  175,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool, QMetaType::Bool,    3,    4,
@@ -157,7 +157,7 @@ static const uint qt_meta_data_SimulationDialog[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::Int, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString,   32,   33,   34,   35,   36,   37,   38,   39,
-    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString,   32,    4,   12,   41,
+    QMetaType::Void, QMetaType::Int, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   32,    4,   12,   41,   11,
 
        0        // eod
 };
@@ -187,7 +187,7 @@ void SimulationDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 16: _t->on_sendCon_pushButton_clicked(); break;
         case 17: _t->on_sendPlate_pushButton_clicked(); break;
         case 18: _t->slot_container((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const int(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const int(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5])),(*reinterpret_cast< const QString(*)>(_a[6])),(*reinterpret_cast< const int(*)>(_a[7])),(*reinterpret_cast< const QString(*)>(_a[8]))); break;
-        case 19: _t->slot_plate((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4]))); break;
+        case 19: _t->slot_plate((*reinterpret_cast< const int(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const bool(*)>(_a[5]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {

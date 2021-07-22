@@ -9,8 +9,8 @@
             "channel_id_placeholder": "2"
         },
         "Model": {
-            "Camera_Load_Plugin": 0,
-            "HCNET_Capture_Type": 2,
+            "Camera_Load_Plugin": 1,
+            "HCNET_Capture_Type": 0,
             "LogicType": 0,
             "PlateType": 0
         },

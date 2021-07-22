@@ -127,9 +127,10 @@ void DataInterRabbitMQ::queueDeclared()
 
     QAmqpExchange *defaultExchange = m_client.createExchange();
     defaultExchange->publish(sendData,"zby_"+QString::number(channel_number),properties);
+
 //    defaultExchange->enableConfirms(true);
-//    if(defaultExchange->waitForConfirms()){
-//        qDebug() << " [x] "<<sendData;
+//    if(defaultExchange->waitForConfirms(1000)){
+//        qDebug().noquote()<< QString("[MQ] send:")<<sendData;
 //    }
 //    else {
 //        qDebug()<<"send message failed";

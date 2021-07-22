@@ -110,9 +110,15 @@ void Equipment_State_From::slot_container(const int &channelID, const int &type,
     }
 }
 
-void Equipment_State_From::slot_plate(const int &channelID, const QString &plate, const QString &color, const QString &time)
+void Equipment_State_From::slot_plate(const int &channelID, const QString &plate, const QString &color, const QString &time, const bool &isConcar)
 {
     Q_UNUSED(time);
+    Q_UNUSED(isConcar);
+
+//    if(!isConcar){
+//        ui->tableWidget->item(channelID-1,LocalPar::Con1)->setText("");
+//        ui->tableWidget->item(channelID-1,LocalPar::Con2)->setText("");
+//    }
 
     ui->tableWidget->item(channelID-1,LocalPar::Msg)->setText(time);
     ui->tableWidget->item(channelID-1,LocalPar::Plate1)->setText(plate);
