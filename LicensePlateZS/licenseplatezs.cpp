@@ -362,7 +362,7 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
     qDebug()<<"plateResult:"<<plateResult;
 
     QJsonParseError jsonError;
-    QJsonDocument jsonDoc=QJsonDocument::fromJson(plateResult.toLocal8Bit().data(),&jsonError);
+    QJsonDocument jsonDoc=QJsonDocument::fromJson(plateResult.toUtf8().data(),&jsonError);
     /* 加载文件 */
     if(!jsonDoc.isNull()&&jsonError.error==QJsonParseError::NoError){
         /* 读取根目录 */

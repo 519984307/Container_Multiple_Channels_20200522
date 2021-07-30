@@ -82,9 +82,9 @@ private:/* 参数  */
     long streamID;
 
     QList<LPNET_DVR_USER_LOGIN_INFO> logfalList;
-    QMap<int,LPNET_DVR_USER_LOGIN_INFO> logInfoMap;
-    QMap<int,LPNET_DVR_USER_LOGIN_INFO> alarmInfoMap;
-    QMap<int,LPNET_DVR_USER_LOGIN_INFO> logMap;
+    QMap<LPNET_DVR_USER_LOGIN_INFO,int> logInfoMap;
+    QMap<LPNET_DVR_USER_LOGIN_INFO,int> alarmInfoMap;
+    QMap<LPNET_DVR_USER_LOGIN_INFO,int> logMap;
 
     ///
     /// \brief isSDKInit 动态库初始化状态

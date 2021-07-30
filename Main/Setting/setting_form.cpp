@@ -89,7 +89,26 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
     ******************************/
     System_Setting_Form *p_System_Setting_Form=new System_Setting_Form (count,this);
 
+    /*****************************
+    * @brief:初始化设备状态
+    ******************************/
     connect(p_System_Setting_Form,SIGNAL(initializesTheDeviceTemporaryTableSignal(int,QStringList)),this,SLOT(initializesTheDeviceTemporaryTableSlot(int,QStringList)));
+
+    /*****************************
+    * @brief:搜索网络控制器设备
+    ******************************/
+    connect(p_System_Setting_Form,&System_Setting_Form::searchEquipmentSignal,this,&Setting_Form::searchEquipmentSignal);
+
+    /*****************************
+    * @brief:搜索到网络控制器参数
+    ******************************/
+    connect(this,&Setting_Form::sendEquipmentParSignal,p_System_Setting_Form,&System_Setting_Form::sendEquipmentParSlot);
+
+    /*****************************
+    * @brief:设置网络控制器参数
+    ******************************/
+    connect(this,&Setting_Form::setEquipmentParSignal,p_System_Setting_Form,&System_Setting_Form::setEquipmentParSignal);
+
     /*****************************
     * @brief: 保存参数
     ******************************/

@@ -237,6 +237,7 @@ void MainWindow::initializingObject()
 {
     qRegisterMetaType<QtMsgType>("QtMsgType");
     qRegisterMetaType<QMap<QString,QString>>("QMap<QString,QString>");
+    qRegisterMetaType<QMap<QString,QString>>("QMap<QString,QMap<QString,QString>>");
     qRegisterMetaType<QMap<int,QString>>("QMap<int,QString>");
     pLog=QPointer<LogController>(new LogController(LocalPar::App,this));
 
@@ -554,7 +555,29 @@ void MainWindow::actionTiggeredSlot()
 void MainWindow::on_actionParameter_Settings_triggered()
 {
     QPointer<Setting_Form> p_Setting_Form=new Setting_Form (nullptr);
+
+    QPointer<NetworkController> p_NetworkController=new NetworkController(nullptr);
+
+    /*****************************
+    * @brief:初始化设备状态
+    ******************************/
     connect(this,SIGNAL(initializesTheDeviceStateListSignal(int,QStringList)),p_Setting_Form,SLOT(initializesTheDeviceListSlot(int,QStringList)));
+
+    /*****************************
+    * @brief:搜索网络控制器
+    ******************************/
+    connect(p_Setting_Form,&Setting_Form::searchEquipmentSignal,p_NetworkController,&NetworkController::searchEquipmentSlot);
+
+    /*****************************
+    * @brief:搜索到网络控制器参数
+    ******************************/
+    connect(p_NetworkController,&NetworkController::sendEquipmentParSignal,p_Setting_Form,&Setting_Form::sendEquipmentParSignal);
+
+    /*****************************
+    * @brief:加载网络控制器参数
+    ******************************/
+    connect(p_Setting_Form,&Setting_Form::setEquipmentParSignal,p_NetworkController,&NetworkController::setEquipmentParSlot);
+
     /*****************************
     * 初始化设备
     ******************************/

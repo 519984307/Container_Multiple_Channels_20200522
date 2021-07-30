@@ -26,9 +26,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-117</y>
         <width>914</width>
-        <height>712</height>
+        <height>718</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -59,7 +59,7 @@
           <enum>QTabWidget::North</enum>
          </property>
          <property name="tabShape">
-          <enum>QTabWidget::Triangular</enum>
+          <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
           <number>6</number>
@@ -2123,45 +2123,245 @@ More than pair of:One service corresponds to all channels, and only the server m
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="Additional">
+         <widget class="QWidget" name="NetWorkController">
           <property name="enabled">
            <bool>true</bool>
           </property>
           <attribute name="title">
-           <string>Additional</string>
+           <string>Network controller</string>
           </attribute>
-          <layout class="QGridLayout" name="gridLayout_12">
+          <layout class="QGridLayout" name="gridLayout_20">
            <item row="0" column="0">
             <widget class="QGroupBox" name="groupBox">
              <property name="title">
-              <string>Network controller</string>
+              <string>The equipment list</string>
              </property>
-             <layout class="QGridLayout" name="gridLayout_19">
-              <item row="0" column="0">
-               <widget class="QTableWidget" name="tableWidget"/>
-              </item>
-              <item row="1" column="0">
-               <widget class="QPushButton" name="pushButton">
+             <layout class="QGridLayout" name="gridLayout_12" columnminimumwidth="1,0">
+              <item row="2" column="0" colspan="2">
+               <widget class="QPushButton" name="searchEquipment_pushButton">
                 <property name="text">
-                 <string>PushButton</string>
+                 <string>Search equipment</string>
                 </property>
                </widget>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <widget class="QTableWidget" name="equiment_tableWidget">
+                <property name="editTriggers">
+                 <set>QAbstractItemView::NoEditTriggers</set>
+                </property>
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::SingleSelection</enum>
+                </property>
+                <property name="selectionBehavior">
+                 <enum>QAbstractItemView::SelectRows</enum>
+                </property>
+                <attribute name="horizontalHeaderCascadingSectionResizes">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
+                 <bool>false</bool>
+                </attribute>
+                <attribute name="horizontalHeaderStretchLastSection">
+                 <bool>false</bool>
+                </attribute>
+                <column>
+                 <property name="text">
+                  <string>name</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>address</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>mac</string>
+                 </property>
+                </column>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0">
+                <item>
+                 <widget class="QLabel" name="label_60">
+                  <property name="text">
+                   <string>The local network adapter</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="1">
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QComboBox" name="adapter_comboBox"/>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
            </item>
            <item row="1" column="0">
-            <spacer name="verticalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
+            <widget class="QGroupBox" name="groupBox_3">
+             <property name="title">
+              <string>The equipment parameters</string>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>273</height>
-              </size>
-             </property>
-            </spacer>
+             <layout class="QGridLayout" name="gridLayout_19">
+              <item row="0" column="0" rowspan="2">
+               <layout class="QVBoxLayout" name="verticalLayout_3">
+                <item>
+                 <widget class="QLabel" name="label_8">
+                  <property name="text">
+                   <string>address</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_9">
+                  <property name="text">
+                   <string>gateway</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_12">
+                  <property name="text">
+                   <string>mask</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_57">
+                  <property name="text">
+                   <string>port</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_36">
+                  <property name="text">
+                   <string>model</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="1" rowspan="2">
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <item>
+                 <widget class="QLineEdit" name="address_lineEdit"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="gateway_lineEdit"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="mask_lineEdit"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="port_lineEdit"/>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="model_comboBox">
+                  <item>
+                   <property name="text">
+                    <string>tcp server</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>tcp client</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>udp server</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>udp client</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string/>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="2">
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <widget class="QLabel" name="label_38">
+                  <property name="text">
+                   <string>local address</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_56">
+                  <property name="text">
+                   <string>local port</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_58">
+                  <property name="text">
+                   <string>ID</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_59">
+                  <property name="text">
+                   <string>name</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="3">
+               <layout class="QVBoxLayout" name="verticalLayout_5">
+                <item>
+                 <widget class="QLineEdit" name="local_address_lineEdit"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="local_port_lineEdit"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="id_lineEdit"/>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="name_lineEdit"/>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="2" colspan="2">
+               <spacer name="horizontalSpacer">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>451</width>
+                  <height>13</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+              <item row="2" column="0" colspan="4">
+               <widget class="QPushButton" name="setParameter_pushButton">
+                <property name="text">
+                 <string>Set the parameters</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </item>
           </layout>
          </widget>

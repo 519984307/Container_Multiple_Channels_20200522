@@ -386,8 +386,7 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream, QString datetim
         * @brief:插入箱号数据库到数据库
         ******************************/
         databaseMap.insert("Timer",QDateTime::fromString(datetime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss"));
-        databaseMap.insert("Type",QString::number(this->putComType));
-
+        //databaseMap.insert("Type",QString::number(this->putComType));
     }
     else {
         /*****************************

@@ -15,13 +15,13 @@ CONFIG += skip_target_version_ext
 
 QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
-VERSION = 1.1.1.14_2107200930_
+VERSION = 1.1.2.14_2107281026_
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 ID = f19d15dec81584b5ce4f9edb0aae1789
 DEFINES += DOG_ID=\\\"$$ID\\\"
-PROJECT += 烟台-贝奇
+PROJECT += TEST
 DEFINES += APP_PROJECT=\\\"$$PROJECT\\\"
-CHANNEL = 2
+CHANNEL = 1
 DEFINES += APP_CHANNEL=\\\"$$CHANNEL\\\"
 #If it is a multi-channel version, the software conditions need to be changed:
 #1.EncryptionInterface plug-in version
@@ -86,8 +86,17 @@ include(Setting/Setting.pri)
 include(About/About.pri)
 include(DataProcessing/DataProcessing.pri)
 
+
+win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../NetworkController/ -lCc1_NetworkController
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../NetworkController/ -lCc1_NetworkControllerd
+else:unix:!macx: LIBS += -L$$OUT_PWD/../NetworkController/ -lCc1_NetworkController
+
+INCLUDEPATH += $$PWD/../NetworkController
+DEPENDPATH += $$PWD/../NetworkController
+
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../LogController/ -lCc1_Logging
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../LogController/ -lCc1_Loggingd
+else:unix:!macx: LIBS += -L$$OUT_PWD/../LogController/ -lCc1_Logging
 
 INCLUDEPATH += $$PWD/../LogController
 DEPENDPATH += $$PWD/../LogController

@@ -11,6 +11,8 @@
 #include <QJsonObject>
 #include <QJsonParseError>
 #include <QMessageLogger>
+#include <QtNetwork/QNetworkInterface>
+#include <QTableWidgetItem>
 
 #include "Parameter/parameter.h"
 
@@ -50,13 +52,40 @@ private slots:
     ///
     void on_AutomaticStart_stateChanged(int arg1);
 
+    ///
+    /// \brief on_ChannelNumber_valueChanged 设置通道数量
+    /// \param arg1
+    ///
     void on_ChannelNumber_valueChanged(int arg1);
 
+    ///
+    /// \brief on_HCNET_Capture_Type_comboBox_currentIndexChanged 海康相机抓拍模式
+    /// \param index
+    ///
     void on_HCNET_Capture_Type_comboBox_currentIndexChanged(int index);
 
+    ///
+    /// \brief on_Camera_Load_Plugin_comboBox_currentIndexChanged 海康相机插件加载模式
+    /// \param index
+    ///
     void on_Camera_Load_Plugin_comboBox_currentIndexChanged(int index);
+
+    ///
+    /// \brief on_DataChaneType_combox_currentIndexChanged 数据接口模式
+    /// \param index
+    ///
     void on_DataChaneType_combox_currentIndexChanged(int index);
 
+    /*****************************
+    * @brief:搜索网络控制器
+    ******************************/
+    void on_searchEquipment_pushButton_clicked();
+
+    ///
+    /// \brief on_equiment_tableWidget_itemClicked 读取搜索到设备参数
+    /// \param item
+    ///
+    void on_equiment_tableWidget_itemClicked(QTableWidgetItem *item);
 
 signals:
 
@@ -87,6 +116,19 @@ signals:
     ///
     void automaticStateSingal(bool status);
 
+    ///
+    /// \brief searchEquipmentSignal 搜索网络控制器设备
+    /// \param address 地址
+    /// \param port 端口
+    ///
+    void searchEquipmentSignal(QString address,int port);
+
+    ///
+    /// \brief setEquipmentParSignal 设置网络控制器参数
+    /// \param par
+    ///
+    void setEquipmentParSignal(QString par);
+
 private:
     Ui::System_Setting_Form *ui;
 
@@ -99,6 +141,11 @@ private:
     /// \brief fileRoot 参数保存路径根目录
     ///
     QString fileRoot;
+
+    ///
+    /// \brief parMap 读取的网络控制器参数
+    ///
+    QMap<QString, QMap<QString, QString>> parMap;
 
 private:
 
@@ -122,12 +169,23 @@ private:
     ///
     void InitializationParameter(int channelNumber);
 
+    ///
+    /// \brief loadAdapterMAC 获取网卡MAC地址
+    ///
+    void loadAdapterMAC();
+
 public slots:
 
     ///
     /// \brief writeParameterSlot 写入参数
     ///
     bool writeParameterSlot();
+
+    ///
+    /// \brief sendEquipmentParSlot 接收搜索到网络控制器参数
+    /// \param par
+    ///
+    void sendEquipmentParSlot(QMap<QString,QMap<QString,QString>> par);
 };
 
 #endif // SYSTEM_SETTING_FORM_H

@@ -1,4 +1,4 @@
-#ifndef SETTING_FORM_H
+﻿#ifndef SETTING_FORM_H
 #define SETTING_FORM_H
 
 #include <QWidget>
@@ -108,6 +108,25 @@ signals:
     /// \return 保存状态
     ///
     bool writeParameterSignal();
+
+    ///
+    /// \brief searchEquipmentSignal 搜索网络控制器设备
+    /// \param address 地址
+    /// \param port 端口
+    ///
+    void searchEquipmentSignal(QString address,int port);
+
+    ///
+    /// \brief setEquipmentParSignal 设置网络控制器参数
+    /// \param par
+    ///
+    void setEquipmentParSignal(QString par);
+
+    ///
+    /// \brief sendEquipmentParSignal 发送搜索的网络控制器参数
+    /// \param par
+    ///
+    void sendEquipmentParSignal(QMap<QString,QMap<QString,QString>> par);
 
 private:
 

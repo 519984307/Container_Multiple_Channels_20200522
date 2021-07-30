@@ -13,6 +13,7 @@ SUBDIRS +=\
     #LicensePlateVZ \
     LicensePlateWTY \
     LicensePlateZS \
+    NetworkController \
     ToUploadData\
     DataInterchange \
     #DataProcessing \

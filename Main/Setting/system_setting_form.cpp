@@ -27,6 +27,12 @@ System_Setting_Form::~System_Setting_Form()
 
 void System_Setting_Form::InitializationParameter(int channelNumber)
 {
+    ///
+    /// \brief loadAdapterMAC 加载本机网卡
+    ///
+    loadAdapterMAC();
+    ui->equiment_tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
     ui->tabWidget->setCurrentIndex(0);
 
     if (Parameter::DataChaneType==0){
@@ -78,6 +84,26 @@ void System_Setting_Form::InitializationParameter(int channelNumber)
     }
     ui->ChannelNumber->setValue(CS);
     ui->ChannelNumber->setMaximum(LocalPar::Channels);
+}
+
+void System_Setting_Form::loadAdapterMAC()
+{
+    QList<QNetworkInterface> adapterList = QNetworkInterface::allInterfaces();
+    foreach (QNetworkInterface adapter, adapterList) {
+        if(adapter.flags().testFlag(QNetworkInterface::IsUp)
+                        &&adapter.flags().testFlag(QNetworkInterface::IsRunning)
+                        &&adapter.flags().testFlag(QNetworkInterface::CanBroadcast)
+                        &&adapter.flags().testFlag(QNetworkInterface::CanMulticast)
+                        &&!adapter.flags().testFlag(QNetworkInterface::IsLoopBack))
+        {
+            QList<QNetworkAddressEntry> addressList = adapter.addressEntries();
+            foreach (QNetworkAddressEntry address, addressList) {
+                if(address.ip().protocol()==QAbstractSocket::IPv4Protocol){
+                    ui->adapter_comboBox->addItem(QString("[%1][%2]:%3").arg(address.ip().toString(),adapter.hardwareAddress(),adapter.humanReadableName()));
+                }
+            }
+        }
+    }
 }
 
 bool System_Setting_Form::loadParameter()
@@ -338,6 +364,29 @@ bool System_Setting_Form::writeParameterSlot()
         return false;
     }
     return true;
+}
+
+void System_Setting_Form::sendEquipmentParSlot(QMap<QString, QMap<QString, QString>> par)
+{
+    parMap=par;
+
+    QList<QString> keyList=par.keys().toSet().toList();
+
+    foreach (QString key, keyList) {
+        int row = ui->equiment_tableWidget->rowCount();
+        ui->equiment_tableWidget->insertRow(row);
+        ui->equiment_tableWidget->setItem(row,2,new QTableWidgetItem(key));
+
+        QList<QMap<QString,QString>> varList=  par.values(key);
+        foreach (auto var, varList) {
+            if(!var.value("NAME","").isEmpty()){
+                ui->equiment_tableWidget->setItem(row,0,new QTableWidgetItem(var.value("NAME")));
+            }
+            if(!var.value("IP","").isEmpty()){
+                ui->equiment_tableWidget->setItem(row,1,new QTableWidgetItem(var.value("IP")));
+            }
+        }
+    }
 }
 
 void System_Setting_Form::parameterToUi()
@@ -606,6 +655,68 @@ void System_Setting_Form::on_DataChaneType_combox_currentIndexChanged(int index)
         }
         else if (ui->Service_Type_comboBox->currentIndex()==1) {
             ui->Service_Type_stackedWidget->setCurrentIndex(3);
+        }
+    }
+}
+
+void System_Setting_Form::on_searchEquipment_pushButton_clicked()
+{
+    int row=ui->equiment_tableWidget->rowCount();
+    for (int ind=0;ind<row;ind++) {
+        ui->equiment_tableWidget->removeRow(0);
+    }
+
+    foreach (QLineEdit* obj, ui->groupBox_3->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
+        obj->setText("");
+        obj->clear();
+    }
+
+    ui->model_comboBox->setCurrentIndex(ui->model_comboBox->count()-1);
+
+    emit searchEquipmentSignal(ui->adapter_comboBox->currentText(),5000);
+}
+
+void System_Setting_Form::on_equiment_tableWidget_itemClicked(QTableWidgetItem *item)
+{
+    Q_UNUSED(item);
+
+    QList<QTableWidgetItem*> items=ui->equiment_tableWidget->selectedItems();
+    if(parMap.keys().size()>0){
+        QList<QString> keyList=parMap.keys().toSet().toList();
+
+        foreach (QString key, keyList) {
+            if(items.at(2)->text()==key){
+                QList<QMap<QString,QString>> varList=  parMap.values(key);
+                foreach (auto var, varList) {
+                    if(!var.value("IP","").isEmpty()){
+                        ui->address_lineEdit->setText(var.value("IP"));
+                    }
+                    if(!var.value("GATEWAY","").isEmpty()){
+                        ui->gateway_lineEdit->setText(var.value("GATEWAY"));
+                    }
+                    if(!var.value("MASK","").isEmpty()){
+                        ui->mask_lineEdit->setText(var.value("MASK"));
+                    }
+                    if(!var.value("PORT","").isEmpty()){
+                        ui->port_lineEdit->setText(var.value("PORT"));
+                    }
+                    if(!var.value("MODEL","").isEmpty()){
+                        ui->model_comboBox->setCurrentIndex(var.value("MODEL").toInt());
+                    }
+                    if(!var.value("DIP","").isEmpty()){
+                        ui->local_address_lineEdit->setText(var.value("DIP"));
+                    }
+                    if(!var.value("DPORT","").isEmpty()){
+                        ui->local_port_lineEdit->setText(var.value("DPORT"));
+                    }
+                    if(!var.value("WID","").isEmpty()){
+                        ui->id_lineEdit->setText(var.value("WID"));
+                    }
+                    if(!var.value("NAME","").isEmpty()){
+                        ui->name_lineEdit->setText(var.value("NAME"));
+                    }
+                }
+            }
         }
     }
 }

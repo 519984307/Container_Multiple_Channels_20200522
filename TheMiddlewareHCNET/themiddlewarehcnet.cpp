@@ -156,8 +156,8 @@ bool TheMiddlewareHCNET::initializationParameter()
             if(NET_DVR_SetExceptionCallBack_V30_L!=nullptr && NET_DVR_SetExceptionCallBack_V30_L(0,nullptr,TheMiddlewareHCNET::exceptionCallBack_V30,this)){
                 qDebug().noquote()<<QString("Set exception callback successful");
                 //NET_DVR_SetLogToFile_L(3, QString(".\\Log\\sdkLog").toLatin1().data(), true);
-                //NET_DVR_SetConnectTime_L(3000,-1);
-                //NET_DVR_SetReconnect_L(3000,0);
+                NET_DVR_SetConnectTime_L(3000,0);
+                NET_DVR_SetReconnect_L(3000,0);
                 NET_DVR_SetRecvTimeOut_L(1000);
             }
 
@@ -214,7 +214,7 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
             if(NET_DVR_CaptureJPEGPicture_NEW_L!=nullptr && NET_DVR_CaptureJPEGPicture_NEW_L(ID,1,&pJpegFile,imgBuff,charLen,dataLen)){
                 QByteArray arrayJpg(imgBuff,IMG_BYTE);
                 emit signal_pictureStream(ID,arrayJpg);
-                qDebug().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+                qDebug().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress));
                 arrayJpg.clear();
                 delete  dataLen;
                 dataLen=nullptr;
@@ -233,7 +233,7 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
             if(NET_DVR_ManualSnap_L!=nullptr && NET_DVR_ManualSnap_L(ID,&manualsnap,&result)){
                 QByteArray arrayJpg(imgBuff,IMG_BYTE);
                 emit signal_pictureStream(ID,arrayJpg);
-                qDebug().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+                qDebug().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress));
                 arrayJpg.clear();
             }
             else {
@@ -244,7 +244,7 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
     case 3:
         {
             if(NET_DVR_ContinuousShoot_L!=nullptr && NET_DVR_ContinuousShoot_L(ID,&snapcfg)){/* 网络触发抓拍 */
-                qDebug().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+                qDebug().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress));
             }
             else {
                 cap=false;
@@ -255,11 +255,11 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
         putID=ID;
         if(NET_DVR_RemoteControl_L !=nullptr && !NET_DVR_RemoteControl_L(ID,NET_DVR_CHECK_USER_STATUS,nullptr,4)){
             emit pThis->signal_pictureStream(ID,nullptr);/* 保证识别流程完成(识别流程需要完整图片编号) */
-            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
         }
         else {
-            qDebug().noquote()<<QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)<<":"<<playMap.value(putID)<<"[stream]|[camID]"<<putID;
-            qDebug().noquote()<<QString("IP=%1 Start Put Command ").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+            qDebug().noquote()<<QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress)<<":"<<playMap.value(ID)<<"[stream]|[camID]"<<ID;
+            qDebug().noquote()<<QString("IP=%1 Start Put Command ").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress));
         }
         break;
     }
@@ -268,7 +268,7 @@ void TheMiddlewareHCNET::simulationCaptureSlot(int ID)
         emit pThis->signal_pictureStream(ID,nullptr);/* 保证识别流程完成(识别流程需要完整图片编号) */
         //emit pictureStreamSignal(nullptr,imgNumber,imgTime);/* 保证识别流程完成(识别流程需要完整图片编号) */
         if(NET_DVR_GetLastError_L!=nullptr){
-            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
         }
     }
 }
@@ -301,16 +301,16 @@ void TheMiddlewareHCNET::openTheVideoSlot(int ID,bool play,quint64 winID)
         if(NET_DVR_RealPlay_V40_L !=nullptr){
             streamID =NET_DVR_RealPlay_V40_L(ID,&struPlayInfo,nullptr,nullptr);
             if(streamID==-1){
-                qWarning().noquote()<<QString("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+                qWarning().noquote()<<QString("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
             }
             else {
-                qDebug().noquote()<<QString("IP=%1 Open Stream Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+                qDebug().noquote()<<QString("IP=%1 Open Stream Sucess").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress));
             }
         }
     }
     else {
         if(NET_DVR_StopRealPlay_L !=nullptr && streamID!=-1 && NET_DVR_StopRealPlay_L(streamID)){
-            qDebug().noquote()<<QString("IP=%1 Stop Stream sSucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+            qDebug().noquote()<<QString("IP=%1 Stop Stream sSucess").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress));
 
         }
     }
@@ -323,7 +323,7 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
         pTimerState->stop();
         qDebug().noquote()<<QString("HCNET Stop automatic reconnection");
     }
-    foreach ( auto handID, alarmInfoMap.keys()) {
+    foreach ( auto handID, alarmInfoMap.values()) {
         if(NET_DVR_CloseAlarmChan_V30_L!=nullptr){
             NET_DVR_CloseAlarmChan_V30_L(handID);
             qDebug().noquote()<<QString("NET_DVR_CloseAlarmChan_V30_L");
@@ -351,7 +351,7 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
         }
     }
 
-    foreach ( auto userID, logInfoMap.keys()) {
+    foreach ( auto userID, logInfoMap.values()) {
         if(NET_DVR_Logout_L !=nullptr){
             NET_DVR_Logout_L(userID);
             qDebug().noquote()<<QString("NET_DVR_Logout_L");
@@ -566,10 +566,10 @@ void TheMiddlewareHCNET::yv12ToRGB888(int ID,int width,int height,unsigned char*
 
     if ((width < 1) || (height < 1) || (yv12 == nullptr) || (rgb888 == nullptr)) {
         emit signal_pictureStream(ID,nullptr);
-        qWarning().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+        qWarning().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress));
 
         if(PlayM4_GetLastError_L!=nullptr){
-            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(PlayM4_GetLastError_L(nPort));
+            qWarning().noquote()<<QString("IP=%1 Put Command Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress)).arg(PlayM4_GetLastError_L(nPort));
         }
         return;
     }
@@ -616,7 +616,7 @@ void TheMiddlewareHCNET::yv12ToRGB888(int ID,int width,int height,unsigned char*
     image->save(buffer.data(),"JPG",100);
     buffer->close();
     signal_pictureStream(ID,arrayJpg);
-    qDebug().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+    qDebug().noquote()<<QString("IP=%1 Put Command Sucess").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress));
     arrayJpg.clear();
 }
 
@@ -696,15 +696,17 @@ void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG 
     Q_UNUSED(dwType);
     Q_UNUSED(lHandle);
 
-    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logMap.value(lUserID,nullptr);
+    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logInfoMap.key(lUserID,nullptr);
 
     if(nullptr!=LoginInfo && pThis->NET_DVR_GetLastError_L()>0){
         emit pThis->equipmentStateSignal(lUserID,false);
-        pThis->logInfoMap.remove(lUserID);
-        //pThis->logMap.remove(lUserID);
+        //pThis->logInfoMap.remove(LoginInfo);
+        //pThis->logMap.remove(LoginInfo);
         if(-1 ==pThis->logfalList.indexOf(LoginInfo)){
             pThis->logfalList.append(LoginInfo);
         }
+
+        //pThis->logfalList.append(LoginInfo);
 
         qWarning().noquote()<<QString("IP=%1 Camrea Exception<errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(QString::number(pThis->NET_DVR_GetLastError_L()));
     }
@@ -717,13 +719,12 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
     LPNET_DVR_USER_LOGIN_INFO LoginInfo=reinterpret_cast<LPNET_DVR_USER_LOGIN_INFO>(pUser);
     qDebug()<<"lUserID:"<<lUserID<<LoginInfo->sDeviceAddress;
 
-    pThis->logMap.insert(lUserID,LoginInfo);/* 异步登录异常判断使用 */
-
+    pThis->logMap.insert(LoginInfo,lUserID);/* 异步登录异常判断使用 */
     /*****************************
     * @brief:异步登录
     ******************************/
-    if(1==dwResult){        
-        pThis->logInfoMap.insert(lUserID,LoginInfo);
+    if(1==dwResult){
+        pThis->logInfoMap.insert(LoginInfo,lUserID);
         emit pThis->signal_setCameraID(lUserID,LoginInfo->sDeviceAddress);
         emit pThis->equipmentStateSignal(lUserID,true);
 
@@ -760,9 +761,13 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
         }
     }
     else {
+        //pThis->logInfoMap.remove(LoginInfo);
+
         if(-1 ==pThis->logfalList.indexOf(LoginInfo) /*&& -1 == pThis->logInfoMap.key(LoginInfo,-1)*/){
             pThis->logfalList.append(LoginInfo);
         }
+        //pThis->logfalList.append(LoginInfo);
+
         if(pThis->NET_DVR_GetLastError_L!=nullptr){
             qWarning().noquote()<<QString("IP=%1 Login failed <errorCode=%2>").arg(LoginInfo->sDeviceAddress).arg(pThis->NET_DVR_GetLastError_L());
         }
@@ -785,59 +790,42 @@ void TheMiddlewareHCNET::initVideoStream(int ID, bool play)
         if(NET_DVR_RealPlay_V40_L !=nullptr){
             long stream =NET_DVR_RealPlay_V40_L(ID,&struPlayInfo,g_RealDataCallBack_V30,nullptr);
             if(stream==-1){
-                qWarning().noquote()<<QString("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
+                qWarning().noquote()<<QString("IP=%1 Open Stream Error<errorCode=%2>").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress)).arg(NET_DVR_GetLastError_L());
             }
             else {
                 playMap.insert(ID,stream);
-                qDebug().noquote()<<QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)<<":"<<stream<<"[stream]|[camerID]"<<ID;
-                qDebug().noquote()<<QString("IP=%1 Open Stream Sucess <Code=%2>").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress)).arg(QString::number(stream));
+                qDebug().noquote()<<QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress)<<":"<<stream<<"[stream]|[camerID]"<<ID;
+                qDebug().noquote()<<QString("IP=%1 Open Stream Sucess <Code=%2>").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress)).arg(QString::number(stream));
             }
         }
     }
     else {
         long stream=playMap.value(ID);
         if(NET_DVR_StopRealPlay_L !=nullptr && stream!=-1 && NET_DVR_StopRealPlay_L(stream)){
-            qDebug().noquote()<<QString("IP=%1 Stop Stream sSucess").arg(QString::fromLocal8Bit(logInfoMap.value(ID)->sDeviceAddress));
+            qDebug().noquote()<<QString("IP=%1 Stop Stream sSucess").arg(QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress));
         }
     }
 }
 
 void TheMiddlewareHCNET::getDeviceStatusSlot()
 {
-    foreach (auto id,logInfoMap.keys()){
+    foreach (auto id,logInfoMap.values()){
         if(NET_DVR_RemoteControl_L !=nullptr && NET_DVR_RemoteControl_L(id,NET_DVR_CHECK_USER_STATUS,nullptr,4)){
             emit equipmentStateSignal(id,true);
         }
         else {
             emit equipmentStateSignal(id,false);
 
-            if(-1 ==logfalList.indexOf(logInfoMap.value(id)) /*&& -1 == pThis->logInfoMap.key(LoginInfo,-1)*/){
-                logfalList.append(logInfoMap.value(id));
+            if(-1 ==logfalList.indexOf(logInfoMap.key(id)) /*&& -1 == pThis->logInfoMap.key(LoginInfo,-1)*/){
+                logfalList.append(logInfoMap.key(id));
             }
 
-            /* 释放播放库资源 */
-            if(nullptr!=PlayM4_Stop_L){
-                PlayM4_Stop_L(playMap.value(id));
-            }
-            if(nullptr!=PlayM4_CloseStream_L){
-                PlayM4_CloseStream_L(playMap.value(id));
-            }
-            if(nullptr!=PlayM4_FreePort_L){
-                PlayM4_FreePort_L(playMap.value(id));
+//            logfalList.append(logInfoMap.key(id));
+
+            if(nullptr!=NET_DVR_StopRealPlay_L){
+                NET_DVR_StopRealPlay_L(playMap.value(id));
             }
 
-            logInfoMap.remove(id);
-            playMap.remove(id);
-
-//            if(NET_DVR_Logout_L !=nullptr){
-//                NET_DVR_Logout_L(id);
-//            }
-        }
-//        else {
-//            logfalList.append(logInfoMap[id]);
-//            logInfoMap.remove(id);
-
-//            emit equipmentStateSignal(id,false);
 //            /* 释放播放库资源 */
 //            if(nullptr!=PlayM4_Stop_L){
 //                PlayM4_Stop_L(playMap.value(id));
@@ -848,18 +836,29 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
 //            if(nullptr!=PlayM4_FreePort_L){
 //                PlayM4_FreePort_L(playMap.value(id));
 //            }
-//            if(NET_DVR_Logout_L !=nullptr){
-//                NET_DVR_Logout_L(id);
-//            }
+
+            //logInfoMap.remove(id);
 //            playMap.remove(id);
-//        }
+
+            if(NET_DVR_Logout_L !=nullptr){
+                NET_DVR_Logout_L(id);
+            }
+
+//            if(-1 != logfalList.indexOf(logInfoMap.key(id))){
+//                logInfoMap.remove(logInfoMap.key(id));
+//            }
+        }
     }
 
-    //qDebug()<<logfalList.size();
 
+
+    //logfalList=logfalList.toSet().toList();
     for(int var=0;var<logfalList.size();++var){
-
-        if(nullptr != pThis->NET_DVR_Logout_L && pThis-> NET_DVR_Logout_L(logMap.key(logfalList.at(var)))){
+        int id=logInfoMap.value(logfalList.at(var),-1);
+        if(-1==id){
+            id=logMap.value(logfalList.at(var),-1);
+        }
+        if(nullptr != pThis->NET_DVR_Logout_L && id!=-1 && pThis-> NET_DVR_Logout_L(id)){
             qDebug().noquote()<<QString("IP=%1 Logout").arg(logfalList.at(var)->sDeviceAddress);
 //            int id = logMap.key(logfalList.at(var));
 //            logMap.remove(id);

@@ -1,17 +1,16 @@
-QT += gui concurrent
+QT -= gui
+QT += network
+QT += concurrent
 
 TEMPLATE = lib
-DEFINES += THEMIDDLEWAREHCNET_LIBRARY
-
-CONFIG += plugin
-
-TARGET = plug-in_HCNET
-
-CONFIG += skip_target_version_ext
-VERSION = 2.4.5.1
-QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
+DEFINES += NETWORKCONTROLLER_LIBRARY
 
 CONFIG += c++11
+TARGET = NetworkController
+
+CONFIG += skip_target_version_ext
+VERSION = 0.0.0.1
+QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -25,14 +24,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    themiddlewarehcnet.cpp
+    networkcontroller.cpp
 
 HEADERS += \
-    HCNetSDK.h \
-    IMiddleware.h \
-    TheMiddlewareHCNET_global.h \
-    plaympeg4.h \
-    themiddlewarehcnet.h
+    NetworkController_global.h \
+    networkcontroller.h
 
 # Default rules for deployment.
 unix {
@@ -49,8 +45,4 @@ unix:TARGET=$$join(TARGET,,,_release)
 win32:TARGET=$$join(TARGET,,Cc1_,)
 }
 
-DESTDIR += ../MainUI/Plugins
-
-
-#2021/05/30 12:21 V:2.4.3.18
-#修复现有BUG
+#DESTDIR+=../MainUI/Plugins
