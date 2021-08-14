@@ -61,6 +61,7 @@ QString NetworkController::loadAdapterMAC(QString addr)
 void NetworkController::searchEquipmentSlot(QString address, int port)
 {
     searchType=1;
+    setParState=0;
 
     equimentMacList.clear();
     equimentParMap.clear();
@@ -124,14 +125,24 @@ void NetworkController::udpReceiveDataSlot()
     while (pUdpClient->hasPendingDatagrams()) {
         QByteArray datagram;
         datagram.resize(pUdpClient->pendingDatagramSize());
-        pUdpClient->readDatagram(datagram.data(), datagram.size(),&loopBackIP);
+        pUdpClient->readDatagram(datagram.data(), datagram.size()/*,&loopBackIP*/);
 
         if(-1 == datagram.indexOf("<00:00:00:00:00:00>")){
             if(1 == searchType){
                 analyticalData(datagram);
             }
-            if(2 == searchType){
+            if(2 == searchType && -1 == datagram.indexOf('?')){
                 QtConcurrent::run(this,&NetworkController::processDataSlot,datagram);
+            }
+            if(3 == searchType && -1 != datagram.indexOf("OK")){
+                setParState++;
+                /*****************************
+                * @brief:6为设置心跳包和注册包
+                ******************************/
+                if(setParState==15){
+                    emit setParSucessSignal();
+                    setParState=0;
+                }
             }
         }
     }
@@ -147,89 +158,231 @@ void NetworkController::analyticalData(QByteArray data)
         equimentMacList.append(data.split(',')[0]);
     }
 
-    pTimerProcessData->start(1500);
+    pTimerProcessData->start(1000);
 }
 
-void NetworkController::setEquipmentParSlot(QString par)
+void NetworkController::setEquipmentParSlot(QMap<QString, QMap<QString,QString>> par)
 {
-
+    QtConcurrent::run(this,&NetworkController::processEquimentDataSlot,par,2);
 }
 
 void NetworkController::processDataSlot(QByteArray par)
 {
     int sPos=par.indexOf('+');
     int ePos=par.lastIndexOf(':');
+    QString key=par.split(',')[0];
     QMap<QString,QString> parMap;
     parMap.insert(par.mid(sPos+1,ePos-sPos-1),par.mid(ePos+1).trimmed());
-    equimentParMap.insertMulti(par.split(',')[0],parMap);
+    equimentParMap.insertMulti(key,parMap);
     parMap.clear();
 
-    qDebug()<<equimentParMap.values(par.split(',')[0]).size();
-    if(equimentParMap.values(par.split(',')[0]).size()==9){
-        emit sendEquipmentParSignal(equimentParMap);
+    qDebug()<<"processDataSlot"<<par.mid(sPos+1,ePos-sPos-1)<<"|"<<par.mid(ePos+1).trimmed();
+
+    if(equimentParMap.keys().toSet().toList().size()==equimentMacList.size()){
+        if(equimentParMap.values(key).size()==9){
+            emit sendEquipmentParSignal(equimentParMap);
+        }
     }
 }
 
 void NetworkController::timerProcessSlot()
 {
-    QtConcurrent::run(this,&NetworkController::processEquimentDataSlot);
+    QtConcurrent::run(this,&NetworkController::processEquimentDataSlot,equimentParMap, 1);
 }
 
-void NetworkController::processEquimentDataSlot()
+void NetworkController::processEquimentDataSlot(QMap<QString, QMap<QString, QString>> par, int type)
 {
-    this->searchType=2;
-    foreach (QString mac, equimentMacList) {
-        QString cmd=QString("%1,<%2>,AT+IP=?%3").arg(mac,localMAC,eol);
-        if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
-            qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
-        }
+    /*****************************
+    * @brief:读取参数
+    ******************************/
+    if(1==type){
+        this->searchType=2;
+        foreach (QString mac, equimentMacList) {
 
-        QThread::msleep(10);
-        cmd=QString("%1,<%2>,AT+GATEWAY=?%3").arg(mac,localMAC,eol);
-        if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
-            qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
-        }
+            QThread::msleep(10);
+            QString cmd=QString("%1,<%2>,AT+IP=?%3").arg(mac,localMAC,eol);
+            if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+            }
 
-        QThread::msleep(10);
-        cmd=QString("%1,<%2>,AT+MASK=?%3").arg(mac,localMAC,eol);
-        if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
-            qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
-        }
+            QThread::msleep(10);
+            cmd=QString("%1,<%2>,AT+GATEWAY=?%3").arg(mac,localMAC,eol);
+            if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+            }
 
-        QThread::msleep(10);
-        cmd=QString("%1,<%2>,AT+PORT=?%3").arg(mac,localMAC,eol);
-        if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
-            qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
-        }
+            QThread::msleep(10);
+            cmd=QString("%1,<%2>,AT+MASK=?%3").arg(mac,localMAC,eol);
+            if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+            }
 
-        QThread::msleep(10);
-        cmd=QString("%1,<%2>,AT+MODEL=?%3").arg(mac,localMAC,eol);
-        if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
-            qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
-        }
+            QThread::msleep(10);
+            cmd=QString("%1,<%2>,AT+PORT=?%3").arg(mac,localMAC,eol);
+            if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+            }
 
-        QThread::msleep(10);
-        cmd=QString("%1,<%2>,AT+DIP=?%3").arg(mac,localMAC,eol);
-        if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
-            qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
-        }
+            QThread::msleep(10);
+            cmd=QString("%1,<%2>,AT+MODEL=?%3").arg(mac,localMAC,eol);
+            if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+            }
 
-        QThread::msleep(10);
-        cmd=QString("%1,<%2>,AT+DPORT=?%3").arg(mac,localMAC,eol);
-        if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
-            qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
-        }
+            QThread::msleep(10);
+            cmd=QString("%1,<%2>,AT+DIP=?%3").arg(mac,localMAC,eol);
+            if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+            }
 
-        QThread::msleep(10);
-        cmd=QString("%1,<%2>,AT+WID=?%3").arg(mac,localMAC,eol);
-        if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
-            qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
-        }
+            QThread::msleep(10);
+            cmd=QString("%1,<%2>,AT+DPORT=?%3").arg(mac,localMAC,eol);
+            if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+            }
 
-        QThread::msleep(10);
-        cmd=QString("%1,<%2>,AT+NAME=?%3").arg(mac,localMAC,eol);
-        if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
-            qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+            QThread::msleep(10);
+            cmd=QString("%1,<%2>,AT+WID=?%3").arg(mac,localMAC,eol);
+            if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+            }
+
+            QThread::msleep(10);
+            cmd=QString("%1,<%2>,AT+NAME=?%3").arg(mac,localMAC,eol);
+            if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+            }
+        }
+    }
+    /*****************************
+    * @brief:设置参数
+    ******************************/
+    if(2==type){
+        this->searchType=3;
+        if(par.keys().size()==1){
+            foreach (QString key, par.keys()) {
+                QMap<QString,QString> var=par.value(key);
+                if(!var.value("IP","").isEmpty()){
+                    QString cmd=QString("%1,<%2>,AT+IP=%3%4").arg(key,localMAC,var.value("IP"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+                }
+
+                if(!var.value("GATEWAY","").isEmpty()){
+                    QThread::msleep(10);
+                    QString cmd=QString("%1,<%2>,AT+GATEWAY=%3%4").arg(key,localMAC,var.value("GATEWAY"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+                }
+
+                if(!var.value("MASK","").isEmpty()){
+                    QThread::msleep(10);
+                    QString cmd=QString("%1,<%2>,AT+MASK=%3%4").arg(key,localMAC,var.value("MASK"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+                }
+
+                if(!var.value("PORT","").isEmpty()){
+                    QThread::msleep(10);
+                    QString cmd=QString("%1,<%2>,AT+PORT=%3%4").arg(key,localMAC,var.value("PORT"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+                }
+
+                if(!var.value("MODEL","").isEmpty()){
+                    QThread::msleep(10);
+                    QString cmd=QString("%1,<%2>,AT+MODEL=%3%4").arg(key,localMAC,var.value("MODEL"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+                }
+
+                if(!var.value("DIP","").isEmpty()){
+                    QThread::msleep(10);
+                    QString cmd=QString("%1,<%2>,AT+DIP=%3%4").arg(key,localMAC,var.value("DIP"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+                }
+
+                if(!var.value("DPORT","").isEmpty()){
+                    QThread::msleep(10);
+                    QString cmd=QString("%1,<%2>,AT+DPORT=%3%4").arg(key,localMAC,var.value("DPORT"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+                }
+
+                if(!var.value("WID","").isEmpty()){
+                    QThread::msleep(10);
+                    QString cmd=QString("%1,<%2>,AT+WID=%3%4").arg(key,localMAC,var.value("WID"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+                }
+
+                if(!var.value("NAME","").isEmpty()){
+                    QThread::msleep(10);
+                    QString cmd=QString("%1,<%2>,AT+NAME=%3%4").arg(key,localMAC,var.value("NAME"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+
+                    QThread::msleep(10);
+                    /*****************************
+                    * @brief:设置网络注册包
+                    ******************************/
+                    cmd=QString("%1,<%2>,AT+USRREG=%3%4").arg(key,localMAC,QString("CC_ZBY"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+
+                    QThread::msleep(10);
+                    cmd=QString("%1,<%2>,AT+TCPREG=%3%4").arg(key,localMAC,QString("3"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+
+                    QThread::msleep(10);
+                    /*****************************
+                    * @brief:设置心跳包
+                    ******************************/
+                    cmd=QString("%1,<%2>,AT+THEARTDT=%3%4").arg(key,localMAC,QString("[H]"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+
+                    QThread::msleep(10);
+                    cmd=QString("%1,<%2>,AT+HEART=%3%4").arg(key,localMAC,QString("2,9,5,5"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+
+                    QThread::msleep(10);
+                    /*****************************
+                    * @brief:输出继电器主动上传
+                    ******************************/
+                    cmd=QString("%1,<%2>,AT+KPUPLOAD=%3%4").arg(key,localMAC,QString("1"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+
+                    QThread::msleep(10);
+                    /*****************************
+                    * @brief:输入继电器主动上传
+                    ******************************/
+                    cmd=QString("%1,<%2>,AT+OCMOD=%3%4").arg(key,localMAC,QString("2,0"),eol);
+                    if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
+                        qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
+                    }
+                }
+                var.clear();
+            }            
+            par.clear();
         }
     }
 }

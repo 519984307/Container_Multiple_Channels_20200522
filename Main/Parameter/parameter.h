@@ -63,6 +63,11 @@ namespace Parameter {
     ///
     extern int PlateType;
 
+    ///
+    /// \brief interfaceModel 信号接口模式
+    ///
+    extern int interfaceModel;
+
     /*****************************
     * @brief:Upload
     ******************************/

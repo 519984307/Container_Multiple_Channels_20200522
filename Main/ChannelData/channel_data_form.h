@@ -152,6 +152,11 @@ private:
     bool simulationPlateStatus;
 
     ///
+    /// \brief Dout 网络控制器输出参数
+    ///
+    QList<int> Dout;
+
+    ///
     /// \brief plateStream 车牌图片流
     ///
     QMap<int,QByteArray> plateStream;
@@ -314,9 +319,12 @@ signals:
     /// \brief signal_startSlave 初始化串口
     /// \param portName1 串口1
     /// \param portName2 串口2
+    /// \param address 地址
+    /// \param port 端口
+    /// \param model 模式
     /// \param channelNum 通道号
     ///
-    void signal_startSlave(const QString &portName1, const QString &portName2,int channelNum);
+    void signal_startSlave(const QString &portName1, const QString &portName2,const QString &address,int port,int model, int channelNum);
 
     ///
     /// \brief signal_simulateTrigger 模拟触发
@@ -332,8 +340,16 @@ signals:
     ///
     /// \brief signal_setAlarmMode 设置红外模式
     /// \param mode 模式(敞开|常闭)
+    /// \param logicType 红外接口模式
     ///
-    void signal_setAlarmMode(bool model);
+    void signal_setAlarmMode(bool model,int logicType);
+
+    ///
+    /// \brief signal_DTypeOut 网络控制器输出
+    /// \param type 输出类型
+    /// \param lifting 抬杆类型
+    ///
+    void signal_DTypeOut(QList<int> type,int lifting);
 
 
     /*****************************
@@ -516,6 +532,10 @@ public slots:
     ///
     void slot_setSimulationStatus(bool con,bool plate);
 
+    ///
+    /// \brief slot_lifting 抬杆信号
+    ///
+    void slot_lifting();
 
     /*****************************
     * @brief:箱号相机
@@ -566,8 +586,9 @@ public slots:
     /// \brief slot_serialPortState 串口状态
     /// \param com1
     /// \param com2
+    /// \param socket 状态
     ///
-    void slot_serialPortState(bool com1,bool com2);
+    void slot_serialPortState(bool com1,bool com2,bool socketState);
 
 
     /*****************************

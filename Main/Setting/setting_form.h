@@ -77,12 +77,6 @@ private slots:
     void on_system_pushButton_clicked();
 
     ///
-    /// \brief on_listWidget_currentRowChanged 通道切换
-    /// \param currentRow
-    ///
-    void on_listWidget_currentRowChanged(int currentRow);
-
-    ///
     /// \brief on_buttonBox_clicked 保存设定
     /// \param button
     ///
@@ -100,6 +94,18 @@ private slots:
     /// \param rowLabels
     ///
     void initializesTheDeviceTemporaryTableSlot(int count, QStringList rowLabels);
+
+    ///
+    /// \brief on_channel_listWidget_currentRowChanged 通道切换
+    /// \param currentRow
+    ///
+    void on_channel_listWidget_currentRowChanged(int currentRow);
+
+    ///
+    /// \brief on_system_listWidget_currentRowChanged 系统设置列表
+    /// \param currentRow
+    ///
+    void on_system_listWidget_currentRowChanged(int currentRow);
 
 signals:
 
@@ -120,13 +126,24 @@ signals:
     /// \brief setEquipmentParSignal 设置网络控制器参数
     /// \param par
     ///
-    void setEquipmentParSignal(QString par);
+    void setEquipmentParSignal(QMap<QString,QMap<QString,QString>> par);
 
     ///
     /// \brief sendEquipmentParSignal 发送搜索的网络控制器参数
     /// \param par
     ///
     void sendEquipmentParSignal(QMap<QString,QMap<QString,QString>> par);
+
+    ///
+    /// \brief setParSucessSignal 参数设置成功信号
+    ///
+    void setParSucessSignal();
+
+    ///
+    /// \brief systemCurrentRowChangedSignal 系统设置页面
+    /// \param currentRow
+    ///
+    void systemCurrentRowChangedSignal(int currentRow);
 
 private:
 
@@ -135,7 +152,6 @@ private:
      ******************************/
 
     Ui::Setting_Form *ui;
-
 
     /*****************************
     * attribute
@@ -150,6 +166,16 @@ private:
     /// \brief automatic 开机启动状态
     ///
     bool automatic;
+
+    ///
+    /// \brief channelSelect 通道设置选中行
+    ///
+    int channelListSelect;
+
+    ///
+    /// \brief systemListSelect 系统设置选中行
+    ///
+    int systemListSelect;
 };
 
 #endif // SETTING_FORM_H

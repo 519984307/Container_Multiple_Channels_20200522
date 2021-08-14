@@ -1,4 +1,4 @@
-#include "tcpclient.h"
+﻿#include "tcpclient.h"
 
 TcpClient::TcpClient(QObject *parent):QTcpSocket(parent)
 {
@@ -21,6 +21,12 @@ void TcpClient::receiveDataSlot()
                     emit getLastResultSignal(this->socketDescriptor());
                 }
             }
+        }
+        /*****************************
+        * @brief:收到抬杆信息
+        ******************************/
+        if(tmp.count()==1 && buf=="[+LF]"){
+            emit signal_lifting();
         }
     }
     buf.clear();

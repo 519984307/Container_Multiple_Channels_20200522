@@ -127,6 +127,11 @@ public:
     QString SerialAddrTow;
 
     ///
+    /// \brief interfaceModel 信号接口模式
+    ///
+    int interfaceModel;
+
+    ///
     /// \brief SerialPortTow 串口2
     ///
     int SerialPortTow;
@@ -145,6 +150,41 @@ public:
     /// \brief infraredStatus 红外状态
     ///
     int infraredStatus;
+
+    ///
+    /// \brief controllerAddr 网络控制器地址
+    ///
+    QString controllerAddr;
+
+    ///
+    /// \brief controllerPort 网络控制器端口
+    ///
+    int controllerPort;
+
+    ///
+    /// \brief D1out 网络控制器输出端口
+    ///
+    int D1out;
+
+    ///
+    /// \brief D2out 网络控制器输出端口
+    ///
+    int D2out;
+
+    ///
+    /// \brief D3out 网络控制器输出端口
+    ///
+    int D3out;
+
+    ///
+    /// \brief D4out 网络控制器输出端口
+    ///
+    int D4out;
+
+    ///
+    /// \brief lifthingType 抬杆类型
+    ///
+    int lifthingType;
 };
 
 #endif // CHANNELPARAMETER_H

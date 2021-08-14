@@ -701,10 +701,39 @@ void Channel_Data_Form::slot_initEquipment()
     }    
 
     /*****************************
-    * @brief:红外
+    * @brief:红外(常开|常闭,标准|南京三宝)
     ******************************/
-    emit signal_setAlarmMode(para->infraredStatus);
-    emit signal_startSlave(QString("COM%1").arg(para->SerialPortOne),QString("COM%1").arg(para->SerialPortTow),para->Channel_number);
+    emit signal_setAlarmMode(para->infraredStatus,Parameter::LogicType);
+
+    /*****************************
+    * @brief:初始化网络控制器输出参数
+    ******************************/
+    Dout<<para->D1out<<para->D2out<<para->D3out<<para->D4out;
+    emit signal_DTypeOut(Dout,-1);
+
+    /*****************************
+    * @brief:红外信号
+    ******************************/
+    switch (para->ControllerSignalMode) {
+    case 0:
+        /*****************************
+        * @brief:串口模式
+        ******************************/
+        emit signal_startSlave(QString("COM%1").arg(para->SerialPortOne),QString("COM%1").arg(para->SerialPortTow),QString(""),-1,para->interfaceModel,para->Channel_number);
+        break;
+    case 1:
+        /*****************************
+        * @brief:moxa socket 客户端模式需要开启两个服务，分别接收两个串口数据
+        ******************************/
+        //emit signal_startSlave(QString(""),QString(""),QString(""),-1,-1,para->Channel_number);
+        break;
+    case 2:
+        /*****************************
+        * @brief:网络控制器
+        ******************************/
+        emit signal_startSlave(QString(""),QString(""),para->controllerAddr,para->controllerPort,para->interfaceModel,para->Channel_number);
+        break;
+    }
 
     /*****************************
     * @brief:数据库插入
@@ -801,6 +830,13 @@ void Channel_Data_Form::slot_setSimulationStatus(bool con, bool plate)
 {
     simulationConStatus=con;
     simulationPlateStatus=plate;
+}
+
+void Channel_Data_Form::slot_lifting()
+{
+    if(para->lifthingType==2){
+        emit signal_DTypeOut(Dout,2);
+    }
 }
 
 void Channel_Data_Form::slot_bindingCameraID(QString cameraAddr, int ID)
@@ -936,7 +972,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
     }
 }
 
-void Channel_Data_Form::slot_serialPortState(bool com1, bool com2)
+void Channel_Data_Form::slot_serialPortState(bool com1, bool com2, bool socketState)
 {
     if(com1){
         ui->serial1checkBox->setStyleSheet("color: rgb(0, 211, 0);");
@@ -950,11 +986,20 @@ void Channel_Data_Form::slot_serialPortState(bool com1, bool com2)
     else {
         ui->serial2checkBox->setStyleSheet("color: rgb(211, 0, 0);");
     }
+    if(socketState){
+        ui->iocheckBox->setStyleSheet("color: rgb(0, 211, 0);");
+    }
+    else {
+       ui->iocheckBox->setStyleSheet("color: rgb(211, 0, 0);");
+    }
+
     ui->serial1checkBox->setChecked(com1);
     ui->serial2checkBox->setChecked(com2);
+    ui->iocheckBox->setChecked(socketState);
 
     emit signal_setDeviceStatus(channelID,LocalPar::Serial1,com1);
     emit signal_setDeviceStatus(channelID,LocalPar::Serial2,com2);
+    emit signal_setDeviceStatus(channelID,LocalPar::IO,socketState);
 }
 
 void Channel_Data_Form::slot_recognitionResult(const QString &result, const QString &imgName, const int &imgNumber)
@@ -1031,6 +1076,18 @@ void Channel_Data_Form::slot_container(const int &type, const QString &result1, 
         break;
     }
     ui->box_type_lineEdit->setText(logic);
+
+    if(0 ==  para->lifthingType){
+        emit signal_DTypeOut(Dout,1);
+    }
+    else if (1 == para->lifthingType) {
+        if(2 == type && resultCheck1 && resultCheck2){
+            emit signal_DTypeOut(Dout,1);
+        }
+        if(type <2 && resultCheck1){
+            emit signal_DTypeOut(Dout,1);
+        }
+    }
 }
 
 void Channel_Data_Form::slot_imageFlow(const QByteArray &jpgStream)

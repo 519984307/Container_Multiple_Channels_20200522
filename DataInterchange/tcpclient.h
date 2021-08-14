@@ -32,6 +32,11 @@ signals:
     ///
     void setClientChannelNumberSignal(int channel_number,qintptr socktID);
 
+    ///
+    /// \brief signal_lifting 抬杆信号
+    ///
+    void signal_lifting();
+
 public slots:
 
     ///

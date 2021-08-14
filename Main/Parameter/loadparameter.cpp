@@ -65,7 +65,9 @@ bool LoadParameter::loadSysParameter()
                     Parameter::Camera_Load_Plugin=getJsonValue("Model","Camera_Load_Plugin",value.toObject()).toInt();
                     Parameter::HCNET_Capture_Type=getJsonValue("Model","HCNET_Capture_Type",value.toObject()).toInt();
                     Parameter::LogicType=getJsonValue("Model","LogicType",value.toObject()).toInt();
-                    Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();                    
+                    Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();
+                    Parameter::interfaceModel=getJsonValue("Model","interfaceModel",value.toObject()).toInt();
+
 
                     /*****************************
                     * @brief:Upload
@@ -209,6 +211,14 @@ void LoadParameter::loadChannelParameter(int Channels)
                         p_ChannelParameter->ControllerSignalMode= getJsonValue("SerialPort","ControllerSignalMode",value.toObject()).toInt();
                         p_ChannelParameter->SerialPortTow= getJsonValue("SerialPort","SerialPortTow",value.toObject()).toInt();
                         p_ChannelParameter->SerialPortOne= getJsonValue("SerialPort","SerialPortOne",value.toObject()).toInt();
+                        p_ChannelParameter->controllerAddr= getJsonValue("SerialPort","controllerAddr",value.toObject()).toString();
+                        p_ChannelParameter->controllerPort= getJsonValue("SerialPort","controllerPort",value.toObject()).toInt();
+                        p_ChannelParameter->D1out= getJsonValue("SerialPort","D1out",value.toObject()).toInt();
+                        p_ChannelParameter->D2out= getJsonValue("SerialPort","D2out",value.toObject()).toInt();
+                        p_ChannelParameter->D3out= getJsonValue("SerialPort","D3out",value.toObject()).toInt();
+                        p_ChannelParameter->D4out= getJsonValue("SerialPort","D4out",value.toObject()).toInt();
+                        p_ChannelParameter->interfaceModel= getJsonValue("SerialPort","interfaceModel",value.toObject()).toInt();
+                        p_ChannelParameter->lifthingType= getJsonValue("SerialPort","lifthingType",value.toObject()).toInt();
 
                         p_ChannelParameter=nullptr;
                         configurationFolder.close();

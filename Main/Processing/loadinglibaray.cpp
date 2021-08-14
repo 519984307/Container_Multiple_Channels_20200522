@@ -112,14 +112,14 @@ void LoadingLibaray::slot_createLibaray()
                 pIMiddleware=nullptr;
             }
             else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
-                if(0==Parameter::LogicType){
-                    if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */
+                if(0==Parameter::interfaceModel){
+                    if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 串口信号接收器 */
                         pluginsNum=channelCount;
                         loadMisarrangement(pluginName,"Protector");
                     }
                 }
-                if(1==Parameter::LogicType){
-                    if("Protector_NJSB" == pInfraredlogicInterface->InterfaceType()){/* 电泳保护器 */
+                if(2==Parameter::interfaceModel){
+                    if("Protector_IO" == pInfraredlogicInterface->InterfaceType()){/* 网络控制器 */
                         pluginsNum=channelCount;
                         loadMisarrangement(pluginName,"Protector");
                     }

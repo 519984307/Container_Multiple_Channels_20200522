@@ -234,7 +234,8 @@ void MainWindow::getScreenInfo()
 }
 
 void MainWindow::initializingObject()
-{
+{    
+    qRegisterMetaType<QList<int>>("QList<int>");
     qRegisterMetaType<QtMsgType>("QtMsgType");
     qRegisterMetaType<QMap<QString,QString>>("QMap<QString,QString>");
     qRegisterMetaType<QMap<QString,QString>>("QMap<QString,QMap<QString,QString>>");
@@ -574,6 +575,11 @@ void MainWindow::on_actionParameter_Settings_triggered()
     connect(p_NetworkController,&NetworkController::sendEquipmentParSignal,p_Setting_Form,&Setting_Form::sendEquipmentParSignal);
 
     /*****************************
+    * @brief:设置网络控制器参数成功
+    ******************************/
+    connect(p_NetworkController,&NetworkController::setParSucessSignal,p_Setting_Form,&Setting_Form::setParSucessSignal);
+
+    /*****************************
     * @brief:加载网络控制器参数
     ******************************/
     connect(p_Setting_Form,&Setting_Form::setEquipmentParSignal,p_NetworkController,&NetworkController::setEquipmentParSlot);
@@ -820,8 +826,9 @@ void MainWindow::bindingPlugin()
             connect(pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::serialPortStateSignal,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_serialPortState);
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_simulateTrigger,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::simulateTriggerSlot);
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_setAlarmMode,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::setAlarmModeSlot);
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_DTypeOut,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::DTypeOutSlot);
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_startSlave,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::startSlaveSlot);
-            connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::exitWhileSlot,Qt::BlockingQueuedConnection);
+            connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->InfraredlogicLit.at(var).data(),&InfraredlogicInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
         }
     }
 
@@ -882,6 +889,10 @@ void MainWindow::bindingPlugin()
             * @brief:链接状态道状态页面
             ******************************/
             connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::connectCountSignal,this,&MainWindow::slot_connectCount);
+            /*****************************
+            * @brief:接收抬杆信号
+            ******************************/
+            connect(pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::signal_lifting,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_lifting);
             /*****************************
             * @brief:模拟发送数据
             ******************************/

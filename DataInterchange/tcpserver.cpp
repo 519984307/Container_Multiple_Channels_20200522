@@ -60,6 +60,7 @@ void TcpServer::incomingConnection(qintptr socketID)
     connect(pClient,&TcpClient::disconnected,this,&TcpServer::disconnectedSlot);
     connect(pClient,&TcpClient::setClientChannelNumberSignal,this,&TcpServer::setClientChannelNumberSlot);
     connect(pClient,&TcpClient::getLastResultSignal,this,&TcpServer::getLastResultSlot);
+    connect(pClient,&TcpClient::signal_lifting,this,&TcpServer::signal_lifting);
 }
 
 void TcpServer::disconnectedSlot()

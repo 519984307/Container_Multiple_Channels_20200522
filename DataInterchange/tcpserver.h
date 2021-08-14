@@ -149,6 +149,11 @@ signals:
     /// \param state 状态
     ///
     void linkStateSingal(const QString &address,quint16 port,bool state);
+
+    ///
+    /// \brief signal_lifting 抬杆信号
+    ///
+    void signal_lifting();
 };
 
 #endif // TCPSERVER_H

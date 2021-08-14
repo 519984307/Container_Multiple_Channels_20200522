@@ -26,9 +26,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-117</y>
-        <width>914</width>
-        <height>718</height>
+        <y>0</y>
+        <width>922</width>
+        <height>665</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -57,9 +57,6 @@
          </property>
          <property name="tabPosition">
           <enum>QTabWidget::North</enum>
-         </property>
-         <property name="tabShape">
-          <enum>QTabWidget::Rounded</enum>
          </property>
          <property name="currentIndex">
           <number>6</number>
@@ -90,257 +87,17 @@
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="3" column="0" colspan="3">
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <item>
-              <widget class="QLineEdit" name="ImgPathlineEdit">
-               <property name="placeholderText">
-                <string>/home/cc/</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="CheckPathPushButton">
-               <property name="maximumSize">
-                <size>
-                 <width>50</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="6" column="4">
-            <widget class="QLabel" name="label_4">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>he picture saves the path, for the software third party use.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0" colspan="2">
-            <widget class="QCheckBox" name="save_image_checkBox">
-             <property name="text">
-              <string>Save Image Two</string>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0" colspan="3">
-            <layout class="QHBoxLayout" name="horizontalLayout_7">
-             <item>
-              <widget class="QLineEdit" name="ImgPathlineEdit_2">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="placeholderText">
-                <string>/home/cc/</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="CheckPathPushButton_2">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>50</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>...</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="7" column="0" colspan="3">
+           <item row="7" column="0" colspan="4">
             <widget class="QComboBox" name="ImageFormat_2">
              <property name="enabled">
               <bool>false</bool>
              </property>
-             <property name="editable">
-              <bool>false</bool>
-             </property>
-             <item>
-              <property name="text">
-               <string>CHANNEL/YYYY/MM/DD/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>CHANNEL/YYYY/MM/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>CHANNEL/YYYY/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>CHANNEL/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>YYYY/MM/DD/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>YYYY/MM/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>YYYY/</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>/</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="2" column="0" colspan="2">
-            <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
-             <property name="spacing">
-              <number>30</number>
-             </property>
-             <item>
-              <widget class="QLineEdit" name="camera_id_lineEdit">
-               <property name="maximumSize">
-                <size>
-                 <width>50</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="inputMask">
-                <string>D</string>
-               </property>
-               <property name="text">
-                <string>2</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_40">
-               <property name="text">
-                <string>Camera</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="1" column="0" colspan="3">
-            <widget class="QComboBox" name="ImageNamingRules">
-             <property name="editable">
-              <bool>false</bool>
-             </property>
-             <item>
-              <property name="text">
-               <string>DateTime-Channel-Number</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>DateTime-Number-Channel</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="4" column="4">
-            <widget class="QLabel" name="label_26">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Image save format, for software use, can only save local</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QLabel" name="label_39">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Number of camera number and channel number occupied (compatible with older versions)</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="4">
-            <widget class="QLabel" name="label_27">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
+             <property name="toolTip">
               <string>Image saving format for software third party use.</string>
              </property>
-             <property name="wordWrap">
-              <bool>true</bool>
+             <property name="whatsThis">
+              <string/>
              </property>
-            </widget>
-           </item>
-           <item row="4" column="0" colspan="3">
-            <widget class="QComboBox" name="ImageFormat">
              <property name="editable">
               <bool>false</bool>
              </property>
@@ -386,131 +143,8 @@
              </item>
             </widget>
            </item>
-           <item row="1" column="4">
-            <widget class="QLabel" name="label_24">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Set save image naming rules</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" colspan="3">
-            <widget class="QSpinBox" name="ChannelNumber">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="frame">
-              <bool>true</bool>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>99</number>
-             </property>
-             <property name="value">
-              <number>1</number>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="4">
-            <widget class="QLabel" name="label_25">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Image save path, for software use, can only save local</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="1">
-            <spacer name="verticalSpacer">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>276</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="0" column="4">
-            <widget class="QLabel" name="label_15">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Set control channel number, quantity limit requires purchase of license from supplier</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="2" colspan="3">
-            <spacer name="horizontalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>614</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
            <item row="2" column="2">
-            <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1">
+            <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
              <property name="spacing">
               <number>30</number>
              </property>
@@ -521,6 +155,12 @@
                  <width>50</width>
                  <height>16777215</height>
                 </size>
+               </property>
+               <property name="toolTip">
+                <string>Number of camera number and channel number occupied (compatible with older versions)</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
                </property>
                <property name="inputMask">
                 <string>D</string>
@@ -542,60 +182,315 @@
              </item>
             </layout>
            </item>
+           <item row="8" column="1">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>276</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="0" colspan="4">
+            <widget class="QComboBox" name="ImageNamingRules">
+             <property name="toolTip">
+              <string>Set save image naming rules</string>
+             </property>
+             <property name="editable">
+              <bool>false</bool>
+             </property>
+             <item>
+              <property name="text">
+               <string>DateTime-Channel-Number</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>DateTime-Number-Channel</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0">
+             <property name="spacing">
+              <number>30</number>
+             </property>
+             <item>
+              <widget class="QLineEdit" name="camera_id_lineEdit">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Number of camera number and channel number occupied (compatible with older versions)</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
+               <property name="inputMask">
+                <string>D</string>
+               </property>
+               <property name="text">
+                <string>2</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_40">
+               <property name="text">
+                <string>Camera</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="5" column="0" colspan="2">
+            <widget class="QCheckBox" name="save_image_checkBox">
+             <property name="text">
+              <string>Save Image Two</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0" colspan="4">
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLineEdit" name="ImgPathlineEdit_2">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="toolTip">
+                <string>he picture saves the path, for the software third party use.</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>/home/cc/</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="CheckPathPushButton_2">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>choose</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="2" column="3">
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="4" column="0" colspan="4">
+            <widget class="QComboBox" name="ImageFormat">
+             <property name="toolTip">
+              <string>Image save format, for software use, can only save local</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="editable">
+              <bool>false</bool>
+             </property>
+             <item>
+              <property name="text">
+               <string>CHANNEL/YYYY/MM/DD/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CHANNEL/YYYY/MM/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CHANNEL/YYYY/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CHANNEL/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>YYYY/MM/DD/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>YYYY/MM/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>YYYY/</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>/</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="4">
+            <widget class="QSpinBox" name="ChannelNumber">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>Set control channel number, quantity limit requires purchase of license from supplier</string>
+             </property>
+             <property name="frame">
+              <bool>true</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>99</number>
+             </property>
+             <property name="value">
+              <number>1</number>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="4">
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QLineEdit" name="ImgPathlineEdit">
+               <property name="toolTip">
+                <string>Image save path, for software use, can only save local</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>/home/cc/</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="CheckPathPushButton">
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>choose</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
           </layout>
          </widget>
          <widget class="QWidget" name="Model">
           <attribute name="title">
            <string>Model</string>
           </attribute>
-          <layout class="QGridLayout" name="gridLayout_16">
+          <layout class="QGridLayout" name="gridLayout_21">
+           <property name="leftMargin">
+            <number>9</number>
+           </property>
+           <property name="topMargin">
+            <number>9</number>
+           </property>
+           <property name="rightMargin">
+            <number>9</number>
+           </property>
+           <property name="bottomMargin">
+            <number>9</number>
+           </property>
            <property name="horizontalSpacing">
             <number>50</number>
            </property>
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="0" column="0">
-            <widget class="QComboBox" name="Camera_Load_Plugin_comboBox">
-             <property name="currentIndex">
-              <number>1</number>
+           <item row="2" column="0" colspan="2">
+            <widget class="QComboBox" name="PlateType_comboBox">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>Type of license plate camera</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
              </property>
              <item>
               <property name="text">
-               <string>A single instance</string>
+               <string>HK</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>Multiple instances</string>
+               <string>WTY</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ZS</string>
               </property>
              </item>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_42">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
+           <item row="1" column="0" colspan="2">
             <widget class="QComboBox" name="HCNET_Capture_Type_comboBox">
+             <property name="toolTip">
+              <string>Haikang camera capture mode, this option and plug-in mode associated</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
              <item>
               <property name="text">
                <string>Catch the memory</string>
@@ -623,112 +518,30 @@
              </item>
             </widget>
            </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_43">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
+           <item row="0" column="0" colspan="2">
+            <widget class="QComboBox" name="Camera_Load_Plugin_comboBox">
+             <property name="toolTip">
+              <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
              </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
+             <property name="whatsThis">
+              <string/>
              </property>
-             <property name="text">
-              <string>Haikang camera capture mode, this option and plug-in mode associated</string>
+             <property name="currentIndex">
+              <number>1</number>
              </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QComboBox" name="LogicType_comboBox">
              <item>
               <property name="text">
-               <string>Standard logic</string>
+               <string>A single instance</string>
               </property>
              </item>
              <item>
               <property name="text">
-               <string>Nanjing sanbao</string>
+               <string>Multiple instances</string>
               </property>
              </item>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="label_49">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Infrared logic setting, different logic infrared trigger sequence is not the same, this option needs to consult the developer!</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QComboBox" name="PlateType_comboBox">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <item>
-              <property name="text">
-               <string>HK</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>WTY</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>ZS</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QLabel" name="label_50">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Type of license plate camera</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
+           <item row="4" column="1">
             <spacer name="verticalSpacer_9">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -740,6 +553,66 @@
               </size>
              </property>
             </spacer>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <widget class="QGroupBox" name="groupBox_4">
+             <property name="title">
+              <string>Signal model</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_16">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>9</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>9</number>
+              </property>
+              <item row="1" column="0">
+               <widget class="QRadioButton" name="logicType_standard_radioButton">
+                <property name="text">
+                 <string>Standard</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QRadioButton" name="logicType_njsb_radioButton">
+                <property name="text">
+                 <string>NJSB</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <widget class="QComboBox" name="interfaceModel_comboBox">
+                <property name="toolTip">
+                 <string>Infrared trigger signal transmission mode</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>Serial Port</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>Moxa socket</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>IO controller</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </item>
           </layout>
          </widget>
@@ -754,170 +627,44 @@
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="1" column="2">
-            <widget class="QLabel" name="label_28">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Add the prefix of container number. If the container number is clear and the prefix is wrong, the response prefix can be added for identification.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" colspan="2">
-            <layout class="QGridLayout" name="gridLayout_4">
-             <item row="0" column="0">
-              <widget class="QRadioButton" name="ColorDisplay">
-               <property name="text">
-                <string>Color display</string>
+           <item row="2" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_10">
+             <item>
+              <widget class="QLineEdit" name="Eliminate_lineEdit">
+               <property name="toolTip">
+                <string>Add the prefix of container number. If the container number is clear and the prefix is wrong, the response prefix can be deleted.</string>
                </property>
-               <property name="checked">
-                <bool>true</bool>
+               <property name="whatsThis">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>CCAU</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QRadioButton" name="AutomaticCorrection">
+             <item>
+              <widget class="QPushButton" name="Eliminate_pushButton">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
                <property name="text">
-                <string>Automatic correction</string>
+                <string>del</string>
                </property>
               </widget>
              </item>
             </layout>
            </item>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="Contains_pushButton">
-             <property name="maximumSize">
-              <size>
-               <width>50</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>ADD</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLineEdit" name="Contains_lineEdit">
-             <property name="placeholderText">
-              <string>WDFU</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_19">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Identify validation rules for results. Color displays the original result output, automatic calibration according to the algorithm, calibration (completion) the last bit.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLineEdit" name="Eliminate_lineEdit">
-             <property name="placeholderText">
-              <string>CCAU</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="Eliminate_pushButton">
-             <property name="maximumSize">
-              <size>
-               <width>50</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>DEL</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="label_29">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Add the prefix of container number. If the container number is clear and the prefix is wrong, the response prefix can be deleted.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <spacer name="verticalSpacer_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>178</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="3" column="2">
-            <widget class="QLabel" name="label_55">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
+           <item row="3" column="0">
+            <widget class="QComboBox" name="picture_size_comboBox">
+             <property name="toolTip">
               <string>Identify the size of the picture, according to the machine performance selection, the larger the picture recognition speed is slower.</string>
              </property>
-             <property name="wordWrap">
-              <bool>true</bool>
+             <property name="whatsThis">
+              <string/>
              </property>
-            </widget>
-           </item>
-           <item row="3" column="0" colspan="2">
-            <widget class="QComboBox" name="picture_size_comboBox">
              <item>
               <property name="text">
                <string>1280*720</string>
@@ -934,6 +681,82 @@
               </property>
              </item>
             </widget>
+           </item>
+           <item row="0" column="0">
+            <layout class="QGridLayout" name="gridLayout_4">
+             <item row="0" column="0">
+              <widget class="QRadioButton" name="ColorDisplay">
+               <property name="statusTip">
+                <string>Identify validation rules for results. Color displays the original result output, automatic calibration according to the algorithm, calibration (completion) the last bit.</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
+               <property name="text">
+                <string>Color display</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QRadioButton" name="AutomaticCorrection">
+               <property name="statusTip">
+                <string>Identify validation rules for results. Color displays the original result output, automatic calibration according to the algorithm, calibration (completion) the last bit.</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
+               <property name="text">
+                <string>Automatic correction</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLineEdit" name="Contains_lineEdit">
+               <property name="statusTip">
+                <string>Add the prefix of container number. If the container number is clear and the prefix is wrong, the response prefix can be added for identification.</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
+               <property name="placeholderText">
+                <string>WDFU</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="Contains_pushButton">
+               <property name="maximumSize">
+                <size>
+                 <width>50</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>add</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="4" column="0">
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -952,6 +775,12 @@
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
               <widget class="QRadioButton" name="ServerModel">
+               <property name="toolTip">
+                <string>Identify data docking patterns</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
                <property name="text">
                 <string>Tcp Server</string>
                </property>
@@ -965,12 +794,165 @@
                <property name="enabled">
                 <bool>true</bool>
                </property>
+               <property name="toolTip">
+                <string>Identify data docking patterns</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
                <property name="text">
                 <string>Tcp Client</string>
                </property>
               </widget>
              </item>
             </layout>
+           </item>
+           <item row="9" column="0">
+            <widget class="QCheckBox" name="newline_checkBox">
+             <property name="toolTip">
+              <string>A newline character is added to each piece of data to form a complete line.</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>A newline</string>
+             </property>
+            </widget>
+           </item>
+           <item row="15" column="0">
+            <widget class="QCheckBox" name="checkBox_2">
+             <property name="whatsThis">
+              <string>The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process</string>
+             </property>
+             <property name="text">
+              <string>Send astern signal</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QCheckBox" name="plate_color_checkBox">
+             <property name="toolTip">
+              <string>The interface protocol does not require a license plate color</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>not plate color</string>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="0">
+            <widget class="QCheckBox" name="Resulting_checkBox">
+             <property name="toolTip">
+              <string>The intermediate result set starts with [I, and is opened as required, not as the final result.</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Send an intermediate result set</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="13" column="0">
+            <widget class="QCheckBox" name="checkBox">
+             <property name="toolTip">
+              <string>Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Send a car signal</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QComboBox" name="Service_Type_comboBox">
+             <property name="toolTip">
+              <string>One to one:One service corresponds to one channel, and either server mode or client mode can be set.
+
+
+More than pair of:One service corresponds to all channels, and only the server mode can be set, One service corresponds to all channels (Need to respond to channel instruction [L|Number])</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>One to one</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>More than a pair of</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QComboBox" name="DataChaneType_combox">
+             <property name="toolTip">
+              <string>Identify the data docking interface</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <item>
+              <property name="text">
+               <string>TCP</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MQ</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QSpinBox" name="plate_timeout_spinBox">
+             <property name="toolTip">
+              <string>License plate result receives timeout time</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="minimum">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="0">
+            <widget class="QCheckBox" name="Hearbeat_checkBox">
+             <property name="toolTip">
+              <string>The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>The heartbeat packets</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QSpinBox" name="container_timeout_spinBox">
+             <property name="toolTip">
+              <string>Container identification result receiving timeout</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="value">
+              <number>15</number>
+             </property>
+            </widget>
            </item>
            <item row="2" column="0">
             <widget class="QStackedWidget" name="Service_Type_stackedWidget">
@@ -996,6 +978,9 @@
                </property>
                <item row="0" column="0">
                 <widget class="QTextEdit" name="Address_Many_textEdit">
+                 <property name="whatsThis">
+                  <string/>
+                 </property>
                  <property name="placeholderText">
                   <string>if(server)192.168.1.100:5000,192.168.1.100:5001,192.168.1.100:5002 if(client)192.168.1.100:5000,192.168.1.101:5000,192.168.1.102:5000</string>
                  </property>
@@ -1109,49 +1094,14 @@
              </widget>
             </widget>
            </item>
-           <item row="2" column="1" colspan="2">
-            <widget class="QLabel" name="label_31">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>One to one:One service corresponds to one channel, and either server mode or client mode can be set.
-
-
-More than pair of:One service corresponds to all channels, and only the server mode can be set, One service corresponds to all channels (Need to respond to channel instruction [L|Number])</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <spacer name="verticalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="4" column="0">
+           <item row="3" column="0">
             <widget class="QComboBox" name="Identify_Protocol_comboBox_2">
+             <property name="toolTip">
+              <string>Identify the data docking protocol</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
              <item>
               <property name="text">
                <string>Container_number</string>
@@ -1169,66 +1119,27 @@ More than pair of:One service corresponds to all channels, and only the server m
              </item>
             </widget>
            </item>
-           <item row="4" column="1" colspan="2">
-            <widget class="QLabel" name="label_32">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
+           <item row="12" column="0">
+            <widget class="QCheckBox" name="ShortLink_checkBox">
+             <property name="toolTip">
+              <string>The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.</string>
              </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
+             <property name="whatsThis">
+              <string/>
              </property>
              <property name="text">
-              <string>Identify the data docking protocol</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
+              <string>Short link</string>
              </property>
             </widget>
            </item>
            <item row="5" column="0">
-            <widget class="QComboBox" name="DataChaneType_combox">
-             <item>
-              <property name="text">
-               <string>TCP</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>MQ</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="5" column="1" colspan="2">
-            <widget class="QLabel" name="label_16">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Identify the data docking interface</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="0">
             <widget class="QComboBox" name="DataChange_Format_comboBox">
+             <property name="toolTip">
+              <string>Web service data format</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
              <item>
               <property name="text">
                <string>TEXT</string>
@@ -1246,327 +1157,18 @@ More than pair of:One service corresponds to all channels, and only the server m
              </item>
             </widget>
            </item>
-           <item row="6" column="1" colspan="2">
-            <widget class="QLabel" name="label_17">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Web service data format</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QSpinBox" name="plate_timeout_spinBox">
-             <property name="minimum">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="1" colspan="2">
-            <widget class="QLabel" name="label_52">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>License plate result receives timeout time</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="0">
-            <widget class="QSpinBox" name="container_timeout_spinBox">
-             <property name="value">
-              <number>15</number>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="1" colspan="2">
-            <widget class="QLabel" name="label_53">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Container identification result receiving timeout</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="0">
-            <widget class="QCheckBox" name="plate_color_checkBox">
-             <property name="text">
-              <string>not plate color</string>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="1">
-            <widget class="QLabel" name="label_54">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>The interface protocol does not require a license plate color</string>
-             </property>
-            </widget>
-           </item>
-           <item row="10" column="0">
-            <widget class="QCheckBox" name="newline_checkBox">
-             <property name="text">
-              <string>A newline</string>
-             </property>
-            </widget>
-           </item>
-           <item row="10" column="1" colspan="2">
-            <widget class="QLabel" name="label_51">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>A newline character is added to each piece of data to form a complete line.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="11" column="0">
-            <widget class="QCheckBox" name="Hearbeat_checkBox">
-             <property name="text">
-              <string>The heartbeat packets</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="11" column="1" colspan="2">
-            <widget class="QLabel" name="label_44">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="12" column="0">
-            <widget class="QCheckBox" name="Resulting_checkBox">
-             <property name="text">
-              <string>Send an intermediate result set</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="12" column="1" colspan="2">
-            <widget class="QLabel" name="label_45">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>The intermediate result set starts with [I, and is opened as required, not as the final result.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="13" column="0">
-            <widget class="QCheckBox" name="ShortLink_checkBox">
-             <property name="text">
-              <string>Short link</string>
-             </property>
-            </widget>
-           </item>
-           <item row="13" column="1" colspan="2">
-            <widget class="QLabel" name="label_46">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="14" column="0">
-            <widget class="QCheckBox" name="checkBox">
-             <property name="text">
-              <string>Send a car signal</string>
+            <spacer name="verticalSpacer_4">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
-            </widget>
-           </item>
-           <item row="14" column="1" colspan="2">
-            <widget class="QLabel" name="label_48">
-             <property name="minimumSize">
+             <property name="sizeHint" stdset="0">
               <size>
-               <width>400</width>
-               <height>0</height>
+               <width>20</width>
+               <height>40</height>
               </size>
              </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="15" column="0">
-            <widget class="QCheckBox" name="checkBox_2">
-             <property name="text">
-              <string>Send astern signal</string>
-             </property>
-            </widget>
-           </item>
-           <item row="15" column="1" colspan="2">
-            <widget class="QLabel" name="label_47">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QComboBox" name="Service_Type_comboBox">
-             <item>
-              <property name="text">
-               <string>One to one</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>More than a pair of</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="0" column="1" colspan="2">
-            <widget class="QLabel" name="label_30">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Identify data docking patterns</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -1581,87 +1183,14 @@ More than pair of:One service corresponds to all channels, and only the server m
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="2" column="0">
-            <spacer name="verticalSpacer_4">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>15</width>
-               <height>53</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="1" column="0">
-            <widget class="QGroupBox" name="groupBox_15">
-             <property name="title">
-              <string>Database</string>
-             </property>
-             <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0,1">
-              <property name="horizontalSpacing">
-               <number>50</number>
-              </property>
-              <property name="verticalSpacing">
-               <number>15</number>
-              </property>
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_20">
-                <property name="text">
-                 <string>Database type    </string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QLabel" name="label_21">
-                <property name="text">
-                 <string>Address</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QLabel" name="label_22">
-                <property name="text">
-                 <string>User</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QLabel" name="label_23">
-                <property name="text">
-                 <string>Pass</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1" colspan="2">
-               <widget class="QComboBox" name="database_Type_comboBox">
-                <item>
-                 <property name="text">
-                  <string>SQLite</string>
-                 </property>
-                </item>
-                <item>
-                 <property name="text">
-                  <string>MySQL</string>
-                 </property>
-                </item>
-               </widget>
-              </item>
-              <item row="1" column="1" colspan="2">
-               <widget class="QLineEdit" name="database_Addr_lineEdit"/>
-              </item>
-              <item row="2" column="1" colspan="2">
-               <widget class="QLineEdit" name="database_User_lineEdit"/>
-              </item>
-              <item row="3" column="1" colspan="2">
-               <widget class="QLineEdit" name="database_Pass_lineEdit"/>
-              </item>
-             </layout>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QGroupBox" name="Ftp">
+             <property name="toolTip">
+              <string>Upload identification picture</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
              <property name="title">
               <string>Ftp</string>
              </property>
@@ -1684,7 +1213,11 @@ More than pair of:One service corresponds to all channels, and only the server m
               <item row="0" column="1">
                <layout class="QVBoxLayout" name="verticalLayout_2">
                 <item>
-                 <widget class="QLineEdit" name="FtpUser"/>
+                 <widget class="QLineEdit" name="FtpUser">
+                  <property name="whatsThis">
+                   <string>Upload identification picture</string>
+                  </property>
+                 </widget>
                 </item>
                 <item>
                  <widget class="QLineEdit" name="FtpPassword"/>
@@ -1786,49 +1319,93 @@ More than pair of:One service corresponds to all channels, and only the server m
              </layout>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="label_18">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Upload identification picture</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_10">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
+           <item row="1" column="0">
+            <widget class="QGroupBox" name="groupBox_15">
+             <property name="toolTip">
               <string>Software database, network database needs to be installed and started independently.</string>
              </property>
-             <property name="wordWrap">
-              <bool>true</bool>
+             <property name="whatsThis">
+              <string/>
              </property>
+             <property name="title">
+              <string>Database</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0,1">
+              <property name="horizontalSpacing">
+               <number>50</number>
+              </property>
+              <property name="verticalSpacing">
+               <number>15</number>
+              </property>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_20">
+                <property name="text">
+                 <string>Database type    </string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_21">
+                <property name="text">
+                 <string>Address</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_22">
+                <property name="text">
+                 <string>User</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_23">
+                <property name="text">
+                 <string>Pass</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1" colspan="2">
+               <widget class="QComboBox" name="database_Type_comboBox">
+                <property name="whatsThis">
+                 <string/>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>SQLite</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>MySQL</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="1" column="1" colspan="2">
+               <widget class="QLineEdit" name="database_Addr_lineEdit"/>
+              </item>
+              <item row="2" column="1" colspan="2">
+               <widget class="QLineEdit" name="database_User_lineEdit"/>
+              </item>
+              <item row="3" column="1" colspan="2">
+               <widget class="QLineEdit" name="database_Pass_lineEdit"/>
+              </item>
+             </layout>
             </widget>
+           </item>
+           <item row="2" column="0">
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -1843,42 +1420,6 @@ More than pair of:One service corresponds to all channels, and only the server m
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="storageSpaceShow_checkBox">
-             <property name="text">
-              <string>The main interface shows the storage space</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="storageSpace_monitoring_checkBox">
-             <property name="text">
-              <string>Storage space monitoring</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_11">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Monitor the remaining capacity of image storage hard disk space</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="0">
             <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
@@ -1920,6 +1461,12 @@ More than pair of:One service corresponds to all channels, and only the server m
                <property name="enabled">
                 <bool>false</bool>
                </property>
+               <property name="toolTip">
+                <string>Save the percentage of file path capacity occupied</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
                <property name="minimum">
                 <number>50</number>
                </property>
@@ -1945,32 +1492,56 @@ More than pair of:One service corresponds to all channels, and only the server m
              </item>
             </layout>
            </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="label_34">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Save the percentage of file path capacity occupied</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
+           <item row="5" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QRadioButton" name="radioButton">
+               <property name="toolTip">
+                <string>Software prompts the system administrator to change hardware or manually release space</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
+               <property name="text">
+                <string>Release the space</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QRadioButton" name="radioButton_2">
+               <property name="toolTip">
+                <string>Software prompts the system administrator to change hardware or manually release space</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
+               <property name="text">
+                <string>The software prompts</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item row="3" column="0">
             <widget class="QCheckBox" name="saveImageDay_checkBox">
              <property name="text">
               <string>Days to save image</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="storageSpace_monitoring_checkBox">
+             <property name="toolTip">
+              <string>Monitor the remaining capacity of image storage hard disk space</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Storage space monitoring</string>
              </property>
             </widget>
            </item>
@@ -2018,6 +1589,12 @@ More than pair of:One service corresponds to all channels, and only the server m
                <property name="enabled">
                 <bool>false</bool>
                </property>
+               <property name="toolTip">
+                <string>Number of days to save the file, exceeding the set value to actively delete the file</string>
+               </property>
+               <property name="whatsThis">
+                <string/>
+               </property>
                <property name="minimum">
                 <number>30</number>
                </property>
@@ -2043,80 +1620,22 @@ More than pair of:One service corresponds to all channels, and only the server m
              </item>
             </layout>
            </item>
-           <item row="4" column="1">
-            <widget class="QLabel" name="label_35">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="storageSpaceShow_checkBox">
              <property name="text">
-              <string>Number of days to save the file, exceeding the set value to actively delete the file</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
+              <string>The main interface shows the storage space</string>
              </property>
             </widget>
            </item>
-           <item row="5" column="0">
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <item>
-              <widget class="QRadioButton" name="radioButton">
-               <property name="text">
-                <string>Release the space</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="radioButton_2">
-               <property name="text">
-                <string>The software prompts</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item row="5" column="1">
-            <widget class="QLabel" name="label_33">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Software prompts the system administrator to change hardware or manually release space</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="1">
-            <spacer name="verticalSpacer_5">
+           <item row="6" column="0">
+            <spacer name="verticalSpacer_7">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>365</height>
+               <height>40</height>
               </size>
              </property>
             </spacer>
@@ -2136,15 +1655,8 @@ More than pair of:One service corresponds to all channels, and only the server m
              <property name="title">
               <string>The equipment list</string>
              </property>
-             <layout class="QGridLayout" name="gridLayout_12" columnminimumwidth="1,0">
-              <item row="2" column="0" colspan="2">
-               <widget class="QPushButton" name="searchEquipment_pushButton">
-                <property name="text">
-                 <string>Search equipment</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0" colspan="2">
+             <layout class="QGridLayout" name="gridLayout_12">
+              <item row="0" column="0">
                <widget class="QTableWidget" name="equiment_tableWidget">
                 <property name="editTriggers">
                  <set>QAbstractItemView::NoEditTriggers</set>
@@ -2182,7 +1694,7 @@ More than pair of:One service corresponds to all channels, and only the server m
                </widget>
               </item>
               <item row="1" column="0">
-               <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="0,1">
                 <item>
                  <widget class="QLabel" name="label_60">
                   <property name="text">
@@ -2190,12 +1702,29 @@ More than pair of:One service corresponds to all channels, and only the server m
                   </property>
                  </widget>
                 </item>
-               </layout>
-              </item>
-              <item row="1" column="1">
-               <layout class="QVBoxLayout" name="verticalLayout_8">
                 <item>
                  <widget class="QComboBox" name="adapter_comboBox"/>
+                </item>
+               </layout>
+              </item>
+              <item row="2" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="0,1">
+                <item>
+                 <widget class="QPushButton" name="searchInternet_pushButton">
+                  <property name="text">
+                   <string>Search internet</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="searchEquipment_pushButton">
+                  <property name="toolTip">
+                   <string>Searching for controller devices</string>
+                  </property>
+                  <property name="text">
+                   <string>Search equipment</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </item>
@@ -2275,16 +1804,6 @@ More than pair of:One service corresponds to all channels, and only the server m
                   </item>
                   <item>
                    <property name="text">
-                    <string>udp server</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>udp client</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
                     <string/>
                    </property>
                   </item>
@@ -2322,6 +1841,13 @@ More than pair of:One service corresponds to all channels, and only the server m
                   </property>
                  </widget>
                 </item>
+                <item>
+                 <widget class="QLabel" name="label_61">
+                  <property name="text">
+                   <string>mac</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
               <item row="0" column="3">
@@ -2338,23 +1864,20 @@ More than pair of:One service corresponds to all channels, and only the server m
                 <item>
                  <widget class="QLineEdit" name="name_lineEdit"/>
                 </item>
+                <item>
+                 <widget class="QLineEdit" name="mac_lineEdit">
+                  <property name="readOnly">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
                </layout>
-              </item>
-              <item row="1" column="2" colspan="2">
-               <spacer name="horizontalSpacer">
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-                <property name="sizeHint" stdset="0">
-                 <size>
-                  <width>451</width>
-                  <height>13</height>
-                 </size>
-                </property>
-               </spacer>
               </item>
               <item row="2" column="0" colspan="4">
                <widget class="QPushButton" name="setParameter_pushButton">
+                <property name="toolTip">
+                 <string>Set controller parameters</string>
+                </property>
                 <property name="text">
                  <string>Set the parameters</string>
                 </property>
@@ -2362,6 +1885,19 @@ More than pair of:One service corresponds to all channels, and only the server m
               </item>
              </layout>
             </widget>
+           </item>
+           <item row="2" column="0">
+            <spacer name="verticalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
          </widget>
@@ -2376,8 +1912,37 @@ More than pair of:One service corresponds to all channels, and only the server m
            <property name="verticalSpacing">
             <number>20</number>
            </property>
+           <item row="2" column="0" colspan="2">
+            <widget class="QComboBox" name="Language">
+             <property name="toolTip">
+              <string>Set the system language, temporarily support Chinese and English.</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="currentIndex">
+              <number>1</number>
+             </property>
+             <item>
+              <property name="text">
+               <string>English</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Chinese</string>
+              </property>
+             </item>
+            </widget>
+           </item>
            <item row="0" column="0" colspan="2">
             <widget class="QGroupBox" name="groupBox_11">
+             <property name="toolTip">
+              <string>Save the log days and the timeout is automatically overwritten</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
              <property name="title">
               <string>Log</string>
              </property>
@@ -2475,30 +2040,14 @@ More than pair of:One service corresponds to all channels, and only the server m
              </layout>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_13">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Save the log days and the timeout is automatically overwritten</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="0" colspan="2">
             <widget class="QGroupBox" name="groupBox_2">
+             <property name="toolTip">
+              <string>Delay startup time to ensure the loading of field equipment is completed.</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
              <property name="title">
               <string>Start</string>
              </property>
@@ -2546,68 +2095,7 @@ More than pair of:One service corresponds to all channels, and only the server m
              </layout>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="label_14">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Delay startup time to ensure the loading of field equipment is completed.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QComboBox" name="Language">
-             <property name="currentIndex">
-              <number>1</number>
-             </property>
-             <item>
-              <property name="text">
-               <string>English</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Chinese</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="label_37">
-             <property name="minimumSize">
-              <size>
-               <width>400</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>400</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Set the system language, temporarily support Chinese and English.</string>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
+           <item row="3" column="0">
             <spacer name="verticalSpacer_3">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -2615,7 +2103,7 @@ More than pair of:One service corresponds to all channels, and only the server m
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>292</height>
+               <height>40</height>
               </size>
              </property>
             </spacer>
@@ -2682,12 +2170,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>57</x>
-     <y>162</y>
+     <x>43</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
-     <x>437</x>
-     <y>166</y>
+     <x>477</x>
+     <y>138</y>
     </hint>
    </hints>
   </connection>
@@ -2698,12 +2186,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>362</x>
-     <y>166</y>
+     <x>402</x>
+     <y>138</y>
     </hint>
     <hint type="destinationlabel">
-     <x>56</x>
-     <y>162</y>
+     <x>43</x>
+     <y>133</y>
     </hint>
    </hints>
   </connection>
@@ -2714,12 +2202,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>89</x>
-     <y>262</y>
+     <x>73</x>
+     <y>218</y>
     </hint>
     <hint type="destinationlabel">
-     <x>318</x>
-     <y>241</y>
+     <x>388</x>
+     <y>223</y>
     </hint>
    </hints>
   </connection>
@@ -2730,12 +2218,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>431</x>
-     <y>241</y>
+     <x>501</x>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel">
-     <x>89</x>
-     <y>262</y>
+     <x>73</x>
+     <y>218</y>
     </hint>
    </hints>
   </connection>
@@ -2778,12 +2266,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>74</x>
-     <y>348</y>
+     <x>83</x>
+     <y>261</y>
     </hint>
     <hint type="destinationlabel">
-     <x>80</x>
-     <y>447</y>
+     <x>89</x>
+     <y>346</y>
     </hint>
    </hints>
   </connection>
@@ -2794,12 +2282,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>49</x>
-     <y>348</y>
+     <x>58</x>
+     <y>261</y>
     </hint>
     <hint type="destinationlabel">
-     <x>64</x>
-     <y>395</y>
+     <x>74</x>
+     <y>303</y>
     </hint>
    </hints>
   </connection>
@@ -2810,12 +2298,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>42</x>
-     <y>348</y>
+     <x>51</x>
+     <y>261</y>
     </hint>
     <hint type="destinationlabel">
-     <x>413</x>
-     <y>399</y>
+     <x>921</x>
+     <y>305</y>
     </hint>
    </hints>
   </connection>
@@ -2826,12 +2314,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>296</x>
-     <y>108</y>
+     <x>305</x>
+     <y>96</y>
     </hint>
     <hint type="destinationlabel">
-     <x>321</x>
-     <y>303</y>
+     <x>330</x>
+     <y>193</y>
     </hint>
    </hints>
   </connection>
@@ -2842,12 +2330,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>257</y>
+     <x>119</x>
+     <y>246</y>
     </hint>
     <hint type="destinationlabel">
-     <x>258</x>
-     <y>256</y>
+     <x>431</x>
+     <y>248</y>
     </hint>
    </hints>
   </connection>
@@ -2858,12 +2346,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>42</x>
-     <y>110</y>
+     <x>51</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
-     <x>46</x>
-     <y>162</y>
+     <x>43</x>
+     <y>133</y>
     </hint>
    </hints>
   </connection>
@@ -2874,12 +2362,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>73</x>
-     <y>110</y>
+     <x>82</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
-     <x>423</x>
-     <y>149</y>
+     <x>463</x>
+     <y>138</y>
     </hint>
    </hints>
   </connection>
@@ -2890,12 +2378,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>92</x>
-     <y>192</y>
+     <x>101</x>
+     <y>175</y>
     </hint>
     <hint type="destinationlabel">
-     <x>67</x>
-     <y>262</y>
+     <x>73</x>
+     <y>218</y>
     </hint>
    </hints>
   </connection>
@@ -2906,12 +2394,12 @@ More than pair of:One service corresponds to all channels, and only the server m
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>107</x>
-     <y>208</y>
+     <x>116</x>
+     <y>175</y>
     </hint>
     <hint type="destinationlabel">
-     <x>469</x>
-     <y>253</y>
+     <x>539</x>
+     <y>223</y>
     </hint>
    </hints>
   </connection>

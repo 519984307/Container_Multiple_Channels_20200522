@@ -30,11 +30,260 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>828</width>
-        <height>1314</height>
+        <width>836</width>
+        <height>902</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout_8">
+      <layout class="QGridLayout" name="gridLayout_11">
+       <item row="7" column="0">
+        <widget class="QGroupBox" name="groupBox_17">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="title">
+          <string>Container residue inspection</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,0">
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+          <property name="horizontalSpacing">
+           <number>50</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>20</number>
+          </property>
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="inspectionRight_checkbox">
+            <property name="text">
+             <string>Right</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QCheckBox" name="inspectionTop_checkbox">
+            <property name="text">
+             <string>Top</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="inspectionLeft_checkbox">
+            <property name="text">
+             <string>Left</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QGroupBox" name="groupBox_15">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="title">
+          <string>recognition</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+         <property name="checkable">
+          <bool>false</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_25">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="containerState_checkbox">
+            <property name="text">
+             <string>Container number</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="plateState_checkbox">
+            <property name="text">
+             <string>The license plate</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QGroupBox" name="groupBox_14">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="title">
+          <string>License plate trigger mode</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_24">
+          <item row="0" column="0">
+           <widget class="QRadioButton" name="plateVideoTrigger_radiobutton">
+            <property name="text">
+             <string>Video identification</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QRadioButton" name="plateSignalTrigger_radiobutton">
+            <property name="text">
+             <string>Signal trigger</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Other</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_2" columnstretch="0">
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="topMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <property name="bottomMargin">
+           <number>5</number>
+          </property>
+          <property name="horizontalSpacing">
+           <number>50</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>20</number>
+          </property>
+          <item row="3" column="0">
+           <widget class="QDoubleSpinBox" name="B1ReleasrCap_doubleSpinBox">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>B1 infrared release, how many seconds to capture the picture</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="decimals">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QDoubleSpinBox" name="A1ReleasrCap_doubleSpinBox">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>A1 infrared release, how many seconds to capture the picture</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="decimals">
+             <number>1</number>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QSpinBox" name="identificationTimes_spinBox">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="toolTip">
+             <string>Container number identification times</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>3</number>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLineEdit" name="Alias">
+            <property name="toolTip">
+             <string>Channel alias, the main page prompt.</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="placeholderText">
+             <string>Container access gate</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QSpinBox" name="Channel_Number">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="toolTip">
+             <string>The channel number that distinguishes the channel data.</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
@@ -88,9 +337,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_6">
+             <widget class="QLabel" name="label_15">
               <property name="text">
-               <string>Local Addr</string>
+               <string>Plate</string>
               </property>
              </widget>
             </item>
@@ -134,7 +383,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="LocalAddr">
+             <widget class="QLineEdit" name="Camera_Plate">
               <property name="inputMask">
                <string>000.000.000.000;_</string>
               </property>
@@ -166,9 +415,9 @@
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="label_15">
+             <widget class="QLabel" name="label_6">
               <property name="text">
-               <string>Plate</string>
+               <string>Local Addr</string>
               </property>
              </widget>
             </item>
@@ -205,7 +454,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="Camera_Plate">
+             <widget class="QLineEdit" name="LocalAddr">
               <property name="inputMask">
                <string>000.000.000.000;_</string>
               </property>
@@ -230,19 +479,131 @@
          </layout>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QGroupBox" name="groupBox_2">
+       <item row="6" column="0">
+        <widget class="QGroupBox" name="groupBox_16">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="title">
-          <string>Serial interface mode</string>
+          <string>Infrared signal shielding</string>
          </property>
          <property name="flat">
           <bool>true</bool>
          </property>
-         <layout class="QGridLayout" name="gridLayout_4">
+         <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0,0,0">
+          <property name="horizontalSpacing">
+           <number>50</number>
+          </property>
+          <property name="verticalSpacing">
+           <number>20</number>
+          </property>
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="A1shielding_checkbox">
+            <property name="text">
+             <string>A1</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QCheckBox" name="B1shielding_checkbox">
+            <property name="text">
+             <string>B1</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QCheckBox" name="A2shielding_checkbox">
+            <property name="text">
+             <string>A2</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QCheckBox" name="B2shielding_checkbox">
+            <property name="text">
+             <string>B2</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QGroupBox" name="groupBox_13">
+         <property name="title">
+          <string>Controller signal mode</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_23">
+          <item row="0" column="0">
+           <widget class="QRadioButton" name="SerialPortOpenState">
+            <property name="text">
+             <string>Normally open</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QRadioButton" name="SerialPortCloseState">
+            <property name="text">
+             <string>Normally closed</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>Signal interface mode</string>
+         </property>
+         <property name="flat">
+          <bool>true</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_10">
+          <item row="0" column="0">
+           <widget class="QComboBox" name="ControllerSignalMode">
+            <item>
+             <property name="text">
+              <string>Serial Port</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Moxa socket</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>IO controller</string>
+             </property>
+            </item>
+           </widget>
+          </item>
           <item row="1" column="0">
-           <widget class="QStackedWidget" name="stackedWidget">
+           <widget class="QStackedWidget" name="serial_stackedWidget">
             <property name="currentIndex">
-             <number>0</number>
+             <number>2</number>
             </property>
             <widget class="QWidget" name="page">
              <layout class="QGridLayout" name="gridLayout_7">
@@ -321,7 +682,7 @@
              </layout>
             </widget>
             <widget class="QWidget" name="page_2">
-             <layout class="QGridLayout" name="gridLayout_3">
+             <layout class="QGridLayout" name="gridLayout_4" rowstretch="0,0" columnstretch="0,0">
               <property name="leftMargin">
                <number>0</number>
               </property>
@@ -352,6 +713,34 @@
                 </item>
                </layout>
               </item>
+              <item row="0" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="0,1">
+                <item>
+                 <widget class="QLabel" name="label_3">
+                  <property name="text">
+                   <string>Port1</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="Port_One"/>
+                </item>
+               </layout>
+              </item>
+              <item row="1" column="1">
+               <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="0,1">
+                <item>
+                 <widget class="QLabel" name="label_5">
+                  <property name="text">
+                   <string>Port2</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="Port_Tow"/>
+                </item>
+               </layout>
+              </item>
               <item row="1" column="0">
                <layout class="QHBoxLayout" name="horizontalLayout_10">
                 <item>
@@ -373,567 +762,272 @@
                 </item>
                </layout>
               </item>
-              <item row="0" column="1">
-               <layout class="QHBoxLayout" name="horizontalLayout_11">
-                <item>
-                 <widget class="QLabel" name="label_3">
-                  <property name="text">
-                   <string>Port1</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSpinBox" name="Port_One"/>
-                </item>
-               </layout>
-              </item>
-              <item row="1" column="1">
-               <layout class="QHBoxLayout" name="horizontalLayout_12">
-                <item>
-                 <widget class="QLabel" name="label_5">
-                  <property name="text">
-                   <string>Port2</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSpinBox" name="Port_Tow"/>
-                </item>
-               </layout>
-              </item>
              </layout>
             </widget>
             <widget class="QWidget" name="page_3">
-             <layout class="QGridLayout" name="gridLayout_10">
-              <item row="0" column="0">
-               <widget class="QLabel" name="label_24">
-                <property name="text">
-                 <string>Address</string>
-                </property>
-               </widget>
-              </item>
+             <layout class="QGridLayout" name="gridLayout_3" rowstretch="0" columnstretch="0,0">
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item row="0" column="1">
-               <widget class="QLineEdit" name="SerialAddr_One_2">
-                <property name="inputMask">
-                 <string>000.000.000.000;_</string>
-                </property>
-               </widget>
+               <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
+                <item>
+                 <widget class="QLabel" name="label_7">
+                  <property name="text">
+                   <string>port</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="controllerPort_spinBox">
+                  <property name="maximum">
+                   <number>65535</number>
+                  </property>
+                  <property name="stepType">
+                   <enum>QAbstractSpinBox::DefaultStepType</enum>
+                  </property>
+                  <property name="value">
+                   <number>12011</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item row="0" column="0">
+               <layout class="QHBoxLayout" name="horizontalLayout">
+                <item>
+                 <widget class="QLabel" name="label_22">
+                  <property name="text">
+                   <string>Address</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLineEdit" name="controllerAddr_linedit">
+                  <property name="inputMask">
+                   <string>000.000.000.000;_</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
            </widget>
           </item>
-          <item row="0" column="0">
-           <widget class="QComboBox" name="ControllerSignalMode">
+          <item row="2" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="0,1">
             <item>
-             <property name="text">
-              <string>Serial Port</string>
-             </property>
+             <widget class="QLabel" name="label_21">
+              <property name="text">
+               <string>model  </string>
+              </property>
+             </widget>
             </item>
             <item>
-             <property name="text">
-              <string>Moxa Tcp Server</string>
-             </property>
+             <widget class="QComboBox" name="interfaceModel_comboBox">
+              <item>
+               <property name="text">
+                <string>tcp client</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>tcp server</string>
+               </property>
+              </item>
+             </widget>
             </item>
-            <item>
-             <property name="text">
-              <string>IO controller</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QGroupBox" name="groupBox_13">
-         <property name="title">
-          <string>Controller signal mode</string>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_23">
-          <item row="0" column="0">
-           <widget class="QRadioButton" name="SerialPortOpenState">
-            <property name="text">
-             <string>Normally open</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QRadioButton" name="SerialPortCloseState">
-            <property name="text">
-             <string>Normally closed</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
+           </layout>
           </item>
          </layout>
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QGroupBox" name="groupBox_15">
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="whatsThis">
+          <string>Controller output function, rod lifting function can be set to recognize the completion of the rod lifting or receiving signal rod lifting</string>
+         </property>
          <property name="title">
-          <string>recognition</string>
+          <string>Network controller output function</string>
          </property>
          <property name="flat">
           <bool>true</bool>
          </property>
-         <property name="checkable">
-          <bool>false</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_25">
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="SerialPortOpenState_3">
-            <property name="text">
-             <string>Container number</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QCheckBox" name="SerialPortCloseState_3">
-            <property name="text">
-             <string>The license plate</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QGroupBox" name="groupBox_14">
-         <property name="title">
-          <string>License plate trigger mode</string>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_24">
-          <item row="0" column="0">
-           <widget class="QRadioButton" name="SerialPortOpenState_2">
-            <property name="text">
-             <string>Video identification</string>
-            </property>
-            <property name="checked">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QRadioButton" name="SerialPortCloseState_2">
-            <property name="text">
-             <string>Signal trigger</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QGroupBox" name="groupBox_16">
-         <property name="title">
-          <string>Infrared signal shielding</string>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0,0,0">
+         <layout class="QGridLayout" name="gridLayout_8">
           <property name="horizontalSpacing">
            <number>50</number>
           </property>
-          <property name="verticalSpacing">
-           <number>20</number>
-          </property>
           <item row="0" column="0">
-           <widget class="QCheckBox" name="SerialPortOpenState_5">
-            <property name="text">
-             <string>A1</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QCheckBox" name="SerialPortOpenState_7">
-            <property name="text">
-             <string>B1</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>D1</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="D1out_comboBox">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>NONE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Brake machine</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>LED</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="0" column="1">
-           <widget class="QCheckBox" name="SerialPortOpenState_6">
-            <property name="text">
-             <string>A2</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>D2</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="D2out_comboBox">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>NONE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Brake machine</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>LED</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="2">
+           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,1">
+            <item>
+             <widget class="QLabel" name="label_19">
+              <property name="text">
+               <string>D3</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="D3out_comboBox">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>NONE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Brake machine</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>LED</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="0" column="3">
-           <widget class="QCheckBox" name="SerialPortOpenState_8">
-            <property name="text">
-             <string>B2</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QGroupBox" name="groupBox_17">
-         <property name="title">
-          <string>Container residue inspection</string>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,0">
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
-           <number>5</number>
-          </property>
-          <property name="horizontalSpacing">
-           <number>50</number>
-          </property>
-          <property name="verticalSpacing">
-           <number>20</number>
-          </property>
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="SerialPortOpenState_11">
-            <property name="text">
-             <string>Left</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QCheckBox" name="SerialPortOpenState_12">
-            <property name="text">
-             <string>Right</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QCheckBox" name="SerialPortOpenState_13">
-            <property name="text">
-             <string>Top</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QTableView" name="tableView"/>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QGroupBox" name="groupBox_3">
-         <property name="title">
-          <string>Other</string>
-         </property>
-         <property name="flat">
-          <bool>true</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,1">
-          <property name="leftMargin">
-           <number>5</number>
-          </property>
-          <property name="topMargin">
-           <number>5</number>
-          </property>
-          <property name="rightMargin">
-           <number>5</number>
-          </property>
-          <property name="bottomMargin">
-           <number>5</number>
-          </property>
-          <property name="horizontalSpacing">
-           <number>50</number>
-          </property>
-          <property name="verticalSpacing">
-           <number>20</number>
-          </property>
-          <item row="1" column="0">
-           <widget class="QSpinBox" name="Channel_Number">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="minimum">
-             <number>0</number>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0">
-           <widget class="QComboBox" name="Container_Camera_Model">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="duplicatesEnabled">
-             <bool>false</bool>
-            </property>
-            <property name="frame">
-             <bool>false</bool>
-            </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,1">
             <item>
-             <property name="text">
-              <string>hcnet</string>
-             </property>
+             <widget class="QLabel" name="label_20">
+              <property name="text">
+               <string>D4</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <property name="text">
-              <string>dahua</string>
-             </property>
+             <widget class="QComboBox" name="D4out_comboBox">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>NONE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Brake machine</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>LED</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0" colspan="4">
+           <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="0,1">
+            <item>
+             <widget class="QLabel" name="label_23">
+              <property name="text">
+               <string>Lifting</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <property name="text">
-              <string>custom</string>
-             </property>
+             <widget class="QComboBox" name="lifthingType_comboBox">
+              <item>
+               <property name="text">
+                <string>Identification of lifting lever</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Identify successful lift rod</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Lift rod on signal</string>
+               </property>
+              </item>
+             </widget>
             </item>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="decimals">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLineEdit" name="Alias">
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="placeholderText">
-             <string>Container access gate</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="1">
-           <widget class="QLabel" name="label_43">
-            <property name="text">
-             <string>Haikang camera capture mode, this option and plug-in mode associated</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="0">
-           <widget class="QComboBox" name="Camera_Load_Plugin_comboBox_2">
-            <item>
-             <property name="text">
-              <string>A single instance</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Multiple instances</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QSpinBox" name="spinBox">
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="minimum">
-             <number>1</number>
-            </property>
-            <property name="maximum">
-             <number>3</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QDoubleSpinBox" name="doubleSpinBox">
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="decimals">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QLabel" name="label_20">
-            <property name="text">
-             <string>Container recognition camera type</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="1">
-           <widget class="QLabel" name="label_42">
-            <property name="text">
-             <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1">
-           <widget class="QLabel" name="label_21">
-            <property name="text">
-             <string>Type of license plate camera</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="0">
-           <widget class="QComboBox" name="Plate_Camera_Model">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <item>
-             <property name="text">
-              <string>hikvision</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>WTY</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="9" column="0">
-           <widget class="QComboBox" name="HCNET_Capture_Type_comboBox_2">
-            <item>
-             <property name="text">
-              <string>Catch the memory</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Manual trigger snap (test)</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>CallBack Take the result(An instance)</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Video take figure</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>The underlying capture</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLabel" name="label_27">
-            <property name="text">
-             <string>Channel alias, the main page prompt.</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLabel" name="label_28">
-            <property name="text">
-             <string>The channel number that distinguishes the channel data.</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLabel" name="label">
-            <property name="text">
-             <string>A1 infrared release, how many seconds to capture the picture</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>B1 infrared release, how many seconds to capture the picture</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLabel" name="label_19">
-            <property name="text">
-             <string>Number of car capture recognition</string>
-            </property>
-            <property name="wordWrap">
-             <bool>true</bool>
-            </property>
-           </widget>
+           </layout>
           </item>
          </layout>
         </widget>
@@ -949,16 +1043,16 @@
   <connection>
    <sender>ControllerSignalMode</sender>
    <signal>currentIndexChanged(int)</signal>
-   <receiver>stackedWidget</receiver>
+   <receiver>serial_stackedWidget</receiver>
    <slot>setCurrentIndex(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>382</x>
-     <y>279</y>
+     <x>401</x>
+     <y>238</y>
     </hint>
     <hint type="destinationlabel">
-     <x>382</x>
-     <y>339</y>
+     <x>401</x>
+     <y>294</y>
     </hint>
    </hints>
   </connection>

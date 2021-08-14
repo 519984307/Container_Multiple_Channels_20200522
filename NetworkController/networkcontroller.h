@@ -46,6 +46,11 @@ private:
     int searchType;
 
     ///
+    /// \brief setParState 参数设置状态
+    ///
+    int setParState;
+
+    ///
     /// \brief loopBackIP 环网地址
     ///
     QHostAddress loopBackIP;
@@ -73,13 +78,18 @@ signals:
     ///
     void sendEquipmentParSignal(QMap<QString,QMap<QString,QString>> par);
 
+    ///
+    /// \brief setParSucessSignal 参数设置成功信号
+    ///
+    void setParSucessSignal();
+
 public slots:
 
     ///
     /// \brief setEquipmentParSlot 设置网络继电器参数
     /// \param addr
     ///
-    void setEquipmentParSlot(QString par);
+    void setEquipmentParSlot(QMap<QString,QMap<QString,QString>> par);
 
     ///
     /// \brief searchEquipmentSlot 搜索设备
@@ -109,7 +119,7 @@ private slots:
     ///
     /// \brief processEquimentDataSlot 处理接收到的控制器参数
     ///
-    void processEquimentDataSlot();
+    void processEquimentDataSlot(QMap<QString, QMap<QString, QString>> par,int type);
 };
 
 #endif // NETWORKCONTROLLER_H

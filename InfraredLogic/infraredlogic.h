@@ -128,6 +128,11 @@ private:
     ///
     bool start;
 
+    ///
+    /// \brief logicType 红外逻辑类型
+    ///
+    int logicType;
+
 private:
 
      ///
@@ -180,11 +185,15 @@ private slots:
 public:
 
      ///
-     /// \brief startSlave 设置参数,启动串口
+     /// \brief startSlaveSlot 初始化串口
      /// \param portName1 串口1
      /// \param portName2 串口2
+     /// \param address 地址
+     /// \param port 端口
+     /// \param model 模式
+     /// \param channelNum 通道号
      ///
-     void startSlaveSlot(const QString &portName1, const QString &portName2,int channelNum) Q_DECL_OVERRIDE;
+     void startSlaveSlot(const QString &portName1, const QString &portName2,const QString &address,int port,int model, int channelNum) Q_DECL_OVERRIDE;
 
      ///
      /// \brief simulateTriggerSlot 模拟触发
@@ -195,18 +204,26 @@ public:
      /// type=4 Double 22G1_b
      /// type=5 while
      ///
-      void simulateTriggerSlot(int type)Q_DECL_OVERRIDE;
+     void simulateTriggerSlot(int type)Q_DECL_OVERRIDE;
 
      ///
      /// \brief setAlarmModeSlot 设置红外模式
      /// \param mode 模式(敞开|常闭)
+     /// \param logicType 红外逻辑类型
      ///
-     void setAlarmModeSlot(bool model)Q_DECL_OVERRIDE;
+     void setAlarmModeSlot(bool model, int logicType)Q_DECL_OVERRIDE;
+
+     ///
+     /// \brief DTypeOutSlot 网络控制器输出
+     /// \param dType 输出类型
+     /// \param lifting 抬杆类型
+     ///
+     void DTypeOutSlot(QList<int> dType,int lifting)Q_DECL_OVERRIDE;
 
      ///
      /// \brief exitWhile 退出循环
      ///
-     void exitWhileSlot()Q_DECL_OVERRIDE;
+     void releaseResourcesSlot()Q_DECL_OVERRIDE;
 
 signals:
 

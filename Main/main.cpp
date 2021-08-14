@@ -16,6 +16,8 @@
 
 int main(int argc, char *argv[])
 {
+    QApplication a(argc, argv);
+
 #ifdef Q_OS_WIN
         crashstack dump;
 #endif
@@ -26,8 +28,6 @@ int main(int argc, char *argv[])
     QApplication::addLibraryPath(QDir::toNativeSeparators("./Plugins"));
     //QApplication::addLibraryPath(QDir::toNativeSeparators("./translations"));
     QDir::setCurrent(QCoreApplication::applicationDirPath());
-
-    QApplication a(argc, argv);
 
     int language=0;
     QPointer<LoadParameter> Pointer(new LoadParameter(nullptr));

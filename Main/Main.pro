@@ -15,13 +15,13 @@ CONFIG += skip_target_version_ext
 
 QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
-VERSION = 1.1.2.14_2107281026_
+VERSION = 1.1.7.2_2108131434_
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 ID = f19d15dec81584b5ce4f9edb0aae1789
 DEFINES += DOG_ID=\\\"$$ID\\\"
 PROJECT += TEST
 DEFINES += APP_PROJECT=\\\"$$PROJECT\\\"
-CHANNEL = 1
+CHANNEL = 10
 DEFINES += APP_CHANNEL=\\\"$$CHANNEL\\\"
 #If it is a multi-channel version, the software conditions need to be changed:
 #1.EncryptionInterface plug-in version

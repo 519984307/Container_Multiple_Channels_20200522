@@ -10,7 +10,7 @@ Setting_Form::Setting_Form(QWidget *parent) :
     this->setParent(parent);
     this->setAttribute(Qt::WA_DeleteOnClose,true);
 
-    ui->listWidget->setVisible(false);
+    ui->channel_listWidget->setVisible(false);
 }
 
 Setting_Form::~Setting_Form()
@@ -64,11 +64,13 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
 {
     automatic=false;
     channelSelect=0;
+    channelListSelect=0;
+    systemListSelect=0;
 
-    ui->listWidget->addItems(rowLabels);
+    ui->channel_listWidget->addItems(rowLabels);
 
     for (int var = 0; var < count; ++var) {
-        ui->listWidget->item(var)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        ui->channel_listWidget->item(var)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
 
         /*****************************
         * @brief: 添加通道设置窗口到容器
@@ -87,12 +89,17 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
     /*****************************
     * @brief: 添加系统设置到容器
     ******************************/
-    System_Setting_Form *p_System_Setting_Form=new System_Setting_Form (count,this);
+    System_Setting_Form *p_System_Setting_Form=new System_Setting_Form (count,this);     
 
     /*****************************
     * @brief:初始化设备状态
     ******************************/
     connect(p_System_Setting_Form,SIGNAL(initializesTheDeviceTemporaryTableSignal(int,QStringList)),this,SLOT(initializesTheDeviceTemporaryTableSlot(int,QStringList)));
+
+    /*****************************
+    * @brief:系统设置页面
+    ******************************/
+    connect(this,&Setting_Form::systemCurrentRowChangedSignal,p_System_Setting_Form,&System_Setting_Form::systemCurrentRowChangedSlot);
 
     /*****************************
     * @brief:搜索网络控制器设备
@@ -105,9 +112,14 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
     connect(this,&Setting_Form::sendEquipmentParSignal,p_System_Setting_Form,&System_Setting_Form::sendEquipmentParSlot);
 
     /*****************************
+    * @brief:设置网络控制器参数成功
+    ******************************/
+    connect(this,&Setting_Form::setParSucessSignal,p_System_Setting_Form,&System_Setting_Form::setParSucessSlot);
+
+    /*****************************
     * @brief:设置网络控制器参数
     ******************************/
-    connect(this,&Setting_Form::setEquipmentParSignal,p_System_Setting_Form,&System_Setting_Form::setEquipmentParSignal);
+    connect(p_System_Setting_Form,&System_Setting_Form::setEquipmentParSignal,this,&Setting_Form::setEquipmentParSignal);
 
     /*****************************
     * @brief: 保存参数
@@ -126,47 +138,37 @@ void Setting_Form::initializesTheDeviceListSlot(int count, QStringList rowLabels
 
 void Setting_Form::on_channel_pushButton_clicked()
 {
-    channelSelect=0;
+    if(System_Setting_Form *Obj=qobject_cast<System_Setting_Form*>(Setting_Map.value(0))){
+        Obj->setVisible(false);
+    }
+    if(Channel_Setting_Form *Obj=qobject_cast<Channel_Setting_Form*>(Setting_Map.value(channelListSelect+1))){
+        Obj->setVisible(true);
+    }
+    //channelSelect=0;
+    ui->system_listWidget->setVisible(false);
 
-    ui->listWidget->setCurrentRow(-1);
-    ui->listWidget->setVisible(true);
-    ui->listWidget->setFocus();
-    ui->listWidget->setCurrentRow(0);
+    ui->channel_listWidget->setVisible(true);
+    ui->channel_listWidget->setCurrentRow(channelListSelect);
+    ui->channel_listWidget->setFocus();
+    ui->channel_listWidget->setCurrentRow(channelListSelect);
 }
 
 void Setting_Form::on_system_pushButton_clicked()
 {
+    if(Channel_Setting_Form *Obj=qobject_cast<Channel_Setting_Form*>(Setting_Map.value(channelListSelect+1))){
+        Obj->setVisible(false);
+    }
     if(System_Setting_Form *Obj=qobject_cast<System_Setting_Form*>(Setting_Map.value(0))){
-        if(Obj->isVisible()){
-            return;
-        }
-        hideTheWindow();
-
-        ui->listWidget->setVisible(false);
-
         Obj->setVisible(true);
-        channelSelect=0;
     }
-}
+    //channelSelect=0;
 
-void Setting_Form::on_listWidget_currentRowChanged(int currentRow)
-{
-    /*****************************
-    * 列表选中项发生改变,才触发信号
-    ******************************/
-    if(channelSelect!=currentRow+1){
+    ui->channel_listWidget->setVisible(false);
 
-        if(Channel_Setting_Form *Obj=qobject_cast<Channel_Setting_Form*>(Setting_Map.value(currentRow+1))){
-            if(Obj->isVisible()){
-                return;
-            }
-            hideTheWindow();
-
-            Obj->setVisible(true);
-
-            channelSelect=currentRow+1;
-        }
-    }
+    ui->system_listWidget->setVisible(true);
+    ui->system_listWidget->setCurrentRow(systemListSelect);
+    ui->system_listWidget->setFocus();
+    ui->system_listWidget->setCurrentRow(systemListSelect);
 }
 
 void Setting_Form::on_buttonBox_clicked(QAbstractButton *button)
@@ -210,25 +212,67 @@ void Setting_Form::automaticStateSlot(bool status)
 
 void Setting_Form::initializesTheDeviceTemporaryTableSlot(int count, QStringList rowLabels)
 {
-    int listCount=ui->listWidget->count();
-    int cot=abs(listCount-count);
-
-    if(listCount>count){
-        for (int var = 1; var <= cot; ++var) {
-            QListWidgetItem* item= ui->listWidget->takeItem(ui->listWidget->count()-1);
-            ui->listWidget->removeItemWidget(item);
-            delete item;
+    if(0 == count){
+        ui->system_listWidget->clear();
+        int i=0;
+        foreach (QString item, rowLabels) {
+            ui->system_listWidget->addItem(item);
+            ui->system_listWidget->item(i)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+            i++;
         }
     }
     else {
-        for (int var = 1; var <= cot; ++var) {
-            ui->listWidget->addItem(rowLabels[ui->listWidget->count()]);
-            ui->listWidget->item(ui->listWidget->count()-1)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+        int listCount=ui->channel_listWidget->count();
+        int cot=abs(listCount-count);
 
-            Channel_Setting_Form *p_Channel_Setting_Form=new Channel_Setting_Form (ui->listWidget->count(),this);
-            connect(this,SIGNAL(writeParameterSignal()),p_Channel_Setting_Form,SLOT(writeParameterSlot()));
-            Setting_Map.insert(ui->listWidget->count(),p_Channel_Setting_Form);
-            ui->gridLayout->addWidget(p_Channel_Setting_Form);
+        if(listCount>count){
+            for (int var = 1; var <= cot; ++var) {
+                QListWidgetItem* item= ui->channel_listWidget->takeItem(ui->channel_listWidget->count()-1);
+                ui->channel_listWidget->removeItemWidget(item);
+                delete item;
+            }
         }
+        else {
+            for (int var = 1; var <= cot; ++var) {
+                ui->channel_listWidget->addItem(rowLabels[ui->channel_listWidget->count()]);
+                ui->channel_listWidget->item(ui->channel_listWidget->count()-1)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+
+                Channel_Setting_Form *p_Channel_Setting_Form=new Channel_Setting_Form (ui->channel_listWidget->count(),this);
+                connect(this,SIGNAL(writeParameterSignal()),p_Channel_Setting_Form,SLOT(writeParameterSlot()));
+                Setting_Map.insert(ui->channel_listWidget->count(),p_Channel_Setting_Form);
+                ui->gridLayout->addWidget(p_Channel_Setting_Form);
+            }
+        }
+    }
+}
+
+void Setting_Form::on_channel_listWidget_currentRowChanged(int currentRow)
+{
+    if(-1 != currentRow){
+        /*****************************
+        * 列表选中项发生改变,才触发信号
+        ******************************/
+        if(channelSelect!=currentRow+1){
+
+            if(Channel_Setting_Form *Obj=qobject_cast<Channel_Setting_Form*>(Setting_Map.value(currentRow+1))){
+                if(Obj->isVisible()){
+                    return;
+                }
+                hideTheWindow();
+
+                Obj->setVisible(true);
+
+                channelSelect=currentRow+1;
+            }
+        }
+        channelListSelect=currentRow;
+    }
+}
+
+void Setting_Form::on_system_listWidget_currentRowChanged(int currentRow)
+{
+    if(-1 != currentRow){
+        emit systemCurrentRowChangedSignal(currentRow);
+        systemListSelect=currentRow;
     }
 }

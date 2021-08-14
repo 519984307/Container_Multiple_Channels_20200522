@@ -46,8 +46,10 @@ QString InfraredLogic::InterfaceType()
     return QString("Protector");
 }
 
-void InfraredLogic::setAlarmModeSlot(bool model)
+void InfraredLogic::setAlarmModeSlot(bool model,int logicType)
 {
+    this->logicType=logicType;
+
     valueOne=0;    valueTwo=1;
     /* 常开(false) |常闭(true) */
     if(!model) {
@@ -55,7 +57,13 @@ void InfraredLogic::setAlarmModeSlot(bool model)
     }
 }
 
-void InfraredLogic::exitWhileSlot()
+void InfraredLogic::DTypeOutSlot(QList<int> dType, int lifting)
+{
+    Q_UNUSED(dType);
+    Q_UNUSED(lifting);
+}
+
+void InfraredLogic::releaseResourcesSlot()
 {
     this->exit=true;
 
@@ -94,131 +102,240 @@ void InfraredLogic::serialLogic(int *status)
     /*
     * 红外逻辑(一定要判断状态),1)如果A2无信号,过车释放A1,会导致后3张图偏移.(处理完成)
     * 常开[false|0,0,0,0,0,0,0,0]|常闭[true|1,1,1,1,1,1,1,1]
+    * 0:南京三宝
+    * 1:标准逻辑
     */
+    if(0 == logicType){
+        if(carInChannel && status[0]==valueOne && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+            emit logicPutImageSignal(5);
+            carInChannel=false;
 
-    /*****************************
-    * @brief:车辆倒车：车辆已进入，退出挡住A1，其他释放
-    ******************************/
-    if(carInChannel && status[0]==valueOne && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
-        emit logicPutImageSignal(5);
-        carInChannel=false;
-    }
-
-    /*****************************
-    * @brief:车辆进入，如果是高车头同时挡住2组红外                    1
-    ******************************/
-    if(status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
-        comming=true;
-        isLong=false;
-        isDouble=false;
-        isCar=false;
-
-        carInChannel=false;
-
-        emit logicPutImageSignal(-1);
-        qDebug().noquote()<<QString("Vehicles entering[1]");
-    }
-
-    /*****************************
-    * @brief:遮挡住2组红外，然后释放掉，证明是高车头                  2
-    ******************************/
-    if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
-        comming=false;
-        isCar=true;/* 判断是高车头 */
-        qDebug().noquote()<<QString("High truck head[2]");
-    }
-
-    /*****************************
-    * @brief:不是双箱，不是车头，判断为长箱。抓拍前3张                3
-    ******************************/
-    if(comming && !isDouble && !isCar && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueOne){
-        /* 长箱或者双向(双箱加高车头抓两次) */
-        isLong=true;
-
-        if(health2){
-            emit logicPutImageSignal(0);
+            qDebug().noquote()<<QString("Vehicle reversing[-1]");
         }
-        qDebug().noquote()<<QString("Grab (front, left, right)[3]");
 
-        return;
-    }
+        /*****************************
+        * @brief:车辆进入，如果是高车头同时挡住2组红外                    1
+        ******************************/
+        if(status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
+            comming=true;
+            isLong=false;
+            isDouble=false;
+            isCar=false;
 
-    /*****************************
-    * @brief:释放A1,A2。抓拍后3张。逻辑完成                        4
-    ******************************/
-    if(comming && isLong && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
-        if(health1){
+            carInChannel=false;
+
+            emit logicPutImageSignal(-1);
+            qDebug().noquote()<<QString("Vehicles entering[1]");
+        }
+
+        if(comming &&!isDouble && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueOne){
+            isLong=true;
+        }
+
+        /*****************************
+        * 2021/02/07 16：13
+        * @brief:长箱,短箱，双箱 都是A1 A2 B1抓3张
+        ******************************/
+        if(comming && !isLong && !isDouble && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne){
+            emit logicPutImageSignal(0);
+
+            qDebug().noquote()<<QString("Grab (front, left, right)[3]");
+        }
+
+        if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
             if(isDouble){
-                /* 如果是双箱就触发双箱标志 */
-                emit logicPutImageSignal(4);
-                qDebug().noquote()<<QString("Grab (double box) (back, left, right)[4-4}]");
+                emit logicPutImageSignal(4);/* 双箱 */
+            }
+            else if(isLong){
+                emit logicPutImageSignal(1);/* 长箱 */
             }
             else {
-                /* 如果是长箱就触发长箱标志 */
-                logicPutImageSignal(1);
-                qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
+                emit logicPutImageSignal(6);/* 短箱 */
             }
+
+            qDebug().noquote()<<QString("Grab (Back, left, right)[3]");
+
+            comming=false;
+            isLong=false;
+            isDouble=false;
+            isCar=false;
+            health2=true;
+            health1=true;
             carInChannel=true;
+
+            return;
         }
 
-        comming=false;
-        isLong=false;
-        isDouble=false;
-        isCar=false;
-        health2=true;
-        health1=true;
-
-        return;
-    }
-
-    /*****************************
-    * @brief:不是车头，不是长箱，就触发小箱逻辑。抓4张              5
-    ******************************/
-    if(comming && !isLong && !isCar && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
-        /* 小箱，抓4张(小箱放长托架后面,标准小箱) */
-        if(health1){
-            emit logicPutImageSignal(2);
-            carInChannel=true;
+        /*****************************
+        * @brief:遮挡住2组红外，然后释放掉，证明是高车头                  2
+        ******************************/
+        if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+            comming=false;
+            isCar=true;/* 判断是高车头 */
+            qDebug().noquote()<<QString("High truck head[2]");
         }
 
-        comming=false;
-        isLong=false;
-        isDouble=false;
-        isCar=false;
-        health2=true;
-        health1=true;
+        /*****************************
+        * @brief: 双箱                                              8
+        ******************************/
+    //    if(comming && !isCar  && isLong && status[0]==valueTwo && status[1]==valueOne && status[2]==valueOne){
+    //        /* 双箱 A1 */
+    //        isDouble=true;
+    //        isLong=false;
 
-        qDebug().noquote()<<QString("Grasp (small box) (front , back, left, right)[5]");
+    //        qDebug()<<"Double box state(A2)[8-0]";
+    //    }
+        if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
+            /* 双箱 A2 */
+            isDouble=true;
+            //isLong=false;
 
-        return;
+            qDebug().noquote()<<QString("Double box state(A2)[8-1]");
+        }
+        if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueOne){
+            /* 双箱 B1 */
+            isDouble=true;
+            //isLong=false;
+
+            qDebug().noquote()<<QString("Double box state(B1)[8-2]");
+        }
+        if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
+            /* 双箱 B2 */
+            isDouble=false;
+            isLong=false;
+
+            qDebug().noquote()<<QString("Double box state(B2)[8-3]");
+        }
     }
+    if(1 == logicType){
+        /*****************************
+        * @brief:车辆倒车：车辆已进入，退出挡住A1，其他释放
+        ******************************/
+        if(carInChannel && status[0]==valueOne && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+            emit logicPutImageSignal(5);
+            carInChannel=false;
+        }
 
-    /*****************************
-    * @brief:                                               8
-    ******************************/
-    if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
-        /* 双箱 A2 */
-        isDouble=true;
+        /*****************************
+        * @brief:车辆进入，如果是高车头同时挡住2组红外                    1
+        ******************************/
+        if(status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
+            comming=true;
+            isLong=false;
+            isDouble=false;
+            isCar=false;
 
-        qDebug().noquote()<<QString("Double box state(A2)[8-1]");
-    }
-    if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueOne){
-        /* 双箱 B1 */
-        isDouble=true;
+            carInChannel=false;
 
-        qDebug().noquote()<<QString("Double box state(B1)[8-2]");
-    }
-    if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
-        /* 双箱 B2 */
-        isDouble=false;
-        isLong=false;
+            emit logicPutImageSignal(-1);
+            qDebug().noquote()<<QString("Vehicles entering[1]");
+        }
 
-        qDebug().noquote()<<QString("Double box state(B2)[8-3]");
+        /*****************************
+        * @brief:遮挡住2组红外，然后释放掉，证明是高车头                  2
+        ******************************/
+        if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+            comming=false;
+            isCar=true;/* 判断是高车头 */
+            qDebug().noquote()<<QString("High truck head[2]");
+        }
+
+        /*****************************
+        * @brief:不是双箱，不是车头，判断为长箱。抓拍前3张                3
+        ******************************/
+        if(comming && !isDouble && !isCar && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueOne){
+            /* 长箱或者双向(双箱加高车头抓两次) */
+            isLong=true;
+
+            if(health2){
+                emit logicPutImageSignal(0);
+            }
+            qDebug().noquote()<<QString("Grab (front, left, right)[3]");
+
+            return;
+        }
+
+        /*****************************
+        * @brief:释放A1,A2。抓拍后3张。逻辑完成                        4
+        ******************************/
+        if(comming && isLong && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
+            if(health1){
+                if(isDouble){
+                    /* 如果是双箱就触发双箱标志 */
+                    emit logicPutImageSignal(4);
+                    qDebug().noquote()<<QString("Grab (double box) (back, left, right)[4-4}]");
+                }
+                else {
+                    /* 如果是长箱就触发长箱标志 */
+                    logicPutImageSignal(1);
+                    qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
+                }
+                carInChannel=true;
+            }
+
+            comming=false;
+            isLong=false;
+            isDouble=false;
+            isCar=false;
+            health2=true;
+            health1=true;
+
+            return;
+        }
+
+        /*****************************
+        * @brief:不是车头，不是长箱，就触发小箱逻辑。抓4张              5
+        ******************************/
+        if(comming && !isLong && !isCar && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
+            /* 小箱，抓4张(小箱放长托架后面,标准小箱) */
+            if(health1){
+                emit logicPutImageSignal(2);
+                carInChannel=true;
+            }
+
+            comming=false;
+            isLong=false;
+            isDouble=false;
+            isCar=false;
+            health2=true;
+            health1=true;
+
+            qDebug().noquote()<<QString("Grasp (small box) (front , back, left, right)[5]");
+
+            return;
+        }
+
+        /*****************************
+        * @brief:                                               8
+        ******************************/
+        if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
+            /* 双箱 A2 */
+            isDouble=true;
+
+            qDebug().noquote()<<QString("Double box state(A2)[8-1]");
+        }
+        if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueOne){
+            /* 双箱 B1 */
+            isDouble=true;
+
+            qDebug().noquote()<<QString("Double box state(B1)[8-2]");
+        }
+        if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
+            /* 双箱 B2 */
+            isDouble=false;
+            isLong=false;
+
+            qDebug().noquote()<<QString("Double box state(B2)[8-3]");
+        }
     }
 }
 
-void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &portName2,int channelNum)
+void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &portName2,const QString &address,int port,int model, int channelNum)
 {
+    Q_UNUSED(address)
+    Q_UNUSED(port)
+    Q_UNUSED(model)
+
     if(start){
         QDateTime dateTime = QDateTime::currentDateTime();
         QString stringDateTime = dateTime.toString( "yyyy_MM_dd_hh_mm_ss" );
@@ -320,7 +437,7 @@ void InfraredLogic::startSlaveSlot(const QString &portName1, const QString &port
         }
     }
 
-    emit serialPortStateSignal(com1,com2);
+    emit serialPortStateSignal(com1,com2,false);
 
     if(!com1 && !com2){/* com1和com2都未打开,不做后续处理 */
         qWarning().noquote()<<QString("Channel:%1 serial port exception").arg(channelNum);
@@ -403,7 +520,7 @@ void InfraredLogic::detectionLogicSlot()
 
 void InfraredLogic::realyTheSerialport()
 {
-    startSlaveSlot(port1,port2,channelNum);
+    startSlaveSlot(port1,port2,QString(""),-1,-1,channelNum);
 }
 
 void InfraredLogic::detectionLogicStatus(bool com1, bool com2)

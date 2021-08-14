@@ -13,6 +13,7 @@
 #include <QMessageLogger>
 #include <QtNetwork/QNetworkInterface>
 #include <QTableWidgetItem>
+#include <QShowEvent>
 
 #include "Parameter/parameter.h"
 
@@ -27,6 +28,8 @@ class System_Setting_Form : public QWidget
 public:
     explicit System_Setting_Form(int channelNumber,QWidget *parent = nullptr);
     ~System_Setting_Form();    
+
+    void showEvent(QShowEvent *event)Q_DECL_OVERRIDE;
 
 private slots:
 
@@ -76,9 +79,9 @@ private slots:
     ///
     void on_DataChaneType_combox_currentIndexChanged(int index);
 
-    /*****************************
-    * @brief:搜索网络控制器
-    ******************************/
+    ///
+    /// \brief on_searchEquipment_pushButton_clicked 搜索网络控制器
+    ///
     void on_searchEquipment_pushButton_clicked();
 
     ///
@@ -86,6 +89,16 @@ private slots:
     /// \param item
     ///
     void on_equiment_tableWidget_itemClicked(QTableWidgetItem *item);
+
+    ///
+    /// \brief on_setParameter_pushButton_clicked 设置网络控制器参数
+    ///
+    void on_setParameter_pushButton_clicked();
+
+    ///
+    /// \brief on_searchInternet_pushButton_clicked 查找网卡
+    ///
+    void on_searchInternet_pushButton_clicked();
 
 signals:
 
@@ -127,7 +140,7 @@ signals:
     /// \brief setEquipmentParSignal 设置网络控制器参数
     /// \param par
     ///
-    void setEquipmentParSignal(QString par);
+    void setEquipmentParSignal(QMap<QString,QMap<QString,QString>> par);
 
 private:
     Ui::System_Setting_Form *ui;
@@ -186,6 +199,17 @@ public slots:
     /// \param par
     ///
     void sendEquipmentParSlot(QMap<QString,QMap<QString,QString>> par);
+
+    ///
+    /// \brief setParSucessSlot 网络控制器参数设置成功
+    ///
+    void setParSucessSlot();
+
+    ///
+    /// \brief systemCurrentRowChangedSignal 系统设置页面
+    /// \param currentRow
+    ///
+    void systemCurrentRowChangedSlot(int currentRow);
 };
 
 #endif // SYSTEM_SETTING_FORM_H

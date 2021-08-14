@@ -28,7 +28,13 @@ void Channel_Setting_Form::InitializationParameter(int number)
 {
     this->channel_number=number;
 
-    p_ChannelParameter=QSharedPointer<ChannelParameter>(new ChannelParameter ());
+    ui->serial_stackedWidget->setCurrentIndex(0);
+    ui->D1out_comboBox->setCurrentIndex(0);
+    ui->D2out_comboBox->setCurrentIndex(0);
+    ui->D3out_comboBox->setCurrentIndex(0);
+    ui->D4out_comboBox->setCurrentIndex(0);
+
+    p_ChannelParameter=QSharedPointer<ChannelParameter>(new ChannelParameter());
 
     /*****************************
     * @brief:创建配置文件夹
@@ -94,10 +100,6 @@ bool Channel_Setting_Form::loadParameter()
                     ******************************/
                     p_ChannelParameter->Alias= getJsonValue("Other","Alias",value.toObject()).toString();
                     p_ChannelParameter->Channel_number=getJsonValue("Other","Channel_Number",value.toObject()).toInt();
-                    p_ChannelParameter->Plate_Camera_Model=getJsonValue("Other","Plate_Camera_Model",value.toObject()).toInt();
-                    p_ChannelParameter->Container_Camera_Model=getJsonValue("Other","Container_Camera_Model",value.toObject()).toInt();                   
-                    p_ChannelParameter->HCNET_Capture_Type=getJsonValue("Other","HCNET_Capture_Type",value.toObject()).toInt();
-                    p_ChannelParameter->Camera_Load_Plugin=getJsonValue("Other","Camera_Load_Plugin",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:SerialPort
@@ -105,11 +107,19 @@ bool Channel_Setting_Form::loadParameter()
                     p_ChannelParameter->PortOne= getJsonValue("SerialPort","PortOne",value.toObject()).toInt();
                     p_ChannelParameter->PortTow= getJsonValue("SerialPort","PortTow",value.toObject()).toInt();
                     p_ChannelParameter->SerialAddrOne= getJsonValue("SerialPort","SerialAddrOne",value.toObject()).toString();
-                    p_ChannelParameter->SerialAddrTow= getJsonValue("SerialPort","SerialAddrTow",value.toObject()).toString();
+                    p_ChannelParameter->SerialAddrTow= getJsonValue("SerialPort","SerialAddrTow",value.toObject()).toString();                                      
                     p_ChannelParameter->infraredStatus=getJsonValue("SerialPort","infraredStatus",value.toObject()).toInt();
                     p_ChannelParameter->ControllerSignalMode= getJsonValue("SerialPort","ControllerSignalMode",value.toObject()).toInt();
                     p_ChannelParameter->SerialPortTow= getJsonValue("SerialPort","SerialPortTow",value.toObject()).toInt();
                     p_ChannelParameter->SerialPortOne= getJsonValue("SerialPort","SerialPortOne",value.toObject()).toInt();
+                    p_ChannelParameter->controllerAddr= getJsonValue("SerialPort","controllerAddr",value.toObject()).toString();
+                    p_ChannelParameter->controllerPort= getJsonValue("SerialPort","controllerPort",value.toObject()).toInt();
+                    p_ChannelParameter->D1out= getJsonValue("SerialPort","D1out",value.toObject()).toInt();
+                    p_ChannelParameter->D2out= getJsonValue("SerialPort","D2out",value.toObject()).toInt();
+                    p_ChannelParameter->D3out= getJsonValue("SerialPort","D3out",value.toObject()).toInt();
+                    p_ChannelParameter->D4out= getJsonValue("SerialPort","D4out",value.toObject()).toInt();
+                    p_ChannelParameter->interfaceModel= getJsonValue("SerialPort","interfaceModel",value.toObject()).toInt();
+                    p_ChannelParameter->lifthingType= getJsonValue("SerialPort","lifthingType",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return  true;
@@ -153,6 +163,7 @@ bool Channel_Setting_Form::writeParameterSlot()
     jsonObj.insert(QString("ForgroundCamer"),ui->Camera_Forground->text());
     jsonObj.insert(QString("ProspectsCamer"),ui->Camera_Prospects->text());
     jsonObj.insert(QString("LocalAddr"),ui->LocalAddr->text());
+
     jsonChild.insert("Camer",QJsonValue(jsonObj));
 
     /*****************************
@@ -165,7 +176,15 @@ bool Channel_Setting_Form::writeParameterSlot()
     jsonObj2.insert(QString("SerialAddrOne"),ui->SerialAddr_One->text());
     jsonObj2.insert(QString("SerialAddrTow"),ui->SerialAddr_Tow->text());
     jsonObj2.insert(QString("PortOne"),ui->Port_One->value());
-    jsonObj2.insert(QString("PortTow"),ui->Port_Tow->value());
+    jsonObj2.insert(QString("PortTow"),ui->Port_Tow->value());   
+    jsonObj2.insert(QString("controllerPort"),ui->controllerPort_spinBox->value());
+    jsonObj2.insert(QString("controllerAddr"),ui->controllerAddr_linedit->text());
+    jsonObj2.insert(QString("D1out"),ui->D1out_comboBox->currentIndex());
+    jsonObj2.insert(QString("D2out"),ui->D2out_comboBox->currentIndex());
+    jsonObj2.insert(QString("D3out"),ui->D3out_comboBox->currentIndex());
+    jsonObj2.insert(QString("D4out"),ui->D4out_comboBox->currentIndex());
+    jsonObj2.insert(QString("interfaceModel"),ui->interfaceModel_comboBox->currentIndex());
+    jsonObj2.insert(QString("lifthingType"),ui->lifthingType_comboBox->currentIndex());
 
     if(ui->SerialPortOpenState->isChecked()){
         jsonObj2.insert(QString("infraredStatus"),0);
@@ -184,10 +203,6 @@ bool Channel_Setting_Form::writeParameterSlot()
     if(0==ui->Channel_Number->value()){
         jsonObj3.insert(QString("Channel_Number"),channel_number);
     }
-    jsonObj3.insert(QString("Plate_Camera_Model"),ui->Plate_Camera_Model->currentIndex());
-    jsonObj3.insert(QString("Container_Camera_Model"),ui->Container_Camera_Model->currentIndex());
-    jsonObj3.insert(QString("HCNET_Capture_Type"),ui->HCNET_Capture_Type_comboBox_2->currentIndex());
-    jsonObj3.insert(QString("Camera_Load_Plugin"),ui->Camera_Load_Plugin_comboBox_2->currentIndex());
     jsonChild.insert("Other",QJsonValue(jsonObj3));
 
     jsonObjRoot.insert(QString("Channel"),QJsonValue(jsonChild));
@@ -227,7 +242,16 @@ void Channel_Setting_Form::parameterToUi()
     ui->SerialAddr_One->setText(p_ChannelParameter->SerialAddrOne);
     ui->SerialAddr_Tow->setText(p_ChannelParameter->SerialAddrTow);
     ui->Port_One->setValue(p_ChannelParameter->PortOne);
-    ui->Port_Tow->setValue(p_ChannelParameter->PortTow);
+    ui->Port_Tow->setValue(p_ChannelParameter->PortTow);    
+    ui->controllerPort_spinBox->setValue(p_ChannelParameter->controllerPort);
+    ui->controllerAddr_linedit->setText(p_ChannelParameter->controllerAddr);
+    ui->D1out_comboBox->setCurrentIndex(p_ChannelParameter->D1out);
+    ui->D2out_comboBox->setCurrentIndex(p_ChannelParameter->D2out);
+    ui->D3out_comboBox->setCurrentIndex(p_ChannelParameter->D3out);
+    ui->D4out_comboBox->setCurrentIndex(p_ChannelParameter->D4out);
+    ui->interfaceModel_comboBox->setCurrentIndex(p_ChannelParameter->interfaceModel);
+    ui->lifthingType_comboBox->setCurrentIndex(p_ChannelParameter->lifthingType);
+
     if(!p_ChannelParameter->infraredStatus){
         /* 常开 */
         ui->SerialPortOpenState->setChecked(true);
@@ -242,10 +266,6 @@ void Channel_Setting_Form::parameterToUi()
     ******************************/
     ui->Alias->setText(p_ChannelParameter->Alias);
     ui->Channel_Number->setValue(p_ChannelParameter->Channel_number);
-    ui->Plate_Camera_Model->setCurrentIndex(p_ChannelParameter->Plate_Camera_Model);
-    ui->Container_Camera_Model->setCurrentIndex(p_ChannelParameter->Container_Camera_Model);    
-    ui->HCNET_Capture_Type_comboBox_2->setCurrentIndex(p_ChannelParameter->HCNET_Capture_Type);
-    ui->Camera_Load_Plugin_comboBox_2->setCurrentIndex(p_ChannelParameter->Camera_Load_Plugin);
 }
 
 QVariant Channel_Setting_Form::getJsonValue(const QString &child, const QString &key, QJsonObject obj)

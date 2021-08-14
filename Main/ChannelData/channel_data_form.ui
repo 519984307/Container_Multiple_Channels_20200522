@@ -563,7 +563,7 @@ color: rgb(255, 255, 255);</string>
          <number>1</number>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="page">
          <property name="geometry">
@@ -571,7 +571,7 @@ color: rgb(255, 255, 255);</string>
            <x>0</x>
            <y>0</y>
            <width>178</width>
-           <height>647</height>
+           <height>672</height>
           </rect>
          </property>
          <attribute name="label">
@@ -873,7 +873,7 @@ color: rgb(255, 255, 255);</string>
            <x>0</x>
            <y>0</y>
            <width>178</width>
-           <height>647</height>
+           <height>672</height>
           </rect>
          </property>
          <property name="mouseTracking">
@@ -1014,6 +1014,9 @@ color: rgb(255, 255, 255);</string>
             </property>
             <item row="1" column="2">
              <widget class="QCheckBox" name="d3checkBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -1024,6 +1027,9 @@ color: rgb(255, 255, 255);</string>
             </item>
             <item row="1" column="1">
              <widget class="QCheckBox" name="d2checkBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -1034,6 +1040,9 @@ color: rgb(255, 255, 255);</string>
             </item>
             <item row="1" column="0">
              <widget class="QCheckBox" name="d1checkBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string/>
               </property>
@@ -1044,6 +1053,9 @@ color: rgb(255, 255, 255);</string>
             </item>
             <item row="1" column="3">
              <widget class="QCheckBox" name="d4checkBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="text">
                <string/>
               </property>

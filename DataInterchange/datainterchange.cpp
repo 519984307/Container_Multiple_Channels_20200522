@@ -53,6 +53,8 @@ void DataInterchange::InitializationParameterSlot(const QString& address, const 
         connect(pTcpServer,&TcpServer::signal_sendDataSuccToLog,this,&DataInterchange::signal_sendDataSuccToLog);
         /* tcp链接状态 */
         connect(pTcpServer,&TcpServer::linkStateSingal,this,&DataInterchange::linkStateSingal);
+        /* tcp链接状态 */
+        connect(pTcpServer,&TcpServer::signal_lifting,this,&DataInterchange::signal_lifting);
         /* 释放资源 */
         connect(this,&DataInterchange::signal_releaseResources,pTcpServer,&TcpServer::releaseResourcesSlot);
 
@@ -142,6 +144,12 @@ void DataInterchange::receiveDataSlot()
                     pTcpClient->write(eol.toUtf8());
                 }
             }
+        }
+        /*****************************
+        * @brief:收到抬杆信息
+        ******************************/
+        if(tmp.count()==1 && buf=="[+LF]"){
+            emit signal_lifting();
         }
     }
     else {

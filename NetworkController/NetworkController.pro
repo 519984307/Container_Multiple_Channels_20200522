@@ -9,7 +9,7 @@ CONFIG += c++11
 TARGET = NetworkController
 
 CONFIG += skip_target_version_ext
-VERSION = 0.0.0.1
+VERSION = 0.3.11.6
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use

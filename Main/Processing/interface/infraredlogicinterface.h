@@ -18,40 +18,37 @@ public:
 
 signals:
 
-    ///
-    /// \brief messageSignal 日志信息
-    /// \param type 日志类型
-    /// \param msg 信息体
-    ///
-    void messageSignal(const QString &type,const QString &msg);
+   ///
+   /// \brief logicStatus 红外信号状态
+   /// \param status 状态码
+   ///
+   void logicStatusSignal(int* status);
 
-     ///
-     /// \brief logicStatus 红外信号状态
-     /// \param status 状态码
-     ///
-     void logicStatusSignal(int* status);
+   ///
+   /// \brief setLogicPutImage 逻辑抓图
+   /// \param putCommnd 逻辑
+   ///
+   void logicPutImageSignal(const int &putCommnd);
 
-     ///
-     /// \brief setLogicPutImage 逻辑抓图
-     /// \param putCommnd 逻辑
-     ///
-     void logicPutImageSignal(const int &putCommnd);
-
-     ///
-     /// \brief serialPortStateSignal 串口状态
-     /// \param com1
-     /// \param com2
-     ///
-     void serialPortStateSignal(bool com1,bool com2);
+   ///
+   /// \brief serialPortStateSignal 串口状态
+   /// \param com1
+   /// \param com2
+   ///
+   void serialPortStateSignal(bool com1,bool com2 ,bool socketState);
 
 public slots:
 
    ///
-   /// \brief startSlave 初始化串口
+   /// \brief startSlaveSlot 初始化串口
    /// \param portName1 串口1
    /// \param portName2 串口2
+   /// \param address 地址
+   /// \param port 端口
+   /// \param model 模式
+   /// \param channelNum 通道号
    ///
-   virtual void startSlaveSlot(const QString &portName1, const QString &portName2,int channelNum)=0;
+   virtual void startSlaveSlot(const QString &portName1, const QString &portName2,const QString &address,int port,int model, int channelNum)=0;
 
    ///
    /// \brief simulateTriggerSlot 模拟触发
@@ -67,16 +64,24 @@ public slots:
    ///
    /// \brief setAlarmModeSlot 设置红外模式
    /// \param mode 模式(敞开|常闭)
+   /// \param logicType 红外逻辑类型
    ///
-   virtual void setAlarmModeSlot(bool model)=0;
+   virtual void setAlarmModeSlot(bool model, int logicType)=0;
 
    ///
-   /// \brief exitWhile 退出循环
+   /// \brief DTypeOutSlot 网络控制器输出
+   /// \param type 输出类型
+   /// \param lifting 抬杆类型
    ///
-   virtual void exitWhileSlot()=0;
+   virtual void DTypeOutSlot(QList<int> type,int lifting)=0;
+
+   ///
+   /// \brief releaseResourcesSlot 退出循环
+   ///
+   virtual void releaseResourcesSlot()=0;
 };
 
-#define InfraredlogicInterfaceIID "ZBY.ContainerServer.InfraredlogicInterface/1.4.5.2"
+#define InfraredlogicInterfaceIID "ZBY.ContainerServer.InfraredlogicInterface/1.5.0.3"
 Q_DECLARE_INTERFACE(InfraredlogicInterface,InfraredlogicInterfaceIID);
 
 #endif // INFRAREDLOGIC_INTERFACE_H

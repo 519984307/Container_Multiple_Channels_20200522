@@ -46,7 +46,7 @@ QString InrearedLogic_NJSB::InterfaceType()
     return QString("Protector_NJSB");
 }
 
-void InrearedLogic_NJSB::setAlarmModeSlot(bool model)
+void InrearedLogic_NJSB::setAlarmModeSlot(bool model,int logicType)
 {
     valueOne=0;    valueTwo=1;
     /* 常开(false) |常闭(true) */
@@ -55,7 +55,7 @@ void InrearedLogic_NJSB::setAlarmModeSlot(bool model)
     }
 }
 
-void InrearedLogic_NJSB::exitWhileSlot()
+void InrearedLogic_NJSB::releaseResourcesSlot()
 {
     this->exit=true;
 
@@ -201,8 +201,12 @@ void InrearedLogic_NJSB::serialLogic(int *status)
     }
 }
 
-void InrearedLogic_NJSB::startSlaveSlot(const QString &portName1, const QString &portName2,int channelNum)
+void InrearedLogic_NJSB::startSlaveSlot(const QString &portName1, const QString &portName2,const QString &address,int port,int model, int channelNum)
 {
+    Q_UNUSED(address)
+    Q_UNUSED(port)
+    Q_UNUSED(model)
+
     if(start){
         QDateTime dateTime = QDateTime::currentDateTime();
         QString stringDateTime = dateTime.toString( "yyyy_MM_dd_hh_mm_ss" );
@@ -304,7 +308,7 @@ void InrearedLogic_NJSB::startSlaveSlot(const QString &portName1, const QString 
         }
     }
 
-    emit serialPortStateSignal(com1,com2);
+    emit serialPortStateSignal(com1,com2,false);
 
     if(!com1 && !com2){/* com1和com2都未打开,不做后续处理 */
         qWarning().noquote()<<QString("Channel:%1 serial port exception").arg(channelNum);
@@ -387,7 +391,7 @@ void InrearedLogic_NJSB::detectionLogicSlot()
 
 void InrearedLogic_NJSB::realyTheSerialport()
 {
-    startSlaveSlot(port1,port2,channelNum);
+    startSlaveSlot(port1,port2,QString(""),-1,-1,channelNum);
 }
 
 void InrearedLogic_NJSB::detectionLogicStatus(bool com1, bool com2)

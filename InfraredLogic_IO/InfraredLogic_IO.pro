@@ -1,14 +1,17 @@
 QT -= gui
+QT += network
+QT += concurrent
 
 TEMPLATE = lib
-DEFINES += DATAINTERRABBITMQ_LIBRARY
+DEFINES += INFRAREDLOGIC_IO_LIBRARY
+
+TARGET = SignalControl_IO
 
 CONFIG += plugin
-TARGET = DataInterMQ
 
 CONFIG += skip_target_version_ext
-VERSION = 1.0.0.2
-QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
+VERSION = 1.1.9.3
+QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -22,24 +25,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    datainterrabbitmq.cpp
+    infraredlogic_io.cpp \
+    tcpclient.cpp \
+    tcpserver.cpp
 
 HEADERS += \
-    DataInterRabbitMQ_global.h \
-    datainterchangeinterface.h \
-    datainterrabbitmq.h
+    InfraredLogic_IO_global.h \
+    infraredlogic_io.h \
+    infraredlogicinterface.h \
+    tcpclient.h \
+    tcpserver.h
 
 # Default rules for deployment.
 unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
-
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../Qamqp/ -lCc1_Qamqp
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../Qamqp/ -lCc1_Qamqpdd
-
-INCLUDEPATH += $$PWD/../Qamqp
-DEPENDPATH += $$PWD/../Qamqp
 
 CONFIG(debug, debug|release): {
 unix:TARGET=$$join(TARGET,,,_debug)
@@ -51,4 +52,3 @@ win32:TARGET=$$join(TARGET,,Cc1_,)
 }
 
 DESTDIR+=../MainUI/Plugins
-

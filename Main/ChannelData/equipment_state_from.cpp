@@ -43,10 +43,10 @@ void Equipment_State_From::initializesTheDeviceStateListSlot(int count, QStringL
     for (int row=0;row<ui->tableWidget->rowCount();++row) {
         for (int column=0;column<ui->tableWidget->columnCount();++column) {
             QString state=QString("%1").arg("ON");
-            if(column<=LocalPar::Serial2){
+            if(column<=LocalPar::IO){
                state=QString("%1").arg("XX");
             }
-            else if (LocalPar::A1<=column && column <=LocalPar::D4) {
+            else if (LocalPar::A1<=column && column <=LocalPar::B2/*D4*/) {
                 state=QString::number(0);
             }
             else if(column==LocalPar::Con1 || column==LocalPar::Con2){
@@ -72,11 +72,11 @@ void Equipment_State_From::setDeviceStatusSlot(int channel, int equipment, bool 
     QString text="";
     QColor color;
 
-    if(equipment<=LocalPar::Serial2){
+    if(equipment<=LocalPar::IO){
         text=state?"OK":"XX";
         color=state?Qt::blue:Qt::red;
     }
-    else if (LocalPar::A1<= equipment && equipment<=LocalPar::D4) {
+    else if (LocalPar::A1<= equipment && equipment<=LocalPar::B2/*D4*/) {
         text=state?"1":"0";
         color=state?Qt::blue:Qt::red;
     }

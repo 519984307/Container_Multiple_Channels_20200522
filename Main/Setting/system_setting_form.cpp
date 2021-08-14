@@ -25,12 +25,32 @@ System_Setting_Form::~System_Setting_Form()
     delete ui;
 }
 
+void System_Setting_Form::showEvent(QShowEvent *event)
+{
+    Q_UNUSED(event)
+
+    /*****************************
+    * @brief:主页面显示tab文本
+    ******************************/
+    QStringList systemTabs;
+    for (int var = 0; var < ui->tabWidget->count(); ++var) {
+        systemTabs<<ui->tabWidget->tabText(var);
+    }
+    emit initializesTheDeviceTemporaryTableSignal(0,systemTabs);
+}
+
 void System_Setting_Form::InitializationParameter(int channelNumber)
 {
     ///
     /// \brief loadAdapterMAC 加载本机网卡
     ///
     loadAdapterMAC();
+
+    /*****************************
+    * @brief:启动禁止设置按钮
+    ******************************/
+    ui->setParameter_pushButton->setEnabled(false);
+
     ui->equiment_tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     ui->tabWidget->setCurrentIndex(0);
@@ -84,6 +104,13 @@ void System_Setting_Form::InitializationParameter(int channelNumber)
     }
     ui->ChannelNumber->setValue(CS);
     ui->ChannelNumber->setMaximum(LocalPar::Channels);
+
+    foreach (QTabBar* obj, ui->tabWidget->findChildren<QTabBar*>()) {
+        /*****************************
+        * @brief:ChcekBox禁止手动勾选
+        ******************************/
+        obj->hide();
+    }
 }
 
 void System_Setting_Form::loadAdapterMAC()
@@ -164,6 +191,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::HCNET_Capture_Type=getJsonValue("Model","HCNET_Capture_Type",value.toObject()).toInt();
                     Parameter::LogicType=getJsonValue("Model","LogicType",value.toObject()).toInt();
                     Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();
+                    Parameter::interfaceModel=getJsonValue("Model","interfaceModel",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Upload
@@ -340,8 +368,17 @@ bool System_Setting_Form::writeParameterSlot()
     QJsonObject obj6;
     obj6.insert("HCNET_Capture_Type",ui->HCNET_Capture_Type_comboBox->currentIndex());
     obj6.insert("Camera_Load_Plugin",ui->Camera_Load_Plugin_comboBox->currentIndex());
-    obj6.insert("LogicType",ui->LogicType_comboBox->currentIndex());
+    /*****************************
+    * @brief:红外模式
+    ******************************/
+    if(ui->logicType_standard_radioButton->isChecked()){
+        obj6.insert("LogicType",0);
+    }
+    if(ui->logicType_njsb_radioButton->isChecked()){
+        obj6.insert("LogicType",1);
+    }
     obj6.insert("PlateType",ui->PlateType_comboBox->currentIndex());
+    obj6.insert("interfaceModel",ui->interfaceModel_comboBox->currentIndex());
     jsonChild.insert("Model",QJsonValue(obj6));
 
     jsonRoot.insert("Main",QJsonValue(jsonChild));
@@ -377,8 +414,8 @@ void System_Setting_Form::sendEquipmentParSlot(QMap<QString, QMap<QString, QStri
         ui->equiment_tableWidget->insertRow(row);
         ui->equiment_tableWidget->setItem(row,2,new QTableWidgetItem(key));
 
-        QList<QMap<QString,QString>> varList=  par.values(key);
-        foreach (auto var, varList) {
+        //QList<QMap<QString,QString>> varList=  par.values(key);
+        foreach (auto var, par.values(key)) {
             if(!var.value("NAME","").isEmpty()){
                 ui->equiment_tableWidget->setItem(row,0,new QTableWidgetItem(var.value("NAME")));
             }
@@ -387,6 +424,36 @@ void System_Setting_Form::sendEquipmentParSlot(QMap<QString, QMap<QString, QStri
             }
         }
     }
+    keyList.clear();
+
+    if(ui->equiment_tableWidget->rowCount()>0){
+        ui->setParameter_pushButton->setEnabled(true);
+    }
+}
+
+void System_Setting_Form::setParSucessSlot()
+{
+    QMessageBox::information(this,"ZBY Setting",QString("%1:%2").arg(ui->mac_lineEdit->text(),"Parameter setting succeeded"),QMessageBox::Ok);
+
+    QString key=ui->mac_lineEdit->text();
+    parMap.remove(key);
+
+    QMap<QString,QString> tmpPar;
+    tmpPar.insert("IP",ui->address_lineEdit->text());
+    tmpPar.insert("GATEWAY",ui->gateway_lineEdit->text());
+    tmpPar.insert("MASK",ui->mask_lineEdit->text());
+    tmpPar.insert("PORT",ui->port_lineEdit->text());
+    tmpPar.insert("MODEL",QString::number(ui->model_comboBox->currentIndex()));
+    tmpPar.insert("DIP",ui->local_address_lineEdit->text());
+    tmpPar.insert("DPORT",ui->local_port_lineEdit->text());
+    tmpPar.insert("WID",ui->id_lineEdit->text());
+    tmpPar.insert("NAME",ui->name_lineEdit->text());
+    parMap.insertMulti(key,tmpPar);
+}
+
+void System_Setting_Form::systemCurrentRowChangedSlot(int currentRow)
+{
+    ui->tabWidget->setCurrentIndex(currentRow);
 }
 
 void System_Setting_Form::parameterToUi()
@@ -409,8 +476,16 @@ void System_Setting_Form::parameterToUi()
     ******************************/
     ui->HCNET_Capture_Type_comboBox->setCurrentIndex(Parameter::HCNET_Capture_Type);
     ui->Camera_Load_Plugin_comboBox->setCurrentIndex(Parameter::Camera_Load_Plugin);
-    ui->LogicType_comboBox->setCurrentIndex(Parameter::LogicType);
+
+    if(0 == Parameter::LogicType){
+        ui->logicType_standard_radioButton->setChecked(true);
+    }
+    if(1 == Parameter::LogicType){
+        ui->logicType_njsb_radioButton->setChecked(true);
+    }
+
     ui->PlateType_comboBox->setCurrentIndex(Parameter::PlateType);
+    ui->interfaceModel_comboBox->setCurrentIndex(Parameter::interfaceModel);
 
     /*****************************
     * @brief:Recognizer
@@ -661,6 +736,10 @@ void System_Setting_Form::on_DataChaneType_combox_currentIndexChanged(int index)
 
 void System_Setting_Form::on_searchEquipment_pushButton_clicked()
 {
+    parMap.clear();
+
+    ui->setParameter_pushButton->setEnabled(false);
+
     int row=ui->equiment_tableWidget->rowCount();
     for (int ind=0;ind<row;ind++) {
         ui->equiment_tableWidget->removeRow(0);
@@ -686,8 +765,9 @@ void System_Setting_Form::on_equiment_tableWidget_itemClicked(QTableWidgetItem *
 
         foreach (QString key, keyList) {
             if(items.at(2)->text()==key){
-                QList<QMap<QString,QString>> varList=  parMap.values(key);
-                foreach (auto var, varList) {
+                ui->mac_lineEdit->setText(key);
+                //QList<QMap<QString,QString>> varList=  parMap.values(key);
+                foreach (auto var, parMap.values(key)) {
                     if(!var.value("IP","").isEmpty()){
                         ui->address_lineEdit->setText(var.value("IP"));
                     }
@@ -718,5 +798,36 @@ void System_Setting_Form::on_equiment_tableWidget_itemClicked(QTableWidgetItem *
                 }
             }
         }
+        keyList.clear();
     }
+}
+
+void System_Setting_Form::on_setParameter_pushButton_clicked()
+{
+    if(!ui->mac_lineEdit->text().isEmpty()){
+        QString key=ui->mac_lineEdit->text();
+        QMap<QString,QMap<QString,QString>> parMMap;
+        QMap<QString,QString> par;
+        par.insert("IP",ui->address_lineEdit->text());
+        par.insert("GATEWAY",ui->gateway_lineEdit->text());
+        par.insert("MASK",ui->mask_lineEdit->text());
+        par.insert("PORT",ui->port_lineEdit->text());
+        par.insert("MODEL",QString::number(ui->model_comboBox->currentIndex()));
+        par.insert("DIP",ui->local_address_lineEdit->text());
+        par.insert("DPORT",ui->local_port_lineEdit->text());
+        par.insert("WID",ui->id_lineEdit->text());
+        par.insert("NAME",ui->name_lineEdit->text());
+
+        parMMap.insertMulti(key,par);
+
+        emit setEquipmentParSignal(parMMap);
+        par.clear();
+        parMMap.clear();
+    }
+}
+
+void System_Setting_Form::on_searchInternet_pushButton_clicked()
+{
+    ui->adapter_comboBox->clear();
+    loadAdapterMAC();
 }
