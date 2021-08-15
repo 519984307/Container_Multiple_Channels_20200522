@@ -1,4 +1,0 @@
-21:58:41.739  Config reconnection thread create success
-21:58:41.741  Reco result reconnection thread create success
-21:58:41.746  rs485 result reconnection thread create success
-21:58:41.751  gpio reconnection thread create success
