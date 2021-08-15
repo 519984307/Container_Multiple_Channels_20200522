@@ -357,7 +357,7 @@ void NetworkController::processEquimentDataSlot(QMap<QString, QMap<QString, QStr
                     }
 
                     QThread::msleep(10);
-                    cmd=QString("%1,<%2>,AT+HEART=%3%4").arg(key,localMAC,QString("2,9,5,5"),eol);
+                    cmd=QString("%1,<%2>,AT+HEART=%3%4").arg(key,localMAC,QString("2,3,5,5"),eol);
                     if(pUdpClient->writeDatagram(cmd.toLatin1(),cmd.size(),loopBackIP,5000)){
                         qDebug().noquote()<<QString("[%1] %2:%3 udp send sucess").arg(this->metaObject()->className(),loopBackIP.toString(),QString::number(5000));
                     }

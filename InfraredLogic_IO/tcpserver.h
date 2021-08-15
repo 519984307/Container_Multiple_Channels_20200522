@@ -70,7 +70,7 @@ signals:
     /// \brief logicStatus 红外信号状态
     /// \param status 状态码
     ///
-    void logicStatusSignal(int* status);
+    void logicStatusSignal(int* status);   
 };
 
 #endif // TCPSERVER_H

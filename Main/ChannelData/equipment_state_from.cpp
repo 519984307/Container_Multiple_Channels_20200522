@@ -46,7 +46,7 @@ void Equipment_State_From::initializesTheDeviceStateListSlot(int count, QStringL
             if(column<=LocalPar::IO){
                state=QString("%1").arg("XX");
             }
-            else if (LocalPar::A1<=column && column <=LocalPar::B2/*D4*/) {
+            else if (LocalPar::A1<=column && column <=LocalPar::D4) {
                 state=QString::number(0);
             }
             else if(column==LocalPar::Con1 || column==LocalPar::Con2){
@@ -76,7 +76,7 @@ void Equipment_State_From::setDeviceStatusSlot(int channel, int equipment, bool 
         text=state?"OK":"XX";
         color=state?Qt::blue:Qt::red;
     }
-    else if (LocalPar::A1<= equipment && equipment<=LocalPar::B2/*D4*/) {
+    else if (LocalPar::A1<= equipment && equipment<=LocalPar::D4) {
         text=state?"1":"0";
         color=state?Qt::blue:Qt::red;
     }

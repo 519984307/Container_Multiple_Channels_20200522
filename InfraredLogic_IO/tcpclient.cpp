@@ -38,7 +38,7 @@ void TcpClient::receiveDataSlot()
             QList<QByteArray> data= buf.split('+');
             foreach (QByteArray arr, data) {
                 int pos=arr.indexOf(":");
-                if(-1 != pos){
+                if(-1 != pos && arr.startsWith("OCCH")){
                     if(arr.at(pos-1)=='1'){
                         tmpStatus[0]=arr.at(pos+1)-'0';
                     }
@@ -55,6 +55,20 @@ void TcpClient::receiveDataSlot()
                 }
             }
         }
+        else if(buf.startsWith("+STACH")){
+            /*****************************
+            * @brief:网络控制器输出信号
+            ******************************/
+            QList<QByteArray> data= buf.split('+');
+            foreach (QByteArray arr, data) {
+                int pos=arr.indexOf(":");
+                if(-1 != pos && arr.startsWith("STACH")){
+                    int ind=arr[pos-1]-'0';
+                    tmpStatus[ind+3]=arr.at(pos+1)-'0';
+                    emit logicStatusSignal(tmpStatus);
+                }
+            }
+        }
     }
     else {
         QList<QByteArray> data= buf.split('+');
@@ -67,6 +81,9 @@ void TcpClient::receiveDataSlot()
                 this->write(QString("AT+OCCH0=?%1").arg(eol).toLatin1());
             }
             if(arr.trimmed()=="[H]"){
+                /*****************************
+                * @brief:心跳包
+                ******************************/
                 this->write(QString("AT+ACK%1").arg(eol).toLatin1());
             }
             if(arr.startsWith("OCCH_ALL:")){
@@ -77,6 +94,17 @@ void TcpClient::receiveDataSlot()
                     tmpStatus[2]=arr.at(pos+4)-'0';
                     tmpStatus[3]=arr.at(pos+6)-'0';
 
+                    emit logicStatusSignal(tmpStatus);
+                }
+            }
+            else if(buf.startsWith("STACH")){
+                /*****************************
+                * @brief:网络控制器输出信号
+                ******************************/
+                int pos=arr.indexOf(":");
+                if(-1 != pos){
+                    int ind=arr.at(pos-1)-'0';
+                    tmpStatus[ind+3]=arr.at(pos+1)-'0';
                     emit logicStatusSignal(tmpStatus);
                 }
             }

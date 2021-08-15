@@ -39,6 +39,16 @@ QString InfraredLogic_IO::InterfaceType()
 
 void InfraredLogic_IO::serialLogicSlot(int *sta)
 {
+    bool run=false;
+    for(int ind=0;ind<4;ind++){
+        if(status[ind]!=sta[ind]){
+            run=true;
+        }
+    }
+    if(!run){
+        return;
+    }
+
     memcpy(status,sta,sizeof (status));
 
     /*
@@ -651,7 +661,7 @@ void InfraredLogic_IO::receiveDataSlot()
             QList<QByteArray> data= buf.split('+');
             foreach (QByteArray arr, data) {
                 int pos=arr.indexOf(":");
-                if(-1 != pos){
+                if(-1 != pos && arr.startsWith("OCCH")){
                     if(arr.at(pos-1)=='1'){
                         status[0]=arr.at(pos+1)-'0';
                     }
@@ -667,6 +677,20 @@ void InfraredLogic_IO::receiveDataSlot()
                         serialLogicSlot(status); /* 逻辑判断 */
                         emit logicStatusSignal(status);
                     }
+                }
+            }
+        }
+        else if(buf.startsWith("+STACH")){
+            /*****************************
+            * @brief:网络控制器输出信号
+            ******************************/
+            QList<QByteArray> data= buf.split('+');
+            foreach (QByteArray arr, data) {
+                int pos=arr.indexOf(":");
+                if(-1 != pos && arr.startsWith("STACH")){
+                    int ind=arr[pos-1]-'0';
+                    status[ind+3]=arr.at(pos+1)-'0';
+                    emit logicStatusSignal(status);
                 }
             }
         }
@@ -693,6 +717,17 @@ void InfraredLogic_IO::receiveDataSlot()
                     status[3]=arr.at(pos+6)-'0';
 
                     serialLogicSlot(status); /* 逻辑判断 */
+                    emit logicStatusSignal(status);
+                }
+            }
+            else if(buf.startsWith("STACH")){
+                /*****************************
+                * @brief:网络控制器输出信号
+                ******************************/
+                int pos=arr.indexOf(":");
+                if(-1 != pos){
+                    int ind=arr[pos-1]-'0';
+                    status[ind+3]=arr.at(pos+1)-'0';
                     emit logicStatusSignal(status);
                 }
             }

@@ -17,7 +17,7 @@ namespace LocalPar {
     ******************************/
     QStringList CamerNameList={"Front","Before","Left","Right","Top","Prospects","Foreground","Plate"};
     int CamerNumber=7;/* 不包含车牌 */
-    QStringList DeviceStateList={"Front","Before","Left","Right","Top","Prospects","Foreground","Plate","Serial1","Serial2","IO","A1","A2","B1","B2"/*,"D1","D2","D3","D4"*/,"Con1","Con2","Plate","Msg"};
+    QStringList DeviceStateList={"Front","Before","Left","Right","Top","Prospects","Foreground","Plate","Serial1","Serial2","IO","A1","A2","B1","B2","D1","D2","D3","D4","Con1","Con2","Plate","Msg"};
 
     equipmentEnum equipment=equipmentEnum::Front;
 
