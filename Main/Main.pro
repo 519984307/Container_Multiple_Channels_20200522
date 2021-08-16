@@ -21,7 +21,7 @@ ID = f19d15dec81584b5ce4f9edb0aae1789
 DEFINES += DOG_ID=\\\"$$ID\\\"
 PROJECT += TEST
 DEFINES += APP_PROJECT=\\\"$$PROJECT\\\"
-CHANNEL = 10
+CHANNEL = 1
 DEFINES += APP_CHANNEL=\\\"$$CHANNEL\\\"
 #If it is a multi-channel version, the software conditions need to be changed:
 #1.EncryptionInterface plug-in version

@@ -102,16 +102,6 @@ private:/* 参数  */
     uint32_t charLen;
 
     ///
-    /// \brief DLL 加载动态库
-    ///
-    QLibrary* pDLL;
-
-    ///
-    /// \brief pDLLplay 加载播放动态库
-    ///
-    QLibrary* pDLLplay;
-
-    ///
     /// \brief pTimerState 相机状态定时器
     ///
     QTimer* pTimerState;

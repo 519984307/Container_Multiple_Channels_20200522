@@ -22,6 +22,7 @@
 #include "interface/touploaddatainterface.h"
 #include "interface/licenseplateinterface.h"
 #include "interface/encryptioninterface.h"
+#include "interface/IDecodingVideo.h"
 
 class LoadingLibaray : public QObject
 {

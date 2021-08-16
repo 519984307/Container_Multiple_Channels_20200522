@@ -688,9 +688,9 @@ void System_Setting_Form::on_ChannelNumber_valueChanged(int arg1)
 
 void System_Setting_Form::on_HCNET_Capture_Type_comboBox_currentIndexChanged(int index)
 {
-    if(3==index){
-        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
-    }
+//    if(3==index){
+//        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
+//    }
     if(2==index){
         ui->Camera_Load_Plugin_comboBox->setCurrentIndex(0);
     }
@@ -703,9 +703,9 @@ void System_Setting_Form::on_Camera_Load_Plugin_comboBox_currentIndexChanged(int
 {
     Q_UNUSED(index);
 
-    if(3==ui->HCNET_Capture_Type_comboBox->currentIndex()){
-        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
-    }
+//    if(3==ui->HCNET_Capture_Type_comboBox->currentIndex()){
+//        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
+//    }
     if(2==ui->HCNET_Capture_Type_comboBox->currentIndex()){
         ui->Camera_Load_Plugin_comboBox->setCurrentIndex(0);
     }

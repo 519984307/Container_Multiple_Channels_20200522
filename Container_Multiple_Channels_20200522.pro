@@ -1,27 +1,21 @@
 TEMPLATE = subdirs
 
 SUBDIRS +=\
-#    CaptureImagesHCNET \
-#    #CaptureImagesTCP \
-#    PluginProcessing \
-#    TheLicensePlateWTY \
     CaptureUnderlying\
     DataInterRabbitMQ \
     #DecodingTheVideo \
+    DecodingVideoHCNET \
     InfraredLogic_IO \
-    #InrearedLogic_NJSB \
     LicensePlateHCNET \
     #LicensePlateVZ \
     LicensePlateWTY \
     LicensePlateZS \
+    MiddlewareHCNET \
     NetworkController \
     ToUploadData\
     DataInterchange \
-    #DataProcessing \
     DatabaseInsert \
     DatabaseRead \
-    #Parameter \
-    #Processing \
     ResultsAnalysis \
     InfraredLogic\
     Encryption\

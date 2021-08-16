@@ -1,0 +1,8 @@
+﻿  Generate moc_predefs.h
+  Moc'ing licenseplateinterface.h...
+  Moc'ing licenseplatewty.h...
+  licenseplatewty.cpp
+  moc_licenseplateinterface.cpp
+  moc_licenseplatewty.cpp
+    正在创建库 ..\MainUI\Plugins\\Cc1_LicensePlateWTY.lib 和对象 ..\MainUI\Plugins\\Cc1_LicensePlateWTY.exp
+  Cc1_LicensePlateWTY.vcxproj -> C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\Container_Multiple_Channels_20200522\LicensePlateWTY\..\MainUI\Plugins\Cc1_LicensePlateWTY.dll
