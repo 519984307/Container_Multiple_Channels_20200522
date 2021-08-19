@@ -168,9 +168,9 @@ void MiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG lHa
             else {
                 qWarning().noquote()<<QString("[%1] %2:Stop Stream failed<code=%3>").arg(pThis->metaObject()->className(),QString::fromLocal8Bit(pThis->logInfoMap.key(lUserID)->sDeviceAddress),QString::number(NET_DVR_GetLastError()));
             }
-
-            pThis->playInfoMap.remove(lUserID);
         }
+
+        pThis->playInfoMap.remove(lUserID);
 
         emit pThis->signal_releaseResources(lUserID);
         NET_DVR_Logout(lUserID);
