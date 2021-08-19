@@ -16,6 +16,24 @@ public:
     ///
     virtual QString InterfaceType()=0;
 
+    ///
+    /// \brief getCallBack 获取回调函数
+    /// \return
+    ///
+    virtual void *getCallBack()=0;
+
+    ///
+    /// \brief getReadHanlde 获取播放ID
+    /// \return
+    ///
+    virtual long getReadHanlde()=0;
+
+    ///
+    /// \brief setReadHanlde 设置播放ID
+    /// \param handle
+    ///
+    virtual void setReadHanlde(long handle)=0;
+
 signals:
 
     ///
@@ -31,7 +49,7 @@ public slots:
     /// \brief slot_getPictureStream 抓取图片
     /// \param putID
     ///
-    virtual void slot_getPictureStream(int putID)=0;
+    virtual void slot_getPictureStream(int putID,long lReadHandle)=0;
 
     ///
     /// \brief releaseResourcesSlot 释放动态库资源
@@ -39,7 +57,7 @@ public slots:
     virtual void releaseResourcesSlot()=0;
 };
 
-#define IDecodingVideoIID "ZBY.ContainerServer.IDecodingVideo/1.0.0.1"
+#define IDecodingVideoIID "ZBY.ContainerServer.IDecodingVideo/1.0.0.2"
 Q_DECLARE_INTERFACE(IDecodingVideo,IDecodingVideoIID);
 
 #endif // IDECODINGVIDEO_H

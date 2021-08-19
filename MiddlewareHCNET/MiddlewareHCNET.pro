@@ -8,7 +8,7 @@ CONFIG += plugin
 TARGET = plug-in_HCNET
 
 CONFIG += skip_target_version_ext
-VERSION = 2.4.5.2
+VERSION = 2.4.6.5
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use
@@ -27,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     HCNetSDK.h \
+    IDecodingVideo.h \
     IMiddleware.h \
     MiddlewareHCNET_global.h \
     middlewarehcnet.h

@@ -60,14 +60,20 @@ signals:
 public slots:
 
     ///
+    /// \brief slot_initializationParameter 初始化动态库参数
+    ///
+    virtual void slot_initializationParameter()=0;
+
+    ///
     /// \brief initCameraSlot 初始化相机
     /// \param localAddr 本机地址(用户绑定网卡)
     /// \param addr 地址
     /// \param port 端口
     /// \param user 用户
     /// \param pow  密码
+    /// \param signature 特征码
     ///
-    virtual void initCameraSlot(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow)=0;
+    virtual void initCameraSlot(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow,const QString &signature)=0;
 
     ///
     /// \brief setCaptureTypeSlot 设置抓拍模式
@@ -104,7 +110,7 @@ public slots:
     virtual void releaseResourcesSlot()=0;
 };
 
-#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/2.4.2.12"
+#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/2.4.3.2"
 Q_DECLARE_INTERFACE(IMiddleware,IMiddlewareIID);
 
 #endif // IMIDDLEWARE_H

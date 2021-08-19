@@ -17,19 +17,26 @@ class DECODINGVIDEOHCNET_EXPORT DecodingVideoHCNET:public IDecodingVideo
 
 public:
     DecodingVideoHCNET();
+    ~DecodingVideoHCNET()Q_DECL_OVERRIDE;
 
     QString InterfaceType()Q_DECL_OVERRIDE;
 
-    static DecodingVideoHCNET *pThis;
+    void *getCallBack()Q_DECL_OVERRIDE;
+    long getReadHanlde()Q_DECL_OVERRIDE;
+    void setReadHanlde(long handle)Q_DECL_OVERRIDE;
 
-    static long lPort;
-    static int putID;
-    static long lHandle;
 
     ///
     /// \brief imgBuff 图片流内存(主动申请和释放)
     ///
     char* imgBuff;
+
+
+    static DecodingVideoHCNET *pThis;
+    static long lPort;
+    int putID;
+    long handle;
+
 
     ///
     /// \brief g_RealDataCallBack_V30 预览回调函数
@@ -66,12 +73,12 @@ public:
     /// \brief slot_getPictureStream 抓取图片
     /// \param putID
     ///
-    void slot_getPictureStream(int ID)Q_DECL_OVERRIDE;
+    void slot_getPictureStream(int ID,long lReadHandle)Q_DECL_OVERRIDE;
 
     ///
     /// \brief releaseResourcesSlot 释放动态库资源
     ///
-    void releaseResourcesSlot()Q_DECL_OVERRIDE;
+    void releaseResourcesSlot(int ID)Q_DECL_OVERRIDE;
 };
 
 #endif // DECODINGVIDEOHCNET_H

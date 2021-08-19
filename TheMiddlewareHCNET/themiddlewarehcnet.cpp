@@ -294,6 +294,11 @@ void TheMiddlewareHCNET::openTheVideoSlot(int ID,bool play,quint64 winID)
     }
 }
 
+void TheMiddlewareHCNET::slot_initializationParameter()
+{
+
+}
+
 void TheMiddlewareHCNET::releaseResourcesSlot()
 {
     if(pTimerState!=nullptr){
@@ -337,8 +342,10 @@ void TheMiddlewareHCNET::releaseResourcesSlot()
     qDebug().noquote()<<QString("[%1] releaseResourcesSlot").arg(this->metaObject()->className());
 }
 
-void TheMiddlewareHCNET::initCameraSlot(const QString &localAddr, const QString &addr, const int &port,const QString &user,const QString &pow)
+void TheMiddlewareHCNET::initCameraSlot(const QString &localAddr, const QString &addr, const int &port,const QString &user,const QString &pow ,const QString &signature)
 {
+    Q_UNUSED(signature)
+
     if(!isSDKInit){
         if(!initializationParameter()){/* 动态库初始化失败就不登录相机 */
             return;

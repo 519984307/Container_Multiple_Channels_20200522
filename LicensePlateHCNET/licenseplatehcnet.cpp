@@ -79,7 +79,7 @@ void LicensePlateHCNET::initCamerSlot(const QString &localAddr,const QString &ca
     if(camerIP.isEmpty() || camerIP=="..."){
         return;
     }
-    emit signal_initCamera(localAddr,camerIP,camerPort,CamerUser,CamerPow);
+    emit signal_initCamera(localAddr,camerIP,camerPort,CamerUser,CamerPow,signature);
 }
 
 void LicensePlateHCNET::getLastPlateSlot()

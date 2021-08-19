@@ -102,8 +102,9 @@ signals:
     /// \param port 端口
     /// \param user 用户
     /// \param pow  密码
+    /// \param signature 特征码
     ///
-    void signal_initCamera(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow);
+    void signal_initCamera(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow,const QString &signature);
 
     ///
     /// \brief signal_openTheVideo 打开视频/关闭视频
@@ -155,7 +156,7 @@ public slots:
     virtual void slot_equipmentState(int ID, bool state)=0;
 };
 
-#define LicensePlateInterfaceIID "ZBY.ContainerServer.LicensePlateInterface/2.2.2.4"
+#define LicensePlateInterfaceIID "ZBY.ContainerServer.LicensePlateInterface/2.2.2.5"
 Q_DECLARE_INTERFACE(LicensePlateInterface,LicensePlateInterfaceIID);
 
 #endif // LICENSEPLATEINTERFACE_H

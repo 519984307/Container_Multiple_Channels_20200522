@@ -138,12 +138,18 @@ void CaptureUnderlying::cameraState()
     }
 }
 
-void CaptureUnderlying::initCameraSlot(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow)
+void CaptureUnderlying::slot_initializationParameter()
 {
-    Q_UNUSED(localAddr);
-    Q_UNUSED(user);
-    Q_UNUSED(pow);
-    Q_UNUSED(port);
+
+}
+
+void CaptureUnderlying::initCameraSlot(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow,const QString &signature)
+{
+    Q_UNUSED(localAddr)
+    Q_UNUSED(user)
+    Q_UNUSED(pow)
+    Q_UNUSED(port)
+    Q_UNUSED(signature)
     
     this->camerIP=addr;
     this->camerPort=23001;

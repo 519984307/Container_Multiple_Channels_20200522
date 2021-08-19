@@ -5,13 +5,11 @@ DEFINES += THEMIDDLEWAREHCNET_LIBRARY
 
 CONFIG += plugin
 
-TARGET = plug-in_HCNET
+TARGET = plug-the_HCNET
 
 CONFIG += skip_target_version_ext
 VERSION = 2.4.5.2
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
-
-CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings

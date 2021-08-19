@@ -30,7 +30,7 @@ void CaptureImages::initCamerSlot(const QString &localAddr,const QString &camerI
     if(camerIP.isEmpty() || camerIP=="..."){
         return;
     }   
-    emit signal_initCamera(localAddr,camerIP,camerPort,CamerUser,CamerPow);
+    emit signal_initCamera(localAddr,camerIP,camerPort,CamerUser,CamerPow,signature);
 }
 
 void CaptureImages::getDeviceStatusSlot()

@@ -15,7 +15,7 @@ CONFIG += skip_target_version_ext
 
 QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
-VERSION = 1.1.7.2_2108131434_
+VERSION = 1.1.7.3_2108131434(decodingVideo_Test)_
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 ID = f19d15dec81584b5ce4f9edb0aae1789
 DEFINES += DOG_ID=\\\"$$ID\\\"

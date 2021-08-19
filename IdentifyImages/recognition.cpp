@@ -26,8 +26,13 @@ void Recognition::run()
         /* 等待识别结果 */
         if(Process.waitForFinished()){
             QByteArray result= Process.readAll();
-            emit recognitionResultSignal(result.data(),imgName,imgNumber);
-            qInfo().noquote()<<QString("Identify the results:%1").arg(result.data());
+            if(0 == result.size()){
+                emit recognitionResultSignal("RESULT: ||0|0",imgName,imgNumber);
+            }
+            else {
+                emit recognitionResultSignal(result.data(),imgName,imgNumber);
+            }
+            qDebug().noquote()<<QString("Identify the results:%1").arg(result.data());
         }
         else {
             emit recognitionResultSignal("RESULT: ||0|0",imgName,imgNumber);

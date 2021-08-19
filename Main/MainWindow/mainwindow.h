@@ -1,6 +1,8 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#define _SDK_
+
 #include <QMainWindow>
 #include <QtGlobal>
 #include <QDesktopWidget>
@@ -551,6 +553,11 @@ signals:
     /// \brief signal_initEncryption 初始化加密
     ///
     void signal_initEncryption(int dogType,QString dogIdd);
+
+    ///
+    /// \brief signal_initializationParameter 初始化海康动态库
+    ///
+    void signal_initializationParameter();
 };
 
 #endif // MAINWINDOW_H

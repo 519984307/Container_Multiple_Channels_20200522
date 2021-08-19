@@ -172,7 +172,7 @@ LONG crashstack::TopLevelFilter( struct _EXCEPTION_POINTERS *pExceptionInfo )
 
                     ExInfo.ThreadId = GetCurrentThreadId();
                     ExInfo.ExceptionPointers = pExceptionInfo;
-                    ExInfo.ClientPointers = NULL;
+                    ExInfo.ClientPointers = 0;
 
                     // write the dump
                     BOOL bOK = pDump( GetCurrentProcess(), GetCurrentProcessId(), hFile, (MINIDUMP_TYPE)DUMP_TYPE_FULL, &ExInfo, NULL, NULL );

@@ -2,8 +2,6 @@
 
 DecodingVideoHCNET* DecodingVideoHCNET::pThis=nullptr;
 long DecodingVideoHCNET::lPort=-1;
-long DecodingVideoHCNET::lHandle=-1;
-int DecodingVideoHCNET::putID=-1;
 
 int Table_fv1[256] = { -180, -179, -177, -176, -174, -173, -172, -170, -169, -167, -166, -165, -163, -162, -160, -159, -158, -156, -155, -153, -152, -151, -149, -148, -146, -145, -144, -142, -141, -139, -138, -137,  -135, -134, -132, -131, -130, -128, -127, -125, -124, -123, -121, -120, -118, -117, -115, -114, -113, -111, -110, -108, -107, -106, -104, -103, -101, -100, -99, -97, -96, -94, -93, -92, -90,  -89, -87, -86, -85, -83, -82, -80, -79, -78, -76, -75, -73, -72, -71, -69, -68, -66, -65, -64,-62, -61, -59, -58, -57, -55, -54, -52, -51, -50, -48, -47, -45, -44, -43, -41, -40, -38, -37,  -36, -34, -33, -31, -30, -29, -27, -26, -24, -23, -22, -20, -19, -17, -16, -15, -13, -12, -10, -9, -8, -6, -5, -3, -2, 0, 1, 2, 4, 5, 7, 8, 9, 11, 12, 14, 15, 16, 18, 19, 21, 22, 23, 25, 26, 28, 29, 30, 32, 33, 35, 36, 37, 39, 40, 42, 43, 44, 46, 47, 49, 50, 51, 53, 54, 56, 57, 58, 60, 61, 63, 64, 65, 67, 68, 70, 71, 72, 74, 75, 77, 78, 79, 81, 82, 84, 85, 86, 88, 89, 91, 92, 93, 95, 96, 98, 99, 100, 102, 103, 105, 106, 107, 109, 110, 112, 113, 114, 116, 117, 119, 120, 122, 123, 124, 126, 127, 129, 130, 131, 133, 134, 136, 137, 138, 140, 141, 143, 144, 145, 147, 148,  150, 151, 152, 154, 155, 157, 158, 159, 161, 162, 164, 165, 166, 168, 169, 171, 172, 173, 175, 176, 178 };
 int Table_fv2[256] = { -92, -91, -91, -90, -89, -88, -88, -87, -86, -86, -85, -84, -83, -83, -82, -81, -81, -80, -79, -78, -78, -77, -76, -76, -75, -74, -73, -73, -72, -71, -71, -70, -69, -68, -68, -67, -66, -66, -65, -64, -63, -63, -62, -61, -61, -60, -59, -58, -58, -57, -56, -56, -55, -54, -53, -53, -52, -51, -51, -50, -49, -48, -48, -47, -46, -46, -45, -44, -43, -43, -42, -41, -41, -40, -39, -38, -38, -37, -36, -36, -35, -34, -33, -33, -32, -31, -31, -30, -29, -28, -28, -27, -26, -26, -25, -24, -23, -23, -22, -21, -21, -20, -19, -18, -18, -17, -16, -16, -15, -14, -13, -13, -12, -11, -11, -10, -9, -8, -8, -7, -6, -6, -5, -4, -3, -3, -2, -1, 0, 0, 1, 2, 2, 3, 4, 5, 5, 6, 7, 7, 8, 9, 10, 10, 11, 12, 12, 13, 14, 15, 15, 16, 17, 17, 18, 19, 20, 20, 21, 22, 22, 23, 24, 25, 25, 26, 27, 27, 28, 29, 30, 30, 31, 32, 32, 33, 34, 35, 35, 36, 37, 37, 38, 39, 40, 40, 41, 42, 42, 43, 44, 45, 45, 46, 47, 47, 48, 49, 50, 50, 51, 52, 52, 53, 54, 55, 55, 56, 57, 57, 58, 59, 60, 60, 61, 62, 62, 63, 64, 65, 65, 66, 67, 67, 68, 69, 70, 70, 71, 72, 72, 73, 74, 75, 75, 76, 77, 77, 78, 79, 80, 80, 81, 82, 82, 83, 84, 85, 85, 86, 87, 87, 88, 89, 90, 90 };
@@ -13,8 +11,27 @@ int Table_fu2[256] = { -227, -226, -224, -222, -220, -219, -217, -215, -213, -21
 
 DecodingVideoHCNET::DecodingVideoHCNET()
 {
+    putID=-1;
+    handle=-1;
+
     DecodingVideoHCNET::pThis=this;
+
     imgBuff=static_cast<char*>(malloc(IMG_BYTE* sizeof(char)));
+
+}
+
+DecodingVideoHCNET::~DecodingVideoHCNET()
+{
+    if(DecodingVideoHCNET::lPort !=- 1){
+        /* 释放播放库资源 */
+        PlayM4_Stop(DecodingVideoHCNET::lPort);
+        PlayM4_CloseStream(DecodingVideoHCNET::lPort);
+        PlayM4_FreePort(DecodingVideoHCNET::lPort);
+    }
+
+    if(imgBuff!=nullptr){
+         free(imgBuff);
+    }
 
 }
 
@@ -23,19 +40,39 @@ QString DecodingVideoHCNET::InterfaceType()
     return QString("Decod_HCNET");
 }
 
+void *DecodingVideoHCNET::getCallBack()
+{
+    return (void*)DecodingVideoHCNET::g_RealDataCallBack_V30;
+}
+
+long DecodingVideoHCNET::getReadHanlde()
+{
+    return handle;
+}
+
+void DecodingVideoHCNET::setReadHanlde(long handle)
+{
+    this->handle=handle;
+}
+
 void DecodingVideoHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataType, BYTE *pBuffer, DWORD dwBufSize, void *dwUser)
 {
-    Q_UNUSED(dwUser)
+//    QCoreApplication::processEvents();
 
+    Q_UNUSED(dwUser)
     BOOL inData = false;
-    lHandle=lRealHandle;
 
     switch (dwDataType) {
     case NET_DVR_SYSHEAD:
         /* 获取播放库未使用的通道号 */
         if(lPort==-1){
+            lPort=lRealHandle;
             if(!PlayM4_GetPort(&lPort)){
+                qDebug().noquote()<<QString("[%1] g_RealDataCallBack_V30 set failed [cameraID:%2][lPort:%3]").arg(pThis->metaObject()->className(),QString::number(pThis->handle),QString::number(lRealHandle));
                 return;
+            }
+            else{
+                qDebug().noquote()<<QString("[%1] g_RealDataCallBack_V30 set sucess [cameraID:%2][lPort:%3]").arg(pThis->metaObject()->className(),QString::number(pThis->handle),QString::number(lRealHandle));
             }
         }
         if (dwBufSize > 0) {
@@ -65,14 +102,14 @@ void DecodingVideoHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataTy
             }
         }
         break;
-    default:
-        inData = PlayM4_InputData(lPort, pBuffer, dwBufSize);
-        while (!inData)
-        {
-            Sleep(10);
-            inData = PlayM4_InputData(lPort, pBuffer, dwBufSize);
-        }
-        break;
+//    default:
+//        inData = PlayM4_InputData(lPort, pBuffer, dwBufSize);
+//        while (!inData)
+//        {
+////            Sleep(10);
+//            inData = PlayM4_InputData(lPort, pBuffer, dwBufSize);
+//        }
+//        break;
     }
 }
 
@@ -82,15 +119,17 @@ void DecodingVideoHCNET::DecCallBack(long nPort, char *pBuf, long nSize, FRAME_I
     Q_UNUSED(nReserved2);
     Q_UNUSED(nSize);
 
-    if(-1 != putID  && lPort==nPort){
+//    QCoreApplication::processEvents();
+
+    if(-1 != pThis->putID){
         long frameType = pFrameInfo->nType;
         int width = pFrameInfo->nWidth;
         int height = pFrameInfo->nHeight;
 
         if (frameType == T_YV12) {
-            QtConcurrent::run(pThis,&DecodingVideoHCNET::yv12ToRGB888,putID,width,height,(unsigned char *)pBuf,nPort);
+            QtConcurrent::run(pThis,&DecodingVideoHCNET::yv12ToRGB888,pThis->putID,width,height,(unsigned char *)pBuf,nPort);
         }
-        putID=-1;
+        pThis->putID=-1;
     }
 }
 
@@ -153,19 +192,34 @@ void DecodingVideoHCNET::yv12ToRGB888(int ID, int width, int height, unsigned ch
     arrayJpg.clear();
 }
 
-void DecodingVideoHCNET::slot_getPictureStream(int ID)
+void DecodingVideoHCNET::slot_getPictureStream(int ID,long lReadHandle)
 {
-    DecodingVideoHCNET::putID=ID;
+    //qDebug().noquote()<<QString("[%1] Test Capture camera ID:%2").arg(this->metaObject()->className(),QString::number(ID));
+
+    Q_UNUSED(lReadHandle)
+    if(handle==ID){
+        putID=ID;
+
+        qDebug().noquote()<<QString("[%1] Capture camera ID:%2").arg(this->metaObject()->className(),QString::number(ID));
+    }
 }
 
-void DecodingVideoHCNET::releaseResourcesSlot()
+void DecodingVideoHCNET::releaseResourcesSlot(int ID)
 {
-    if(imgBuff!=nullptr){
-         free(imgBuff);
-    }
+    if(ID==handle && -1 != DecodingVideoHCNET::lPort){
+        /* 释放播放库资源 */
+        if(PlayM4_Stop(DecodingVideoHCNET::lPort)){
+            if(PlayM4_CloseStream(DecodingVideoHCNET::lPort)){
+                if(PlayM4_FreePort(DecodingVideoHCNET::lPort))
+                {
+                    qDebug().noquote()<<QString("[%1] Close the video decoder lPort:%2").arg(this->metaObject()->className(),QString::number(DecodingVideoHCNET::lPort));
+                    handle=-1;
+                    DecodingVideoHCNET::lPort=-1;
 
-    /* 释放播放库资源 */
-    PlayM4_Stop(lPort);
-    PlayM4_CloseStream(lPort);
-    PlayM4_FreePort(lPort);
+                    return;
+                }
+            }
+        }
+    }
+    //qWarning().noquote()<<QString("[%1] Failed to close the player library port:%2").arg(this->metaObject()->className(),QString::number(DecodingVideoHCNET::lPort));
 }

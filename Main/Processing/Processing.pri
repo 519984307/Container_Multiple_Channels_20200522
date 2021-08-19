@@ -1,5 +1,6 @@
 HEADERS += \
     $$PWD/INTERFACE/ICaptureImages.h \
+    $$PWD/interface/IDecodingVideo.h \
     $$PWD/interface/IMiddleware.h \
     $$PWD/interface/databaseinsertinterface.h \
     $$PWD/interface/databasereadinterface.h \

@@ -5,6 +5,8 @@
 
 #include "MiddlewareHCNET_global.h"
 #include "IMiddleware.h"
+#include "IDecodingVideo.h"
+
 #include "HCNetSDK.h"
 
 class MIDDLEWAREHCNET_EXPORT MiddlewareHCNET:public IMiddleware
@@ -87,8 +89,9 @@ public:
     /// \param port 端口
     /// \param user 用户
     /// \param pow  密码
+    /// \param signature 特征码
     ///
-    void initCameraSlot(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow)Q_DECL_OVERRIDE;
+    void initCameraSlot(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow,const QString &signature)Q_DECL_OVERRIDE;
 
     ///
     /// \brief setCaptureTypeSlot 设置抓拍模式
@@ -98,13 +101,9 @@ public:
     void setCaptureTypeSlot(const int &capType, const int &msgCallBackInd)Q_DECL_OVERRIDE;
 
     ///
-    /// \brief initializationParameter 初始化参数
-    /// \param addr 地址
-    /// \param port 端口
-    /// \param imgPath 图片路径
-    /// \param channel 通道号
+    /// \brief initializationParameter 初始化动态库
     ///
-    bool initializationParameter();
+    void slot_initializationParameter()Q_DECL_OVERRIDE;
 
 private:
 
@@ -113,7 +112,12 @@ private:
     /// \param ID
     /// \param play
     ///
-    void initVideoStream(int ID,bool play);
+    void initVideoStream(int ID, bool play);
+
+    ///
+    /// \brief loadDecodingPlugin 加载视频解码插件
+    ///
+    void loadDecodingPlugin();
 
 private slots:
 
@@ -125,9 +129,27 @@ private slots:
     void getDeviceStatusSlot();
 
     ///
+    /// \brief slot_handleFinished 异步打开解码完成
+    ///
+    void slot_handleFinished();
+
+    ///
     /// \brief resizeEventSlot 通知动态库调整窗口
     ///
     void resizeEventSlot();//Q_DECL_OVERRIDE;
+
+signals:
+
+    ///
+    /// \brief signal_getPictureStream 抓取图片
+    /// \param putID
+    ///
+    void signal_getPictureStream(int putID,long lReadHandle);
+
+    ///
+    /// \brief signal_releaseResources 释放动态库资源
+    ///
+    void signal_releaseResources(int ID);
 
 private:
 
@@ -135,8 +157,8 @@ private:
     long streamID;
 
     QMap<int,LONG> playInfoMap;
+    QMap<int,LONG> alarmInfoMap;
     QMap<LPNET_DVR_USER_LOGIN_INFO,int> logInfoMap;
-    QMap<LPNET_DVR_USER_LOGIN_INFO,int> alarmInfoMap;
 
     ///
     /// \brief isSDKInit 动态库初始化状态
@@ -192,6 +214,36 @@ private:
     /// \brief MSGID 回调函数ID
     ///
     int MSGID;
+
+    ///
+    /// \brief InfraredlogicLit 红外插件库
+    ///
+    QList<QSharedPointer<IDecodingVideo>> IDecodingVideoLit;
+
+    ///
+    /// \brief tdList 子线程集
+    ///
+    QList<QThread*> tdList;
+
+    ///
+    /// \brief plateAddrList 车牌地址列表
+    ///
+    QStringList plateAddrList;
+
+    ///
+    /// \brief platePutIDList 车牌绑定ID
+    ///
+    QList<int> platePutIDList;
+
+    ///
+    /// \brief watcher 监视异步加载插件完成状态
+    ///
+    QFutureWatcher<void> *watcher;
+
+    ///
+    /// \brief initVidoeMap 初始化解码器列表
+    ///
+    QMap<long,bool> initVidoeMap;
 };
 
 #endif // MIDDLEWAREHCNET_H

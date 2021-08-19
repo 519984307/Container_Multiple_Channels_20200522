@@ -136,8 +136,9 @@ signals:
     /// \param port 端口
     /// \param user 用户
     /// \param pow  密码
+    /// \param signature 特征码
     ///
-    void signal_initCamera(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow);
+    void signal_initCamera(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow,const QString &signature);
 
     ///
     /// \brief signal_openTheVideo 打开视频/关闭视频
@@ -169,7 +170,7 @@ signals:
     void signal_bindingCameraID(QString cameraAddr,int ID);
 };
 
-#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.2.3"
+#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.2.4"
 Q_DECLARE_INTERFACE(ICaptureImages,ICaptureImagesIID);
 
 #endif // ICAPTUREIMAGES_H

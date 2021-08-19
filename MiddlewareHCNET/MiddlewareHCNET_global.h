@@ -18,6 +18,7 @@
 #include <QBuffer>
 #include <QScopedPointer>
 #include <QtConcurrent>
+#include <QFutureWatcher>
 
 #if defined(MIDDLEWAREHCNET_LIBRARY)
 #  define MIDDLEWAREHCNET_EXPORT Q_DECL_EXPORT

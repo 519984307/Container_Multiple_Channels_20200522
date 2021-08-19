@@ -50,7 +50,7 @@ public slots:
     /// \param CamerPow 密码
     /// \param signature 特征码
     ///
-    virtual void initCamerSlot(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature="")=0;
+    virtual void initCamerSlot(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature)=0;
 
     ///
     /// \brief putCommandSlots 抓取图片
@@ -58,7 +58,7 @@ public slots:
     /// \param imgTime 时间戳
     /// \param signature 特征码
     ///
-    virtual bool putCommandSlot( int imgNumber, QString imgTime,const QString &signature="")=0;
+    virtual bool putCommandSlot( int imgNumber, QString imgTime,const QString &signature)=0;
 
     ///
     /// \brief playViedoStreamSlot 预览实时视频
@@ -67,7 +67,7 @@ public slots:
     /// \param signature 特征码
     /// 海康相机：多次实时预览,linux出现内存不释放
     ///
-    virtual void playStreamSlot(quint64 winID,bool play,const QString &signature="")=0;
+    virtual void playStreamSlot(quint64 winID,bool play,const QString &signature)=0;
 
     ///
     /// \brief liftingElectronicRailingSlot 抬杆/落杆
@@ -136,8 +136,9 @@ signals:
     /// \param port 端口
     /// \param user 用户
     /// \param pow  密码
+    /// \param signature 特征码
     ///
-    void signal_initCamera(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow);
+    void signal_initCamera(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow,const QString &signature);
 
     ///
     /// \brief signal_openTheVideo 打开视频/关闭视频
@@ -149,7 +150,6 @@ signals:
     /// \brief signal_simulationCapture 模拟抓拍
     ///
     void signal_simulationCapture(int ID);
-
 
     ///
     /// \brief signal_liftingElectronicRailing 抬杆/落杆
@@ -170,7 +170,7 @@ signals:
     void signal_bindingCameraID(QString cameraAddr,int ID);
 };
 
-#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.2.3"
+#define ICaptureImagesIID "ZBY.ContainerServer.ICaptureImages/1.1.2.4"
 Q_DECLARE_INTERFACE(ICaptureImages,ICaptureImagesIID);
 
 #endif // ICAPTUREIMAGES_H

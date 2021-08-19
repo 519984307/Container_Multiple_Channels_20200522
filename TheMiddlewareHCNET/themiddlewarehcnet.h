@@ -51,14 +51,20 @@ public:
     void openTheVideoSlot(int ID,bool play,quint64 winID=0)Q_DECL_OVERRIDE;
 
     ///
+    /// \brief slot_initializationParameter 初始化动态库参数
+    ///
+    void slot_initializationParameter()Q_DECL_OVERRIDE;
+
+    ///
     /// \brief initCameraSlot 初始化相机
     /// \param localAddr 本机地址(用户绑定网卡)
     /// \param addr 地址
     /// \param port 端口
     /// \param user 用户
     /// \param pow  密码
+    /// \param signature 特征码
     ///
-    void initCameraSlot(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow)Q_DECL_OVERRIDE;
+    void initCameraSlot(const QString &localAddr, const QString &addr, const int &port, const QString &user, const QString &pow ,const QString &signature)Q_DECL_OVERRIDE;
 
     ///
     /// \brief setCaptureTypeSlot 设置抓拍模式
