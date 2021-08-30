@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>959</width>
+    <width>895</width>
     <height>625</height>
    </rect>
   </property>
@@ -27,7 +27,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>922</width>
+        <width>858</width>
         <height>665</height>
        </rect>
       </property>
@@ -452,7 +452,20 @@
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="2" column="0" colspan="2">
+           <item row="5" column="1">
+            <spacer name="verticalSpacer_9">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="0" colspan="2">
             <widget class="QComboBox" name="PlateType_comboBox">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -484,6 +497,29 @@
             </widget>
            </item>
            <item row="1" column="0" colspan="2">
+            <widget class="QComboBox" name="Camera_Load_Plugin_comboBox">
+             <property name="toolTip">
+              <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="currentIndex">
+              <number>1</number>
+             </property>
+             <item>
+              <property name="text">
+               <string>A single instance</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Multiple instances</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
             <widget class="QComboBox" name="HCNET_Capture_Type_comboBox">
              <property name="toolTip">
               <string>Haikang camera capture mode, this option and plug-in mode associated</string>
@@ -518,43 +554,7 @@
              </item>
             </widget>
            </item>
-           <item row="0" column="0" colspan="2">
-            <widget class="QComboBox" name="Camera_Load_Plugin_comboBox">
-             <property name="toolTip">
-              <string>Haikang Camera Snap Plug-in Mode, some modes require a single class.</string>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <property name="currentIndex">
-              <number>1</number>
-             </property>
-             <item>
-              <property name="text">
-               <string>A single instance</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Multiple instances</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="4" column="1">
-            <spacer name="verticalSpacer_9">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="3" column="0" colspan="2">
+           <item row="4" column="0" colspan="2">
             <widget class="QGroupBox" name="groupBox_4">
              <property name="title">
               <string>Signal model</string>
@@ -612,6 +612,13 @@
                </widget>
               </item>
              </layout>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="loadLibrary_HK_checkBox">
+             <property name="text">
+              <string>Implicitly call the HK library</string>
+             </property>
             </widget>
            </item>
           </layout>

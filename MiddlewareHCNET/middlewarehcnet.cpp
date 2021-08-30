@@ -164,16 +164,14 @@ void MiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG lHa
         if(stream!=-1){
             if(NET_DVR_StopRealPlay(stream)){
                 qDebug().noquote()<<QString("[%1] %2:Stop Stream Sucess").arg(pThis->metaObject()->className(),QString::fromLocal8Bit(pThis->logInfoMap.key(lUserID)->sDeviceAddress));
+                pThis->playInfoMap.remove(lUserID);
+
+                emit pThis->signal_releaseResources(lUserID);
             }
             else {
                 qWarning().noquote()<<QString("[%1] %2:Stop Stream failed<code=%3>").arg(pThis->metaObject()->className(),QString::fromLocal8Bit(pThis->logInfoMap.key(lUserID)->sDeviceAddress),QString::number(NET_DVR_GetLastError()));
             }
         }
-
-        pThis->playInfoMap.remove(lUserID);
-
-        emit pThis->signal_releaseResources(lUserID);
-        NET_DVR_Logout(lUserID);
 
         emit pThis->equipmentStateSignal(lUserID,false);
 
@@ -184,6 +182,10 @@ void MiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG lHa
         if(-1 != pos){
             pThis->platePutIDList.removeAt(pos);
         }
+
+        NET_DVR_Logout(lUserID);
+
+        //NET_DVR_Login_V40(pThis->logInfoMap.key(lUserID),&pThis->DeviceInfo);
     }
 }
 
@@ -192,6 +194,7 @@ void MiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET_DV
     Q_UNUSED(lpDeviceInfo)
 
     LPNET_DVR_USER_LOGIN_INFO pLoginInfo=reinterpret_cast<LPNET_DVR_USER_LOGIN_INFO>(pUser);
+
     pThis->logInfoMap.insert(pLoginInfo,lUserID);
 
     if(1==dwResult){
@@ -237,7 +240,8 @@ void MiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET_DV
             }
         }
     }
-    else {
+    else {        
+        NET_DVR_Logout(lUserID);
         qWarning().noquote()<<QString("[%1] %2:login failed <errorCode=%3>").arg(pThis->metaObject()->className(),pLoginInfo->sDeviceAddress,QString::number(NET_DVR_GetLastError()));
     }
 }
@@ -277,11 +281,11 @@ void MiddlewareHCNET::releaseResourcesSlot()
 
 void MiddlewareHCNET::simulationCaptureSlot(int ID)
 {
-    if(!NET_DVR_RemoteControl(ID,NET_DVR_CHECK_USER_STATUS,nullptr,4)){
-        emit signal_pictureStream(ID,nullptr);
-        qWarning().noquote()<<QString("[%1] %2:Put Command Error<errorCode=%3>").arg(this->metaObject()->className(),QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress),QString::number(NET_DVR_GetLastError()));
-        return;
-    }
+//    if(!NET_DVR_RemoteControl(ID,NET_DVR_CHECK_USER_STATUS,nullptr,4)){
+//        emit signal_pictureStream(ID,nullptr);
+//        qWarning().noquote()<<QString("[%1] %2:Put Command Error<errorCode=%3>").arg(this->metaObject()->className(),QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress),QString::number(NET_DVR_GetLastError()));
+//        return;
+//    }
 
     bool cap=true;
 
@@ -452,8 +456,8 @@ void MiddlewareHCNET::slot_initializationParameter()
         qCritical().noquote()<<QString("[%1] Dynamic library loading failed").arg(this->metaObject()->className());
     }
     NET_DVR_SetExceptionCallBack_V30(0,nullptr,MiddlewareHCNET::exceptionCallBack_V30,this);
-    NET_DVR_SetConnectTime(3000,0);
-    NET_DVR_SetReconnect(3000,0);
+    NET_DVR_SetConnectTime(3000,1);
+    NET_DVR_SetReconnect(3000,1);
     NET_DVR_SetRecvTimeOut(1000);
     NET_DVR_SetDVRMessageCallBack_V50(MSGID,MiddlewareHCNET::MSGCallBack,this);
 
@@ -461,6 +465,12 @@ void MiddlewareHCNET::slot_initializationParameter()
     * @brief:加载视频解码插件
     ******************************/
     loadDecodingPlugin();
+}
+
+void MiddlewareHCNET::slot_exceptionCode(unsigned long dwType, long lUserID)
+{
+    Q_UNUSED(dwType)
+    Q_UNUSED(lUserID)
 }
 
 void MiddlewareHCNET::initVideoStream(int ID, bool play)
@@ -483,6 +493,8 @@ void MiddlewareHCNET::initVideoStream(int ID, bool play)
                     qWarning().noquote()<<QString("[%1] %2:Open Stream Error<errorCode=%3>").arg(pThis->metaObject()->className(),QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress),QString::number(NET_DVR_GetLastError()));
 
                     DecodingCallBack->setReadHanlde(-1);
+
+                    NET_DVR_Logout(ID);
                 }
                 else {
                     DecodingCallBack->setReadHanlde(ID);
@@ -574,31 +586,31 @@ void MiddlewareHCNET::getDeviceStatusSlot()
 //                pThis->platePutIDList.removeAt(pos);
 //            }
 
-////            /*****************************
-////            * @brief:关掉布防
-////            ******************************/
-////            long handle=alarmInfoMap.value(ID,-1);
-////            if(handle!=-1){
-////                NET_DVR_CloseAlarmChan_V30(handle);
-////                alarmInfoMap.remove(ID);
-////            }
+//            /*****************************
+//            * @brief:关掉布防
+//            ******************************/
+//            long handle=alarmInfoMap.value(ID,-1);
+//            if(handle!=-1){
+//                NET_DVR_CloseAlarmChan_V30(handle);
+//                alarmInfoMap.remove(ID);
+//            }
 
 //            long stream=playInfoMap.value(ID,-1);
 //            if(stream!=-1){
 //                if(NET_DVR_StopRealPlay(stream)){
 //                    qDebug().noquote()<<QString("[%1] %2:Stop Stream Sucess").arg(this->metaObject()->className(),QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress));
+
+//                    /*****************************
+//                    * @brief:关闭播放库
+//                    ******************************/
+//                    emit signal_releaseResources(ID);
+
+//                    playInfoMap.remove(ID);
 //                }
 //                else {
 //                    qWarning().noquote()<<QString("[%1] %2:Stop Stream failed<code=%3>").arg(this->metaObject()->className(),QString::fromLocal8Bit(logInfoMap.key(ID)->sDeviceAddress),QString::number(NET_DVR_GetLastError()));
 //                }
-
-//                playInfoMap.remove(ID);
 //            }
-
-//            /*****************************
-//            * @brief:关闭播放库
-//            ******************************/
-//            emit signal_releaseResources(ID);
 
 //            NET_DVR_Logout(ID);
             NET_DVR_Login_V40(logInfoMap.key(ID),&DeviceInfo);

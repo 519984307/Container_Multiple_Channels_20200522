@@ -192,6 +192,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::LogicType=getJsonValue("Model","LogicType",value.toObject()).toInt();
                     Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();
                     Parameter::interfaceModel=getJsonValue("Model","interfaceModel",value.toObject()).toInt();
+                    Parameter::loadLibrary_HK=getJsonValue("Model","loadLibrary_HK",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Upload
@@ -379,6 +380,7 @@ bool System_Setting_Form::writeParameterSlot()
     }
     obj6.insert("PlateType",ui->PlateType_comboBox->currentIndex());
     obj6.insert("interfaceModel",ui->interfaceModel_comboBox->currentIndex());
+    obj6.insert("loadLibrary_HK",int(ui->loadLibrary_HK_checkBox->isChecked()));
     jsonChild.insert("Model",QJsonValue(obj6));
 
     jsonRoot.insert("Main",QJsonValue(jsonChild));
@@ -486,6 +488,7 @@ void System_Setting_Form::parameterToUi()
 
     ui->PlateType_comboBox->setCurrentIndex(Parameter::PlateType);
     ui->interfaceModel_comboBox->setCurrentIndex(Parameter::interfaceModel);
+    ui->loadLibrary_HK_checkBox->setChecked(Parameter::loadLibrary_HK);
 
     /*****************************
     * @brief:Recognizer
@@ -688,9 +691,9 @@ void System_Setting_Form::on_ChannelNumber_valueChanged(int arg1)
 
 void System_Setting_Form::on_HCNET_Capture_Type_comboBox_currentIndexChanged(int index)
 {
-//    if(3==index){
-//        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
-//    }
+    if(3==index){
+        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
+    }
     if(2==index){
         ui->Camera_Load_Plugin_comboBox->setCurrentIndex(0);
     }
@@ -703,9 +706,9 @@ void System_Setting_Form::on_Camera_Load_Plugin_comboBox_currentIndexChanged(int
 {
     Q_UNUSED(index);
 
-//    if(3==ui->HCNET_Capture_Type_comboBox->currentIndex()){
-//        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
-//    }
+    if(3==ui->HCNET_Capture_Type_comboBox->currentIndex()){
+        ui->Camera_Load_Plugin_comboBox->setCurrentIndex(1);
+    }
     if(2==ui->HCNET_Capture_Type_comboBox->currentIndex()){
         ui->Camera_Load_Plugin_comboBox->setCurrentIndex(0);
     }
@@ -830,4 +833,14 @@ void System_Setting_Form::on_searchInternet_pushButton_clicked()
 {
     ui->adapter_comboBox->clear();
     loadAdapterMAC();
+}
+
+void System_Setting_Form::on_loadLibrary_HK_checkBox_stateChanged(int arg1)
+{
+    if(arg1==Qt::CheckState::Checked){
+       ui->Camera_Load_Plugin_comboBox->setEnabled(false);
+    }
+    else {
+        ui->Camera_Load_Plugin_comboBox->setEnabled(true);
+    }
 }

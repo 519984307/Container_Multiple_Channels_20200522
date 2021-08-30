@@ -57,6 +57,13 @@ signals:
     ///
     void equipmentStateSignal(int ID, bool state);
 
+    ///
+    /// \brief signal_exceptionCode 统一设置异常回调
+    /// \param dwType
+    /// \param lUserID
+    ///
+    void signal_exceptionCode(unsigned long dwType, long lUserID);
+
 public slots:
 
     ///
@@ -108,9 +115,16 @@ public slots:
     /// \brief releaseResourcesSlot 释放动态库资源
     ///
     virtual void releaseResourcesSlot()=0;
+
+    ///
+    /// \brief slot_exceptionCode 相机异常
+    /// \param dwType 错误码
+    /// \param lUserID 相机ID
+    ///
+    virtual void slot_exceptionCode(unsigned long dwType,  long lUserID)=0;
 };
 
-#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/2.4.3.2"
+#define IMiddlewareIID "ZBY.ContainerServer.IMiddleware/2.4.3.4"
 Q_DECLARE_INTERFACE(IMiddleware,IMiddlewareIID);
 
 #endif // IMIDDLEWARE_H

@@ -22,6 +22,7 @@ namespace Parameter {
     int LogicType=0;
     int PlateType=0;
     int interfaceModel=0;
+    int loadLibrary_HK=0;
 
     /*****************************
     * @brief:Upload

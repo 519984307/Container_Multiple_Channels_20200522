@@ -17,7 +17,7 @@ public:
     virtual QString InterfaceType()=0;
 
     ///
-    /// \brief getCallBack 获取回调函数
+    /// \brief getCallBack 获取解码回调函数
     /// \return
     ///
     virtual void *getCallBack()=0;
@@ -43,6 +43,7 @@ signals:
     ///
     void signal_pictureStream(int ID,QByteArray arrJpg);
 
+
 public slots:
 
     ///
@@ -57,7 +58,7 @@ public slots:
     virtual void releaseResourcesSlot(int ID)=0;
 };
 
-#define IDecodingVideoIID "ZBY.ContainerServer.IDecodingVideo/1.0.0.2"
+#define IDecodingVideoIID "ZBY.ContainerServer.IDecodingVideo/1.0.0.4"
 Q_DECLARE_INTERFACE(IDecodingVideo,IDecodingVideoIID);
 
 #endif // IDECODINGVIDEO_H

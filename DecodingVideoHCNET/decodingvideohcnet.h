@@ -25,7 +25,6 @@ public:
     long getReadHanlde()Q_DECL_OVERRIDE;
     void setReadHanlde(long handle)Q_DECL_OVERRIDE;
 
-
     ///
     /// \brief imgBuff 图片流内存(主动申请和释放)
     ///

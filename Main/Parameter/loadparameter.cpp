@@ -67,7 +67,7 @@ bool LoadParameter::loadSysParameter()
                     Parameter::LogicType=getJsonValue("Model","LogicType",value.toObject()).toInt();
                     Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();
                     Parameter::interfaceModel=getJsonValue("Model","interfaceModel",value.toObject()).toInt();
-
+                    Parameter::loadLibrary_HK=getJsonValue("Model","loadLibrary_HK",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:Upload

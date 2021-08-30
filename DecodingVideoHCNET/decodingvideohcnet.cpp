@@ -76,7 +76,7 @@ void DecodingVideoHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataTy
             }
         }
         if (dwBufSize > 0) {
-            if (!PlayM4_OpenStream(lPort, pBuffer, dwBufSize, 1920*1080)) {
+            if (!PlayM4_OpenStream(lPort, pBuffer, dwBufSize, IMG_BYTE)) {
                 break;
             }
 
@@ -102,14 +102,14 @@ void DecodingVideoHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataTy
             }
         }
         break;
-//    default:
-//        inData = PlayM4_InputData(lPort, pBuffer, dwBufSize);
-//        while (!inData)
-//        {
-////            Sleep(10);
-//            inData = PlayM4_InputData(lPort, pBuffer, dwBufSize);
-//        }
-//        break;
+    default:
+        inData = PlayM4_InputData(lPort, pBuffer, dwBufSize);
+        while (!inData)
+        {
+            Sleep(10);
+            inData = PlayM4_InputData(lPort, pBuffer, dwBufSize);
+        }
+        break;
     }
 }
 

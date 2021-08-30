@@ -105,6 +105,13 @@ public:
     ///
     void slot_initializationParameter()Q_DECL_OVERRIDE;
 
+    ///
+    /// \brief slot_exceptionCode 相机异常
+    /// \param dwType 错误码
+    /// \param lUserID 相机ID
+    ///
+    void slot_exceptionCode(unsigned long dwType,  long lUserID)Q_DECL_OVERRIDE;
+    
 private:
 
     ///
@@ -216,7 +223,7 @@ private:
     int MSGID;
 
     ///
-    /// \brief InfraredlogicLit 红外插件库
+    /// \brief InfraredlogicLit 视频解码插件库
     ///
     QList<QSharedPointer<IDecodingVideo>> IDecodingVideoLit;
 

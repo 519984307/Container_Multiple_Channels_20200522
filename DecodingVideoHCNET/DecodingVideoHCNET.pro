@@ -9,7 +9,7 @@ CONFIG += plugin
 TARGET = DecofingVideoHCNET
 
 CONFIG += skip_target_version_ext
-VERSION = 1.0.0.8
+VERSION = 1.0.1.1
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use

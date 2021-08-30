@@ -77,9 +77,6 @@ void LoadingLibaray::slot_createLibaray()
                 loadMisarrangement(pluginName,"ICaptureImages");
                 pICaptureImages=nullptr;
             }
-
-#ifndef _SDK_/* 显示加载SDK */
-
             else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
                 if(0==Parameter::Camera_Load_Plugin){
                     pluginsNum=1;
@@ -89,6 +86,9 @@ void LoadingLibaray::slot_createLibaray()
                 }
 
                 if(4==Parameter::HCNET_Capture_Type){
+                    /*****************************
+                    * @brief:海康相机底层抓拍
+                    ******************************/
                     if("Underlying" == pIMiddleware->InterfaceType()){
                         loadMisarrangement(pluginName,"Underlying");
                     }
@@ -97,65 +97,96 @@ void LoadingLibaray::slot_createLibaray()
                     }
                 }
                 else {
-                    if ("HCNET" == pIMiddleware->InterfaceType()) {
-                        loadMisarrangement(pluginName,"HCNET");
+                    /* 显示加载SDK */
+                    if(!Parameter::loadLibrary_HK){
+                        if ("HCNET" == pIMiddleware->InterfaceType()) {
+                            loadMisarrangement(pluginName,"HCNET");
+                        }
+                        else {
+                            pluginsNum=0;
+                        }
                     }
-                    else {
-                        pluginsNum=0;
-                    }
-                }
-                /*****************************
-                * @brief:所有海康车牌使用一个库
-                ******************************/
-                if(0==Parameter::PlateType && "HCNET" == pIMiddleware->InterfaceType()){
-                    pluginsNum+=1;
-                }
-
-                pIMiddleware=nullptr;
-            }
-
-#else /* 隐式加载SDK */
-
-            else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
-                /*****************************
-                * @brief:海康相机底层抓拍
-                ******************************/
-                if(4==Parameter::HCNET_Capture_Type){
-                    if("Underlying" == pIMiddleware->InterfaceType()){
-                        pluginsNum=channelCount*LocalPar::CamerNumber;
-                        loadMisarrangement(pluginName,"Underlying");
-                    }
-                    else {
-                        pluginsNum=0;
+                    /* 隐式加载SDK */
+                    if(Parameter::loadLibrary_HK){
+                        if ("HCNET_SDK" == pIMiddleware->InterfaceType()) {
+                            pluginsNum=1;
+                            loadMisarrangement(pluginName,"HCNET");
+                        }
+                        else {
+                            pluginsNum=0;
+                        }
                     }
                 }
-                else {
-                    if ("HCNET_SDK" == pIMiddleware->InterfaceType()) {
-                        pluginsNum=1;
-                        loadMisarrangement(pluginName,"HCNET");
-                    }
-                    else {
-                        pluginsNum=0;
+                /* 显示加载SDK */
+                if(!Parameter::loadLibrary_HK){
+                    /*****************************
+                    * @brief:所有海康车牌使用一个库
+                    ******************************/
+                    if(0==Parameter::PlateType && "HCNET" == pIMiddleware->InterfaceType()){
+                        pluginsNum+=1;
                     }
                 }
 
                 pIMiddleware=nullptr;
             }
+//            else if (IDecodingVideo *pIDecodingVideo=qobject_cast<IDecodingVideo*>(plugin)) {
+//                /* 显示加载SDK */
+//                if(!Parameter::loadLibrary_HK){
+//                    /*****************************
+//                    * @brief:视频流取图，视频解码
+//                    ******************************/
+//                    if(3 == Parameter::HCNET_Capture_Type){
+//                        if("Decod_HCNET"==pIDecodingVideo->InterfaceType()){
+//                            pluginsNum=1;
+//                        }
+//                    }
+//                }
+
+//                pIDecodingVideo=nullptr;
+//            }
+//            else if(IMiddleware *pIMiddleware=qobject_cast<IMiddleware*>(plugin)) {
+//                /* 隐式加载SDK */
+//                if(Parameter::loadLibrary_HK){
+//                    /*****************************
+//                    * @brief:海康相机底层抓拍
+//                    ******************************/
+//                    if(4==Parameter::HCNET_Capture_Type){
+//                        if("Underlying" == pIMiddleware->InterfaceType()){
+//                            pluginsNum=channelCount*LocalPar::CamerNumber;
+//                            loadMisarrangement(pluginName,"Underlying");
+//                        }
+//                        else {
+//                            pluginsNum=0;
+//                        }
+//                    }
+//                    else {
+//                        if ("HCNET_SDK" == pIMiddleware->InterfaceType()) {
+//                            pluginsNum=1;
+//                            loadMisarrangement(pluginName,"HCNET");
+//                        }
+//                        else {
+//                            pluginsNum=0;
+//                        }
+//                    }
+//                }
+
+//                pIMiddleware=nullptr;
+//            }
             else if (IDecodingVideo *pIDecodingVideo=qobject_cast<IDecodingVideo*>(plugin)) {
-                /*****************************
-                * @brief:视频流取图，视频解码
-                ******************************/
-                if(3 == Parameter::HCNET_Capture_Type){
-                    if("Decod_HCNET"==pIDecodingVideo->InterfaceType()){
-                        pluginsNum=channelCount*LocalPar::CamerNumber;
+                /* 隐式加载SDK */
+                if(Parameter::loadLibrary_HK){
+                    /*****************************
+                    * @brief:视频流取图，视频解码
+                    ******************************/
+                    if(3 == Parameter::HCNET_Capture_Type){
+                        if("Decod_HCNET"==pIDecodingVideo->InterfaceType()){
+                            pluginsNum=channelCount*LocalPar::CamerNumber;
+                        }
                     }
                 }
 
                 pIDecodingVideo=nullptr;
-            }
-
-#endif
-
+            }           
             else if (InfraredlogicInterface *pInfraredlogicInterface=qobject_cast<InfraredlogicInterface*>(plugin)) {
                 if(0==Parameter::interfaceModel){
                     if("Protector" == pInfraredlogicInterface->InterfaceType()){/* 串口信号接收器 */

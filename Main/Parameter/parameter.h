@@ -44,6 +44,11 @@ namespace Parameter {
     ******************************/
 
     ///
+    /// \brief loadLibrary_HK 隐式加载海康动态库
+    ///
+    extern int loadLibrary_HK;
+
+    ///
     /// \brief HCNET_Type 海康相机抓拍类型
     ///
     extern int HCNET_Capture_Type;

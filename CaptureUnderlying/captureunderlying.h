@@ -175,6 +175,12 @@ public:
     ///
     void releaseResourcesSlot()Q_DECL_OVERRIDE;
 
+    ///
+    /// \brief slot_exceptionCode 相机异常
+    /// \param dwType 错误码
+    /// \param lUserID 相机ID
+    ///
+    void slot_exceptionCode(unsigned long dwType,  long lUserID)Q_DECL_OVERRIDE;
 };
 
 #endif // CAPTUREUNDERLYING_H

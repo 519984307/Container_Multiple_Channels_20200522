@@ -23,6 +23,11 @@ public:
 
     static TheMiddlewareHCNET *pThis;
 
+    /*****************************
+    * @brief:全局播放端口
+    ******************************/
+    static long lPort;
+
     ///
     /// \brief liftingElectronicRailingSlot 抬杆/落杆
     ///
@@ -74,23 +79,38 @@ public:
     void setCaptureTypeSlot(const int &capType, const int &msgCallBackInd)Q_DECL_OVERRIDE;
 
     ///
-    /// \brief initializationParameter 初始化参数
-    /// \param addr 地址
-    /// \param port 端口
-    /// \param imgPath 图片路径
-    /// \param channel 通道号
+    /// \brief slot_exceptionCode 相机异常
+    /// \param dwType 错误码
+    /// \param lUserID 相机ID
     ///
-    bool initializationParameter();
+    void slot_exceptionCode(unsigned long dwType,  long lUserID)Q_DECL_OVERRIDE;
 
 private:/* 参数  */
 
+    ///
+    /// \brief localAddr 本地地址
+    ///
     QString localAddr;
+
+    ///
+    /// \brief streamID 预览ID
+    ///
     long streamID;
 
-    QList<LPNET_DVR_USER_LOGIN_INFO> logfalList;
+    ///
+    /// \brief playInfoMap 视频流组
+    ///
+    QMap<LONG,LONG> playInfoMap;
+
+    ///
+    /// \brief logInfoMap 登录组
+    ///
     QMap<LPNET_DVR_USER_LOGIN_INFO,int> logInfoMap;
+
+    ///
+    /// \brief alarmInfoMap 布防组
+    ///
     QMap<LPNET_DVR_USER_LOGIN_INFO,int> alarmInfoMap;
-    QMap<LPNET_DVR_USER_LOGIN_INFO,int> logMap;
 
     ///
     /// \brief isSDKInit 动态库初始化状态
@@ -138,11 +158,6 @@ private:/* 参数  */
     NET_DVR_MANUALSNAP manualsnap={};
 
     ///
-    /// \brief playMap 视频流绑定ID
-    ///
-    QMap<int,LONG> playMap;
-
-    ///
     /// \brief putID 当前抓图ID
     ///
     int putID;
@@ -158,6 +173,20 @@ private:/* 参数  */
     int MSGID;
 
 private:
+
+    ///
+    /// \brief initializationParameter 初始化参数
+    /// \param addr 地址
+    /// \param port 端口
+    /// \param imgPath 图片路径
+    /// \param channel 通道号
+    ///
+    bool initializationParameter();
+
+    /*****************************
+    * @brief:相机异常回调类型
+    ******************************/
+    typedef   void CALLBACK (*exceptionCallBack_V30FUN)(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser);
 
     /*****************************
     * @brief:交通系列（2CD9），抓图需要布防
@@ -206,7 +235,7 @@ private:
     /*****************************
     * @brief:网络相机系列（2CD7）
     ******************************/
-    typedef   BOOL  (*NET_DVR_SetExceptionCallBack_V30FUN)(UINT reserved1, void* reserved2, void (CALLBACK* fExceptionCallBack)(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser), void *pUser);
+    typedef void (*NET_DVR_SetExceptionCallBack_V30FUN)(UINT reserved1, void* reserved2, void (CALLBACK* fExceptionCallBack)(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser), void *pUser);
     ///
     /// \brief NET_DVR_SetExceptionCallBack_V30_L 设置异常回调函数
     ///
@@ -456,6 +485,7 @@ private:
     void initVideoStream(int ID,bool play);
 
 private slots:
+
     ///
     /// \brief getDeviceStatusSlot 获取设备运行状态
     /// \param lUserID 登录ID

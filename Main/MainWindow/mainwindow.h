@@ -1,8 +1,6 @@
 ﻿#ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#define _SDK_
-
 #include <QMainWindow>
 #include <QtGlobal>
 #include <QDesktopWidget>
@@ -461,6 +459,13 @@ private slots:
     ///
     void slot_systemRunTimer();
 
+    ///
+    /// \brief slot_exceptionCode 统一设置异常回调
+    /// \param dwType
+    /// \param lUserID
+    ///
+    void slot_exceptionCode(unsigned long dwType, long lUserID);
+
 signals:
 
     /*****************************
@@ -558,6 +563,13 @@ signals:
     /// \brief signal_initializationParameter 初始化海康动态库
     ///
     void signal_initializationParameter();
+
+    ///
+    /// \brief signal_exceptionCode 相机异常
+    /// \param dwType 错误码
+    /// \param lUserID 相机ID
+    ///
+    void signal_exceptionCode(unsigned long dwType,  long lUserID);
 };
 
 #endif // MAINWINDOW_H

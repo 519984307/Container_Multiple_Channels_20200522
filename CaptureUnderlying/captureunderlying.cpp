@@ -217,6 +217,12 @@ void CaptureUnderlying::releaseResourcesSlot()
     qDebug().noquote()<<"CaptureUnderlying::releaseResourcesSlot";
 }
 
+void CaptureUnderlying::slot_exceptionCode(unsigned long dwType, long lUserID)
+{
+    Q_UNUSED(dwType)
+    Q_UNUSED(lUserID)
+}
+
 void CaptureUnderlying::initialization()
 {
     tcpSocket=new QTcpSocket(this);

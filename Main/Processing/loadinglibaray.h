@@ -1,8 +1,6 @@
 ﻿#ifndef LOADINGLIBARAY_H
 #define LOADINGLIBARAY_H
 
-#define _SDK_
-
 #include <QObject>
 #include <QPluginLoader>
 #include <QCoreApplication>

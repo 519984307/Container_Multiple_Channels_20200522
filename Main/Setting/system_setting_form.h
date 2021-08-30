@@ -96,6 +96,8 @@ private slots:
     void on_setParameter_pushButton_clicked();
 
     ///
+    void on_loadLibrary_HK_checkBox_stateChanged(int arg1);
+
     /// \brief on_searchInternet_pushButton_clicked 查找网卡
     ///
     void on_searchInternet_pushButton_clicked();
