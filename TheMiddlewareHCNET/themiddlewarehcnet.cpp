@@ -616,50 +616,13 @@ void TheMiddlewareHCNET::g_RealDataCallBack_V30(LONG lRealHandle, DWORD dwDataTy
 void TheMiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
 {
     Q_UNUSED(pUser)
-    Q_UNUSED(dwType)
     Q_UNUSED(lHandle)
-    Q_UNUSED(lUserID)
+    Q_UNUSED(dwType)
 
-    emit pThis->signal_exceptionCode(dwType,lUserID);
-
-//    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logInfoMap.key(lUserID,nullptr);
-
-//    if(pThis->NET_DVR_GetLastError_L()>0 && nullptr != LoginInfo){
-//        qWarning().noquote()<<QString("[%1] %2:Camrea Exception<errorCode=%3>").arg(pThis->metaObject()->className(),QString::number(lUserID),QString::number(pThis->NET_DVR_GetLastError_L()));
-
-//        /*****************************
-//        * @brief:出现异常，关闭视频流和登出相机
-//        ******************************/
-
-//        long stream=pThis->playInfoMap.value(lUserID,-1);
-//        if(stream!=-1){
-//            if(nullptr != pThis->NET_DVR_StopRealPlay_L && pThis->NET_DVR_StopRealPlay_L(stream)){
-//                qDebug().noquote()<<QString("[%1] %2:Stop Stream Sucess").arg(pThis->metaObject()->className(),QString::fromLocal8Bit(pThis->logInfoMap.key(lUserID)->sDeviceAddress));
-
-//                /* 释放播放库资源 */
-//                if(nullptr!=pThis->PlayM4_Stop_L){
-//                    pThis->PlayM4_Stop_L(stream);
-//                }
-//                if(nullptr!=pThis->PlayM4_CloseStream_L){
-//                    pThis->PlayM4_CloseStream_L(stream);
-//                }
-//                if(nullptr!=pThis->PlayM4_FreePort_L){
-//                    pThis->PlayM4_FreePort_L(stream);
-//                }
-
-//                pThis->playInfoMap.remove(lUserID);
-//            }
-//            else {
-//                qWarning().noquote()<<QString("[%1] %2:Stop Stream failed<code=%3>").arg(pThis->metaObject()->className(),QString::fromLocal8Bit(pThis->logInfoMap.key(lUserID)->sDeviceAddress),QString::number(pThis->NET_DVR_GetLastError_L()));
-//            }
-//        }
-
-//        emit pThis->equipmentStateSignal(lUserID,false);
-
-//        if(nullptr != pThis->NET_DVR_Logout_L){
-//            pThis->NET_DVR_Logout_L(lUserID);
-//        }
-//    }
+    DWORD errCode= pThis->NET_DVR_GetLastError_L();
+    if(errCode>0){
+         emit pThis->signal_exceptionCode(errCode,lUserID);
+    }
 }
 
 void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET_DVR_DEVICEINFO_V30 lpDeviceInfo, void *pUser)
@@ -701,9 +664,6 @@ void TheMiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET
         }
     }
     else {
-
-        pThis->NET_DVR_Logout_L(lUserID);
-
         if(pThis->NET_DVR_GetLastError_L!=nullptr){
             qWarning().noquote()<<QString("[%1] %2:Login failed <errorCode=%3>").arg(pThis->metaObject()->className(),LoginInfo->sDeviceAddress,QString::number(pThis->NET_DVR_GetLastError_L()));
         }
@@ -746,13 +706,13 @@ void TheMiddlewareHCNET::getDeviceStatusSlot()
 {
     foreach (auto id,logInfoMap.values()){
         if(NET_DVR_RemoteControl_L !=nullptr && NET_DVR_RemoteControl_L(id,NET_DVR_CHECK_USER_STATUS,nullptr,4)){
-            emit equipmentStateSignal(id,true);
+            emit equipmentStateSignal(id,true);           
         }
         else {
             emit equipmentStateSignal(id,false);
 
-            if(NET_DVR_Login_V40_L !=nullptr){/* 登录设备 */
-                NET_DVR_Login_V40_L(logInfoMap.key(id),&DeviceInfo);
+            if(nullptr != pThis->NET_DVR_Login_V40_L){/* 登录设备 */
+                pThis->NET_DVR_Login_V40_L(logInfoMap.key(id),&DeviceInfo);
             }
         }
     }
@@ -769,51 +729,52 @@ void TheMiddlewareHCNET::resizeEventSlot()
 
 void TheMiddlewareHCNET::slot_exceptionCode(unsigned long dwType, long lUserID)
 {
-    Q_UNUSED(dwType)
-
-    qDebug()<<logInfoMap.key(lUserID)->sDeviceAddress<<":"<<NET_DVR_GetLastError_L();
-
-    LPNET_DVR_USER_LOGIN_INFO LoginInfo=pThis->logInfoMap.key(lUserID,nullptr);
-
-    if(pThis->NET_DVR_GetLastError_L()>0 && nullptr != LoginInfo){
-        qWarning().noquote()<<QString("[%1] %2:Camrea Exception<errorCode=%3>").arg(pThis->metaObject()->className(),QString::number(lUserID),QString::number(pThis->NET_DVR_GetLastError_L()));
-
-        /*****************************
-        * @brief:出现异常，关闭视频流和登出相机
-        ******************************/
-
-        long stream=pThis->playInfoMap.value(lUserID,-1);
-        if(stream!=-1){
-            if(nullptr != pThis->NET_DVR_StopRealPlay_L && pThis->NET_DVR_StopRealPlay_L(stream)){
-                qDebug().noquote()<<QString("[%1] %2:Stop Stream Sucess").arg(pThis->metaObject()->className(),QString::fromLocal8Bit(pThis->logInfoMap.key(lUserID)->sDeviceAddress));
-
-                /* 释放播放库资源 */
-                if(nullptr!=pThis->PlayM4_Stop_L){
-                    pThis->PlayM4_Stop_L(TheMiddlewareHCNET::lPort);
-                }
-                if(nullptr!=pThis->PlayM4_CloseStream_L){
-                    pThis->PlayM4_CloseStream_L(TheMiddlewareHCNET::lPort);
-                }
-                if(nullptr!=pThis->PlayM4_FreePort_L){
-                    pThis->PlayM4_FreePort_L(TheMiddlewareHCNET::lPort);
-                }
-
-                pThis->playInfoMap.remove(lUserID);
-
-                /*****************************
-                * @brief:重置播放端口
-                ******************************/
-                TheMiddlewareHCNET::lPort=-1;
-            }
-            else {
-                qWarning().noquote()<<QString("[%1] %2:Stop Stream failed<code=%3>").arg(pThis->metaObject()->className(),QString::fromLocal8Bit(pThis->logInfoMap.key(lUserID)->sDeviceAddress),QString::number(pThis->NET_DVR_GetLastError_L()));
-            }
+    foreach(auto ID,logInfoMap.values()){
+        if(lUserID==ID){
+            execpetCode(dwType,lUserID);
         }
+    }
+}
 
-        emit pThis->equipmentStateSignal(lUserID,false);
+void TheMiddlewareHCNET::execpetCode(DWORD code, long lUserID)
+{
+    qWarning().noquote()<<QString("[%1] %2:Camrea Exception<errorCode=%3>").arg(this->metaObject()->className(),QString::fromLocal8Bit(logInfoMap.key(lUserID)->sDeviceAddress),QString::number(code));
 
-        if(nullptr != pThis->NET_DVR_Logout_L){
-            pThis->NET_DVR_Logout_L(lUserID);
+    /*****************************
+    * @brief:出现异常，关闭视频流和登出相机
+    ******************************/
+
+    long stream=playInfoMap.value(lUserID,-1);
+    if(stream!=-1){
+        if(nullptr != NET_DVR_StopRealPlay_L && NET_DVR_StopRealPlay_L(stream)){
+            qDebug().noquote()<<QString("[%1] %2:Stop Stream Sucess").arg(this->metaObject()->className(),QString::fromLocal8Bit(logInfoMap.key(lUserID)->sDeviceAddress));
+
+            /* 释放播放库资源 */
+            if(nullptr!=PlayM4_Stop_L){
+                PlayM4_Stop_L(TheMiddlewareHCNET::lPort);
+            }
+            if(nullptr!=PlayM4_CloseStream_L){
+                PlayM4_CloseStream_L(TheMiddlewareHCNET::lPort);
+            }
+            if(nullptr!=PlayM4_FreePort_L){
+                PlayM4_FreePort_L(TheMiddlewareHCNET::lPort);
+            }
+
+            playInfoMap.remove(lUserID);
+
+            /*****************************
+            * @brief:重置播放端口
+            ******************************/
+            TheMiddlewareHCNET::lPort=-1;
         }
+        else {
+            qWarning().noquote()<<QString("[%1] %2:Stop Stream failed<code=%3>").arg(this->metaObject()->className(),QString::fromLocal8Bit(logInfoMap.key(lUserID)->sDeviceAddress),QString::number(NET_DVR_GetLastError_L()));
+        }
+    }
+
+    emit equipmentStateSignal(lUserID,false);
+
+    if(nullptr != NET_DVR_Logout_L){
+        NET_DVR_Logout_L(lUserID);
     }
 }

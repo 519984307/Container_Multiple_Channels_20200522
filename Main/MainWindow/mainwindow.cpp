@@ -68,11 +68,6 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 void MainWindow::initializing()
 {
     /*****************************
-    * @brief:初始化数据库
-    ******************************/
-    emit signal_initDataBaseR(QString::number(0),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
-
-    /*****************************
     * @brief:设置海康相机抓拍模式
     ******************************/
     emit signal_setCameraCaptureType(Parameter::HCNET_Capture_Type+1,0);
@@ -131,6 +126,11 @@ void MainWindow::initializing()
     * @brief:初始化加密,默认单通道，不比对加密狗
     ******************************/
     emit signal_initEncryption(LocalPar::Channels,"");
+
+    /*****************************
+    * @brief:初始化数据库
+    ******************************/
+    emit signal_initDataBaseR(QString::number(0),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
 
     linkCount=0;
 
@@ -658,7 +658,7 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::slot_handleFinished()
 {
-    qInfo()<<"Successfully loading plug-in";
+    qInfo()<<QString("[%1] Successfully loading plug-in").arg(this->metaObject()->className());
     ui->statusBar->showMessage(tr("Successfully loading plug-in"),3000);
     statusProgressBar->setVisible(false);
 

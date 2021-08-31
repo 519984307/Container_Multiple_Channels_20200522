@@ -154,7 +154,7 @@ void MiddlewareHCNET::exceptionCallBack_V30(DWORD dwType, LONG lUserID, LONG lHa
 
     if(nullptr != LoginInfo && NET_DVR_GetLastError()>0){
 
-        qWarning().noquote()<<QString("[%1] %2:Camrea Exception<errorCode=%3>").arg(pThis->metaObject()->className(),LoginInfo->sDeviceAddress,QString::number(NET_DVR_GetLastError()));
+        qWarning().noquote()<<QString("[%1] %2:Camrea Exception<errorCode=%3>").arg(pThis->metaObject()->className(),QString::fromLocal8Bit(pThis->logInfoMap.key(lUserID)->sDeviceAddress),QString::number(NET_DVR_GetLastError()));
 
         /*****************************
         * @brief:出现异常，关闭视频流和登出相机
@@ -241,7 +241,10 @@ void MiddlewareHCNET::loginResultCallBack(LONG lUserID, DWORD dwResult, LPNET_DV
         }
     }
     else {        
-        NET_DVR_Logout(lUserID);
+        // NET_DVR_Logout(lUserID);
+        /*****************************
+        * @brief:登录异常才登出相机
+        ******************************/
         qWarning().noquote()<<QString("[%1] %2:login failed <errorCode=%3>").arg(pThis->metaObject()->className(),pLoginInfo->sDeviceAddress,QString::number(NET_DVR_GetLastError()));
     }
 }

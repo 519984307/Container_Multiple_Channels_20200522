@@ -174,6 +174,8 @@ private:/* 参数  */
 
 private:
 
+    void execpetCode(DWORD code,long lUserID);
+
     ///
     /// \brief initializationParameter 初始化参数
     /// \param addr 地址
