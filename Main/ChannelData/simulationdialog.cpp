@@ -18,6 +18,7 @@ SimulationDialog::SimulationDialog(int channelNumber, QWidget *parent) :
     timer->setSingleShot(true);
     connect(timer,&QTimer::timeout,this,&SimulationDialog::slot_timerCap);
 
+    startCap=false;
     col=0;
     this->channelNumber=channelNumber;
 }
@@ -59,9 +60,13 @@ void SimulationDialog::on_capturePushButton_clicked()
     case 2:
         emit signal_logicPutImage(-1);
         emit signal_logicPutImage(0);
+        startCap=true;
         break;
     case 3:
-        emit signal_logicPutImage(4);
+        if(startCap){
+            emit signal_logicPutImage(4);
+            startCap=false;
+        }
         break;
     case 4:
         emit signal_logicPutImage(-1);

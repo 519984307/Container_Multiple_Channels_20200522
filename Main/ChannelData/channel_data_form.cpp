@@ -187,6 +187,12 @@ void Channel_Data_Form::clearnPixmap(int type)
     ******************************/
     case -1:
     {
+        /*****************************
+        * @brief:清除上次数据【时间，图片组】
+        ******************************/
+        streamMap.clear();
+        imgTimerAf.clear();
+
         ui->image_label_1->setPalette(palette);
         ui->image_label_2->setPalette(palette);
         ui->image_label_3->setPalette(palette);
@@ -905,7 +911,7 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
      */
 
     switch (putCommnd) {
-    case -1:
+    case -1:        
         clearnPixmap(-1);/* 通知来车,清除数据界面图片 */
         this->putCount=-1;
         this->putComType=-1;

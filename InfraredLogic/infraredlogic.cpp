@@ -32,7 +32,7 @@ InfraredLogic::InfraredLogic(QObject *parent)
     channelNum=-1;
     carInChannel=false;
 
-    comming=false;isCar=false;isLong=false;isDouble=false;health1=true;health2=true;
+    comming=false;isCar=false;isLong=false;isDouble=false;reversing=false;
 
     start=true;
 }
@@ -106,17 +106,29 @@ void InfraredLogic::serialLogic(int *status)
     * 1:标准逻辑
     */
     if(0 == logicType){
-        if(carInChannel && status[0]==valueOne && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+        /*****************************
+        * @brief:车辆倒车：车辆已进入抓拍完成，退出挡住（A2），B1,B2，A1释放
+        ******************************/
+        if(!reversing && carInChannel && status[0]==valueTwo && status[1]==valueOne && status[2]==valueOne){
             emit logicPutImageSignal(5);
             carInChannel=false;
+            reversing=true;
 
             qDebug().noquote()<<QString("Vehicle reversing[-1]");
         }
 
         /*****************************
-        * @brief:车辆进入，如果是高车头同时挡住2组红外                    1
+        * @brief:车辆倒车，完全退出通道
         ******************************/
-        if(status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
+        if(reversing && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+            reversing=false;
+        }
+
+        /*****************************
+        * @brief:车辆进入，如果是高车头同时挡住2组红外
+        * 2021/09/01 挡住A1,A2释放B1,B2【防止倒车触发当前逻辑】
+        ******************************/
+        if(!reversing && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
             comming=true;
             isLong=false;
             isDouble=false;
@@ -159,8 +171,8 @@ void InfraredLogic::serialLogic(int *status)
             isLong=false;
             isDouble=false;
             isCar=false;
-            health2=true;
-            health1=true;
+
+            reversing=false;
             carInChannel=true;
 
             return;
@@ -209,17 +221,28 @@ void InfraredLogic::serialLogic(int *status)
     }
     if(1 == logicType){
         /*****************************
-        * @brief:车辆倒车：车辆已进入，退出挡住A1，其他释放
+        * @brief:车辆倒车：车辆已进入抓拍完成，退出挡住（A2），B1,B2，A1释放
         ******************************/
-        if(carInChannel && status[0]==valueOne && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+        if(!reversing && carInChannel && status[0]==valueTwo && status[1]==valueOne && status[2]==valueOne){
             emit logicPutImageSignal(5);
             carInChannel=false;
+            reversing=true;
+
+            qDebug().noquote()<<QString("Vehicle reversing[-1]");
         }
 
         /*****************************
-        * @brief:车辆进入，如果是高车头同时挡住2组红外                    1
+        * @brief:车辆倒车，完全退出通道
         ******************************/
-        if(status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
+        if(reversing && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+            reversing=false;
+        }
+
+        /*****************************
+        * @brief:车辆进入，如果是高车头同时挡住2组红外
+        * 2021/09/01 挡住A1,A2释放B1,B2【防止倒车触发当前逻辑】
+        ******************************/
+        if(!reversing && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
             comming=true;
             isLong=false;
             isDouble=false;
@@ -247,9 +270,8 @@ void InfraredLogic::serialLogic(int *status)
             /* 长箱或者双向(双箱加高车头抓两次) */
             isLong=true;
 
-            if(health2){
-                emit logicPutImageSignal(0);
-            }
+            emit logicPutImageSignal(0);
+
             qDebug().noquote()<<QString("Grab (front, left, right)[3]");
 
             return;
@@ -259,26 +281,23 @@ void InfraredLogic::serialLogic(int *status)
         * @brief:释放A1,A2。抓拍后3张。逻辑完成                        4
         ******************************/
         if(comming && isLong && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
-            if(health1){
-                if(isDouble){
-                    /* 如果是双箱就触发双箱标志 */
-                    emit logicPutImageSignal(4);
-                    qDebug().noquote()<<QString("Grab (double box) (back, left, right)[4-4}]");
-                }
-                else {
-                    /* 如果是长箱就触发长箱标志 */
-                    logicPutImageSignal(1);
-                    qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
-                }
-                carInChannel=true;
+            if(isDouble){
+                /* 如果是双箱就触发双箱标志 */
+                emit logicPutImageSignal(4);
+                qDebug().noquote()<<QString("Grab (double box) (back, left, right)[4-4}]");
             }
+            else {
+                /* 如果是长箱就触发长箱标志 */
+                logicPutImageSignal(1);
+                qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
+            }
+            carInChannel=true;
+            reversing=false;
 
             comming=false;
             isLong=false;
             isDouble=false;
             isCar=false;
-            health2=true;
-            health1=true;
 
             return;
         }
@@ -288,17 +307,14 @@ void InfraredLogic::serialLogic(int *status)
         ******************************/
         if(comming && !isLong && !isCar && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
             /* 小箱，抓4张(小箱放长托架后面,标准小箱) */
-            if(health1){
-                emit logicPutImageSignal(2);
-                carInChannel=true;
-            }
+            emit logicPutImageSignal(2);
+            carInChannel=true;
 
             comming=false;
             isLong=false;
             isDouble=false;
             isCar=false;
-            health2=true;
-            health1=true;
+            reversing=false;
 
             qDebug().noquote()<<QString("Grasp (small box) (front , back, left, right)[5]");
 

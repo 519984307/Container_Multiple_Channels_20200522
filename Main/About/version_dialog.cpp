@@ -11,6 +11,7 @@ Version_Dialog::Version_Dialog(QWidget *parent) :
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.1.13_2107121930","优化车辆和车牌输出结果关系"));
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.1.14_2107200930","添加ZS车牌相机支持"));
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.4_2108310114","添加隐式调用海康SDK"));
+    ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.5_2109011034","修复抓拍逻辑"));
 }
 
 Version_Dialog::~Version_Dialog()

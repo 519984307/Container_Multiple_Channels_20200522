@@ -40,8 +40,8 @@ private:
     ///
     int type;
 
-    /* 来车，车头，长箱，双箱 */
-    bool comming,isCar,isLong,isDouble,health1,health2;
+    /* 来车，车头，长箱，双箱，倒车 */
+    bool comming,isCar,isLong,isDouble,reversing;
 
     ///
     /// \brief carInChannel 车辆在通道里面

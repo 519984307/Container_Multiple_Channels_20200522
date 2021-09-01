@@ -16,7 +16,8 @@ InfraredLogic_IO::InfraredLogic_IO(QObject *parent)
     isLong=false;
     isDouble=false;
     isCar=false;
-    carInChannel=true;
+    carInChannel=false;
+    reversing=false;
 
     memset(status,0,sizeof (status));
 
@@ -57,22 +58,30 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
     * 0:南京三宝
     * 1:标准逻辑
     */
-
     if(0 == logicType){
         /*****************************
-        * @brief:车辆倒车：车辆已进入，退出挡住A1，其他释放
+        * @brief:车辆倒车：车辆已进入抓拍完成，退出挡住（A2），B1,B2，A1释放
         ******************************/
-        if(carInChannel && status[0]==valueOne && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+        if(!reversing && carInChannel && status[0]==valueTwo && status[1]==valueOne && status[2]==valueOne){
             emit logicPutImageSignal(5);
             carInChannel=false;
+            reversing=true;
 
-            qDebug().noquote()<<QString("[%1] %2:Vehicle reversing[-1]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Vehicle reversing[-1]");
         }
 
         /*****************************
-        * @brief:车辆进入，如果是高车头同时挡住2组红外                    1
+        * @brief:车辆倒车，完全退出通道
         ******************************/
-        if(status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
+        if(reversing && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+            reversing=false;
+        }
+
+        /*****************************
+        * @brief:车辆进入，如果是高车头同时挡住2组红外
+        * 2021/09/01 挡住A1,A2释放B1,B2【防止倒车触发当前逻辑】
+        ******************************/
+        if(!reversing && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
             comming=true;
             isLong=false;
             isDouble=false;
@@ -80,28 +89,8 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
 
             carInChannel=false;
 
-            /*****************************
-            * @brief:停止正在关灯动作
-            ******************************/
-            if(pCloseLEDTimer->isActive()){
-                pCloseLEDTimer->stop();
-            }
-            /*****************************
-            * @brief:车辆进入开灯
-            ******************************/
-            for(int ind=0;ind<dOutType.size();ind++){
-                if(0 == model && pTcpClient!=nullptr && dOutType.at(ind)==2){
-                    QString cmd=QString("AT+STACH%1=3,600%2").arg(QString::number(ind+1),eol);
-                    pTcpClient->write(cmd.toLatin1());
-                }
-                if(1 == model && pTcpServer!=nullptr && dOutType.at(ind)==2){
-                    QString cmd=QString("AT+STACH%1=3,600%2").arg(QString::number(ind+1),eol);
-                    emit signal_toSendData(channelNum,cmd);
-                }
-            }
-
             emit logicPutImageSignal(-1);
-            qDebug().noquote()<<QString("[%1] %2:Vehicles entering[1]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Vehicles entering[1]");
         }
 
         if(comming &&!isDouble && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueOne){
@@ -115,7 +104,7 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
         if(comming && !isLong && !isDouble && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne){
             emit logicPutImageSignal(0);
 
-            qDebug().noquote()<<QString("[%1] %2:Grab (front, left, right)[3]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Grab (front, left, right)[3]");
         }
 
         if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
@@ -129,19 +118,14 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
                 emit logicPutImageSignal(6);/* 短箱 */
             }
 
-            /*****************************
-            * @brief:车辆离开关灯
-            ******************************/
-           pCloseLEDTimer->start(5000);
-
-            qDebug().noquote()<<QString("[%1] %2:Grab (Back, left, right)[3]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Grab (Back, left, right)[3]");
 
             comming=false;
             isLong=false;
             isDouble=false;
             isCar=false;
-            health2=true;
-            health1=true;
+
+            reversing=false;
             carInChannel=true;
 
             return;
@@ -153,7 +137,7 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
         if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
             comming=false;
             isCar=true;/* 判断是高车头 */
-            qDebug().noquote()<<QString("[%1] %2:High truck head[2]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("High truck head[2]");
         }
 
         /*****************************
@@ -171,38 +155,47 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
             isDouble=true;
             //isLong=false;
 
-            qDebug().noquote()<<QString("[%1] %2:Double box state(A2)[8-1]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Double box state(A2)[8-1]");
         }
         if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueOne){
             /* 双箱 B1 */
             isDouble=true;
             //isLong=false;
 
-            qDebug().noquote()<<QString("[%1] %2:Double box state(B1)[8-2]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Double box state(B1)[8-2]");
         }
         if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
             /* 双箱 B2 */
             isDouble=false;
             isLong=false;
 
-            qDebug().noquote()<<QString("[%1] %2:Double box state(B2)[8-3]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Double box state(B2)[8-3]");
         }
     }
     if(1 == logicType){
         /*****************************
-        * @brief:车辆倒车：车辆已进入，退出挡住A1，其他释放
+        * @brief:车辆倒车：车辆已进入抓拍完成，退出挡住（A2），B1,B2，A1释放
         ******************************/
-        if(carInChannel && status[0]==valueOne && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+        if(!reversing && carInChannel && status[0]==valueTwo && status[1]==valueOne && status[2]==valueOne){
             emit logicPutImageSignal(5);
             carInChannel=false;
+            reversing=true;
 
-            qDebug().noquote()<<QString("[%1] %2:Vehicle reversing[-1]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Vehicle reversing[-1]");
         }
 
         /*****************************
-        * @brief:车辆进入，如果是高车头同时挡住2组红外                    1
+        * @brief:车辆倒车，完全退出通道
         ******************************/
-        if(status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
+        if(reversing && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+            reversing=false;
+        }
+
+        /*****************************
+        * @brief:车辆进入，如果是高车头同时挡住2组红外
+        * 2021/09/01 挡住A1,A2释放B1,B2【防止倒车触发当前逻辑】
+        ******************************/
+        if(!reversing && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueTwo){
             comming=true;
             isLong=false;
             isDouble=false;
@@ -210,30 +203,8 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
 
             carInChannel=false;
 
-            /*****************************
-            * @brief:停止正在关灯动作
-            ******************************/
-            if(pCloseLEDTimer->isActive()){
-                pCloseLEDTimer->stop();
-            }
-            /*****************************
-            * @brief:车辆进入开灯
-            ******************************/
-            for(int ind=0;ind<dOutType.size();ind++){
-                if(0 == model && pTcpClient!=nullptr && dOutType.at(ind)==2){
-                    QString cmd=QString("AT+STACH%1=3,600%2").arg(QString::number(ind+1),eol);
-                    pTcpClient->write(cmd.toLatin1());
-
-                    qDebug().noquote()<<QString("[%1] %2:After recognition, turn off the fill light").arg(this->metaObject()->className(),QString::number(channelNum));
-                }
-                if(1 == model && pTcpServer!=nullptr && dOutType.at(ind)==2){
-                    QString cmd=QString("AT+STACH%1=3,600%2").arg(QString::number(ind+1),eol);
-                    emit signal_toSendData(channelNum,cmd);
-                }
-            }
-
             emit logicPutImageSignal(-1);
-            qDebug().noquote()<<QString("[%1] %2:Vehicles entering[1]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Vehicles entering[1]");
         }
 
         /*****************************
@@ -242,7 +213,7 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
         if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
             comming=false;
             isCar=true;/* 判断是高车头 */
-            qDebug().noquote()<<QString("[%1] %2:High truck head[2]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("High truck head[2]");
         }
 
         /*****************************
@@ -252,12 +223,9 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
             /* 长箱或者双向(双箱加高车头抓两次) */
             isLong=true;
 
-            if(health2){
-                emit logicPutImageSignal(0);
-            }
+            emit logicPutImageSignal(0);
 
-
-            qDebug().noquote()<<QString("[%1] %2:Grab (front, left, right)[3]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Grab (front, left, right)[3]");
 
             return;
         }
@@ -266,32 +234,23 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
         * @brief:释放A1,A2。抓拍后3张。逻辑完成                        4
         ******************************/
         if(comming && isLong && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
-            if(health1){
-                if(isDouble){
-                    /* 如果是双箱就触发双箱标志 */
-                    emit logicPutImageSignal(4);
-                    qDebug().noquote()<<QString("[%1] %2:Grab (double box) (back, left, right)[4-4}]").arg(this->metaObject()->className(),QString::number(channelNum));
-                }
-                else {
-                    /* 如果是长箱就触发长箱标志 */
-                    logicPutImageSignal(1);
-                    qDebug().noquote()<<QString("[%1] %2:Grab (Long Box) (Back, Left, Right)[4-1]").arg(this->metaObject()->className(),QString::number(channelNum));
-                }
-
-                /*****************************
-                * @brief:车辆离开关灯
-                ******************************/
-                pCloseLEDTimer->start(5000);
-
-                carInChannel=true;
+            if(isDouble){
+                /* 如果是双箱就触发双箱标志 */
+                emit logicPutImageSignal(4);
+                qDebug().noquote()<<QString("Grab (double box) (back, left, right)[4-4}]");
             }
+            else {
+                /* 如果是长箱就触发长箱标志 */
+                logicPutImageSignal(1);
+                qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
+            }
+            carInChannel=true;
+            reversing=false;
 
             comming=false;
             isLong=false;
             isDouble=false;
             isCar=false;
-            health2=true;
-            health1=true;
 
             return;
         }
@@ -301,24 +260,16 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
         ******************************/
         if(comming && !isLong && !isCar && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
             /* 小箱，抓4张(小箱放长托架后面,标准小箱) */
-            if(health1){
-                emit logicPutImageSignal(2);
-                carInChannel=true;
-            }
+            emit logicPutImageSignal(2);
+            carInChannel=true;
 
             comming=false;
             isLong=false;
             isDouble=false;
             isCar=false;
-            health2=true;
-            health1=true;
+            reversing=false;
 
-            /*****************************
-            * @brief:车辆离开关灯
-            ******************************/
-            pCloseLEDTimer->start(5000);
-
-            qDebug().noquote()<<QString("[%1] %2:Grasp (small box) (front , back, left, right)[5]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Grasp (small box) (front , back, left, right)[5]");
 
             return;
         }
@@ -330,20 +281,20 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
             /* 双箱 A2 */
             isDouble=true;
 
-            qDebug().noquote()<<QString("[%1] %2:Double box state(A2)[8-1]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Double box state(A2)[8-1]");
         }
         if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueTwo && status[3]==valueOne){
             /* 双箱 B1 */
             isDouble=true;
 
-            qDebug().noquote()<<QString("[%1] %2:Double box state(B1)[8-2]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Double box state(B1)[8-2]");
         }
         if(comming && !isCar  && isLong && status[0]==valueOne && status[1]==valueOne && status[2]==valueOne && status[3]==valueTwo){
             /* 双箱 B2 */
             isDouble=false;
             isLong=false;
 
-            qDebug().noquote()<<QString("[%1] %2:Double box state(B2)[8-3]").arg(this->metaObject()->className(),QString::number(channelNum));
+            qDebug().noquote()<<QString("Double box state(B2)[8-3]");
         }
     }
 }

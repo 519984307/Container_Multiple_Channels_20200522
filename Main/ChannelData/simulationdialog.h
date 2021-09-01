@@ -75,6 +75,11 @@ private:
 
     QString plateTime;
 
+    ///
+    /// \brief startCap 起始抓拍状态
+    ///
+    bool startCap;
+
 signals:
 
     ///
