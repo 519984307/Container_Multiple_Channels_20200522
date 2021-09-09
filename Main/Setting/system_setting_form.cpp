@@ -41,6 +41,11 @@ void System_Setting_Form::showEvent(QShowEvent *event)
 
 void System_Setting_Form::InitializationParameter(int channelNumber)
 {
+    /*****************************
+    * @brief:默认保存日志30次
+    ******************************/
+    ui->groupBox_11->setHidden(true);
+
     ///
     /// \brief loadAdapterMAC 加载本机网卡
     ///

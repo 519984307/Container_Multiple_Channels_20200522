@@ -265,6 +265,11 @@ void MiddlewareHCNET::releaseResourcesSlot()
     if(pTimerState!=nullptr){
         pTimerState->stop();
     }
+
+    if(-1 != streamID){
+        NET_DVR_StopRealPlay(streamID);
+    }
+
     foreach ( auto handID, alarmInfoMap.values()) {
         NET_DVR_CloseAlarmChan_V30(handID);
     }
