@@ -6,11 +6,11 @@
 
 namespace LocalPar {
     QString App="ZBYCS";
-    QString version=QString("%1%2").arg(APP_VERSION,APP_CHANNEL);
+    QString version=QString("%1_%2").arg(APP_VERSION,APP_CHANNEL);
     QString copyright="深圳众百源科技有限公司";
     QString msg="集装箱号码识别系统";
     QString proName=QString(APP_PROJECT);
-    int Channels = 1;
+    int Channels = 2;
     QString DogID=QString(DOG_ID);
     /*****************************
     * @brief:箱号相机：前，后，左，右，顶，车头，车尾,车牌

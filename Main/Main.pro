@@ -15,19 +15,25 @@ CONFIG += skip_target_version_ext
 
 QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
-VERSION = 1.1.7.5_2109011034_
+VERSION = 1.1.7.5_2109011034
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
-ID = f19d15dec81584b5ce4f9edb0aae1789
+
+ID = 92e8b6c3ae9bf38f45654695bc542842-
 DEFINES += DOG_ID=\\\"$$ID\\\"
-PROJECT += Standard
+
+PROJECT = 武汉软著-
 DEFINES += APP_PROJECT=\\\"$$PROJECT\\\"
-CHANNEL = 1
+
+CHANNEL = 2
 DEFINES += APP_CHANNEL=\\\"$$CHANNEL\\\"
+
 #If it is a multi-channel version, the software conditions need to be changed:
 #1.EncryptionInterface plug-in version
-#2.ID       EncryptionInterface.cpp
-#3.PROJECT  Main.pro
-#4.CHANNEL  LocalPar.cpp
+#2.EncryptionInterface Main.pro
+#3.ID       EncryptionInterface.cpp
+#4.PROJECT  Main.pro
+#5.CHANNEL  Main.pro
+#6.CHANNEL  LocalPar.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings

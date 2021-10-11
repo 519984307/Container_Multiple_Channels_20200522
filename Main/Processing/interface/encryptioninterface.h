@@ -67,13 +67,14 @@ public slots:
 /* 武汉软著
  * 60b02f171e6d2b28673cdcb5faef01e1
  * 430c4bdbd03296d3f0b2080eceadbe83
+ * 92e8b6c3ae9bf38f45654695bc542842
 */
 
-#define _ENCRYPTION_
+//#define _ENCRYPTION_
 #ifdef _ENCRYPTION_
 #define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/0.0.0.2"
 #else
-#define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/f19d15dec81584b5ce4f9edb0aae1789"
+#define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/92e8b6c3ae9bf38f45654695bc542842"
 #endif
 
 Q_DECLARE_INTERFACE(EncryptionInterface,EncryptionInterfaceIID);
