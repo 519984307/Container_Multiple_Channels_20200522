@@ -19,7 +19,7 @@ namespace Parameter {
 
     int HCNET_Capture_Type=0;
     int Camera_Load_Plugin=0;
-    int LogicType=0;
+    int LogicType=1;
     int PlateType=0;
     int interfaceModel=0;
     int loadLibrary_HK=0;

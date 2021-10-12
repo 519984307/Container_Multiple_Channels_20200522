@@ -12,6 +12,8 @@ Version_Dialog::Version_Dialog(QWidget *parent) :
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.1.14_2107200930","添加ZS车牌相机支持"));
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.4_2108310114","添加隐式调用海康SDK"));
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.5_2109011034","修复抓拍逻辑"));
+    ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.6_2110111959","修复红外逻辑配置"));
+    ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.7_2110120924","修复车牌和箱号逻辑问题"));
 }
 
 Version_Dialog::~Version_Dialog()

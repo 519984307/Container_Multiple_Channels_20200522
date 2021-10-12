@@ -375,13 +375,13 @@ bool System_Setting_Form::writeParameterSlot()
     obj6.insert("HCNET_Capture_Type",ui->HCNET_Capture_Type_comboBox->currentIndex());
     obj6.insert("Camera_Load_Plugin",ui->Camera_Load_Plugin_comboBox->currentIndex());
     /*****************************
-    * @brief:红外模式
+    * @brief:红外模式【0:南京三宝，1:标准】
     ******************************/
     if(ui->logicType_standard_radioButton->isChecked()){
-        obj6.insert("LogicType",0);
+        obj6.insert("LogicType",1);
     }
     if(ui->logicType_njsb_radioButton->isChecked()){
-        obj6.insert("LogicType",1);
+        obj6.insert("LogicType",0);
     }
     obj6.insert("PlateType",ui->PlateType_comboBox->currentIndex());
     obj6.insert("interfaceModel",ui->interfaceModel_comboBox->currentIndex());
@@ -484,10 +484,10 @@ void System_Setting_Form::parameterToUi()
     ui->HCNET_Capture_Type_comboBox->setCurrentIndex(Parameter::HCNET_Capture_Type);
     ui->Camera_Load_Plugin_comboBox->setCurrentIndex(Parameter::Camera_Load_Plugin);
 
-    if(0 == Parameter::LogicType){
+    if(1 == Parameter::LogicType){
         ui->logicType_standard_radioButton->setChecked(true);
     }
-    if(1 == Parameter::LogicType){
+    if(0 == Parameter::LogicType){
         ui->logicType_njsb_radioButton->setChecked(true);
     }
 

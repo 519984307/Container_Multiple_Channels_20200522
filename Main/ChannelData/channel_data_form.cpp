@@ -49,7 +49,7 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     isConCar=false;
 
     /*****************************
-    * @brief:红外状态检测，2秒运行一次
+    * @brief:红外状态检测，1秒运行一次
     ******************************/
     logicStateTimer=new QTimer(this);
     connect(logicStateTimer,SIGNAL(timeout()),this,SLOT(logicStateSlot()));
@@ -76,6 +76,7 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     simulationPlateStatus=false;
     simulationdialog=false;
     plateTmpArr=nullptr;
+    getLastPlate=false;
 
     QVector<QString> picture_size;
     picture_size<<"1280*720"<<"1920*1080"<<"768*576";
@@ -190,7 +191,12 @@ void Channel_Data_Form::clearnPixmap(int type)
         /*****************************
         * @brief:清除上次数据【时间，图片组】
         ******************************/
-        streamMap.clear();
+        foreach (int var, streamMap.keys()) {
+            if(7!=var &&  nullptr != streamMap.value(var,nullptr)){
+                streamMap.remove(var);
+            }
+        }
+        //streamMap.clear();
         imgTimerAf.clear();
 
         ui->image_label_1->setPalette(palette);
@@ -210,9 +216,24 @@ void Channel_Data_Form::clearnPixmap(int type)
     * @brief:箱号清除车牌
     ******************************/
     case 0:
+    {
+        if(nullptr != streamMap.value(7,nullptr)){
+            streamMap.remove(7);
+        }
+        //streamMap.remove(7);
+
         ui->image_label_7->setPalette(palette);
+    }
+        break;
+    case 1:
+        /*****************************
+        * @brief:数据发送完成
+        ******************************/
+        streamMap.clear();
+        imgTimerAf.clear();
         break;
     }
+
 
 
     foreach (QLineEdit* obj, ui->toolBox->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
@@ -573,7 +594,7 @@ void Channel_Data_Form::logicStateSlot()
         logicStateTimer->stop();
         sendDataOutTimer->stop();
         LogicStateTmpList.clear();
-        sendDataOutTimer->start(Parameter::container_timeout*2*1000);
+        sendDataOutTimer->start(Parameter::container_timeout*1000);
     }
 }
 
@@ -582,8 +603,21 @@ void Channel_Data_Form::timeOutSendData()
     LogicStateTmpList.clear();
     logicStateTimer->stop();
 
-    emit signal_waitSendData();
-    qDebug().noquote()<<"Logical data receive timeout, send data-+";
+    /*****************************
+    * @brief:如果超时没有收到车牌结果，ZS相机主动取一次数据【此操作为零时处理，可以从车牌识别时间判断处理】
+    ******************************/
+    if(!getLastPlate && localPlate.isEmpty() && 2 == Parameter::PlateType){
+        /*****************************
+        * @brief:臻视相机没有收到结果主动取一次
+        ******************************/
+        emit signal_getLastPlate();
+        sendDataOutTimer->start(2000);
+        getLastPlate=true;
+    }
+    else {
+        emit signal_waitSendData();
+        qDebug().noquote()<<"Logical data receive timeout, send data-+";
+    }
 }
 
 void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
@@ -769,6 +803,12 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
             QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,localPlateTime,QString("I"));
             watcher->setFuture(future);
         }
+        else {
+            /*****************************
+            * @brief:数据发送完成
+            ******************************/
+            clearnPixmap(1);
+        }
 
         /*****************************
         * @brief:清除数据逻辑定时器
@@ -787,9 +827,10 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         clearnPixmap(0);
 
         /*****************************
-        * @brief:收到箱号，检查车牌相机状态
+        * @brief:收到箱号后，如果没有车牌信息就检查车牌相机状态。
         ******************************/
         isConCar=true;
+
         if(Parameter::PlateType==2 || ui->plateCheckBox->isChecked() || simulationPlateStatus){
 
             if(sendDataOutTimer->isActive()){
@@ -797,10 +838,11 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
                 sendDataOutTimer->stop();
             }
             sendDataOutTimer->start(Parameter::plate_timeout*1000);
-            /*****************************
-            * @brief:臻视相机没有收到结果主动取一次
-            ******************************/
-            emit signal_getLastPlate();
+            getLastPlate=false;
+//            /*****************************
+//            * @brief:臻视相机没有收到结果主动取一次
+//            ******************************/
+//            emit signal_getLastPlate();
         }
         else {
             emit signal_waitSendData();
@@ -817,12 +859,12 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         /*****************************
         * @brief:收到车牌，检查箱号红外状态
         ******************************/
-        if(logicStateTimer->isActive()){
-            emit signal_waitSendData();
-            logicStateTimer->stop();
-            sendDataOutTimer->stop();
-        }
-        logicStateTimer->start(2500);
+//        if(logicStateTimer->isActive()){接收车牌时就已经判断
+//            emit signal_waitSendData();
+//            logicStateTimer->stop();
+//            sendDataOutTimer->stop();
+//        }
+        logicStateTimer->start(1000);
         /*****************************
         * @brief:超时没检测道红外状态默认发送
         ******************************/

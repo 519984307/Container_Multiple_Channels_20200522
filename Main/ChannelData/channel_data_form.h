@@ -182,6 +182,11 @@ private:
     QTimer *sendDataOutTimer;
 
     ///
+    /// \brief getLastPlate ZS相机获取车牌结果状态
+    ///
+    bool getLastPlate;
+
+    ///
     /// \brief clearnPixmap 清除图片
     /// \param type
     ///
