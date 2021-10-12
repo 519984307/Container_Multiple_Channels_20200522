@@ -350,6 +350,7 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
     int fullImgSize=0;
     int clipImgSize=0;
     QString license="";
+    QString timeString="";
 
     Q_UNUSED(packetSize);
     Q_UNUSED(imageformat);
@@ -403,6 +404,7 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
                     }
                     if(obj.contains("timeString")){
                         QJsonValue jsonValue=obj.value("timeString");
+                        timeString=jsonValue.toString();
                         qDebug()<<"timeString:"<<jsonValue.toString();
                     }
                 }
@@ -456,7 +458,20 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
         license="无车牌";
     }
 
-    QString dateTime=QDateTime::currentDateTime().toString("yyyy-M-d h:m:s");
+    /*****************************
+    * @brief:使用当前时间
+    ******************************/
+    QString dateTimeCDT=QDateTime::currentDateTime().toString("yyyy-M-d h:m:s");
+
+    /*****************************
+    * @brief:使用抓拍系统时间
+    ******************************/
+    QString dateTime=QDateTime::fromString(timeString,"yyyy-MM-dd hh:mm:ss").toString("yyyy-M-d h:m:s");
+
+    if(QDateTime::currentDateTime().msecsTo(QDateTime::fromString(timeString,"yyyy-MM-dd hh:mm:ss"))>1000*60*60*24){
+        dateTime=dateTimeCDT;
+    }
+
     qDebug().noquote()<<QString("[%3] %4:%5 License Plate recognition results:%1-%2").arg(license,dateTime,this->metaObject()->className(),address,QString::number(port));
 
     emit resultsTheLicensePlateSignal(license,plateColor,dateTime,fullImg);

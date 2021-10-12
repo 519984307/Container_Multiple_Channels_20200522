@@ -225,39 +225,40 @@ void Channel_Data_Form::clearnPixmap(int type)
         ui->image_label_7->setPalette(palette);
     }
         break;
-    case 1:
-        /*****************************
-        * @brief:数据发送完成
-        ******************************/
-        streamMap.clear();
-        imgTimerAf.clear();
-        break;
+//    case 1:
+//        /*****************************
+//        * @brief:数据发送完成
+//        ******************************/
+//        streamMap.clear();
+//        imgTimerAf.clear();
+//        break;
     }
 
 
-
-    foreach (QLineEdit* obj, ui->toolBox->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
-        if(obj==ui->alias_lineEdit || obj==ui->channel_lineEdit){
+    if(1 != type){
+        foreach (QLineEdit* obj, ui->toolBox->findChildren<QLineEdit*>(QString(),Qt::FindChildrenRecursively)) {
+            if(obj==ui->alias_lineEdit || obj==ui->channel_lineEdit){
+                /*****************************
+                * @brief:车牌和固定信息不清除
+                ******************************/
+                continue;
+            }
             /*****************************
-            * @brief:车牌和固定信息不清除
+            * @brief:车牌清除箱号
             ******************************/
-            continue;
+            if(-1==type && (obj==ui->plate_lineEdit || obj==ui->plate_color_lineEdit || obj==ui->plate_time_lineEdit)){
+                continue;
+            }
+            /*****************************
+            * @brief:箱号清除车牌
+            ******************************/
+            if(0==type && (obj==ui->time_lineEdit || obj==ui->con_after_lineEdit || obj==ui->con_brfore_lineEdit || obj==ui->iso_after_lineEdit || obj==ui->iso_before_lineEdit || obj==ui->box_type_lineEdit)){
+                continue;
+            }
+            obj->setText("");
+            obj->clear();
+            obj->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
         }
-        /*****************************
-        * @brief:车牌清除箱号
-        ******************************/
-        if(-1==type && (obj==ui->plate_lineEdit || obj==ui->plate_color_lineEdit || obj==ui->plate_time_lineEdit)){
-            continue;
-        }
-        /*****************************
-        * @brief:箱号清除车牌
-        ******************************/
-        if(0==type && (obj==ui->time_lineEdit || obj==ui->con_after_lineEdit || obj==ui->con_brfore_lineEdit || obj==ui->iso_after_lineEdit || obj==ui->iso_before_lineEdit || obj==ui->box_type_lineEdit)){
-            continue;
-        }
-        obj->setText("");
-        obj->clear();
-        obj->setStyleSheet("background-color: rgb(255, 255, 255);color: rgb(0, 0, 0);");
     }
 }
 
@@ -615,6 +616,10 @@ void Channel_Data_Form::timeOutSendData()
         getLastPlate=true;
     }
     else {
+        /*****************************
+        * @brief:清除车牌
+        ******************************/
+        localPlate.clear();
         emit signal_waitSendData();
         qDebug().noquote()<<"Logical data receive timeout, send data-+";
     }
@@ -803,12 +808,12 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
             QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,localPlateTime,QString("I"));
             watcher->setFuture(future);
         }
-        else {
-            /*****************************
-            * @brief:数据发送完成
-            ******************************/
-            clearnPixmap(1);
-        }
+//        else {
+//            /*****************************
+//            * @brief:数据发送完成
+//            ******************************/
+//            clearnPixmap(1);
+//        }
 
         /*****************************
         * @brief:清除数据逻辑定时器
@@ -817,6 +822,12 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         sendDataOutTimer->stop();
         isConCar=false;
         plateTmpArr=nullptr;
+
+        /*****************************
+        * @brief:清除车牌
+        ******************************/
+        localPlate.clear();
+        getLastPlate=false;
     }
         break;
     case 0:
@@ -1155,6 +1166,16 @@ void Channel_Data_Form::slot_theVideoStream(const QByteArray &arrImg)
 
 void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
 {
+    /*****************************
+    * @brief:如果车牌时间和箱号时间相差10分钟，就跳过不处理
+    ******************************/
+    if(isConCar){
+        if(QDateTime::fromString(imgTimer,"yyyy-MM-dd hh:mm:ss").msecsTo(QDateTime::fromString(time,"yyyy-M-d h:m:s"))>1000*60*10){
+            return;
+        }
+    }
+
+
     //    /*****************************
     //    * @brief:中文有可能会出现编码问题
     //    ******************************/

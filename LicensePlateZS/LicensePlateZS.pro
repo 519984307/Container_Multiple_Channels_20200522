@@ -10,7 +10,7 @@ CONFIG += plugin
 TARGET = LicensePlateZS
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.1.6
+VERSION = 1.1.1.7
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use
