@@ -468,7 +468,11 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
     ******************************/
     QString dateTime=QDateTime::fromString(timeString,"yyyy-MM-dd hh:mm:ss").toString("yyyy-M-d h:m:s");
 
-    if(QDateTime::currentDateTime().msecsTo(QDateTime::fromString(timeString,"yyyy-MM-dd hh:mm:ss"))>1000*60*60*24){
+    /*****************************
+    * @brief:抓拍时间和实际时间相差一天，就输出当前时间
+    ******************************/
+    if(QDateTime::fromString(dateTime,"yyyy-M-d h:m:s").msecsTo(QDateTime::fromString(dateTimeCDT,"yyyy-M-d h:m:s"))>1000*60*60*24){
+        qCritical().noquote()<<QString("[%1] %2 License plate camera time is abnormal").arg(this->metaObject()->className(),address);
         dateTime=dateTimeCDT;
     }
 

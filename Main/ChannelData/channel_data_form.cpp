@@ -616,10 +616,10 @@ void Channel_Data_Form::timeOutSendData()
         getLastPlate=true;
     }
     else {
-        /*****************************
-        * @brief:清除车牌
-        ******************************/
-        localPlate.clear();
+//        /*****************************
+//        * @brief:清除车牌
+//        ******************************/
+//        localPlate.clear();
         emit signal_waitSendData();
         qDebug().noquote()<<"Logical data receive timeout, send data-+";
     }
@@ -823,10 +823,10 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         isConCar=false;
         plateTmpArr=nullptr;
 
-        /*****************************
-        * @brief:清除车牌
-        ******************************/
-        localPlate.clear();
+//        /*****************************
+//        * @brief:清除车牌
+//        ******************************/
+//        localPlate.clear();
         getLastPlate=false;
     }
         break;
@@ -1166,15 +1166,24 @@ void Channel_Data_Form::slot_theVideoStream(const QByteArray &arrImg)
 
 void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
 {
-    /*****************************
-    * @brief:如果车牌时间和箱号时间相差10分钟，就跳过不处理
-    ******************************/
-    if(isConCar){
-        if(QDateTime::fromString(imgTimer,"yyyy-MM-dd hh:mm:ss").msecsTo(QDateTime::fromString(time,"yyyy-M-d h:m:s"))>1000*60*10){
-            return;
-        }
-    }
+//    /*****************************
+//    * @brief:如果车牌时间和箱号时间相差10分钟，就跳过不处理
+//    ******************************/
+//    if(isConCar){
+//        if(QDateTime::fromString(imgTimer,"yyyy-MM-dd hh:mm:ss").msecsTo(QDateTime::fromString(time,"yyyy-M-d h:m:s"))>1000*60*10){
+//            qCritical().noquote()<<QString("plate Camera time error");
+//            return;
+//        }
+//    }
 
+
+    /*****************************
+    * @brief:跟车信息，先发送前面信息
+    ******************************/
+    if(sendDataOutTimer->isActive() && !isConCar){
+        emit signal_waitSendData();
+        qCritical().noquote()<<QString("The process of the preceding vehicle has not been processed, and the information of the following vehicle is not processed.");
+    }
 
     //    /*****************************
     //    * @brief:中文有可能会出现编码问题
@@ -1212,14 +1221,6 @@ void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const 
         palette.setBrush(QPalette::Background, QBrush(pix.data()->scaled(ui->image_label_1->size(), Qt::IgnoreAspectRatio)));
         ui->image_label_7->setPalette(palette);
         streamMap.insert(7,arrImg);
-    }
-
-    /*****************************
-    * @brief:跟车信息，先发送前面信息
-    ******************************/
-    if(sendDataOutTimer->isActive() && !isConCar){
-        emit signal_waitSendData();
-        qCritical().noquote()<<QString("The process of the preceding vehicle has not been processed, and the information of the following vehicle is not processed.");
     }
 
     if(sendDataOutTimer->isActive() && isConCar){
