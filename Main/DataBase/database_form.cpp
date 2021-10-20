@@ -45,6 +45,8 @@ void DataBase_Form::InitializationWindow()
     ui->image_label_11->installEventFilter(this);
     ui->image_label_12->installEventFilter(this);
 
+
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     /*****************************
     * @brief:初始化数据库,主页面已初始化。
     ******************************/

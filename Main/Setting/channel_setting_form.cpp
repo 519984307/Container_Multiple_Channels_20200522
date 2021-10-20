@@ -100,6 +100,7 @@ bool Channel_Setting_Form::loadParameter()
                     ******************************/
                     p_ChannelParameter->Alias= getJsonValue("Other","Alias",value.toObject()).toString();
                     p_ChannelParameter->Channel_number=getJsonValue("Other","Channel_Number",value.toObject()).toInt();
+                    p_ChannelParameter->A1ReleasrCap=getJsonValue("Other","A1ReleasrCap",value.toObject()).toInt();
 
                     /*****************************
                     * @brief:SerialPort
@@ -199,11 +200,14 @@ bool Channel_Setting_Form::writeParameterSlot()
     ******************************/
     QJsonObject jsonObj3;
     jsonObj3.insert(QString("Alias"),ui->Alias->text());
+    jsonObj3.insert(QString("A1ReleasrCap"),ui->A1ReleasrCap_spinBox->value());
     jsonObj3.insert(QString("Channel_Number"),ui->Channel_Number->value());
     if(0==ui->Channel_Number->value()){
         jsonObj3.insert(QString("Channel_Number"),channel_number);
     }
     jsonChild.insert("Other",QJsonValue(jsonObj3));
+
+
 
     jsonObjRoot.insert(QString("Channel"),QJsonValue(jsonChild));
     jsonDoc.setObject(jsonObjRoot);
@@ -266,6 +270,7 @@ void Channel_Setting_Form::parameterToUi()
     ******************************/
     ui->Alias->setText(p_ChannelParameter->Alias);
     ui->Channel_Number->setValue(p_ChannelParameter->Channel_number);
+    ui->A1ReleasrCap_spinBox->setValue(p_ChannelParameter->A1ReleasrCap);
 }
 
 QVariant Channel_Setting_Form::getJsonValue(const QString &child, const QString &key, QJsonObject obj)

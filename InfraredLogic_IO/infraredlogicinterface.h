@@ -65,8 +65,9 @@ public slots:
    /// \brief setAlarmModeSlot 设置红外模式
    /// \param mode 模式(敞开|常闭)
    /// \param logicType 红外逻辑类型
+   /// \param A1ReleasrCap a1释放多久抓拍
    ///
-   virtual void setAlarmModeSlot(bool model, int logicType)=0;
+   virtual void setAlarmModeSlot(bool model, int logicType ,int A1ReleasrCap)=0;
 
    ///
    /// \brief DTypeOutSlot 网络控制器输出
@@ -81,7 +82,7 @@ public slots:
    virtual void releaseResourcesSlot()=0;
 };
 
-#define InfraredlogicInterfaceIID "ZBY.ContainerServer.InfraredlogicInterface/1.5.0.3"
+#define InfraredlogicInterfaceIID "ZBY.ContainerServer.InfraredlogicInterface/1.5.0.4"
 Q_DECLARE_INTERFACE(InfraredlogicInterface,InfraredlogicInterfaceIID);
 
 #endif // INFRAREDLOGIC_INTERFACE_H

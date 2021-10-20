@@ -15,6 +15,9 @@ Version_Dialog::Version_Dialog(QWidget *parent) :
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.6_2110111959","修复红外逻辑配置"));
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.7_2110120924","修复车牌和箱号逻辑问题"));
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.9_2110151350","修复车牌写入数据库空白"));
+    ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.10_2110181300","修复车牌跟车问题"));
+    ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.11_2110182151","修复已知问题"));
+    ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.12_2110121537","增加手动抓拍勾选"));
 }
 
 Version_Dialog::~Version_Dialog()

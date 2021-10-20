@@ -89,6 +89,11 @@ private:
     ///
     int logicType;
 
+    ///
+    /// \brief A1ReleasrCap a1释放多久抓拍
+    ///
+    int A1ReleasrCap;
+
 private slots:
 
     ///
@@ -118,6 +123,11 @@ private slots:
     ///
     void timerCloseLEDSlot();
 
+    ///
+    /// \brief A1ReleasrCapSlot A1释放多少秒后主动抓拍
+    ///
+    void A1ReleasrCapSlot();
+
 public:
 
     ///
@@ -146,8 +156,9 @@ public:
     /// \brief setAlarmModeSlot 设置红外模式
     /// \param mode 模式(敞开|常闭)
     /// \param logicType 红外逻辑类型
+    /// \param A1ReleasrCap a1释放多久抓拍
     ///
-    void setAlarmModeSlot(bool model, int logicType)Q_DECL_OVERRIDE;
+    void setAlarmModeSlot(bool model, int logicType ,int A1ReleasrCap)Q_DECL_OVERRIDE;
 
     ///
     /// \brief DTypeOutSlot 网络控制器输出

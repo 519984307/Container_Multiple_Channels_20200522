@@ -29,9 +29,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-247</y>
         <width>836</width>
-        <height>902</height>
+        <height>904</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_11">
@@ -214,22 +214,6 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="0">
-           <widget class="QDoubleSpinBox" name="A1ReleasrCap_doubleSpinBox">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
-            <property name="toolTip">
-             <string>A1 infrared release, how many seconds to capture the picture</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignCenter</set>
-            </property>
-            <property name="decimals">
-             <number>1</number>
-            </property>
-           </widget>
-          </item>
           <item row="4" column="0">
            <widget class="QSpinBox" name="identificationTimes_spinBox">
             <property name="enabled">
@@ -278,6 +262,19 @@
             </property>
             <property name="minimum">
              <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QSpinBox" name="A1ReleasrCap_spinBox">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="toolTip">
+             <string>A1 infrared release, how many seconds to capture the picture</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -498,7 +495,7 @@
            <number>20</number>
           </property>
           <item row="0" column="0">
-           <widget class="QCheckBox" name="A1shielding_checkbox">
+           <widget class="QRadioButton" name="A1shielding_checkbox">
             <property name="text">
              <string>A1</string>
             </property>
@@ -507,18 +504,8 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="2">
-           <widget class="QCheckBox" name="B1shielding_checkbox">
-            <property name="text">
-             <string>B1</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="1">
-           <widget class="QCheckBox" name="A2shielding_checkbox">
+           <widget class="QRadioButton" name="A2shielding_checkbox">
             <property name="text">
              <string>A2</string>
             </property>
@@ -527,8 +514,18 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="2">
+           <widget class="QRadioButton" name="B1shielding_checkbox">
+            <property name="text">
+             <string>B1</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="3">
-           <widget class="QCheckBox" name="B2shielding_checkbox">
+           <widget class="QRadioButton" name="B2shielding_checkbox">
             <property name="text">
              <string>B2</string>
             </property>

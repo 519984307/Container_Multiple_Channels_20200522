@@ -21,6 +21,15 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     this->setVisible(false);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
+    /*****************************
+    * @brief:绑定自定义红外信号chua那个太槽
+    ******************************/
+    connect(ui->checkBox_1,&QCheckBox::clicked,this,&Channel_Data_Form::logicCheckBoxSlot);
+    connect(ui->checkBox_2,&QCheckBox::clicked,this,&Channel_Data_Form::logicCheckBoxSlot);
+    connect(ui->checkBox_3,&QCheckBox::clicked,this,&Channel_Data_Form::logicCheckBoxSlot);
+    connect(ui->checkBox_4,&QCheckBox::clicked,this,&Channel_Data_Form::logicCheckBoxSlot);
+
+
     ui->image_label_1->installEventFilter(this);
     ui->image_label_2->installEventFilter(this);
     ui->image_label_3->installEventFilter(this);
@@ -78,6 +87,11 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     plateTmpArr=nullptr;
     getLastPlate=false;
 
+    logicStatus=false;
+    fron_45G1=false;
+    front_22G1=false;
+    fron_22G1_22G1=false;
+
     QVector<QString> picture_size;
     picture_size<<"1280*720"<<"1920*1080"<<"768*576";
     QStringList picture_size_tmp=picture_size.at(Parameter::picture_size).split("*");
@@ -112,6 +126,9 @@ void Channel_Data_Form::paintEvent(QPaintEvent *event)
 
 bool Channel_Data_Form::eventFilter(QObject *target, QEvent *event)
 {
+    /*****************************
+    * @brief:双击放大图片
+    ******************************/
     int key=0;
     if(target==ui->image_label_1){
         key=1;
@@ -221,6 +238,9 @@ void Channel_Data_Form::clearnPixmap(int type)
             streamMap.remove(7);
         }
         //streamMap.remove(7);
+        localPlate.clear();
+        localPlateTime.clear();
+        localPlateColor.clear();
 
         ui->image_label_7->setPalette(palette);
     }
@@ -472,13 +492,13 @@ void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const in
             /*****************************
             * @brief:保存车牌图片
             ******************************/
-            streamMap.insert(7,plateTmpArr);
-            plateTmpArr.clear();
+            streamMap.insert(7,plateTmpArr);            
         }
 
         QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,imgTime,QString("I"));
         watcher->setFuture(future);
         putCount=-1;
+        plateTmpArr.clear();
     }
 
     QScopedPointer<QPixmap> pix(new QPixmap());
@@ -625,6 +645,92 @@ void Channel_Data_Form::timeOutSendData()
     }
 }
 
+void Channel_Data_Form::logicCheckBoxSlot()
+{
+    /* putCommnd
+     * -1:来车
+     *0:45G1前面
+     *1:45G1后面
+     *2:22G1
+     *3:双22G1前面
+     *4:双22G1后面
+    */
+
+    /*****************************
+    * @brief:前置条件
+    ******************************/
+    if(ui->checkBox_1->isChecked() && ui->checkBox_2->isChecked() && ui->checkBox_3->isChecked() && ui->checkBox_4->isChecked()){
+        logicStatus=true;
+
+        front_22G1=false;
+        fron_45G1=false;
+        fron_22G1_22G1=false;
+    }
+    if(logicStatus){
+        /*****************************
+        * @brief:45前
+        ******************************/
+        if(!fron_22G1_22G1 && ui->checkBox_1->checkState()==Qt::Unchecked && ui->checkBox_2->checkState()==Qt::Unchecked && ui->checkBox_3->checkState()==Qt::Unchecked && ui->checkBox_4->checkState()==Qt::Unchecked){
+            slot_logicPutImage(-1);
+            slot_logicPutImage(0);
+            fron_45G1=true;
+            front_22G1=false;
+        }
+        /*****************************
+        * @brief:45后
+        ******************************/
+        if(fron_45G1 && ui->checkBox_1->checkState()==Qt::Checked && ui->checkBox_2->checkState()==Qt::Checked && ui->checkBox_3->checkState()==Qt::Unchecked && ui->checkBox_4->checkState()==Qt::Unchecked){
+            slot_logicPutImage(1);
+            fron_45G1=false;
+            logicStatus=false;
+        }
+        /*****************************
+        * @brief:22前
+        ******************************/
+        if(ui->checkBox_1->checkState()==Qt::Unchecked && ui->checkBox_2->checkState()==Qt::Unchecked && ui->checkBox_3->checkState()==Qt::Unchecked && ui->checkBox_4->checkState()==Qt::Checked){
+            slot_logicPutImage(-1);
+            front_22G1=true;
+        }
+        /*****************************
+        * @brief:22后
+        ******************************/
+        if(front_22G1 && ui->checkBox_1->checkState()==Qt::Checked && ui->checkBox_2->checkState()==Qt::Checked && ui->checkBox_3->checkState()==Qt::Unchecked && ui->checkBox_4->checkState()==Qt::Unchecked){
+            slot_logicPutImage(2);
+            front_22G1=false;
+            logicStatus=false;
+        }
+        /*****************************
+        * @brief:双22前置条件
+        ******************************/
+        if(fron_45G1 && ui->checkBox_1->checkState()==Qt::Unchecked && ui->checkBox_2->checkState()==Qt::Unchecked && ui->checkBox_3->checkState()==Qt::Checked && ui->checkBox_4->checkState()==Qt::Unchecked){
+            fron_45G1=false;
+            fron_22G1_22G1=true;
+        }
+        /*****************************
+        * @brief:双22前置条件
+        ******************************/
+        if(fron_45G1 && ui->checkBox_1->checkState()==Qt::Unchecked && ui->checkBox_2->checkState()==Qt::Checked && ui->checkBox_3->checkState()==Qt::Unchecked && ui->checkBox_4->checkState()==Qt::Unchecked){
+            fron_45G1=false;
+            fron_22G1_22G1=true;
+        }
+        /*****************************
+        * @brief:双22前
+        ******************************/
+        if(fron_22G1_22G1 && ui->checkBox_1->checkState()==Qt::Unchecked && ui->checkBox_2->checkState()==Qt::Unchecked && ui->checkBox_3->checkState()==Qt::Unchecked && ui->checkBox_4->checkState()==Qt::Unchecked){
+            slot_logicPutImage(-1);
+            slot_logicPutImage(0);
+        }
+        /*****************************
+        * @brief:双22后
+        ******************************/
+        if(fron_22G1_22G1 && ui->checkBox_1->checkState()==Qt::Checked && ui->checkBox_2->checkState()==Qt::Checked && ui->checkBox_3->checkState()==Qt::Unchecked && ui->checkBox_4->checkState()==Qt::Unchecked){
+            slot_logicPutImage(4);
+            fron_22G1_22G1=false;
+            logicStatus=false;
+        }
+    }
+}
+
 void Channel_Data_Form::slot_camerState(const QString &camerIP, bool state)
 {
     if(nullptr==this->para){
@@ -746,9 +852,9 @@ void Channel_Data_Form::slot_initEquipment()
     }    
 
     /*****************************
-    * @brief:红外(常开|常闭,标准|南京三宝)
+    * @brief:红外(常开|常闭,标准|南京三宝，A1释放多久抓拍)
     ******************************/
-    emit signal_setAlarmMode(para->infraredStatus,Parameter::LogicType);
+    emit signal_setAlarmMode(para->infraredStatus,Parameter::LogicType,para->A1ReleasrCap);
 
     /*****************************
     * @brief:初始化网络控制器输出参数
@@ -805,15 +911,26 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
             ******************************/
             clearnPixmap(-1);
 
-            QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,streamMap,localPlateTime,QString("I"));
-            watcher->setFuture(future);
+            if(plateArrList.size()>0){
+                QMap<int,QByteArray> plateTmp;
+                plateTmp.insert(7,plateArrList[0]);
+
+                QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,plateTmp,plateTimeList[0],QString("I"));
+                watcher->setFuture(future);
+                plateTmpArr.clear();
+
+                plateTmp.clear();
+                plateTimeList.removeAt(0);
+                plateArrList.removeAt(0);
+            }
         }
-//        else {
-//            /*****************************
-//            * @brief:数据发送完成
-//            ******************************/
-//            clearnPixmap(1);
-//        }
+        else {
+            /*****************************
+            * @brief:是集装箱车辆清除，防跟车数据
+            ******************************/
+            plateArrList.clear();
+            plateTimeList.clear();
+        }
 
         /*****************************
         * @brief:清除数据逻辑定时器
@@ -821,12 +938,7 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         logicStateTimer->stop();
         sendDataOutTimer->stop();
         isConCar=false;
-        plateTmpArr=nullptr;
 
-//        /*****************************
-//        * @brief:清除车牌
-//        ******************************/
-//        localPlate.clear();
         getLastPlate=false;
     }
         break;
@@ -842,18 +954,14 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         ******************************/
         isConCar=true;
 
-        if(Parameter::PlateType==2 || ui->plateCheckBox->isChecked() || simulationPlateStatus){
+        if(sendDataOutTimer->isActive()){
+            emit signal_waitSendData();
+            sendDataOutTimer->stop();
+        }
+        sendDataOutTimer->start(Parameter::plate_timeout*1000);
 
-            if(sendDataOutTimer->isActive()){
-                emit signal_waitSendData();
-                sendDataOutTimer->stop();
-            }
-            sendDataOutTimer->start(Parameter::plate_timeout*1000);
+        if(Parameter::PlateType==2 || ui->plateCheckBox->isChecked() || simulationPlateStatus){
             getLastPlate=false;
-//            /*****************************
-//            * @brief:臻视相机没有收到结果主动取一次
-//            ******************************/
-//            emit signal_getLastPlate();
         }
         else {
             emit signal_waitSendData();
@@ -867,14 +975,6 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         ******************************/
         clearnPixmap(-1);
 
-        /*****************************
-        * @brief:收到车牌，检查箱号红外状态
-        ******************************/
-//        if(logicStateTimer->isActive()){接收车牌时就已经判断
-//            emit signal_waitSendData();
-//            logicStateTimer->stop();
-//            sendDataOutTimer->stop();
-//        }
         logicStateTimer->start(1000);
         /*****************************
         * @brief:超时没检测道红外状态默认发送
@@ -1166,43 +1266,24 @@ void Channel_Data_Form::slot_theVideoStream(const QByteArray &arrImg)
 
 void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const QString &color, const QString &time,const QByteArray &arrImg)
 {
-//    /*****************************
-//    * @brief:如果车牌时间和箱号时间相差10分钟，就跳过不处理
-//    ******************************/
-//    if(isConCar){
-//        if(QDateTime::fromString(imgTimer,"yyyy-MM-dd hh:mm:ss").msecsTo(QDateTime::fromString(time,"yyyy-M-d h:m:s"))>1000*60*10){
-//            qCritical().noquote()<<QString("plate Camera time error");
-//            return;
-//        }
-//    }
+    /*****************************------------------------------------------
+    * @brief:中文有可能会出现编码问题
+    ******************************/
 
 
     /*****************************
-    * @brief:跟车信息，先发送前面信息
+    * @brief:车牌跟车使用
+    ******************************/
+    plateArrList.append(arrImg);
+    plateTimeList.append(QDateTime::fromString(time,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss"));
+
+    /*****************************
+    * @brief:不带箱跟，先发送前面信息
     ******************************/
     if(sendDataOutTimer->isActive() && !isConCar){
         emit signal_waitSendData();
-        qCritical().noquote()<<QString("The process of the preceding vehicle has not been processed, and the information of the following vehicle is not processed.");
+        qCritical().noquote()<<QString("Not case：The process of the preceding vehicle has not been processed, and the information of the following vehicle is not processed.");
     }
-
-    //    /*****************************
-    //    * @brief:中文有可能会出现编码问题
-    //    ******************************/
-
-    plateStream.clear();
-    plateStream.insert(7,arrImg);
-
-    plateTmpArr=arrImg;
-    localPlate=plate;
-    localPlateColor=color;
-    localPlateTime=QString("%1").arg(QDateTime::fromString(time,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss"));
-
-    LogicStateTmpList.clear();
-    LogicStateTmpList<<ui->a1checkBox->checkState()<<ui->a2checkBox->checkState()<<ui->b1checkBox->checkState()<<ui->b2checkBox->checkState();
-
-    ui->plate_lineEdit->setText(plate);
-    ui->plate_time_lineEdit->setText(time);
-    ui->plate_color_lineEdit->setText(color);
 
     /*****************************
     * @brief:非集装箱车辆清除历史图片
@@ -1210,6 +1291,21 @@ void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const 
     if(!isConCar){
         streamMap.clear();
     }
+
+    plateStream.clear();
+    plateStream.insert(7,arrImg);
+
+    plateTmpArr=arrImg;
+    localPlate=plate;
+    localPlateColor=color;
+    localPlateTime=QDateTime::fromString(time,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss");
+
+    LogicStateTmpList.clear();
+    LogicStateTmpList<<ui->a1checkBox->checkState()<<ui->a2checkBox->checkState()<<ui->b1checkBox->checkState()<<ui->b2checkBox->checkState();
+
+    ui->plate_lineEdit->setText(plate);
+    ui->plate_time_lineEdit->setText(time);
+    ui->plate_color_lineEdit->setText(color);
 
     /*****************************
     * @brief:显示车牌图片
@@ -1225,7 +1321,7 @@ void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const 
 
     if(sendDataOutTimer->isActive() && isConCar){
         /*****************************
-        * @brief:保存车牌图片和箱号一致
+        * @brief:关联车牌和箱号数据，更新车牌数据到数据库.
         ******************************/
         QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,plateStream,imgTimer,QString("U"));
         watcher->setFuture(future);

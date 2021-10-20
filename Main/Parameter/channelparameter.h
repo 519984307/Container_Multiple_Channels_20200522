@@ -42,6 +42,10 @@ public:
     ///
     int Camera_Load_Plugin;
 
+    ///
+    /// \brief A1ReleasrCap A1释放后多久抓拍图片
+    ///
+    int A1ReleasrCap;
 
     /*****************************
     * @brief:camera

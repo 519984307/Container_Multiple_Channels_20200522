@@ -74,7 +74,7 @@ public slots:
 #ifdef _ENCRYPTION_
 #define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/0.0.0.2"
 #else
-#define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/2a315b4b96b1bf6d0c2275b7fd2963fc"
+#define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/f19d15dec81584b5ce4f9edb0aae1789"
 #endif
 
 Q_DECLARE_INTERFACE(EncryptionInterface,EncryptionInterfaceIID);

@@ -69,9 +69,9 @@ void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString 
     this->plateTime=plateTime;
 
     /*****************************
-    * @brief:车辆混走，排除空车牌和蓝色车牌
+    * @brief:车辆混走，[排除空车牌和]蓝色车牌,没有考虑新能源车
     ******************************/
-    if(conResult.isEmpty() && color!="蓝" && !plate.isEmpty()){
+    if(conResult.isEmpty() && color!="蓝"/* && !plate.isEmpty()*/){
         emit signal_pollsForCarStatus(1);
     }
     else {

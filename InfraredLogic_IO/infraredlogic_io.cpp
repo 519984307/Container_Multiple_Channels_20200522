@@ -105,24 +105,42 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
             emit logicPutImageSignal(0);
 
             qDebug().noquote()<<QString("Grab (front, left, right)[3]");
+
+            return;
         }
 
         if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
             if(isDouble){
                 emit logicPutImageSignal(4);/* 双箱 */
+                qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-4]");
             }
             else if(isLong){
                 emit logicPutImageSignal(1);/* 长箱 */
+                qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
             }
             else {
                 emit logicPutImageSignal(6);/* 短箱 */
+                qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-5]");
             }
-
-            qDebug().noquote()<<QString("Grab (Back, left, right)[3]");
 
             comming=false;
             isLong=false;
             isDouble=false;
+            isCar=false;
+
+            reversing=false;
+            carInChannel=true;
+
+            return;
+        }
+
+        /*****************************
+        * @brief:A1释放多少秒后，抓牌后3张图片，防止通道距离不够完成不了抓拍
+        ******************************/
+        if(comming && status[0]==valueTwo && status[1]==valueOne && status[2]==valueOne && status[3]==valueOne && A1ReleasrCap>0){
+            QTimer::singleShot(A1ReleasrCap*1000,this,SLOT(A1ReleasrCapSlot()));
+
+            comming=false;
             isCar=false;
 
             reversing=false;
@@ -256,6 +274,21 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
         }
 
         /*****************************
+        * @brief:A1释放多少秒后，抓牌后3张图片，防止通道距离不够完成不了抓拍
+        ******************************/
+        if(comming && isLong && status[0]==valueTwo && status[1]==valueOne && status[2]==valueOne && status[3]==valueOne && A1ReleasrCap>0){
+            QTimer::singleShot(A1ReleasrCap*1000,this,SLOT(A1ReleasrCapSlot()));
+
+            comming=false;
+            isCar=false;
+
+            reversing=false;
+            carInChannel=true;
+
+            return;
+        }
+
+        /*****************************
         * @brief:不是车头，不是长箱，就触发小箱逻辑。抓4张              5
         ******************************/
         if(comming && !isLong && !isCar && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
@@ -273,6 +306,8 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
 
             return;
         }
+
+
 
         /*****************************
         * @brief:                                               8
@@ -318,6 +353,39 @@ void InfraredLogic_IO::timerCloseLEDSlot()
             qDebug().noquote()<<QString("[%1] %2:After recognition, turn off the fill light").arg(this->metaObject()->className(),QString::number(channelNum));
         }
     }
+}
+
+void InfraredLogic_IO::A1ReleasrCapSlot()
+{
+    if(0 == logicType){
+        if(isDouble){
+            emit logicPutImageSignal(4);/* 双箱 */
+            qDebug().noquote()<<QString("Grab (double box) (back, left, right)[4-4}]");
+        }
+        else if(isLong){
+            emit logicPutImageSignal(1);/* 长箱 */
+            qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
+        }
+        else {
+            emit logicPutImageSignal(6);/* 短箱 */
+            qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-5]");
+        }
+    }
+    if(1 == logicType){
+        if(isDouble){
+            /* 如果是双箱就触发双箱标志 */
+            emit logicPutImageSignal(4);
+            qDebug().noquote()<<QString("Grab (double box) (back, left, right)[4-4}]");
+        }
+        else {
+            /* 如果是长箱就触发长箱标志 */
+            logicPutImageSignal(1);
+            qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
+        }
+    }
+
+    isLong=false;
+    isDouble=false;
 }
 
 void InfraredLogic_IO::delayAfterCaptureSlot()
@@ -477,9 +545,10 @@ void InfraredLogic_IO::simulateTriggerSlot(int type)
     }
 }
 
-void InfraredLogic_IO::setAlarmModeSlot(bool model,int logicType)
+void InfraredLogic_IO::setAlarmModeSlot(bool model,int logicType,int A1ReleasrCap)
 {
     this->logicType=logicType;
+    this->A1ReleasrCap=A1ReleasrCap;
 
     valueOne=0;    valueTwo=1;
     /* 常开(false) |常闭(true) */

@@ -31,6 +31,7 @@ InfraredLogic::InfraredLogic(QObject *parent)
     doubleFrontPut=false;
     channelNum=-1;
     carInChannel=false;
+    A1ReleasrCap=0;
 
     comming=false;isCar=false;isLong=false;isDouble=false;reversing=false;
 
@@ -46,9 +47,10 @@ QString InfraredLogic::InterfaceType()
     return QString("Protector");
 }
 
-void InfraredLogic::setAlarmModeSlot(bool model,int logicType)
+void InfraredLogic::setAlarmModeSlot(bool model,int logicType,int A1ReleasrCap)
 {
     this->logicType=logicType;
+    this->A1ReleasrCap=A1ReleasrCap;
 
     valueOne=0;    valueTwo=1;
     /* 常开(false) |常闭(true) */
@@ -152,24 +154,42 @@ void InfraredLogic::serialLogic(int *status)
             emit logicPutImageSignal(0);
 
             qDebug().noquote()<<QString("Grab (front, left, right)[3]");
+
+            return;
         }
 
         if(comming && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueOne && status[3]==valueOne){
             if(isDouble){
                 emit logicPutImageSignal(4);/* 双箱 */
+                qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-4]");
             }
             else if(isLong){
                 emit logicPutImageSignal(1);/* 长箱 */
+                qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
             }
             else {
                 emit logicPutImageSignal(6);/* 短箱 */
+                qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-5]");
             }
-
-            qDebug().noquote()<<QString("Grab (Back, left, right)[3]");
 
             comming=false;
             isLong=false;
             isDouble=false;
+            isCar=false;
+
+            reversing=false;
+            carInChannel=true;
+
+            return;
+        }
+
+        /*****************************
+        * @brief:A1释放多少秒后，抓牌后3张图片，防止通道距离不够完成不了抓拍
+        ******************************/
+        if(comming && status[0]==valueTwo && status[1]==valueOne && status[2]==valueOne && status[3]==valueOne && A1ReleasrCap>0){
+            QTimer::singleShot(A1ReleasrCap*1000,this,SLOT(A1ReleasrCapSlot()));
+
+            comming=false;
             isCar=false;
 
             reversing=false;
@@ -298,6 +318,21 @@ void InfraredLogic::serialLogic(int *status)
             isLong=false;
             isDouble=false;
             isCar=false;
+
+            return;
+        }
+
+        /*****************************
+        * @brief:A1释放多少秒后，抓牌后3张图片，防止通道距离不够完成不了抓拍
+        ******************************/
+        if(comming && isLong && status[0]==valueTwo && status[1]==valueOne && status[2]==valueOne && status[3]==valueOne && A1ReleasrCap>0){
+            QTimer::singleShot(A1ReleasrCap*1000,this,SLOT(A1ReleasrCapSlot()));
+
+            comming=false;
+            isCar=false;
+
+            reversing=false;
+            carInChannel=true;
 
             return;
         }
@@ -626,4 +661,37 @@ void InfraredLogic::logicStateslot(int *state)
     logFile.close();
 
     lock.unlock();
+}
+
+void InfraredLogic::A1ReleasrCapSlot()
+{
+    if(0 == logicType){
+        if(isDouble){
+            emit logicPutImageSignal(4);/* 双箱 */
+            qDebug().noquote()<<QString("Grab (double box) (back, left, right)[4-4}]");
+        }
+        else if(isLong){
+            emit logicPutImageSignal(1);/* 长箱 */
+            qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
+        }
+        else {
+            emit logicPutImageSignal(6);/* 短箱 */
+            qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-5]");
+        }
+    }
+    if(1 == logicType){
+        if(isDouble){
+            /* 如果是双箱就触发双箱标志 */
+            emit logicPutImageSignal(4);
+            qDebug().noquote()<<QString("Grab (double box) (back, left, right)[4-4}]");
+        }
+        else {
+            /* 如果是长箱就触发长箱标志 */
+            logicPutImageSignal(1);
+            qDebug().noquote()<<QString("Grab (Long Box) (Back, Left, Right)[4-1]");
+        }
+    }
+
+    isLong=false;
+    isDouble=false;
 }
