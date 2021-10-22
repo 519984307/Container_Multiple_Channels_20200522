@@ -45,7 +45,27 @@ public:
     ///
     /// \brief A1ReleasrCap A1释放后多久抓拍图片
     ///
-    int A1ReleasrCap;
+    double A1ReleasrCap;
+
+    ///
+    /// \brief PlatePageState 车牌相机视图
+    ///
+    bool PlatePageState;
+
+    ///
+    /// \brief ProspectsPageState 前景相机视图
+    ///
+    bool ProspectsPageState;
+
+    ///
+    /// \brief ForegroundPageState 后景相机视图
+    ///
+    bool ForegroundPageState;
+
+    ///
+    /// \brief TopPageState 顶部相机视图
+    ///
+    bool TopPageState;
 
     /*****************************
     * @brief:camera

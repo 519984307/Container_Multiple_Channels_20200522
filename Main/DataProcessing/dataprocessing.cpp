@@ -84,6 +84,26 @@ void DataProcessing::slot_waitSendData()
     //[C|20020919114100|01|1|TEXU7337250|Y|42G1]
     //[C|20020919114100|01|2|MGLU2872320|Y|MGLU2782249|Y|22G1|22G1]
 
+    if(!conResult.isEmpty() && conResult.startsWith("[") && conResult.endsWith("]")){
+        QStringList msgList=conResult.split("|");
+        if(msgList.size()>=3 && msgList.at(3)!="-1"){
+            /*****************************
+            * @brief:数据流量统计到主页面
+            ******************************/
+            if(msgList.size()==9){
+                if(msgList.at(5)=="Y" || msgList.at(7)=="Y"){
+                    emit signal_trafficStatistics(true);
+                }
+                else {
+                    emit signal_trafficStatistics(false);
+                }
+            }
+            else if(msgList.size()==5){
+                emit signal_trafficStatistics(msgList.at(5)=="Y"?true:false);
+            }
+        }
+    }
+
     /*****************************
     * @brief:文本格式（标准）
     ******************************/
@@ -124,13 +144,6 @@ void DataProcessing::slot_waitSendData()
         if(!conResult.isEmpty() && conResult.startsWith("[") && conResult.endsWith("]")){
             QString tmpMsg=conResult.mid(1,conResult.size()-2);
             QStringList msgList=tmpMsg.split("|");
-
-            /*****************************
-            * @brief:数据流量统计到主页面
-            ******************************/
-            if(msgList.size()>=5){
-                emit signal_trafficStatistics(msgList.at(5)=="Y"?true:false);
-            }
 
             /*****************************
             * @brief:车牌

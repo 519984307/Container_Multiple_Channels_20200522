@@ -67,7 +67,7 @@ public slots:
    /// \param logicType 红外逻辑类型
    /// \param A1ReleasrCap a1释放多久抓拍
    ///
-   virtual void setAlarmModeSlot(bool model, int logicType,int A1ReleasrCap)=0;
+   virtual void setAlarmModeSlot(bool model, int logicType,double A1ReleasrCap)=0;
 
    ///
    /// \brief DTypeOutSlot 网络控制器输出

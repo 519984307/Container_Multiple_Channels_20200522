@@ -187,16 +187,6 @@ private:
     bool getLastPlate;
 
     ///
-    /// \brief plateArrList 车牌图片流数组，跟车处理使用
-    ///
-    QList<QByteArray> plateArrList;
-
-    ///
-    /// \brief plateTimeList 车牌抓拍时间戳数组，跟车处理使用
-    ///
-    QStringList plateTimeList;
-
-    ///
     /// \brief logicStatus 手动抓拍，红外状态就绪
     ///
     bool logicStatus;
@@ -215,6 +205,11 @@ private:
     /// \brief fron_22G1_22G1 双22G1前置状态
     ///
     bool fron_22G1_22G1;
+
+    ///
+    /// \brief isCar 集卡头
+    ///
+    bool isCar;
 
     ///
     /// \brief clearnPixmap 清除图片
@@ -383,7 +378,7 @@ signals:
     /// \param logicType 红外接口模式
     /// \param A1ReleasrCap a1释放多久抓拍
     ///
-    void signal_setAlarmMode(bool model,int logicType,int A1ReleasrCap);
+    void signal_setAlarmMode(bool model,int logicType,double A1ReleasrCap);
 
     ///
     /// \brief signal_DTypeOut 网络控制器输出

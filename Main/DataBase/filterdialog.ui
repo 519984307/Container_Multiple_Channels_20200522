@@ -43,12 +43,12 @@
      </item>
      <item>
       <property name="text">
-       <string>Empty set truck</string>
+       <string>Heavy set truck</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>Heavy set truck</string>
+       <string>Empty set truck</string>
       </property>
      </item>
     </widget>

@@ -92,7 +92,7 @@ private:
     ///
     /// \brief A1ReleasrCap a1释放多久抓拍
     ///
-    int A1ReleasrCap;
+    double A1ReleasrCap;
 
 private slots:
 
@@ -158,7 +158,7 @@ public:
     /// \param logicType 红外逻辑类型
     /// \param A1ReleasrCap a1释放多久抓拍
     ///
-    void setAlarmModeSlot(bool model, int logicType ,int A1ReleasrCap)Q_DECL_OVERRIDE;
+    void setAlarmModeSlot(bool model, int logicType ,double A1ReleasrCap)Q_DECL_OVERRIDE;
 
     ///
     /// \brief DTypeOutSlot 网络控制器输出

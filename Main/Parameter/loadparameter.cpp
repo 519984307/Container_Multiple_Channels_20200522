@@ -199,7 +199,15 @@ void LoadParameter::loadChannelParameter(int Channels)
                         p_ChannelParameter->Container_Camera_Model=getJsonValue("Other","Container_Camera_Model",value.toObject()).toInt();                                                
                         p_ChannelParameter->Camera_Load_Plugin=getJsonValue("Other","Camera_Load_Plugin",value.toObject()).toInt();
                         p_ChannelParameter->HCNET_Capture_Type=getJsonValue("Other","HCNET_Capture_Type",value.toObject()).toInt();
-                        p_ChannelParameter->A1ReleasrCap=getJsonValue("Other","A1ReleasrCap",value.toObject()).toInt();
+                        p_ChannelParameter->A1ReleasrCap=getJsonValue("Other","A1ReleasrCap",value.toObject()).toDouble();
+                        p_ChannelParameter->PlatePageState=getJsonValue("Other","PlatePageState",value.toObject()).toBool();
+                        p_ChannelParameter->ProspectsPageState=getJsonValue("Other","ProspectsPageState",value.toObject()).toBool();
+                        p_ChannelParameter->ForegroundPageState=getJsonValue("Other","ForegroundPageState",value.toObject()).toBool();
+                        p_ChannelParameter->TopPageState=getJsonValue("Other","TopPageState",value.toObject()).toBool();
+
+                        qDebug()<<p_ChannelParameter->A1ReleasrCap;
+                        qDebug()<<p_ChannelParameter->Alias;
+                        qDebug()<<p_ChannelParameter->Channel_number;
 
                         /*****************************
                         * @brief:SerialPort
@@ -250,6 +258,12 @@ QVariant LoadParameter::getJsonValue(const QString &child, const QString &key, Q
                 jsonValue=obj.value(key);
                 if(jsonValue.isString()){
                     return jsonValue.toString();
+                }
+                else if (jsonValue.isBool()) {
+                    return jsonValue.toBool();
+                }
+                else if (jsonValue.isDouble()) {
+                    return jsonValue.toDouble();
                 }
                 else {
                     return jsonValue.toInt();

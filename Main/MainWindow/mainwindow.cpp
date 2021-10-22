@@ -164,7 +164,13 @@ void MainWindow::initializing()
     ******************************/
     QString start=QString("%1 %2").arg(QDate::currentDate().toString("yyyy/MM/dd")).arg(QTime(0,0,0).toString("HH:mm:ss"));
     QString end=QString("%1 %2").arg(QDate::currentDate().toString("yyyy/MM/dd")).arg(QTime(23,59,59).toString("HH:mm:ss"));
-    emit signal_setDataBaseFilter(QString("((Timer>='%1' AND Timer<='%2'))").arg(start).arg(end));
+
+    QString filterTimer=QString("((Timer>='%1' AND Timer<='%2'))").arg(start,end);
+    QString filterType=QString("Type!='%1'").arg(-1);
+    QStringList filterList;
+    filterList.append(filterTimer);
+    filterList.append(filterType);
+    emit signal_setDataBaseFilter(filterList.join(" AND "));
 }
 
 void MainWindow::clearnContainer()

@@ -100,7 +100,13 @@ bool Channel_Setting_Form::loadParameter()
                     ******************************/
                     p_ChannelParameter->Alias= getJsonValue("Other","Alias",value.toObject()).toString();
                     p_ChannelParameter->Channel_number=getJsonValue("Other","Channel_Number",value.toObject()).toInt();
-                    p_ChannelParameter->A1ReleasrCap=getJsonValue("Other","A1ReleasrCap",value.toObject()).toInt();
+                    p_ChannelParameter->A1ReleasrCap=getJsonValue("Other","A1ReleasrCap",value.toObject()).toDouble();
+                    p_ChannelParameter->PlatePageState=getJsonValue("Other","PlatePageState",value.toObject()).toBool();
+                    p_ChannelParameter->ProspectsPageState=getJsonValue("Other","ProspectsPageState",value.toObject()).toBool();
+                    p_ChannelParameter->ForegroundPageState=getJsonValue("Other","ForegroundPageState",value.toObject()).toBool();
+                    p_ChannelParameter->TopPageState=getJsonValue("Other","TopPageState",value.toObject()).toBool();
+
+                    qDebug()<<p_ChannelParameter->A1ReleasrCap;
 
                     /*****************************
                     * @brief:SerialPort
@@ -200,7 +206,11 @@ bool Channel_Setting_Form::writeParameterSlot()
     ******************************/
     QJsonObject jsonObj3;
     jsonObj3.insert(QString("Alias"),ui->Alias->text());
-    jsonObj3.insert(QString("A1ReleasrCap"),ui->A1ReleasrCap_spinBox->value());
+    jsonObj3.insert(QString("A1ReleasrCap"),ui->A1ReleasrCap_doubleSpinBox->value());
+    jsonObj3.insert(QString("PlatePageState"),ui->PlatePageState->isChecked());
+    jsonObj3.insert(QString("ProspectsPageState"),ui->ProspectsPageState->isChecked());
+    jsonObj3.insert(QString("ForegroundPageState"),ui->ForegroundPageState->isChecked());
+    jsonObj3.insert(QString("TopPageState"),ui->TopPageState->isChecked());
     jsonObj3.insert(QString("Channel_Number"),ui->Channel_Number->value());
     if(0==ui->Channel_Number->value()){
         jsonObj3.insert(QString("Channel_Number"),channel_number);
@@ -270,7 +280,11 @@ void Channel_Setting_Form::parameterToUi()
     ******************************/
     ui->Alias->setText(p_ChannelParameter->Alias);
     ui->Channel_Number->setValue(p_ChannelParameter->Channel_number);
-    ui->A1ReleasrCap_spinBox->setValue(p_ChannelParameter->A1ReleasrCap);
+    ui->A1ReleasrCap_doubleSpinBox->setValue(p_ChannelParameter->A1ReleasrCap);
+    ui->PlatePageState->setChecked(p_ChannelParameter->PlatePageState);
+    ui->ProspectsPageState->setChecked(p_ChannelParameter->ProspectsPageState);
+    ui->ForegroundPageState->setChecked(p_ChannelParameter->ForegroundPageState);
+    ui->TopPageState->setChecked(p_ChannelParameter->TopPageState);
 }
 
 QVariant Channel_Setting_Form::getJsonValue(const QString &child, const QString &key, QJsonObject obj)
@@ -285,6 +299,12 @@ QVariant Channel_Setting_Form::getJsonValue(const QString &child, const QString 
                 jsonValue=obj.value(key);
                 if(jsonValue.isString()){
                     return jsonValue.toString();
+                }
+                else if (jsonValue.isBool()) {
+                    return jsonValue.toBool();
+                }
+                else if (jsonValue.isDouble()) {
+                    return jsonValue.toDouble();
                 }
                 else {
                     return jsonValue.toInt();

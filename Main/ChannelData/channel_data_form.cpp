@@ -86,6 +86,7 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     simulationdialog=false;
     plateTmpArr=nullptr;
     getLastPlate=false;
+    isCar=false;
 
     logicStatus=false;
     fron_45G1=false;
@@ -188,6 +189,11 @@ void Channel_Data_Form::loadParamter(int channelID,ChannelParameter *para)
 {
     this->channelID=channelID;
     this->para=para;
+
+    ui->plateCheckBox->setChecked(para->PlatePageState);
+    ui->prospectsCheckBox->setChecked(para->ProspectsPageState);
+    ui->foregroundCheckBox->setChecked(para->ForegroundPageState);
+    ui->topCheckBox->setChecked(para->TopPageState);
 
     watcher=new QFutureWatcher<void>(this);
     /*****************************
@@ -368,8 +374,9 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream, QString datetim
 
         if(nullptr == stream.value(key,nullptr) && 7 != key){
             slot_recognitionResult("RESULT: ||0|0",imgPath,key);
-            //continue;
+            continue;
         }
+
         QScopedPointer<QPixmap> pix(new QPixmap());
         pix.data()->loadFromData(stream.value(key));
 
@@ -377,18 +384,12 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream, QString datetim
             if(7 != key){
                 slot_recognitionResult("RESULT: ||0|0",imgPath,key);
             }
-//            else {
-//                streamMap.remove(7);
-//            }
             continue;
         }
         else {
             if(7 != key){
                 emit signal_identifyImages(imgPath,key);
             }
-//            else {
-//                streamMap.remove(7);
-//            }
             if(Parameter::Ftp){
                 /*****************************
                 * @brief:上传图片
@@ -439,8 +440,13 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream, QString datetim
     else {
         /*****************************
         * @brief:插入车牌数据到数据库
+        *
         ******************************/
-        databaseMap.insert("Timer",QString("%1").arg(QDateTime::fromString(localPlateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
+        /*****************************
+        * @brief:修改-cc
+        * 20211021 - databaseMap.insert("Timer",QString("%1").arg(QDateTime::fromString(localPlateTime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
+        ******************************/
+        databaseMap.insert("Timer",QString("%1").arg(QDateTime::fromString(datetime,"yyyyMMddhhmmss").toString("yyyy/MM/dd hh:mm:ss")));
         databaseMap.insert("Type",QString::number(-1));
     }
 
@@ -458,6 +464,10 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream, QString datetim
     else {
         ;
     }
+
+    localPlateTime.clear();
+    localPlate.clear();
+    localPlateColor.clear();
 }
 
 void Channel_Data_Form::slot_pictureStream(const QByteArray &jpgStream, const int &imgNumber, const QString &imgTime)
@@ -613,21 +623,25 @@ void Channel_Data_Form::logicStateSlot()
     tmpStatusList.clear();
     if(isConCar || simulationConStatus){
         logicStateTimer->stop();
-        sendDataOutTimer->stop();
         LogicStateTmpList.clear();
-        sendDataOutTimer->start(Parameter::container_timeout*1000);
+        /*****************************
+        * @brief:20211021-修改
+        * 防止拖头触发红外，一直检测箱号
+        ******************************/
+        //sendDataOutTimer->stop();
+        //sendDataOutTimer->start(Parameter::container_timeout*1000);
     }
 }
 
 void Channel_Data_Form::timeOutSendData()
 {
-    LogicStateTmpList.clear();
     logicStateTimer->stop();
+    LogicStateTmpList.clear();
 
     /*****************************
     * @brief:如果超时没有收到车牌结果，ZS相机主动取一次数据【此操作为零时处理，可以从车牌识别时间判断处理】
     ******************************/
-    if(!getLastPlate && localPlate.isEmpty() && 2 == Parameter::PlateType){
+    if(!getLastPlate && localPlateTime.isEmpty() && 2 == Parameter::PlateType){
         /*****************************
         * @brief:臻视相机没有收到结果主动取一次
         ******************************/
@@ -636,10 +650,6 @@ void Channel_Data_Form::timeOutSendData()
         getLastPlate=true;
     }
     else {
-//        /*****************************
-//        * @brief:清除车牌
-//        ******************************/
-//        localPlate.clear();
         emit signal_waitSendData();
         qDebug().noquote()<<"Logical data receive timeout, send data-+";
     }
@@ -903,43 +913,27 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
     case -1:
     {
         /*****************************
+        * @brief:清除数据逻辑定时器
+        ******************************/
+        logicStateTimer->stop();
+        sendDataOutTimer->stop();
+
+        /*****************************
         * @brief:不是集装箱车辆，车牌写入数据库
         ******************************/
-        if(!isConCar){
+        if(!isConCar || isCar){
             /*****************************
             * @brief:非集装箱车辆，清除前一辆箱号图片和信息。
             ******************************/
             clearnPixmap(-1);
 
-            if(plateArrList.size()>0){
-                QMap<int,QByteArray> plateTmp;
-                plateTmp.insert(7,plateArrList[0]);
-
-                QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,plateTmp,plateTimeList[0],QString("I"));
-                watcher->setFuture(future);
-                plateTmpArr.clear();
-
-                plateTmp.clear();
-                plateTimeList.removeAt(0);
-                plateArrList.removeAt(0);
-            }
-        }
-        else {
-            /*****************************
-            * @brief:是集装箱车辆清除，防跟车数据
-            ******************************/
-            plateArrList.clear();
-            plateTimeList.clear();
+            QFuture<void> future  =QtConcurrent::run(this,&Channel_Data_Form::saveImages,plateStream,localPlateTime,QString("I"));
+            watcher->setFuture(future);
         }
 
-        /*****************************
-        * @brief:清除数据逻辑定时器
-        ******************************/
-        logicStateTimer->stop();
-        sendDataOutTimer->stop();
+        isCar=false;
         isConCar=false;
-
-        getLastPlate=false;
+        getLastPlate=false;             
     }
         break;
     case 0:
@@ -954,13 +948,13 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         ******************************/
         isConCar=true;
 
-        if(sendDataOutTimer->isActive()){
-            emit signal_waitSendData();
-            sendDataOutTimer->stop();
-        }
-        sendDataOutTimer->start(Parameter::plate_timeout*1000);
+        /*****************************
+        * @brief:判断车牌，高车头，无集装箱检测使用
+        ******************************/
+        isCar=false;
 
         if(Parameter::PlateType==2 || ui->plateCheckBox->isChecked() || simulationPlateStatus){
+            sendDataOutTimer->start(Parameter::plate_timeout*1000);
             getLastPlate=false;
         }
         else {
@@ -975,7 +969,18 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         ******************************/
         clearnPixmap(-1);
 
-        logicStateTimer->start(1000);
+        /*****************************
+        * @brief:20211021-添加
+        * 已经获取到车牌，等待箱号超时不再取车牌结果
+        ******************************/
+        getLastPlate=true;
+
+        /*****************************
+        * @brief:判断车牌，高车头，无集装箱检测使用
+        ******************************/
+        isCar=true;
+
+        logicStateTimer->start(1500);
         /*****************************
         * @brief:超时没检测道红外状态默认发送
         ******************************/
@@ -1192,6 +1197,8 @@ void Channel_Data_Form::slot_container(const int &type, const QString &result1, 
     ******************************/
     isConCar=true;
 
+    isCar=false;
+
     /*****************************
     * @brief:抓拍页面显示信息
     ******************************/
@@ -1270,19 +1277,13 @@ void Channel_Data_Form::slot_resultsTheLicensePlate(const QString &plate, const 
     * @brief:中文有可能会出现编码问题
     ******************************/
 
-
     /*****************************
-    * @brief:车牌跟车使用
-    ******************************/
-    plateArrList.append(arrImg);
-    plateTimeList.append(QDateTime::fromString(time,"yyyy-M-d h:m:s").toString("yyyyMMddhhmmss"));
-
-    /*****************************
-    * @brief:不带箱跟，先发送前面信息
+    * @brief:不带箱跟，跳出不处理。
     ******************************/
     if(sendDataOutTimer->isActive() && !isConCar){
-        emit signal_waitSendData();
+        //emit signal_waitSendData();
         qCritical().noquote()<<QString("Not case：The process of the preceding vehicle has not been processed, and the information of the following vehicle is not processed.");
+        return;
     }
 
     /*****************************

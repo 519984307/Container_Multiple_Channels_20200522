@@ -71,9 +71,10 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
         }
 
         /*****************************
-        * @brief:车辆倒车，完全退出通道
+        * @brief:车辆倒车，【只挡住A1，退出倒车状态】
+        * 2021-10-22-修改【if(reversing && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){】
         ******************************/
-        if(reversing && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+        if(reversing && status[0]==valueOne && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
             reversing=false;
         }
 
@@ -203,9 +204,10 @@ void InfraredLogic_IO::serialLogicSlot(int *sta)
         }
 
         /*****************************
-        * @brief:车辆倒车，完全退出通道
+        * @brief:车辆倒车，【只挡住A1，退出倒车状态】
+        * 2021-10-22-修改【if(reversing && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){】
         ******************************/
-        if(reversing && status[0]==valueTwo && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
+        if(reversing && status[0]==valueOne && status[1]==valueTwo && status[2]==valueTwo && status[3]==valueTwo){
             reversing=false;
         }
 
@@ -545,7 +547,7 @@ void InfraredLogic_IO::simulateTriggerSlot(int type)
     }
 }
 
-void InfraredLogic_IO::setAlarmModeSlot(bool model,int logicType,int A1ReleasrCap)
+void InfraredLogic_IO::setAlarmModeSlot(bool model,int logicType,double A1ReleasrCap)
 {
     this->logicType=logicType;
     this->A1ReleasrCap=A1ReleasrCap;
