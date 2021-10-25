@@ -205,10 +205,6 @@ void LoadParameter::loadChannelParameter(int Channels)
                         p_ChannelParameter->ForegroundPageState=getJsonValue("Other","ForegroundPageState",value.toObject()).toBool();
                         p_ChannelParameter->TopPageState=getJsonValue("Other","TopPageState",value.toObject()).toBool();
 
-                        qDebug()<<p_ChannelParameter->A1ReleasrCap;
-                        qDebug()<<p_ChannelParameter->Alias;
-                        qDebug()<<p_ChannelParameter->Channel_number;
-
                         /*****************************
                         * @brief:SerialPort
                         ******************************/

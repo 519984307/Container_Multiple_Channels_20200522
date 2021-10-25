@@ -84,13 +84,13 @@ void DataProcessing::slot_waitSendData()
     //[C|20020919114100|01|1|TEXU7337250|Y|42G1]
     //[C|20020919114100|01|2|MGLU2872320|Y|MGLU2782249|Y|22G1|22G1]
 
-    if(!conResult.isEmpty() && conResult.startsWith("[") && conResult.endsWith("]")){
+    if(!conResult.isEmpty() && conResult.startsWith("[C")){
         QStringList msgList=conResult.split("|");
         if(msgList.size()>=3 && msgList.at(3)!="-1"){
             /*****************************
             * @brief:数据流量统计到主页面
             ******************************/
-            if(msgList.size()==9){
+            if(msgList.size()==10){
                 if(msgList.at(5)=="Y" || msgList.at(7)=="Y"){
                     emit signal_trafficStatistics(true);
                 }
@@ -98,7 +98,7 @@ void DataProcessing::slot_waitSendData()
                     emit signal_trafficStatistics(false);
                 }
             }
-            else if(msgList.size()==5){
+            else if(msgList.size()==7){
                 emit signal_trafficStatistics(msgList.at(5)=="Y"?true:false);
             }
         }

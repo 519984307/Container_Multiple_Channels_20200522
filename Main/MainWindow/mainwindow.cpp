@@ -162,15 +162,16 @@ void MainWindow::initializing()
     /*****************************
     * @brief:流量统计
     ******************************/
-    QString start=QString("%1 %2").arg(QDate::currentDate().toString("yyyy/MM/dd")).arg(QTime(0,0,0).toString("HH:mm:ss"));
-    QString end=QString("%1 %2").arg(QDate::currentDate().toString("yyyy/MM/dd")).arg(QTime(23,59,59).toString("HH:mm:ss"));
+//    QString start=QString("%1 %2").arg(QDate::currentDate().toString("yyyy/MM/dd")).arg(QTime(0,0,0).toString("HH:mm:ss"));
+//    QString end=QString("%1 %2").arg(QDate::currentDate().toString("yyyy/MM/dd")).arg(QTime(23,59,59).toString("HH:mm:ss"));
 
-    QString filterTimer=QString("((Timer>='%1' AND Timer<='%2'))").arg(start,end);
-    QString filterType=QString("Type!='%1'").arg(-1);
-    QStringList filterList;
-    filterList.append(filterTimer);
-    filterList.append(filterType);
-    emit signal_setDataBaseFilter(filterList.join(" AND "));
+//    QString filterTimer=QString("((Timer>='%1' AND Timer<='%2'))").arg(start,end);
+//    QString filterType=QString("Type!='%1'").arg(-1);
+//    QStringList filterList;
+//    filterList.append(filterTimer);
+//    filterList.append(filterType);
+//    emit signal_setDataBaseFilter(filterList.join(" AND "));
+    slot_statisticalData(0,0,0,0);
 }
 
 void MainWindow::clearnContainer()
@@ -890,8 +891,8 @@ void MainWindow::bindingPlugin()
         /*****************************
         * @brief:当日数据流量统计
         ******************************/
-        connect(this,&MainWindow::signal_setDataBaseFilter,pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::setDataBaseFilterSlot);
-        connect(pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::statisticalDataSignal,this,&MainWindow::slot_statisticalData);
+//        connect(this,&MainWindow::signal_setDataBaseFilter,pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::setDataBaseFilterSlot);
+//        connect(pLoadinglibaray->IDataBaseReadList.at(0).data(),&DataBaseReadInterface::statisticalDataSignal,this,&MainWindow::slot_statisticalData);
     }
 
     if(pLoadinglibaray->IRecognizerList.size()>=1 && pLoadinglibaray->IRecognizerList.size()==Channel_Data_From_Map.size()){

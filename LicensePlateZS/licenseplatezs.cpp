@@ -241,7 +241,7 @@ void LicensePlateZS::heartbeatSlot()
         heartBeat[0]='V';
         heartBeat[1]='Z';
         heartBeat[2]=1;
-        pTcpClient->write(heartBeat);
+        pTcpClient->write(heartBeat,8);
     }
 }
 
@@ -336,7 +336,7 @@ void LicensePlateZS::displayErrorSlot(QAbstractSocket::SocketError socketError)
 
     pTimerLinkState->stop();
     if(!pTimerAutoLink->isActive()){
-        pTimerAutoLink->start(1000);
+        pTimerAutoLink->start(10000);
     }
     //qWarning().noquote()<<QString("[%4] %1:%3 link error<errorCode=%2>").arg(address,QString::number(socketError),QString::number(port),this->metaObject()->className());
 }

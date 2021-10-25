@@ -638,21 +638,24 @@ void Channel_Data_Form::timeOutSendData()
     logicStateTimer->stop();
     LogicStateTmpList.clear();
 
-    /*****************************
-    * @brief:如果超时没有收到车牌结果，ZS相机主动取一次数据【此操作为零时处理，可以从车牌识别时间判断处理】
-    ******************************/
-    if(!getLastPlate && localPlateTime.isEmpty() && 2 == Parameter::PlateType){
-        /*****************************
-        * @brief:臻视相机没有收到结果主动取一次
-        ******************************/
-        emit signal_getLastPlate();
-        sendDataOutTimer->start(2000);
-        getLastPlate=true;
-    }
-    else {
-        emit signal_waitSendData();
-        qDebug().noquote()<<"Logical data receive timeout, send data-+";
-    }
+//    /*****************************
+//    * @brief:如果超时没有收到车牌结果，ZS相机主动取一次数据【此操作为零时处理，可以从车牌识别时间判断处理】
+//    ******************************/
+//    if(!getLastPlate && localPlateTime.isEmpty() && 2 == Parameter::PlateType){
+//        /*****************************
+//        * @brief:臻视相机没有收到结果主动取一次
+//        ******************************/
+//        emit signal_getLastPlate();
+//        sendDataOutTimer->start(2000);
+//        getLastPlate=true;
+//    }
+//    else {
+//        emit signal_waitSendData();
+//        qDebug().noquote()<<"Logical data receive timeout, send data-+";
+//    }
+
+    emit signal_waitSendData();
+    qDebug().noquote()<<"Logical data receive timeout, send data-+";
 }
 
 void Channel_Data_Form::logicCheckBoxSlot()
@@ -953,7 +956,7 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         ******************************/
         isCar=false;
 
-        if(Parameter::PlateType==2 || ui->plateCheckBox->isChecked() || simulationPlateStatus){
+        if(ui->plateCheckBox->isChecked() || simulationPlateStatus){
             sendDataOutTimer->start(Parameter::plate_timeout*1000);
             getLastPlate=false;
         }
