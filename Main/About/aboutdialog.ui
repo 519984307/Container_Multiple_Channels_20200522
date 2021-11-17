@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>628</width>
-    <height>403</height>
+    <height>415</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,176 @@
    <iconset resource="../ico.qrc">
     <normaloff>:/UI_ICO/ICO/ICO.ico</normaloff>:/UI_ICO/ICO/ICO.ico</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout_2">
+   <item row="4" column="2" colspan="2">
+    <widget class="QGroupBox" name="msg_groupBox">
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <property name="leftMargin">
+       <number>0</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <property name="horizontalSpacing">
+       <number>0</number>
+      </property>
+      <property name="verticalSpacing">
+       <number>9</number>
+      </property>
+      <item row="2" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1">
+        <property name="spacing">
+         <number>10</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="label_8">
+          <property name="text">
+           <string>ID：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="ID_label">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string>Project：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="Project_label">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Technical hotline：18565659070</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Sales hotline：15989899192</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1">
+        <item>
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Channel：</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="Channel_label">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="8" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>This software integrates container number identification, electronic license plate identification, electronic gate control. Multiple channels can be managed by a single server.
+
+</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
+        <item>
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Copyright Reserved 2010-2020 </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="copyrightLabel">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0" rowspan="3">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>271</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="6" column="2">
+    <spacer name="horizontalSpacer">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>396</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLabel" name="label_11">
+     <property name="text">
+      <string>Base on Qt 5.14.2 (MinGW 7.3.0 64 bit)</string>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0" rowspan="3">
     <widget class="QLabel" name="label">
      <property name="maximumSize">
@@ -46,7 +215,7 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
+   <item row="0" column="2">
     <widget class="QLabel" name="appLabel">
      <property name="font">
       <font>
@@ -60,39 +229,26 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QLabel" name="label_11">
-     <property name="text">
-      <string>Base on Qt 5.14.2 (MinGW 7.3.0 64 bit)</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
+   <item row="2" column="2">
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Built on December 8, 2020 11:43</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="0" rowspan="9">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
+   <item row="6" column="3">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Exit</string>
      </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>271</height>
-      </size>
-     </property>
-    </spacer>
+    </widget>
    </item>
-   <item row="3" column="1">
+   <item row="3" column="2">
     <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1">
      <item>
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>vision</string>
+        <string>vision：</string>
        </property>
       </widget>
      </item>
@@ -104,132 +260,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item row="4" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
-     <item>
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>Copyright Reserved 2010-2020 </string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="copyrightLabel">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="5" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1">
-     <item>
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>ID</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="ID_label">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="6" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
-     <item>
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Project</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="Project_label">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="7" column="1">
-    <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1">
-     <item>
-      <widget class="QLabel" name="label_10">
-       <property name="text">
-        <string>Channel</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QLabel" name="Channel_label">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="8" column="1">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Technical hotline:18565659070</string>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="1">
-    <widget class="QLabel" name="label_7">
-     <property name="text">
-      <string>Sales hotline:15989899192</string>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="1" colspan="2">
-    <widget class="QLabel" name="label_6">
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>This software integrates container number identification, electronic license plate identification, electronic gate control. Multiple channels can be managed by a single server.
-
-</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-     </property>
-     <property name="wordWrap">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="11" column="1">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>396</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="11" column="2">
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>Exit</string>
-     </property>
-    </widget>
    </item>
   </layout>
  </widget>

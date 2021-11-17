@@ -3,7 +3,7 @@
 ToUploadData::ToUploadData(QObject *parent)
 {
     this->setParent(parent);
-    pManager=nullptr;
+    pManager=nullptr;    
 }
 
 ToUploadData::~ToUploadData()
@@ -55,7 +55,7 @@ void ToUploadData::uploadDataSlot(const QString &data)
         return;
     }
 
-    url.setPath(QString("%1%2").arg(remotePath).arg(dataList[dataList.count()-1]));   
+    url.setPath(QDir::toNativeSeparators(QString("%1/%2/%3").arg(remotePath).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd")).arg(dataList[dataList.count()-1])));
     request.setUrl(url);
 
     QNetworkReply* reply= pManager->put(request,file.readAll());

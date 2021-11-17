@@ -15,16 +15,16 @@ CONFIG += skip_target_version_ext
 
 QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
-VERSION = 1.1.7.15_2110251729
+VERSION = 1.1.7.16_2111180051
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-ID = f19d15dec81584b5ce4f9edb0aae1789-
+ID = 105f3a44ccf2c25a36a7457eeaf410b9-201003973
 DEFINES += DOG_ID=\\\"$$ID\\\"
 
-PROJECT = 烟台-贝奇
+PROJECT = Standard
 DEFINES += APP_PROJECT=\\\"$$PROJECT\\\"
 
-CHANNEL = 2
+CHANNEL = 1
 DEFINES += APP_CHANNEL=\\\"$$CHANNEL\\\"
 
 #If it is a multi-channel version, the software conditions need to be changed:

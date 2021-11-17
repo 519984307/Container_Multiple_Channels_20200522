@@ -40,6 +40,7 @@ namespace Parameter {
     QString databaseAddr = QString("127.0.0.1");
     QString databaseUser = QString("Admin");
     QString databasePass = QString("ABCabc123");
+    QString upload_images =  QString("1,2,3,4,5,6");
 
 
     /*****************************

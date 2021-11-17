@@ -34,6 +34,9 @@ MainWindow::~MainWindow()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(isExit){
+
+        SystemTray->showMessage(LocalPar::copyright,tr("系统正在释放内部资源，请稍后"),QSystemTrayIcon::Information,60000);
+
         this->hide();
         clearnContainer();
         event->accept();
@@ -675,7 +678,7 @@ void MainWindow::slot_handleFinished()
 
 void MainWindow::slot_Error(QString pluginName)
 {
-    QString text = tr("Error loading system plug-in:%1, duplicate plug-in exists. Please check the plugins directory to avoid system interference!").arg(pluginName);
+    QString text = tr("Error loading system plug-in:%1").arg(pluginName);
 
     emit signal_setAlarmMsg(++alarmNum,text);
 

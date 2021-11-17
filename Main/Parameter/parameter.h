@@ -118,6 +118,11 @@ namespace Parameter {
     extern int ReduceImage;
 
     ///
+    /// \brief upload_images 需要上传的图片编号
+    ///
+    extern QString upload_images;
+
+    ///
     /// \brief DatabaseType 数据库类型
     ///
     extern int DatabaseType;

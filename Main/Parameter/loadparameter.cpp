@@ -80,6 +80,7 @@ bool LoadParameter::loadSysParameter()
                     Parameter::FtpRemotePath= getJsonValue("Upload","FtpRemotePath",value.toObject()).toString();
                     Parameter::FtpUser= getJsonValue("Upload","FtpUser",value.toObject()).toString();
                     Parameter::ReduceImage=getJsonValue("Upload","ReduceImage",value.toObject()).toInt();
+                    Parameter::upload_images=getJsonValue("Upload","upload_images",value.toObject()).toString();
 
                     /*****************************
                     * @brief:Other

@@ -7,6 +7,9 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
+
+    //ui->msg_groupBox->setHidden(true);
+
     ui->copyrightLabel->setText(LocalPar::copyright);
     ui->appLabel->setText(LocalPar::App);
     ui->verLabel->setText(LocalPar::version);

@@ -18,6 +18,8 @@ Main_Dialog::Main_Dialog(QWidget *parent) :
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
     this->setAttribute(Qt::WA_DeleteOnClose,true);
 
+    ui->label_5->setText(QString("%1-%2").arg(LocalPar::copyright,LocalPar::msg));
+
     ui->label_2->setHidden(true);
     ui->label_7->setHidden(true);
     ui->comboBox->setHidden(true);

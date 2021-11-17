@@ -210,6 +210,22 @@ void DataProcessing::slot_waitSendData()
             jsonChild.insert("type",type);
             jsonChild.insert("isguard",isguard);
 
+            QString imgName_front="";
+            QString imgName_back="";
+            switch (Parameter::ImageNamingRules) {
+            case 0:
+                imgName_front=QString("%1%2%3.jpg").arg(msgList.at(1)).arg(msgList.at(2).toInt(),Parameter::channel_id_placeholder,10,QLatin1Char('0')).arg(1,Parameter::camera_id_placeholder,10,QLatin1Char('0'));
+                imgName_back=QString("%1%2%3.jpg").arg(msgList.at(1)).arg(msgList.at(2).toInt(),Parameter::channel_id_placeholder,10,QLatin1Char('0')).arg(6,Parameter::camera_id_placeholder,10,QLatin1Char('0'));
+                break;
+            case 1:
+                imgName_front=QString("%1%2%3.jpg").arg(msgList.at(1)).arg(1,Parameter::camera_id_placeholder,10,QLatin1Char('0')).arg(msgList.at(2).toInt(),Parameter::channel_id_placeholder,10,QLatin1Char('0'));
+                imgName_back=QString("%1%2%3.jpg").arg(msgList.at(1)).arg(6,Parameter::camera_id_placeholder,10,QLatin1Char('0')).arg(msgList.at(2).toInt(),Parameter::channel_id_placeholder,10,QLatin1Char('0'));
+                break;
+            }
+
+            jsonChild.insert("containerDoorFront",QDir::toNativeSeparators(QString("%1/%2/%3").arg(Parameter::FtpRemotePath,today,imgName_front)));
+            jsonChild.insert("containerDoorBack",QDir::toNativeSeparators(QString("%1/%2/%3").arg(Parameter::FtpRemotePath,today,imgName_back)));
+
             //QtConcurrent::run(this,&DataProcessing::signal_toSendData,channel,QString(QJsonDocument(jsonChild).toJson()));
             emit signal_toSendData(channel,QString(QJsonDocument(jsonChild).toJson()));
             writeDataToLog(channel,QString(QJsonDocument(jsonChild).toJson()));

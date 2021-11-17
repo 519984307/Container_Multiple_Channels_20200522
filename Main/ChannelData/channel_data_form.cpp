@@ -322,6 +322,14 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream, QString datetim
         Parameter::ImagePath=QString("C:\\images");
     }
 
+    /*****************************
+    * @brief:本地FTP服务端创建文件夹，远端需另行处理
+    ******************************/
+    if(Parameter::Ftp){
+        QDir dir(Parameter::FtpLocalPath);
+        dir.mkpath(QDateTime::currentDateTime().toString("yyyy-MM-dd"));
+    }
+
     QString suffixPath;
 
     switch (Parameter::ImageFormat) {
@@ -394,7 +402,9 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream, QString datetim
                 /*****************************
                 * @brief:上传图片
                 ******************************/
-                emit signal_uploadData(imgPath);
+                if(Parameter::upload_images.indexOf(QString::number(key))!=-1){
+                    emit signal_uploadData(imgPath);
+                }
             }
         }
 

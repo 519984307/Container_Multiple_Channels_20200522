@@ -214,6 +214,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::databaseUser= getJsonValue("Upload","databaseUser",value.toObject()).toString();
                     Parameter::databasePass= getJsonValue("Upload","databasePass",value.toObject()).toString();
                     Parameter::DatabaseType=getJsonValue("Upload","DatabaseType",value.toObject()).toInt();
+                    Parameter::upload_images=getJsonValue("Upload","upload_images",value.toObject()).toString();
 
                     /*****************************
                     * @brief:Other
@@ -324,6 +325,7 @@ bool System_Setting_Form::writeParameterSlot()
     obj3.insert("databaseAddr",ui->database_Addr_lineEdit->text());
     obj3.insert("databaseUser",ui->database_User_lineEdit->text());
     obj3.insert("databasePass",ui->database_Pass_lineEdit->text());
+    obj3.insert("upload_images",ui->upload_images_lineEdit->text());
     jsonChild.insert("Upload",QJsonValue(obj3));
 
     /*****************************
@@ -545,6 +547,7 @@ void System_Setting_Form::parameterToUi()
     ui->database_Addr_lineEdit->setText(Parameter::databaseAddr);
     ui->database_User_lineEdit->setText(Parameter::databaseUser);
     ui->database_Pass_lineEdit->setText(Parameter::databasePass);
+    ui->upload_images_lineEdit->setText(Parameter::upload_images);
 
     /*****************************
     * @brief:Other
