@@ -116,6 +116,9 @@ void LoadingLibaray::slot_createLibaray()
                             pluginsNum=0;
                         }
                     }
+//                    if("CLINET_SDK" == pIMiddleware->InterfaceType()){
+
+//                    }
                 }
                 /* 显示加载SDK */
                 if(!Parameter::loadLibrary_HK){

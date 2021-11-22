@@ -28,6 +28,8 @@ private:
     ///
     int status[8];
 
+    int tmpStatus[8];
+
     /* 红外信号值 */
     int valueOne,valueTwo;
 

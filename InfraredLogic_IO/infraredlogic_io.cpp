@@ -20,6 +20,7 @@ InfraredLogic_IO::InfraredLogic_IO(QObject *parent)
     reversing=false;
 
     memset(status,0,sizeof (status));
+    memset(tmpStatus,0,sizeof (tmpStatus));
 
 #ifdef Q_OS_LINUX
     eol = "\n";
@@ -496,6 +497,11 @@ void InfraredLogic_IO::startSlaveSlot(const QString &portName1, const QString &p
         connect(pTcpClient,QOverload<QAbstractSocket::SocketError>::of(&QAbstractSocket::error),this,&InfraredLogic_IO::displayErrorSlot);
         connect(pTimerAutoLink,&QTimer::timeout,this,&InfraredLogic_IO::startLinkSlot);
 
+        /* 红外状态写入日志 */
+        connect(this,&InfraredLogic_IO::logicStatusSignal,this,&InfraredLogic_IO::logicStateslot);
+        /* 逻辑判断 */
+        connect(this,&InfraredLogic_IO::logicStatusSignal,this,&InfraredLogic_IO::serialLogicSlot);
+
         startLinkSlot();
     }
     else{
@@ -671,13 +677,13 @@ void InfraredLogic_IO::receiveDataSlot()
         ******************************/
         if(buf.startsWith("+OCCH_ALL:")){
             int pos=buf.indexOf(":")+1;
-            status[0]=buf.at(pos)-'0';
-            status[1]=buf.at(pos+2)-'0';
-            status[2]=buf.at(pos+4)-'0';
-            status[3]=buf.at(pos+6)-'0';
+            tmpStatus[0]=buf.at(pos)-'0';
+            tmpStatus[1]=buf.at(pos+2)-'0';
+            tmpStatus[2]=buf.at(pos+4)-'0';
+            tmpStatus[3]=buf.at(pos+6)-'0';
 
-            serialLogicSlot(status); /* 逻辑判断 */
-            emit logicStatusSignal(status);
+            //serialLogicSlot(status); /* 逻辑判断 */
+            emit logicStatusSignal(tmpStatus);
         }
         else if(buf.startsWith("+OCCH")){
             QList<QByteArray> data= buf.split('+');
@@ -685,19 +691,19 @@ void InfraredLogic_IO::receiveDataSlot()
                 int pos=arr.indexOf(":");
                 if(-1 != pos && arr.startsWith("OCCH")){
                     if(arr.at(pos-1)=='1'){
-                        status[0]=arr.at(pos+1)-'0';
+                        tmpStatus[0]=arr.at(pos+1)-'0';
                     }
                     if(arr.at(pos-1)=='2'){
-                        status[1]=arr.at(pos+1)-'0';
+                        tmpStatus[1]=arr.at(pos+1)-'0';
                     }
                     if(arr.at(pos-1)=='3'){
-                        status[2]=arr.at(pos+1)-'0';
+                        tmpStatus[2]=arr.at(pos+1)-'0';
                     }
                     if(arr.at(pos-1)=='4'){
-                        status[3]=arr.at(pos+1)-'0';
+                        tmpStatus[3]=arr.at(pos+1)-'0';
 
-                        serialLogicSlot(status); /* 逻辑判断 */
-                        emit logicStatusSignal(status);
+                        //serialLogicSlot(status); /* 逻辑判断 */
+                        emit logicStatusSignal(tmpStatus);
                     }
                 }
             }
@@ -710,9 +716,9 @@ void InfraredLogic_IO::receiveDataSlot()
             foreach (QByteArray arr, data) {
                 int pos=arr.indexOf(":");
                 if(-1 != pos && arr.startsWith("STACH")){
-                    int ind=arr[pos-1]-'0';
-                    status[ind+3]=arr.at(pos+1)-'0';
-                    emit logicStatusSignal(status);
+                    int ind=arr.at(pos-1)-'0';
+                    tmpStatus[ind+3]=arr.at(pos+1)-'0';
+                    emit logicStatusSignal(tmpStatus);
                 }
             }
         }
@@ -733,13 +739,13 @@ void InfraredLogic_IO::receiveDataSlot()
             if(arr.startsWith("OCCH_ALL:")){
                 int pos=arr.indexOf(":")+1;
                 if(-1 != pos){
-                    status[0]=arr.at(pos)-'0';
-                    status[1]=arr.at(pos+2)-'0';
-                    status[2]=arr.at(pos+4)-'0';
-                    status[3]=arr.at(pos+6)-'0';
+                    tmpStatus[0]=arr.at(pos)-'0';
+                    tmpStatus[1]=arr.at(pos+2)-'0';
+                    tmpStatus[2]=arr.at(pos+4)-'0';
+                    tmpStatus[3]=arr.at(pos+6)-'0';
 
-                    serialLogicSlot(status); /* 逻辑判断 */
-                    emit logicStatusSignal(status);
+                    //serialLogicSlot(status); /* 逻辑判断 */
+                    emit logicStatusSignal(tmpStatus);
                 }
             }
             else if(buf.startsWith("STACH")){
@@ -748,9 +754,9 @@ void InfraredLogic_IO::receiveDataSlot()
                 ******************************/
                 int pos=arr.indexOf(":");
                 if(-1 != pos){
-                    int ind=arr[pos-1]-'0';
-                    status[ind+3]=arr.at(pos+1)-'0';
-                    emit logicStatusSignal(status);
+                    int ind=arr.at(pos-1)-'0';
+                    tmpStatus[ind+3]=arr.at(pos+1)-'0';
+                    emit logicStatusSignal(tmpStatus);
                 }
             }
         }

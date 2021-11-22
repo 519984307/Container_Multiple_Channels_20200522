@@ -34,9 +34,8 @@ SOURCES += \
     middlewareclinet.cpp
 
 HEADERS += \
+    IMiddleware.h \
     MiddlewareCLINET_global.h \
-    include/avglobal.h \
-    include/dhconfigsdk.h \
     include/dhnetsdk.h \
     middlewareclinet.h
 
@@ -49,15 +48,19 @@ unix {
 }
 !isEmpty(target.path): INSTALLS += target
 
-unix:!macx|win32: LIBS += -L$$PWD/lib/ -ldhnetsdk
 
-INCLUDEPATH += $$PWD/lib
-DEPENDPATH += $$PWD/lib
+CONFIG(debug, debug|release): {
+unix:TARGET=$$join(TARGET,,,_debug)
+win32:TARGET=$$join(TARGET,,Cc1_,d)
+}
+else:CONFIG(release, debug|release): {
+unix:TARGET=$$join(TARGET,,,_release)
+win32:TARGET=$$join(TARGET,,Cc1_,)
+}
+DESTDIR += ../MainUI/Plugins
 
-unix:!macx|win32: LIBS += -L$$PWD/lib/ -ldhnetsdk
+
+unix|win32: LIBS += -L$$PWD/lib/ -ldhnetsdk
 
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
-
-DESTDIR += ../MainUI/Plugins
-

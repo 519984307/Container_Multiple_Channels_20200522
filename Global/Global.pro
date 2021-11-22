@@ -1,17 +1,9 @@
 QT -= gui
-QT += network
-QT += concurrent
 
 TEMPLATE = lib
-DEFINES += INFRAREDLOGIC_IO_LIBRARY
+DEFINES += GLOBAL_LIBRARY
 
-TARGET = SignalControl_IO
-
-CONFIG += plugin
-
-CONFIG += skip_target_version_ext
-VERSION = 1.1.9.12
-QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
+CONFIG += c++11
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -25,30 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    infraredlogic_io.cpp \
-    tcpclient.cpp \
-    tcpserver.cpp
+    global.cpp
 
 HEADERS += \
-    InfraredLogic_IO_global.h \
-    infraredlogic_io.h \
-    infraredlogicinterface.h \
-    tcpclient.h \
-    tcpserver.h
+    Global_global.h \
+    global.h
 
 # Default rules for deployment.
 unix {
     target.path = /usr/lib
 }
 !isEmpty(target.path): INSTALLS += target
-
-CONFIG(debug, debug|release): {
-unix:TARGET=$$join(TARGET,,,_debug)
-win32:TARGET=$$join(TARGET,,Cc1_,d)
-}
-else:CONFIG(release, debug|release): {
-unix:TARGET=$$join(TARGET,,,_release)
-win32:TARGET=$$join(TARGET,,Cc1_,)
-}
-
-DESTDIR+=../MainUI/Plugins

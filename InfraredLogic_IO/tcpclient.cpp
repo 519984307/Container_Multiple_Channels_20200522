@@ -63,7 +63,7 @@ void TcpClient::receiveDataSlot()
             foreach (QByteArray arr, data) {
                 int pos=arr.indexOf(":");
                 if(-1 != pos && arr.startsWith("STACH")){
-                    int ind=arr[pos-1]-'0';
+                    int ind=arr.at(pos-1)-'0';
                     tmpStatus[ind+3]=arr.at(pos+1)-'0';
                     emit logicStatusSignal(tmpStatus);
                 }
