@@ -11,7 +11,7 @@ SUBDIRS +=\
     #LicensePlateVZ \
     LicensePlateWTY \
     LicensePlateZS \
-    #MiddlewareCLINET \
+    MiddlewareCLINET \
     MiddlewareHCNET \
     NetworkController \
     ToUploadData\

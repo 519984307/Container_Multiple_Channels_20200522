@@ -91,7 +91,7 @@ void InfraredLogic::releaseResourcesSlot()
 
 bool InfraredLogic::compareStatus(int *before, int *after)
 {
-    for (int i=0;i<8;i++) {
+    for (int i=0;i<4;i++) {
         if(before[i]!=after[i]) {
             return true;
         }
@@ -609,10 +609,12 @@ void InfraredLogic::detectionLogicStatus(bool com1, bool com2)
         emit logicStatesignal(status);
     }
 
+
     if(com1&&com2){
         /* 比对红外状态有没有变化 有变化才做相应处理 */
         if(compareStatus(status,tmpStatus)){
-            serialLogic(status); /* 逻辑判断 */
+            memcpy(tmpStatus,status,sizeof (status));
+            serialLogic(tmpStatus); /* 逻辑判断 */
         }
         pRealySerialportTimer->stop();
     }
@@ -643,6 +645,7 @@ void InfraredLogic::detectionLogicStatus(bool com1, bool com2)
         QTimer::singleShot(15000,this,SLOT(realyTheSerialport()));
         memset(status,0,sizeof (status));
     }
+
     emit logicStatusSignal(status);/* 传递状态 */
     memcpy(tmpStatus,status,sizeof (status));
 }

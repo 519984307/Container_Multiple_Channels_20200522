@@ -81,9 +81,20 @@ private:
     bool initSDk;
 
     ///
+    /// \brief lRealHandle 播放视频ID
+    ///
+    long lRealHandle;
+
+    ///
     /// \brief cameraBingMap 相机ID和标志绑定
     ///
-    QMap<QString,long> cameraBingMap;
+    QMap<QString,long> cameraBingSigMap;
+
+    ///
+    /// \brief cameraBingIDMap 相机ID和地址绑定
+    ///
+    QMap<long,QString> cameraBingIDMap;
+
 
     ///
     /// \brief liftingElectronicRailingSlot 抬杆/落杆
