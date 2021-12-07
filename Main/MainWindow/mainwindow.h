@@ -53,6 +53,7 @@
 #include "DataProcessing/dataprocessing.h"
 #include "alarmform.h"
 #include "errorform.h"
+#include "exitdialog.h"
 
 #ifdef Q_OS_WIN
 #include "windows.h"

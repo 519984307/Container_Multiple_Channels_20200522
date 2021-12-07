@@ -18,10 +18,10 @@ QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 VERSION = 1.1.7.16_2111180051
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-ID =
+ID = None
 DEFINES += DOG_ID=\\\"$$ID\\\"
 
-PROJECT = 河南-宝丰
+PROJECT = Standard
 DEFINES += APP_PROJECT=\\\"$$PROJECT\\\"
 
 CHANNEL = 1

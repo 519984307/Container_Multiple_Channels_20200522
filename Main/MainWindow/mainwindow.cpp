@@ -35,7 +35,9 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(isExit){
 
-        SystemTray->showMessage(LocalPar::copyright,tr("系统正在释放内部资源，请稍后"),QSystemTrayIcon::Information,60000);
+        QSharedPointer<ExitDialog> exit = QSharedPointer<ExitDialog>(new ExitDialog (this));
+        exit->show();
+        //SystemTray->showMessage(LocalPar::copyright,tr("系统正在释放内部资源，请稍后"),QSystemTrayIcon::Information,60000);
 
         this->hide();
         clearnContainer();
