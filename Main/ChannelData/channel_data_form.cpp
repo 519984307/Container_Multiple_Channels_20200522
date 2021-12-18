@@ -434,6 +434,12 @@ void Channel_Data_Form::saveImages(QMap<int, QByteArray> stream, QString datetim
         case 7:
             databaseMap.insert("PlateImg",imgName);
             break;
+        case 8:
+            databaseMap.insert("ImgProspects",imgName);
+            break;
+        case 9:
+            databaseMap.insert("ImgForeground",imgName);
+            break;
         }
     }
 
@@ -1095,6 +1101,11 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(1,imgTimer,signatureList.at(0));
         emit signal_putCommand(2,imgTimer,signatureList.at(2));
         emit signal_putCommand(3,imgTimer,signatureList.at(3));
+
+        /*****************************
+        * @brief:202112181611,6相机
+        ******************************/
+        emit signal_putCommand(8,imgTimer,signatureList.at(5));
         this->putCount=-1;
         this->putComType=-1;
     }
@@ -1104,7 +1115,12 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(4,imgTimer,signatureList.at(2));
         emit signal_putCommand(5,imgTimer,signatureList.at(3));
         emit signal_putCommand(6,imgTimer,signatureList.at(1));
-        this->putCount=6;
+
+        /*****************************
+        * @brief:202112181611,6相机
+        ******************************/
+        emit signal_putCommand(9,imgTimer,signatureList.at(6));
+        this->putCount=8;
         this->putComType=1;
     }
         break;
@@ -1115,7 +1131,13 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(2,imgTimer,signatureList.at(2));
         emit signal_putCommand(3,imgTimer,signatureList.at(3));
         emit signal_putCommand(6,imgTimer,signatureList.at(1));
-        this->putCount=4;
+
+        /*****************************
+        * @brief:202112181611,6相机
+        ******************************/
+        emit signal_putCommand(8,imgTimer,signatureList.at(5));
+        emit signal_putCommand(9,imgTimer,signatureList.at(6));
+        this->putCount=6;
         this->putComType=0;
     }
         break;
@@ -1124,7 +1146,12 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(4,imgTimer,signatureList.at(2));
         emit signal_putCommand(5,imgTimer,signatureList.at(3));
         emit signal_putCommand(6,imgTimer,signatureList.at(1));
-        this->putCount=6;
+
+        /*****************************
+        * @brief:202112181611,6相机
+        ******************************/
+        emit signal_putCommand(9,imgTimer,signatureList.at(6));
+        this->putCount=8;
         this->putComType=2;
     }
         break;
@@ -1142,7 +1169,12 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         emit signal_putCommand(4,imgTimer,signatureList.at(2));
         emit signal_putCommand(5,imgTimer,signatureList.at(3));
         emit signal_putCommand(6,imgTimer,signatureList.at(1));
-        this->putCount=6;
+
+        /*****************************
+        * @brief:202112181611,6相机
+        ******************************/
+        emit signal_putCommand(9,imgTimer,signatureList.at(6));
+        this->putCount=8;
         this->putComType=0;
     }
         break;

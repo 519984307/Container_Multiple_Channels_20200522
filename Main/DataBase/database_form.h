@@ -96,10 +96,16 @@ private:
         ImgRightAfterISO=35,
         ImgAfterISO=36,
         ImgProspects=37,
-        ImgForeground=38,
-        ImgTop1=39,
-        ImgTop2=40,
-        PlateColor=41
+        ImgProspectsCheck=38,
+        ImgProspectsNumber=39,
+        ImgProspectsISO=40,
+        ImgForeground=41,
+        ImgForegroundCheck=42,
+        ImgForegroundNumber=43,
+        ImgForegroundISO=44,
+        ImgTop1=45,
+        ImgTop2=46,
+        PlateColor=47
     };
 
 private slots:

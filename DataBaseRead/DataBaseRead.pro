@@ -14,7 +14,7 @@ TARGET = DataBaseR
 TEMPLATE = lib
 
 CONFIG += skip_target_version_ext
-VERSION = 1.2.2.1
+VERSION = 1.2.2.2
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 DEFINES += DATABASEREAD_LIBRARY

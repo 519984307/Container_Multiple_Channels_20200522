@@ -7,8 +7,9 @@ ExitDialog::ExitDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->label->setText("Software exit, releasing internal resources, please wait!");
     ui->label->setStyleSheet("background-color: rgb(255, 255, 0);");
+    ui->label->setText("Software exit, releasing internal resources, please wait!");
+
 }
 
 ExitDialog::~ExitDialog()

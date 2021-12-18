@@ -231,7 +231,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     }
 
     /* 防止双箱,未检测到箱型。默认为长箱，南京三宝小箱为6张图，后续系统判断修改 */
-    if(isoTemp.count()==6){
+    if(isoTemp.count()==8){
         foreach (auto iso, isoTemp) {
             if(iso.startsWith("2")){
                 conType=2;
@@ -250,7 +250,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             break;
         case 2:
             isoTemp[0]="22G1";
-            isoTemp[3]="22G1";
+            isoTemp[4]="22G1";
             break;
         }
     }
@@ -259,15 +259,15 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     /* 双箱，分前3个结果和后3个结果独立处理,前箱下标,前箱型下标,后箱下标,后箱型下标,箱号置信度下表,箱型置信度下标 */
     int Cindex1=0;    int Iindex1=0;    int Cindex2=0;    int Iindex2=0;
 
-    if(conType==2 && conProbabilityTemp.count()==6){
+    if(conType==2 && conProbabilityTemp.count()==8){
         QList<int> checkResult1,checkResult2;
 
-        checkResult1=checkContainerNumber(0,3);
+        checkResult1=checkContainerNumber(0,4);
         if(checkResult1.size()==2){
             Cindex1=checkResult1.at(0);
             Iindex1=checkResult1.at(1);
         }
-        checkResult2=checkContainerNumber(3,6);
+        checkResult2=checkContainerNumber(4,8);
         if(checkResult2.size()==2){
             Cindex2=checkResult2.at(0);
             Iindex2=checkResult2.at(1);
@@ -285,7 +285,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
                 isOne=true;
             }
             else if(conTemp[Cindex1]!=conTemp[Cindex2] && !conTemp[Cindex1].isEmpty() && !conTemp[Cindex2].isEmpty()){/* 前后相同修正长箱 */
-                if(ConsecutiveLCS(conTemp[Cindex1],conTemp[Cindex2])<=3){/* 两个箱号相似度大于3,判定为一个集装箱 */
+                if(ConsecutiveLCS(conTemp[Cindex1],conTemp[Cindex2])<=2){/* 两个箱号相似度大于2,判定为一个集装箱 */
                     isOne=true;
                 }
             }
@@ -540,7 +540,7 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
         data["CheckAfter"]=QString::number(checkConList[Cindex2]);
     }
 
-    if(conTemp.count()==4){
+    if(conTemp.count()==6){
         data["ImgFrontNumber"]=conTemp[0];
         data["ImgFrontISO"]=isoTemp[0];
         data["ImgFrontCheck"]=QString::number(checkConList[0]);
@@ -553,8 +553,18 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
         data["ImgAfterNumber"]=conTemp[3];
         data["ImgAfterISO"]=isoTemp[3];
         data["ImgAfterCheck"]=QString::number(checkConList[3]);
+
+        /*****************************
+        * @brief:202112181739
+        ******************************/
+        data["ImgProspectsNumber"]=conTemp[4];
+        data["ImgProspectsISO"]=isoTemp[4];
+        data["ImgProspectsCheck"]=QString::number(checkConList[4]);
+        data["ImgForegroundNumber"]=conTemp[5];
+        data["ImgForegroundISO"]=isoTemp[5];
+        data["ImgForegroundCheck"]=QString::number(checkConList[5]);
     }
-    else if (conTemp.count()==6) {
+    else if (conTemp.count()==8) {
         data["ImgFrontNumber"]=conTemp[0];
         data["ImgFrontISO"]=isoTemp[0];
         data["ImgFrontCheck"]=QString::number(checkConList[0]);
@@ -573,6 +583,16 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
         data["ImgAfterNumber"]=conTemp[5];
         data["ImgAfterISO"]=isoTemp[5];
         data["ImgAfterCheck"]=QString::number(checkConList[5]);
+
+        /*****************************
+        * @brief:202112181739
+        ******************************/
+        data["ImgProspectsNumber"]=conTemp[6];
+        data["ImgProspectsISO"]=isoTemp[6];
+        data["ImgProspectsCheck"]=QString::number(checkConList[6]);
+        data["ImgForegroundNumber"]=conTemp[7];
+        data["ImgForegroundISO"]=isoTemp[7];
+        data["ImgForegroundCheck"]=QString::number(checkConList[7]);
     }
 
     emit updateDataBaseSignal(data);

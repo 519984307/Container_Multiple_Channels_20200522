@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>ExitDialog</class>
  <widget class="QDialog" name="ExitDialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -29,6 +32,12 @@
    <iconset resource="../ico.qrc">
     <normaloff>:/UI_ICO/ICO/ICO.ico</normaloff>:/UI_ICO/ICO/ICO.ico</iconset>
   </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
     <widget class="QLabel" name="label">
@@ -38,13 +47,13 @@
       </font>
      </property>
      <property name="autoFillBackground">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 255, 0);</string>
      </property>
      <property name="text">
-      <string>Software exit, releasing internal resources, please wait!</string>
+      <string/>
      </property>
      <property name="scaledContents">
       <bool>true</bool>

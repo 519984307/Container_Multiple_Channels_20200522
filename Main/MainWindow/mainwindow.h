@@ -53,7 +53,6 @@
 #include "DataProcessing/dataprocessing.h"
 #include "alarmform.h"
 #include "errorform.h"
-#include "exitdialog.h"
 
 #ifdef Q_OS_WIN
 #include "windows.h"
@@ -80,7 +79,6 @@ protected:
     void resizeEvent(QResizeEvent* event)Q_DECL_OVERRIDE;
 
 private:
-
     /*****************************
     * func
     ******************************/

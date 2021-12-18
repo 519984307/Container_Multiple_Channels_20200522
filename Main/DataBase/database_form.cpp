@@ -158,6 +158,26 @@ void DataBase_Form::showImgaes(const QModelIndex &index)
             ui->image_label_7->setPalette(palette);
         }
     }
+
+    /*****************************
+    * @brief:202112181747
+    ******************************/
+    imgTmp=index.sibling(index.row(),ImgProspects).data().toString();
+    if(imgTmp!=""){
+        imgMap.insert(8,QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)));
+        if(labelPix->load(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)))){
+            palette.setBrush(QPalette::Background, QBrush(labelPix.data()->scaled(ui->image_label_8->size(), Qt::IgnoreAspectRatio)));
+            ui->image_label_8->setPalette(palette);
+        }
+    }
+    imgTmp=index.sibling(index.row(),ImgForeground).data().toString();
+    if(imgTmp!=""){
+        imgMap.insert(9,QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)));
+        if(labelPix->load(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgTmp)))){
+            palette.setBrush(QPalette::Background, QBrush(labelPix.data()->scaled(ui->image_label_9->size(), Qt::IgnoreAspectRatio)));
+            ui->image_label_9->setPalette(palette);
+        }
+    }
 }
 
 void DataBase_Form::slot_filterData(QString data)
@@ -288,7 +308,11 @@ void DataBase_Form::slot_returnModel(QSqlTableModel *ml)
     ui->tableView->setColumnHidden(ImgRightAfterISO,true);
     ui->tableView->setColumnHidden(ImgAfterISO,true);
     ui->tableView->setColumnHidden(ImgProspects,true);
+    ui->tableView->setColumnHidden(ImgProspectsCheck,true);
+    ui->tableView->setColumnHidden(ImgProspectsNumber,true);
     ui->tableView->setColumnHidden(ImgForeground,true);
+    ui->tableView->setColumnHidden(ImgForegroundCheck,true);
+    ui->tableView->setColumnHidden(ImgForegroundNumber,true);
     ui->tableView->setColumnHidden(ImgTop1,true);
     ui->tableView->setColumnHidden(ImgFrontISO,true);
     ui->tableView->setColumnHidden(ImgTop2,true);
@@ -469,6 +493,25 @@ void DataBase_Form::on_tableView_clicked(const QModelIndex &index)
     else {
         ui->result_lineEdit_6->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
     }
+
+    /*****************************
+    * @brief:20211218
+    ******************************/
+    ui->result_lineEdit_8->setText(index.sibling(index.row(),ImgProspectsNumber).data().toString()+" | "+index.sibling(index.row(),ImgProspectsISO).data().toString());
+    if(index.sibling(index.row(),ImgProspectsCheck).data().toBool()){
+        ui->result_lineEdit_8->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+    }
+    else {
+        ui->result_lineEdit_8->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+    }
+    ui->result_lineEdit_9->setText(index.sibling(index.row(),ImgForegroundNumber).data().toString()+" | "+index.sibling(index.row(),ImgForegroundISO).data().toString());
+    if(index.sibling(index.row(),ImgForegroundCheck).data().toBool()){
+        ui->result_lineEdit_9->setStyleSheet("background-color: rgb(0, 170, 0);color: rgb(255, 255, 255);");
+    }
+    else {
+        ui->result_lineEdit_9->setStyleSheet("background-color: rgb(255, 0, 0);color: rgb(255, 255, 255);");
+    }
+
 
     /* Tupe,集装箱类别:
      * -1 – 未知

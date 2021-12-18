@@ -34,12 +34,10 @@ MainWindow::~MainWindow()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(isExit){
-
-        QSharedPointer<ExitDialog> exit = QSharedPointer<ExitDialog>(new ExitDialog (this));
-        exit->show();
-        //SystemTray->showMessage(LocalPar::copyright,tr("系统正在释放内部资源，请稍后"),QSystemTrayIcon::Information,60000);
+        SystemTray->showMessage(LocalPar::copyright,tr("系统正在释放内部资源，请稍后"),QSystemTrayIcon::Information,60000);
 
         this->hide();
+
         clearnContainer();
         event->accept();
         QWidget::closeEvent(event);
@@ -1018,11 +1016,16 @@ void MainWindow::bindingPlugin()
                     ******************************/
                     connect(pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::signal_exceptionCode,this,&MainWindow::slot_exceptionCode);
                     connect(this,&MainWindow::signal_exceptionCode,pLoadinglibaray->IMiddlewareLit.at(ind).data(),&IMiddleware::slot_exceptionCode);
+
+                    /*****************************
+                    * @brief:20211218
+                    ******************************/
+                    connect(this,&MainWindow::signal_setPlateCaptureType,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::setCaptureTypeSlot);
                 }
                 connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->ILicensePlateList.at(ind-1).data(),&LicensePlateInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
             }
             connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::releaseResourcesSlot,Qt::BlockingQueuedConnection);
-            connect(this,&MainWindow::signal_setPlateCaptureType,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::setCaptureTypeSlot);
+            //connect(this,&MainWindow::signal_setPlateCaptureType,pLoadinglibaray->IMiddlewareLit.at(var).data(),&IMiddleware::setCaptureTypeSlot);
         }
     }
     else {

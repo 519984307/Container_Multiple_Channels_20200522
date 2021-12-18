@@ -79,7 +79,13 @@ void DataBaseRead::initDataBaseSlot(const QString &connectName,const QString &us
                       `ImgRightAfterISO` TEXT,\
                       `ImgAfterISO` TEXT,\
                       `ImgProspects` TEXT,\
+                      'ImgProspectsCheck'  INTEGER,\
+                      `ImgProspectsNumber`	TEXT,\
+                      'ImgProspectsISO' TEXT,\
                       `ImgForeground` TEXT,\
+                      'ImgForegroundCheck'  INTEGER,\
+                      'ImgForegroundNumber'	TEXT,\
+                      'ImgForegroundISO' TEXT,\
                       `ImgTop1` TEXT,\
                       `ImgTop2` TEXT,\
                       `PlateColor`	TEXT\

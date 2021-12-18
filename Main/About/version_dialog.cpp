@@ -21,6 +21,7 @@ Version_Dialog::Version_Dialog(QWidget *parent) :
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.13_2110221125","修复已知问题，删除跟车逻辑，暂不处理"));
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.14_2110222223","修复已知问题"));
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.15_2110251729","修复已知车牌相机心跳包问题"));
+    ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.18_2112181549","增加前景和后景相机抓图识别"));
 }
 
 Version_Dialog::~Version_Dialog()
