@@ -11,6 +11,7 @@
 #include <QDir>
 #include <QtConcurrent>
 #include <QTimer>
+#include <QThread>
 
 #include "Parameter/channelparameter.h"
 #include "Parameter/LocalPar.h"
@@ -180,11 +181,6 @@ private:
     /// \brief sendDataOutTimer 超时发送接口数据
     ///
     QTimer *sendDataOutTimer;
-
-    ///
-    /// \brief getLastPlate ZS相机获取车牌结果状态
-    ///
-    bool getLastPlate;
 
     ///
     /// \brief logicStatus 手动抓拍，红外状态就绪

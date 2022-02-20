@@ -679,7 +679,7 @@ void TheMiddlewareHCNET::initVideoStream(int ID, bool play)
         NET_DVR_PREVIEWINFO struPlayInfo = {};
         struPlayInfo.hPlayWnd= nullptr;
         struPlayInfo.lChannel     = 1;       /* 预览通道号 */
-        struPlayInfo.dwStreamType = 1;       /* 0-主码流，1-子码流，2-码流3，3-码流4，以此类推 */
+        struPlayInfo.dwStreamType = 2;       /* 0-主码流，1-子码流，2-码流3，3-码流4，以此类推 */
         struPlayInfo.dwLinkMode   = 0;       /* 0- TCP方式，1- UDP方式，2- 多播方式，3- RTP方式，4-RTP/RTSP，5-RSTP/HTTP */
         struPlayInfo.bBlocked     = 0;       /* 0- 非阻塞取流，1- 阻塞取流 */
 

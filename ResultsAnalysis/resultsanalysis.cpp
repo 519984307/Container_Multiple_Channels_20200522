@@ -208,18 +208,46 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
 
     int conType=type;  /* 逻辑类型 */
 
-    for(auto var:resultMap.values()){
-        if(var.startsWith("RESULT")){
-            QStringList tmp=var.split(":")[1].split("|");
+    for(auto ind:resultMap.keys()){
+        if(resultMap.value(ind).startsWith("RESULT")){
+            QStringList tmp=resultMap.value(ind).split(":")[1].split("|");
             if(tmp.count()==4){
-                conTemp.append(tmp[0].trimmed());/* 箱号 */
-                isoTemp.append(tmp[1]);/* 箱型 */
-                checkConList.append(numberCheck(tmp[0].trimmed()));/* 校验结果 */
-                conProbabilityTemp.append(tmp[2].toUInt());/* 箱号置信度 */
-                isoProbabilityTemp.append(tmp[3].toUInt()/*-1!=ISOContains.indexOf(tmp[1])?tmp[3].toUInt():0*/);/* 箱型置信度 */
+                qDebug()<<ind<<":"<<resultMap.value(ind);
+
+                /*****************************
+                 * 20220220
+                * @brief:第8张图为前箱图片，第9张为后箱图片，默认追加
+                ******************************/
+                if(ind==8){
+                    conTemp.insert(3,tmp[0].trimmed());/* 箱号 */
+                    isoTemp.insert(3,tmp[1]);/* 箱型 */
+                    checkConList.insert(3,numberCheck(tmp[0].trimmed()));/* 校验结果 */
+                    conProbabilityTemp.insert(3,tmp[2].toUInt());/* 箱号置信度 */
+                    isoProbabilityTemp.insert(3,tmp[3].toUInt()/*-1!=ISOContains.indexOf(tmp[1])?tmp[3].toUInt():0*/);/* 箱型置信度 */
+                }
+                else {
+                    conTemp.append(tmp[0].trimmed());/* 箱号 */
+                    isoTemp.append(tmp[1]);/* 箱型 */
+                    checkConList.append(numberCheck(tmp[0].trimmed()));/* 校验结果 */
+                    conProbabilityTemp.append(tmp[2].toUInt());/* 箱号置信度 */
+                    isoProbabilityTemp.append(tmp[3].toUInt()/*-1!=ISOContains.indexOf(tmp[1])?tmp[3].toUInt():0*/);/* 箱型置信度 */
+                }
             }
         }
     }
+
+//    for(auto var:resultMap.values()){
+//        if(var.startsWith("RESULT")){
+//            QStringList tmp=var.split(":")[1].split("|");
+//            if(tmp.count()==4){
+//                conTemp.append(tmp[0].trimmed());/* 箱号 */
+//                isoTemp.append(tmp[1]);/* 箱型 */
+//                checkConList.append(numberCheck(tmp[0].trimmed()));/* 校验结果 */
+//                conProbabilityTemp.append(tmp[2].toUInt());/* 箱号置信度 */
+//                isoProbabilityTemp.append(tmp[3].toUInt()/*-1!=ISOContains.indexOf(tmp[1])?tmp[3].toUInt():0*/);/* 箱型置信度 */
+//            }
+//        }
+//    }
 
     /* 没有识别到箱型代码就默认指定一个 */
     bool notISO=true;
@@ -285,9 +313,10 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
                 isOne=true;
             }
             else if(conTemp[Cindex1]!=conTemp[Cindex2] && !conTemp[Cindex1].isEmpty() && !conTemp[Cindex2].isEmpty()){/* 前后相同修正长箱 */
-                if(ConsecutiveLCS(conTemp[Cindex1],conTemp[Cindex2])<=2){/* 两个箱号相似度大于2,判定为一个集装箱 */
+                if(ConsecutiveLCS(conTemp[Cindex1],conTemp[Cindex2])<=2){/* 两个箱号相似度小于2,判定为一个集装箱 */
                     isOne=true;
                 }
+
             }
             else if(conTemp[Cindex2].isEmpty() || conTemp[Cindex1].isEmpty()){/* 前后有空修装小箱 */
                 if(type!=2){
@@ -344,6 +373,38 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
         }
         emit containerSignal(conType,conTemp[Cindex1],checkConList[Cindex1],isoTemp[Iindex1]);
     }
+
+    //    /*****************************
+    //     * 20220220
+    //    * @brief:方便数据写入数据库
+    //    ******************************/
+    //    conTemp.clear();
+    //    isoTemp.clear();
+    //    checkConList.clear();
+    //    conProbabilityTemp.clear();
+    //    isoProbabilityTemp.clear();
+
+    //    for(auto var:resultMap.values()){
+    //        if(var.startsWith("RESULT")){
+    //            QStringList tmp=var.split(":")[1].split("|");
+    //            if(tmp.count()==4){
+    //                conTemp.append(tmp[0].trimmed());/* 箱号 */
+    //                isoTemp.append(tmp[1]);/* 箱型 */
+    //                checkConList.append(numberCheck(tmp[0].trimmed()));/* 校验结果 */
+    //                conProbabilityTemp.append(tmp[2].toUInt());/* 箱号置信度 */
+    //                isoProbabilityTemp.append(tmp[3].toUInt()/*-1!=ISOContains.indexOf(tmp[1])?tmp[3].toUInt():0*/);/* 箱型置信度 */
+    //            }
+    //        }
+    //    }
+
+    //    /*****************************
+    //    * @brief:conTemp结果集在处理时经过排序，这里需要恢复下标
+    //    ******************************/
+    //    if(conTemp.size()==8){
+    //        Cindex1=Cindex1==3?6:Cindex1;
+    //        Iindex1=Iindex1==3?6:Iindex1;
+    //    }
+
     updateDataBase(conType,Cindex1,Iindex1,Cindex2,Iindex2,imgNameMap);
 
     conTemp.clear();
@@ -419,36 +480,68 @@ QList<int> ResultsAnalysis::checkContainerNumber(int start, int end)
             }
         }
     }
-    for (int var = start; var < end; ++var) {/* 箱型校验 */
-        if(isoProbabilityTemp[var]>Iprobability){
-            Iprobability=isoProbabilityTemp[var];/* 比对箱型置信度 */
-            Iindex=var;
+
+    /*****************************
+    * @brief:帅选箱型重复项
+    * 202202201807
+    ******************************/
+    numberList=queueContainerNumber(isoTemp.mid(start,end));
+    if(numberList.count()==1){/* 有多组相同箱型，直接返回*/
+        for (int var = start; var < end; ++var) {
+            if(numberList[0]==isoTemp[var]){
+                Iindex=var;
+            }
         }
     }
+    else {
+        for (int var = start; var < end; ++var) {/* 箱型校验 */
+            if(isoProbabilityTemp[var]>Iprobability){
+                Iprobability=isoProbabilityTemp[var];/* 比对箱型置信度 */
+                Iindex=var;
+            }
+        }
+    }
+
     return checkResult<<Cindex<<Iindex;
 }
 
 int ResultsAnalysis::ConsecutiveLCS(QString rs1, QString rs2)
 {
-    int len1=rs1.size();
-    int len2=rs2.size();
-    QVector<QVector<int>> dp(len1+1,QVector<int>(len2+1,0));
-    dp[0][0]=0;
-    for (int i = 1; i <= len2; ++i)
-        dp[0][i] = i;
-    for (int i = 1; i <= len1; ++i)
-        dp[i][0] = i;
-    for (int i = 1; i <= len1; ++i)
-    {
-        for (int j = 1; j <= len2; ++j)
-        {
-            int one = dp[i - 1][j] + 1, two = dp[i][j - 1] + 1, three = dp[i - 1][j - 1];
-            if (rs1[i - 1] != rs2[j - 1])
-                three += 1;
-            dp[i][j] = qMin(qMin(one, two), three);
+    int cot=0;
+    int len=0;
+    if(rs1.size()-rs2.size()<0){
+        len=rs1.size();
+    }
+    else {
+        len=rs2.size();
+    }
+
+    for(int i=0;i<len;i++){
+        if(rs1.at(i)!=rs2.at(i)){
+            cot++;
         }
     }
-    return dp[len1][len2];
+
+    return cot;
+//    int len1=rs1.size();
+//    int len2=rs2.size();
+//    QVector<QVector<int>> dp(len1+1,QVector<int>(len2+1,0));
+//    dp[0][0]=0;
+//    for (int i = 1; i <= len2; ++i)
+//        dp[0][i] = i;
+//    for (int i = 1; i <= len1; ++i)
+//        dp[i][0] = i;
+//    for (int i = 1; i <= len1; ++i)
+//    {
+//        for (int j = 1; j <= len2; ++j)
+//        {
+//            int one = dp[i - 1][j] + 1, two = dp[i][j - 1] + 1, three = dp[i - 1][j - 1];
+//            if (rs1[i - 1] != rs2[j - 1])
+//                three += 1;
+//            dp[i][j] = qMin(qMin(one, two), three);
+//        }
+//    }
+//    return dp[len1][len2];
 }
 
 QString ResultsAnalysis::queueContainerStart(QStringList conList)
@@ -505,9 +598,47 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
 
     emit resultsAnalysisStateSignal(channel,QString("%1 start").arg(dateTime));/* 日志起始 */
 
+    /*****************************
+     * 202202201511
+    * @brief:识别结果集编号1，2，3，8，4，5，6，9
+    * 图片编号1，2，3，4，5，6，8，9
+    ******************************/
     for (int var = 0; var < conTemp.count(); ++var) {
         /* 识别结果写入日志,[标志|时间戳|通道号(2位)|相机号(2位)|箱号|校验|箱型] */
-        QString result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(imgMap.keys().at(var),2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
+        QString result="";
+        /*****************************
+        * @brief:双箱和长箱第8张图是前箱
+        * 202202201946
+        ******************************/
+        if(imgMap.keys().size()==8){
+            if(var==3){
+                result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(8,2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
+            }
+            else if (var==7) {
+                result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(9,2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
+            }
+            else if(var<3){
+                result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(var+1,2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
+            }
+            else {
+                result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(var,2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
+            }
+        }
+        else {
+            if(var==3){
+                result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(6,2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
+            }
+            else if (var==4) {
+                result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(8,2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
+            }
+            else if(var==5){
+                result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(9,2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
+            }
+            else {
+                result=QString("[%1|%2|%3|%4|%5|%6|%7]").arg("I").arg(time).arg(channel,2,10,QLatin1Char('0')).arg(var+1,2,10,QLatin1Char('0')).arg(conTemp[var]).arg(checkConList[var]?"Y":"N").arg(isoTemp[var]);
+            }
+        }
+
         emit resultsAnalysisStateSignal(channel,result);
         if(sendMid){
             emit sendResultSignal(channel,result);
@@ -574,22 +705,23 @@ void ResultsAnalysis::updateDataBase(int type, int Cindex1,int Iindex1, int Cind
         data["ImgRightFrontNumber"]=conTemp[2];
         data["ImgRightFrontISO"]=isoTemp[2];
         data["ImgRightFrontCheck"]=QString::number(checkConList[2]);
-        data["ImgLeftAfterNumber"]=conTemp[3];
-        data["ImgLeftAfterISO"]=isoTemp[3];
-        data["ImgLeftAfterCheck"]=QString::number(checkConList[3]);
-        data["ImgRightAfterNumber"]=conTemp[4];
-        data["ImgRightAfterISO"]=isoTemp[4];
-        data["ImgRightAfterCheck"]=QString::number(checkConList[4]);
-        data["ImgAfterNumber"]=conTemp[5];
-        data["ImgAfterISO"]=isoTemp[5];
-        data["ImgAfterCheck"]=QString::number(checkConList[5]);
+
+        data["ImgLeftAfterNumber"]=conTemp[4];
+        data["ImgLeftAfterISO"]=isoTemp[4];
+        data["ImgLeftAfterCheck"]=QString::number(checkConList[4]);
+        data["ImgRightAfterNumber"]=conTemp[5];
+        data["ImgRightAfterISO"]=isoTemp[5];
+        data["ImgRightAfterCheck"]=QString::number(checkConList[5]);
+        data["ImgAfterNumber"]=conTemp[6];
+        data["ImgAfterISO"]=isoTemp[6];
+        data["ImgAfterCheck"]=QString::number(checkConList[6]);
 
         /*****************************
         * @brief:202112181739
         ******************************/
-        data["ImgProspectsNumber"]=conTemp[6];
-        data["ImgProspectsISO"]=isoTemp[6];
-        data["ImgProspectsCheck"]=QString::number(checkConList[6]);
+        data["ImgProspectsNumber"]=conTemp[3];
+        data["ImgProspectsISO"]=isoTemp[3];
+        data["ImgProspectsCheck"]=QString::number(checkConList[3]);
         data["ImgForegroundNumber"]=conTemp[7];
         data["ImgForegroundISO"]=isoTemp[7];
         data["ImgForegroundCheck"]=QString::number(checkConList[7]);

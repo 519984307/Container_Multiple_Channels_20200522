@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.12.2, 2021-12-17T22:01:48. -->
+<!-- Written by QtCreator 4.12.2, 2022-02-19T23:47:36. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -144,8 +144,8 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
     <value type="bool">true</value>
     <value type="int" key="EnableQmlDebugging">2</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -318,8 +318,9 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/Container_Multiple_Channels_20200522/Main/Main.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/Container_Multiple_Channels_20200522/Main/Main.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Main2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/Container_Multiple_Channels_20200522-master/Container_Multiple_Channels_20200522-master/Main/Main.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Container_Multiple_Channels_20200522-master/Container_Multiple_Channels_20200522-master/Main/Main.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -330,7 +331,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release/Main</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_64_bit-Release/Main</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
@@ -398,8 +399,8 @@
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
     <value type="bool">true</value>
     <value type="int" key="EnableQmlDebugging">2</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_32_bit-Release</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_32_bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">D:\Users\cc\Documents\Qt\Container_Multiple_Channels_20200522\build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_32_bit-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">D:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_32_bit-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -572,8 +573,9 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/Container_Multiple_Channels_20200522/Main/Main.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/Container_Multiple_Channels_20200522/Main/Main.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Main2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/Container_Multiple_Channels_20200522-master/Container_Multiple_Channels_20200522-master/Main/Main.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/Container_Multiple_Channels_20200522-master/Container_Multiple_Channels_20200522-master/Main/Main.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -584,7 +586,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default"></value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">D:/Users/cc/Documents/Qt/Container_Multiple_Channels_20200522/build-Container_Multiple_Channels_20200522-Desktop_Qt_5_12_9_MinGW_32_bit-Release/Main</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

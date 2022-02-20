@@ -48,6 +48,10 @@ void DataProcessing::writeDataToLog(int channel_number, const QString &result)
 
 void DataProcessing::slot_containerResult(int channel, const QString &result)
 {
+    if(!conResult.isEmpty()){
+        slot_waitSendData();
+    }
+
     this->channel=channel;
     this->conResult=result;
 
@@ -63,15 +67,19 @@ void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString 
 {
     Q_UNUSED(isConCar);
 
+    if(!this->plateTime.isEmpty()){
+        slot_waitSendData();
+    }
+
     this->channel=channel;
     this->plate=plate;
     this->plateColor=color;
     this->plateTime=plateTime;
 
     /*****************************
-    * @brief:车辆混走，[排除空车牌和]蓝色车牌,没有考虑新能源车
+    * @brief:车辆混走，[排除空车牌和]蓝色车牌,没有考虑新能源车,场内车为蓝色车牌
     ******************************/
-    if(conResult.isEmpty() && color!="蓝"/* && !plate.isEmpty()*/){
+    if(conResult.isEmpty()/*&& color!="蓝"*//* && !plate.isEmpty()*/){
         emit signal_pollsForCarStatus(1);
     }
     else {

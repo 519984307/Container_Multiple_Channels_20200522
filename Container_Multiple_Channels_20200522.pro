@@ -5,7 +5,7 @@ SUBDIRS +=\
     DataInterRabbitMQ \
     #DecodingTheVideo \
     DecodingVideoHCNET \
-    Global \
+    #Global \
     InfraredLogic_IO \
     LicensePlateHCNET \
     #LicensePlateVZ \

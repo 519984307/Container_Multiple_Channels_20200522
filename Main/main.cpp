@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
 
     //连接LocalServer
-    QString serverName = "localserver";
+    QString serverName = "localserver-TEST";
     QLocalSocket socket;
     socket.connectToServer(serverName);
     if(socket.waitForConnected(1000)){

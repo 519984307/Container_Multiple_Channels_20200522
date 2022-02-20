@@ -70,7 +70,7 @@ public slots:
  * 92e8b6c3ae9bf38f45654695bc542842
 */
 
-//#define _ENCRYPTION_
+#define _ENCRYPTION_
 #ifdef _ENCRYPTION_
 #define EncryptionInterfaceIID "ZBY.ContainerServer.EncryptionInterface/0.0.0.2"
 #else
