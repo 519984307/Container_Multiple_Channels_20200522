@@ -56,6 +56,11 @@ public slots:
     ///
     void slot_waitSendData();
 
+    ///
+    /// \brief slot_readCarStatus 发送通道车辆状态
+    ///
+    void slot_readCarStatus(bool status);
+
 signals:
 
     ///
@@ -118,6 +123,11 @@ private:
     /// \brief lock 写入锁
     ///
     QReadWriteLock lock;
+
+    ///
+    /// \brief isConCar 拖箱状态
+    ///
+    bool isConCar;
 };
 
 #endif // DATAPROCESSING_H

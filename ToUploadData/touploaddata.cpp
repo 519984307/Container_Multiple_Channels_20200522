@@ -24,8 +24,10 @@ QString ToUploadData::InterfaceType()
     return QString("FTP");
 }
 
-void ToUploadData::InitializationParameterSlot(const QString &user, const QString &pass, const QString &path, const QString &host, const int &port)
+void ToUploadData::InitializationParameterSlot(const QString &user, const QString &pass, const QString &path,const bool &time,const QString &host, const int &port)
 {    
+    Q_UNUSED(time)
+
     remotePath=path;
 
     url.setScheme("ftp");
@@ -34,7 +36,23 @@ void ToUploadData::InitializationParameterSlot(const QString &user, const QStrin
     url.setUserName(user);
     url.setPassword(pass);
 
+    QSslConfiguration config=QSslConfiguration::defaultConfiguration();
+//    config.setProtocol(QSsl::AnyProtocol);
+//    config.setPeerVerifyMode(QSslSocket::VerifyNone);
+
+
+//    QList<QSslCertificate> certs = QSslCertificate::fromPath("certificate.crt");
+//    config.setCaCertificates(certs);
+
+
+    config.setPeerVerifyMode(QSslSocket::VerifyNone);
+    config.setProtocol(QSsl::TlsV1_1);
+
+
+    request.setSslConfiguration(config);
+
     pManager=new QNetworkAccessManager (this);
+
     connect(pManager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinishedSlot(QNetworkReply*)));
 }
 
@@ -56,6 +74,9 @@ void ToUploadData::uploadDataSlot(const QString &data)
     }
 
     url.setPath(QDir::toNativeSeparators(QString("%1/%2/%3").arg(remotePath).arg(QDateTime::currentDateTime().toString("yyyy-MM-dd")).arg(dataList[dataList.count()-1])));
+
+    //url.setPath(QDir::toNativeSeparators(QString("%1/%2").arg(remotePath).arg(dataList[dataList.count()-1])));
+
     request.setUrl(url);
 
     QNetworkReply* reply= pManager->put(request,file.readAll());

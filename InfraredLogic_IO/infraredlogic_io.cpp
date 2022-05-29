@@ -10,6 +10,7 @@ InfraredLogic_IO::InfraredLogic_IO(QObject *parent)
     pTcpClient=nullptr;
     pTimerAutoLink=nullptr;
     pCloseLEDTimer=nullptr;
+    pTimerStatus=nullptr;
 
     start=true;
     comming=false;
@@ -37,6 +38,14 @@ InfraredLogic_IO::~InfraredLogic_IO()
 QString InfraredLogic_IO::InterfaceType()
 {
     return QString("Protector_IO");
+}
+
+void InfraredLogic_IO::rebootSerialportSlot()
+{
+    if(pTcpClient!=nullptr && pTcpClient->isOpen()){
+        QString cmd=QString("AT+RST%2").arg(eol);
+        pTcpClient->write(cmd.toLatin1());
+    }
 }
 
 void InfraredLogic_IO::serialLogicSlot(int *sta)
@@ -491,6 +500,10 @@ void InfraredLogic_IO::startSlaveSlot(const QString &portName1, const QString &p
         pTimerAutoLink=new QTimer(this);
         pTimerAutoLink->setSingleShot(true);
 
+        pTimerStatus=new QTimer(this);
+        connect(pTimerStatus,&QTimer::timeout,this,&InfraredLogic_IO::rebootSerialportSlot);
+        pTimerStatus->start(600000);
+
         connect(pTcpClient,&QIODevice::readyRead,this,&InfraredLogic_IO::receiveDataSlot);
         connect(pTcpClient,&QAbstractSocket::connected,this,&InfraredLogic_IO::connectedSlot);
         connect(pTcpClient,&QAbstractSocket::disconnected,this,&InfraredLogic_IO::disconnectedSlot);
@@ -621,6 +634,10 @@ void InfraredLogic_IO::releaseResourcesSlot()
         pTimerAutoLink->stop();
     }
 
+    if(pTimerStatus!=nullptr){
+        pTimerStatus->stop();
+    }
+
     qDebug().noquote()<<QString("[%1] releaseResourcesSlot").arg(this->metaObject()->className());
 }
 
@@ -659,6 +676,13 @@ void InfraredLogic_IO::connectedSlot()
 {
     isConnected=true;
 
+    if(pTimerStatus!=nullptr){
+        if(pTimerStatus->isActive()){
+            pTimerStatus->stop();
+        }
+        pTimerStatus->start(600000);
+    }
+
     emit serialPortStateSignal(false,false,true);
 
     qDebug().noquote()<<QString("[%1] %2:%3 link successful").arg(this->metaObject()->className(),address,QString::number(port));
@@ -666,6 +690,13 @@ void InfraredLogic_IO::connectedSlot()
 
 void InfraredLogic_IO::receiveDataSlot()
 {
+    if(pTimerStatus!=nullptr){
+        if(pTimerStatus->isActive()){
+            pTimerStatus->stop();
+        }
+        pTimerStatus->start(600000);
+    }
+
     QByteArray buf=pTcpClient->readAll();
 
     /*****************************

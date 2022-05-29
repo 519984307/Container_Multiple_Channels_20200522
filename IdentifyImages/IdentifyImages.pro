@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       -= gui
+QT       += network
 
 CONFIG += plugin
 
@@ -12,7 +13,7 @@ TARGET = Recognizer
 TEMPLATE = lib
 
 CONFIG += skip_target_version_ext
-VERSION = 1.0.0.2
+VERSION = 1.0.0.29
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 DEFINES += IDENTIFYIMAGES_LIBRARY
@@ -30,11 +31,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         identifyimages.cpp \
-    recognition.cpp
+    recognition.cpp \
+    tcpclient.cpp
 
 HEADERS += \
         identifyimages.h \
-        identifyimages_global.h \ 
+        identifyimages_global.h \
+        tcpclient.h \
     recognizerinterface.h \
     recognition.h
 

@@ -72,6 +72,8 @@ private:
     ///
     /// \brief InitializationParameter 初始化参数
     /// \param number 通道号
+private slots:
+    void on_ControllerSignalMode_currentIndexChanged(int index);
     ///
     void InitializationParameter(int number);
 

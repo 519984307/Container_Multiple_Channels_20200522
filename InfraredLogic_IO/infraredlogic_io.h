@@ -67,6 +67,11 @@ private:
     QTimer* pCloseLEDTimer;
 
     ///
+    /// \brief pTimerStatus 网络控制器定时检测状态
+    ///
+    QTimer* pTimerStatus;
+
+    ///
     /// \brief channelNum 通道号
     ///
     int channelNum;
@@ -97,6 +102,11 @@ private:
     double A1ReleasrCap;
 
 private slots:
+
+    ///
+    /// \brief rebootSerialportSlot 重启串口
+    ///
+    void rebootSerialportSlot();
 
     ///
     /// \brief delayAfterCaptureSlot 延时抓拍后3张图片.

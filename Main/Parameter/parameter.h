@@ -88,9 +88,9 @@ namespace Parameter {
     extern QString FtpAddress;
 
     ///
-    /// \brief FtpLocalPath FTP本地图片路径
+    /// \brief FtpTimeDIC FTP远端时间文件夹路径
     ///
-    extern QString FtpLocalPath;
+    extern int FtpTimeDIC;
 
     ///
     /// \brief FtpPassword FTP密码
@@ -103,7 +103,7 @@ namespace Parameter {
     extern int FtpPort;
 
     ///
-    /// \brief FtpRemotePath FTP远端图片地址
+    /// \brief FtpRemotePath FTP远端指定文件夹路径
     ///
     extern QString FtpRemotePath;
 
@@ -280,6 +280,21 @@ namespace Parameter {
     /// \brief not_plate_color 接口协议不需要车牌颜色
     ///
     extern int not_plate_color;
+
+    ///
+    /// \brief same_plate_out 相同车牌输出间隔时间
+    ///
+    extern int same_plate_out;
+
+    ///
+    /// \brief dont_false_plate 过滤虚假车牌
+    ///
+    extern int dont_false_plate;
+
+    ///
+    /// \brief false_plate 虚假车牌
+    ///
+    extern QString false_plate;
 
     /*****************************
     * @brief:storage

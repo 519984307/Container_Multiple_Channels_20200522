@@ -10,7 +10,7 @@ TARGET = SignalControl_IO
 CONFIG += plugin
 
 CONFIG += skip_target_version_ext
-VERSION = 1.1.9.12
+VERSION = 1.1.9.14
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use

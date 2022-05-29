@@ -8,7 +8,6 @@ Channel_Setting_Form::Channel_Setting_Form(int number, QWidget *parent) :
     ui->setupUi(this);
 
     this->setAttribute(Qt::WA_DeleteOnClose,true);
-
     this->setParent(parent);
     this->setHidden(true);
     this->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
@@ -28,13 +27,13 @@ void Channel_Setting_Form::InitializationParameter(int number)
 {
     this->channel_number=number;
 
-    ui->serial_stackedWidget->setCurrentIndex(0);
-    ui->D1out_comboBox->setCurrentIndex(0);
-    ui->D2out_comboBox->setCurrentIndex(0);
-    ui->D3out_comboBox->setCurrentIndex(0);
-    ui->D4out_comboBox->setCurrentIndex(0);
-
     p_ChannelParameter=QSharedPointer<ChannelParameter>(new ChannelParameter());
+
+    ui->ControllerSignalMode->setCurrentIndex(p_ChannelParameter->ControllerSignalMode);
+    ui->D1out_comboBox->setCurrentIndex(p_ChannelParameter->D1out);
+    ui->D2out_comboBox->setCurrentIndex(p_ChannelParameter->D2out);
+    ui->D3out_comboBox->setCurrentIndex(p_ChannelParameter->D3out);
+    ui->D4out_comboBox->setCurrentIndex(p_ChannelParameter->D4out);
 
     /*****************************
     * @brief:创建配置文件夹
@@ -105,8 +104,6 @@ bool Channel_Setting_Form::loadParameter()
                     p_ChannelParameter->ProspectsPageState=getJsonValue("Other","ProspectsPageState",value.toObject()).toBool();
                     p_ChannelParameter->ForegroundPageState=getJsonValue("Other","ForegroundPageState",value.toObject()).toBool();
                     p_ChannelParameter->TopPageState=getJsonValue("Other","TopPageState",value.toObject()).toBool();
-
-                    qDebug()<<p_ChannelParameter->A1ReleasrCap;
 
                     /*****************************
                     * @brief:SerialPort
@@ -218,7 +215,6 @@ bool Channel_Setting_Form::writeParameterSlot()
     jsonChild.insert("Other",QJsonValue(jsonObj3));
 
 
-
     jsonObjRoot.insert(QString("Channel"),QJsonValue(jsonChild));
     jsonDoc.setObject(jsonObjRoot);
 
@@ -316,4 +312,25 @@ QVariant Channel_Setting_Form::getJsonValue(const QString &child, const QString 
         qDebug().noquote()<<QString("load Channel_%3.json value error:%1-%2").arg(child).arg(key).arg(this->channel_number);
     }
     return  QString("");
+}
+
+void Channel_Setting_Form::on_ControllerSignalMode_currentIndexChanged(int index)
+{
+    switch (index) {
+    case 0:
+        ui->groupBox_9->setEnabled(true);
+        ui->groupBox_10->setEnabled(false);
+        ui->groupBox_11->setEnabled(false);
+        break;
+    case 1:
+        ui->groupBox_9->setEnabled(false);
+        ui->groupBox_10->setEnabled(true);
+        ui->groupBox_11->setEnabled(false);
+        break;
+    case 2:
+        ui->groupBox_9->setEnabled(false);
+        ui->groupBox_10->setEnabled(false);
+        ui->groupBox_11->setEnabled(true);
+        break;
+    }
 }

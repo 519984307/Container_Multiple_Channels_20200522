@@ -277,8 +277,16 @@ void LicensePlateZS::receiveDataSlot()
     /*****************************
     * @brief:过滤掉配置回复
     ******************************/
-    if(buff.size()<=80){
-        buff.clear();
+//    if(buff.size()<=80){
+//        buff.clear();
+//    }
+    if(recvHead && buff.at(0)=='V' && buff.at(1)=='Z'){
+        memcpy(&recvLen,buff.mid(4,4),4);
+        nRecvLen=htonl(recvLen)+8;
+        if(nRecvLen==8){
+            buff.clear();
+            return;
+        }
     }
 
     if(!recvHead && buff.size()>0 && buff.at(0)=='V' && buff.at(1)=='Z'){
@@ -286,16 +294,27 @@ void LicensePlateZS::receiveDataSlot()
         recvHead=true;
         memcpy(&recvLen,buff.mid(4,4),4);
         nRecvLen=htonl(recvLen)+8;
-        qDebug()<<"nRecvLen:"<<nRecvLen;
-        qDebug().noquote()<<QString("[%3] %1:%2 get data size (%4)").arg(address,QString::number(port),this->metaObject()->className(),QString::number(nRecvLen));
 
+//        if(nRecvLen==8){
+//            buff.clear();
+//            return;
+//        }
+
+        if(nRecvLen<=80){
+            buff.clear();
+            recvData.clear();
+            recvLen=0;
+            nRecvLen=0;
+            recvHead=false;
+            return;
+        }
+        qDebug().noquote()<<QString("[%3] %1:%2 get data size (%4)").arg(address,QString::number(port),this->metaObject()->className(),QString::number(nRecvLen));
     }
 
     /*****************************
     * @brief:二进制数据模式
     ******************************/
     if(recvHead){
-
         if(buff.size()>0){
             recvData.append(buff);
         }
@@ -360,7 +379,7 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
     int pos=data.indexOf("\xFF\xD8");
 
     QString plateResult=QTextCodec::codecForName("GB2312")->toUnicode(data.mid(0,pos));
-    qDebug()<<"plateResult:"<<plateResult;
+    //qDebug()<<"plateResult:"<<plateResult;
 
     QJsonParseError jsonError;
     QJsonDocument jsonDoc=QJsonDocument::fromJson(plateResult.toUtf8().data(),&jsonError);
@@ -450,9 +469,24 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
         break;
     }
 
-    std= plateResult.indexOf("license");
-    end= plateResult.indexOf(',',std);
-    license=plateResult.mid(std+10,end-std-11);
+//    std= plateResult.indexOf("license");
+//    end= plateResult.indexOf(',',std);
+//    license=plateResult.mid(std+10,end-std-11);
+
+//    int I=-1;
+//    int S= license.indexOf("1");
+//    if(S!=-1){
+//        I= license.indexOf("1",S+1);
+//    }
+//    int E= license.lastIndexOf("1");
+//    if(S!=E && E!=I){
+//        fullImg.clear();
+//        clipImg.clear();
+
+//        qDebug().noquote()<<QString("[%3] %4:%5 Filtering false license plates:%1-%2").arg(license,QDateTime::currentDateTime().toString("yyyy-M-d h:m:s"),this->metaObject()->className(),address,QString::number(port));
+
+//        return;
+//    }
 
     if(license.isEmpty()){
         license="无车牌";

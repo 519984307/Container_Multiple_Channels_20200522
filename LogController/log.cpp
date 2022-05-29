@@ -7,7 +7,7 @@ Log::Log(QString App, QObject *parent) : QObject(parent)
 
     QDateTime dateTime = QDateTime::currentDateTime();
     QString stringDateTime = dateTime.toString( "yyyy_MM_dd_hh_mm_ss" );
-    QString path = QStandardPaths::writableLocation( QStandardPaths::AppConfigLocation );
+    QString path = QStandardPaths::writableLocation( QStandardPaths::AppConfigLocation);
 
     QString logFolderName = path + "/" + "Debug_log";
     if( !QDir( logFolderName ).exists() )

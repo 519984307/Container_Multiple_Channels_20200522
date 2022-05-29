@@ -45,7 +45,7 @@ private:
     ///
     /// \brief plateTmpArr 车牌图片流，防止箱号图片检测清除掉
     ///
-    QByteArray plateTmpArr;
+    //QByteArray plateTmpArr;
 
     ///
     /// \brief simulationdialog 对话框状态
@@ -167,10 +167,10 @@ private:
     ///
     QFutureWatcher<void> *watcher;
 
-    ///
-    /// \brief LogicStateTmpList  红外临时状态，判断集装箱和车牌关系
-    ///
-    QVector<int> LogicStateTmpList;
+//    ///
+//    /// \brief LogicStateTmpList  红外临时状态，判断集装箱和车牌关系
+//    ///
+//    QVector<int> LogicStateTmpList;
 
     ///
     /// \brief logicStateTimer 定时检测红外状态
@@ -206,6 +206,31 @@ private:
     /// \brief isCar 集卡头
     ///
     bool isCar;
+
+    ///
+    /// \brief isWaitCon 持久等待箱号
+    ///
+    bool isWaitCon;
+
+    ///
+    /// \brief isCapSucess 抓拍逻辑完成不超时
+    ///
+    bool isCapSucess;
+
+    ///
+    /// \brief historyPlate 历史车牌
+    ///
+    QString historyPlate;
+
+    ///
+    /// \brief historyPlateTime 历史车牌时间
+    ///
+    QString historyPlateTime;
+
+    ///
+    /// \brief future 保持图片状态
+    ///
+    QFuture<void> future;
 
     ///
     /// \brief clearnPixmap 清除图片
@@ -262,9 +287,21 @@ signals:
     void signal_setDeviceStatus(int channel, int equipment,bool state);
 
     ///
+    /// \brief signal_sendCarStatus 发送通道车辆状态
+    ///
+    void signal_sendCarStatus(bool status);
+
+    ///
     /// \brief signal_waitSendData 等待发送数据
     ///
     void signal_waitSendData();
+
+    ///
+    /// \brief signal_clean_plate_con_test 清除车牌或图片信息
+    /// \param channelID
+    /// \param item
+    ///
+    void signal_clean_plate_con_test(const int channelID,const int item);
 
     /*****************************
     * @brief:箱号相机
@@ -279,7 +316,7 @@ signals:
     void signal_initCamer_foreground(const QString &localAddr,const QString &camerIP,const int &camerPort,const QString &CamerUser,const QString &CamerPow,const QString &signature);
 
     ///
-    /// \brief signal_container 结果传入手动抓拍页面
+    /// \brief signal_container 结果传入手动抓拍页面，和多通道主页面。
     /// \param type
     /// \param result1
     /// \param resultCheck1
@@ -427,7 +464,7 @@ signals:
     /// \param imgName  图片名
     /// \param imgNumber 图片编号
     ///
-    void signal_identifyImages(const QString &imgName,const int &imgNumber);
+    void signal_identifyImages(/*const QString &imgName,const int &imgNumber*/QMap<int,QString> imgMap);
 
 
     /*****************************
@@ -498,7 +535,7 @@ signals:
     void signal_openTheVideo(bool play,quint64 winID=0);
 
     ///
-    /// \brief signal_plate 车牌结果写入主页面
+    /// \brief signal_plate 结果传入手动抓拍页面和多通道主页面
     /// \param channelID
     /// \param plate
     /// \param color

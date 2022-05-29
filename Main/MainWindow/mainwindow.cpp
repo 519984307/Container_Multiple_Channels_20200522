@@ -123,7 +123,7 @@ void MainWindow::initializing()
     /*****************************
     * @brief:初始化FTP
     ******************************/
-    emit signal_InitializationFTPParameter(Parameter::FtpUser,Parameter::FtpPassword,Parameter::FtpRemotePath,Parameter::FtpAddress,Parameter::FtpPort);
+    emit signal_InitializationFTPParameter(Parameter::FtpUser,Parameter::FtpPassword,Parameter::FtpRemotePath,Parameter::FtpTimeDIC,Parameter::FtpAddress,Parameter::FtpPort);
 
     /*****************************
     * @brief:初始化加密,默认单通道，不比对加密狗
@@ -456,6 +456,7 @@ void MainWindow::connectProcess()
             connect(from,&Channel_Data_Form::signal_container,p_Equipment_State_Form,&Equipment_State_From::slot_container);
             connect(from,&Channel_Data_Form::signal_plate,p_Equipment_State_Form,&Equipment_State_From::slot_plate);
             connect(from,&Channel_Data_Form::signal_channelState,p_Equipment_State_Form,&Equipment_State_From::slot_channelState);
+            connect(from,&Channel_Data_Form::signal_clean_plate_con_test,p_Equipment_State_Form,&Equipment_State_From::slot_clean_plate_con_test);
         }
     }
 
@@ -903,6 +904,7 @@ void MainWindow::bindingPlugin()
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_identifyStream,pLoadinglibaray->IRecognizerList.at(var).data(),&RecognizerInterface::identifyStreamSlot);
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_identifyImages,pLoadinglibaray->IRecognizerList.at(var).data(),&RecognizerInterface::identifyImagesSlot);
             connect(pLoadinglibaray->IRecognizerList.at(var).data(),&RecognizerInterface::recognitionResultSignal,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_recognitionResult);
+            connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IRecognizerList.at(var).data(),&RecognizerInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
         }
     }
 
@@ -963,6 +965,10 @@ void MainWindow::bindingPlugin()
             * @brief:车牌结果
             ******************************/
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_plateSendData,DataProcessingList.at(var).data(),&DataProcessing::slot_plateResult);
+            /*****************************
+            * @brief:进车车辆拖箱状态
+            ******************************/
+            connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_sendCarStatus,DataProcessingList.at(var).data(),&DataProcessing::slot_readCarStatus);
         }
     }
 

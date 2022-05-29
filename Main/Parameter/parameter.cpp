@@ -32,7 +32,7 @@ namespace Parameter {
     int FtpPort= 21;
     int ReduceImage= 0;
     QString FtpAddress= QString("192.168.1.110");
-    QString FtpLocalPath= QString("./");
+    int FtpTimeDIC= 1;
     QString FtpPassword= QString("ABCabc123");    
     QString FtpRemotePath= QString("./");
     QString FtpUser= QString("admin");
@@ -78,6 +78,9 @@ namespace Parameter {
     int plate_timeout=10;
     int container_timeout=15;
     int not_plate_color=0;
+    int same_plate_out=10;
+    int dont_false_plate=0;
+    QString false_plate=QString("1");
     QString SingletonAddress= QString("");
     QString ManyCasesAddress= QString("");
     QString SingletonAddressMQ= QString("");

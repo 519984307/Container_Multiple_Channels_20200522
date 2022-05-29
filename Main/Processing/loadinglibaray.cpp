@@ -234,8 +234,8 @@ void LoadingLibaray::slot_createLibaray()
                 pResultsAnalysisInterface=nullptr;
             }
             else if (ToUploadDataInterface *pToUploadDataInterface=qobject_cast<ToUploadDataInterface*>(plugin)) {
-                if("FTP"==pToUploadDataInterface->InterfaceType()){/* 上传图片 */
-                    loadMisarrangement(pluginName,"FTP");
+                if("FTP_2"==pToUploadDataInterface->InterfaceType()){/* 上传图片 */
+                    loadMisarrangement(pluginName,"FTP_2");
                     pluginsNum=1;
                 }
                 pToUploadDataInterface=nullptr;

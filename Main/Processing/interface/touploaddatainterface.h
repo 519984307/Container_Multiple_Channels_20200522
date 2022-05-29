@@ -41,13 +41,13 @@ public slots:
     /// \param user 用户名
     /// \param pass 密码
     ///
-    virtual void InitializationParameterSlot(const QString &user,const QString &pass,const QString &path,const QString &host,const int &port=21)=0;
+    virtual void InitializationParameterSlot(const QString &user,const QString &pass,const QString &path,const bool &time,const QString &host,const int &port=21)=0;
 
     ///
     /// \brief uploadDataSlot 上传数据
     /// \param data 数据
     ///
-   virtual void uploadDataSlot(const QString &data)=0;
+    virtual void uploadDataSlot(const QString &data)=0;
 
     ///
     /// \brief releaseResourcesSlot 释放动态库资源
@@ -55,7 +55,7 @@ public slots:
     virtual void releaseResourcesSlot()=0;
 };
 
-#define ToUploadDataInterfaceIID "ZBY.ContainerServer.ToUploadDataInterface/1.3.3"
+#define ToUploadDataInterfaceIID "ZBY.ContainerServer.ToUploadDataInterface/1.3.3.2"
 Q_DECLARE_INTERFACE(ToUploadDataInterface,ToUploadDataInterfaceIID);
 
 #endif // TOUPLOADDATAINTERFACE_H

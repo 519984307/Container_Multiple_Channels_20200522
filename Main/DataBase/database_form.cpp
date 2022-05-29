@@ -46,7 +46,12 @@ void DataBase_Form::InitializationWindow()
     ui->image_label_12->installEventFilter(this);
 
 
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    ui->tableView->horizontalHeader()->setMinimumSectionSize(100);
+    ui->tableView->verticalHeader()->setMinimumSectionSize(100);
+
+    //ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     /*****************************
     * @brief:初始化数据库,主页面已初始化。
     ******************************/
@@ -282,41 +287,53 @@ void DataBase_Form::slot_returnModel(QSqlTableModel *ml)
 
     ui->tableView->setModel(ml);
     ui->tableView->setColumnHidden(ID,true);
+
     ui->tableView->setColumnHidden(ImgFront,true);
     ui->tableView->setColumnHidden(ImgFrontCheck,true);
     ui->tableView->setColumnHidden(ImgFrontNumber,true);
+
     ui->tableView->setColumnHidden(ImgLeftFront,true);
     ui->tableView->setColumnHidden(ImgLeftFrontCheck,true);
     ui->tableView->setColumnHidden(ImgLeftFrontNumber,true);
+
     ui->tableView->setColumnHidden(ImgRightFront,true);
     ui->tableView->setColumnHidden(ImgRightFrontCheck,true);
     ui->tableView->setColumnHidden(ImgRightFrontNumber,true);
+
     ui->tableView->setColumnHidden(ImgLeftAfter,true);
     ui->tableView->setColumnHidden(ImgLeftAfterCheck,true);
     ui->tableView->setColumnHidden(ImgLeftAfterNumber,true);
+
     ui->tableView->setColumnHidden(ImgRightAfter,true);
     ui->tableView->setColumnHidden(ImgRightAfterCheck,true);
     ui->tableView->setColumnHidden(ImgRightAfterNumber,true);
+
     ui->tableView->setColumnHidden(ImgAfter,true);
     ui->tableView->setColumnHidden(ImgAfterCheck,true);
     ui->tableView->setColumnHidden(ImgAfterNumber,true);
+
     ui->tableView->setColumnHidden(PlateImg,true);    
+
     ui->tableView->setColumnHidden(ImgFrontISO,true);
     ui->tableView->setColumnHidden(ImgLeftFrontISO,true);
     ui->tableView->setColumnHidden(ImgRightFrontISO,true);
     ui->tableView->setColumnHidden(ImgLeftAfterISO,true);
     ui->tableView->setColumnHidden(ImgRightAfterISO,true);
     ui->tableView->setColumnHidden(ImgAfterISO,true);
+
     ui->tableView->setColumnHidden(ImgProspects,true);
     ui->tableView->setColumnHidden(ImgProspectsCheck,true);
     ui->tableView->setColumnHidden(ImgProspectsNumber,true);
+    ui->tableView->setColumnHidden(ImgProspectsISO,true);
+
     ui->tableView->setColumnHidden(ImgForeground,true);
     ui->tableView->setColumnHidden(ImgForegroundCheck,true);
     ui->tableView->setColumnHidden(ImgForegroundNumber,true);
+    ui->tableView->setColumnHidden(ImgForegroundISO,true);
+
     ui->tableView->setColumnHidden(ImgTop1,true);
-    ui->tableView->setColumnHidden(ImgFrontISO,true);
     ui->tableView->setColumnHidden(ImgTop2,true);
-    ui->tableView->setColumnHidden(PlateColor,true);
+    //ui->tableView->setColumnHidden(PlateColor,true);
 }
 
 void DataBase_Form::slot_statisticalData(int total, double correct, double error, double statistical)

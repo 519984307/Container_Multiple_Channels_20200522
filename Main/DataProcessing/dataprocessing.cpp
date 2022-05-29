@@ -65,7 +65,7 @@ void DataProcessing::slot_containerResult(int channel, const QString &result)
 
 void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString &plate, const QString &color, const QString &plateTime)
 {
-    Q_UNUSED(isConCar);
+    this->isConCar=isConCar;
 
     if(!this->plateTime.isEmpty()){
         slot_waitSendData();
@@ -79,7 +79,7 @@ void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString 
     /*****************************
     * @brief:车辆混走，[排除空车牌和]蓝色车牌,没有考虑新能源车,场内车为蓝色车牌
     ******************************/
-    if(conResult.isEmpty()/*&& color!="蓝"*//* && !plate.isEmpty()*/){
+    if(conResult.isEmpty()&& color!="蓝"/* && !plate.isEmpty()*/){
         emit signal_pollsForCarStatus(1);
     }
     else {
@@ -136,11 +136,24 @@ void DataProcessing::slot_waitSendData()
             if(!conResult.isEmpty()){
                 TMP_time=conResult.mid(3,14);
             }
+
+
+#ifndef sendCon
+            /*****************************
+            * @brief:贝奇要求发送拖箱状态 20220425
+            ******************************/
+            /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|车牌|颜色|拖箱状态] */
+            result=QString("[U|%1|%2|%3|%4|%5]").arg(TMP_time).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(plateColor).arg(isConCar);
+            if(Parameter::not_plate_color){
+                result=QString("[U|%1|%2|%3|%4]").arg(TMP_time).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(isConCar);
+            }
+#else
             /* 识别结果写入日志[标志|时间戳|通道号(2位)|逻辑|车牌|颜色] */
             result=QString("[U|%1|%2|%3|%4]").arg(TMP_time).arg(channel,2,10,QLatin1Char('0')).arg(plate).arg(plateColor);
             if(Parameter::not_plate_color){
                 result=QString("[U|%1|%2|%3]").arg(TMP_time).arg(channel,2,10,QLatin1Char('0')).arg(plate);
             }
+#endif
             emit signal_toSendData(channel,result);
             writeDataToLog(channel,result);
         }
@@ -231,8 +244,21 @@ void DataProcessing::slot_waitSendData()
                 break;
             }
 
-            jsonChild.insert("containerDoorFront",QDir::toNativeSeparators(QString("%1/%2/%3").arg(Parameter::FtpRemotePath,today,imgName_front)));
-            jsonChild.insert("containerDoorBack",QDir::toNativeSeparators(QString("%1/%2/%3").arg(Parameter::FtpRemotePath,today,imgName_back)));
+            if(Parameter::FtpTimeDIC){
+                /*****************************
+                * @brief:日期文件夹上传
+                ******************************/
+                jsonChild.insert("containerDoorFront",QDir::toNativeSeparators(QString("%1/%2").arg(today,imgName_front)));
+                jsonChild.insert("containerDoorBack",QDir::toNativeSeparators(QString("%1/%2").arg(today,imgName_back)));
+            }
+            else {
+                /*****************************
+                * @brief:指定文件夹上传
+                ******************************/
+                jsonChild.insert("containerDoorFront",QDir::toNativeSeparators(QString("%1/%2").arg(Parameter::FtpRemotePath,imgName_front)));
+                jsonChild.insert("containerDoorBack",QDir::toNativeSeparators(QString("%1/%2").arg(Parameter::FtpRemotePath,imgName_back)));
+            }
+
 
             //QtConcurrent::run(this,&DataProcessing::signal_toSendData,channel,QString(QJsonDocument(jsonChild).toJson()));
             emit signal_toSendData(channel,QString(QJsonDocument(jsonChild).toJson()));
@@ -295,5 +321,11 @@ void DataProcessing::slot_waitSendData()
     plateColor.clear();
     plateTime.clear();
 
+    isConCar=false;
     emit signal_pollsForCarStatus(-1);
+}
+
+void DataProcessing::slot_readCarStatus(bool status)
+{
+    this->isConCar=status;
 }

@@ -1,8 +1,8 @@
 #include <windows.h>
 
 VS_VERSION_INFO VERSIONINFO
-	FILEVERSION 2,2,2,3
-	PRODUCTVERSION 2,2,2,3
+	FILEVERSION 2,2,2,4
+	PRODUCTVERSION 2,2,2,4
 	FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
 	FILEFLAGS VS_FF_DEBUG
@@ -19,11 +19,11 @@ VS_VERSION_INFO VERSIONINFO
 			BEGIN
 				VALUE "CompanyName", "\0"
 				VALUE "FileDescription", "\0"
-				VALUE "FileVersion", "2.2.2.3\0"
+				VALUE "FileVersion", "2.2.2.4\0"
 				VALUE "LegalCopyright", "Copyright 2020 Shen zhen zhong bai yuan\0"
 				VALUE "OriginalFilename", "Cc1_LicensePlateHKd.dll\0"
 				VALUE "ProductName", "Cc1_LicensePlateHKd\0"
-				VALUE "ProductVersion", "2.2.2.3\0"
+				VALUE "ProductVersion", "2.2.2.4\0"
 			END
 		END
 		BLOCK "VarFileInfo"

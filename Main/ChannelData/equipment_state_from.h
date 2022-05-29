@@ -71,6 +71,13 @@ public slots:
     /// \param state
     ///
     void slot_channelState(const int &channelID,const int &state);
+
+    ///
+    /// \brief slot_clean_plate_con_test 清除车牌或图片信息
+    /// \param channelID
+    /// \param item
+    ///
+    void slot_clean_plate_con_test(const int channelID,const int item);
 };
 
 #endif // EQUIPMENT_STATE_FROM_H

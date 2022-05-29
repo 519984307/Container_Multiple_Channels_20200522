@@ -204,7 +204,7 @@ bool System_Setting_Form::loadParameter()
                     ******************************/
                     Parameter::Ftp=getJsonValue("Upload","Ftp",value.toObject()).toInt();
                     Parameter::FtpAddress= getJsonValue("Upload","FtpAddress",value.toObject()).toString();
-                    Parameter::FtpLocalPath= getJsonValue("Upload","FtpLocalPath",value.toObject()).toString();
+                    Parameter::FtpTimeDIC= getJsonValue("Upload","FtpTimeDIC",value.toObject()).toInt();
                     Parameter::FtpPassword= getJsonValue("Upload","FtpPassword",value.toObject()).toString();
                     Parameter::FtpPort= getJsonValue("Upload","FtpPort",value.toObject()).toInt();
                     Parameter::FtpRemotePath= getJsonValue("Upload","FtpRemotePath",value.toObject()).toString();
@@ -252,6 +252,9 @@ bool System_Setting_Form::loadParameter()
                     Parameter::plate_timeout=getJsonValue("Service","plate_timeout",value.toObject()).toInt();
                     Parameter::container_timeout=getJsonValue("Service","container_timeout",value.toObject()).toInt();
                     Parameter::not_plate_color=getJsonValue("Service","not_plate_color",value.toObject()).toInt();
+                    Parameter::same_plate_out=getJsonValue("Service","same_plate_out",value.toObject()).toInt();
+                    Parameter::dont_false_plate=getJsonValue("Service","dont_false_plate",value.toObject()).toInt();
+                    Parameter::false_plate=getJsonValue("Service","false_plate",value.toObject()).toString();
 
                     configurationFolder.close();
                     return true;
@@ -319,7 +322,7 @@ bool System_Setting_Form::writeParameterSlot()
     obj3.insert("FtpAddress",ui->FtpAddress->text());
     obj3.insert("FtpPort", ui->FtpPort->text().toInt());
     obj3.insert("FtpRemotePath",ui->FtpRemote->text());
-    obj3.insert("FtpLocalPath",ui->FtpLocal->text());
+    obj3.insert("FtpTimeDIC",(int)ui->time_Dic_checkBox->isChecked());
     obj3.insert("ReduceImage",(int)ui->ReduceImage->isChecked());
     obj3.insert("DatabaseType",ui->database_Type_comboBox->currentIndex());
     obj3.insert("databaseAddr",ui->database_Addr_lineEdit->text());
@@ -355,6 +358,11 @@ bool System_Setting_Form::writeParameterSlot()
     obj4.insert("plate_timeout",int(ui->plate_timeout_spinBox->value()));
     obj4.insert("container_timeout",int(ui->container_timeout_spinBox->value()));
     obj4.insert("not_plate_color",int(ui->plate_color_checkBox->isChecked()));
+    obj4.insert("same_plate_out",int(ui->same_plate_out_spinBox->value()));
+    obj4.insert("false_plate",ui->false_plate_lineEdit->text());
+    obj4.insert("dont_false_plate",int(ui->false_plate_checkBox->isChecked()));
+
+
     jsonChild.insert("Service",QJsonValue(obj4));
 
     /*****************************
@@ -532,6 +540,9 @@ void System_Setting_Form::parameterToUi()
     ui->plate_timeout_spinBox->setValue(Parameter::plate_timeout);
     ui->container_timeout_spinBox->setValue(Parameter::container_timeout);
     ui->plate_color_checkBox->setChecked(Parameter::not_plate_color);
+    ui->same_plate_out_spinBox->setValue(Parameter::same_plate_out);
+    ui->false_plate_lineEdit->setText(Parameter::false_plate);
+    ui->false_plate_checkBox->setChecked(Parameter::dont_false_plate);
 
     /*****************************
     * @brief:Upload
@@ -541,7 +552,7 @@ void System_Setting_Form::parameterToUi()
     ui->FtpPort->setText(QString::number(Parameter::FtpPort));
     ui->FtpUser->setText(Parameter::FtpUser);
     ui->FtpPassword->setText(Parameter::FtpPassword);
-    ui->FtpLocal->setText(Parameter::FtpLocalPath);
+    ui->time_Dic_checkBox->setChecked(Parameter::FtpTimeDIC);
     ui->FtpRemote->setText(Parameter::FtpRemotePath);   
     ui->database_Type_comboBox->setCurrentIndex(Parameter::DatabaseType);
     ui->database_Addr_lineEdit->setText(Parameter::databaseAddr);

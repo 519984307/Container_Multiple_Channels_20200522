@@ -181,6 +181,11 @@ private:
     /// \brief correctTheox 矫正箱型
     ///
     int correctTheox;
+
+    ///
+    /// \brief correctNUmber 箱号矫正
+    ///
+    QString correctNUmber;
 };
 
 #endif // RESULTSANALYSIS_H

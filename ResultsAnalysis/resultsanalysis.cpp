@@ -99,9 +99,28 @@ int ResultsAnalysis::computeQuadraticPower(int variable)
 
 bool ResultsAnalysis::numberCheck(QString number)
 {
+    correctNUmber=number;
+
     if(number.length()<10)/* 最后一位可以计算出来 */
     {
         return false;
+    }
+
+    /*****************************
+    * @brief:计算前4位为英文，后面位阿拉伯数字
+    * 202202221941
+    ******************************/
+    if(number.size()>=10){
+        for(int i=0;i<4;i++){
+            if(number.at(i)<'A'){
+                return false;
+            }
+        }
+        for(int i=4;i<number.size();i++){
+            if(number.at(i)>'9'){
+                return false;
+            }
+        }
     }
 
     int sum=0;
@@ -139,6 +158,7 @@ bool ResultsAnalysis::numberCheck(QString number)
     if(number.count()==10){
         if(correct){
             number=number.append(QString::number(die));
+            correctNUmber=number;
             return true;
         }
         return false;
@@ -148,6 +168,7 @@ bool ResultsAnalysis::numberCheck(QString number)
         if(0<=die && die <=9 && correct)
         {
             number[10]=die+'0';/* 矫正结果 */
+            correctNUmber=number;
             return true;
         }
         return false;
@@ -212,42 +233,48 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
         if(resultMap.value(ind).startsWith("RESULT")){
             QStringList tmp=resultMap.value(ind).split(":")[1].split("|");
             if(tmp.count()==4){
-                qDebug()<<ind<<":"<<resultMap.value(ind);
+                //qDebug()<<ind<<":"<<resultMap.value(ind);
 
                 /*****************************
                  * 20220220
                 * @brief:第8张图为前箱图片，第9张为后箱图片，默认追加
                 ******************************/
-                if(ind==8){
-                    conTemp.insert(3,tmp[0].trimmed());/* 箱号 */
-                    isoTemp.insert(3,tmp[1]);/* 箱型 */
-                    checkConList.insert(3,numberCheck(tmp[0].trimmed()));/* 校验结果 */
+                if(ind==8 && resultMap.keys().size()==8){
+
+                    bool check= numberCheck(tmp[0].trimmed());
+                    conTemp.insert(3,correctNUmber);/* 箱号 */
+                    if(correctNUmber!=tmp[0].trimmed()){
+                        checkConList.insert(3,1);/* 校验结果 */
+                    }
+                    else {
+                        checkConList.insert(3,check);/* 校验结果 */
+                    }
+
+                    isoTemp.insert(3,tmp[1]);/* 箱型 */                    
                     conProbabilityTemp.insert(3,tmp[2].toUInt());/* 箱号置信度 */
                     isoProbabilityTemp.insert(3,tmp[3].toUInt()/*-1!=ISOContains.indexOf(tmp[1])?tmp[3].toUInt():0*/);/* 箱型置信度 */
                 }
                 else {
-                    conTemp.append(tmp[0].trimmed());/* 箱号 */
+
+                    bool check= numberCheck(tmp[0].trimmed());
+                    conTemp.append(correctNUmber);/* 箱号 */
+                    if(correctNUmber!=tmp[0].trimmed()){
+                        checkConList.append(1);/* 校验结果 */
+                    }
+                    else {
+                        checkConList.append(check);/* 校验结果 */
+                    }
+
                     isoTemp.append(tmp[1]);/* 箱型 */
-                    checkConList.append(numberCheck(tmp[0].trimmed()));/* 校验结果 */
                     conProbabilityTemp.append(tmp[2].toUInt());/* 箱号置信度 */
                     isoProbabilityTemp.append(tmp[3].toUInt()/*-1!=ISOContains.indexOf(tmp[1])?tmp[3].toUInt():0*/);/* 箱型置信度 */
                 }
+                //qDebug()<<correctNUmber;
+                correctNUmber.clear();
             }
         }
     }
 
-//    for(auto var:resultMap.values()){
-//        if(var.startsWith("RESULT")){
-//            QStringList tmp=var.split(":")[1].split("|");
-//            if(tmp.count()==4){
-//                conTemp.append(tmp[0].trimmed());/* 箱号 */
-//                isoTemp.append(tmp[1]);/* 箱型 */
-//                checkConList.append(numberCheck(tmp[0].trimmed()));/* 校验结果 */
-//                conProbabilityTemp.append(tmp[2].toUInt());/* 箱号置信度 */
-//                isoProbabilityTemp.append(tmp[3].toUInt()/*-1!=ISOContains.indexOf(tmp[1])?tmp[3].toUInt():0*/);/* 箱型置信度 */
-//            }
-//        }
-//    }
 
     /* 没有识别到箱型代码就默认指定一个 */
     bool notISO=true;
@@ -313,9 +340,21 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
                 isOne=true;
             }
             else if(conTemp[Cindex1]!=conTemp[Cindex2] && !conTemp[Cindex1].isEmpty() && !conTemp[Cindex2].isEmpty()){/* 前后相同修正长箱 */
-                if(ConsecutiveLCS(conTemp[Cindex1],conTemp[Cindex2])<=2){/* 两个箱号相似度小于2,判定为一个集装箱 */
+                if(ConsecutiveLCS(conTemp[Cindex1],conTemp[Cindex2])<=1){/* 两个箱号相似度小于2,判定为一个集装箱 */
                     isOne=true;
                 }
+                if(ConsecutiveLCS(conTemp[Cindex1].mid(4,conTemp[Cindex1].size()-4),conTemp[Cindex2].mid(4,conTemp[Cindex2].size()-4))<=1){/* 两个箱号相似度小于2,判定为一个集装箱 */
+                    isOne=true;
+                }
+                if(conTemp[Cindex1].indexOf(conTemp[Cindex2])!=-1 || conTemp[Cindex2].indexOf(conTemp[Cindex1])!=-1){/* 一个箱号是另外一个箱号子集 */
+                    isOne=true;
+                }
+                /*****************************
+                * @brief:通过22判断小箱，如果一个为错，也判断成单箱
+                ******************************/
+//                if(checkConList[Cindex1] != checkConList[Cindex2]){
+//                    isOne=true;
+//                }
 
             }
             else if(conTemp[Cindex2].isEmpty() || conTemp[Cindex1].isEmpty()){/* 前后有空修装小箱 */
@@ -358,7 +397,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     else {        
         QList<int> checkResult;
         checkResult=checkContainerNumber(0,conTemp.size());
-        if(checkResult.size()==2){
+        if(checkResult.size()==2){            
             Cindex1=checkResult.at(0);
             Iindex1=checkResult.at(1);
         }
@@ -413,6 +452,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     conProbabilityTemp.clear();
     isoProbabilityTemp.clear();
     resultMap.clear();
+    correctNUmber.clear();
 }
 
 QList<int> ResultsAnalysis::checkContainerNumber(int start, int end)
@@ -423,63 +463,76 @@ QList<int> ResultsAnalysis::checkContainerNumber(int start, int end)
     QList<int> checkResult;
 
     QStringList numberList=queueContainerNumber(conTemp.mid(start,end));
-    if(numberList.count()==1){/* 有多组相同箱号，分析置信度和校验*/
+
+    if(numberList.size()==1 && numberList.at(0).size()>4){
+        QString number=numberList.at(0);
+        for(int i=0;i<4;i++){
+            if(number.at(i)<'A'){
+                numberList.clear();
+            }
+        }
+        for(int i=4;i<number.size();i++){
+            //qDebug()<<number.at(i);
+            if(number.at(i)>'9'){
+                numberList.clear();
+            }
+        }
+    }
+
+    if(numberList.count()==1 && numberList.at(0).size()==11){/* 有多组相同箱号，分析置信度和校验*/
         for (int var = start; var < end; ++var) {
             if(numberList[0]==conTemp[var]){
-                if(!checkConList[var]){
-                    check=false;
-                }
-                else {
-                   check=true;
-                }
+                check=true;
                 Cindex=var;
             }
         }
     }
+
     if(!check) {
 
         /*****************************
-        * @brief:箱号字头
+        * @brief:多次出现箱号字头
         ******************************/
-        QString startTmp= queueContainerStart(conTemp);
-
-        int i=0;
-        for (int var = start; var < end; ++var) {/* 箱号校验 */
-            if(checkConList[var]){/* 只有一个检验正确，直接输出 */
-                Cindex=var;
-                ++i;
+        QString startTmp= queueContainerStart(conTemp.mid(start,end));
+        for(int i=0;i<startTmp.size();i++){
+            if(startTmp.at(i)<'A' || startTmp.at(i)>'Z'){
+                startTmp.clear();
+                break;
             }
         }
-        if(i>1){
-            for (int var = start; var < end; ++var) {/* 箱号校验正确大于1个，对比置信度 */
-                if(checkConList[var] && conProbabilityTemp[var]>Cprobability){
-                    if(!startTmp.isEmpty()){
-                        if(!startTmp.isEmpty()){
-                            /*****************************
-                            * @brief:同一箱号字头多次出现，就以次字头为主
-                            ******************************/
-                            if(conTemp.at(var).startsWith(startTmp)){
-                                Cprobability=conProbabilityTemp[var];
-                                Cindex=var;
-                            }
-                        }
-                        else {
-                            Cprobability=conProbabilityTemp[var];
-                            Cindex=var;
-                        }
-                    }
+
+        /*****************************
+        * @brief:校验正确的个数
+        ******************************/
+        int i=0;
+
+        for (int var = start; var < end; ++var) {
+            if(!startTmp.isEmpty()){
+                if(conProbabilityTemp[var]>Cprobability && conTemp[var].mid(0,4)==startTmp && checkConList[var]){
+                    Cindex=var;
+                    Cprobability=conProbabilityTemp[var];
+                    ++i;
+                }
+            }
+            else {
+                if(checkConList[var] && conProbabilityTemp[var]>Cprobability){/* 没有相同字头，对比置信度和校验 */
+                    Cindex=var;
+                    Cprobability=conProbabilityTemp[var];
+                    ++i;
                 }
             }
         }
-        if(i==0){/* 箱号校验都错，直接对比置信度 */
+
+        if(i==0/* && startTmp.isEmpty()*/){/* 没有正确箱号，直接对比置信度 */
             for (int var = start; var < end; ++var) {
-                if(conProbabilityTemp[var]>Cprobability){/* 比对箱号置信度 */
-                    Cprobability=conProbabilityTemp[var];
+                if(conProbabilityTemp[var]>Cprobability){
                     Cindex=var;
+                    Cprobability=conProbabilityTemp[var];
                 }
             }
         }
     }
+
 
     /*****************************
     * @brief:帅选箱型重复项
@@ -509,6 +562,58 @@ int ResultsAnalysis::ConsecutiveLCS(QString rs1, QString rs2)
 {
     int cot=0;
     int len=0;
+
+    if(rs1.indexOf(rs2)!=-1){
+        return 0;
+    }
+
+    if(rs2.indexOf(rs1)!=-1){
+        return 0;
+    }
+
+    if(rs1.indexOf(rs2.mid(4,rs2.size()-4))!=-1){
+        return 0;
+    }
+
+    if(rs2.indexOf(rs1.mid(4,rs1.size()-4))!=-1){
+        return 0;
+    }
+
+    if(rs1.size()==11 && rs2.size()==11){
+        for(int i=0;i<4;i++){
+            if(rs1.at(i)!=rs2.at(i)){
+                cot++;
+            }
+        }
+
+        for(int i=4;i<11;i++){
+            if(rs1.at(i)!=rs2.at(i)){
+                cot++;
+            }
+        }
+        if(cot<=2){
+            return cot;
+        }
+        else {
+            cot=0;
+        }
+    }
+
+    if(rs1.size()==7 && rs2.size()==7){
+        for(int i=0;i<7;i++){
+            if(rs1.at(i)!=rs2.at(i)){
+                cot++;
+            }
+        }
+        if(cot<=1){
+            return cot;
+        }
+        else {
+            cot=0;
+        }
+    }
+
+
     if(rs1.size()-rs2.size()<0){
         len=rs1.size();
     }
@@ -521,27 +626,7 @@ int ResultsAnalysis::ConsecutiveLCS(QString rs1, QString rs2)
             cot++;
         }
     }
-
     return cot;
-//    int len1=rs1.size();
-//    int len2=rs2.size();
-//    QVector<QVector<int>> dp(len1+1,QVector<int>(len2+1,0));
-//    dp[0][0]=0;
-//    for (int i = 1; i <= len2; ++i)
-//        dp[0][i] = i;
-//    for (int i = 1; i <= len1; ++i)
-//        dp[i][0] = i;
-//    for (int i = 1; i <= len1; ++i)
-//    {
-//        for (int j = 1; j <= len2; ++j)
-//        {
-//            int one = dp[i - 1][j] + 1, two = dp[i][j - 1] + 1, three = dp[i - 1][j - 1];
-//            if (rs1[i - 1] != rs2[j - 1])
-//                three += 1;
-//            dp[i][j] = qMin(qMin(one, two), three);
-//        }
-//    }
-//    return dp[len1][len2];
 }
 
 QString ResultsAnalysis::queueContainerStart(QStringList conList)

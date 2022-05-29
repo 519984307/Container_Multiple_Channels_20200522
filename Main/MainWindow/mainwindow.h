@@ -531,7 +531,7 @@ signals:
     /// \param user 用户名
     /// \param pass 密码
     ///
-    void signal_InitializationFTPParameter(const QString &user,const QString &pass,const QString &path,const QString &host,const int &port=21);
+    void signal_InitializationFTPParameter(const QString &user,const QString &pass,const QString &path,const bool & time,const QString &host,const int &port=21);
 
     ///
     /// \brief signal_setCameraCaptureType 设置相机抓拍模式

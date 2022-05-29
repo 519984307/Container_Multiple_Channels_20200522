@@ -6,6 +6,8 @@
 #include <QThread>
 #include <QDebug>
 #include <QSharedPointer>
+#include <QMap>
+#include <QTimer>
 
 #if defined(IDENTIFYIMAGES_LIBRARY)
 #  define IDENTIFYIMAGESSHARED_EXPORT Q_DECL_EXPORT

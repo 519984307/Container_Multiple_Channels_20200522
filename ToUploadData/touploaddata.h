@@ -29,7 +29,7 @@ public:
     /// \param user 用户名
     /// \param pass 密码
     ///
-    void InitializationParameterSlot(const QString &user, const QString &pass, const QString &path, const QString &host, const int &port=21)Q_DECL_OVERRIDE;
+    void InitializationParameterSlot(const QString &user, const QString &pass, const QString &path,const bool &time, const QString &host, const int &port=21)Q_DECL_OVERRIDE;
 
     ///
     /// \brief uploadDataSlot 上传数据

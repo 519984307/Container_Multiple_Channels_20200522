@@ -74,7 +74,7 @@ bool LoadParameter::loadSysParameter()
                     ******************************/
                     Parameter::Ftp=getJsonValue("Upload","Ftp",value.toObject()).toInt();
                     Parameter::FtpAddress= getJsonValue("Upload","FtpAddress",value.toObject()).toString();
-                    Parameter::FtpLocalPath= getJsonValue("Upload","FtpLocalPath",value.toObject()).toString();
+                    Parameter::FtpTimeDIC= getJsonValue("Upload","FtpTimeDIC",value.toObject()).toInt();
                     Parameter::FtpPassword= getJsonValue("Upload","FtpPassword",value.toObject()).toString();
                     Parameter::FtpPort= getJsonValue("Upload","FtpPort",value.toObject()).toInt();
                     Parameter::FtpRemotePath= getJsonValue("Upload","FtpRemotePath",value.toObject()).toString();
@@ -119,6 +119,9 @@ bool LoadParameter::loadSysParameter()
                     Parameter::plate_timeout=getJsonValue("Service","plate_timeout",value.toObject()).toInt();
                     Parameter::container_timeout=getJsonValue("Service","container_timeout",value.toObject()).toInt();
                     Parameter::not_plate_color=getJsonValue("Service","not_plate_color",value.toObject()).toInt();
+                    Parameter::same_plate_out=getJsonValue("Service","same_plate_out",value.toObject()).toInt();
+                    Parameter::false_plate=getJsonValue("Service","false_plate",value.toObject()).toString();
+                    Parameter::dont_false_plate=getJsonValue("Service","dont_false_plate",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;

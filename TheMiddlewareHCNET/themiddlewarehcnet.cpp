@@ -418,7 +418,7 @@ int TheMiddlewareHCNET::MSGCallBack(LONG lCommand, NET_DVR_ALARMER *pAlarmer, ch
             }
             emit pThis->resultsTheLicensePlateSignal(pAlarmer->lUserID, plate,color,dateTime,arrayJpg);
             emit pThis->signal_pictureStream(pAlarmer->lUserID,arrayJpg);
-            qDebug().noquote()<<QString("[%1] License Plate recognition results:%2-%3").arg(pThis->metaObject()->className(),plate,dateTime);
+            //qDebug().noquote()<<QString("[%1] License Plate recognition results:%2-%3").arg(pThis->metaObject()->className(),plate,dateTime);
             arrayJpg.clear();
         }
     }
@@ -458,7 +458,7 @@ int TheMiddlewareHCNET::MSGCallBack(LONG lCommand, NET_DVR_ALARMER *pAlarmer, ch
 
             emit pThis->resultsTheLicensePlateSignal(pAlarmer->lUserID,plate,color,dateTime,arrayJpg);
             emit pThis->signal_pictureStream(pAlarmer->lUserID,arrayJpg);
-            qDebug().noquote()<<QString("[%1] License Plate recognition results:%2-%3").arg(pThis->metaObject()->className(),plate,dateTime);
+            //qDebug().noquote()<<QString("[%1] License Plate recognition results:%2-%3").arg(pThis->metaObject()->className(),plate,dateTime);
             arrayJpg.clear();
         }
     }

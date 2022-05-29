@@ -14,6 +14,7 @@ SUBDIRS +=\
     MiddlewareCLINET \
     MiddlewareHCNET \
     NetworkController \
+    ToUploadData2 \
     ToUploadData\
     DataInterchange \
     DatabaseInsert \

@@ -5,7 +5,7 @@ Recognition::Recognition(QObject *parent, const QString &imgName, const int &img
 {
     this->setAutoDelete(true);
     this->setParent(parent);    
-    this->imgName=imgName;
+    this->imgName=QDir::fromNativeSeparators(imgName).trimmed();
     this->imgNumber=imgNumber;
 }
 
@@ -32,7 +32,7 @@ void Recognition::run()
             else {
                 emit recognitionResultSignal(result.data(),imgName,imgNumber);
             }
-            qDebug().noquote()<<QString("Identify the results:%1").arg(result.data());
+            qDebug().noquote()<<QString("Identify the results<%1:%2>").arg(imgName,result.data());
         }
         else {
             emit recognitionResultSignal("RESULT: ||0|0",imgName,imgNumber);
