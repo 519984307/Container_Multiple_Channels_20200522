@@ -43,10 +43,13 @@ public:
     QLabel *image_label_5;
     QGroupBox *groupBox;
     QGridLayout *gridLayout_4;
-    QCheckBox *topCheckBox;
+    QFrame *line_2;
     QPushButton *SimulationPushButton;
-    QCheckBox *plateCheckBox;
+    QCheckBox *topCheckBox;
+    QCheckBox *foregroundCheckBox;
+    QFrame *line_3;
     QCheckBox *prospectsCheckBox;
+    QCheckBox *plateCheckBox;
     QToolBox *toolBox;
     QWidget *page;
     QGridLayout *gridLayout_5;
@@ -100,9 +103,13 @@ public:
     QCheckBox *serial2checkBox;
     QCheckBox *topstateCheckBox;
     QSpacerItem *verticalSpacer_3;
-    QFrame *line_3;
-    QFrame *line_2;
-    QCheckBox *foregroundCheckBox;
+    QCheckBox *openLedCheckBox;
+    QGroupBox *groupBox_2;
+    QGridLayout *gridLayout_7;
+    QCheckBox *checkBox_2;
+    QCheckBox *checkBox_1;
+    QCheckBox *checkBox_4;
+    QCheckBox *checkBox_3;
 
     void setupUi(QWidget *Channel_Data_Form)
     {
@@ -299,10 +306,12 @@ public:
         gridLayout_4->setHorizontalSpacing(0);
         gridLayout_4->setVerticalSpacing(5);
         gridLayout_4->setContentsMargins(0, 0, 0, 0);
-        topCheckBox = new QCheckBox(groupBox);
-        topCheckBox->setObjectName(QString::fromUtf8("topCheckBox"));
+        line_2 = new QFrame(groupBox);
+        line_2->setObjectName(QString::fromUtf8("line_2"));
+        line_2->setFrameShape(QFrame::HLine);
+        line_2->setFrameShadow(QFrame::Sunken);
 
-        gridLayout_4->addWidget(topCheckBox, 7, 0, 1, 1);
+        gridLayout_4->addWidget(line_2, 1, 0, 1, 1);
 
         SimulationPushButton = new QPushButton(groupBox);
         SimulationPushButton->setObjectName(QString::fromUtf8("SimulationPushButton"));
@@ -312,15 +321,32 @@ public:
 
         gridLayout_4->addWidget(SimulationPushButton, 2, 0, 1, 1);
 
-        plateCheckBox = new QCheckBox(groupBox);
-        plateCheckBox->setObjectName(QString::fromUtf8("plateCheckBox"));
+        topCheckBox = new QCheckBox(groupBox);
+        topCheckBox->setObjectName(QString::fromUtf8("topCheckBox"));
 
-        gridLayout_4->addWidget(plateCheckBox, 4, 0, 1, 1);
+        gridLayout_4->addWidget(topCheckBox, 9, 0, 1, 1);
+
+        foregroundCheckBox = new QCheckBox(groupBox);
+        foregroundCheckBox->setObjectName(QString::fromUtf8("foregroundCheckBox"));
+
+        gridLayout_4->addWidget(foregroundCheckBox, 8, 0, 1, 1);
+
+        line_3 = new QFrame(groupBox);
+        line_3->setObjectName(QString::fromUtf8("line_3"));
+        line_3->setFrameShape(QFrame::HLine);
+        line_3->setFrameShadow(QFrame::Sunken);
+
+        gridLayout_4->addWidget(line_3, 5, 0, 1, 1);
 
         prospectsCheckBox = new QCheckBox(groupBox);
         prospectsCheckBox->setObjectName(QString::fromUtf8("prospectsCheckBox"));
 
-        gridLayout_4->addWidget(prospectsCheckBox, 5, 0, 1, 1);
+        gridLayout_4->addWidget(prospectsCheckBox, 7, 0, 1, 1);
+
+        plateCheckBox = new QCheckBox(groupBox);
+        plateCheckBox->setObjectName(QString::fromUtf8("plateCheckBox"));
+
+        gridLayout_4->addWidget(plateCheckBox, 6, 0, 1, 1);
 
         toolBox = new QToolBox(groupBox);
         toolBox->setObjectName(QString::fromUtf8("toolBox"));
@@ -329,7 +355,7 @@ public:
         toolBox->setLineWidth(1);
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 178, 647));
+        page->setGeometry(QRect(0, 0, 178, 598));
         gridLayout_5 = new QGridLayout(page);
         gridLayout_5->setSpacing(5);
         gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
@@ -452,7 +478,7 @@ public:
         toolBox->addItem(page, QString::fromUtf8("Identify the data"));
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 178, 647));
+        page_2->setGeometry(QRect(0, 0, 178, 598));
         page_2->setMouseTracking(false);
         page_2->setTabletTracking(false);
         page_2->setAcceptDrops(false);
@@ -530,24 +556,28 @@ public:
         gridLayout_3->setVerticalSpacing(5);
         d3checkBox = new QCheckBox(page_2);
         d3checkBox->setObjectName(QString::fromUtf8("d3checkBox"));
+        d3checkBox->setEnabled(false);
         d3checkBox->setCheckable(true);
 
         gridLayout_3->addWidget(d3checkBox, 1, 2, 1, 1);
 
         d2checkBox = new QCheckBox(page_2);
         d2checkBox->setObjectName(QString::fromUtf8("d2checkBox"));
+        d2checkBox->setEnabled(false);
         d2checkBox->setCheckable(true);
 
         gridLayout_3->addWidget(d2checkBox, 1, 1, 1, 1);
 
         d1checkBox = new QCheckBox(page_2);
         d1checkBox->setObjectName(QString::fromUtf8("d1checkBox"));
+        d1checkBox->setEnabled(false);
         d1checkBox->setCheckable(true);
 
         gridLayout_3->addWidget(d1checkBox, 1, 0, 1, 1);
 
         d4checkBox = new QCheckBox(page_2);
         d4checkBox->setObjectName(QString::fromUtf8("d4checkBox"));
+        d4checkBox->setEnabled(false);
         d4checkBox->setCheckable(true);
 
         gridLayout_3->addWidget(d4checkBox, 1, 3, 1, 1);
@@ -659,24 +689,37 @@ public:
 
         gridLayout_4->addWidget(toolBox, 0, 0, 1, 1);
 
-        line_3 = new QFrame(groupBox);
-        line_3->setObjectName(QString::fromUtf8("line_3"));
-        line_3->setFrameShape(QFrame::HLine);
-        line_3->setFrameShadow(QFrame::Sunken);
+        openLedCheckBox = new QCheckBox(groupBox);
+        openLedCheckBox->setObjectName(QString::fromUtf8("openLedCheckBox"));
 
-        gridLayout_4->addWidget(line_3, 3, 0, 1, 1);
+        gridLayout_4->addWidget(openLedCheckBox, 4, 0, 1, 1);
 
-        line_2 = new QFrame(groupBox);
-        line_2->setObjectName(QString::fromUtf8("line_2"));
-        line_2->setFrameShape(QFrame::HLine);
-        line_2->setFrameShadow(QFrame::Sunken);
+        groupBox_2 = new QGroupBox(groupBox);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        gridLayout_7 = new QGridLayout(groupBox_2);
+        gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
+        checkBox_2 = new QCheckBox(groupBox_2);
+        checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
 
-        gridLayout_4->addWidget(line_2, 1, 0, 1, 1);
+        gridLayout_7->addWidget(checkBox_2, 0, 1, 1, 1);
 
-        foregroundCheckBox = new QCheckBox(groupBox);
-        foregroundCheckBox->setObjectName(QString::fromUtf8("foregroundCheckBox"));
+        checkBox_1 = new QCheckBox(groupBox_2);
+        checkBox_1->setObjectName(QString::fromUtf8("checkBox_1"));
 
-        gridLayout_4->addWidget(foregroundCheckBox, 6, 0, 1, 1);
+        gridLayout_7->addWidget(checkBox_1, 0, 0, 1, 1);
+
+        checkBox_4 = new QCheckBox(groupBox_2);
+        checkBox_4->setObjectName(QString::fromUtf8("checkBox_4"));
+
+        gridLayout_7->addWidget(checkBox_4, 0, 3, 1, 1);
+
+        checkBox_3 = new QCheckBox(groupBox_2);
+        checkBox_3->setObjectName(QString::fromUtf8("checkBox_3"));
+
+        gridLayout_7->addWidget(checkBox_3, 0, 2, 1, 1);
+
+
+        gridLayout_4->addWidget(groupBox_2, 3, 0, 1, 1);
 
 
         gridLayout_9->addWidget(groupBox, 0, 0, 1, 1);
@@ -690,7 +733,7 @@ public:
         QObject::connect(topCheckBox, SIGNAL(toggled(bool)), image_label_11, SLOT(setVisible(bool)));
         QObject::connect(topCheckBox, SIGNAL(toggled(bool)), image_label_12, SLOT(setVisible(bool)));
 
-        toolBox->setCurrentIndex(0);
+        toolBox->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Channel_Data_Form);
@@ -712,10 +755,11 @@ public:
         image_label_9->setText(QApplication::translate("Channel_Data_Form", "9", nullptr));
         image_label_5->setText(QApplication::translate("Channel_Data_Form", "5", nullptr));
         groupBox->setTitle(QString());
-        topCheckBox->setText(QApplication::translate("Channel_Data_Form", "Top", nullptr));
         SimulationPushButton->setText(QApplication::translate("Channel_Data_Form", "Simulation", nullptr));
-        plateCheckBox->setText(QApplication::translate("Channel_Data_Form", "Plate", nullptr));
+        topCheckBox->setText(QApplication::translate("Channel_Data_Form", "Top", nullptr));
+        foregroundCheckBox->setText(QApplication::translate("Channel_Data_Form", "Foreground", nullptr));
         prospectsCheckBox->setText(QApplication::translate("Channel_Data_Form", "Prospects", nullptr));
+        plateCheckBox->setText(QApplication::translate("Channel_Data_Form", "Plate", nullptr));
         iso_before_lineEdit->setPlaceholderText(QApplication::translate("Channel_Data_Form", "ISO_Front", nullptr));
         plate_lineEdit->setPlaceholderText(QApplication::translate("Channel_Data_Form", "Plate", nullptr));
         plate_color_lineEdit->setPlaceholderText(QApplication::translate("Channel_Data_Form", "Plate color", nullptr));
@@ -735,7 +779,7 @@ public:
         serial1checkBox->setText(QApplication::translate("Channel_Data_Form", "Serial port one", nullptr));
         rightCheckBox->setText(QApplication::translate("Channel_Data_Form", "Right", nullptr));
         forgroundstateCheckBox->setText(QApplication::translate("Channel_Data_Form", "Foreground", nullptr));
-        iocheckBox->setText(QApplication::translate("Channel_Data_Form", "IO controller", nullptr));
+        iocheckBox->setText(QApplication::translate("Channel_Data_Form", "Network controller", nullptr));
         frontCheckBox->setText(QApplication::translate("Channel_Data_Form", "Front", nullptr));
         beforeCheckBox->setText(QApplication::translate("Channel_Data_Form", "Before", nullptr));
         platestateCheckBox->setText(QApplication::translate("Channel_Data_Form", "Plate", nullptr));
@@ -759,7 +803,12 @@ public:
         serial2checkBox->setText(QApplication::translate("Channel_Data_Form", "Serial port two", nullptr));
         topstateCheckBox->setText(QApplication::translate("Channel_Data_Form", "Top", nullptr));
         toolBox->setItemText(toolBox->indexOf(page_2), QApplication::translate("Channel_Data_Form", "Equipment state", nullptr));
-        foregroundCheckBox->setText(QApplication::translate("Channel_Data_Form", "Foreground", nullptr));
+        openLedCheckBox->setText(QApplication::translate("Channel_Data_Form", "Open LED", nullptr));
+        groupBox_2->setTitle(QApplication::translate("Channel_Data_Form", "Test", nullptr));
+        checkBox_2->setText(QApplication::translate("Channel_Data_Form", "2", nullptr));
+        checkBox_1->setText(QApplication::translate("Channel_Data_Form", "1", nullptr));
+        checkBox_4->setText(QApplication::translate("Channel_Data_Form", "4", nullptr));
+        checkBox_3->setText(QApplication::translate("Channel_Data_Form", "3", nullptr));
     } // retranslateUi
 
 };

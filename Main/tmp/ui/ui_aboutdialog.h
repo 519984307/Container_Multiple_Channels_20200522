@@ -14,46 +14,164 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_AboutDialog
 {
 public:
+    QGridLayout *gridLayout_2;
+    QGroupBox *msg_groupBox;
     QGridLayout *gridLayout;
-    QLabel *label;
-    QVBoxLayout *verticalLayout;
-    QLabel *appLabel;
-    QLabel *label_11;
-    QLabel *label_2;
-    QHBoxLayout *horizontalLayout;
-    QLabel *label_3;
-    QLabel *verLabel;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label_8;
+    QLabel *ID_label;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *label_9;
+    QLabel *Project_label;
+    QLabel *label_4;
+    QLabel *label_7;
+    QHBoxLayout *horizontalLayout_5;
+    QLabel *label_10;
+    QLabel *Channel_label;
+    QLabel *label_6;
     QHBoxLayout *horizontalLayout_2;
     QLabel *label_5;
     QLabel *copyrightLabel;
-    QLabel *label_4;
-    QLabel *label_7;
-    QLabel *label_6;
     QSpacerItem *verticalSpacer;
     QSpacerItem *horizontalSpacer;
+    QLabel *label_11;
+    QLabel *label;
+    QLabel *appLabel;
+    QLabel *label_2;
     QPushButton *pushButton;
+    QHBoxLayout *horizontalLayout;
+    QLabel *label_3;
+    QLabel *verLabel;
 
     void setupUi(QDialog *AboutDialog)
     {
         if (AboutDialog->objectName().isEmpty())
             AboutDialog->setObjectName(QString::fromUtf8("AboutDialog"));
-        AboutDialog->resize(628, 403);
+        AboutDialog->resize(628, 415);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/UI_ICO/ICO/ICO.ico"), QSize(), QIcon::Normal, QIcon::Off);
         AboutDialog->setWindowIcon(icon);
-        gridLayout = new QGridLayout(AboutDialog);
+        gridLayout_2 = new QGridLayout(AboutDialog);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        msg_groupBox = new QGroupBox(AboutDialog);
+        msg_groupBox->setObjectName(QString::fromUtf8("msg_groupBox"));
+        gridLayout = new QGridLayout(msg_groupBox);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setHorizontalSpacing(0);
+        gridLayout->setVerticalSpacing(9);
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(10);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        label_8 = new QLabel(msg_groupBox);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+
+        horizontalLayout_3->addWidget(label_8);
+
+        ID_label = new QLabel(msg_groupBox);
+        ID_label->setObjectName(QString::fromUtf8("ID_label"));
+
+        horizontalLayout_3->addWidget(ID_label);
+
+        horizontalLayout_3->setStretch(1, 1);
+
+        gridLayout->addLayout(horizontalLayout_3, 2, 0, 1, 1);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        label_9 = new QLabel(msg_groupBox);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+
+        horizontalLayout_4->addWidget(label_9);
+
+        Project_label = new QLabel(msg_groupBox);
+        Project_label->setObjectName(QString::fromUtf8("Project_label"));
+
+        horizontalLayout_4->addWidget(Project_label);
+
+        horizontalLayout_4->setStretch(1, 1);
+
+        gridLayout->addLayout(horizontalLayout_4, 3, 0, 1, 1);
+
+        label_4 = new QLabel(msg_groupBox);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+
+        gridLayout->addWidget(label_4, 5, 0, 1, 1);
+
+        label_7 = new QLabel(msg_groupBox);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+
+        gridLayout->addWidget(label_7, 6, 0, 1, 1);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        label_10 = new QLabel(msg_groupBox);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+
+        horizontalLayout_5->addWidget(label_10);
+
+        Channel_label = new QLabel(msg_groupBox);
+        Channel_label->setObjectName(QString::fromUtf8("Channel_label"));
+
+        horizontalLayout_5->addWidget(Channel_label);
+
+        horizontalLayout_5->setStretch(1, 1);
+
+        gridLayout->addLayout(horizontalLayout_5, 4, 0, 1, 1);
+
+        label_6 = new QLabel(msg_groupBox);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+        QFont font;
+        font.setPointSize(10);
+        label_6->setFont(font);
+        label_6->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+        label_6->setWordWrap(true);
+
+        gridLayout->addWidget(label_6, 8, 0, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_5 = new QLabel(msg_groupBox);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+
+        horizontalLayout_2->addWidget(label_5);
+
+        copyrightLabel = new QLabel(msg_groupBox);
+        copyrightLabel->setObjectName(QString::fromUtf8("copyrightLabel"));
+
+        horizontalLayout_2->addWidget(copyrightLabel);
+
+        horizontalLayout_2->setStretch(1, 1);
+
+        gridLayout->addLayout(horizontalLayout_2, 7, 0, 1, 1);
+
+
+        gridLayout_2->addWidget(msg_groupBox, 4, 2, 1, 2);
+
+        verticalSpacer = new QSpacerItem(20, 271, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer, 4, 0, 3, 1);
+
+        horizontalSpacer = new QSpacerItem(396, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_2->addItem(horizontalSpacer, 6, 2, 1, 1);
+
+        label_11 = new QLabel(AboutDialog);
+        label_11->setObjectName(QString::fromUtf8("label_11"));
+
+        gridLayout_2->addWidget(label_11, 1, 2, 1, 1);
+
         label = new QLabel(AboutDialog);
         label->setObjectName(QString::fromUtf8("label"));
         label->setMaximumSize(QSize(100, 100));
@@ -63,30 +181,27 @@ public:
         label->setPixmap(QPixmap(QString::fromUtf8(":/UI_ICO/ICO/ICO.ico")));
         label->setScaledContents(true);
 
-        gridLayout->addWidget(label, 0, 0, 1, 1);
+        gridLayout_2->addWidget(label, 0, 0, 3, 1);
 
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setSpacing(15);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         appLabel = new QLabel(AboutDialog);
         appLabel->setObjectName(QString::fromUtf8("appLabel"));
-        QFont font;
-        font.setPointSize(12);
-        font.setBold(true);
-        font.setWeight(75);
-        appLabel->setFont(font);
+        QFont font1;
+        font1.setPointSize(12);
+        font1.setBold(true);
+        font1.setWeight(75);
+        appLabel->setFont(font1);
 
-        verticalLayout->addWidget(appLabel);
-
-        label_11 = new QLabel(AboutDialog);
-        label_11->setObjectName(QString::fromUtf8("label_11"));
-
-        verticalLayout->addWidget(label_11);
+        gridLayout_2->addWidget(appLabel, 0, 2, 1, 1);
 
         label_2 = new QLabel(AboutDialog);
         label_2->setObjectName(QString::fromUtf8("label_2"));
 
-        verticalLayout->addWidget(label_2);
+        gridLayout_2->addWidget(label_2, 2, 2, 1, 1);
+
+        pushButton = new QPushButton(AboutDialog);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+
+        gridLayout_2->addWidget(pushButton, 6, 3, 1, 1);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -102,59 +217,7 @@ public:
 
         horizontalLayout->setStretch(1, 1);
 
-        verticalLayout->addLayout(horizontalLayout);
-
-        horizontalLayout_2 = new QHBoxLayout();
-        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        label_5 = new QLabel(AboutDialog);
-        label_5->setObjectName(QString::fromUtf8("label_5"));
-
-        horizontalLayout_2->addWidget(label_5);
-
-        copyrightLabel = new QLabel(AboutDialog);
-        copyrightLabel->setObjectName(QString::fromUtf8("copyrightLabel"));
-
-        horizontalLayout_2->addWidget(copyrightLabel);
-
-        horizontalLayout_2->setStretch(1, 1);
-
-        verticalLayout->addLayout(horizontalLayout_2);
-
-        label_4 = new QLabel(AboutDialog);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-
-        verticalLayout->addWidget(label_4);
-
-        label_7 = new QLabel(AboutDialog);
-        label_7->setObjectName(QString::fromUtf8("label_7"));
-
-        verticalLayout->addWidget(label_7);
-
-        label_6 = new QLabel(AboutDialog);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-        QFont font1;
-        font1.setPointSize(10);
-        label_6->setFont(font1);
-        label_6->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
-        label_6->setWordWrap(true);
-
-        verticalLayout->addWidget(label_6);
-
-
-        gridLayout->addLayout(verticalLayout, 0, 1, 2, 2);
-
-        verticalSpacer = new QSpacerItem(20, 271, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout->addItem(verticalSpacer, 1, 0, 2, 1);
-
-        horizontalSpacer = new QSpacerItem(396, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer, 2, 1, 1, 1);
-
-        pushButton = new QPushButton(AboutDialog);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-
-        gridLayout->addWidget(pushButton, 2, 2, 1, 1);
+        gridLayout_2->addLayout(horizontalLayout, 3, 2, 1, 1);
 
 
         retranslateUi(AboutDialog);
@@ -166,20 +229,27 @@ public:
     void retranslateUi(QDialog *AboutDialog)
     {
         AboutDialog->setWindowTitle(QApplication::translate("AboutDialog", "About", nullptr));
-        label->setText(QString());
-        appLabel->setText(QString());
-        label_11->setText(QApplication::translate("AboutDialog", "Base on Qt 5.14.2 (MinGW 7.3.0 64 bit)", nullptr));
-        label_2->setText(QApplication::translate("AboutDialog", "Built on December 8, 2020 11:43", nullptr));
-        label_3->setText(QApplication::translate("AboutDialog", "vision", nullptr));
-        verLabel->setText(QString());
-        label_5->setText(QApplication::translate("AboutDialog", "Copyright Reserved 2010-2020 ", nullptr));
-        copyrightLabel->setText(QString());
-        label_4->setText(QApplication::translate("AboutDialog", "Technical hotline:18565659070", nullptr));
-        label_7->setText(QApplication::translate("AboutDialog", "Sales hotline:15989899192", nullptr));
+        msg_groupBox->setTitle(QString());
+        label_8->setText(QApplication::translate("AboutDialog", "ID\357\274\232", nullptr));
+        ID_label->setText(QString());
+        label_9->setText(QApplication::translate("AboutDialog", "Project\357\274\232", nullptr));
+        Project_label->setText(QString());
+        label_4->setText(QApplication::translate("AboutDialog", "Technical hotline\357\274\23218565659070", nullptr));
+        label_7->setText(QApplication::translate("AboutDialog", "Sales hotline\357\274\23215989899192", nullptr));
+        label_10->setText(QApplication::translate("AboutDialog", "Channel\357\274\232", nullptr));
+        Channel_label->setText(QString());
         label_6->setText(QApplication::translate("AboutDialog", "This software integrates container number identification, electronic license plate identification, electronic gate control. Multiple channels can be managed by a single server.\n"
 "\n"
 "", nullptr));
+        label_5->setText(QApplication::translate("AboutDialog", "Copyright Reserved 2010-2020 ", nullptr));
+        copyrightLabel->setText(QString());
+        label_11->setText(QApplication::translate("AboutDialog", "Base on Qt 5.14.2 (MinGW 7.3.0 64 bit)", nullptr));
+        label->setText(QString());
+        appLabel->setText(QString());
+        label_2->setText(QApplication::translate("AboutDialog", "Built on December 8, 2020 11:43", nullptr));
         pushButton->setText(QApplication::translate("AboutDialog", "Exit", nullptr));
+        label_3->setText(QApplication::translate("AboutDialog", "vision\357\274\232", nullptr));
+        verLabel->setText(QString());
     } // retranslateUi
 
 };

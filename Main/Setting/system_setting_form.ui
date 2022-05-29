@@ -26,9 +26,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-84</y>
+        <y>-131</y>
         <width>858</width>
-        <height>805</height>
+        <height>828</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -905,105 +905,16 @@
            <property name="verticalSpacing">
             <number>20</number>
            </property>
-           <item row="5" column="2">
-            <widget class="QComboBox" name="DataChange_Format_comboBox">
-             <property name="toolTip">
-              <string>Web service data format</string>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <item>
-              <property name="text">
-               <string>TEXT</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>JSON</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>XML</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QComboBox" name="Service_Type_comboBox">
-             <property name="toolTip">
-              <string>One to one:One service corresponds to one channel, and either server mode or client mode can be set.
-
-
-More than pair of:One service corresponds to all channels, and only the server mode can be set, One service corresponds to all channels (Need to respond to channel instruction [L|Number])</string>
-             </property>
-             <item>
-              <property name="text">
-               <string>One to one</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>More than a pair of</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="8" column="0" colspan="2">
-            <widget class="QLabel" name="label_43">
-             <property name="minimumSize">
-              <size>
-               <width>200</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>Same license plate output interval</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0" colspan="2">
-            <widget class="QLabel" name="label_32">
-             <property name="text">
-              <string>Data protocol
-
-</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="13" column="2">
-            <widget class="QCheckBox" name="Hearbeat_checkBox">
-             <property name="toolTip">
-              <string>The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!</string>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <property name="text">
-              <string>The heartbeat packets</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="16" column="2">
-            <widget class="QCheckBox" name="checkBox">
+            <widget class="QCheckBox" name="ShortLink_checkBox">
              <property name="toolTip">
-              <string>Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process</string>
+              <string>The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.</string>
              </property>
              <property name="whatsThis">
               <string/>
              </property>
              <property name="text">
-              <string>Send a car signal</string>
+              <string>Short link</string>
              </property>
             </widget>
            </item>
@@ -1023,10 +934,56 @@ More than pair of:One service corresponds to all channels, and only the server m
              </property>
             </widget>
            </item>
-           <item row="0" column="0" colspan="2">
-            <widget class="QLabel" name="label_29">
+           <item row="5" column="0" colspan="2">
+            <widget class="QLabel" name="label_34">
              <property name="text">
-              <string>TCP Service Mode</string>
+              <string>The data format</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="2">
+            <widget class="QLineEdit" name="false_plate_lineEdit">
+             <property name="text">
+              <string>1</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QLabel" name="label_30">
+             <property name="text">
+              <string>Service link Mode</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="QLabel" name="label_31">
+             <property name="text">
+              <string>The link address</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0" colspan="2">
+            <widget class="QLabel" name="label_43">
+             <property name="minimumSize">
+              <size>
+               <width>200</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Same license plate output interval</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1046,169 +1003,13 @@ More than pair of:One service corresponds to all channels, and only the server m
              </property>
             </widget>
            </item>
-           <item row="12" column="2">
-            <widget class="QCheckBox" name="newline_checkBox">
-             <property name="toolTip">
-              <string>A newline character is added to each piece of data to form a complete line.</string>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
+           <item row="6" column="0" colspan="2">
+            <widget class="QLabel" name="label_35">
              <property name="text">
-              <string>A newline</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0" colspan="2">
-            <widget class="QLabel" name="label_33">
-             <property name="text">
-              <string>Communication mode</string>
+              <string>License plate reception timeout</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="6" column="2">
-            <widget class="QSpinBox" name="plate_timeout_spinBox">
-             <property name="toolTip">
-              <string>License plate result receives timeout time</string>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <property name="minimum">
-              <number>0</number>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0" colspan="2">
-            <widget class="QLabel" name="label_30">
-             <property name="text">
-              <string>Service link Mode</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="15" column="2">
-            <widget class="QCheckBox" name="ShortLink_checkBox">
-             <property name="toolTip">
-              <string>The first active link to the service, a subsequent recognition result, triggering the link to the service, sending the result completed, and disconnecting again.</string>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <property name="text">
-              <string>Short link</string>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="2">
-            <widget class="QComboBox" name="DataChaneType_combox">
-             <property name="toolTip">
-              <string>Identify the data docking interface</string>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <item>
-              <property name="text">
-               <string>TCP</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>MQ</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="5" column="0" colspan="2">
-            <widget class="QLabel" name="label_34">
-             <property name="text">
-              <string>The data format</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="11" column="2">
-            <widget class="QCheckBox" name="plate_color_checkBox">
-             <property name="toolTip">
-              <string>The interface protocol does not require a license plate color</string>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <property name="text">
-              <string>not plate color</string>
-             </property>
-            </widget>
-           </item>
-           <item row="14" column="2">
-            <widget class="QCheckBox" name="Resulting_checkBox">
-             <property name="toolTip">
-              <string>The intermediate result set starts with [I, and is opened as required, not as the final result.</string>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <property name="text">
-              <string>Send an intermediate result set</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="17" column="2">
-            <widget class="QCheckBox" name="checkBox_2">
-             <property name="whatsThis">
-              <string>The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process</string>
-             </property>
-             <property name="text">
-              <string>Send astern signal</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="QComboBox" name="Identify_Protocol_comboBox_2">
-             <property name="toolTip">
-              <string>Identify the data docking protocol</string>
-             </property>
-             <property name="whatsThis">
-              <string/>
-             </property>
-             <item>
-              <property name="text">
-               <string>Container_number</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Container_number+Plate</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Container_number+Plate+Weight</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="8" column="2">
-            <widget class="QSpinBox" name="same_plate_out_spinBox">
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>256</number>
-             </property>
-             <property name="value">
-              <number>10</number>
              </property>
             </widget>
            </item>
@@ -1247,6 +1048,113 @@ More than pair of:One service corresponds to all channels, and only the server m
               </widget>
              </item>
             </layout>
+           </item>
+           <item row="13" column="2">
+            <widget class="QCheckBox" name="newline_checkBox">
+             <property name="toolTip">
+              <string>A newline character is added to each piece of data to form a complete line.</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>A newline</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <widget class="QLabel" name="label_32">
+             <property name="text">
+              <string>Data protocol
+
+</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="17" column="2">
+            <widget class="QCheckBox" name="checkBox">
+             <property name="toolTip">
+              <string>Vehicle entry will trigger the incoming vehicle signal, which generally works with the front-end reset processing process</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Send a car signal</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="2">
+            <widget class="QCheckBox" name="false_plate_checkBox">
+             <property name="text">
+              <string>Do not handle false license plates</string>
+             </property>
+            </widget>
+           </item>
+           <item row="14" column="2">
+            <widget class="QCheckBox" name="Hearbeat_checkBox">
+             <property name="toolTip">
+              <string>The heartbeat packet is [H] and is sent every 3 seconds. Data processing needs to pay attention to the heartbeat packet!</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>The heartbeat packets</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="2">
+            <widget class="QSpinBox" name="plate_timeout_spinBox">
+             <property name="toolTip">
+              <string>License plate result receives timeout time</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="minimum">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QComboBox" name="Service_Type_comboBox">
+             <property name="toolTip">
+              <string>One to one:One service corresponds to one channel, and either server mode or client mode can be set.
+
+
+More than pair of:One service corresponds to all channels, and only the server mode can be set, One service corresponds to all channels (Need to respond to channel instruction [L|Number])</string>
+             </property>
+             <item>
+              <property name="text">
+               <string>One to one</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>More than a pair of</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="8" column="2">
+            <widget class="QSpinBox" name="same_plate_out_spinBox">
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>256</number>
+             </property>
+             <property name="value">
+              <number>10</number>
+             </property>
+            </widget>
            </item>
            <item row="2" column="2">
             <widget class="QStackedWidget" name="Service_Type_stackedWidget">
@@ -1388,41 +1296,42 @@ More than pair of:One service corresponds to all channels, and only the server m
              </widget>
             </widget>
            </item>
-           <item row="6" column="0" colspan="2">
-            <widget class="QLabel" name="label_35">
-             <property name="text">
-              <string>License plate reception timeout</string>
+           <item row="12" column="2">
+            <widget class="QCheckBox" name="plate_color_checkBox">
+             <property name="toolTip">
+              <string>The interface protocol does not require a license plate color</string>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>not plate color</string>
              </property>
             </widget>
            </item>
-           <item row="9" column="2">
-            <widget class="QLineEdit" name="false_plate_lineEdit">
-             <property name="text">
-              <string>1</string>
+           <item row="3" column="2">
+            <widget class="QComboBox" name="Identify_Protocol_comboBox_2">
+             <property name="toolTip">
+              <string>Identify the data docking protocol</string>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
+             <property name="whatsThis">
+              <string/>
              </property>
-            </widget>
-           </item>
-           <item row="2" column="0" colspan="2">
-            <widget class="QLabel" name="label_31">
-             <property name="text">
-              <string>The link address</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="10" column="2">
-            <widget class="QCheckBox" name="false_plate_checkBox">
-             <property name="text">
-              <string>Do not handle false license plates</string>
-             </property>
+             <item>
+              <property name="text">
+               <string>Container_number</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Container_number+Plate</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Container_number+Plate+Weight</string>
+              </property>
+             </item>
             </widget>
            </item>
            <item row="9" column="0" rowspan="2" colspan="2">
@@ -1438,6 +1347,104 @@ More than pair of:One service corresponds to all channels, and only the server m
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QComboBox" name="DataChaneType_combox">
+             <property name="toolTip">
+              <string>Identify the data docking interface</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <item>
+              <property name="text">
+               <string>TCP</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MQ</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="18" column="2">
+            <widget class="QCheckBox" name="checkBox_2">
+             <property name="whatsThis">
+              <string>The reversing signal will be triggered by the vehicle reversing, which is generally used with the front-end reset processing process</string>
+             </property>
+             <property name="text">
+              <string>Send astern signal</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="QComboBox" name="DataChange_Format_comboBox">
+             <property name="toolTip">
+              <string>Web service data format</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <item>
+              <property name="text">
+               <string>TEXT</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>JSON</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>XML</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="15" column="2">
+            <widget class="QCheckBox" name="Resulting_checkBox">
+             <property name="toolTip">
+              <string>The intermediate result set starts with [I, and is opened as required, not as the final result.</string>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
+             <property name="text">
+              <string>Send an intermediate result set</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QLabel" name="label_29">
+             <property name="text">
+              <string>TCP Service Mode</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2">
+            <widget class="QLabel" name="label_33">
+             <property name="text">
+              <string>Communication mode</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="2">
+            <widget class="Line" name="line">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
             </widget>
            </item>
@@ -2475,13 +2482,6 @@ More than pair of:One service corresponds to all channels, and only the server m
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_44">
-     <property name="text">
-      <string>TextLabel</string>
-     </property>
     </widget>
    </item>
   </layout>

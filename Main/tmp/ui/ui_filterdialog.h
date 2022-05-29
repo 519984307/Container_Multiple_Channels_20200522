@@ -231,8 +231,8 @@ public:
         logic_comboBox->setItemText(0, QApplication::translate("FilterDialog", "A small container", nullptr));
         logic_comboBox->setItemText(1, QApplication::translate("FilterDialog", "A large container", nullptr));
         logic_comboBox->setItemText(2, QApplication::translate("FilterDialog", "Two small containers", nullptr));
-        logic_comboBox->setItemText(3, QApplication::translate("FilterDialog", "Empty set truck", nullptr));
-        logic_comboBox->setItemText(4, QApplication::translate("FilterDialog", "Heavy set truck", nullptr));
+        logic_comboBox->setItemText(3, QApplication::translate("FilterDialog", "Heavy set truck", nullptr));
+        logic_comboBox->setItemText(4, QApplication::translate("FilterDialog", "Empty set truck", nullptr));
 
         correct_radioButton->setText(QApplication::translate("FilterDialog", "correct", nullptr));
         logic_checkBox->setText(QApplication::translate("FilterDialog", "Logic", nullptr));

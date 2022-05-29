@@ -22,9 +22,8 @@
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QScrollArea>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
-#include <QtWidgets/QStackedWidget>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -35,115 +34,130 @@ public:
     QGridLayout *gridLayout_9;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
-    QGridLayout *gridLayout_8;
-    QGroupBox *groupBox;
-    QGridLayout *gridLayout;
-    QVBoxLayout *verticalLayout;
-    QLabel *label_11;
-    QLabel *label_16;
-    QLabel *label_9;
-    QLabel *label_25;
-    QLabel *label_26;
-    QLabel *label_6;
-    QVBoxLayout *verticalLayout_2;
-    QLineEdit *Camera_Front;
-    QLineEdit *Camera_Left;
-    QLineEdit *Camera_Top;
-    QLineEdit *Camera_Prospects;
-    QLineEdit *Camera_Forground;
-    QLineEdit *LocalAddr;
-    QFrame *line;
-    QVBoxLayout *verticalLayout_3;
-    QLabel *label_14;
-    QLabel *label_10;
-    QLabel *label_15;
-    QLabel *label_13;
-    QLabel *label_12;
-    QVBoxLayout *verticalLayout_4;
-    QLineEdit *Camera_After;
-    QLineEdit *Camera_Right;
-    QLineEdit *Camera_Plate;
-    QLineEdit *Camera_User;
-    QLineEdit *Camera_Password;
-    QGroupBox *groupBox_2;
+    QGridLayout *gridLayout_2;
+    QLabel *label_28;
+    QGroupBox *groupBox_7;
+    QGridLayout *gridLayout_10;
+    QCheckBox *containerState_checkbox;
+    QCheckBox *plateState_checkbox;
+    QGroupBox *groupBox_6;
+    QGridLayout *gridLayout_11;
+    QCheckBox *PlatePageState;
+    QCheckBox *ProspectsPageState;
+    QCheckBox *ForegroundPageState;
+    QCheckBox *TopPageState;
+    QGroupBox *groupBox_10;
     QGridLayout *gridLayout_4;
-    QStackedWidget *stackedWidget;
-    QWidget *page;
-    QGridLayout *gridLayout_7;
-    QHBoxLayout *horizontalLayout_6;
-    QLabel *label_18;
-    QSpinBox *SerialPort_Tow;
-    QHBoxLayout *horizontalLayout_5;
-    QLabel *label_17;
-    QSpinBox *SerialPort_One;
-    QWidget *page_2;
-    QGridLayout *gridLayout_3;
     QHBoxLayout *horizontalLayout_9;
-    QLabel *label_2;
     QLineEdit *SerialAddr_One;
-    QHBoxLayout *horizontalLayout_10;
-    QLabel *label_4;
-    QLineEdit *SerialAddr_Tow;
     QHBoxLayout *horizontalLayout_11;
     QLabel *label_3;
     QSpinBox *Port_One;
+    QSpacerItem *horizontalSpacer_3;
+    QHBoxLayout *horizontalLayout_10;
+    QLineEdit *SerialAddr_Tow;
     QHBoxLayout *horizontalLayout_12;
     QLabel *label_5;
     QSpinBox *Port_Tow;
-    QWidget *page_3;
-    QGridLayout *gridLayout_10;
+    QSpinBox *Channel_Number;
+    QLabel *label_39;
+    QGroupBox *groupBox_2;
+    QGridLayout *gridLayout;
+    QLineEdit *Camera_Left;
+    QLabel *label_25;
+    QSpacerItem *horizontalSpacer_5;
+    QLineEdit *Camera_Plate;
+    QLineEdit *Camera_Forground;
+    QLabel *label_10;
+    QLabel *label_12;
+    QLabel *label_6;
+    QLineEdit *Camera_User;
+    QLabel *label_14;
+    QLabel *label_16;
+    QLabel *label_11;
+    QLineEdit *Camera_Top;
+    QLineEdit *Camera_Password;
+    QLineEdit *LocalAddr;
+    QLineEdit *Camera_Prospects;
+    QLabel *label_9;
+    QLabel *label_15;
+    QLineEdit *Camera_Front;
+    QLabel *label_26;
+    QLabel *label_13;
+    QLineEdit *Camera_After;
+    QLineEdit *Camera_Right;
+    QGroupBox *groupBox_3;
+    QGridLayout *gridLayout_5;
+    QRadioButton *A1shielding_checkbox;
+    QRadioButton *A2shielding_checkbox;
+    QRadioButton *B1shielding_checkbox;
+    QRadioButton *B2shielding_checkbox;
+    QLabel *label_34;
+    QLabel *label_37;
+    QGroupBox *groupBox_9;
+    QGridLayout *gridLayout_3;
+    QSpinBox *SerialPort_One;
+    QSpacerItem *horizontalSpacer_2;
+    QSpinBox *SerialPort_Tow;
     QLabel *label_24;
-    QLineEdit *SerialAddr_One_2;
-    QComboBox *ControllerSignalMode;
-    QGroupBox *groupBox_13;
-    QGridLayout *gridLayout_23;
+    QLabel *label_38;
+    QLabel *label_36;
+    QGroupBox *groupBox_4;
+    QGridLayout *gridLayout_6;
     QRadioButton *SerialPortOpenState;
     QRadioButton *SerialPortCloseState;
-    QGroupBox *groupBox_15;
-    QGridLayout *gridLayout_25;
-    QCheckBox *SerialPortOpenState_3;
-    QCheckBox *SerialPortCloseState_3;
-    QGroupBox *groupBox_14;
-    QGridLayout *gridLayout_24;
-    QRadioButton *SerialPortOpenState_2;
-    QRadioButton *SerialPortCloseState_2;
-    QGroupBox *groupBox_16;
-    QGridLayout *gridLayout_5;
-    QCheckBox *SerialPortOpenState_5;
-    QCheckBox *SerialPortOpenState_7;
-    QCheckBox *SerialPortOpenState_6;
-    QCheckBox *SerialPortOpenState_8;
-    QGroupBox *groupBox_17;
-    QGridLayout *gridLayout_6;
-    QCheckBox *SerialPortOpenState_12;
-    QCheckBox *SerialPortOpenState_13;
-    QCheckBox *SerialPortOpenState_11;
-    QGroupBox *groupBox_3;
-    QGridLayout *gridLayout_2;
-    QSpinBox *Channel_Number;
-    QComboBox *Container_Camera_Model;
-    QDoubleSpinBox *doubleSpinBox_2;
+    QLabel *label_31;
+    QLabel *label_2;
+    QComboBox *lifthingType_comboBox;
+    QGroupBox *groupBox_11;
+    QGridLayout *gridLayout_13;
+    QHBoxLayout *horizontalLayout;
+    QLineEdit *controllerAddr_linedit;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_7;
+    QSpinBox *controllerPort_spinBox;
+    QSpacerItem *horizontalSpacer_4;
+    QComboBox *interfaceModel_comboBox;
     QLineEdit *Alias;
-    QLabel *label_43;
-    QComboBox *Camera_Load_Plugin_comboBox_2;
-    QSpinBox *spinBox;
-    QDoubleSpinBox *doubleSpinBox;
-    QLabel *label_20;
-    QLabel *label_42;
-    QLabel *label_21;
-    QComboBox *Plate_Camera_Model;
-    QComboBox *HCNET_Capture_Type_comboBox_2;
-    QLabel *label_27;
-    QLabel *label_28;
+    QLabel *label_17;
+    QFrame *line_7;
+    QDoubleSpinBox *A1ReleasrCap_doubleSpinBox;
+    QGroupBox *groupBox_5;
+    QGridLayout *gridLayout_8;
+    QHBoxLayout *horizontalLayout_3;
     QLabel *label;
+    QComboBox *D1out_comboBox;
+    QHBoxLayout *horizontalLayout_4;
     QLabel *label_8;
+    QComboBox *D2out_comboBox;
+    QSpacerItem *horizontalSpacer;
+    QHBoxLayout *horizontalLayout_7;
     QLabel *label_19;
+    QComboBox *D3out_comboBox;
+    QHBoxLayout *horizontalLayout_8;
+    QLabel *label_20;
+    QComboBox *D4out_comboBox;
+    QLabel *label_35;
+    QLabel *label_32;
+    QGroupBox *groupBox_8;
+    QGridLayout *gridLayout_12;
+    QCheckBox *inspectionLeft_checkbox;
+    QCheckBox *inspectionRight_checkbox;
+    QCheckBox *inspectionTop_checkbox;
+    QComboBox *ControllerSignalMode;
+    QSpinBox *identificationTimes_spinBox;
+    QDoubleSpinBox *B1ReleasrCap_doubleSpinBox;
+    QLabel *label_23;
+    QLabel *label_30;
+    QLabel *label_29;
+    QLabel *label_33;
+    QLabel *label_27;
 
     void setupUi(QWidget *Channel_Setting_Form)
     {
         if (Channel_Setting_Form->objectName().isEmpty())
             Channel_Setting_Form->setObjectName(QString::fromUtf8("Channel_Setting_Form"));
-        Channel_Setting_Form->resize(873, 677);
+        Channel_Setting_Form->resize(768, 576);
         Channel_Setting_Form->setAutoFillBackground(false);
         gridLayout_9 = new QGridLayout(Channel_Setting_Form);
         gridLayout_9->setObjectName(QString::fromUtf8("gridLayout_9"));
@@ -153,578 +167,722 @@ public:
         scrollArea->setAlignment(Qt::AlignCenter);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 828, 1102));
-        gridLayout_8 = new QGridLayout(scrollAreaWidgetContents);
-        gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
-        groupBox = new QGroupBox(scrollAreaWidgetContents);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setFlat(true);
-        gridLayout = new QGridLayout(groupBox);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setHorizontalSpacing(20);
-        gridLayout->setVerticalSpacing(7);
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        label_11 = new QLabel(groupBox);
-        label_11->setObjectName(QString::fromUtf8("label_11"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, -998, 731, 1554));
+        gridLayout_2 = new QGridLayout(scrollAreaWidgetContents);
+        gridLayout_2->setSpacing(20);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        label_28 = new QLabel(scrollAreaWidgetContents);
+        label_28->setObjectName(QString::fromUtf8("label_28"));
+        label_28->setMinimumSize(QSize(200, 0));
+        label_28->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        verticalLayout->addWidget(label_11);
+        gridLayout_2->addWidget(label_28, 16, 0, 1, 1);
 
-        label_16 = new QLabel(groupBox);
-        label_16->setObjectName(QString::fromUtf8("label_16"));
+        groupBox_7 = new QGroupBox(scrollAreaWidgetContents);
+        groupBox_7->setObjectName(QString::fromUtf8("groupBox_7"));
+        gridLayout_10 = new QGridLayout(groupBox_7);
+        gridLayout_10->setObjectName(QString::fromUtf8("gridLayout_10"));
+        containerState_checkbox = new QCheckBox(groupBox_7);
+        containerState_checkbox->setObjectName(QString::fromUtf8("containerState_checkbox"));
+        containerState_checkbox->setChecked(true);
 
-        verticalLayout->addWidget(label_16);
+        gridLayout_10->addWidget(containerState_checkbox, 0, 0, 1, 1);
 
-        label_9 = new QLabel(groupBox);
-        label_9->setObjectName(QString::fromUtf8("label_9"));
+        plateState_checkbox = new QCheckBox(groupBox_7);
+        plateState_checkbox->setObjectName(QString::fromUtf8("plateState_checkbox"));
+        plateState_checkbox->setChecked(false);
 
-        verticalLayout->addWidget(label_9);
-
-        label_25 = new QLabel(groupBox);
-        label_25->setObjectName(QString::fromUtf8("label_25"));
-
-        verticalLayout->addWidget(label_25);
-
-        label_26 = new QLabel(groupBox);
-        label_26->setObjectName(QString::fromUtf8("label_26"));
-
-        verticalLayout->addWidget(label_26);
-
-        label_6 = new QLabel(groupBox);
-        label_6->setObjectName(QString::fromUtf8("label_6"));
-
-        verticalLayout->addWidget(label_6);
+        gridLayout_10->addWidget(plateState_checkbox, 1, 0, 1, 1);
 
 
-        gridLayout->addLayout(verticalLayout, 0, 0, 1, 1);
+        gridLayout_2->addWidget(groupBox_7, 9, 1, 1, 1);
 
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        Camera_Front = new QLineEdit(groupBox);
-        Camera_Front->setObjectName(QString::fromUtf8("Camera_Front"));
+        groupBox_6 = new QGroupBox(scrollAreaWidgetContents);
+        groupBox_6->setObjectName(QString::fromUtf8("groupBox_6"));
+        gridLayout_11 = new QGridLayout(groupBox_6);
+        gridLayout_11->setObjectName(QString::fromUtf8("gridLayout_11"));
+        PlatePageState = new QCheckBox(groupBox_6);
+        PlatePageState->setObjectName(QString::fromUtf8("PlatePageState"));
 
-        verticalLayout_2->addWidget(Camera_Front);
+        gridLayout_11->addWidget(PlatePageState, 0, 0, 1, 1);
 
-        Camera_Left = new QLineEdit(groupBox);
-        Camera_Left->setObjectName(QString::fromUtf8("Camera_Left"));
+        ProspectsPageState = new QCheckBox(groupBox_6);
+        ProspectsPageState->setObjectName(QString::fromUtf8("ProspectsPageState"));
 
-        verticalLayout_2->addWidget(Camera_Left);
+        gridLayout_11->addWidget(ProspectsPageState, 1, 0, 1, 1);
 
-        Camera_Top = new QLineEdit(groupBox);
-        Camera_Top->setObjectName(QString::fromUtf8("Camera_Top"));
+        ForegroundPageState = new QCheckBox(groupBox_6);
+        ForegroundPageState->setObjectName(QString::fromUtf8("ForegroundPageState"));
 
-        verticalLayout_2->addWidget(Camera_Top);
+        gridLayout_11->addWidget(ForegroundPageState, 2, 0, 1, 1);
 
-        Camera_Prospects = new QLineEdit(groupBox);
-        Camera_Prospects->setObjectName(QString::fromUtf8("Camera_Prospects"));
+        TopPageState = new QCheckBox(groupBox_6);
+        TopPageState->setObjectName(QString::fromUtf8("TopPageState"));
 
-        verticalLayout_2->addWidget(Camera_Prospects);
-
-        Camera_Forground = new QLineEdit(groupBox);
-        Camera_Forground->setObjectName(QString::fromUtf8("Camera_Forground"));
-
-        verticalLayout_2->addWidget(Camera_Forground);
-
-        LocalAddr = new QLineEdit(groupBox);
-        LocalAddr->setObjectName(QString::fromUtf8("LocalAddr"));
-
-        verticalLayout_2->addWidget(LocalAddr);
+        gridLayout_11->addWidget(TopPageState, 3, 0, 1, 1);
 
 
-        gridLayout->addLayout(verticalLayout_2, 0, 1, 1, 1);
+        gridLayout_2->addWidget(groupBox_6, 11, 1, 1, 1);
 
-        line = new QFrame(groupBox);
-        line->setObjectName(QString::fromUtf8("line"));
-        line->setFrameShape(QFrame::VLine);
-        line->setFrameShadow(QFrame::Sunken);
-
-        gridLayout->addWidget(line, 0, 2, 1, 1);
-
-        verticalLayout_3 = new QVBoxLayout();
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        label_14 = new QLabel(groupBox);
-        label_14->setObjectName(QString::fromUtf8("label_14"));
-
-        verticalLayout_3->addWidget(label_14);
-
-        label_10 = new QLabel(groupBox);
-        label_10->setObjectName(QString::fromUtf8("label_10"));
-
-        verticalLayout_3->addWidget(label_10);
-
-        label_15 = new QLabel(groupBox);
-        label_15->setObjectName(QString::fromUtf8("label_15"));
-
-        verticalLayout_3->addWidget(label_15);
-
-        label_13 = new QLabel(groupBox);
-        label_13->setObjectName(QString::fromUtf8("label_13"));
-
-        verticalLayout_3->addWidget(label_13);
-
-        label_12 = new QLabel(groupBox);
-        label_12->setObjectName(QString::fromUtf8("label_12"));
-
-        verticalLayout_3->addWidget(label_12);
-
-
-        gridLayout->addLayout(verticalLayout_3, 0, 3, 1, 1);
-
-        verticalLayout_4 = new QVBoxLayout();
-        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        Camera_After = new QLineEdit(groupBox);
-        Camera_After->setObjectName(QString::fromUtf8("Camera_After"));
-
-        verticalLayout_4->addWidget(Camera_After);
-
-        Camera_Right = new QLineEdit(groupBox);
-        Camera_Right->setObjectName(QString::fromUtf8("Camera_Right"));
-
-        verticalLayout_4->addWidget(Camera_Right);
-
-        Camera_Plate = new QLineEdit(groupBox);
-        Camera_Plate->setObjectName(QString::fromUtf8("Camera_Plate"));
-
-        verticalLayout_4->addWidget(Camera_Plate);
-
-        Camera_User = new QLineEdit(groupBox);
-        Camera_User->setObjectName(QString::fromUtf8("Camera_User"));
-
-        verticalLayout_4->addWidget(Camera_User);
-
-        Camera_Password = new QLineEdit(groupBox);
-        Camera_Password->setObjectName(QString::fromUtf8("Camera_Password"));
-
-        verticalLayout_4->addWidget(Camera_Password);
-
-
-        gridLayout->addLayout(verticalLayout_4, 0, 4, 1, 1);
-
-
-        gridLayout_8->addWidget(groupBox, 0, 0, 1, 1);
-
-        groupBox_2 = new QGroupBox(scrollAreaWidgetContents);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setFlat(true);
-        gridLayout_4 = new QGridLayout(groupBox_2);
+        groupBox_10 = new QGroupBox(scrollAreaWidgetContents);
+        groupBox_10->setObjectName(QString::fromUtf8("groupBox_10"));
+        gridLayout_4 = new QGridLayout(groupBox_10);
         gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
-        stackedWidget = new QStackedWidget(groupBox_2);
-        stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
-        page = new QWidget();
-        page->setObjectName(QString::fromUtf8("page"));
-        gridLayout_7 = new QGridLayout(page);
-        gridLayout_7->setObjectName(QString::fromUtf8("gridLayout_7"));
-        gridLayout_7->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout_6 = new QHBoxLayout();
-        horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
-        label_18 = new QLabel(page);
-        label_18->setObjectName(QString::fromUtf8("label_18"));
-
-        horizontalLayout_6->addWidget(label_18);
-
-        SerialPort_Tow = new QSpinBox(page);
-        SerialPort_Tow->setObjectName(QString::fromUtf8("SerialPort_Tow"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(SerialPort_Tow->sizePolicy().hasHeightForWidth());
-        SerialPort_Tow->setSizePolicy(sizePolicy);
-        SerialPort_Tow->setMinimum(1);
-        SerialPort_Tow->setValue(2);
-
-        horizontalLayout_6->addWidget(SerialPort_Tow);
-
-
-        gridLayout_7->addLayout(horizontalLayout_6, 1, 0, 1, 1);
-
-        horizontalLayout_5 = new QHBoxLayout();
-        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        label_17 = new QLabel(page);
-        label_17->setObjectName(QString::fromUtf8("label_17"));
-
-        horizontalLayout_5->addWidget(label_17);
-
-        SerialPort_One = new QSpinBox(page);
-        SerialPort_One->setObjectName(QString::fromUtf8("SerialPort_One"));
-        sizePolicy.setHeightForWidth(SerialPort_One->sizePolicy().hasHeightForWidth());
-        SerialPort_One->setSizePolicy(sizePolicy);
-        SerialPort_One->setMinimum(1);
-
-        horizontalLayout_5->addWidget(SerialPort_One);
-
-
-        gridLayout_7->addLayout(horizontalLayout_5, 0, 0, 1, 1);
-
-        stackedWidget->addWidget(page);
-        page_2 = new QWidget();
-        page_2->setObjectName(QString::fromUtf8("page_2"));
-        gridLayout_3 = new QGridLayout(page_2);
-        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        gridLayout_3->setContentsMargins(0, 0, 0, 0);
         horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setSpacing(6);
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
-        label_2 = new QLabel(page_2);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-
-        horizontalLayout_9->addWidget(label_2);
-
-        SerialAddr_One = new QLineEdit(page_2);
+        SerialAddr_One = new QLineEdit(groupBox_10);
         SerialAddr_One->setObjectName(QString::fromUtf8("SerialAddr_One"));
 
         horizontalLayout_9->addWidget(SerialAddr_One);
 
 
-        gridLayout_3->addLayout(horizontalLayout_9, 0, 0, 1, 1);
+        gridLayout_4->addLayout(horizontalLayout_9, 0, 0, 1, 1);
+
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
+        label_3 = new QLabel(groupBox_10);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setMinimumSize(QSize(100, 0));
+        label_3->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        horizontalLayout_11->addWidget(label_3);
+
+        Port_One = new QSpinBox(groupBox_10);
+        Port_One->setObjectName(QString::fromUtf8("Port_One"));
+
+        horizontalLayout_11->addWidget(Port_One);
+
+        horizontalLayout_11->setStretch(1, 1);
+
+        gridLayout_4->addLayout(horizontalLayout_11, 0, 1, 1, 1);
+
+        horizontalSpacer_3 = new QSpacerItem(151, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_4->addItem(horizontalSpacer_3, 0, 2, 2, 1);
 
         horizontalLayout_10 = new QHBoxLayout();
+        horizontalLayout_10->setSpacing(6);
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
-        label_4 = new QLabel(page_2);
-        label_4->setObjectName(QString::fromUtf8("label_4"));
-
-        horizontalLayout_10->addWidget(label_4);
-
-        SerialAddr_Tow = new QLineEdit(page_2);
+        SerialAddr_Tow = new QLineEdit(groupBox_10);
         SerialAddr_Tow->setObjectName(QString::fromUtf8("SerialAddr_Tow"));
 
         horizontalLayout_10->addWidget(SerialAddr_Tow);
 
 
-        gridLayout_3->addLayout(horizontalLayout_10, 1, 0, 1, 1);
-
-        horizontalLayout_11 = new QHBoxLayout();
-        horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
-        label_3 = new QLabel(page_2);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-
-        horizontalLayout_11->addWidget(label_3);
-
-        Port_One = new QSpinBox(page_2);
-        Port_One->setObjectName(QString::fromUtf8("Port_One"));
-
-        horizontalLayout_11->addWidget(Port_One);
-
-
-        gridLayout_3->addLayout(horizontalLayout_11, 0, 1, 1, 1);
+        gridLayout_4->addLayout(horizontalLayout_10, 1, 0, 1, 1);
 
         horizontalLayout_12 = new QHBoxLayout();
         horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
-        label_5 = new QLabel(page_2);
+        label_5 = new QLabel(groupBox_10);
         label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setMinimumSize(QSize(100, 0));
+        label_5->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         horizontalLayout_12->addWidget(label_5);
 
-        Port_Tow = new QSpinBox(page_2);
+        Port_Tow = new QSpinBox(groupBox_10);
         Port_Tow->setObjectName(QString::fromUtf8("Port_Tow"));
 
         horizontalLayout_12->addWidget(Port_Tow);
 
+        horizontalLayout_12->setStretch(1, 1);
 
-        gridLayout_3->addLayout(horizontalLayout_12, 1, 1, 1, 1);
-
-        stackedWidget->addWidget(page_2);
-        page_3 = new QWidget();
-        page_3->setObjectName(QString::fromUtf8("page_3"));
-        gridLayout_10 = new QGridLayout(page_3);
-        gridLayout_10->setObjectName(QString::fromUtf8("gridLayout_10"));
-        label_24 = new QLabel(page_3);
-        label_24->setObjectName(QString::fromUtf8("label_24"));
-
-        gridLayout_10->addWidget(label_24, 0, 0, 1, 1);
-
-        SerialAddr_One_2 = new QLineEdit(page_3);
-        SerialAddr_One_2->setObjectName(QString::fromUtf8("SerialAddr_One_2"));
-
-        gridLayout_10->addWidget(SerialAddr_One_2, 0, 1, 1, 1);
-
-        stackedWidget->addWidget(page_3);
-
-        gridLayout_4->addWidget(stackedWidget, 1, 0, 1, 1);
-
-        ControllerSignalMode = new QComboBox(groupBox_2);
-        ControllerSignalMode->addItem(QString());
-        ControllerSignalMode->addItem(QString());
-        ControllerSignalMode->addItem(QString());
-        ControllerSignalMode->setObjectName(QString::fromUtf8("ControllerSignalMode"));
-
-        gridLayout_4->addWidget(ControllerSignalMode, 0, 0, 1, 1);
+        gridLayout_4->addLayout(horizontalLayout_12, 1, 1, 1, 1);
 
 
-        gridLayout_8->addWidget(groupBox_2, 1, 0, 1, 1);
+        gridLayout_2->addWidget(groupBox_10, 4, 1, 1, 1);
 
-        groupBox_13 = new QGroupBox(scrollAreaWidgetContents);
-        groupBox_13->setObjectName(QString::fromUtf8("groupBox_13"));
-        groupBox_13->setFlat(true);
-        gridLayout_23 = new QGridLayout(groupBox_13);
-        gridLayout_23->setObjectName(QString::fromUtf8("gridLayout_23"));
-        SerialPortOpenState = new QRadioButton(groupBox_13);
-        SerialPortOpenState->setObjectName(QString::fromUtf8("SerialPortOpenState"));
-        SerialPortOpenState->setChecked(false);
-
-        gridLayout_23->addWidget(SerialPortOpenState, 0, 0, 1, 1);
-
-        SerialPortCloseState = new QRadioButton(groupBox_13);
-        SerialPortCloseState->setObjectName(QString::fromUtf8("SerialPortCloseState"));
-        SerialPortCloseState->setChecked(true);
-
-        gridLayout_23->addWidget(SerialPortCloseState, 0, 1, 1, 1);
-
-
-        gridLayout_8->addWidget(groupBox_13, 2, 0, 1, 1);
-
-        groupBox_15 = new QGroupBox(scrollAreaWidgetContents);
-        groupBox_15->setObjectName(QString::fromUtf8("groupBox_15"));
-        groupBox_15->setFlat(true);
-        groupBox_15->setCheckable(false);
-        gridLayout_25 = new QGridLayout(groupBox_15);
-        gridLayout_25->setObjectName(QString::fromUtf8("gridLayout_25"));
-        SerialPortOpenState_3 = new QCheckBox(groupBox_15);
-        SerialPortOpenState_3->setObjectName(QString::fromUtf8("SerialPortOpenState_3"));
-        SerialPortOpenState_3->setChecked(true);
-
-        gridLayout_25->addWidget(SerialPortOpenState_3, 0, 0, 1, 1);
-
-        SerialPortCloseState_3 = new QCheckBox(groupBox_15);
-        SerialPortCloseState_3->setObjectName(QString::fromUtf8("SerialPortCloseState_3"));
-        SerialPortCloseState_3->setChecked(false);
-
-        gridLayout_25->addWidget(SerialPortCloseState_3, 0, 1, 1, 1);
-
-
-        gridLayout_8->addWidget(groupBox_15, 3, 0, 1, 1);
-
-        groupBox_14 = new QGroupBox(scrollAreaWidgetContents);
-        groupBox_14->setObjectName(QString::fromUtf8("groupBox_14"));
-        groupBox_14->setFlat(true);
-        gridLayout_24 = new QGridLayout(groupBox_14);
-        gridLayout_24->setObjectName(QString::fromUtf8("gridLayout_24"));
-        SerialPortOpenState_2 = new QRadioButton(groupBox_14);
-        SerialPortOpenState_2->setObjectName(QString::fromUtf8("SerialPortOpenState_2"));
-        SerialPortOpenState_2->setChecked(true);
-
-        gridLayout_24->addWidget(SerialPortOpenState_2, 0, 0, 1, 1);
-
-        SerialPortCloseState_2 = new QRadioButton(groupBox_14);
-        SerialPortCloseState_2->setObjectName(QString::fromUtf8("SerialPortCloseState_2"));
-        SerialPortCloseState_2->setChecked(false);
-
-        gridLayout_24->addWidget(SerialPortCloseState_2, 0, 1, 1, 1);
-
-
-        gridLayout_8->addWidget(groupBox_14, 4, 0, 1, 1);
-
-        groupBox_16 = new QGroupBox(scrollAreaWidgetContents);
-        groupBox_16->setObjectName(QString::fromUtf8("groupBox_16"));
-        groupBox_16->setFlat(true);
-        gridLayout_5 = new QGridLayout(groupBox_16);
-        gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
-        gridLayout_5->setHorizontalSpacing(50);
-        gridLayout_5->setVerticalSpacing(20);
-        SerialPortOpenState_5 = new QCheckBox(groupBox_16);
-        SerialPortOpenState_5->setObjectName(QString::fromUtf8("SerialPortOpenState_5"));
-        SerialPortOpenState_5->setChecked(false);
-
-        gridLayout_5->addWidget(SerialPortOpenState_5, 0, 0, 1, 1);
-
-        SerialPortOpenState_7 = new QCheckBox(groupBox_16);
-        SerialPortOpenState_7->setObjectName(QString::fromUtf8("SerialPortOpenState_7"));
-        SerialPortOpenState_7->setChecked(false);
-
-        gridLayout_5->addWidget(SerialPortOpenState_7, 0, 2, 1, 1);
-
-        SerialPortOpenState_6 = new QCheckBox(groupBox_16);
-        SerialPortOpenState_6->setObjectName(QString::fromUtf8("SerialPortOpenState_6"));
-        SerialPortOpenState_6->setChecked(false);
-
-        gridLayout_5->addWidget(SerialPortOpenState_6, 0, 1, 1, 1);
-
-        SerialPortOpenState_8 = new QCheckBox(groupBox_16);
-        SerialPortOpenState_8->setObjectName(QString::fromUtf8("SerialPortOpenState_8"));
-        SerialPortOpenState_8->setChecked(false);
-
-        gridLayout_5->addWidget(SerialPortOpenState_8, 0, 3, 1, 1);
-
-
-        gridLayout_8->addWidget(groupBox_16, 5, 0, 1, 1);
-
-        groupBox_17 = new QGroupBox(scrollAreaWidgetContents);
-        groupBox_17->setObjectName(QString::fromUtf8("groupBox_17"));
-        groupBox_17->setFlat(true);
-        gridLayout_6 = new QGridLayout(groupBox_17);
-        gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
-        gridLayout_6->setHorizontalSpacing(50);
-        gridLayout_6->setVerticalSpacing(20);
-        gridLayout_6->setContentsMargins(5, 5, 5, 5);
-        SerialPortOpenState_12 = new QCheckBox(groupBox_17);
-        SerialPortOpenState_12->setObjectName(QString::fromUtf8("SerialPortOpenState_12"));
-        SerialPortOpenState_12->setChecked(false);
-
-        gridLayout_6->addWidget(SerialPortOpenState_12, 0, 1, 1, 1);
-
-        SerialPortOpenState_13 = new QCheckBox(groupBox_17);
-        SerialPortOpenState_13->setObjectName(QString::fromUtf8("SerialPortOpenState_13"));
-        SerialPortOpenState_13->setChecked(false);
-
-        gridLayout_6->addWidget(SerialPortOpenState_13, 0, 2, 1, 1);
-
-        SerialPortOpenState_11 = new QCheckBox(groupBox_17);
-        SerialPortOpenState_11->setObjectName(QString::fromUtf8("SerialPortOpenState_11"));
-        SerialPortOpenState_11->setChecked(false);
-
-        gridLayout_6->addWidget(SerialPortOpenState_11, 0, 0, 1, 1);
-
-
-        gridLayout_8->addWidget(groupBox_17, 6, 0, 1, 1);
-
-        groupBox_3 = new QGroupBox(scrollAreaWidgetContents);
-        groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setFlat(true);
-        gridLayout_2 = new QGridLayout(groupBox_3);
-        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        gridLayout_2->setHorizontalSpacing(50);
-        gridLayout_2->setVerticalSpacing(20);
-        gridLayout_2->setContentsMargins(5, 5, 5, 5);
-        Channel_Number = new QSpinBox(groupBox_3);
+        Channel_Number = new QSpinBox(scrollAreaWidgetContents);
         Channel_Number->setObjectName(QString::fromUtf8("Channel_Number"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(Channel_Number->sizePolicy().hasHeightForWidth());
         Channel_Number->setSizePolicy(sizePolicy);
         Channel_Number->setAlignment(Qt::AlignCenter);
         Channel_Number->setMinimum(0);
 
-        gridLayout_2->addWidget(Channel_Number, 1, 0, 1, 1);
+        gridLayout_2->addWidget(Channel_Number, 15, 1, 1, 1);
 
-        Container_Camera_Model = new QComboBox(groupBox_3);
-        Container_Camera_Model->addItem(QString());
-        Container_Camera_Model->addItem(QString());
-        Container_Camera_Model->addItem(QString());
-        Container_Camera_Model->setObjectName(QString::fromUtf8("Container_Camera_Model"));
-        sizePolicy.setHeightForWidth(Container_Camera_Model->sizePolicy().hasHeightForWidth());
-        Container_Camera_Model->setSizePolicy(sizePolicy);
-        Container_Camera_Model->setDuplicatesEnabled(false);
-        Container_Camera_Model->setFrame(false);
+        label_39 = new QLabel(scrollAreaWidgetContents);
+        label_39->setObjectName(QString::fromUtf8("label_39"));
+        label_39->setMinimumSize(QSize(200, 0));
+        label_39->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_2->addWidget(Container_Camera_Model, 6, 0, 1, 1);
+        gridLayout_2->addWidget(label_39, 2, 0, 1, 1);
 
-        doubleSpinBox_2 = new QDoubleSpinBox(groupBox_3);
-        doubleSpinBox_2->setObjectName(QString::fromUtf8("doubleSpinBox_2"));
-        doubleSpinBox_2->setAlignment(Qt::AlignCenter);
-        doubleSpinBox_2->setDecimals(1);
+        groupBox_2 = new QGroupBox(scrollAreaWidgetContents);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        gridLayout = new QGridLayout(groupBox_2);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        Camera_Left = new QLineEdit(groupBox_2);
+        Camera_Left->setObjectName(QString::fromUtf8("Camera_Left"));
 
-        gridLayout_2->addWidget(doubleSpinBox_2, 3, 0, 1, 1);
+        gridLayout->addWidget(Camera_Left, 3, 0, 1, 1);
 
-        Alias = new QLineEdit(groupBox_3);
+        label_25 = new QLabel(groupBox_2);
+        label_25->setObjectName(QString::fromUtf8("label_25"));
+        label_25->setMinimumSize(QSize(100, 0));
+        label_25->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_25, 7, 1, 1, 1);
+
+        horizontalSpacer_5 = new QSpacerItem(235, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_5, 9, 2, 1, 1);
+
+        Camera_Plate = new QLineEdit(groupBox_2);
+        Camera_Plate->setObjectName(QString::fromUtf8("Camera_Plate"));
+
+        gridLayout->addWidget(Camera_Plate, 9, 0, 1, 1);
+
+        Camera_Forground = new QLineEdit(groupBox_2);
+        Camera_Forground->setObjectName(QString::fromUtf8("Camera_Forground"));
+
+        gridLayout->addWidget(Camera_Forground, 8, 0, 1, 1);
+
+        label_10 = new QLabel(groupBox_2);
+        label_10->setObjectName(QString::fromUtf8("label_10"));
+        label_10->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_10, 5, 1, 1, 1);
+
+        label_12 = new QLabel(groupBox_2);
+        label_12->setObjectName(QString::fromUtf8("label_12"));
+        label_12->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_12, 14, 1, 1, 1);
+
+        label_6 = new QLabel(groupBox_2);
+        label_6->setObjectName(QString::fromUtf8("label_6"));
+        label_6->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_6, 12, 1, 1, 1);
+
+        Camera_User = new QLineEdit(groupBox_2);
+        Camera_User->setObjectName(QString::fromUtf8("Camera_User"));
+
+        gridLayout->addWidget(Camera_User, 13, 0, 1, 1);
+
+        label_14 = new QLabel(groupBox_2);
+        label_14->setObjectName(QString::fromUtf8("label_14"));
+        label_14->setMinimumSize(QSize(100, 0));
+        label_14->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_14, 1, 1, 1, 1);
+
+        label_16 = new QLabel(groupBox_2);
+        label_16->setObjectName(QString::fromUtf8("label_16"));
+        label_16->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_16, 3, 1, 1, 1);
+
+        label_11 = new QLabel(groupBox_2);
+        label_11->setObjectName(QString::fromUtf8("label_11"));
+        label_11->setMinimumSize(QSize(100, 0));
+        label_11->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_11, 0, 1, 1, 1);
+
+        Camera_Top = new QLineEdit(groupBox_2);
+        Camera_Top->setObjectName(QString::fromUtf8("Camera_Top"));
+
+        gridLayout->addWidget(Camera_Top, 6, 0, 1, 1);
+
+        Camera_Password = new QLineEdit(groupBox_2);
+        Camera_Password->setObjectName(QString::fromUtf8("Camera_Password"));
+
+        gridLayout->addWidget(Camera_Password, 14, 0, 1, 1);
+
+        LocalAddr = new QLineEdit(groupBox_2);
+        LocalAddr->setObjectName(QString::fromUtf8("LocalAddr"));
+
+        gridLayout->addWidget(LocalAddr, 12, 0, 1, 1);
+
+        Camera_Prospects = new QLineEdit(groupBox_2);
+        Camera_Prospects->setObjectName(QString::fromUtf8("Camera_Prospects"));
+
+        gridLayout->addWidget(Camera_Prospects, 7, 0, 1, 1);
+
+        label_9 = new QLabel(groupBox_2);
+        label_9->setObjectName(QString::fromUtf8("label_9"));
+        label_9->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_9, 6, 1, 1, 1);
+
+        label_15 = new QLabel(groupBox_2);
+        label_15->setObjectName(QString::fromUtf8("label_15"));
+        label_15->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_15, 9, 1, 1, 1);
+
+        Camera_Front = new QLineEdit(groupBox_2);
+        Camera_Front->setObjectName(QString::fromUtf8("Camera_Front"));
+
+        gridLayout->addWidget(Camera_Front, 0, 0, 1, 1);
+
+        label_26 = new QLabel(groupBox_2);
+        label_26->setObjectName(QString::fromUtf8("label_26"));
+        label_26->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_26, 8, 1, 1, 1);
+
+        label_13 = new QLabel(groupBox_2);
+        label_13->setObjectName(QString::fromUtf8("label_13"));
+        label_13->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+
+        gridLayout->addWidget(label_13, 13, 1, 1, 1);
+
+        Camera_After = new QLineEdit(groupBox_2);
+        Camera_After->setObjectName(QString::fromUtf8("Camera_After"));
+
+        gridLayout->addWidget(Camera_After, 1, 0, 1, 1);
+
+        Camera_Right = new QLineEdit(groupBox_2);
+        Camera_Right->setObjectName(QString::fromUtf8("Camera_Right"));
+
+        gridLayout->addWidget(Camera_Right, 5, 0, 1, 1);
+
+
+        gridLayout_2->addWidget(groupBox_2, 0, 1, 1, 1);
+
+        groupBox_3 = new QGroupBox(scrollAreaWidgetContents);
+        groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
+        gridLayout_5 = new QGridLayout(groupBox_3);
+        gridLayout_5->setObjectName(QString::fromUtf8("gridLayout_5"));
+        A1shielding_checkbox = new QRadioButton(groupBox_3);
+        A1shielding_checkbox->setObjectName(QString::fromUtf8("A1shielding_checkbox"));
+        A1shielding_checkbox->setChecked(false);
+
+        gridLayout_5->addWidget(A1shielding_checkbox, 0, 0, 1, 1);
+
+        A2shielding_checkbox = new QRadioButton(groupBox_3);
+        A2shielding_checkbox->setObjectName(QString::fromUtf8("A2shielding_checkbox"));
+        A2shielding_checkbox->setChecked(false);
+
+        gridLayout_5->addWidget(A2shielding_checkbox, 1, 0, 1, 1);
+
+        B1shielding_checkbox = new QRadioButton(groupBox_3);
+        B1shielding_checkbox->setObjectName(QString::fromUtf8("B1shielding_checkbox"));
+        B1shielding_checkbox->setChecked(false);
+
+        gridLayout_5->addWidget(B1shielding_checkbox, 2, 0, 1, 1);
+
+        B2shielding_checkbox = new QRadioButton(groupBox_3);
+        B2shielding_checkbox->setObjectName(QString::fromUtf8("B2shielding_checkbox"));
+        B2shielding_checkbox->setChecked(false);
+
+        gridLayout_5->addWidget(B2shielding_checkbox, 3, 0, 1, 1);
+
+
+        gridLayout_2->addWidget(groupBox_3, 12, 1, 1, 1);
+
+        label_34 = new QLabel(scrollAreaWidgetContents);
+        label_34->setObjectName(QString::fromUtf8("label_34"));
+        label_34->setMinimumSize(QSize(200, 0));
+        label_34->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_34, 9, 0, 1, 1);
+
+        label_37 = new QLabel(scrollAreaWidgetContents);
+        label_37->setObjectName(QString::fromUtf8("label_37"));
+        label_37->setMinimumSize(QSize(200, 0));
+        label_37->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_37, 3, 0, 1, 1);
+
+        groupBox_9 = new QGroupBox(scrollAreaWidgetContents);
+        groupBox_9->setObjectName(QString::fromUtf8("groupBox_9"));
+        gridLayout_3 = new QGridLayout(groupBox_9);
+        gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
+        SerialPort_One = new QSpinBox(groupBox_9);
+        SerialPort_One->setObjectName(QString::fromUtf8("SerialPort_One"));
+        sizePolicy.setHeightForWidth(SerialPort_One->sizePolicy().hasHeightForWidth());
+        SerialPort_One->setSizePolicy(sizePolicy);
+        SerialPort_One->setMinimum(1);
+
+        gridLayout_3->addWidget(SerialPort_One, 0, 0, 1, 1);
+
+        horizontalSpacer_2 = new QSpacerItem(388, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_3->addItem(horizontalSpacer_2, 0, 1, 2, 1);
+
+        SerialPort_Tow = new QSpinBox(groupBox_9);
+        SerialPort_Tow->setObjectName(QString::fromUtf8("SerialPort_Tow"));
+        sizePolicy.setHeightForWidth(SerialPort_Tow->sizePolicy().hasHeightForWidth());
+        SerialPort_Tow->setSizePolicy(sizePolicy);
+        SerialPort_Tow->setMinimum(1);
+        SerialPort_Tow->setValue(2);
+
+        gridLayout_3->addWidget(SerialPort_Tow, 1, 0, 1, 1);
+
+
+        gridLayout_2->addWidget(groupBox_9, 3, 1, 1, 1);
+
+        label_24 = new QLabel(scrollAreaWidgetContents);
+        label_24->setObjectName(QString::fromUtf8("label_24"));
+        label_24->setMinimumSize(QSize(200, 0));
+        label_24->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_24, 14, 0, 1, 1);
+
+        label_38 = new QLabel(scrollAreaWidgetContents);
+        label_38->setObjectName(QString::fromUtf8("label_38"));
+        label_38->setMinimumSize(QSize(200, 0));
+        label_38->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_38, 4, 0, 1, 1);
+
+        label_36 = new QLabel(scrollAreaWidgetContents);
+        label_36->setObjectName(QString::fromUtf8("label_36"));
+        label_36->setMinimumSize(QSize(200, 0));
+        label_36->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_36, 8, 0, 1, 1);
+
+        groupBox_4 = new QGroupBox(scrollAreaWidgetContents);
+        groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
+        gridLayout_6 = new QGridLayout(groupBox_4);
+        gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
+        SerialPortOpenState = new QRadioButton(groupBox_4);
+        SerialPortOpenState->setObjectName(QString::fromUtf8("SerialPortOpenState"));
+        SerialPortOpenState->setChecked(false);
+
+        gridLayout_6->addWidget(SerialPortOpenState, 0, 0, 1, 1);
+
+        SerialPortCloseState = new QRadioButton(groupBox_4);
+        SerialPortCloseState->setObjectName(QString::fromUtf8("SerialPortCloseState"));
+        SerialPortCloseState->setChecked(true);
+
+        gridLayout_6->addWidget(SerialPortCloseState, 1, 0, 1, 1);
+
+
+        gridLayout_2->addWidget(groupBox_4, 6, 1, 1, 1);
+
+        label_31 = new QLabel(scrollAreaWidgetContents);
+        label_31->setObjectName(QString::fromUtf8("label_31"));
+        label_31->setMinimumSize(QSize(200, 0));
+        label_31->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_31, 12, 0, 1, 1);
+
+        label_2 = new QLabel(scrollAreaWidgetContents);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setMinimumSize(QSize(200, 0));
+        label_2->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_2, 1, 0, 1, 1);
+
+        lifthingType_comboBox = new QComboBox(scrollAreaWidgetContents);
+        lifthingType_comboBox->addItem(QString());
+        lifthingType_comboBox->addItem(QString());
+        lifthingType_comboBox->addItem(QString());
+        lifthingType_comboBox->setObjectName(QString::fromUtf8("lifthingType_comboBox"));
+
+        gridLayout_2->addWidget(lifthingType_comboBox, 8, 1, 1, 1);
+
+        groupBox_11 = new QGroupBox(scrollAreaWidgetContents);
+        groupBox_11->setObjectName(QString::fromUtf8("groupBox_11"));
+        gridLayout_13 = new QGridLayout(groupBox_11);
+        gridLayout_13->setObjectName(QString::fromUtf8("gridLayout_13"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        controllerAddr_linedit = new QLineEdit(groupBox_11);
+        controllerAddr_linedit->setObjectName(QString::fromUtf8("controllerAddr_linedit"));
+
+        horizontalLayout->addWidget(controllerAddr_linedit);
+
+
+        gridLayout_13->addLayout(horizontalLayout, 0, 0, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_7 = new QLabel(groupBox_11);
+        label_7->setObjectName(QString::fromUtf8("label_7"));
+        label_7->setMinimumSize(QSize(100, 0));
+        label_7->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        horizontalLayout_2->addWidget(label_7);
+
+        controllerPort_spinBox = new QSpinBox(groupBox_11);
+        controllerPort_spinBox->setObjectName(QString::fromUtf8("controllerPort_spinBox"));
+        controllerPort_spinBox->setMaximum(65535);
+        controllerPort_spinBox->setStepType(QAbstractSpinBox::DefaultStepType);
+        controllerPort_spinBox->setValue(12011);
+
+        horizontalLayout_2->addWidget(controllerPort_spinBox);
+
+        horizontalLayout_2->setStretch(1, 1);
+
+        gridLayout_13->addLayout(horizontalLayout_2, 0, 1, 2, 1);
+
+        horizontalSpacer_4 = new QSpacerItem(143, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_13->addItem(horizontalSpacer_4, 0, 2, 2, 1);
+
+        interfaceModel_comboBox = new QComboBox(groupBox_11);
+        interfaceModel_comboBox->addItem(QString());
+        interfaceModel_comboBox->addItem(QString());
+        interfaceModel_comboBox->setObjectName(QString::fromUtf8("interfaceModel_comboBox"));
+
+        gridLayout_13->addWidget(interfaceModel_comboBox, 1, 0, 1, 1);
+
+
+        gridLayout_2->addWidget(groupBox_11, 2, 1, 1, 1);
+
+        Alias = new QLineEdit(scrollAreaWidgetContents);
         Alias->setObjectName(QString::fromUtf8("Alias"));
         Alias->setAlignment(Qt::AlignCenter);
 
-        gridLayout_2->addWidget(Alias, 0, 0, 1, 1);
+        gridLayout_2->addWidget(Alias, 14, 1, 1, 1);
 
-        label_43 = new QLabel(groupBox_3);
-        label_43->setObjectName(QString::fromUtf8("label_43"));
-        label_43->setWordWrap(true);
+        label_17 = new QLabel(scrollAreaWidgetContents);
+        label_17->setObjectName(QString::fromUtf8("label_17"));
+        label_17->setMinimumSize(QSize(200, 0));
+        label_17->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_2->addWidget(label_43, 9, 1, 1, 1);
+        gridLayout_2->addWidget(label_17, 0, 0, 1, 1);
 
-        Camera_Load_Plugin_comboBox_2 = new QComboBox(groupBox_3);
-        Camera_Load_Plugin_comboBox_2->addItem(QString());
-        Camera_Load_Plugin_comboBox_2->addItem(QString());
-        Camera_Load_Plugin_comboBox_2->setObjectName(QString::fromUtf8("Camera_Load_Plugin_comboBox_2"));
+        line_7 = new QFrame(scrollAreaWidgetContents);
+        line_7->setObjectName(QString::fromUtf8("line_7"));
+        line_7->setFrameShape(QFrame::HLine);
+        line_7->setFrameShadow(QFrame::Sunken);
 
-        gridLayout_2->addWidget(Camera_Load_Plugin_comboBox_2, 8, 0, 1, 1);
+        gridLayout_2->addWidget(line_7, 5, 1, 1, 1);
 
-        spinBox = new QSpinBox(groupBox_3);
-        spinBox->setObjectName(QString::fromUtf8("spinBox"));
-        spinBox->setAlignment(Qt::AlignCenter);
-        spinBox->setMinimum(1);
-        spinBox->setMaximum(3);
+        A1ReleasrCap_doubleSpinBox = new QDoubleSpinBox(scrollAreaWidgetContents);
+        A1ReleasrCap_doubleSpinBox->setObjectName(QString::fromUtf8("A1ReleasrCap_doubleSpinBox"));
+        A1ReleasrCap_doubleSpinBox->setEnabled(true);
+        A1ReleasrCap_doubleSpinBox->setWrapping(false);
+        A1ReleasrCap_doubleSpinBox->setAlignment(Qt::AlignCenter);
+        A1ReleasrCap_doubleSpinBox->setDecimals(1);
+        A1ReleasrCap_doubleSpinBox->setSingleStep(0.100000000000000);
+        A1ReleasrCap_doubleSpinBox->setStepType(QAbstractSpinBox::AdaptiveDecimalStepType);
 
-        gridLayout_2->addWidget(spinBox, 4, 0, 1, 1);
+        gridLayout_2->addWidget(A1ReleasrCap_doubleSpinBox, 16, 1, 1, 1);
 
-        doubleSpinBox = new QDoubleSpinBox(groupBox_3);
-        doubleSpinBox->setObjectName(QString::fromUtf8("doubleSpinBox"));
-        doubleSpinBox->setAlignment(Qt::AlignCenter);
-        doubleSpinBox->setDecimals(1);
-
-        gridLayout_2->addWidget(doubleSpinBox, 2, 0, 1, 1);
-
-        label_20 = new QLabel(groupBox_3);
-        label_20->setObjectName(QString::fromUtf8("label_20"));
-        label_20->setWordWrap(true);
-
-        gridLayout_2->addWidget(label_20, 6, 1, 1, 1);
-
-        label_42 = new QLabel(groupBox_3);
-        label_42->setObjectName(QString::fromUtf8("label_42"));
-        label_42->setWordWrap(true);
-
-        gridLayout_2->addWidget(label_42, 8, 1, 1, 1);
-
-        label_21 = new QLabel(groupBox_3);
-        label_21->setObjectName(QString::fromUtf8("label_21"));
-        label_21->setWordWrap(true);
-
-        gridLayout_2->addWidget(label_21, 7, 1, 1, 1);
-
-        Plate_Camera_Model = new QComboBox(groupBox_3);
-        Plate_Camera_Model->addItem(QString());
-        Plate_Camera_Model->addItem(QString());
-        Plate_Camera_Model->setObjectName(QString::fromUtf8("Plate_Camera_Model"));
-        sizePolicy.setHeightForWidth(Plate_Camera_Model->sizePolicy().hasHeightForWidth());
-        Plate_Camera_Model->setSizePolicy(sizePolicy);
-
-        gridLayout_2->addWidget(Plate_Camera_Model, 7, 0, 1, 1);
-
-        HCNET_Capture_Type_comboBox_2 = new QComboBox(groupBox_3);
-        HCNET_Capture_Type_comboBox_2->addItem(QString());
-        HCNET_Capture_Type_comboBox_2->addItem(QString());
-        HCNET_Capture_Type_comboBox_2->addItem(QString());
-        HCNET_Capture_Type_comboBox_2->addItem(QString());
-        HCNET_Capture_Type_comboBox_2->addItem(QString());
-        HCNET_Capture_Type_comboBox_2->setObjectName(QString::fromUtf8("HCNET_Capture_Type_comboBox_2"));
-
-        gridLayout_2->addWidget(HCNET_Capture_Type_comboBox_2, 9, 0, 1, 1);
-
-        label_27 = new QLabel(groupBox_3);
-        label_27->setObjectName(QString::fromUtf8("label_27"));
-        label_27->setWordWrap(true);
-
-        gridLayout_2->addWidget(label_27, 0, 1, 1, 1);
-
-        label_28 = new QLabel(groupBox_3);
-        label_28->setObjectName(QString::fromUtf8("label_28"));
-        label_28->setWordWrap(true);
-
-        gridLayout_2->addWidget(label_28, 1, 1, 1, 1);
-
-        label = new QLabel(groupBox_3);
+        groupBox_5 = new QGroupBox(scrollAreaWidgetContents);
+        groupBox_5->setObjectName(QString::fromUtf8("groupBox_5"));
+        gridLayout_8 = new QGridLayout(groupBox_5);
+        gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(20);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        label = new QLabel(groupBox_5);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setWordWrap(true);
 
-        gridLayout_2->addWidget(label, 2, 1, 1, 1);
+        horizontalLayout_3->addWidget(label);
 
-        label_8 = new QLabel(groupBox_3);
+        D1out_comboBox = new QComboBox(groupBox_5);
+        D1out_comboBox->addItem(QString());
+        D1out_comboBox->addItem(QString());
+        D1out_comboBox->addItem(QString());
+        D1out_comboBox->setObjectName(QString::fromUtf8("D1out_comboBox"));
+
+        horizontalLayout_3->addWidget(D1out_comboBox);
+
+        horizontalLayout_3->setStretch(1, 1);
+
+        gridLayout_8->addLayout(horizontalLayout_3, 0, 0, 1, 1);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(20);
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        label_8 = new QLabel(groupBox_5);
         label_8->setObjectName(QString::fromUtf8("label_8"));
-        label_8->setWordWrap(true);
 
-        gridLayout_2->addWidget(label_8, 3, 1, 1, 1);
+        horizontalLayout_4->addWidget(label_8);
 
-        label_19 = new QLabel(groupBox_3);
+        D2out_comboBox = new QComboBox(groupBox_5);
+        D2out_comboBox->addItem(QString());
+        D2out_comboBox->addItem(QString());
+        D2out_comboBox->addItem(QString());
+        D2out_comboBox->setObjectName(QString::fromUtf8("D2out_comboBox"));
+
+        horizontalLayout_4->addWidget(D2out_comboBox);
+
+        horizontalLayout_4->setStretch(1, 1);
+
+        gridLayout_8->addLayout(horizontalLayout_4, 1, 0, 1, 1);
+
+        horizontalSpacer = new QSpacerItem(230, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_8->addItem(horizontalSpacer, 1, 1, 2, 1);
+
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setSpacing(20);
+        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
+        label_19 = new QLabel(groupBox_5);
         label_19->setObjectName(QString::fromUtf8("label_19"));
-        label_19->setWordWrap(true);
 
-        gridLayout_2->addWidget(label_19, 4, 1, 1, 1);
+        horizontalLayout_7->addWidget(label_19);
 
-        gridLayout_2->setColumnStretch(1, 1);
+        D3out_comboBox = new QComboBox(groupBox_5);
+        D3out_comboBox->addItem(QString());
+        D3out_comboBox->addItem(QString());
+        D3out_comboBox->addItem(QString());
+        D3out_comboBox->setObjectName(QString::fromUtf8("D3out_comboBox"));
 
-        gridLayout_8->addWidget(groupBox_3, 7, 0, 1, 1);
+        horizontalLayout_7->addWidget(D3out_comboBox);
+
+        horizontalLayout_7->setStretch(1, 1);
+
+        gridLayout_8->addLayout(horizontalLayout_7, 2, 0, 1, 1);
+
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setSpacing(20);
+        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
+        label_20 = new QLabel(groupBox_5);
+        label_20->setObjectName(QString::fromUtf8("label_20"));
+
+        horizontalLayout_8->addWidget(label_20);
+
+        D4out_comboBox = new QComboBox(groupBox_5);
+        D4out_comboBox->addItem(QString());
+        D4out_comboBox->addItem(QString());
+        D4out_comboBox->addItem(QString());
+        D4out_comboBox->setObjectName(QString::fromUtf8("D4out_comboBox"));
+
+        horizontalLayout_8->addWidget(D4out_comboBox);
+
+        horizontalLayout_8->setStretch(1, 1);
+
+        gridLayout_8->addLayout(horizontalLayout_8, 3, 0, 1, 1);
+
+
+        gridLayout_2->addWidget(groupBox_5, 7, 1, 1, 1);
+
+        label_35 = new QLabel(scrollAreaWidgetContents);
+        label_35->setObjectName(QString::fromUtf8("label_35"));
+        label_35->setMinimumSize(QSize(200, 0));
+        label_35->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_35, 7, 0, 1, 1);
+
+        label_32 = new QLabel(scrollAreaWidgetContents);
+        label_32->setObjectName(QString::fromUtf8("label_32"));
+        label_32->setMinimumSize(QSize(200, 0));
+        label_32->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_32, 13, 0, 1, 1);
+
+        groupBox_8 = new QGroupBox(scrollAreaWidgetContents);
+        groupBox_8->setObjectName(QString::fromUtf8("groupBox_8"));
+        gridLayout_12 = new QGridLayout(groupBox_8);
+        gridLayout_12->setObjectName(QString::fromUtf8("gridLayout_12"));
+        inspectionLeft_checkbox = new QCheckBox(groupBox_8);
+        inspectionLeft_checkbox->setObjectName(QString::fromUtf8("inspectionLeft_checkbox"));
+        inspectionLeft_checkbox->setChecked(false);
+
+        gridLayout_12->addWidget(inspectionLeft_checkbox, 0, 0, 1, 1);
+
+        inspectionRight_checkbox = new QCheckBox(groupBox_8);
+        inspectionRight_checkbox->setObjectName(QString::fromUtf8("inspectionRight_checkbox"));
+        inspectionRight_checkbox->setChecked(false);
+
+        gridLayout_12->addWidget(inspectionRight_checkbox, 1, 0, 1, 1);
+
+        inspectionTop_checkbox = new QCheckBox(groupBox_8);
+        inspectionTop_checkbox->setObjectName(QString::fromUtf8("inspectionTop_checkbox"));
+        inspectionTop_checkbox->setChecked(false);
+
+        gridLayout_12->addWidget(inspectionTop_checkbox, 2, 0, 1, 1);
+
+
+        gridLayout_2->addWidget(groupBox_8, 13, 1, 1, 1);
+
+        ControllerSignalMode = new QComboBox(scrollAreaWidgetContents);
+        ControllerSignalMode->addItem(QString());
+        ControllerSignalMode->addItem(QString());
+        ControllerSignalMode->addItem(QString());
+        ControllerSignalMode->setObjectName(QString::fromUtf8("ControllerSignalMode"));
+
+        gridLayout_2->addWidget(ControllerSignalMode, 1, 1, 1, 1);
+
+        identificationTimes_spinBox = new QSpinBox(scrollAreaWidgetContents);
+        identificationTimes_spinBox->setObjectName(QString::fromUtf8("identificationTimes_spinBox"));
+        identificationTimes_spinBox->setEnabled(false);
+        identificationTimes_spinBox->setAlignment(Qt::AlignCenter);
+        identificationTimes_spinBox->setMinimum(1);
+        identificationTimes_spinBox->setMaximum(3);
+
+        gridLayout_2->addWidget(identificationTimes_spinBox, 18, 1, 1, 1);
+
+        B1ReleasrCap_doubleSpinBox = new QDoubleSpinBox(scrollAreaWidgetContents);
+        B1ReleasrCap_doubleSpinBox->setObjectName(QString::fromUtf8("B1ReleasrCap_doubleSpinBox"));
+        B1ReleasrCap_doubleSpinBox->setEnabled(false);
+        B1ReleasrCap_doubleSpinBox->setAlignment(Qt::AlignCenter);
+        B1ReleasrCap_doubleSpinBox->setDecimals(1);
+
+        gridLayout_2->addWidget(B1ReleasrCap_doubleSpinBox, 17, 1, 1, 1);
+
+        label_23 = new QLabel(scrollAreaWidgetContents);
+        label_23->setObjectName(QString::fromUtf8("label_23"));
+        label_23->setMinimumSize(QSize(200, 0));
+        label_23->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_23, 6, 0, 1, 1);
+
+        label_30 = new QLabel(scrollAreaWidgetContents);
+        label_30->setObjectName(QString::fromUtf8("label_30"));
+        label_30->setMinimumSize(QSize(200, 0));
+        label_30->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_30, 18, 0, 1, 1);
+
+        label_29 = new QLabel(scrollAreaWidgetContents);
+        label_29->setObjectName(QString::fromUtf8("label_29"));
+        label_29->setMinimumSize(QSize(200, 0));
+        label_29->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_29, 17, 0, 1, 1);
+
+        label_33 = new QLabel(scrollAreaWidgetContents);
+        label_33->setObjectName(QString::fromUtf8("label_33"));
+        label_33->setMinimumSize(QSize(200, 0));
+        label_33->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_33, 10, 0, 2, 1);
+
+        label_27 = new QLabel(scrollAreaWidgetContents);
+        label_27->setObjectName(QString::fromUtf8("label_27"));
+        label_27->setMinimumSize(QSize(200, 0));
+        label_27->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        gridLayout_2->addWidget(label_27, 15, 0, 1, 1);
 
         scrollArea->setWidget(scrollAreaWidgetContents);
 
-        gridLayout_9->addWidget(scrollArea, 0, 0, 1, 1);
+        gridLayout_9->addWidget(scrollArea, 0, 1, 1, 1);
 
+        QWidget::setTabOrder(Camera_Front, Camera_Left);
+        QWidget::setTabOrder(Camera_Left, Camera_Top);
+        QWidget::setTabOrder(Camera_Top, LocalAddr);
+        QWidget::setTabOrder(LocalAddr, Camera_Prospects);
+        QWidget::setTabOrder(Camera_Prospects, Camera_User);
+        QWidget::setTabOrder(Camera_User, Camera_Forground);
+        QWidget::setTabOrder(Camera_Forground, Camera_Password);
+        QWidget::setTabOrder(Camera_Password, Camera_Plate);
+        QWidget::setTabOrder(Camera_Plate, controllerAddr_linedit);
+        QWidget::setTabOrder(controllerAddr_linedit, controllerPort_spinBox);
+        QWidget::setTabOrder(controllerPort_spinBox, D1out_comboBox);
+        QWidget::setTabOrder(D1out_comboBox, D2out_comboBox);
+        QWidget::setTabOrder(D2out_comboBox, D3out_comboBox);
+        QWidget::setTabOrder(D3out_comboBox, D4out_comboBox);
+        QWidget::setTabOrder(D4out_comboBox, SerialAddr_One);
+        QWidget::setTabOrder(SerialAddr_One, Port_One);
+        QWidget::setTabOrder(Port_One, Port_Tow);
+        QWidget::setTabOrder(Port_Tow, SerialAddr_Tow);
 
         retranslateUi(Channel_Setting_Form);
-        QObject::connect(ControllerSignalMode, SIGNAL(currentIndexChanged(int)), stackedWidget, SLOT(setCurrentIndex(int)));
 
-        stackedWidget->setCurrentIndex(0);
+        D1out_comboBox->setCurrentIndex(0);
+        D2out_comboBox->setCurrentIndex(0);
+        D3out_comboBox->setCurrentIndex(0);
+        D4out_comboBox->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Channel_Setting_Form);
@@ -733,93 +891,127 @@ public:
     void retranslateUi(QWidget *Channel_Setting_Form)
     {
         Channel_Setting_Form->setWindowTitle(QApplication::translate("Channel_Setting_Form", "Form", nullptr));
-        groupBox->setTitle(QApplication::translate("Channel_Setting_Form", "Camera", nullptr));
-        label_11->setText(QApplication::translate("Channel_Setting_Form", "Front", nullptr));
-        label_16->setText(QApplication::translate("Channel_Setting_Form", "Left", nullptr));
-        label_9->setText(QApplication::translate("Channel_Setting_Form", "Top", nullptr));
-        label_25->setText(QApplication::translate("Channel_Setting_Form", "Front view", nullptr));
-        label_26->setText(QApplication::translate("Channel_Setting_Form", "End view", nullptr));
-        label_6->setText(QApplication::translate("Channel_Setting_Form", "Local Addr", nullptr));
-        Camera_Front->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        Camera_Left->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        Camera_Top->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        Camera_Prospects->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        Camera_Forground->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        LocalAddr->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        label_14->setText(QApplication::translate("Channel_Setting_Form", "After", nullptr));
-        label_10->setText(QApplication::translate("Channel_Setting_Form", "Right", nullptr));
-        label_15->setText(QApplication::translate("Channel_Setting_Form", "Plate", nullptr));
-        label_13->setText(QApplication::translate("Channel_Setting_Form", "User", nullptr));
-        label_12->setText(QApplication::translate("Channel_Setting_Form", "Password", nullptr));
-        Camera_After->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        Camera_Right->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        Camera_Plate->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        Camera_User->setPlaceholderText(QApplication::translate("Channel_Setting_Form", "admin", nullptr));
-        Camera_Password->setPlaceholderText(QApplication::translate("Channel_Setting_Form", "ABCabc123", nullptr));
-        groupBox_2->setTitle(QApplication::translate("Channel_Setting_Form", "Serial interface mode", nullptr));
-        label_18->setText(QApplication::translate("Channel_Setting_Form", "Serial port 2", nullptr));
-        SerialPort_Tow->setPrefix(QApplication::translate("Channel_Setting_Form", "COM", nullptr));
-        label_17->setText(QApplication::translate("Channel_Setting_Form", "Serial port 1", nullptr));
-        SerialPort_One->setSuffix(QString());
-        SerialPort_One->setPrefix(QApplication::translate("Channel_Setting_Form", "COM", nullptr));
-        label_2->setText(QApplication::translate("Channel_Setting_Form", "Address1", nullptr));
+        label_28->setText(QApplication::translate("Channel_Setting_Form", "A2 timeout capture", nullptr));
+        groupBox_7->setTitle(QString());
+        containerState_checkbox->setText(QApplication::translate("Channel_Setting_Form", "Container number", nullptr));
+        plateState_checkbox->setText(QApplication::translate("Channel_Setting_Form", "The license plate", nullptr));
+        groupBox_6->setTitle(QString());
+        PlatePageState->setText(QApplication::translate("Channel_Setting_Form", "Plate ", nullptr));
+        ProspectsPageState->setText(QApplication::translate("Channel_Setting_Form", "Prospects", nullptr));
+        ForegroundPageState->setText(QApplication::translate("Channel_Setting_Form", "Foreground", nullptr));
+        TopPageState->setText(QApplication::translate("Channel_Setting_Form", "Top", nullptr));
+        groupBox_10->setTitle(QString());
         SerialAddr_One->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        label_4->setText(QApplication::translate("Channel_Setting_Form", "Address2", nullptr));
+        label_3->setText(QApplication::translate("Channel_Setting_Form", "Port1", nullptr));
         SerialAddr_Tow->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
         SerialAddr_Tow->setText(QApplication::translate("Channel_Setting_Form", "...", nullptr));
-        label_3->setText(QApplication::translate("Channel_Setting_Form", "Port1", nullptr));
         label_5->setText(QApplication::translate("Channel_Setting_Form", "Port2", nullptr));
-        label_24->setText(QApplication::translate("Channel_Setting_Form", "Address", nullptr));
-        SerialAddr_One_2->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
-        ControllerSignalMode->setItemText(0, QApplication::translate("Channel_Setting_Form", "Serial Port", nullptr));
-        ControllerSignalMode->setItemText(1, QApplication::translate("Channel_Setting_Form", "Moxa Tcp Server", nullptr));
-        ControllerSignalMode->setItemText(2, QApplication::translate("Channel_Setting_Form", "IO controller", nullptr));
-
-        groupBox_13->setTitle(QApplication::translate("Channel_Setting_Form", "Controller signal mode", nullptr));
+#ifndef QT_NO_TOOLTIP
+        Channel_Number->setToolTip(QApplication::translate("Channel_Setting_Form", "The channel number that distinguishes the channel data.", nullptr));
+#endif // QT_NO_TOOLTIP
+        label_39->setText(QApplication::translate("Channel_Setting_Form", "Network controller", nullptr));
+        groupBox_2->setTitle(QString());
+        Camera_Left->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
+        label_25->setText(QApplication::translate("Channel_Setting_Form", "Front view", nullptr));
+        Camera_Plate->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
+        Camera_Forground->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
+        label_10->setText(QApplication::translate("Channel_Setting_Form", "Right", nullptr));
+        label_12->setText(QApplication::translate("Channel_Setting_Form", "Password", nullptr));
+        label_6->setText(QApplication::translate("Channel_Setting_Form", "Local Addr", nullptr));
+        Camera_User->setPlaceholderText(QApplication::translate("Channel_Setting_Form", "admin", nullptr));
+        label_14->setText(QApplication::translate("Channel_Setting_Form", "After", nullptr));
+        label_16->setText(QApplication::translate("Channel_Setting_Form", "Left", nullptr));
+        label_11->setText(QApplication::translate("Channel_Setting_Form", "Front", nullptr));
+        Camera_Top->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
+        Camera_Password->setPlaceholderText(QApplication::translate("Channel_Setting_Form", "ABCabc123", nullptr));
+        LocalAddr->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
+        Camera_Prospects->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
+        label_9->setText(QApplication::translate("Channel_Setting_Form", "Top", nullptr));
+        label_15->setText(QApplication::translate("Channel_Setting_Form", "Plate", nullptr));
+        Camera_Front->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
+        label_26->setText(QApplication::translate("Channel_Setting_Form", "End view", nullptr));
+        label_13->setText(QApplication::translate("Channel_Setting_Form", "User", nullptr));
+        Camera_After->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
+        Camera_Right->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
+        groupBox_3->setTitle(QString());
+        A1shielding_checkbox->setText(QApplication::translate("Channel_Setting_Form", "A1", nullptr));
+        A2shielding_checkbox->setText(QApplication::translate("Channel_Setting_Form", "A2", nullptr));
+        B1shielding_checkbox->setText(QApplication::translate("Channel_Setting_Form", "B1", nullptr));
+        B2shielding_checkbox->setText(QApplication::translate("Channel_Setting_Form", "B2", nullptr));
+        label_34->setText(QApplication::translate("Channel_Setting_Form", "Identify the project", nullptr));
+        label_37->setText(QApplication::translate("Channel_Setting_Form", "Serial Port", nullptr));
+        groupBox_9->setTitle(QString());
+        SerialPort_One->setSuffix(QString());
+        SerialPort_One->setPrefix(QApplication::translate("Channel_Setting_Form", "COM", nullptr));
+        SerialPort_Tow->setPrefix(QApplication::translate("Channel_Setting_Form", "COM", nullptr));
+        label_24->setText(QApplication::translate("Channel_Setting_Form", "Channel alias", nullptr));
+        label_38->setText(QApplication::translate("Channel_Setting_Form", "Moxa socket", nullptr));
+        label_36->setText(QApplication::translate("Channel_Setting_Form", "Lifting lever pattern", nullptr));
+        groupBox_4->setTitle(QString());
         SerialPortOpenState->setText(QApplication::translate("Channel_Setting_Form", "Normally open", nullptr));
         SerialPortCloseState->setText(QApplication::translate("Channel_Setting_Form", "Normally closed", nullptr));
-        groupBox_15->setTitle(QApplication::translate("Channel_Setting_Form", "recognition", nullptr));
-        SerialPortOpenState_3->setText(QApplication::translate("Channel_Setting_Form", "Container number", nullptr));
-        SerialPortCloseState_3->setText(QApplication::translate("Channel_Setting_Form", "The license plate", nullptr));
-        groupBox_14->setTitle(QApplication::translate("Channel_Setting_Form", "License plate trigger mode", nullptr));
-        SerialPortOpenState_2->setText(QApplication::translate("Channel_Setting_Form", "Video identification", nullptr));
-        SerialPortCloseState_2->setText(QApplication::translate("Channel_Setting_Form", "Signal trigger", nullptr));
-        groupBox_16->setTitle(QApplication::translate("Channel_Setting_Form", "Infrared signal shielding", nullptr));
-        SerialPortOpenState_5->setText(QApplication::translate("Channel_Setting_Form", "A1", nullptr));
-        SerialPortOpenState_7->setText(QApplication::translate("Channel_Setting_Form", "B1", nullptr));
-        SerialPortOpenState_6->setText(QApplication::translate("Channel_Setting_Form", "A2", nullptr));
-        SerialPortOpenState_8->setText(QApplication::translate("Channel_Setting_Form", "B2", nullptr));
-        groupBox_17->setTitle(QApplication::translate("Channel_Setting_Form", "Container residue inspection", nullptr));
-        SerialPortOpenState_12->setText(QApplication::translate("Channel_Setting_Form", "Right", nullptr));
-        SerialPortOpenState_13->setText(QApplication::translate("Channel_Setting_Form", "Top", nullptr));
-        SerialPortOpenState_11->setText(QApplication::translate("Channel_Setting_Form", "Left", nullptr));
-        groupBox_3->setTitle(QApplication::translate("Channel_Setting_Form", "Other", nullptr));
-        Container_Camera_Model->setItemText(0, QApplication::translate("Channel_Setting_Form", "hcnet", nullptr));
-        Container_Camera_Model->setItemText(1, QApplication::translate("Channel_Setting_Form", "dahua", nullptr));
-        Container_Camera_Model->setItemText(2, QApplication::translate("Channel_Setting_Form", "custom", nullptr));
+        label_31->setText(QApplication::translate("Channel_Setting_Form", "Shielded infrared signal", nullptr));
+        label_2->setText(QApplication::translate("Channel_Setting_Form", "Trigger mode", nullptr));
+        lifthingType_comboBox->setItemText(0, QApplication::translate("Channel_Setting_Form", "Identification of lifting lever", nullptr));
+        lifthingType_comboBox->setItemText(1, QApplication::translate("Channel_Setting_Form", "Identify successful lift rod", nullptr));
+        lifthingType_comboBox->setItemText(2, QApplication::translate("Channel_Setting_Form", "Lift rod on signal", nullptr));
 
+        groupBox_11->setTitle(QString());
+        controllerAddr_linedit->setInputMask(QApplication::translate("Channel_Setting_Form", "000.000.000.000;_", nullptr));
+        label_7->setText(QApplication::translate("Channel_Setting_Form", "port", nullptr));
+        interfaceModel_comboBox->setItemText(0, QApplication::translate("Channel_Setting_Form", "tcp client", nullptr));
+        interfaceModel_comboBox->setItemText(1, QApplication::translate("Channel_Setting_Form", "tcp server", nullptr));
+
+#ifndef QT_NO_TOOLTIP
+        Alias->setToolTip(QApplication::translate("Channel_Setting_Form", "Channel alias, the main page prompt.", nullptr));
+#endif // QT_NO_TOOLTIP
         Alias->setPlaceholderText(QApplication::translate("Channel_Setting_Form", "Container access gate", nullptr));
-        label_43->setText(QApplication::translate("Channel_Setting_Form", "Haikang camera capture mode, this option and plug-in mode associated", nullptr));
-        Camera_Load_Plugin_comboBox_2->setItemText(0, QApplication::translate("Channel_Setting_Form", "A single instance", nullptr));
-        Camera_Load_Plugin_comboBox_2->setItemText(1, QApplication::translate("Channel_Setting_Form", "Multiple instances", nullptr));
+        label_17->setText(QApplication::translate("Channel_Setting_Form", "Address of the camera", nullptr));
+#ifndef QT_NO_TOOLTIP
+        A1ReleasrCap_doubleSpinBox->setToolTip(QApplication::translate("Channel_Setting_Form", "A1 infrared release, how many seconds to capture the picture", nullptr));
+#endif // QT_NO_TOOLTIP
+        groupBox_5->setTitle(QString());
+        label->setText(QApplication::translate("Channel_Setting_Form", "D1", nullptr));
+        D1out_comboBox->setItemText(0, QApplication::translate("Channel_Setting_Form", "NONE", nullptr));
+        D1out_comboBox->setItemText(1, QApplication::translate("Channel_Setting_Form", "Brake machine", nullptr));
+        D1out_comboBox->setItemText(2, QApplication::translate("Channel_Setting_Form", "LED", nullptr));
 
-        label_20->setText(QApplication::translate("Channel_Setting_Form", "Container recognition camera type", nullptr));
-        label_42->setText(QApplication::translate("Channel_Setting_Form", "Haikang Camera Snap Plug-in Mode, some modes require a single class.", nullptr));
-        label_21->setText(QApplication::translate("Channel_Setting_Form", "Type of license plate camera", nullptr));
-        Plate_Camera_Model->setItemText(0, QApplication::translate("Channel_Setting_Form", "hikvision", nullptr));
-        Plate_Camera_Model->setItemText(1, QApplication::translate("Channel_Setting_Form", "WTY", nullptr));
+        label_8->setText(QApplication::translate("Channel_Setting_Form", "D2", nullptr));
+        D2out_comboBox->setItemText(0, QApplication::translate("Channel_Setting_Form", "NONE", nullptr));
+        D2out_comboBox->setItemText(1, QApplication::translate("Channel_Setting_Form", "Brake machine", nullptr));
+        D2out_comboBox->setItemText(2, QApplication::translate("Channel_Setting_Form", "LED", nullptr));
 
-        HCNET_Capture_Type_comboBox_2->setItemText(0, QApplication::translate("Channel_Setting_Form", "Catch the memory", nullptr));
-        HCNET_Capture_Type_comboBox_2->setItemText(1, QApplication::translate("Channel_Setting_Form", "Manual trigger snap (test)", nullptr));
-        HCNET_Capture_Type_comboBox_2->setItemText(2, QApplication::translate("Channel_Setting_Form", "CallBack Take the result(An instance)", nullptr));
-        HCNET_Capture_Type_comboBox_2->setItemText(3, QApplication::translate("Channel_Setting_Form", "Video take figure", nullptr));
-        HCNET_Capture_Type_comboBox_2->setItemText(4, QApplication::translate("Channel_Setting_Form", "The underlying capture", nullptr));
+        label_19->setText(QApplication::translate("Channel_Setting_Form", "D3", nullptr));
+        D3out_comboBox->setItemText(0, QApplication::translate("Channel_Setting_Form", "NONE", nullptr));
+        D3out_comboBox->setItemText(1, QApplication::translate("Channel_Setting_Form", "Brake machine", nullptr));
+        D3out_comboBox->setItemText(2, QApplication::translate("Channel_Setting_Form", "LED", nullptr));
 
-        label_27->setText(QApplication::translate("Channel_Setting_Form", "Channel alias, the main page prompt.", nullptr));
-        label_28->setText(QApplication::translate("Channel_Setting_Form", "The channel number that distinguishes the channel data.", nullptr));
-        label->setText(QApplication::translate("Channel_Setting_Form", "A1 infrared release, how many seconds to capture the picture", nullptr));
-        label_8->setText(QApplication::translate("Channel_Setting_Form", "B1 infrared release, how many seconds to capture the picture", nullptr));
-        label_19->setText(QApplication::translate("Channel_Setting_Form", "Number of car capture recognition", nullptr));
+        label_20->setText(QApplication::translate("Channel_Setting_Form", "D4", nullptr));
+        D4out_comboBox->setItemText(0, QApplication::translate("Channel_Setting_Form", "NONE", nullptr));
+        D4out_comboBox->setItemText(1, QApplication::translate("Channel_Setting_Form", "Brake machine", nullptr));
+        D4out_comboBox->setItemText(2, QApplication::translate("Channel_Setting_Form", "LED", nullptr));
+
+        label_35->setText(QApplication::translate("Channel_Setting_Form", "Network controller control", nullptr));
+        label_32->setText(QApplication::translate("Channel_Setting_Form", "Container residue inspection", nullptr));
+        groupBox_8->setTitle(QString());
+        inspectionLeft_checkbox->setText(QApplication::translate("Channel_Setting_Form", "Left Camera", nullptr));
+        inspectionRight_checkbox->setText(QApplication::translate("Channel_Setting_Form", "Right Camera", nullptr));
+        inspectionTop_checkbox->setText(QApplication::translate("Channel_Setting_Form", "Top Camera", nullptr));
+        ControllerSignalMode->setItemText(0, QApplication::translate("Channel_Setting_Form", "Serial Port", nullptr));
+        ControllerSignalMode->setItemText(1, QApplication::translate("Channel_Setting_Form", "Moxa Socket", nullptr));
+        ControllerSignalMode->setItemText(2, QApplication::translate("Channel_Setting_Form", "Network controller", nullptr));
+
+#ifndef QT_NO_TOOLTIP
+        identificationTimes_spinBox->setToolTip(QApplication::translate("Channel_Setting_Form", "Container number identification times", nullptr));
+#endif // QT_NO_TOOLTIP
+#ifndef QT_NO_TOOLTIP
+        B1ReleasrCap_doubleSpinBox->setToolTip(QApplication::translate("Channel_Setting_Form", "B1 infrared release, how many seconds to capture the picture", nullptr));
+#endif // QT_NO_TOOLTIP
+        label_23->setText(QApplication::translate("Channel_Setting_Form", "Controller signal mode", nullptr));
+        label_30->setText(QApplication::translate("Channel_Setting_Form", "Image repetition recognition", nullptr));
+        label_29->setText(QApplication::translate("Channel_Setting_Form", "B1 timeout capture", nullptr));
+        label_33->setText(QApplication::translate("Channel_Setting_Form", "Display camera pictures", nullptr));
+        label_27->setText(QApplication::translate("Channel_Setting_Form", "The channel number", nullptr));
     } // retranslateUi
 
 };

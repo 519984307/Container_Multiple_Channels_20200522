@@ -17,6 +17,7 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
@@ -29,17 +30,6 @@ class Ui_SimulationDialog
 {
 public:
     QGridLayout *gridLayout_3;
-    QSpacerItem *horizontalSpacer;
-    QGroupBox *groupBox_3;
-    QGridLayout *gridLayout_6;
-    QComboBox *Simulatiion_comboBox;
-    QPushButton *capturePushButton;
-    QCheckBox *while_cycle_capture_checkBox;
-    QPushButton *plateCapPushButton;
-    QPushButton *liftingLeverPushButton;
-    QPushButton *fallRodPushButton;
-    QToolButton *toolButton;
-    QSpacerItem *verticalSpacer_5;
     QGroupBox *groupBox;
     QGridLayout *gridLayout;
     QLineEdit *con_before_lineEdit;
@@ -52,95 +42,49 @@ public:
     QSpacerItem *verticalSpacer_2;
     QLineEdit *iso_after_lineEdit;
     QLineEdit *plate_lineEdit;
+    QSpacerItem *verticalSpacer_5;
+    QGroupBox *groupBox_3;
+    QGridLayout *gridLayout_6;
+    QComboBox *Simulatiion_comboBox;
+    QPushButton *capturePushButton;
+    QCheckBox *while_cycle_capture_checkBox;
+    QPushButton *plateCapPushButton;
+    QPushButton *liftingLeverPushButton;
+    QPushButton *fallRodPushButton;
+    QToolButton *toolButton;
     QGroupBox *manualGroupBox;
     QGridLayout *gridLayout_2;
     QLineEdit *send_con_before_lineEdit;
     QLineEdit *send_con_after_lineEdit;
-    QPushButton *pushButton_2;
-    QSplitter *splitter;
-    QLineEdit *send_iso_before_lineEdit;
-    QLineEdit *send_iso_after_lineEdit;
     QLineEdit *send_plate_lineEdit;
     QLineEdit *send_plate_color_lineEdit;
-    QCheckBox *checkBox;
-    QPushButton *pushButton;
+    QSplitter *splitter_3;
+    QCheckBox *container_checkBox;
+    QCheckBox *plate_checkBox;
+    QSpacerItem *verticalSpacer_4;
+    QHBoxLayout *horizontalLayout;
+    QLineEdit *send_iso_before_lineEdit;
+    QSpacerItem *horizontalSpacer_2;
+    QHBoxLayout *horizontalLayout_2;
+    QLineEdit *send_iso_after_lineEdit;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *sendPlate_pushButton;
+    QPushButton *sendCon_pushButton;
+    QSpacerItem *horizontalSpacer;
     QPushButton *exitPushButton;
 
     void setupUi(QDialog *SimulationDialog)
     {
         if (SimulationDialog->objectName().isEmpty())
             SimulationDialog->setObjectName(QString::fromUtf8("SimulationDialog"));
-        SimulationDialog->resize(600, 450);
-        SimulationDialog->setMinimumSize(QSize(600, 450));
-        SimulationDialog->setMaximumSize(QSize(600, 450));
+        SimulationDialog->resize(600, 600);
+        SimulationDialog->setMinimumSize(QSize(600, 600));
+        SimulationDialog->setMaximumSize(QSize(600, 600));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/UI_ICO/ICO/ICO.ico"), QSize(), QIcon::Normal, QIcon::Off);
         SimulationDialog->setWindowIcon(icon);
         gridLayout_3 = new QGridLayout(SimulationDialog);
         gridLayout_3->setObjectName(QString::fromUtf8("gridLayout_3"));
-        horizontalSpacer = new QSpacerItem(488, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout_3->addItem(horizontalSpacer, 4, 0, 1, 1);
-
-        groupBox_3 = new QGroupBox(SimulationDialog);
-        groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        gridLayout_6 = new QGridLayout(groupBox_3);
-        gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
-        Simulatiion_comboBox = new QComboBox(groupBox_3);
-        Simulatiion_comboBox->addItem(QString());
-        Simulatiion_comboBox->addItem(QString());
-        Simulatiion_comboBox->addItem(QString());
-        Simulatiion_comboBox->addItem(QString());
-        Simulatiion_comboBox->addItem(QString());
-        Simulatiion_comboBox->setObjectName(QString::fromUtf8("Simulatiion_comboBox"));
-        Simulatiion_comboBox->setEditable(false);
-
-        gridLayout_6->addWidget(Simulatiion_comboBox, 0, 0, 1, 3);
-
-        capturePushButton = new QPushButton(groupBox_3);
-        capturePushButton->setObjectName(QString::fromUtf8("capturePushButton"));
-
-        gridLayout_6->addWidget(capturePushButton, 0, 3, 1, 1);
-
-        while_cycle_capture_checkBox = new QCheckBox(groupBox_3);
-        while_cycle_capture_checkBox->setObjectName(QString::fromUtf8("while_cycle_capture_checkBox"));
-
-        gridLayout_6->addWidget(while_cycle_capture_checkBox, 1, 0, 1, 2);
-
-        plateCapPushButton = new QPushButton(groupBox_3);
-        plateCapPushButton->setObjectName(QString::fromUtf8("plateCapPushButton"));
-
-        gridLayout_6->addWidget(plateCapPushButton, 2, 0, 1, 1);
-
-        liftingLeverPushButton = new QPushButton(groupBox_3);
-        liftingLeverPushButton->setObjectName(QString::fromUtf8("liftingLeverPushButton"));
-
-        gridLayout_6->addWidget(liftingLeverPushButton, 2, 1, 1, 1);
-
-        fallRodPushButton = new QPushButton(groupBox_3);
-        fallRodPushButton->setObjectName(QString::fromUtf8("fallRodPushButton"));
-
-        gridLayout_6->addWidget(fallRodPushButton, 2, 2, 1, 1);
-
-        toolButton = new QToolButton(groupBox_3);
-        toolButton->setObjectName(QString::fromUtf8("toolButton"));
-        toolButton->setCheckable(false);
-        toolButton->setAutoRepeat(false);
-        toolButton->setAutoExclusive(false);
-        toolButton->setPopupMode(QToolButton::DelayedPopup);
-        toolButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
-        toolButton->setAutoRaise(true);
-        toolButton->setArrowType(Qt::DownArrow);
-
-        gridLayout_6->addWidget(toolButton, 2, 3, 1, 1);
-
-
-        gridLayout_3->addWidget(groupBox_3, 2, 0, 1, 2);
-
-        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        gridLayout_3->addItem(verticalSpacer_5, 1, 0, 1, 1);
-
         groupBox = new QGroupBox(SimulationDialog);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         gridLayout = new QGridLayout(groupBox);
@@ -230,6 +174,65 @@ public:
 
         gridLayout_3->addWidget(groupBox, 0, 0, 1, 2);
 
+        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_3->addItem(verticalSpacer_5, 1, 0, 1, 1);
+
+        groupBox_3 = new QGroupBox(SimulationDialog);
+        groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
+        gridLayout_6 = new QGridLayout(groupBox_3);
+        gridLayout_6->setObjectName(QString::fromUtf8("gridLayout_6"));
+        Simulatiion_comboBox = new QComboBox(groupBox_3);
+        Simulatiion_comboBox->addItem(QString());
+        Simulatiion_comboBox->addItem(QString());
+        Simulatiion_comboBox->addItem(QString());
+        Simulatiion_comboBox->addItem(QString());
+        Simulatiion_comboBox->addItem(QString());
+        Simulatiion_comboBox->setObjectName(QString::fromUtf8("Simulatiion_comboBox"));
+        Simulatiion_comboBox->setEditable(false);
+
+        gridLayout_6->addWidget(Simulatiion_comboBox, 0, 0, 1, 3);
+
+        capturePushButton = new QPushButton(groupBox_3);
+        capturePushButton->setObjectName(QString::fromUtf8("capturePushButton"));
+
+        gridLayout_6->addWidget(capturePushButton, 0, 3, 1, 1);
+
+        while_cycle_capture_checkBox = new QCheckBox(groupBox_3);
+        while_cycle_capture_checkBox->setObjectName(QString::fromUtf8("while_cycle_capture_checkBox"));
+
+        gridLayout_6->addWidget(while_cycle_capture_checkBox, 1, 0, 1, 2);
+
+        plateCapPushButton = new QPushButton(groupBox_3);
+        plateCapPushButton->setObjectName(QString::fromUtf8("plateCapPushButton"));
+
+        gridLayout_6->addWidget(plateCapPushButton, 2, 0, 1, 1);
+
+        liftingLeverPushButton = new QPushButton(groupBox_3);
+        liftingLeverPushButton->setObjectName(QString::fromUtf8("liftingLeverPushButton"));
+
+        gridLayout_6->addWidget(liftingLeverPushButton, 2, 1, 1, 1);
+
+        fallRodPushButton = new QPushButton(groupBox_3);
+        fallRodPushButton->setObjectName(QString::fromUtf8("fallRodPushButton"));
+
+        gridLayout_6->addWidget(fallRodPushButton, 2, 2, 1, 1);
+
+        toolButton = new QToolButton(groupBox_3);
+        toolButton->setObjectName(QString::fromUtf8("toolButton"));
+        toolButton->setCheckable(false);
+        toolButton->setAutoRepeat(false);
+        toolButton->setAutoExclusive(false);
+        toolButton->setPopupMode(QToolButton::DelayedPopup);
+        toolButton->setToolButtonStyle(Qt::ToolButtonIconOnly);
+        toolButton->setAutoRaise(true);
+        toolButton->setArrowType(Qt::DownArrow);
+
+        gridLayout_6->addWidget(toolButton, 2, 3, 1, 1);
+
+
+        gridLayout_3->addWidget(groupBox_3, 2, 0, 1, 2);
+
         manualGroupBox = new QGroupBox(SimulationDialog);
         manualGroupBox->setObjectName(QString::fromUtf8("manualGroupBox"));
         manualGroupBox->setEnabled(true);
@@ -245,39 +248,76 @@ public:
 
         gridLayout_2->addWidget(send_con_after_lineEdit, 0, 1, 1, 1);
 
-        pushButton_2 = new QPushButton(manualGroupBox);
-        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
-
-        gridLayout_2->addWidget(pushButton_2, 0, 2, 1, 1);
-
-        splitter = new QSplitter(manualGroupBox);
-        splitter->setObjectName(QString::fromUtf8("splitter"));
-        splitter->setOrientation(Qt::Horizontal);
-        send_iso_before_lineEdit = new QLineEdit(splitter);
-        send_iso_before_lineEdit->setObjectName(QString::fromUtf8("send_iso_before_lineEdit"));
-        splitter->addWidget(send_iso_before_lineEdit);
-        send_iso_after_lineEdit = new QLineEdit(splitter);
-        send_iso_after_lineEdit->setObjectName(QString::fromUtf8("send_iso_after_lineEdit"));
-        splitter->addWidget(send_iso_after_lineEdit);
-        send_plate_lineEdit = new QLineEdit(splitter);
+        send_plate_lineEdit = new QLineEdit(manualGroupBox);
         send_plate_lineEdit->setObjectName(QString::fromUtf8("send_plate_lineEdit"));
-        splitter->addWidget(send_plate_lineEdit);
-        send_plate_color_lineEdit = new QLineEdit(splitter);
+
+        gridLayout_2->addWidget(send_plate_lineEdit, 2, 0, 1, 1);
+
+        send_plate_color_lineEdit = new QLineEdit(manualGroupBox);
         send_plate_color_lineEdit->setObjectName(QString::fromUtf8("send_plate_color_lineEdit"));
-        splitter->addWidget(send_plate_color_lineEdit);
-        checkBox = new QCheckBox(splitter);
-        checkBox->setObjectName(QString::fromUtf8("checkBox"));
-        splitter->addWidget(checkBox);
 
-        gridLayout_2->addWidget(splitter, 1, 0, 1, 2);
+        gridLayout_2->addWidget(send_plate_color_lineEdit, 2, 1, 1, 1);
 
-        pushButton = new QPushButton(manualGroupBox);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        splitter_3 = new QSplitter(manualGroupBox);
+        splitter_3->setObjectName(QString::fromUtf8("splitter_3"));
+        splitter_3->setOrientation(Qt::Horizontal);
+        container_checkBox = new QCheckBox(splitter_3);
+        container_checkBox->setObjectName(QString::fromUtf8("container_checkBox"));
+        splitter_3->addWidget(container_checkBox);
+        plate_checkBox = new QCheckBox(splitter_3);
+        plate_checkBox->setObjectName(QString::fromUtf8("plate_checkBox"));
+        splitter_3->addWidget(plate_checkBox);
 
-        gridLayout_2->addWidget(pushButton, 1, 2, 1, 1);
+        gridLayout_2->addWidget(splitter_3, 3, 0, 1, 2);
+
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer_4, 3, 2, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        send_iso_before_lineEdit = new QLineEdit(manualGroupBox);
+        send_iso_before_lineEdit->setObjectName(QString::fromUtf8("send_iso_before_lineEdit"));
+
+        horizontalLayout->addWidget(send_iso_before_lineEdit);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_2);
+
+
+        gridLayout_2->addLayout(horizontalLayout, 1, 0, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        send_iso_after_lineEdit = new QLineEdit(manualGroupBox);
+        send_iso_after_lineEdit->setObjectName(QString::fromUtf8("send_iso_after_lineEdit"));
+
+        horizontalLayout_2->addWidget(send_iso_after_lineEdit);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_3);
+
+
+        gridLayout_2->addLayout(horizontalLayout_2, 1, 1, 1, 1);
+
+        sendPlate_pushButton = new QPushButton(manualGroupBox);
+        sendPlate_pushButton->setObjectName(QString::fromUtf8("sendPlate_pushButton"));
+
+        gridLayout_2->addWidget(sendPlate_pushButton, 2, 2, 1, 1);
+
+        sendCon_pushButton = new QPushButton(manualGroupBox);
+        sendCon_pushButton->setObjectName(QString::fromUtf8("sendCon_pushButton"));
+
+        gridLayout_2->addWidget(sendCon_pushButton, 0, 2, 2, 1);
 
 
         gridLayout_3->addWidget(manualGroupBox, 3, 0, 1, 2);
+
+        horizontalSpacer = new QSpacerItem(488, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_3->addItem(horizontalSpacer, 4, 0, 1, 1);
 
         exitPushButton = new QPushButton(SimulationDialog);
         exitPushButton->setObjectName(QString::fromUtf8("exitPushButton"));
@@ -294,6 +334,14 @@ public:
     void retranslateUi(QDialog *SimulationDialog)
     {
         SimulationDialog->setWindowTitle(QApplication::translate("SimulationDialog", "Simulation", nullptr));
+        groupBox->setTitle(QApplication::translate("SimulationDialog", "Data", nullptr));
+        con_before_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Container Before", nullptr));
+        box_type_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "logic", nullptr));
+        con_after_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Container After", nullptr));
+        plate_color_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Color", nullptr));
+        iso_before_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "ISO1", nullptr));
+        iso_after_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "ISO2", nullptr));
+        plate_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Plate", nullptr));
         groupBox_3->setTitle(QApplication::translate("SimulationDialog", "Simulation", nullptr));
         Simulatiion_comboBox->setItemText(0, QApplication::translate("SimulationDialog", "A small container", nullptr));
         Simulatiion_comboBox->setItemText(1, QApplication::translate("SimulationDialog", "A large container", nullptr));
@@ -310,24 +358,17 @@ public:
 #ifndef QT_NO_SHORTCUT
         toolButton->setShortcut(QApplication::translate("SimulationDialog", "Alt+T", nullptr));
 #endif // QT_NO_SHORTCUT
-        groupBox->setTitle(QApplication::translate("SimulationDialog", "Data", nullptr));
-        con_before_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Container Before", nullptr));
-        box_type_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "logic", nullptr));
-        con_after_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Container After", nullptr));
-        plate_color_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Color", nullptr));
-        iso_before_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "ISO1", nullptr));
-        iso_after_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "ISO2", nullptr));
-        plate_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Plate", nullptr));
         manualGroupBox->setTitle(QApplication::translate("SimulationDialog", "Manual data", nullptr));
         send_con_before_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Container Before", nullptr));
         send_con_after_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Container After", nullptr));
-        pushButton_2->setText(QApplication::translate("SimulationDialog", "SendCon", nullptr));
-        send_iso_before_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "ISO1", nullptr));
-        send_iso_after_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "ISO2", nullptr));
         send_plate_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Plate", nullptr));
         send_plate_color_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "Plate color", nullptr));
-        checkBox->setText(QApplication::translate("SimulationDialog", "ConCar", nullptr));
-        pushButton->setText(QApplication::translate("SimulationDialog", "SendPla", nullptr));
+        container_checkBox->setText(QApplication::translate("SimulationDialog", "Have A container", nullptr));
+        plate_checkBox->setText(QApplication::translate("SimulationDialog", "Have a license plate", nullptr));
+        send_iso_before_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "ISO1", nullptr));
+        send_iso_after_lineEdit->setPlaceholderText(QApplication::translate("SimulationDialog", "ISO2", nullptr));
+        sendPlate_pushButton->setText(QApplication::translate("SimulationDialog", "SendPla", nullptr));
+        sendCon_pushButton->setText(QApplication::translate("SimulationDialog", "SendCon", nullptr));
         exitPushButton->setText(QApplication::translate("SimulationDialog", "Exit", nullptr));
     } // retranslateUi
 

@@ -16,6 +16,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -24,11 +25,13 @@ class Ui_Setting_Form
 {
 public:
     QGridLayout *gridLayout_2;
-    QDialogButtonBox *buttonBox;
-    QGridLayout *gridLayout;
     QPushButton *system_pushButton;
+    QGridLayout *gridLayout;
     QPushButton *channel_pushButton;
-    QListWidget *listWidget;
+    QVBoxLayout *verticalLayout;
+    QListWidget *system_listWidget;
+    QListWidget *channel_listWidget;
+    QDialogButtonBox *buttonBox;
 
     void setupUi(QWidget *Setting_Form)
     {
@@ -40,23 +43,17 @@ public:
         Setting_Form->setWindowIcon(icon);
         gridLayout_2 = new QGridLayout(Setting_Form);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        buttonBox = new QDialogButtonBox(Setting_Form);
-        buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-        buttonBox->setStandardButtons(QDialogButtonBox::Ignore|QDialogButtonBox::Save);
-
-        gridLayout_2->addWidget(buttonBox, 4, 1, 1, 1);
-
-        gridLayout = new QGridLayout();
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-
-        gridLayout_2->addLayout(gridLayout, 0, 1, 4, 1);
-
         system_pushButton = new QPushButton(Setting_Form);
         system_pushButton->setObjectName(QString::fromUtf8("system_pushButton"));
         system_pushButton->setMinimumSize(QSize(150, 0));
         system_pushButton->setMaximumSize(QSize(150, 37));
 
         gridLayout_2->addWidget(system_pushButton, 0, 0, 1, 1);
+
+        gridLayout = new QGridLayout();
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+
+        gridLayout_2->addLayout(gridLayout, 0, 1, 3, 1);
 
         channel_pushButton = new QPushButton(Setting_Form);
         channel_pushButton->setObjectName(QString::fromUtf8("channel_pushButton"));
@@ -65,17 +62,36 @@ public:
 
         gridLayout_2->addWidget(channel_pushButton, 1, 0, 1, 1);
 
-        listWidget = new QListWidget(Setting_Form);
-        listWidget->setObjectName(QString::fromUtf8("listWidget"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(0);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        system_listWidget = new QListWidget(Setting_Form);
+        system_listWidget->setObjectName(QString::fromUtf8("system_listWidget"));
+        system_listWidget->setMaximumSize(QSize(150, 16777215));
+
+        verticalLayout->addWidget(system_listWidget);
+
+        channel_listWidget = new QListWidget(Setting_Form);
+        channel_listWidget->setObjectName(QString::fromUtf8("channel_listWidget"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
-        listWidget->setSizePolicy(sizePolicy);
-        listWidget->setMaximumSize(QSize(150, 16777215));
+        sizePolicy.setHeightForWidth(channel_listWidget->sizePolicy().hasHeightForWidth());
+        channel_listWidget->setSizePolicy(sizePolicy);
+        channel_listWidget->setMaximumSize(QSize(150, 16777215));
 
-        gridLayout_2->addWidget(listWidget, 2, 0, 3, 1);
+        verticalLayout->addWidget(channel_listWidget);
 
+
+        gridLayout_2->addLayout(verticalLayout, 2, 0, 2, 1);
+
+        buttonBox = new QDialogButtonBox(Setting_Form);
+        buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
+        buttonBox->setStandardButtons(QDialogButtonBox::Ignore|QDialogButtonBox::Save);
+
+        gridLayout_2->addWidget(buttonBox, 3, 1, 1, 1);
+
+        gridLayout_2->setColumnStretch(1, 1);
 
         retranslateUi(Setting_Form);
 

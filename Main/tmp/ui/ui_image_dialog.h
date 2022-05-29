@@ -27,7 +27,7 @@ public:
     {
         if (Image_Dialog->objectName().isEmpty())
             Image_Dialog->setObjectName(QString::fromUtf8("Image_Dialog"));
-        Image_Dialog->resize(1360, 800);
+        Image_Dialog->resize(1920, 1080);
         Image_Dialog->setMinimumSize(QSize(0, 0));
         Image_Dialog->setMaximumSize(QSize(16777215, 16777215));
         gridLayout = new QGridLayout(Image_Dialog);

@@ -120,8 +120,6 @@ public:
         gridLayout_6->setContentsMargins(0, -1, 0, 0);
         tableView = new QTableView(page);
         tableView->setObjectName(QString::fromUtf8("tableView"));
-        tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        tableView->setSelectionMode(QAbstractItemView::SingleSelection);
         tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
         gridLayout_6->addWidget(tableView, 0, 0, 1, 1);
@@ -571,7 +569,7 @@ public:
 
         retranslateUi(DataBase_Form);
 
-        database_stackedWidget->setCurrentIndex(1);
+        database_stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(DataBase_Form);

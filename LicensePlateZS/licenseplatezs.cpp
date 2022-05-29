@@ -469,9 +469,9 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
         break;
     }
 
-//    std= plateResult.indexOf("license");
-//    end= plateResult.indexOf(',',std);
-//    license=plateResult.mid(std+10,end-std-11);
+    std= plateResult.indexOf("license");
+    end= plateResult.indexOf(',',std);
+    license=plateResult.mid(std+10,end-std-11);
 
 //    int I=-1;
 //    int S= license.indexOf("1");

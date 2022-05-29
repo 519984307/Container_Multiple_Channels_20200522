@@ -7,7 +7,7 @@
 namespace LocalPar {
     QString App="ZBYCS";
     QString version=QString("%1_%2").arg(APP_VERSION,APP_CHANNEL);
-    QString copyright="深圳众百源科技有限公司";
+    QString copyright="ZBYCS";
     QString msg="集装箱号码识别系统";
     QString proName=QString(APP_PROJECT);
     int Channels = 2;
