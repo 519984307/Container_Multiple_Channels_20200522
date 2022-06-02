@@ -29,17 +29,20 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-998</y>
+        <y>-669</y>
         <width>731</width>
-        <height>1554</height>
+        <height>1701</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <property name="spacing">
+       <property name="horizontalSpacing">
+        <number>50</number>
+       </property>
+       <property name="verticalSpacing">
         <number>20</number>
        </property>
-       <item row="16" column="0">
-        <widget class="QLabel" name="label_28">
+       <item row="17" column="0">
+        <widget class="QLabel" name="label_27">
          <property name="minimumSize">
           <size>
            <width>200</width>
@@ -47,14 +50,151 @@
           </size>
          </property>
          <property name="text">
-          <string>A2 timeout capture</string>
+          <string>The channel number</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="9" column="1">
+       <item row="20" column="0">
+        <widget class="QLabel" name="label_30">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Image repetition recognition</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QLabel" name="label_35">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Network controller control</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" colspan="2">
+        <widget class="QGroupBox" name="groupBox_11">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_13">
+          <item row="0" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QLineEdit" name="controllerAddr_linedit">
+              <property name="inputMask">
+               <string>000.000.000.000;_</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="1" rowspan="2">
+           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
+            <property name="spacing">
+             <number>6</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_7">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>port</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="controllerPort_spinBox">
+              <property name="maximum">
+               <number>65535</number>
+              </property>
+              <property name="stepType">
+               <enum>QAbstractSpinBox::DefaultStepType</enum>
+              </property>
+              <property name="value">
+               <number>12011</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="2" rowspan="2">
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>143</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="0">
+           <widget class="QComboBox" name="interfaceModel_comboBox">
+            <item>
+             <property name="text">
+              <string>tcp client</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>tcp server</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="20" column="1">
+        <widget class="QSpinBox" name="identificationTimes_spinBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>Container number identification times</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="minimum">
+          <number>1</number>
+         </property>
+         <property name="maximum">
+          <number>3</number>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="1" colspan="2">
         <widget class="QGroupBox" name="groupBox_7">
          <property name="title">
           <string/>
@@ -83,44 +223,292 @@
          </layout>
         </widget>
        </item>
-       <item row="11" column="1">
-        <widget class="QGroupBox" name="groupBox_6">
+       <item row="15" column="0">
+        <widget class="QLabel" name="label_32">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Container residue inspection</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="1" colspan="2">
+        <widget class="QGroupBox" name="groupBox_3">
          <property name="title">
           <string/>
          </property>
-         <layout class="QGridLayout" name="gridLayout_11">
+         <layout class="QGridLayout" name="gridLayout_5">
           <item row="0" column="0">
-           <widget class="QCheckBox" name="PlatePageState">
+           <widget class="QRadioButton" name="A1shielding_checkbox">
             <property name="text">
-             <string>Plate </string>
+             <string>A1</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QCheckBox" name="ProspectsPageState">
+           <widget class="QRadioButton" name="A2shielding_checkbox">
             <property name="text">
-             <string>Prospects</string>
+             <string>A2</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QCheckBox" name="ForegroundPageState">
+           <widget class="QRadioButton" name="B1shielding_checkbox">
             <property name="text">
-             <string>Foreground</string>
+             <string>B1</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QCheckBox" name="TopPageState">
+           <widget class="QRadioButton" name="B2shielding_checkbox">
             <property name="text">
-             <string>Top</string>
+             <string>B2</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
        </item>
-       <item row="4" column="1">
+       <item row="17" column="1">
+        <widget class="QSpinBox" name="Channel_Number">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>The channel number that distinguishes the channel data.</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="minimum">
+          <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_17">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Address of the camera</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="1" colspan="2">
+        <widget class="QComboBox" name="lifthingType_comboBox">
+         <item>
+          <property name="text">
+           <string>Identification of lifting lever</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Identify successful lift rod</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Lift rod on signal</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="9" column="1" colspan="2">
+        <widget class="QGroupBox" name="groupBox_5">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="3" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,1">
+            <property name="spacing">
+             <number>20</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_19">
+              <property name="text">
+               <string>D3</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="D3out_comboBox">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>NONE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Brake machine</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>LED</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="4" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,1">
+            <property name="spacing">
+             <number>20</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_20">
+              <property name="text">
+               <string>D4</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="D4out_comboBox">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>NONE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Brake machine</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>LED</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1">
+            <property name="spacing">
+             <number>20</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>D1</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="D1out_comboBox">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>NONE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Brake machine</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>LED</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="2" column="1" rowspan="2">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>230</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="0">
+           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
+            <property name="spacing">
+             <number>20</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>D2</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="D2out_comboBox">
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <item>
+               <property name="text">
+                <string>NONE</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Brake machine</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>LED</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="1" colspan="2">
         <widget class="QGroupBox" name="groupBox_10">
          <property name="title">
           <string/>
@@ -219,22 +607,176 @@
          </layout>
         </widget>
        </item>
-       <item row="15" column="1">
-        <widget class="QSpinBox" name="Channel_Number">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+       <item row="12" column="0">
+        <widget class="QLabel" name="label_33">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Display camera pictures</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="18" column="1">
+        <widget class="QDoubleSpinBox" name="A1ReleasrCap_doubleSpinBox">
+         <property name="enabled">
+          <bool>true</bool>
          </property>
          <property name="toolTip">
-          <string>The channel number that distinguishes the channel data.</string>
+          <string>A1 infrared release, how many seconds to capture the picture</string>
+         </property>
+         <property name="wrapping">
+          <bool>false</bool>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
          </property>
-         <property name="minimum">
-          <number>0</number>
+         <property name="decimals">
+          <number>1</number>
+         </property>
+         <property name="singleStep">
+          <double>0.100000000000000</double>
+         </property>
+         <property name="stepType">
+          <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_23">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Controller signal mode</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="19" column="1">
+        <widget class="QDoubleSpinBox" name="B1ReleasrCap_doubleSpinBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="toolTip">
+          <string>B1 infrared release, how many seconds to capture the picture</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="decimals">
+          <number>1</number>
+         </property>
+        </widget>
+       </item>
+       <item row="17" column="2" rowspan="4">
+        <spacer name="horizontalSpacer_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="15" column="1" colspan="2">
+        <widget class="QGroupBox" name="groupBox_8">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_12">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="inspectionLeft_checkbox">
+            <property name="text">
+             <string>Left Camera</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="inspectionRight_checkbox">
+            <property name="text">
+             <string>Right Camera</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="inspectionTop_checkbox">
+            <property name="text">
+             <string>Top Camera</string>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="14" column="0">
+        <widget class="QLabel" name="label_31">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Shielded infrared signal</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0">
+        <widget class="QLabel" name="label_34">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Identify the project</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_37">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Serial Port</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
@@ -254,7 +796,7 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="0" column="1" colspan="2">
         <widget class="QGroupBox" name="groupBox_2">
          <property name="title">
           <string/>
@@ -481,88 +1023,118 @@
          </layout>
         </widget>
        </item>
-       <item row="12" column="1">
-        <widget class="QGroupBox" name="groupBox_3">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Trigger mode</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="16" column="0">
+        <widget class="QLabel" name="label_24">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Channel alias</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="19" column="0">
+        <widget class="QLabel" name="label_29">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>B1 timeout capture</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="1" colspan="2">
+        <widget class="QGroupBox" name="groupBox_6">
          <property name="title">
           <string/>
          </property>
-         <layout class="QGridLayout" name="gridLayout_5">
+         <layout class="QGridLayout" name="gridLayout_11">
           <item row="0" column="0">
-           <widget class="QRadioButton" name="A1shielding_checkbox">
+           <widget class="QCheckBox" name="PlatePageState">
             <property name="text">
-             <string>A1</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
+             <string>Plate </string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QRadioButton" name="A2shielding_checkbox">
+           <widget class="QCheckBox" name="ProspectsPageState">
             <property name="text">
-             <string>A2</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
+             <string>Prospects</string>
             </property>
            </widget>
           </item>
           <item row="2" column="0">
-           <widget class="QRadioButton" name="B1shielding_checkbox">
+           <widget class="QCheckBox" name="ForegroundPageState">
             <property name="text">
-             <string>B1</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
+             <string>Foreground</string>
             </property>
            </widget>
           </item>
           <item row="3" column="0">
-           <widget class="QRadioButton" name="B2shielding_checkbox">
+           <widget class="QCheckBox" name="TopPageState">
             <property name="text">
-             <string>B2</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
+             <string>Top</string>
             </property>
            </widget>
           </item>
          </layout>
         </widget>
        </item>
-       <item row="9" column="0">
-        <widget class="QLabel" name="label_34">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Identify the project</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       <item row="5" column="1" colspan="2">
+        <widget class="Line" name="line_7">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_37">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Serial Port</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="ControllerSignalMode">
+         <item>
+          <property name="text">
+           <string>Serial Port</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Moxa Socket</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Network controller</string>
+          </property>
+         </item>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="3" column="1" colspan="2">
         <widget class="QGroupBox" name="groupBox_9">
          <property name="title">
           <string/>
@@ -622,8 +1194,8 @@
          </layout>
         </widget>
        </item>
-       <item row="14" column="0">
-        <widget class="QLabel" name="label_24">
+       <item row="10" column="0">
+        <widget class="QLabel" name="label_36">
          <property name="minimumSize">
           <size>
            <width>200</width>
@@ -631,7 +1203,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Channel alias</string>
+          <string>Lifting lever pattern</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -654,8 +1226,8 @@
          </property>
         </widget>
        </item>
-       <item row="8" column="0">
-        <widget class="QLabel" name="label_36">
+       <item row="18" column="0">
+        <widget class="QLabel" name="label_28">
          <property name="minimumSize">
           <size>
            <width>200</width>
@@ -663,14 +1235,94 @@
           </size>
          </property>
          <property name="text">
-          <string>Lifting lever pattern</string>
+          <string>A2 timeout capture</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
         </widget>
        </item>
-       <item row="6" column="1">
+       <item row="7" column="1" rowspan="2" colspan="2">
+        <widget class="QGroupBox" name="groupBox">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_7">
+          <item row="1" column="0" colspan="2">
+           <widget class="QLineEdit" name="Display_permanent_lineEdit"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLineEdit" name="Display_address_lineEdit">
+            <property name="maximumSize">
+             <size>
+              <width>100</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="inputMask">
+             <string>000.000.000.000</string>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLabel" name="label_40">
+            <property name="text">
+             <string>address</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2">
+           <widget class="QLineEdit" name="Display_temp_suffix_lineEdit"/>
+          </item>
+          <item row="3" column="2">
+           <widget class="QLabel" name="label_22">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Temporary message suffix</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QLineEdit" name="Display_temp_prefix_lineEdit"/>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLabel" name="label_21">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Temporary message prefix</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="2">
+           <widget class="QLabel" name="label_18">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Permanent stay message</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="6" column="1" colspan="2">
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
           <string/>
@@ -699,144 +1351,7 @@
          </layout>
         </widget>
        </item>
-       <item row="12" column="0">
-        <widget class="QLabel" name="label_31">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Shielded infrared signal</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Trigger mode</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="8" column="1">
-        <widget class="QComboBox" name="lifthingType_comboBox">
-         <item>
-          <property name="text">
-           <string>Identification of lifting lever</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Identify successful lift rod</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Lift rod on signal</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QGroupBox" name="groupBox_11">
-         <property name="title">
-          <string/>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_13">
-          <item row="0" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QLineEdit" name="controllerAddr_linedit">
-              <property name="inputMask">
-               <string>000.000.000.000;_</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="1" rowspan="2">
-           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
-            <property name="spacing">
-             <number>6</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label_7">
-              <property name="minimumSize">
-               <size>
-                <width>100</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>port</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="controllerPort_spinBox">
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-              <property name="stepType">
-               <enum>QAbstractSpinBox::DefaultStepType</enum>
-              </property>
-              <property name="value">
-               <number>12011</number>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="0" column="2" rowspan="2">
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>143</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="1" column="0">
-           <widget class="QComboBox" name="interfaceModel_comboBox">
-            <item>
-             <property name="text">
-              <string>tcp client</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>tcp server</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="14" column="1">
+       <item row="16" column="1" colspan="2">
         <widget class="QLineEdit" name="Alias">
          <property name="toolTip">
           <string>Channel alias, the main page prompt.</string>
@@ -849,419 +1364,10 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_17">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
+       <item row="7" column="0" rowspan="2">
+        <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>Address of the camera</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="Line" name="line_7">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="16" column="1">
-        <widget class="QDoubleSpinBox" name="A1ReleasrCap_doubleSpinBox">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="toolTip">
-          <string>A1 infrared release, how many seconds to capture the picture</string>
-         </property>
-         <property name="wrapping">
-          <bool>false</bool>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="decimals">
-          <number>1</number>
-         </property>
-         <property name="singleStep">
-          <double>0.100000000000000</double>
-         </property>
-         <property name="stepType">
-          <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="1">
-        <widget class="QGroupBox" name="groupBox_5">
-         <property name="title">
-          <string/>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_8">
-          <item row="0" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1">
-            <property name="spacing">
-             <number>20</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>D1</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="D1out_comboBox">
-              <property name="currentIndex">
-               <number>0</number>
-              </property>
-              <item>
-               <property name="text">
-                <string>NONE</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Brake machine</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>LED</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
-            <property name="spacing">
-             <number>20</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label_8">
-              <property name="text">
-               <string>D2</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="D2out_comboBox">
-              <property name="currentIndex">
-               <number>0</number>
-              </property>
-              <item>
-               <property name="text">
-                <string>NONE</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Brake machine</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>LED</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="1" rowspan="2">
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>230</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,1">
-            <property name="spacing">
-             <number>20</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label_19">
-              <property name="text">
-               <string>D3</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="D3out_comboBox">
-              <property name="currentIndex">
-               <number>0</number>
-              </property>
-              <item>
-               <property name="text">
-                <string>NONE</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Brake machine</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>LED</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="3" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,1">
-            <property name="spacing">
-             <number>20</number>
-            </property>
-            <item>
-             <widget class="QLabel" name="label_20">
-              <property name="text">
-               <string>D4</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="D4out_comboBox">
-              <property name="currentIndex">
-               <number>0</number>
-              </property>
-              <item>
-               <property name="text">
-                <string>NONE</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Brake machine</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>LED</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QLabel" name="label_35">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Network controller control</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="0">
-        <widget class="QLabel" name="label_32">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Container residue inspection</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="1">
-        <widget class="QGroupBox" name="groupBox_8">
-         <property name="title">
-          <string/>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_12">
-          <item row="0" column="0">
-           <widget class="QCheckBox" name="inspectionLeft_checkbox">
-            <property name="text">
-             <string>Left Camera</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QCheckBox" name="inspectionRight_checkbox">
-            <property name="text">
-             <string>Right Camera</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QCheckBox" name="inspectionTop_checkbox">
-            <property name="text">
-             <string>Top Camera</string>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QComboBox" name="ControllerSignalMode">
-         <item>
-          <property name="text">
-           <string>Serial Port</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Moxa Socket</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Network controller</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="18" column="1">
-        <widget class="QSpinBox" name="identificationTimes_spinBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string>Container number identification times</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="minimum">
-          <number>1</number>
-         </property>
-         <property name="maximum">
-          <number>3</number>
-         </property>
-        </widget>
-       </item>
-       <item row="17" column="1">
-        <widget class="QDoubleSpinBox" name="B1ReleasrCap_doubleSpinBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="toolTip">
-          <string>B1 infrared release, how many seconds to capture the picture</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignCenter</set>
-         </property>
-         <property name="decimals">
-          <number>1</number>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QLabel" name="label_23">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Controller signal mode</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="18" column="0">
-        <widget class="QLabel" name="label_30">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Image repetition recognition</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="17" column="0">
-        <widget class="QLabel" name="label_29">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>B1 timeout capture</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0" rowspan="2">
-        <widget class="QLabel" name="label_33">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Display camera pictures</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="15" column="0">
-        <widget class="QLabel" name="label_27">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>The channel number</string>
+          <string>Display screen parameters</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

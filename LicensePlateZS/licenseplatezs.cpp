@@ -100,15 +100,103 @@ void LicensePlateZS::liftingElectronicRailingSlot(bool gate)
 
 void LicensePlateZS::transparentTransmission485Slot(const QString &msg)
 {
+//    QStringList msgL=msg.split(",");
+//    QString msgR="";
+//    for(int i=0;i<msgL.size();i++){
+//        QString tmp=bgkToHex(msgL.at(i));
+//        msgR+=QString("%1").arg(i+1,2,16,QChar('0')).toUpper()+"00020001"+QString("%1").arg(msgL.at(i).toLatin1().length(),2,16,QChar('0')).toUpper()+tmp.toUpper();
+//    }
+//    QString head="F501"+QString("%1").arg(msgR.length()/2+3,4,16,QChar('0'))+"000200"+msgR;
+//    QByteArray arr=head.toLatin1();
+
+//    /*****************************
+//    * @brief:求xor校验
+//    ******************************/
+//    int xorResult = arr.mid(0,2).toInt(0,16);
+//    for (int i = 2; i < arr.count(); i+=2) {
+//        xorResult ^= arr.mid(i,2).toInt(0,16);
+//    }
+//    if(msg.indexOf("您")!=-1){
+//        arr=head.insert(head.length()-4,"0A").toLatin1()+QString("%1").arg(xorResult,2,16,QChar('0')).toUpper().toLatin1();
+//    }
+//    else {
+//        arr=head.toLatin1()+QString("%1").arg(xorResult,2,16,QChar('0')).toUpper().toLatin1();
+//    }
+
+//    qDebug()<<arr;
+
+//    QString tmp;
+//    for (int i = 0; i < arr.count(); i+=2) {
+//        tmp=tmp+arr.mid(i,2).toInt(0,16);
+//        qDebug()<<arr.mid(i,2).toInt(0,16);
+//    }
+
+//    arr=hexStringtoByteArray(arr);
+
+
+//    QString tmpR="";
+//    for(int i=0;i<msgR.size();){
+//        tmpR.append(msgR.at(i));
+//        tmpR.append(msgR.at(i+1));
+//        tmpR.append(" ");
+//        i+=2;
+//    }
+
+    QString errText1="欢迎你";
+    QString errText2="请通行";
+
+    QString msg1=bgkToHex(errText1);
+    int len1= QString::fromLocal8Bit(msg1.toLocal8Bit()).length()/2;
+
+    QString msg2=bgkToHex(errText2);
+    int len2= QString::fromLocal8Bit(msg2.toLocal8Bit()).length()/2;
+                                                                                /*00020001000A0201*/
+    QString head1="F501"+QString("%1").arg(len1+9, 4, 16, QChar('0')).toUpper()+("00020001001E0201")+QString("%1").arg(len1,2,16,QChar('0')).toUpper();//第一行
+    if(!errText2.isEmpty()){
+        head1="F501"+QString("%1").arg(len1+9+len2+6, 4, 16, QChar('0')).toUpper()+("00020001001E0201")+QString("%1").arg(len1,2,16,QChar('0')).toUpper();//第一行+第二行
+    }
+                 /*02000A0201*/
+    QString head2="02001E0201"+QString("%1").arg(len2,2,16,QChar('0')).toUpper(); //第二行
+
+    QByteArray arr=head1.toLatin1()+msg1.toLatin1();
+    if(!errText2.isEmpty()){
+        arr=head1.toLatin1()+msg1.toLatin1()+head2.toLatin1()+msg2.toLatin1();
+    }
+
+    int xorResult = arr.mid(0,2).toInt(0,16);
+    // 求xor校验
+    for (int i = 2; i < arr.count(); i+=2) {
+        xorResult ^= arr.mid(i,2).toInt(0,16);
+    }
+    QByteArray hex = QString("%1").arg(xorResult,2,16,QChar('0')).toUpper().toLatin1();
+    if(errText1.endsWith("您")){
+        arr=head1.toLatin1()+msg1.toLatin1()+"0A"+head2.toLatin1()+msg2.toLatin1();
+    }
+    if(errText2.endsWith("您")){
+        arr=arr+"0A";
+    }
+    arr=arr+hex;
+
+    QString tmp;
+    for (int i = 0; i < arr.count(); i+=2) {
+        tmp=tmp+arr.mid(i,2).toInt(0,16);
+    }
+
+    //emit transparentTransmission485Signal(tmp);
+
+    qDebug()<<tmp;
+
     QJsonObject obj;
     obj.insert("cmd","ttransmission");
     obj.insert("subcmd","send");
-    obj.insert("datalen",msg.size());
-    obj.insert("data",msg);
+    obj.insert("datalen",6);
+    obj.insert("data","ABCDEFG");
     obj.insert("comm","rs485-1");
 
+    qDebug()<<arr.size();
+    qDebug()<<QString::fromLatin1(arr);
     sendData(obj);
-    qDebug().noquote()<<QString("[%3] %1:%2 485 transparently transmits data").arg(address,QString::number(port),this->metaObject()->className());
+    qDebug().noquote()<<QString("[%3] %1:%2 485 transparently transmits data<%4>").arg(address,QString::number(port),this->metaObject()->className(),arr);
 }
 
 void LicensePlateZS::openTheVideoSlot(bool play, quint64 winID)
@@ -259,7 +347,17 @@ void LicensePlateZS::connectedSlot()
     obj.insert("image",true);
     obj.insert("image_type",2);
     sendData(obj);
-    
+
+    /*****************************
+    * @brief:初始化透明传输接口
+    ******************************/
+    QJsonObject obj1;
+    obj1.insert("cmd","ttransmission");
+    obj1.insert("id",999999);
+    obj1.insert("subcmd","init");
+    obj1.insert("data","rs485-1");
+    sendData(obj1);
+
     if(!pTimerLinkState->isActive()){
         pTimerLinkState->start(5000);
     }
@@ -428,6 +526,10 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
                     }
                 }
             }
+            else {
+                qDebug()<<"get json error:"<<jsonError.errorString();
+                return;
+            }
         }
     }
     else {
@@ -516,4 +618,51 @@ void LicensePlateZS::processPlateResultSlot(QByteArray data, int packetSize)
 
     fullImg.clear();
     clipImg.clear();
+}
+
+QByteArray LicensePlateZS::bgkToHex(QString str)
+{
+    QTextCodec *gbk = QTextCodec::codecForName("gb2312");
+    QByteArray hex_data;
+
+    hex_data.append(gbk->fromUnicode(str).toHex().toUpper());
+    return  hex_data;
+}
+
+QByteArray LicensePlateZS::strToHex(QString str)
+{
+    QByteArray buf;
+    for(int i = 0; i < str.length(); i += 2)
+    {
+        bool ok;
+        char chr = (str.mid(i, 2).toInt(&ok, 16)) & 0xFF;
+        buf.append(chr);
+    }
+    return buf;
+}
+
+QByteArray LicensePlateZS::hexStringtoByteArray(QString hex)
+{
+    QByteArray ret;
+    hex=hex.trimmed();
+    formatString(hex,2,' ');
+    QStringList sl=hex.split(" ");
+    foreach(QString s,sl)
+    {
+        if(!s.isEmpty())
+            ret.append((char)s.toInt(0,16)&0xFF);
+    }
+    return ret;
+}
+
+void LicensePlateZS::formatString(QString &org,int n=2,const QChar &ch=QChar(' '))
+{
+    int size= org.size();
+    int space= qRound(size*1.0/n+0.5)-1;
+    if(space<=0)
+        return;
+    for(int i=0,pos=n;i<space;++i,pos+=(n+1))
+    {
+        org.insert(pos,ch);
+    }
 }

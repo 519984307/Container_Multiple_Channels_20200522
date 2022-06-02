@@ -18,9 +18,14 @@ class DataProcessing : public QObject
     Q_OBJECT
 
 public:
-    explicit DataProcessing(QObject *parent = nullptr);
+    explicit DataProcessing(QObject *parent = nullptr,int bluePlate=0);
 
 private:
+
+    ///
+    /// \brief bulePlate 场内是否包含蓝牌车
+    ///
+    int andBulePlate;
 
     ///
     /// \brief writeDataToLog 发送结果写入到日志
@@ -92,6 +97,12 @@ signals:
     /// \param type 0：集装箱，1：车牌
     ///
     void signal_pollsForCarStatus(int type);
+
+    ///
+    /// \brief signal_sendToDisplay 发送信息到显示屏
+    /// \param msg
+    ///
+    void signal_sendToDisplay(QString msg);
 
 private:
     QJsonObject jsonChild;

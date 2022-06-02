@@ -22,6 +22,7 @@ Version_Dialog::Version_Dialog(QWidget *parent) :
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.14_2110222223","修复已知问题"));
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.15_2110251729","修复已知车牌相机心跳包问题"));
     ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.18_2112181549","增加前景和后景相机抓图识别"));
+    ui->plainTextEdit->appendPlainText(QString("version:%1---[%2]").arg("1.1.7.36_2205301302","添加显示屏输出"));
 }
 
 Version_Dialog::~Version_Dialog()

@@ -68,6 +68,8 @@ bool LoadParameter::loadSysParameter()
                     Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();
                     Parameter::interfaceModel=getJsonValue("Model","interfaceModel",value.toObject()).toInt();
                     Parameter::loadLibrary_HK=getJsonValue("Model","loadLibrary_HK",value.toObject()).toInt();
+                    Parameter::Display_mode=getJsonValue("Model","Display_mode",value.toObject()).toInt();
+
 
                     /*****************************
                     * @brief:Upload
@@ -122,6 +124,8 @@ bool LoadParameter::loadSysParameter()
                     Parameter::same_plate_out=getJsonValue("Service","same_plate_out",value.toObject()).toInt();
                     Parameter::false_plate=getJsonValue("Service","false_plate",value.toObject()).toString();
                     Parameter::dont_false_plate=getJsonValue("Service","dont_false_plate",value.toObject()).toInt();
+                    Parameter::bluePlate=getJsonValue("Service","bluePlate",value.toObject()).toInt();
+
 
                     configurationFolder.close();
                     return true;
@@ -208,6 +212,11 @@ void LoadParameter::loadChannelParameter(int Channels)
                         p_ChannelParameter->ProspectsPageState=getJsonValue("Other","ProspectsPageState",value.toObject()).toBool();
                         p_ChannelParameter->ForegroundPageState=getJsonValue("Other","ForegroundPageState",value.toObject()).toBool();
                         p_ChannelParameter->TopPageState=getJsonValue("Other","TopPageState",value.toObject()).toBool();
+                        p_ChannelParameter->Display_address= getJsonValue("Other","Display_address",value.toObject()).toString();
+                        p_ChannelParameter->Display_permanent= getJsonValue("Other","Display_permanent",value.toObject()).toString();
+                        p_ChannelParameter->Display_temp_prefix= getJsonValue("Other","Display_temp_prefix",value.toObject()).toString();
+                        p_ChannelParameter->Display_temp_suffix= getJsonValue("Other","Display_temp_suffix",value.toObject()).toString();
+
 
                         /*****************************
                         * @brief:SerialPort

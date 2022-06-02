@@ -647,6 +647,29 @@ void Channel_Data_Form::logicStateSlot()
 //    }
 
 //    tmpStatusList.clear();
+
+    /*****************************
+    * @brief:20220602 16:37
+    * 2，3组红外状态（2，3组红外间距），判断是否带箱
+    ******************************/
+
+    if(para->infraredStatus){
+        /*****************************
+        * @brief:红外常闭模式
+        ******************************/
+        if(ui->a2checkBox->checkState()==Qt::Unchecked && ui->b1checkBox->checkState()==Qt::Unchecked){
+            isConCar=true;
+        }
+    }
+    else {
+        /*****************************
+        * @brief:红外常开模式
+        ******************************/
+        if(ui->a2checkBox->checkState()==Qt::Checked && ui->b1checkBox->checkState()==Qt::Checked){
+            isConCar=true;
+        }
+    }
+
     if(isConCar || simulationConStatus){
         isWaitCon=true;
         isCar=false;
@@ -1015,6 +1038,10 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
 //        if(!isConCar){
 //            sendDataOutTimer->start(Parameter::container_timeout*1000);
 //        }
+
+        /*****************************
+        * @brief:如果车牌装的靠前，箱号晚出，黄车车头
+        ******************************/
         sendDataOutTimer->start(Parameter::container_timeout*1000);
     }
         break;
@@ -1032,6 +1059,15 @@ void Channel_Data_Form::slot_lifting()
     if(para->lifthingType==2){
         emit signal_DTypeOut(Dout,2);
     }
+}
+
+void Channel_Data_Form::slot_transparentTransmission485(const QString &msg)
+{
+    /*****************************
+    * @brief:485传输临时信息：前缀，箱号和车牌，后缀
+    ******************************/
+    QString data=QString("%1,%2,%3").arg(this->para->Display_temp_prefix,msg,this->para->Display_temp_suffix);
+    emit signal_transparentTransmission485(data);
 }
 
 void Channel_Data_Form::slot_bindingCameraID(QString cameraAddr, int ID)

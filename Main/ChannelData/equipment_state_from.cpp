@@ -155,7 +155,7 @@ void Equipment_State_From::slot_clean_plate_con_test(const int channelID, const 
         ui->tableWidget->item(channelID-1,LocalPar::Con2)->setText("");
         break;
     case 1:
-        ui->tableWidget->item(channelID-1,LocalPar::Plate)->setText("");
+        //ui->tableWidget->item(channelID-1,LocalPar::Plate)->setText("");
         ui->tableWidget->item(channelID-1,LocalPar::Plate1)->setText("");
         break;
     }

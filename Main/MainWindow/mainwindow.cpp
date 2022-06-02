@@ -300,7 +300,7 @@ void MainWindow::initializingObject()
     * @brief:数据处理类
     ******************************/
     for (int var = 0; var < Parameter::ChannelNumber; ++var) {
-        DataProcessingList.append(QSharedPointer<DataProcessing>(new DataProcessing(nullptr)));
+        DataProcessingList.append(QSharedPointer<DataProcessing>(new DataProcessing(nullptr,Parameter::bluePlate)));
     }
 
     pLoadinglibaray=QSharedPointer<LoadingLibaray>(new LoadingLibaray(Parameter::ChannelNumber));
@@ -936,6 +936,7 @@ void MainWindow::bindingPlugin()
             connect(pLoadinglibaray->IResultsAnalysisList.at(var).data(),&ResultsAnalysisInterface::sendResultSignal,DataProcessingList.at(var).data(),&DataProcessing::slot_containerResult);
             connect(this,&MainWindow::signal_releaseResources,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::releaseResourcesSlot,Qt::BlockingQueuedConnection);
 
+
             /*****************************
             * @brief:链接状态道状态页面
             ******************************/
@@ -957,6 +958,10 @@ void MainWindow::bindingPlugin()
             * @brief:检测数据逻辑
             ******************************/
             connect(DataProcessingList.at(var).data(),&DataProcessing::signal_pollsForCarStatus,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_pollsForCarStatus);
+            /*****************************
+            * @brief:485透明传输
+            ******************************/
+            connect(DataProcessingList.at(var).data(),&DataProcessing::signal_sendToDisplay,Channel_Data_From_Map.value(var+1),&Channel_Data_Form::slot_transparentTransmission485);
             /*****************************
             * @brief:流量统计
             ******************************/

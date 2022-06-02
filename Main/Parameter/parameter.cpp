@@ -23,6 +23,7 @@ namespace Parameter {
     int PlateType=0;
     int interfaceModel=0;
     int loadLibrary_HK=0;
+    int Display_mode=0;
 
     /*****************************
     * @brief:Upload
@@ -80,6 +81,7 @@ namespace Parameter {
     int not_plate_color=0;
     int same_plate_out=10;
     int dont_false_plate=0;
+    int bluePlate=0;
     QString false_plate=QString("1");
     QString SingletonAddress= QString("");
     QString ManyCasesAddress= QString("");

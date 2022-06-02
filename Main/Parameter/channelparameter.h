@@ -67,6 +67,26 @@ public:
     ///
     bool TopPageState;
 
+    ///
+    /// \brief Display_address 显示屏地址
+    ///
+    QString Display_address;
+
+    ///
+    /// \brief Display_permanent 显示永久信息
+    ///
+    QString Display_permanent;
+
+    ///
+    /// \brief Display_temp_prefix 显示屏临时信息前缀
+    ///
+    QString Display_temp_prefix;
+
+    ///
+    /// \brief Display_temp_suffix 显示屏临时信息后缀
+    ///
+    QString Display_temp_suffix;
+
     /*****************************
     * @brief:camera
     ******************************/

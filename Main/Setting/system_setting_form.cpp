@@ -198,6 +198,8 @@ bool System_Setting_Form::loadParameter()
                     Parameter::PlateType=getJsonValue("Model","PlateType",value.toObject()).toInt();
                     Parameter::interfaceModel=getJsonValue("Model","interfaceModel",value.toObject()).toInt();
                     Parameter::loadLibrary_HK=getJsonValue("Model","loadLibrary_HK",value.toObject()).toInt();
+                    Parameter::Display_mode=getJsonValue("Model","Display_mode",value.toObject()).toInt();
+
 
                     /*****************************
                     * @brief:Upload
@@ -255,6 +257,8 @@ bool System_Setting_Form::loadParameter()
                     Parameter::same_plate_out=getJsonValue("Service","same_plate_out",value.toObject()).toInt();
                     Parameter::dont_false_plate=getJsonValue("Service","dont_false_plate",value.toObject()).toInt();
                     Parameter::false_plate=getJsonValue("Service","false_plate",value.toObject()).toString();
+                    Parameter::bluePlate=getJsonValue("Service","bluePlate",value.toObject()).toInt();
+
 
                     configurationFolder.close();
                     return true;
@@ -361,6 +365,7 @@ bool System_Setting_Form::writeParameterSlot()
     obj4.insert("same_plate_out",int(ui->same_plate_out_spinBox->value()));
     obj4.insert("false_plate",ui->false_plate_lineEdit->text());
     obj4.insert("dont_false_plate",int(ui->false_plate_checkBox->isChecked()));
+    obj4.insert("bluePlate",int(ui->bluePlate_checkBox->isChecked()));
 
 
     jsonChild.insert("Service",QJsonValue(obj4));
@@ -396,6 +401,8 @@ bool System_Setting_Form::writeParameterSlot()
     obj6.insert("PlateType",ui->PlateType_comboBox->currentIndex());
     obj6.insert("interfaceModel",ui->interfaceModel_comboBox->currentIndex());
     obj6.insert("loadLibrary_HK",int(ui->loadLibrary_HK_checkBox->isChecked()));
+    obj6.insert("Display_mode",ui->Display_mode_comboBox->currentIndex());
+
     jsonChild.insert("Model",QJsonValue(obj6));
 
     jsonRoot.insert("Main",QJsonValue(jsonChild));
@@ -504,6 +511,8 @@ void System_Setting_Form::parameterToUi()
     ui->PlateType_comboBox->setCurrentIndex(Parameter::PlateType);
     ui->interfaceModel_comboBox->setCurrentIndex(Parameter::interfaceModel);
     ui->loadLibrary_HK_checkBox->setChecked(Parameter::loadLibrary_HK);
+    ui->Display_mode_comboBox->setCurrentIndex(Parameter::Display_mode);
+
 
     /*****************************
     * @brief:Recognizer
@@ -543,6 +552,8 @@ void System_Setting_Form::parameterToUi()
     ui->same_plate_out_spinBox->setValue(Parameter::same_plate_out);
     ui->false_plate_lineEdit->setText(Parameter::false_plate);
     ui->false_plate_checkBox->setChecked(Parameter::dont_false_plate);
+    ui->bluePlate_checkBox->setChecked(Parameter::bluePlate);
+
 
     /*****************************
     * @brief:Upload

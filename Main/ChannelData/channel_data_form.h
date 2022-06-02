@@ -606,6 +606,12 @@ public slots:
     ///
     void slot_lifting();
 
+    ///
+    /// \brief slot_transparentTransmission485 透明传输
+    /// \param dmsg
+    ///
+    void slot_transparentTransmission485(const QString &msg);
+
     /*****************************
     * @brief:箱号相机
     ******************************/

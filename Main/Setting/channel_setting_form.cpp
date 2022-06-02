@@ -104,6 +104,11 @@ bool Channel_Setting_Form::loadParameter()
                     p_ChannelParameter->ProspectsPageState=getJsonValue("Other","ProspectsPageState",value.toObject()).toBool();
                     p_ChannelParameter->ForegroundPageState=getJsonValue("Other","ForegroundPageState",value.toObject()).toBool();
                     p_ChannelParameter->TopPageState=getJsonValue("Other","TopPageState",value.toObject()).toBool();
+                    p_ChannelParameter->Display_address= getJsonValue("Other","Display_address",value.toObject()).toString();
+                    p_ChannelParameter->Display_permanent= getJsonValue("Other","Display_permanent",value.toObject()).toString();
+                    p_ChannelParameter->Display_temp_prefix= getJsonValue("Other","Display_temp_prefix",value.toObject()).toString();
+                    p_ChannelParameter->Display_temp_suffix= getJsonValue("Other","Display_temp_suffix",value.toObject()).toString();
+
 
                     /*****************************
                     * @brief:SerialPort
@@ -203,6 +208,10 @@ bool Channel_Setting_Form::writeParameterSlot()
     ******************************/
     QJsonObject jsonObj3;
     jsonObj3.insert(QString("Alias"),ui->Alias->text());
+    jsonObj3.insert(QString("Display_address"),ui->Display_address_lineEdit->text());
+    jsonObj3.insert(QString("Display_permanent"),ui->Display_permanent_lineEdit->text());
+    jsonObj3.insert(QString("Display_temp_prefix"),ui->Display_temp_prefix_lineEdit->text());
+    jsonObj3.insert(QString("Display_temp_suffix"),ui->Display_temp_suffix_lineEdit->text());
     jsonObj3.insert(QString("A1ReleasrCap"),ui->A1ReleasrCap_doubleSpinBox->value());
     jsonObj3.insert(QString("PlatePageState"),ui->PlatePageState->isChecked());
     jsonObj3.insert(QString("ProspectsPageState"),ui->ProspectsPageState->isChecked());
@@ -275,6 +284,10 @@ void Channel_Setting_Form::parameterToUi()
     * @brief:other
     ******************************/
     ui->Alias->setText(p_ChannelParameter->Alias);
+    ui->Display_address_lineEdit->setText(p_ChannelParameter->Display_address);
+    ui->Display_permanent_lineEdit->setText(p_ChannelParameter->Display_permanent);
+    ui->Display_temp_prefix_lineEdit->setText(p_ChannelParameter->Display_temp_prefix);
+    ui->Display_temp_suffix_lineEdit->setText(p_ChannelParameter->Display_temp_suffix);
     ui->Channel_Number->setValue(p_ChannelParameter->Channel_number);
     ui->A1ReleasrCap_doubleSpinBox->setValue(p_ChannelParameter->A1ReleasrCap);
     ui->PlatePageState->setChecked(p_ChannelParameter->PlatePageState);

@@ -191,6 +191,16 @@ private:
     int nRecvLen;
 
     bool recvHead;
+
+private:
+
+    /*****************************
+    * @brief:转换数据内容
+    ******************************/
+    QByteArray bgkToHex(QString str);
+    QByteArray strToHex(QString str);
+    QByteArray hexStringtoByteArray(QString hex);
+    void formatString(QString &org, int n , const QChar &ch);
 };
 
 #endif // LICENSEPLATEZS_H

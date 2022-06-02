@@ -73,6 +73,11 @@ namespace Parameter {
     ///
     extern int interfaceModel;
 
+    ///
+    /// \brief Display_mode 显示屏接口模式
+    ///
+    extern int Display_mode;
+
     /*****************************
     * @brief:Upload
     ******************************/
@@ -295,6 +300,11 @@ namespace Parameter {
     /// \brief false_plate 虚假车牌
     ///
     extern QString false_plate;
+
+    ///
+    /// \brief bluePlate 场内包含蓝牌车
+    ///
+    extern int bluePlate;
 
     /*****************************
     * @brief:storage

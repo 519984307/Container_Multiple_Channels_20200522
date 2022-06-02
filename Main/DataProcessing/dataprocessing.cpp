@@ -2,8 +2,10 @@
 
 #include <QStandardPaths>
 
-DataProcessing::DataProcessing(QObject *parent) : QObject(parent)
+DataProcessing::DataProcessing(QObject *parent, int bluePlate) : QObject(parent)
 {
+    andBulePlate=bluePlate;
+
     QDateTime dateTime = QDateTime::currentDateTime();
     QString stringDateTime = dateTime.toString( "yyyy_MM_dd_hh_mm_ss" );
     QString path = QStandardPaths::writableLocation( QStandardPaths::AppConfigLocation );
@@ -79,8 +81,18 @@ void DataProcessing::slot_plateResult(int channel, bool isConCar, const QString 
     /*****************************
     * @brief:车辆混走，[排除空车牌和]蓝色车牌,没有考虑新能源车,场内车为蓝色车牌
     ******************************/
-    if(conResult.isEmpty()&& color!="蓝"/* && !plate.isEmpty()*/){
-        emit signal_pollsForCarStatus(1);
+    if(conResult.isEmpty()/*&& color!="蓝" && !plate.isEmpty()*/){
+        if(andBulePlate){
+            emit signal_pollsForCarStatus(1);
+        }
+        else {
+            if(color=="黄"){
+                emit signal_pollsForCarStatus(1);
+            }
+            else {
+                slot_waitSendData();
+            }
+        }
     }
     else {
         slot_waitSendData();
@@ -92,6 +104,8 @@ void DataProcessing::slot_waitSendData()
     //[C|20020919114100|01|1|TEXU7337250|Y|42G1]
     //[C|20020919114100|01|2|MGLU2872320|Y|MGLU2782249|Y|22G1|22G1]
 
+    QString con1="",con2="";
+
     if(!conResult.isEmpty() && conResult.startsWith("[C")){
         QStringList msgList=conResult.split("|");
         if(msgList.size()>=3 && msgList.at(3)!="-1"){
@@ -99,6 +113,13 @@ void DataProcessing::slot_waitSendData()
             * @brief:数据流量统计到主页面
             ******************************/
             if(msgList.size()==10){
+
+                /*****************************
+                * @brief:箱号1和箱号2发送到显示屏
+                ******************************/
+                con1=msgList.at(4);
+                con2=msgList.at(6);
+
                 if(msgList.at(5)=="Y" || msgList.at(7)=="Y"){
                     emit signal_trafficStatistics(true);
                 }
@@ -314,6 +335,22 @@ void DataProcessing::slot_waitSendData()
     else {
         qCritical().noquote()<<QString("If the data of box number is abnormal, it will not be processed.");
     }
+
+    /*****************************
+    * @brief:组合车牌和箱号发送到显示屏
+    ******************************/
+    QString msg="";
+    if(!plate.isEmpty()){
+        msg.append(plate);
+    }
+    if(!con1.isEmpty()){
+        msg.append("-"+con1);
+    }
+    if(!con2.isEmpty()){
+        msg.append("-"+con2);
+    }
+    //emit signal_sendToDisplay(msg);
+
 
     channel=-1;
     conResult.clear();
