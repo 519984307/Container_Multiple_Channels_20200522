@@ -43,6 +43,10 @@ private slots:
 
     void on_sendPlate_pushButton_clicked();
 
+    void on_plate_checkBox_toggled(bool checked);
+
+    void on_container_checkBox_toggled(bool checked);
+
 public slots:
 
     ///

@@ -15,7 +15,7 @@ CONFIG += skip_target_version_ext
 
 QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
-VERSION = 1.1.7.38_2206021640
+VERSION = 1.1.7.36_2206052050
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 ID = 1111111

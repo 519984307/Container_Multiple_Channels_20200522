@@ -1001,7 +1001,10 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         ******************************/
         isCar=false;
 
-        if(ui->plateCheckBox->isChecked() || simulationPlateStatus){
+        /*****************************
+        * @brief:判断车牌相机是否登录成功
+        ******************************/
+        if(ui->platestateCheckBox->isChecked() || simulationPlateStatus){
             sendDataOutTimer->start(Parameter::plate_timeout*1000);
         }
         else {
@@ -1035,14 +1038,14 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         /*****************************
         * @brief:超时发送数据。已完成部分抓拍，不超时处理
         ******************************/
-//        if(!isConCar){
-//            sendDataOutTimer->start(Parameter::container_timeout*1000);
-//        }
+        if(!isConCar){
+            sendDataOutTimer->start(Parameter::container_timeout*1000);
+        }
 
         /*****************************
         * @brief:如果车牌装的靠前，箱号晚出，黄车车头
         ******************************/
-        sendDataOutTimer->start(Parameter::container_timeout*1000);
+        //sendDataOutTimer->start(Parameter::container_timeout*1000);
     }
         break;
     }

@@ -67,6 +67,7 @@ namespace Parameter {
     * @brief:Service
     ******************************/
 
+    int Interface_Model=0;
     int Service_Model= 0;
     int Service_Type= 0;
     int Identify_Protocol= 0;

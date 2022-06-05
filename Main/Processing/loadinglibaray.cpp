@@ -241,7 +241,12 @@ void LoadingLibaray::slot_createLibaray()
                 pToUploadDataInterface=nullptr;
             }
             else if (DataInterchangeInterface *pDataInterchangeInterface=qobject_cast<DataInterchangeInterface*>(plugin)) {
-                if(0==Parameter::DataChaneType && "TCP"==pDataInterchangeInterface->InterfaceType()){/* 数据传输 */
+                if(1==Parameter::Interface_Model && "HTTP"==pDataInterchangeInterface->InterfaceType())/* HTTP发送数据 */
+                {
+                    loadMisarrangement(pluginName,"HTTP");
+                    pluginsNum=channelCount;
+                }
+                else if(0==Parameter::Interface_Model && 0==Parameter::DataChaneType && "TCP"==pDataInterchangeInterface->InterfaceType()){/* 数据传输 */
                     loadMisarrangement(pluginName,"TCP");
                     if(Parameter::Service_Type || Parameter::DataChaneType==1){
                         pluginsNum=1;
@@ -250,7 +255,7 @@ void LoadingLibaray::slot_createLibaray()
                         pluginsNum=channelCount;
                     }
                 }
-                else if (1==Parameter::DataChaneType && "MQ"==pDataInterchangeInterface->InterfaceType()) {
+                else if (0==Parameter::Interface_Model && 1==Parameter::DataChaneType && "MQ"==pDataInterchangeInterface->InterfaceType()) {
                     loadMisarrangement(pluginName,"MQ");
                     if(Parameter::Service_Type || Parameter::DataChaneType==1){
                         pluginsNum=1;

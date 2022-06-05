@@ -249,3 +249,23 @@ void SimulationDialog::on_sendPlate_pushButton_clicked()
         emit signal_plateResult(channelNumber,ui->plate_checkBox->isChecked(),ui->send_plate_lineEdit->text(),ui->send_plate_color_lineEdit->text(),QDateTime::fromString(plateTime,"yyyyMMddhhmmss").toString("yyyy-M-d h:m:s"));
     }
 }
+
+void SimulationDialog::on_plate_checkBox_toggled(bool checked)
+{
+    Q_UNUSED(checked)
+
+    /*****************************
+    * @brief:设置模拟数据逻辑状态
+    ******************************/
+    emit signal_setSimulationStatus(ui->container_checkBox->isChecked(),ui->plate_checkBox->isChecked());
+}
+
+void SimulationDialog::on_container_checkBox_toggled(bool checked)
+{
+    Q_UNUSED(checked)
+
+    /*****************************
+    * @brief:设置模拟数据逻辑状态
+    ******************************/
+    emit signal_setSimulationStatus(ui->container_checkBox->isChecked(),ui->plate_checkBox->isChecked());
+}

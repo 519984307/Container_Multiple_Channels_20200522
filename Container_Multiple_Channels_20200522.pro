@@ -4,6 +4,7 @@ SUBDIRS +=\
     CaptureUnderlying\
     DataInterRabbitMQ \
     #DecodingTheVideo \
+    DataInterRequest \
     DecodingVideoHCNET \
     #Global \
     InfraredLogic_IO \

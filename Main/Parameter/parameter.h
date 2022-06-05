@@ -237,6 +237,11 @@ namespace Parameter {
     extern int Service_Type;
 
     ///
+    /// \brief Interface_Model 接口模式
+    ///
+    extern int Interface_Model;
+
+    ///
     /// \brief Identify_Protocol 接口协议
     ///
     extern int Identify_Protocol;

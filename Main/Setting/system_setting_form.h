@@ -102,6 +102,10 @@ private slots:
     ///
     void on_searchInternet_pushButton_clicked();
 
+    void on_HTTModel_radioButton_toggled(bool checked);
+
+    void on_TCPModel_radioButton_toggled(bool checked);
+
 signals:
 
     ///

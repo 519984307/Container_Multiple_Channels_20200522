@@ -77,6 +77,13 @@ void System_Setting_Form::InitializationParameter(int channelNumber)
         }
     }
 
+    if (Parameter::Interface_Model==0){
+        ui->TCPModel_radioButton->setChecked(1);
+    }
+    else {
+        ui->HTTModel_radioButton->setChecked(1);
+    }
+
     /*****************************
     * @brief:创建配置文件夹
     ******************************/
@@ -258,7 +265,7 @@ bool System_Setting_Form::loadParameter()
                     Parameter::dont_false_plate=getJsonValue("Service","dont_false_plate",value.toObject()).toInt();
                     Parameter::false_plate=getJsonValue("Service","false_plate",value.toObject()).toString();
                     Parameter::bluePlate=getJsonValue("Service","bluePlate",value.toObject()).toInt();
-
+                    Parameter::Interface_Model=getJsonValue("Service","Interface_Model",value.toObject()).toInt();
 
                     configurationFolder.close();
                     return true;
@@ -347,6 +354,13 @@ bool System_Setting_Form::writeParameterSlot()
         obj4.insert("Service_Model",1);
     }   
 
+    if(ui->TCPModel_radioButton->isChecked()){
+        obj4.insert("Interface_Model",0);
+    }
+    if(ui->HTTModel_radioButton->isChecked()){
+        obj4.insert("Interface_Model",1);
+    }
+
     obj4.insert("DataChange_Format",ui->DataChange_Format_comboBox->currentIndex());
     obj4.insert("SingletonAddressMQ",ui->Address_Singleton_MQ_lineEdit->text());
     obj4.insert("ManyCasesAddressMQ",ui->Address_Many_MQ_textEdit->toPlainText());
@@ -366,7 +380,6 @@ bool System_Setting_Form::writeParameterSlot()
     obj4.insert("false_plate",ui->false_plate_lineEdit->text());
     obj4.insert("dont_false_plate",int(ui->false_plate_checkBox->isChecked()));
     obj4.insert("bluePlate",int(ui->bluePlate_checkBox->isChecked()));
-
 
     jsonChild.insert("Service",QJsonValue(obj4));
 
@@ -533,7 +546,15 @@ void System_Setting_Form::parameterToUi()
     }
     else {/* 服务器模式 */
         ui->ServerModel->setChecked(1);
-    }   
+    }
+
+    if(!Parameter::Interface_Model){/* TCP接口模式 */
+        ui->TCPModel_radioButton->setChecked(1);
+    }
+    else {/* HTTP接口模式 */
+        ui->HTTModel_radioButton->setChecked(1);
+    }
+
     ui->DataChange_Format_comboBox->setCurrentIndex(Parameter::DataChange_Format);
     ui->Address_Singleton_MQ_lineEdit->setText(Parameter::SingletonAddressMQ);
     ui->Address_Many_MQ_textEdit->setText(Parameter::ManyCasesAddressMQ);
@@ -872,5 +893,25 @@ void System_Setting_Form::on_loadLibrary_HK_checkBox_stateChanged(int arg1)
     }
     else {
         ui->Camera_Load_Plugin_comboBox->setEnabled(true);
+    }
+}
+
+void System_Setting_Form::on_HTTModel_radioButton_toggled(bool checked)
+{
+    if(checked){
+        ui->HttpAddr_lineEdit->setEnabled(true);
+        ui->groupBox_6->setEnabled(false);
+        ui->Service_Type_comboBox->setEnabled(false);
+        ui->Service_Type_stackedWidget->setEnabled(false);
+    }
+}
+
+void System_Setting_Form::on_TCPModel_radioButton_toggled(bool checked)
+{
+    if(checked){
+        ui->HttpAddr_lineEdit->setEnabled(false);
+        ui->groupBox_6->setEnabled(true);
+        ui->Service_Type_comboBox->setEnabled(true);
+        ui->Service_Type_stackedWidget->setEnabled(true);
     }
 }
