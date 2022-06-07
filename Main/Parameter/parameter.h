@@ -232,6 +232,11 @@ namespace Parameter {
     extern QString ManyCasesAddressMQ;
 
     ///
+    /// \brief HttpAddr http请求地址
+    ///
+    extern QString HttpAddr;
+
+    ///
     /// \brief Service_Type 服务类型
     ///
     extern int Service_Type;

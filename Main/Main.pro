@@ -15,13 +15,13 @@ CONFIG += skip_target_version_ext
 
 QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
-VERSION = 1.1.7.36_2206052050
+VERSION = 1.1.7.37_2206060741
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-ID = 1111111
+ID = 220314401
 DEFINES += DOG_ID=\\\"$$ID\\\"
 
-PROJECT = 烟台贝奇
+PROJECT = 国际陆港
 DEFINES += APP_PROJECT=\\\"$$PROJECT\\\"
 
 CHANNEL = 2

@@ -136,7 +136,7 @@ void DataProcessing::slot_waitSendData()
     /*****************************
     * @brief:文本格式（标准）
     ******************************/
-    if(Parameter::DataChange_Format==0){
+    if(Parameter::DataChange_Format==0 ){
         if(!conResult.isEmpty() && conResult.startsWith("[") && conResult.endsWith("]")){
             if(Parameter::Identify_Protocol==1){
                 QString tmpR=conResult.mid(0,conResult.size()-1).append(QString("|%1|%2]").arg(plate).arg(plateColor));
@@ -159,7 +159,7 @@ void DataProcessing::slot_waitSendData()
             }
 
 
-#ifndef sendCon
+#ifdef sendCon
             /*****************************
             * @brief:贝奇要求发送拖箱状态 20220425
             ******************************/

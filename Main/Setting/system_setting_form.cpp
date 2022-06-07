@@ -266,6 +266,8 @@ bool System_Setting_Form::loadParameter()
                     Parameter::false_plate=getJsonValue("Service","false_plate",value.toObject()).toString();
                     Parameter::bluePlate=getJsonValue("Service","bluePlate",value.toObject()).toInt();
                     Parameter::Interface_Model=getJsonValue("Service","Interface_Model",value.toObject()).toInt();
+                    Parameter::HttpAddr=getJsonValue("Service","HttpAddr",value.toObject()).toString();
+
 
                     configurationFolder.close();
                     return true;
@@ -380,6 +382,8 @@ bool System_Setting_Form::writeParameterSlot()
     obj4.insert("false_plate",ui->false_plate_lineEdit->text());
     obj4.insert("dont_false_plate",int(ui->false_plate_checkBox->isChecked()));
     obj4.insert("bluePlate",int(ui->bluePlate_checkBox->isChecked()));
+    obj4.insert("HttpAddr",ui->HttpAddr_lineEdit->text());
+
 
     jsonChild.insert("Service",QJsonValue(obj4));
 
@@ -574,6 +578,7 @@ void System_Setting_Form::parameterToUi()
     ui->false_plate_lineEdit->setText(Parameter::false_plate);
     ui->false_plate_checkBox->setChecked(Parameter::dont_false_plate);
     ui->bluePlate_checkBox->setChecked(Parameter::bluePlate);
+    ui->HttpAddr_lineEdit->setText(Parameter::HttpAddr);
 
 
     /*****************************

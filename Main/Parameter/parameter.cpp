@@ -88,4 +88,5 @@ namespace Parameter {
     QString ManyCasesAddress= QString("");
     QString SingletonAddressMQ= QString("");
     QString ManyCasesAddressMQ= QString("");
+    QString HttpAddr=QString("");
 }

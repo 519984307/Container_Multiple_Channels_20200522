@@ -126,7 +126,7 @@ bool LoadParameter::loadSysParameter()
                     Parameter::dont_false_plate=getJsonValue("Service","dont_false_plate",value.toObject()).toInt();
                     Parameter::bluePlate=getJsonValue("Service","bluePlate",value.toObject()).toInt();
                     Parameter::Interface_Model=getJsonValue("Service","Interface_Model",value.toObject()).toInt();
-
+                    Parameter::HttpAddr=getJsonValue("Service","HttpAddr",value.toObject()).toString();
 
                     configurationFolder.close();
                     return true;
