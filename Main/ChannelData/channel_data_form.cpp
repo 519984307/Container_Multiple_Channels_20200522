@@ -1040,6 +1040,7 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         ******************************/
         if(!isConCar){
             sendDataOutTimer->start(Parameter::container_timeout*1000);
+            qDebug().noquote()<<QString("No container is detected, and the waiting time for the container expires. Procedure");
         }
 
         /*****************************

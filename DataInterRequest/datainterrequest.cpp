@@ -71,8 +71,8 @@ void DataInterRequest::toSendDataSlot(int channel_number, const QString &data)
     jsonObjChild.insert("laneNumber",tmpL.at(2));
     jsonObjChild.insert("goodsType",tmpL.at(3).toInt());
     jsonObjChild.insert("goodsList","");
-    if(tmp.indexOf("U")!=-1 && tmpL.at(3).toInt()<0){
-        jsonObjChild.insert("carNumber",tmpL.at(4).split("]").at(0).toUtf8().data());
+    if(tmp.indexOf("U")!=-1){
+        jsonObjChild.insert("carNumber",tmpL.at(3).toUtf8().data());
     }
     else if (tmp.indexOf("C")!=-1 && tmpL.at(3).toInt()<2 && tmpL.length()>=7) {
         jsonObjChild.insert("goodsList",tmpL.at(4));
