@@ -52,6 +52,10 @@ void DataInterRequest::toSendDataSlot(int channel_number, const QString &data)
     //[C|20020919114100|01|2|MGLU2872320|Y|MGLU2782249|Y|22G1|22G1|粤B050CS]
     //[C|20020919114100|01|2|MGLU2872320|Y|MGLU2782249|Y|22G1|22G1|粤B050CS|黄]
 
+
+    //[C|20220608112014|01|0||N|22G1|_无_|未知]
+    //[C|20220608112111|01|2||N||N|22G1|22G1|_无_|未知]
+
     if(!data.endsWith("黄]")){
         return;
     }
@@ -71,14 +75,14 @@ void DataInterRequest::toSendDataSlot(int channel_number, const QString &data)
     jsonObjChild.insert("laneNumber",tmpL.at(2));
     jsonObjChild.insert("goodsType",tmpL.at(3).toInt());
     jsonObjChild.insert("goodsList","");
-    if(tmp.indexOf("U")!=-1){
+    if(tmp.indexOf("[U")!=-1){
         jsonObjChild.insert("carNumber",tmpL.at(3).toUtf8().data());
     }
-    else if (tmp.indexOf("C")!=-1 && tmpL.at(3).toInt()<2 && tmpL.length()>=7) {
+    else if (tmp.indexOf("[C")!=-1 && tmpL.at(3).toInt()<2 && tmpL.length()>=8) {
         jsonObjChild.insert("goodsList",tmpL.at(4));
         jsonObjChild.insert("carNumber",tmpL.at(7).toUtf8().data());
     }
-    else if (tmp.indexOf("C")!=-1 && tmpL.at(3).toInt()==2 && tmpL.length()>=10) {
+    else if (tmp.indexOf("[C")!=-1 && tmpL.at(3).toInt()==2 && tmpL.length()>=11) {
         jsonObjChild.insert("goodsList",QString("%1,%2").arg(tmpL.at(4),tmpL.at(6)));
         jsonObjChild.insert("carNumber",tmpL.at(10).toUtf8().data());
     }

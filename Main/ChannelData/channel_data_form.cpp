@@ -1289,6 +1289,8 @@ void Channel_Data_Form::slot_logicPutImage(const int &putCommnd)
         * @brief:发送拖箱状态
         ******************************/
         emit signal_sendCarStatus(isConCar);
+
+        qDebug().noquote()<<QString("Example Set the container flow status");
     }
 }
 
