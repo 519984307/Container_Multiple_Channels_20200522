@@ -9,7 +9,7 @@ CONFIG += plugin
 TARGET = DataInterHTTP
 
 CONFIG += skip_target_version_ext
-VERSION = 1.0.0.11
+VERSION = 1.0.1.17
 QMAKE_TARGET_COPYRIGHT = "Copyright 2022 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use
@@ -24,12 +24,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    datainterrequest.cpp
+    datainterrequest.cpp \
+    tcpclinet.cpp
 
 HEADERS += \
     DataInterRequest_global.h \
     datainterchangeinterface.h \
-    datainterrequest.h
+    datainterrequest.h \
+    tcpclinet.h
 
 # Default rules for deployment.
 unix {

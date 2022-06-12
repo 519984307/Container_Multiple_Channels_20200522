@@ -108,7 +108,8 @@ bool Channel_Setting_Form::loadParameter()
                     p_ChannelParameter->Display_permanent= getJsonValue("Other","Display_permanent",value.toObject()).toString();
                     p_ChannelParameter->Display_temp_prefix= getJsonValue("Other","Display_temp_prefix",value.toObject()).toString();
                     p_ChannelParameter->Display_temp_suffix= getJsonValue("Other","Display_temp_suffix",value.toObject()).toString();
-
+                    p_ChannelParameter->Inside_port=getJsonValue("Other","Inside_port",value.toObject()).toInt();
+                    p_ChannelParameter->Inside_addr= getJsonValue("Other","Inside_addr",value.toObject()).toString();
 
                     /*****************************
                     * @brief:SerialPort
@@ -218,6 +219,9 @@ bool Channel_Setting_Form::writeParameterSlot()
     jsonObj3.insert(QString("ForegroundPageState"),ui->ForegroundPageState->isChecked());
     jsonObj3.insert(QString("TopPageState"),ui->TopPageState->isChecked());
     jsonObj3.insert(QString("Channel_Number"),ui->Channel_Number->value());
+    jsonObj3.insert(QString("Inside_addr"),ui->Inside_addr_lineEdit->text());
+    jsonObj3.insert(QString("Inside_port"),ui->Inside_port_lineEdit->text());
+
     if(0==ui->Channel_Number->value()){
         jsonObj3.insert(QString("Channel_Number"),channel_number);
     }
@@ -294,6 +298,9 @@ void Channel_Setting_Form::parameterToUi()
     ui->ProspectsPageState->setChecked(p_ChannelParameter->ProspectsPageState);
     ui->ForegroundPageState->setChecked(p_ChannelParameter->ForegroundPageState);
     ui->TopPageState->setChecked(p_ChannelParameter->TopPageState);
+    ui->Inside_addr_lineEdit->setText(p_ChannelParameter->Inside_addr);
+    ui->Inside_port_lineEdit->setText(QString::number(p_ChannelParameter->Inside_port));
+
 }
 
 QVariant Channel_Setting_Form::getJsonValue(const QString &child, const QString &key, QJsonObject obj)

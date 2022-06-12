@@ -71,7 +71,7 @@ void Encryption::smartXGetUidFunc()
     if(SmartX3Find!=nullptr && SmartX3Find(appID,keyHandles,&keyNumber)==0){
         if(SmartX3GetUid!=nullptr && SmartX3GetUid(keyHandles[0],UID)==0){
             //qDebug()<<"UID:"<<UID;
-            if(strncmp(UID,"4f5e2e47467a2e364cb4f1e157b20dcb",33)==0){
+            if(strncmp(UID,"16452187ec9d9da939977d8b352f7c1e",33)==0){
                 dogState=true;
             }
             else {

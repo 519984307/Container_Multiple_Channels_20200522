@@ -87,6 +87,16 @@ public:
     ///
     QString Display_temp_suffix;
 
+    ///
+    /// \brief Inside_addr 内部TCP地址
+    ///
+    QString Inside_addr;
+
+    ///
+    /// \brief Inside_port 内部TCP端口
+    ///
+    int Inside_port;
+
     /*****************************
     * @brief:camera
     ******************************/

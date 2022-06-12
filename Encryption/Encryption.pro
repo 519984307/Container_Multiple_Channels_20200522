@@ -14,7 +14,7 @@ TEMPLATE = lib
 CONFIG += skip_target_version_ext
 VERSION =0.0.0.1
 QMAKE_TARGET_COPYRIGHT = "Copyright 2020 Shen zhen zhong bai yuan"
-QMAKE_TARGET_DESCRIPTION ="Standard-"
+QMAKE_TARGET_DESCRIPTION ="Standard-16452187ec9d9da939977d8b352f7c1e"
 
 DEFINES += ENCRYPTION_LIBRARY
 

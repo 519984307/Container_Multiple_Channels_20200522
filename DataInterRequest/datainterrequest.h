@@ -1,8 +1,10 @@
-#ifndef DATAINTERREQUEST_H
+﻿#ifndef DATAINTERREQUEST_H
 #define DATAINTERREQUEST_H
 
 #include "DataInterRequest_global.h"
 #include "datainterchangeinterface.h"
+
+#include "tcpclinet.h"
 
 class DATAINTERREQUEST_EXPORT DataInterRequest:public DataInterchangeInterface
 {
@@ -49,11 +51,23 @@ private:
 
     QNetworkAccessManager* pManager;
     QNetworkRequest request;
-    QJsonObject ject;
-    QJsonDocument doc;
+    //QJsonObject ject;
+    //QJsonDocument doc;
     QUrl url;
 
+    ///
+    /// \brief channel_number 通道编号
+    ///
+    int channel_number;
+
     QString address;
+
+    ///
+    /// \brief tmpData 临时数据
+    ///
+    QString tmpData;
+
+    TcpClient* pTcpClient;
 
 private slots:
 
@@ -76,6 +90,15 @@ private slots:
     /// \brief slot_finished 应答完成
     ///
     void slot_finished();
+
+signals:
+
+    ///
+    /// \brief signalSendData 发送识别结果
+    /// \param channel 通道号
+    /// \param result 识别结果
+    ///
+    void signalSendData(int channel_number,const QString& result);
 
 };
 

@@ -217,6 +217,8 @@ void LoadParameter::loadChannelParameter(int Channels)
                         p_ChannelParameter->Display_permanent= getJsonValue("Other","Display_permanent",value.toObject()).toString();
                         p_ChannelParameter->Display_temp_prefix= getJsonValue("Other","Display_temp_prefix",value.toObject()).toString();
                         p_ChannelParameter->Display_temp_suffix= getJsonValue("Other","Display_temp_suffix",value.toObject()).toString();
+                        p_ChannelParameter->Inside_port=getJsonValue("Other","Inside_port",value.toObject()).toInt();
+                        p_ChannelParameter->Inside_addr= getJsonValue("Other","Inside_addr",value.toObject()).toString();
 
 
                         /*****************************

@@ -1,4 +1,4 @@
-#ifndef DATAINTERREQUEST_GLOBAL_H
+﻿#ifndef DATAINTERREQUEST_GLOBAL_H
 #define DATAINTERREQUEST_GLOBAL_H
 
 #include <QtCore/qglobal.h>
@@ -8,6 +8,7 @@
 #include <QJsonDocument>
 #include <QtNetwork/QSslError>
 #include <QUrl>
+#include <QTcpSocket>
 
 #if defined(DATAINTERREQUEST_LIBRARY)
 #  define DATAINTERREQUEST_EXPORT Q_DECL_EXPORT

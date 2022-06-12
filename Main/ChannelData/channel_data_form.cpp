@@ -97,7 +97,7 @@ Channel_Data_Form::Channel_Data_Form(QString alias, int channelNumber, QWidget *
     picture_size<<"1280*720"<<"1920*1080"<<"768*576";
     QStringList picture_size_tmp=picture_size.at(Parameter::picture_size).split("*");
     picture_w = picture_size_tmp.at(0).toUInt();
-    picture_h = picture_size_tmp.at(1).toInt();
+    picture_h = picture_size_tmp.at(1).toInt();    
 }
 
 Channel_Data_Form::~Channel_Data_Form()
@@ -211,6 +211,12 @@ void Channel_Data_Form::loadParamter(int channelID,ChannelParameter *para)
     * @brief:初始化数据库
     ******************************/
     emit signal_initDataBase(QString::number(channelID),Parameter::databaseUser,Parameter::databasePass,Parameter::databaseAddr,Parameter::DatabaseType);
+
+    /*****************************
+    * @brief:初始化内部socket类
+    ******************************/
+    //pTcpClient=new TcpClient(this,para->Inside_addr,para->Inside_port);
+    //connect(this,&Channel_Data_Form::toSendDataSignal,pTcpClient,&TcpClient::toSendDataSlot);
 }
 
 void Channel_Data_Form::clearnPixmap(int type)
@@ -1038,15 +1044,15 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         /*****************************
         * @brief:超时发送数据。已完成部分抓拍，不超时处理
         ******************************/
-        if(!isConCar){
-            sendDataOutTimer->start(Parameter::container_timeout*1000);
-            qDebug().noquote()<<QString("No container is detected, and the waiting time for the container expires. Procedure");
-        }
+//        if(!isConCar){
+//            sendDataOutTimer->start(Parameter::container_timeout*1000);
+//            qDebug().noquote()<<QString("No container is detected, and the waiting time for the container expires. Procedure");
+//        }
 
         /*****************************
         * @brief:如果车牌装的靠前，箱号晚出，黄车车头
         ******************************/
-        //sendDataOutTimer->start(Parameter::container_timeout*1000);
+        sendDataOutTimer->start(Parameter::container_timeout*1000);
     }
         break;
     }

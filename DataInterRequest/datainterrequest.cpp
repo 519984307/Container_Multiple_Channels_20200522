@@ -1,4 +1,4 @@
-#include "datainterrequest.h"
+﻿#include "datainterrequest.h"
 
 DataInterRequest::DataInterRequest(QObject *parent)
 {
@@ -39,24 +39,29 @@ void DataInterRequest::InitializationParameterSlot(const QString &address, const
     connect(pManager, SIGNAL(finished(QNetworkReply*)),this, SLOT(replyFinishedSlot(QNetworkReply*)));
     QString path=address;
     request.setUrl(QUrl::fromEncoded(path.toUtf8()));
+
+    pTcpClient=new TcpClient (this,"192.168.1.103",65000);
+    ///
+    /// \brief connect 发送数据内部调用
+    ///
+    connect(this,&DataInterRequest::signalSendData,pTcpClient,&TcpClient::toSendDataSlot);
 }
 
 void DataInterRequest::toSendDataSlot(int channel_number, const QString &data)
 {
-    Q_UNUSED(channel_number)
+    this->channel_number=channel_number;
 
     //[标志|时间戳|通道号(2位)|逻辑|车牌|颜色|拖箱状态]
-    //[U|20020919114100|01|-1|粤B050CS|黄]
+    //[U|20020919114100|01|粤B050CS|黄]
     //[C|20220606004231|01|0|WDFU1234567|N|22G1|粤B050CS]
     //[C|20220606004231|01|0|WDFU1234567|N|22G1|粤B050CS|黄]
     //[C|20020919114100|01|2|MGLU2872320|Y|MGLU2782249|Y|22G1|22G1|粤B050CS]
     //[C|20020919114100|01|2|MGLU2872320|Y|MGLU2782249|Y|22G1|22G1|粤B050CS|黄]
-
-
     //[C|20220608112014|01|0||N|22G1|_无_|未知]
     //[C|20220608112111|01|2||N||N|22G1|22G1|_无_|未知]
 
     if(!data.endsWith("黄]")){
+        qCritical().noquote()<<QString("[%1] License plate data does not meet requirements, request data is not executed<%2>").arg(this->metaObject()->className(),data);
         return;
     }
 
@@ -67,22 +72,23 @@ void DataInterRequest::toSendDataSlot(int channel_number, const QString &data)
     jsonObj.insert("method", "Verification");
     jsonObj.insert("service", "container");
 
-    QString tmp=data;
-    QStringList tmpL=tmp.split("|");
+    tmpData=data;
+    QStringList tmpL=tmpData.split("|");
 
     jsonObjChild.insert("currentDate", QDateTime::fromString(tmpL.at(1), "yyyyMMddhhmmss").toString("yyyy-MM-dd hh:mm:ss"));
     jsonObjChild.insert("doorNumber","2");
     jsonObjChild.insert("laneNumber",tmpL.at(2));
     jsonObjChild.insert("goodsType",tmpL.at(3).toInt());
     jsonObjChild.insert("goodsList","");
-    if(tmp.indexOf("[U")!=-1){
+    if(tmpData.indexOf("[U")!=-1){
         jsonObjChild.insert("carNumber",tmpL.at(3).toUtf8().data());
+        jsonObjChild.insert("goodsType",-1);
     }
-    else if (tmp.indexOf("[C")!=-1 && tmpL.at(3).toInt()<2 && tmpL.length()>=8) {
+    else if (tmpData.indexOf("[C")!=-1 && tmpL.at(3).toInt()<2 && tmpL.length()>=8) {
         jsonObjChild.insert("goodsList",tmpL.at(4));
         jsonObjChild.insert("carNumber",tmpL.at(7).toUtf8().data());
     }
-    else if (tmp.indexOf("[C")!=-1 && tmpL.at(3).toInt()==2 && tmpL.length()>=11) {
+    else if (tmpData.indexOf("[C")!=-1 && tmpL.at(3).toInt()==2 && tmpL.length()>=11) {
         jsonObjChild.insert("goodsList",QString("%1,%2").arg(tmpL.at(4),tmpL.at(6)));
         jsonObjChild.insert("carNumber",tmpL.at(10).toUtf8().data());
     }
@@ -126,7 +132,7 @@ void DataInterRequest::slot_SslErrors(QList<QSslError> sslErr)
 void DataInterRequest::slot_Error(QNetworkReply::NetworkError err)
 {
     qCritical().noquote()<<QString("[%1] An error found during processing the request:%2").arg(this->metaObject()->className(),err);
-
+    emit signalSendData(channel_number,QString("%1,%2").arg(tmpData,"Failed to request data"));
 }
 
 void DataInterRequest::slot_finished()
@@ -138,8 +144,30 @@ void DataInterRequest::slot_finished()
     }
 
     QByteArray arr=reply->readAll();
-    QString str=QString::fromUtf8(arr);
-    qDebug()<<str;
+    //QString str=QString::fromUtf8(arr);
+    QJsonDocument doc =QJsonDocument::fromJson(arr);
+
+    QString msg="";
+    if(!doc.isNull()){
+        QJsonObject obj=doc.object();
+        if(obj.contains("message")){
+            QJsonValue val=obj.value("message");
+            msg=val.toString();
+            qInfo().noquote()<<QString("[%1] The request data:%2").arg(this->metaObject()->className(),val.toString());
+        }
+        if(obj.contains("code")){
+            QJsonValue val=obj.value("code");
+            if(val.toInt()==0){
+
+                /*****************************
+                * @brief:收到抬杆指令，发送抬杆信号
+                ******************************/
+                emit signal_lifting();
+            }
+        }
+        emit signalSendData(channel_number,QString("%1,%2,%3").arg(QString::number(channel_number),tmpData,msg));
+        emit signal_sendDataSuccToLog(channel_number,  QString("%1,%2,%3").arg(QString::number(channel_number),tmpData,msg));
+    }
 
     reply->abort();
     reply->close();

@@ -159,7 +159,7 @@ void DataProcessing::slot_waitSendData()
             }
 
 
-#ifdef sendCon
+#ifndef sendCon
             /*****************************
             * @brief:贝奇要求发送拖箱状态 20220425
             ******************************/
@@ -339,17 +339,17 @@ void DataProcessing::slot_waitSendData()
     /*****************************
     * @brief:组合车牌和箱号发送到显示屏
     ******************************/
-    QString msg="";
-    if(!plate.isEmpty()){
-        msg.append(plate);
-    }
-    if(!con1.isEmpty()){
-        msg.append("-"+con1);
-    }
-    if(!con2.isEmpty()){
-        msg.append("-"+con2);
-    }
-    //emit signal_sendToDisplay(msg);
+//    QString msg="";
+//    if(!plate.isEmpty()){
+//        msg.append(plate);
+//    }
+//    if(!con1.isEmpty()){
+//        msg.append("-"+con1);
+//    }
+//    if(!con2.isEmpty()){
+//        msg.append("-"+con2);
+//    }
+//    emit signal_sendToDisplay(msg);
 
 
     channel=-1;

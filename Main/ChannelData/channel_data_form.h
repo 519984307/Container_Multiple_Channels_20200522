@@ -17,6 +17,8 @@
 #include "Parameter/LocalPar.h"
 #include "Parameter/parameter.h"
 
+//#include "tcpclient.h"
+
 namespace Ui {
 class Channel_Data_Form;
 }
@@ -40,7 +42,13 @@ public:
     void loadParamter(int channelID, ChannelParameter* para);
 
 private:
+
     Ui::Channel_Data_Form *ui;    
+
+    ///
+    /// \brief pTcpClient 内部使用Socket
+    ///
+    //TcpClient* pTcpClient;
 
     ///
     /// \brief plateTmpArr 车牌图片流，防止箱号图片检测清除掉
@@ -277,6 +285,13 @@ private slots:
     void logicCheckBoxSlot();
 
 signals:
+
+    ///
+    /// \brief toSendDataSignal 发送识别结果,内部调用(推送到显示屏程序)
+    /// \param channel 通道号
+    /// \param result 识别结果
+    ///
+    void toSendDataSignal(int channel_number,const QString& result);
 
     ///
     /// \brief signal_setDeviceStatus 设置设备表状态
