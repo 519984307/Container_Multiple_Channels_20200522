@@ -159,7 +159,7 @@ void DataProcessing::slot_waitSendData()
             }
 
 
-#ifndef sendCon
+#ifdef sendCon
             /*****************************
             * @brief:贝奇要求发送拖箱状态 20220425
             ******************************/

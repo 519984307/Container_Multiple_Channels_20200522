@@ -1044,15 +1044,15 @@ void Channel_Data_Form::slot_pollsForCarStatus(int type)
         /*****************************
         * @brief:超时发送数据。已完成部分抓拍，不超时处理
         ******************************/
-//        if(!isConCar){
-//            sendDataOutTimer->start(Parameter::container_timeout*1000);
-//            qDebug().noquote()<<QString("No container is detected, and the waiting time for the container expires. Procedure");
-//        }
+        if(!isConCar){
+            sendDataOutTimer->start(Parameter::container_timeout*1000);
+            qDebug().noquote()<<QString("No container is detected, and the waiting time for the container expires. Procedure");
+        }
 
         /*****************************
         * @brief:如果车牌装的靠前，箱号晚出，黄车车头
         ******************************/
-        sendDataOutTimer->start(Parameter::container_timeout*1000);
+        //sendDataOutTimer->start(Parameter::container_timeout*1000);
     }
         break;
     }

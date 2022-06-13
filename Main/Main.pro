@@ -21,10 +21,10 @@ DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 ID = 11111111111
 DEFINES += DOG_ID=\\\"$$ID\\\"
 
-PROJECT = 烟台贝奇
+PROJECT = Standard
 DEFINES += APP_PROJECT=\\\"$$PROJECT\\\"
 
-CHANNEL = 2
+CHANNEL = 1
 DEFINES += APP_CHANNEL=\\\"$$CHANNEL\\\"
 
 #If it is a multi-channel version, the software conditions need to be changed:
