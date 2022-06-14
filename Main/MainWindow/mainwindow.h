@@ -569,6 +569,12 @@ signals:
     /// \param lUserID 相机ID
     ///
     void signal_exceptionCode(unsigned long dwType,  long lUserID);
+
+    ///
+    /// \brief signal_SetImagePath 设置图片路径，用于上传图片
+    /// \param imgPath
+    ///
+    void signal_SetImagePath(const QString& imgPath,int ImageFormat,int ImageNamingRules,int channel_id_placeholder,int camera_id_placeholder);
 };
 
 #endif // MAINWINDOW_H

@@ -47,12 +47,26 @@ public:
     ///
     void releaseResourcesSlot()Q_DECL_OVERRIDE;
 
+    ///
+    /// \brief setImagePathSlot 设置图片路径，用于上传图片
+    /// \param imgPath
+    ///
+    void setImagePathSlot(const QString &imgPath,int ImageFormat,int ImageNamingRules,int channel_id_placeholder,int camera_id_placeholder)Q_DECL_OVERRIDE;
+
 private:
 
+    /*****************************
+    * @brief:上传数据
+    ******************************/
     QNetworkAccessManager* pManager;
     QNetworkRequest request;
-    //QJsonObject ject;
-    //QJsonDocument doc;
+
+    /*****************************
+    * @brief:上传图片
+    ******************************/
+    QNetworkRequest requestImg;
+    QNetworkAccessManager* pManagerImg;
+
     QUrl url;
 
     ///
@@ -68,6 +82,31 @@ private:
     QString tmpData;
 
     TcpClient* pTcpClient;
+
+    ///
+    /// \brief imgPath 图片路径
+    ///
+    QString imgPath;
+
+    ///
+    /// \brief ImageFormat 图片格式
+    ///
+    int ImageFormat;
+
+    ///
+    /// \brief ImageNamingRules 图片命名方式
+    ///
+    int ImageNamingRules;
+
+    ///
+    /// \brief channel_id_placeholder 通道命名方式
+    ///
+    int channel_id_placeholder;
+
+    ///
+    /// \brief camera_id_placeholder 相机命名方式
+    ///
+    int camera_id_placeholder;
 
 private slots:
 
@@ -91,6 +130,17 @@ private slots:
     ///
     void slot_finished();
 
+    ///
+    /// \brief slot_upLoadImg 上传图片，本地使用
+    /// \param msgMap
+    ///
+    void slot_upLoadImg(QMap<QString,QString> msgMap);
+
+    ///
+    /// \brief requestImgFinished 上传图片
+    ///
+    void requestImgFinished(QNetworkReply* reply);
+
 signals:
 
     ///
@@ -100,6 +150,11 @@ signals:
     ///
     void signalSendData(int channel_number,const QString& result);
 
+    ///
+    /// \brief signal_upLoadImg 上传图片，本地使用
+    /// \param msgMap
+    ///
+    void signal_upLoadImg(QMap<QString,QString> msgMap);
 };
 
 #endif // DATAINTERREQUEST_H

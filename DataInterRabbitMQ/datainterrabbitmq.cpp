@@ -92,6 +92,15 @@ void DataInterRabbitMQ::releaseResourcesSlot()
     qDebug().noquote()<<QString("DataInterRabbitMQ::releaseResourcesSlot");
 }
 
+void DataInterRabbitMQ::setImagePathSlot(const QString &imgPath,int ImageFormat,int ImageNamingRules,int channel_id_placeholder,int camera_id_placeholder)
+{
+    Q_UNUSED(imgPath)
+    Q_UNUSED(ImageFormat)
+    Q_UNUSED(ImageNamingRules)
+    Q_UNUSED(channel_id_placeholder)
+    Q_UNUSED(camera_id_placeholder)
+}
+
 void DataInterRabbitMQ::clientDisconnected()
 {
     emit linkStateSingal(addr,m_client.port(),false);

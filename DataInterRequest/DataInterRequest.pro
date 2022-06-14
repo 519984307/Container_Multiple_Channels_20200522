@@ -9,7 +9,7 @@ CONFIG += plugin
 TARGET = DataInterHTTP
 
 CONFIG += skip_target_version_ext
-VERSION = 1.0.1.17
+VERSION = 1.0.1.21
 QMAKE_TARGET_COPYRIGHT = "Copyright 2022 Shen zhen zhong bai yuan"
 
 # The following define makes your compiler emit warnings if you use

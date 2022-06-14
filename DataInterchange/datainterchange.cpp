@@ -238,3 +238,12 @@ void DataInterchange::releaseResourcesSlot()
 
     qDebug().noquote()<<QString("DataInterchange::releaseResourcesSlot");
 }
+
+void DataInterchange::setImagePathSlot(const QString &imgPath,int ImageFormat,int ImageNamingRules,int channel_id_placeholder,int camera_id_placeholder)
+{
+    Q_UNUSED(imgPath)
+    Q_UNUSED(ImageFormat)
+    Q_UNUSED(ImageNamingRules)
+    Q_UNUSED(channel_id_placeholder)
+    Q_UNUSED(camera_id_placeholder)
+}

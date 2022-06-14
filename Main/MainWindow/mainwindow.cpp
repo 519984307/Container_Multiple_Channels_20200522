@@ -182,6 +182,12 @@ void MainWindow::initializing()
 //    filterList.append(filterType);
 //    emit signal_setDataBaseFilter(filterList.join(" AND "));
     slot_statisticalData(0,0,0,0);
+
+    /*****************************
+    * @brief:接口插件设置图片路径，用于Http上传图片
+    * 202206132311-程玉良
+    ******************************/
+    emit signal_SetImagePath(Parameter::ImagePath,Parameter::ImageFormat,Parameter::ImageNamingRules,Parameter::channel_id_placeholder,Parameter::camera_id_placeholder);
 }
 
 void MainWindow::clearnContainer()
@@ -323,7 +329,7 @@ void MainWindow::initializingObject()
     tdList.append(th);
     pLoadinglibaray->moveToThread(th);
     th->start();
-    signal_createLibaray();
+    signal_createLibaray();    
 }
 
 void MainWindow::initializationParameter()
@@ -980,6 +986,10 @@ void MainWindow::bindingPlugin()
             * @brief:进车车辆拖箱状态
             ******************************/
             connect(Channel_Data_From_Map.value(var+1),&Channel_Data_Form::signal_sendCarStatus,DataProcessingList.at(var).data(),&DataProcessing::slot_readCarStatus);
+            /*****************************
+            * @brief:设置图片路径，用于HTTP上传图片
+            ******************************/
+            connect(this,&MainWindow::signal_SetImagePath,pLoadinglibaray->IDataInterchangeList.at(cot).data(),&DataInterchangeInterface::setImagePathSlot);
         }
     }
 

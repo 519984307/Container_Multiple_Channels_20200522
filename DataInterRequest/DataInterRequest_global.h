@@ -9,6 +9,10 @@
 #include <QtNetwork/QSslError>
 #include <QUrl>
 #include <QTcpSocket>
+#include <QJsonArray>
+#include <QHttpMultiPart>
+#include <QHttpPart>
+#include <QDir>
 
 #if defined(DATAINTERREQUEST_LIBRARY)
 #  define DATAINTERREQUEST_EXPORT Q_DECL_EXPORT

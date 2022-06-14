@@ -154,6 +154,12 @@ public:
     ///
     void releaseResourcesSlot()Q_DECL_OVERRIDE;
 
+    ///
+    /// \brief setImagePathSlot 设置图片路径，用于上传图片
+    /// \param imgPath
+    ///
+    void setImagePathSlot(const QString &imgPath,int ImageFormat,int ImageNamingRules,int channel_id_placeholder,int camera_id_placeholder)Q_DECL_OVERRIDE;
+
 signals:
 
     ///

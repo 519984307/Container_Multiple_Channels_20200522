@@ -83,13 +83,19 @@ public slots:
     virtual void toSendDataSlot(int channel_number, const QString &data)=0;
 
     ///
+    /// \brief setImagePathSlot 设置图片路径，用于上传图片
+    /// \param imgPath
+    ///
+    virtual void setImagePathSlot(const QString& imgPath,int ImageFormat,int ImageNamingRules,int channel_id_placeholder,int camera_id_placeholder)=0;
+
+    ///
     /// \brief releaseResourcesSlot 释放资源
     ///
     virtual void releaseResourcesSlot()=0;
 
 };
 
-#define DataInterchangeInterfaceIID "ZBY.ContainerServer.DataInterchangeInterface/1.2.4.4"
+#define DataInterchangeInterfaceIID "ZBY.ContainerServer.DataInterchangeInterface/1.2.4.6"
 Q_DECLARE_INTERFACE(DataInterchangeInterface,DataInterchangeInterfaceIID);
 
 #endif // DATAINTERCHANGEINTERFACE_H
