@@ -86,6 +86,9 @@ void DataInterRequest::toSendDataSlot(int channel_number, const QString &data)
 
     tmpData=data;
     QStringList tmpL=tmpData.split("|");
+    if(tmpL.length()<5){
+        return;
+    }
 
     jsonObjChild.insert("currentDate", QDateTime::fromString(tmpL.at(1), "yyyyMMddhhmmss").toString("yyyy-MM-dd hh:mm:ss"));
     jsonObjChild.insert("doorNumber","2");
@@ -96,11 +99,11 @@ void DataInterRequest::toSendDataSlot(int channel_number, const QString &data)
         jsonObjChild.insert("carNumber",tmpL.at(3).toUtf8().data());
         jsonObjChild.insert("goodsType",-1);
     }
-    else if (tmpData.indexOf("[C")!=-1 && tmpL.at(3).toInt()<2 && tmpL.length()>=8) {
+    else if (tmpData.indexOf("[C")!=-1 && tmpL.length()>=8 && tmpL.at(3).toInt()<2) {
         jsonObjChild.insert("goodsList",tmpL.at(4));
         jsonObjChild.insert("carNumber",tmpL.at(7).toUtf8().data());
     }
-    else if (tmpData.indexOf("[C")!=-1 && tmpL.at(3).toInt()==2 && tmpL.length()>=11) {
+    else if (tmpData.indexOf("[C")!=-1 && tmpL.length()>=11 && tmpL.at(3).toInt()==2) {
         jsonObjChild.insert("goodsList",QString("%1,%2").arg(tmpL.at(4),tmpL.at(6)));
         jsonObjChild.insert("carNumber",tmpL.at(10).toUtf8().data());
     }
@@ -141,7 +144,7 @@ void DataInterRequest::replyFinishedSlot(QNetworkReply *reply)
 {
     if (reply && reply->error() != QNetworkReply::NoError) {
         qCritical().noquote()<<QString("[%1] Data transfer failure<errorCode=%2>").arg(this->metaObject()->className(),reply->errorString());
-        emit signalSendData(channel_number,QString("%1,%2,,-1").arg(QString::number(channel_number),tmpData));
+        emit signalSendData(channel_number,QString("%1@%2@@-1").arg(QString::number(channel_number),tmpData));
     }
     reply->close();
     reply->abort();
@@ -153,13 +156,13 @@ void DataInterRequest::slot_SslErrors(QList<QSslError> sslErr)
     foreach(auto err,sslErr){
         qCritical().noquote()<<QString("[%1] An error found during processing the request:%2").arg(this->metaObject()->className(),err.errorString());
     }
-    emit signalSendData(channel_number,QString("%1,%2,,-1").arg(QString::number(channel_number),tmpData));
+    emit signalSendData(channel_number,QString("%1@%2@@-1").arg(QString::number(channel_number),tmpData));
 }
 
 void DataInterRequest::slot_Error(QNetworkReply::NetworkError err)
 {
     qCritical().noquote()<<QString("[%1] An error found during processing the request:%2").arg(this->metaObject()->className(),err);
-    emit signalSendData(channel_number,QString("%1,%2,,-1").arg(QString::number(channel_number),tmpData));
+    emit signalSendData(channel_number,QString("%1@%2@@-1").arg(QString::number(channel_number),tmpData));
 }
 
 void DataInterRequest::slot_finished()
@@ -168,7 +171,7 @@ void DataInterRequest::slot_finished()
 
     if (reply && reply->error() != QNetworkReply::NoError) {
         qCritical().noquote()<<QString("[%1] Data transfer failure<errorCode=%2>").arg(this->metaObject()->className(),reply->errorString());
-        emit signalSendData(channel_number,QString("%1,%2,,-1").arg(QString::number(channel_number),tmpData));
+        emit signalSendData(channel_number,QString("%1@%2@@-1").arg(QString::number(channel_number),tmpData));
     }
 
     QByteArray arr=reply->readAll();
@@ -217,8 +220,8 @@ void DataInterRequest::slot_finished()
             }
             emit signal_upLoadImg(msgMap);
         }
-        emit signalSendData(channel_number,QString("%1,%2,%3,%4").arg(QString::number(channel_number),tmpData,msg,QString::number(code)));
-        emit signal_sendDataSuccToLog(channel_number,  QString("%1,%2,%3,%4").arg(QString::number(channel_number),tmpData,msg,QString::number(code)));
+        emit signalSendData(channel_number,QString("%1@%2@%3@%4").arg(QString::number(channel_number),tmpData,msg,QString::number(code)));
+        emit signal_sendDataSuccToLog(channel_number,  QString("%1@%2@%3@%4").arg(QString::number(channel_number),tmpData,msg,QString::number(code)));
     }
 
     reply->abort();
