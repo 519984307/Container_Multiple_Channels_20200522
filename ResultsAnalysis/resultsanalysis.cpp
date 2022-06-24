@@ -275,7 +275,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
         }
     }
 
-
+    //qDebug()<<"conTemp.length():"<<conTemp.length();
     /* 没有识别到箱型代码就默认指定一个 */
     bool notISO=true;
     foreach (auto var, isoTemp) {
@@ -314,7 +314,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
     /* 双箱，分前3个结果和后3个结果独立处理,前箱下标,前箱型下标,后箱下标,后箱型下标,箱号置信度下表,箱型置信度下标 */
     int Cindex1=0;    int Iindex1=0;    int Cindex2=0;    int Iindex2=0;
 
-    if(conType==2 && conProbabilityTemp.count()==8){
+    if(/*conType==2 && */conProbabilityTemp.count()==8){
         QList<int> checkResult1,checkResult2;
 
         checkResult1=checkContainerNumber(0,4);
@@ -343,7 +343,8 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
                 if(ConsecutiveLCS(conTemp[Cindex1],conTemp[Cindex2])<=1){/* 两个箱号相似度小于2,判定为一个集装箱 */
                     isOne=true;
                 }
-                if(ConsecutiveLCS(conTemp[Cindex1].mid(4,conTemp[Cindex1].size()-4),conTemp[Cindex2].mid(4,conTemp[Cindex2].size()-4))<=1){/* 两个箱号相似度小于2,判定为一个集装箱 */
+                if(ConsecutiveLCS(conTemp[Cindex1].mid(4,conTemp[Cindex1].size()),conTemp[Cindex2].mid(4,conTemp[Cindex2].size()
+                                                                                                       ))<=1){/* 两个箱号相似度小于2,判定为一个集装箱 */
                     isOne=true;
                 }
                 if(conTemp[Cindex1].indexOf(conTemp[Cindex2])!=-1 || conTemp[Cindex2].indexOf(conTemp[Cindex1])!=-1){/* 一个箱号是另外一个箱号子集 */
@@ -364,15 +365,7 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
             }
 
             if(isOne){
-                conType=1;
-                if (isoTemp[Iindex1].startsWith("2") || isoTemp[Iindex2].startsWith("2")) {
-                    //isoTemp[Iindex1]="22G1";
-                    conType=0;
-                }
-                if((isoTemp[Iindex1].isEmpty() && isoTemp[Iindex2].isEmpty()) || (!isoTemp[Iindex1].startsWith("2") && !isoTemp[Iindex2].startsWith("2"))){
-                    //isoTemp[Iindex1]="45G1";
-                    conType=type;
-                }
+                //conType=1;
 
                 QList<int> checkResult;/* 判断为一个箱，重新合在一起校验 */
                 checkResult=checkContainerNumber(0,conTemp.size());
@@ -380,7 +373,33 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
                     Cindex1=checkResult.at(0);
                     Iindex1=checkResult.at(1);
                 }
+
+//                if (isoTemp[Iindex1].startsWith("2") || isoTemp[Iindex2].startsWith("2")) {
+//                    //isoTemp[Iindex1]="22G1";
+//                    conType=0;
+//                }
+//                if((isoTemp[Iindex1].isEmpty() && isoTemp[Iindex2].isEmpty()) || (!isoTemp[Iindex1].startsWith("2") && !isoTemp[Iindex2].startsWith("2"))){
+//                    //isoTemp[Iindex1]="45G1";
+//                    conType=type;
+//                }
+                if (isoTemp[Iindex1].startsWith("2") || isoTemp[Iindex2].startsWith("2")) {
+                    //isoTemp[Iindex1]="22G1";
+                    conType=0;
+                    if(isoTemp[Iindex1].isEmpty() && isoTemp[Iindex2].isEmpty()){
+                        isoTemp[Iindex1]="22G1";
+                    }
+                }
+                else {
+                    conType=1;
+                    if(isoTemp[Iindex1].isEmpty() && isoTemp[Iindex2].isEmpty()){
+                        isoTemp[Iindex1]="45G1";
+                    }
+                }
+
                 emit containerSignal(conType,conTemp[Cindex1],checkConList[Cindex1],isoTemp[Iindex1]);
+            }
+            else {
+                conType=2;
             }
 
             if(conType==2){
@@ -395,21 +414,33 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
         }
     }
     else {        
+//        QList<int> checkResult;
+//        checkResult=checkContainerNumber(0,conTemp.size());
+//        if(checkResult.size()==2){
+//            Cindex1=checkResult.at(0);
+//            Iindex1=checkResult.at(1);
+//        }
+//        if(isoTemp[Iindex1].isEmpty()){
+//            isoTemp[Iindex1]=conType?"45G1":"22G1";
+//        }
+//        else {
+//            conType = isoTemp[Iindex1].startsWith("2")?0:1;
+////            if(-1==ISOContains.indexOf(isoTemp[Iindex1])){
+////                isoTemp[Iindex1]=conType?"45G1":"22G1";
+////            }
+//        }
         QList<int> checkResult;
         checkResult=checkContainerNumber(0,conTemp.size());
-        if(checkResult.size()==2){            
+        if(checkResult.size()==2){
             Cindex1=checkResult.at(0);
             Iindex1=checkResult.at(1);
         }
+
+        conType=0;
         if(isoTemp[Iindex1].isEmpty()){
-            isoTemp[Iindex1]=conType?"45G1":"22G1";
+            isoTemp[Iindex1]="22G1";
         }
-        else {
-            conType = isoTemp[Iindex1].startsWith("2")?0:1;
-//            if(-1==ISOContains.indexOf(isoTemp[Iindex1])){
-//                isoTemp[Iindex1]=conType?"45G1":"22G1";
-//            }
-        }
+
         emit containerSignal(conType,conTemp[Cindex1],checkConList[Cindex1],isoTemp[Iindex1]);
     }
 
@@ -571,15 +602,16 @@ int ResultsAnalysis::ConsecutiveLCS(QString rs1, QString rs2)
         return 0;
     }
 
-    if(rs1.indexOf(rs2.mid(4,rs2.size()-4))!=-1){
-        return 0;
-    }
-
-    if(rs2.indexOf(rs1.mid(4,rs1.size()-4))!=-1){
-        return 0;
-    }
 
     if(rs1.size()==11 && rs2.size()==11){
+        if(rs1.indexOf(rs2.mid(4,rs2.size()-4))!=-1){
+            return 0;
+        }
+
+        if(rs2.indexOf(rs1.mid(4,rs1.size()-4))!=-1){
+            return 0;
+        }
+
         for(int i=0;i<4;i++){
             if(rs1.at(i)!=rs2.at(i)){
                 cot++;
