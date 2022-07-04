@@ -303,17 +303,17 @@ void DataInterRequest::slot_upLoadImg(QMap<QString, QString> msgMap)
         //QString imgPath=QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(imgName));
     }
 
-    QVector<QFile*> qFiles;
+    //QVector<QFile*> qFiles;
 
-    foreach(QString val,param3.values("file")){
-        QHttpPart filePart;
+    foreach(QString val,param3.values("file")){        
         /* 有多个文件时不能直接使用QFile file（path），for代码块结束的时候就会被析构，导致数据无法发送，程序crash */
         /* 单个文件可以不用for遍历，直接QFile file（path）本接口结束时才会析构 */
-        QFile *file = new QFile(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(val)));
-        if(file->open(QFile::ReadOnly)){
+        QFile* file = new QFile(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(val)));
+        if(file && file->open(QFile::ReadOnly)){
             qDebug().noquote()<<QString("Upload images to the server:%1").arg(QDir::toNativeSeparators(QString("%1/%2").arg(dir.path()).arg(val)));
             qFiles.push_back(file);
 
+            QHttpPart filePart;
             filePart.setBodyDevice(file);
             filePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));/* 这里我们上传的是图片 */
             filePart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"" + param3.key(val) + "\"; filename=\""+val+"\""));
@@ -360,4 +360,7 @@ void DataInterRequest::requestImgFinished(QNetworkReply *reply)
     reply->abort();
     reply->close();
     reply->deleteLater();
+
+    qDeleteAll(qFiles.begin(),qFiles.end());
+    qFiles.clear();
 }

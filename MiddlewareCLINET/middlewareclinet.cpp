@@ -24,12 +24,12 @@ QString MiddlewareCLINET::InterfaceType()
 
 void MiddlewareCLINET::liftingElectronicRailingSlot(bool gate)
 {
-
+    Q_UNUSED(gate)
 }
 
 void MiddlewareCLINET::transparentTransmission485Slot(const QString &msg)
 {
-
+    Q_UNUSED(msg)
 }
 
 void MiddlewareCLINET::releaseResourcesSlot()
@@ -128,12 +128,14 @@ void MiddlewareCLINET::initCameraSlot(const QString &localAddr, const QString &a
 
 void MiddlewareCLINET::setCaptureTypeSlot(const int &capType, const int &msgCallBackInd)
 {
-
+    Q_UNUSED(capType)
+    Q_UNUSED(msgCallBackInd)
 }
 
 void MiddlewareCLINET::slot_exceptionCode(unsigned long dwType, long lUserID)
 {
-
+    Q_UNUSED(dwType)
+    Q_UNUSED(lUserID)
 }
 
 void MiddlewareCLINET::DisConnectFunc(long lLoginID, char *pchDVRIP, int nDVRPort, long dwUser)
@@ -171,10 +173,20 @@ void MiddlewareCLINET::SubHaveReConnectFunc(EM_INTERFACE_TYPE emInterfaceType, i
 
 int MiddlewareCLINET::DVRMessCallBack(int lCommand, long lLoginID, char *pBuf, unsigned int dwBufLen, char *pchDVRIP, int nDVRPort, long dwUser)
 {
-
+    Q_UNUSED(lCommand)
+    Q_UNUSED(lLoginID)
+    Q_UNUSED(pBuf)
+    Q_UNUSED(dwBufLen)
+    Q_UNUSED(pchDVRIP)
+    Q_UNUSED(nDVRPort)
+    Q_UNUSED(dwUser)
 }
 
 void MiddlewareCLINET::SnapRevCallBack(long lLoginID, unsigned char *pBuf, unsigned int RevLen, unsigned int EncodeType, unsigned int CmdSerial, long dwUser)
 {
-
+    Q_UNUSED(lLoginID)
+    Q_UNUSED(pBuf)
+    Q_UNUSED(EncodeType)
+    Q_UNUSED(CmdSerial)
+    Q_UNUSED(dwUser)
 }

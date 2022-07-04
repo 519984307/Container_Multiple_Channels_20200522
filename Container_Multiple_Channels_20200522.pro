@@ -29,3 +29,4 @@ SUBDIRS +=\
     TheMiddlewareHCNET \
     Qamqp \
     Main \
+    licensePlateTCP

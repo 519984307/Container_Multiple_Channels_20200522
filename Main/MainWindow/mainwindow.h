@@ -38,6 +38,7 @@
 #include "Log/data_log_form.h"
 #include "About/aboutdialog.h"
 #include "About/version_dialog.h"
+#include "About/lockdialog.h"
 
 /*****************************
 * @brief:Parameter

@@ -7,6 +7,15 @@
         <file>ICO/close.svg</file>
         <file>ICO/alarm.svg</file>
         <file>ICO/alarm.png</file>
+        <file>ICO/conect.png</file>
+        <file>ICO/data.png</file>
+        <file>ICO/debug.png</file>
+        <file>ICO/diconect.png</file>
+        <file>ICO/lock.png</file>
+        <file>ICO/log.png</file>
+        <file>ICO/setting.png</file>
+        <file>ICO/show.png</file>
+        <file>ICO/video.png</file>
     </qresource>
     <qresource prefix="/database">
         <file>ICO/before.svg</file>

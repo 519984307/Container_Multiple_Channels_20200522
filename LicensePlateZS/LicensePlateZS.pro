@@ -27,10 +27,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     licenseplatezs.cpp
 
+
 HEADERS += \
     LicensePlateZS_global.h \
     licenseplateinterface.h \
     licenseplatezs.h
+
 
 # Default rules for deployment.
 unix {

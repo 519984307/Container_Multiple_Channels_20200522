@@ -34,13 +34,19 @@ MainWindow::~MainWindow()
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(isExit){
-        SystemTray->showMessage(LocalPar::copyright,tr("系统正在释放内部资源，请稍后"),QSystemTrayIcon::Information,60000);
+        QSharedPointer<LockDialog> lockDlg=QSharedPointer<LockDialog>(new LockDialog(this));
+        if(lockDlg->exec()){
+            this->hide();
 
-        this->hide();
-
-        clearnContainer();
-        event->accept();
-        QWidget::closeEvent(event);
+            SystemTray->showMessage(LocalPar::copyright,tr("系统正在释放内部资源，请稍后"),QSystemTrayIcon::Information,60000);
+            clearnContainer();
+            event->accept();
+            QWidget::closeEvent(event);
+        }
+        else
+        {
+            event->ignore();
+        }
         //exit(0);
     }
     else {

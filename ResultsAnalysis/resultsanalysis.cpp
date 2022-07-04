@@ -399,7 +399,24 @@ void ResultsAnalysis::resultsOfAnalysisSlot(QMap<int,QString> resultMap, int typ
                 emit containerSignal(conType,conTemp[Cindex1],checkConList[Cindex1],isoTemp[Iindex1]);
             }
             else {
-                conType=2;
+                if(isoTemp.at(Iindex1).startsWith("2") || isoTemp.at(Iindex1).startsWith("Z") || isoTemp.at(Iindex2).startsWith("2") || isoTemp.at(Iindex2).startsWith("Z")){
+                    conType=2;
+                }
+                else {
+                    QList<int> checkResult;
+                    checkResult=checkContainerNumber(0,conTemp.size());
+                    if(checkResult.size()==2){
+                        Cindex1=checkResult.at(0);
+                        Iindex1=checkResult.at(1);
+                    }
+
+                    conType=1;
+                    if(isoTemp[Iindex1].isEmpty()){
+                        isoTemp[Iindex1]="45G1";
+                    }
+
+                    emit containerSignal(conType,conTemp[Cindex1],checkConList[Cindex1],isoTemp[Iindex1]);
+                }
             }
 
             if(conType==2){

@@ -288,6 +288,13 @@ void LoadingLibaray::slot_createLibaray()
                     loadMisarrangement(pluginName,"ZS_PLATE");
                     pluginsNum=channelCount;
                 }
+                else if (3==Parameter::PlateType && "TCP_PLATE"==pLicensePlateInterface->InterfaceType()) {
+                    /*****************************
+                    * @brief:臻视车牌
+                    ******************************/
+                    loadMisarrangement(pluginName,"TCP_PLATE");
+                    pluginsNum=channelCount;
+                }
                 pLicensePlateInterface=nullptr;
             }
             else if(EncryptionInterface *pEncryptionInterface=qobject_cast<EncryptionInterface*>(plugin)){

@@ -69,6 +69,8 @@ private:
 
     QUrl url;
 
+    QVector<QFile*> qFiles;
+
     ///
     /// \brief channel_number 通道编号
     ///

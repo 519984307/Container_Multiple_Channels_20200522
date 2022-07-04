@@ -15,16 +15,16 @@ CONFIG += skip_target_version_ext
 
 QMAKE_TARGET_COPYRIGHT = "Copyright 2021 Shen zhen zhong bai yuan"
 
-VERSION = 1.1.7.38_2206132306
+VERSION = 1.1.7.39_2207031012
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
-ID = 220314401
+ID = 111111111
 DEFINES += DOG_ID=\\\"$$ID\\\"
 
-PROJECT = 国际陆港
+PROJECT = Standed
 DEFINES += APP_PROJECT=\\\"$$PROJECT\\\"
 
-CHANNEL = 2
+CHANNEL = 1
 DEFINES += APP_CHANNEL=\\\"$$CHANNEL\\\"
 
 #If it is a multi-channel version, the software conditions need to be changed:
@@ -51,9 +51,9 @@ CONFIG += c++11
 
 SOURCES += \
     crashstack.cpp \
-        main.cpp \
+        main.cpp
 
-HEADERS += \ \
+HEADERS += \
     crashstack.h
 
 FORMS += \
